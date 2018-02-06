@@ -1,6 +1,4 @@
-_artilleryWest = ["B_MBT_01_arty_F", "B_MBT_01_mlrs_F"];
-_artilleryEast = ["O_MBT_02_arty_F"];
-_artilleryIndependent = ["CUP_I_M270_HE_AAF", "CUP_I_M270_DPICM_AAF"];
+
 
 CreateArtillery = {
   _artilleryTypes = _this select 0;

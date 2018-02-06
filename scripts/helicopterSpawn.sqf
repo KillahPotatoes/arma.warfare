@@ -1,6 +1,3 @@
-_helicoptersWest = ["RHS_AH64D_wd", "RHS_AH64D_wd_CS", "RHS_AH64D_wd_GS"];
-_helicoptersIndependent = ["CUP_I_Mi24_D_AAF", "CUP_I_AH1Z_Dynamic_AAF", "CUP_I_Mi24_Mk3_FAB_AAF"];
-_helicoptersEast = ["O_Heli_Light_02_dynamicLoadout_F", "CUP_O_Ka60_GL_Hex_CSAT", "O_Heli_Attack_02_dynamicLoadout_F"];
 
 spawnHelicopter = {
   _helicopters = _this select 0;

@@ -34,15 +34,15 @@ if (_owner isEqualTo sideUnknown) then {
         _mortarType = "";
 
         if(_owner isEqualTo East) then {
-          _mortarType = "O_Mortar_01_F";
+          _mortarType = mortarEast";
         };
 
         if(_owner isEqualTo West) then {
-          _mortarType = "B_Mortar_01_F";
+          _mortarType = mortarWest";
         };
 
         if(_owner isEqualTo Independent) then {
-          _mortarType = "I_Mortar_01_F";
+          _mortarType = mortarIndependent";
         };
 
         for "_i" from 1 to _numberOfMortars do {

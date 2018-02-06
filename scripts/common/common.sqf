@@ -1,1 +1,1 @@
-[] call compileFinal preprocessFileLineNumbers "string.sqf";
+[] call compileFinal preprocessFileLineNumbers "scripts\common\string.sqf";

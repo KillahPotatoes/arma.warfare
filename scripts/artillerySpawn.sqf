@@ -24,6 +24,6 @@ CreateArtillery = {
   };
 };
 
-[_artilleryWest, West, westStart] spawn CreateArtillery;
-[_artilleryEast, East, eastStart] spawn CreateArtillery;
-[_artilleryIndependent, Independent, independentStart] spawn CreateArtillery;
+[artilleryWest, West, westStart] spawn CreateArtillery;
+[artilleryEast, East, eastStart] spawn CreateArtillery;
+[artilleryIndependent, Independent, independentStart] spawn CreateArtillery;

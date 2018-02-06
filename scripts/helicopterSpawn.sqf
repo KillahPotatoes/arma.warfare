@@ -37,6 +37,6 @@ spawnHelicopter = {
   };
 };
 
-[_helicoptersWest, [east, independent], West, airUnitSpawnWest] spawn spawnHelicopter;
-[_helicoptersIndependent, [east, West], independent, airUnitSpawnIndependent] spawn spawnHelicopter;
-[_helicoptersEast, [West, independent], east, airUnitSpawnEast] spawn spawnHelicopter;
+[helicoptersWest, [east, independent], West, airUnitSpawnWest] spawn spawnHelicopter;
+[helicoptersIndependent, [east, West], independent, airUnitSpawnIndependent] spawn spawnHelicopter;
+[helicoptersEast, [West, independent], east, airUnitSpawnEast] spawn spawnHelicopter;

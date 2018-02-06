@@ -1,3 +1,7 @@
+[] call compileFinal preprocessFileLineNumbers "common\common.sqf";
+[] call compileFinal preprocessFileLineNumbers "sector\sectors.sqf";
+[] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
+
 //[] spawn compileFinal preprocessFileLineNumbers "showCuratorPoints.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "RYD_FFE\FFE.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "helicopterSpawn.sqf";

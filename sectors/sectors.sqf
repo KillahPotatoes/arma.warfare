@@ -19,6 +19,18 @@ AddAllSectorsToGlobalArray = {
 	} foreach allMapMarkers;
 }
 
+AddRespawnPosition = {
+	_sector = _this select 0;
+	_side = this select 1;
+	
+	(_sector getVariable ["currentRespawnPosition", [sideUnknown, 0]]) params ["_last_owner", "_index"];
+	[_last_owner, _index] call bis_fnc_removeRespawnPosition;
+	_sector setVariable ["currentRespawnPosition", nil, true];
+
+	_respawnReturn = [_side, _sector] call BIS_fnc_addRespawnPosition;
+	_sector setVariable ["currentRespawnPosition", _respawnReturn, true];
+}
+
 RemoveSectorFromArray = {
 	_sector = _this select 0;
 	_array = _this select 1;
@@ -35,6 +47,7 @@ CheckIfSectorCaptured = {
 	_friendly_unit_count = _this select 2;
 	_enemy_unit_count = _this select 3;
 	_color = _this select 4;
+	_side = this select 5;
 
 	if (!(_sector in _friendly_sectors) && _friendly_unit_count > 0 && _enemy_unit_count == 0) then {
 		
@@ -42,6 +55,7 @@ CheckIfSectorCaptured = {
 		[_sector, east_sectors] call RemoveSectorFromArray;
 		[_sector, west_sectors] call RemoveSectorFromArray;
 
+		[_sector] call AddRespawnPosition;
 		_friendly_sectors pushBack _sector;
 		[_sector, _color] call drawSector;
 		hint "East captured a sector";
@@ -55,9 +69,9 @@ CheckIfSectorsAreCaptures = {
 			_numberWest = [getmarkerpos _x , 200 , WEST] call F_getUnitsCount;
 			_numberInd = [getmarkerpos _x , 200 , RESISTANCE] call F_getUnitsCount;
 
-			[_x, east_sectors, _numberEast, _numberWest + _numberInd, warfare_color_east] call CheckIfSectorCaptured;
-			[_x, west_sectors, _numberWest, _numberEast + _numberInd, warfare_color_west] call CheckIfSectorCaptured;
-			[_x, ind_sectors, _numberInd, _numberWest + _numberEast, warfare_color_ind] call CheckIfSectorCaptured;
+			[_x, east_sectors, _numberEast, _numberWest + _numberInd, warfare_color_east, east] call CheckIfSectorCaptured;
+			[_x, west_sectors, _numberWest, _numberEast + _numberInd, warfare_color_west, west] call CheckIfSectorCaptured;
+			[_x, ind_sectors, _numberInd, _numberWest + _numberEast, warfare_color_ind, resistance] call CheckIfSectorCaptured;
 		} foreach sectors;
 	};
 }

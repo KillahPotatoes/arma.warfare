@@ -1,76 +1,36 @@
-F_getUnitsCount = compileFinal preprocessFileLineNumbers "sectors\findUnitsNearby.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\drawSector.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\sectorRespawn.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\sectorDefense.sqf";
+missionNamespace setVariable ["IndependentManPower", 100, true];
+missionNamespace setVariable ["EastManPower", 100, true];
+missionNamespace setVariable ["WestManPower", 100, true];
+
+missionNamespace setVariable ["EastActiveManPower", 0, true];
+missionNamespace setVariable ["WestActiveManPower", 0, true];
+missionNamespace setVariable ["IndependentActiveManPower", 0, true];
+
+missionNamespace setVariable ["IndependentManPowerIncome", 0, true];
+missionNamespace setVariable ["EastManPowerIncome", 0, true];
+missionNamespace setVariable ["WestManPowerIncome", 0, true];
 
 sectors = [];
 west_sectors = [];
 ind_sectors = [];
 east_sectors = [];
 
-AddAllSectorsToGlobalArray = {
-	{
-		_subName = [_x, 7] call S_SplitString;
-		if ( _subName == "sector_" ) then {
+GetEnemySectors = {
+	_faction = _this select 0;
 
-			_sector_size = getMarkerSize _x;
-			_location = createLocation ["Strategic", getMarkerPos _x, _sector_size select 0, _sector_size select 1];
-			_location setVariable ["marker", _x];
-			_location setVariable ["faction", civilian];
+	_sectors = [];
 
-			[_location] call drawSector;
-			sectors pushback _location;			
-		};
-	} foreach allMapMarkers;
-};
-
-RemoveSectorFromArray = {
-	_sector = _this select 0;
-	_array = _this select 1;
-
-	_ownedByInd = ind_sectors find (_x); 
-	if(_ownedByInd > -1) then {
-		ind_sectors deleteAt (_ownedByInd);						
+	if(_faction isEqualTo WEST) then {
+		_sectors = ind_sectors + east_sectors;
 	};
-};
 
-CheckIfSectorCaptured = {
-	_sector = _this select 0;
-	_friendly_sectors = _this select 1;
-	_friendly_unit_count = _this select 2;
-	_enemy_unit_count = _this select 3;	
-	_side = _this select 4;	
-
-	if (!(_sector in _friendly_sectors) && _friendly_unit_count > 0 && _enemy_unit_count == 0) then {
-		
-		[_sector, ind_sectors] call RemoveSectorFromArray;
-		[_sector, east_sectors] call RemoveSectorFromArray;
-		[_sector, west_sectors] call RemoveSectorFromArray;
-
-		_sector setVariable ["faction", _side];
-
-		[_sector] call AddRespawnPosition;
-		[_sector] call SpawnSectorDefense;
-
-		_friendly_sectors pushBack _sector;		
-		[_sector] call drawSector;
-		hint "Someone captured a sector";
+	if(_faction isEqualTo EAST) then {
+		_sectors = ind_sectors + west_sectors;
 	};
-};
 
-CheckIfSectorsAreCaptures = {
-	while {true} do {	
-		{
-			_numberEast = [getPos _x , 200 , EAST] call F_getUnitsCount;
-			_numberWest = [getPos _x , 200 , WEST] call F_getUnitsCount;
-			_numberInd = [getPos _x , 200 , RESISTANCE] call F_getUnitsCount;
-
-			[_x, east_sectors, _numberEast, _numberWest + _numberInd, east] call CheckIfSectorCaptured;
-			[_x, west_sectors, _numberWest, _numberEast + _numberInd, west] call CheckIfSectorCaptured;
-			[_x, ind_sectors, _numberInd, _numberWest + _numberEast, resistance] call CheckIfSectorCaptured;
-		} foreach sectors;
+	if(_faction isEqualTo independent) then {
+		_sectors = west_sectors + east_sectors;
 	};
-};
 
-[] call AddAllSectorsToGlobalArray;
-[] call CheckIfSectorsAreCaptures;
+	_sectors;
+};

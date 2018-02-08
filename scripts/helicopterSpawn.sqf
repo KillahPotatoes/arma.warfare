@@ -5,10 +5,10 @@ spawnHelicopter = {
   _marker = _this select 2;
 
   while {true} do {
-        _enemySectors = [_side] call GetEnemySectors;
-        while {count(_enemySectors) > 0} do {              
+        _enemy_sector_count = [_side] call EnemySectorCount;
+        while {_enemy_sector_count > 0} do {              
 
-         SystemChat format["%1 has %2 targets", _side, count(_enemySectors)];    
+         SystemChat format["%1 has %2 targets", _side, _enemy_sector_count];    
             
           _heliType = selectRandom _helicopters;
           _heli = [getPos _marker, 180, _heliType, _side] call BIS_fnc_spawnVehicle;

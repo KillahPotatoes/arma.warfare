@@ -22,7 +22,11 @@ SpawnBattleGroup = {
 
 	if (_unit_count < 30) then {
 		_respawn_point = format["respawn_%1", _faction];
-		[_respawn_point, _faction] spawn SpawnInfantry;			
+		_battle_group =	[_respawn_point, _faction] call SpawnInfantry;
+
+		sleep 5;
+
+		[_battle_group] call AttackEnemySector;			
 	};
 };
 

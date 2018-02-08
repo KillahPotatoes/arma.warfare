@@ -1,5 +1,6 @@
 F_getUnitsCount = compileFinal preprocessFileLineNumbers "sectors\findUnitsNearby.sqf";
 [] call compileFinal preprocessFileLineNumbers "sectors\sectors.sqf";
+[] call compileFinal preprocessFileLineNumbers "sectors\sectorIncome.sqf";
 [] call compileFinal preprocessFileLineNumbers "sectors\drawSector.sqf";
 [] call compileFinal preprocessFileLineNumbers "sectors\sectorRespawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "sectors\sectorDefense.sqf";

@@ -28,7 +28,7 @@ spawnHelicopter = {
           };
           sleep floor random [120,210,300];
         };
-        sleep 10;
+        sleep floor random [120,210,300];
   };
 };
 

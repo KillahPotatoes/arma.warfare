@@ -1,15 +1,3 @@
-missionNamespace setVariable ["IndependentManPower", 100, true];
-missionNamespace setVariable ["EastManPower", 100, true];
-missionNamespace setVariable ["WestManPower", 100, true];
-
-missionNamespace setVariable ["EastActiveManPower", 0, true];
-missionNamespace setVariable ["WestActiveManPower", 0, true];
-missionNamespace setVariable ["IndependentActiveManPower", 0, true];
-
-missionNamespace setVariable ["IndependentManPowerIncome", 0, true];
-missionNamespace setVariable ["EastManPowerIncome", 0, true];
-missionNamespace setVariable ["WestManPowerIncome", 0, true];
-
 sectors = [];
 west_sectors = [];
 ind_sectors = [];
@@ -33,4 +21,44 @@ GetEnemySectors = {
 	};
 
 	_sectors;
+};
+
+GetSectors = {
+	_faction = _this select 0;
+
+	_sectors = [];
+
+	if(_faction isEqualTo WEST) then {
+		_sectors = west_sectors;
+	};
+
+	if(_faction isEqualTo EAST) then {
+		_sectors =  east_sectors;
+	};
+
+	if(_faction isEqualTo independent) then {
+		_sectors = ind_sectors;
+	};
+
+	_sectors;
+};
+
+SectorCount = {
+	_faction = _this select 0;
+
+	_c = 0;
+
+	if(_faction isEqualTo WEST) then {
+		_c = count west_sectors;
+	};
+
+	if(_faction isEqualTo EAST) then {
+		_c = count east_sectors;
+	};
+
+	if(_faction isEqualTo independent) then {
+		_sectors = count ind_sectors;
+	};
+
+	_c;
 };

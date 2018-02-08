@@ -6,26 +6,13 @@ killTicker = {
 		_newKill call register_kill;
 		}
 	];
-
 };
 
 register_kill = {
 	_victim = _this select 0;
-	if(side group _victim isEqualTo Independent && !(isplayer _victim)) then {
-		  _manPower = missionNamespace getVariable "IndependentManPower";
-			_manPower = _manPower - 1;
-			missionNamespace setVariable ["IndependentManPower", _manPower, true];
-	};
+	_side = side group _victim;
 
-	if(side group _victim isEqualTo West && !(isplayer _victim)) then {
-		  _manPower = missionNamespace getVariable "WestManPower";
-			_manPower = _manPower - 1;
-			missionNamespace setVariable ["WestManPower", _manPower, true];
-	};
-
-	if(side group _victim isEqualTo East && !(isplayer _victim)) then {
-		  _manPower = missionNamespace getVariable "EastManPower";
-			_manPower = _manPower - 1;
-			missionNamespace setVariable ["EastManPower", _manPower, true];
-	};
+	_faction_strength = [_side] call GetFactionStrength;
+	_new_faction_strength = _faction_strength - 1;
+	[_side, _new_faction_strength] call SetFactionStrength;
 };

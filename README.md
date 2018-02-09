@@ -12,3 +12,9 @@
 If reaching the laptop in a uncapturable sector you can choose among:
 Intel: can give location of all enemy units
 Sabotage: The sector will not unlock connected sectors for capture for another X minutes
+
+Resources: 
+
+https://community.bistudio.com/wiki/Code_Optimisation
+https://community.bistudio.com/wiki/Category:Scripting_Commands_Arma_3
+https://community.bistudio.com/wiki/Debugging_Techniques

@@ -1,6 +1,3 @@
-
-
-
 SpawnInfantry = {
   	_marker = _this select 0;
 	_faction = _this select 1;
@@ -15,49 +12,6 @@ SpawnInfantry = {
 	_soldierGroup;
 };
 
-FindClosestOtherSector = {
-	_side = _this select 0;
-	_pos = _this select 1;
-	_enemySectors = [_side] call GetOtherSectors;	
-
-	_current_target_sector = _enemySectors select 0;
-	_current_shortest_distance = 99999;
-
-	{
-		_sector_pos = getPos _x;
-		_distance = _leader_pos distance _sector_pos;
-
-		if (_current_shortest_distance > _distance) then {
-			_current_shortest_distance = _distance;
-			_current_target_sector = _x;
-		};
-
-	} forEach _enemySectors;
-
-	_current_target_sector;
-};
-
-AttackEnemySector = {
-	_battle_group = _this select 0;
-	_side = side _battle_group;
-	_other_sector_count = [_side] call OtherSectorCount;
-
-	if (_other_sector_count > 0) then {
-		_leader_pos = getPos (leader _battle_group);
-
-		_target_sector = [_side, _leader_pos] call FindClosestOtherSector;
-		
-		_wp1 = _battle_group addWaypoint [getPos _target_sector, 0];
-		_wp1 setWaypointType "SAD";
-		_battle_group setBehaviour "AWARE";
-		_battle_group enableDynamicSimulation false;
-
-		_battle_group setVariable ["target", _target_sector];
-	} else {
-		// defend?
-	};
-};
-
 SpawnBattleGroup = {
 	_faction = _this select 0;
 	
@@ -70,8 +24,6 @@ SpawnBattleGroup = {
 		_battle_group =	[_respawn_point, _faction] call SpawnInfantry;
 
 		sleep 5;
-
-		[_battle_group] call AttackEnemySector;			
 	};
 };
 

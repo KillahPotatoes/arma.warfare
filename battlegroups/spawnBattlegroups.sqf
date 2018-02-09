@@ -28,12 +28,10 @@ SpawnVehicle = {
 	_vehicle_type = _this select 2;
 
 	_vehicles = ([_faction] call GetPreset) getVariable _vehicle_type; 
-	_pos = [getMarkerPos _marker, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+	_pos = [getMarkerPos _marker, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
 
 	_vehicleType = selectRandom _vehicles;
-    _vehicleGroup = [_pos, 180, _vehicleType, _faction] call BIS_fnc_spawnVehicle;
-
-	_vehicleGroup;
+    [_pos, 180, _vehicleType, _faction] call BIS_fnc_spawnVehicle;
 };
 
 SpawnHelicopter = {
@@ -43,9 +41,7 @@ SpawnHelicopter = {
 	 _helicopters = ([_faction] call GetPreset) getVariable "helicopters"; 
 
 	_heliType = selectRandom _helicopters;
-    _heliGroup = [getPos _marker, 180, _heliType, _faction] call BIS_fnc_spawnVehicle;
-
-	_heliGroup;
+    [getMarkerPos _marker, 180, _heliType, _faction] call BIS_fnc_spawnVehicle;
 };
 
 SpawnInfantry = {
@@ -57,8 +53,6 @@ SpawnInfantry = {
     _numberOfSoldiers = floor random [3,5,10];
     _soldierGroup = [_pos, _faction, _numberOfSoldiers] call BIS_fnc_spawnGroup;
     _soldierGroup setBehaviour "AWARE";
-    _soldierGroup enableDynamicSimulation true;
-
 	_soldierGroup;
 };
 
@@ -82,7 +76,7 @@ SpawnBattleGroup = {
 };
 
 SpawnBattleGroups = {
-	sleep 10;
+	sleep 30;
 	
 	while {true} do {
 		[West] spawn SpawnBattleGroup;

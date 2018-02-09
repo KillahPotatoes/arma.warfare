@@ -1,3 +1,12 @@
+DeleteAllWaypoints = {
+	_group = _this select 0;
+
+	while {(count (waypoints _group)) > 0} do
+	{
+		deleteWaypoint ((waypoints _group) select 0);
+	};
+};
+
 AttackEnemySector = {
 	_battle_group = _this select 0;
 	_side = side _battle_group;
@@ -8,6 +17,7 @@ AttackEnemySector = {
 
 		_target_sector = [_side, _leader_pos] call FindClosestOtherSector;
 
+		[_battle_group] call DeleteAllWaypoints;
 		_wp1 = _battle_group addWaypoint [getPos _target_sector, 0];
 		_wp1 setWaypointType "SAD";
 		_battle_group setBehaviour "AWARE";
@@ -26,9 +36,9 @@ while {true} do {
 		if (!(player isEqualTo leader _x)) then {
 			_side = side _x; 
 
-			_target_sector = _x getVariable ["target", "not_set"];
+			_target_sector = _x getVariable ["target", "undefined"];
 
-			if (_target_sector isEqualTo "not_set") then {
+			if (_target_sector isEqualTo "undefined") then {
 				_new_target = [_x] call AttackEnemySector;
 				systemChat format["%1 moving to %2", _x, _new_target];
 			

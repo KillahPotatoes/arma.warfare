@@ -2,8 +2,7 @@
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "factions\factionStrength.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "sectors\sectorController.sqf";
-[] spawn compileFinal preprocessFileLineNumbers "battlegroups\spawnBattlegroups.sqf";
-[] spawn compileFinal preprocessFileLineNumbers "battlegroups\battlegroupAi.sqf";
+[] spawn compileFinal preprocessFileLineNumbers "battlegroups\battlegroupsController.sqf";
 
 //[] spawn compileFinal preprocessFileLineNumbers "showCuratorPoints.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "RYD_FFE\FFE.sqf";

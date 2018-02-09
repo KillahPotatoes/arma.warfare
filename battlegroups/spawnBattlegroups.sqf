@@ -23,6 +23,8 @@ SpawnBattleGroup = {
 		_respawn_point = format["respawn_%1", _faction];
 		_battle_group =	[_respawn_point, _faction] call SpawnInfantry;
 
+		[_battle_group] call AddBattleGroups;
+
 		sleep 5;
 	};
 };

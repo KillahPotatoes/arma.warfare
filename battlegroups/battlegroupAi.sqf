@@ -33,7 +33,7 @@ AttackEnemySector = {
 
 while {true} do {
 	{		
-		// if (!(player isEqualTo leader _x)) then {
+		if (!(player isEqualTo leader _x)) then {
 			_side = side _x; 
 
 			_target_sector = _x getVariable ["target", "undefined"];
@@ -45,7 +45,7 @@ while {true} do {
 			
 			} else {
 				_current_owner = _target_sector getVariable "faction";
-		
+				systemChat format["Sector_owner: %1, group_side: %2", _current_owner, _side];
 				if (_side isEqualTo _current_owner) then {
 
 					_new_target = [_x] call AttackEnemySector; 
@@ -53,7 +53,7 @@ while {true} do {
 					systemChat format["%1 moving to new target: %2", _x, _new_target];
 				};
 			};
-		//}; 
+		}; 
 		
 	} forEach ([] call GetAllBattleGroups);
 	sleep 10;

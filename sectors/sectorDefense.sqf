@@ -15,20 +15,8 @@ SpawnMortarPositions = {
 
 	_orientationOfMortar = random 360;
 	_numberOfMortars = (floor random 2) + 1;
-	_mortarType = "";
-
-	if(_faction isEqualTo East) then {
-		_mortarType = selectRandom mortarEast;
-	};
-
-	if(_faction isEqualTo West) then {
-		_mortarType = selectRandom mortarWest;
-	};
-
-	if(_faction isEqualTo Independent) then {
-		_mortarType = selectRandom mortarIndependent;
-	};
-
+	_mortarType = ([_faction] call GetPreset) getVariable "mortars";
+	
 	for "_i" from 1 to _numberOfMortars do {
 		_positionForMortar = (getPos _location) getPos [_radius * sqrt random 1, random 360];
 		[_positionForMortar, _orientationOfMortar, _mortarType, _faction] call BIS_fnc_spawnVehicle;

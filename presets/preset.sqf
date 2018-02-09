@@ -17,10 +17,19 @@ warfare_color_inactive = "ColorGrey";
 
 warfare_sector_size = 200;
 
+EAST_preset = createGroup sideLogic;
+EAST_preset setVariable ["Mortar", mortarEast];
+EAST_preset setVariable ["Helicopters", helicoptersEast];
 
-Opfor = createGroup sideLogic;
+WEST_preset = createGroup sideLogic;
+WEST_preset setVariable ["Mortar", mortarWest];
+WEST_preset setVariable ["Helicopters", helicoptersWest];
 
-Opfor setVariable ["Mortar", mortarIndependent];
+GUER_preset = createGroup sideLogic;
+GUER_preset setVariable ["Mortar", mortarIndependent];
+GUER_preset setVariable ["Helicopters", helicoptersIndependent];
 
-Blufor = createGroup sideLogic;
-Indfor = createGroup sideLogic;
+GetPreset = {
+	_side = _this select 0;
+	missionNamespace getVariable format["%1_preset", _side];
+};

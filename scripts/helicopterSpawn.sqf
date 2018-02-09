@@ -1,8 +1,9 @@
 
 spawnHelicopter = {
-  _helicopters = _this select 0;
-  _side = _this select 1;
-  _marker = _this select 2;
+  _side = _this select 0;
+  _marker = _this select 1;
+
+  _helicopters = ([_side] call GetPreset) getVariable "helicopters";
 
   while {true} do {
         _enemy_sector_count = [_side] call EnemySectorCount;
@@ -32,6 +33,6 @@ spawnHelicopter = {
   };
 };
 
-[helicoptersWest, West, airUnitSpawnWest] spawn spawnHelicopter;
-[helicoptersIndependent, independent, airUnitSpawnIndependent] spawn spawnHelicopter;
-[helicoptersEast, east, airUnitSpawnEast] spawn spawnHelicopter;
+[West, airUnitSpawnWest] spawn spawnHelicopter;
+[independent, airUnitSpawnIndependent] spawn spawnHelicopter;
+[east, airUnitSpawnEast] spawn spawnHelicopter;

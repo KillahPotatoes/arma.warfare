@@ -23,11 +23,11 @@ AddAllSectorsToGlobalArray = {
 
 RemoveSectorFromArray = {
 	_sector = _this select 0;
-	_array = _this select 1;
+	_sector_array = _this select 1;
 
-	_ownedByInd = ind_sectors find (_x); 
-	if(_ownedByInd > -1) then {
-		ind_sectors deleteAt (_ownedByInd);						
+	_index = _sector_array find (_x); 
+	if(_index > -1) then {
+		_sector_array deleteAt (_index);						
 	};
 };
 

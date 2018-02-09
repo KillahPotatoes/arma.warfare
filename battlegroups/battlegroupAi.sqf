@@ -23,24 +23,26 @@ AttackEnemySector = {
 
 while {true} do {
 	{		
-		_side = side _x; 
+		if (!(player isEqualTo leader _x)) then {
+			_side = side _x; 
 
-		_target_sector = _x getVariable ["target", "not_set"];
+			_target_sector = _x getVariable ["target", "not_set"];
 
-		if (_target_sector isEqualTo "not_set") then {
-			_new_target = [_x] call AttackEnemySector;
-			systemChat format["%1 moving to %2", _x, _new_target];
-		
-		} else {
-			_current_owner = _target_sector getVariable "faction";
-	
-			if (_side isEqualTo _current_owner || _side == nil) then {
-
-				_new_target = [_x] call AttackEnemySector; 
-
+			if (_target_sector isEqualTo "not_set") then {
+				_new_target = [_x] call AttackEnemySector;
 				systemChat format["%1 moving to %2", _x, _new_target];
+			
+			} else {
+				_current_owner = _target_sector getVariable "faction";
+		
+				if (_side isEqualTo _current_owner || _side == nil) then {
+
+					_new_target = [_x] call AttackEnemySector; 
+
+					systemChat format["%1 moving to %2", _x, _new_target];
+				};
 			};
-		};
+		}; 
 		
 	} forEach allGroups;
 	sleep 10;

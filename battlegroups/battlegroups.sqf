@@ -18,3 +18,15 @@ AddBattleGroups = {
 GetAllBattleGroups = {
 	EAST_battle_groups + WEST_battle_groups + GUER_battle_groups;
 };
+
+CountBattlegroupUnits = {
+	_side = _this select 0;
+	_sum = 0;
+
+	{
+		_group = _x;
+		_sum = _sum + ({alive _x} count units _group);
+	} forEach ([_side] call GetBattleGroups);
+
+	_sum;
+};

@@ -15,9 +15,9 @@ SpawnInfantry = {
 SpawnBattleGroup = {
 	_faction = _this select 0;
 	
-	_unit_count = {alive _x && side _x == _faction} count allUnits;
+	_unit_count = [_faction] call CountBattlegroupUnits;
 		
-	systemChat format["%1 has %2 units", _faction, _unit_count];
+	systemChat format["%1 has %2 battlegroup units", _faction, _unit_count];
 
 	if (_unit_count < 30) then {
 		_respawn_point = format["respawn_%1", _faction];
@@ -30,9 +30,7 @@ SpawnBattleGroup = {
 };
 
 SpawnBattleGroups = {
-
 	sleep 10;
-	systemChat "Started spawing battlegroups";
 	
 	while {true} do {
 		[West] spawn SpawnBattleGroup;

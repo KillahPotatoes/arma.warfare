@@ -16,3 +16,11 @@ warfare_color_ind = "ColorGUER";																			// Enemy sector marker color 
 warfare_color_inactive = "ColorGrey";
 
 warfare_sector_size = 200;
+
+
+Opfor = createGroup sideLogic;
+
+Opfor setVariable ["Mortar", mortarIndependent];
+
+Blufor = createGroup sideLogic;
+Indfor = createGroup sideLogic;

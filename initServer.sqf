@@ -6,7 +6,6 @@
 
 //[] spawn compileFinal preprocessFileLineNumbers "showCuratorPoints.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "RYD_FFE\FFE.sqf";
-[] spawn compileFinal preprocessFileLineNumbers "scripts\helicopterSpawn.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "scripts\AIReviveScript.sqf";
 
 [] spawn compileFinal preprocessFileLineNumbers "scripts\killTicker.sqf";

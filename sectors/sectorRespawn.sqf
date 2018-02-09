@@ -8,3 +8,14 @@ AddRespawnPosition = {
 	_respawnReturn = [_side, getPos _sector] call BIS_fnc_addRespawnPosition;
 	_sector setVariable ["currentRespawnPosition", _respawnReturn];
 };
+
+AddInitialRespawnPosition = {
+	_side = _this select 0;
+
+	_respawnMarker = format["respawn_ground_%1", _side];
+	_respawnReturn = [_side, getMarkerPos _respawnMarker] call BIS_fnc_addRespawnPosition;	
+};
+
+[west] call AddInitialRespawnPosition;
+[east] call AddInitialRespawnPosition;
+[independent] call AddInitialRespawnPosition;

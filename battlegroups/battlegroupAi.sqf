@@ -37,7 +37,6 @@ while {true} do {
 			_side = side _x; 
 
 			_target_sector = _x getVariable ["target", "undefined"];
-			systemChat format["Target_sector: %1", _target_sector];
 
 			if (_target_sector isEqualTo "undefined") then {
 				_new_target = [_x] call AttackEnemySector;
@@ -45,11 +44,9 @@ while {true} do {
 			
 			} else {
 				_current_owner = _target_sector getVariable "faction";
-				systemChat format["Sector_owner: %1, group_side: %2", _current_owner, _side];
+				
 				if (_side isEqualTo _current_owner) then {
-
 					_new_target = [_x] call AttackEnemySector; 
-
 					systemChat format["%1 moving to new target: %2", _x, _new_target];
 				};
 			};

@@ -1,7 +1,7 @@
 InitializeFactionStats = {
-	[West, 100] call SetFactionStrength;
-	[East, 100] call SetFactionStrength;
-	[independent, 100] call SetFactionStrength;
+	[West, 50] call SetFactionStrength;
+	[East, 50] call SetFactionStrength;
+	[independent, 50] call SetFactionStrength;
 
 	[West, 0] call SetFactionSectorIncome;
 	[East, 0] call SetFactionSectorIncome;

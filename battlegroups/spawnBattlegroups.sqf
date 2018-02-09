@@ -79,9 +79,9 @@ SpawnBattleGroups = {
 	sleep 30;
 	
 	while {true} do {
-		[West] spawn SpawnBattleGroup;
-		[East] spawn SpawnBattleGroup;
-		[Independent] spawn SpawnBattleGroup;
+		[West] call SpawnBattleGroup;
+		[East] call SpawnBattleGroup;
+		[Independent] call SpawnBattleGroup;
 
 		sleep 30;
 	};

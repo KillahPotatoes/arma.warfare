@@ -21,7 +21,7 @@ SpawnMortarPositions = {
 		_positionForMortar = (getPos _location) getPos [_radius * sqrt random 1, random 360];
 		_pos = [_positionForMortar, 0, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 		_group = [_pos, _orientationOfMortar, _mortarType, _faction] call BIS_fnc_spawnVehicle;
-		_group enableDynamicSimulation true;    
+		(_group select 2) enableDynamicSimulation true;    
 	};
 };
 
@@ -34,7 +34,7 @@ SpawnDefensiveVehicle = {
 
 	_vehicleType = selectRandom _vehicles;
     _group = [_pos, random 360, _vehicleType, _faction] call BIS_fnc_spawnVehicle;
-	_group enableDynamicSimulation true; 
+	(_group select 2) enableDynamicSimulation true; 
 };
 
 SpawnSectorDefense = {

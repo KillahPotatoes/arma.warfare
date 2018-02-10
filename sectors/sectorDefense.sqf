@@ -48,7 +48,7 @@ SpawnSectorDefense = {
 	_chanceOfGuarded = random 100;
 	_radius = 25;
 
-    if(_chanceOfGuarded < 70) then {
+    if(_chanceOfGuarded < 80) then {
 		[_location] call SpawnSquad;		
     };
 

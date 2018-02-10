@@ -5,6 +5,15 @@ F_getUnitsCount = compileFinal preprocessFileLineNumbers "sectors\findUnitsNearb
 [] call compileFinal preprocessFileLineNumbers "sectors\sectorRespawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "sectors\sectorDefense.sqf";
 
+AddAmmoBox = {
+	_sector = _this select 0;
+
+	 _pos = getPos _sector;	 
+	_ammo_box = "B_CargoNet_01_ammo_F";
+	 _safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+	 _ammo_box createVehicle (_pos);
+};
+
 AddAllSectorsToGlobalArray = {
 	{
 		_subName = [_x, 7] call S_SplitString;
@@ -14,7 +23,9 @@ AddAllSectorsToGlobalArray = {
 			_location setVariable ["faction", civilian];
 
 			[_location] call drawSector;
-			sectors pushback _location;			
+			sectors pushback _location;	
+			
+			[_location] call AddAmmoBox;		
 		};
 	} foreach allMapMarkers;
 };
@@ -51,6 +62,19 @@ CheckIfSectorCaptured = {
 		[_sector] call drawSector;
 
 		SystemChat format["%1 has captured %2", _side, _sector];
+	};
+
+	if (_sector in _friendly_sectors && _enemy_unit_count > 0) then {
+		
+		[_sector, ind_sectors] call RemoveSectorFromArray;
+		[_sector, east_sectors] call RemoveSectorFromArray;
+		[_sector, west_sectors] call RemoveSectorFromArray;
+
+		_sector setVariable ["faction", civilian];
+		
+		[_sector] call drawSector;
+		[_sector] call RemoveRespawnPosition;
+		SystemChat format["%1 has lost %2", _side, _sector];
 	};
 };
 

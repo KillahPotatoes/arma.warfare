@@ -63,6 +63,13 @@ CheckIfSectorCaptured = {
 
 		SystemChat format["%1 has captured %2", _side, _sector];
 	};
+};
+
+CheckIfSectorLost = {
+	_sector = _this select 0;
+	_friendly_sectors = _this select 1;
+	_enemy_unit_count = _this select 2;	
+	_side = _this select 3;	
 
 	if (_sector in _friendly_sectors && _enemy_unit_count > 0) then {
 		
@@ -81,13 +88,22 @@ CheckIfSectorCaptured = {
 CheckIfSectorsAreCaptures = {
 	while {true} do {	
 		{
+			_e_numberEast = [getPos _x , sector_size, EAST] call F_getUnitsCount;
+			_e_numberWest = [getPos _x , sector_size, WEST] call F_getUnitsCount;
+			_e_numberInd = [getPos _x , sector_size, RESISTANCE] call F_getUnitsCount;
+
+
 			_numberEast = [getPos _x , sector_size / 2 , EAST] call F_getUnitsCount;
 			_numberWest = [getPos _x , sector_size / 2 , WEST] call F_getUnitsCount;
 			_numberInd = [getPos _x , sector_size / 2, RESISTANCE] call F_getUnitsCount;
 
-			[_x, east_sectors, _numberEast, _numberWest + _numberInd, east] call CheckIfSectorCaptured;
-			[_x, west_sectors, _numberWest, _numberEast + _numberInd, west] call CheckIfSectorCaptured;
-			[_x, ind_sectors, _numberInd, _numberWest + _numberEast, resistance] call CheckIfSectorCaptured;
+			[_x, east_sectors, _numberEast, _e_numberWest + _e_numberInd, east] call CheckIfSectorCaptured;
+			[_x, west_sectors, _numberWest, _e_numberEast + _e_numberInd, west] call CheckIfSectorCaptured;
+			[_x, ind_sectors, _numberInd, _e_numberWest + _e_numberEast, resistance] call CheckIfSectorCaptured;
+
+			[_x, east_sectors, _numberWest + _numberInd, east] call CheckIfSectorLost;
+			[_x, west_sectors, _numberEast + _numberInd, west] call CheckIfSectorLost;
+			[_x, ind_sectors, _numberWest + _numberEast, resistance] call CheckIfSectorLost;
 		} foreach sectors;
 	};
 };

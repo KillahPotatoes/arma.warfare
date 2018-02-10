@@ -15,6 +15,6 @@ drawSector = {
  _marker_outline setMarkerColorLocal _color; 
  _marker_outline setMarkerShapeLocal "ELLIPSE"; 
  _marker_outline setMarkerBrushLocal "SolidBorder"; 
- _marker_outline setMarkerSizeLocal [200,200]; 
+ _marker_outline setMarkerSizeLocal [sector_size,sector_size]; 
 };
 

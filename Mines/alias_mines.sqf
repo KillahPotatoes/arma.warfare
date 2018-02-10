@@ -1,7 +1,5 @@
 
 generateMines = {
-	private ["_name", "_al_ied_trigger","_IED_blow_trigger","_field_center","_field_radius","_nclass_mines","_number_mines","_debugs_mines","_nm","_markern","_pos_mine","_markerstr"];
-
 	if (!isServer) exitwith {};
 
 	_field_center = _this select 0;
@@ -41,8 +39,8 @@ generateMines = {
 _sectors = [true] call BIS_fnc_moduleSector;
 {
 	  _name = _x getVariable "name";
-		[getPos _x,150,"APERSBoundingMine",random [25, 100, 150],false, _name] call generateMines;
-   [getPos _x,500,"APERSBoundingMine",random [25, 100, 150],false, format[ "%1_distant", _name]] call generateMines;
+	  [getPos _x,150,"APERSBoundingMine",random [25, 100, 150],false, _name] call generateMines;
+      [getPos _x,500,"APERSBoundingMine",random [25, 100, 150],false, format[ "%1_distant", _name]] call generateMines;
 
 
 

@@ -2,6 +2,8 @@ chanceOfHelicopter = 5;
 chanceOfHeavyVehicle = 10;
 chanceOfLightVehicle =  15;
 
+sector_size = 200;
+
 artilleryWest = ["B_MBT_01_arty_F", "B_MBT_01_mlrs_F"];
 artilleryEast = ["O_MBT_02_arty_F"];
 artilleryIndependent = ["CUP_I_M270_HE_AAF", "CUP_I_M270_DPICM_AAF"];

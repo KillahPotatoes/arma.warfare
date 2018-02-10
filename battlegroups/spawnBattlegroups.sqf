@@ -63,13 +63,12 @@ SpawnBattleGroup = {
 	_strength = [_faction] call GetFactionStrength;
 	_left_over_strength = _strength - _unit_count;
 
-	systemChat format["%1 has %2 battlegroup units", _faction, _unit_count];
-
 	if (_left_over_strength > 0) then {
 		if (_unit_count < 30) then {
 			_respawn_point = format["respawn_%1", _faction];
 			_battle_group =	[_faction] call SpawnRandomBattleGroupType;
 
+			_battle_group deleteGroupWhenEmpty true;
 			[_battle_group] call AddBattleGroups;
 		};
 	};	

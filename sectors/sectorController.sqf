@@ -9,9 +9,7 @@ AddAllSectorsToGlobalArray = {
 	{
 		_subName = [_x, 7] call S_SplitString;
 		if ( _subName == "sector_" ) then {
-
-			_sector_size = getMarkerSize _x;
-			_location = createLocation ["Strategic", getMarkerPos _x, _sector_size select 0, _sector_size select 1];
+			_location = createLocation ["Strategic", getMarkerPos _x, sector_size, sector_size];
 			_location setVariable ["marker", _x];
 			_location setVariable ["faction", civilian];
 
@@ -59,9 +57,9 @@ CheckIfSectorCaptured = {
 CheckIfSectorsAreCaptures = {
 	while {true} do {	
 		{
-			_numberEast = [getPos _x , 200 , EAST] call F_getUnitsCount;
-			_numberWest = [getPos _x , 200 , WEST] call F_getUnitsCount;
-			_numberInd = [getPos _x , 200 , RESISTANCE] call F_getUnitsCount;
+			_numberEast = [getPos _x , sector_size / 2 , EAST] call F_getUnitsCount;
+			_numberWest = [getPos _x , sector_size / 2 , WEST] call F_getUnitsCount;
+			_numberInd = [getPos _x , sector_size / 2, RESISTANCE] call F_getUnitsCount;
 
 			[_x, east_sectors, _numberEast, _numberWest + _numberInd, east] call CheckIfSectorCaptured;
 			[_x, west_sectors, _numberWest, _numberEast + _numberInd, west] call CheckIfSectorCaptured;

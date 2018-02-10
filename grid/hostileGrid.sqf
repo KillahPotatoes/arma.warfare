@@ -1,5 +1,3 @@
-private ["_kp_markers_array","_kp_markers_start","_kp_markers_change","_kp_markers_pos","_kp_markers_posx","_kp_markers_posy","_kp_markers_name","_kp_markers_color"];
-
 waitUntil {!isNull player};
 
 _kp_markers_array = [];

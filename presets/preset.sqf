@@ -9,7 +9,7 @@ artilleryEast = ["O_MBT_02_arty_F"];
 artilleryIndependent = ["CUP_I_M270_HE_AAF", "CUP_I_M270_DPICM_AAF"];
 
 heavy_vehicles_west = ["rhsusf_m1a2sep1tuskiiwd_usarmy", "rhsusf_m1a1aim_tuski_wd", "rhsusf_m1a1aimwd_usarmy"];
-heavy_vehicles_independent = ["rhsgref_cdf_t80b_tv", "rhsgref_cdf_t72bb_tv", "rhsgref_cdf_t72ba_tv", "LOP_UA_BM21"];
+heavy_vehicles_independent = ["rhsgref_cdf_t80b_tv", "rhsgref_cdf_t72bb_tv", "rhsgref_cdf_t72ba_tv"];
 heavy_vehicles_east = ["rhs_t80bv", "rhs_t90a_tv", "rhs_t72bd_tv"];
 
 light_vehicles_west = ["Fennek_gmg_wd", "Fennek_hmg_wd"];

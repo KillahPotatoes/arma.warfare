@@ -109,4 +109,4 @@ CheckIfSectorsAreCaptures = {
 };
 
 [] call AddAllSectorsToGlobalArray;
-[] call CheckIfSectorsAreCaptures;
+[] spawn CheckIfSectorsAreCaptures;

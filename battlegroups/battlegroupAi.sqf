@@ -27,8 +27,6 @@ AttackEnemySector = {
 	} else {
 		// defend?
 	};
-
-	_target_sector;
 };
 
 while {true} do {
@@ -40,14 +38,12 @@ while {true} do {
 
 			if (_target_sector isEqualTo "undefined") then {
 				_new_target = [_x] call AttackEnemySector;
-				systemChat format["%1 moving to %2", _x, _new_target];
-			
 			} else {
 				_current_owner = _target_sector getVariable "faction";
 				
 				if (_side isEqualTo _current_owner) then {
-					_new_target = [_x] call AttackEnemySector; 
-					systemChat format["%1 moving to new target: %2", _x, _new_target];
+					[_x] call AttackEnemySector; 
+					
 				};
 			};
 		}; 

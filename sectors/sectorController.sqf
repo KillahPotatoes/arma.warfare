@@ -16,11 +16,15 @@ AddAmmoBox = {
 
 AddAllSectorsToGlobalArray = {
 	{
-		_subName = [_x, 7] call S_SplitString;
-		if ( _subName == "sector_" ) then {
+		_split_string = [_x, 7] call S_SplitString;
+		_first_string = _split_string select 0;
+		_second_string = _split_string select 1;
+				
+		if ( _first_string == "sector_" ) then {
 			_location = createLocation ["Strategic", getMarkerPos _x, sector_size, sector_size];
 			_location setVariable ["marker", _x];
 			_location setVariable ["faction", civilian];
+			_location setVariable ["name", _second_string];
 
 			[_location] call drawSector;
 			sectors pushback _location;	
@@ -61,7 +65,7 @@ CheckIfSectorCaptured = {
 		_friendly_sectors pushBack _sector;		
 		[_sector] call drawSector;
 
-		SystemChat format["%1 has captured %2", _side, _sector];
+		SystemChat format["%1 has captured %2", _side, _sector getVariable "name"];
 	};
 };
 

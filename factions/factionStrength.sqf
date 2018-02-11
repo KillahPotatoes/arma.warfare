@@ -20,7 +20,7 @@ IncrementFactionKillCounter = {
 	_side = _this select 0;
 
 	_kill_counter = format ["%1_kill_counter", _side];
-	_kill_count = missionNamespace getVariable (format ["%1_kill_counter", _side]);
+	_kill_count = missionNamespace getVariable _kill_counter;
 	_new_kill_count = _kill_count + 1;
 
 	missionNamespace setVariable [_kill_counter, _new_kill_count, true];
@@ -29,18 +29,18 @@ IncrementFactionKillCounter = {
 
 	if(_tier < 3) then {
 		if(_new_kill_count > tier_three && _tier < 3) exitWith {
-			systemChat format["%1 advanced to tier 3"];
+			systemChat format["%1 advanced to tier 3", _side];
 			missionNamespace setVariable [format ["%1_tier", _side], 3, true];
 		};
 		
 		if(_new_kill_count > tier_two && _tier < 2) exitWith {
-			systemChat format["%1 advanced to tier 2"];    
-			missionNamespace setVariable [format ["%1_tier", _side], 3, true];
+			systemChat format["%1 advanced to tier 2", _side];    
+			missionNamespace setVariable [format ["%1_tier", _side], 2, true];
 		};
 		
 		if(_new_kill_count > tier_one && _tier < 1) exitWith {
-			systemChat format["%1 advanced to tier 1"];
-			missionNamespace setVariable [format ["%1_tier", _side], 3, true];
+			systemChat format["%1 advanced to tier 1", _side];
+			missionNamespace setVariable [format ["%1_tier", _side], 1, true];
 		};
 	}
 }; 
@@ -88,9 +88,9 @@ GetFactionSectorIncome = {
 };
 
 CalculateTierBoundaries = {
-	tier_one = 50;
-	tier_two = 100;
-	tier_three = 150;
+	tier_1 = 30;
+	tier_2 = 60;
+	tier_3 = 90;
 };
 
 [] call InitializeFactionStats;

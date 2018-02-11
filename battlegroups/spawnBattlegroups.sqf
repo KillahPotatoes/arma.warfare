@@ -10,7 +10,7 @@ SpawnRandomBattleGroupType = {
 
 	_chance = 0;
 
-	if(_acc_strength > tier_three) then {
+	if(_tier == 3) then {
 		_chance = chanceOfHelicopter;
 	};
     
@@ -18,7 +18,7 @@ SpawnRandomBattleGroupType = {
 		([_respawn_point_air, _faction] call SpawnHelicopter) select 2;
 	};
 
-	if(_tier == 3) then {
+	if(_tier == 2) then {
 		_chance = _chance + chanceOfHeavyVehicle;
 	};
 	
@@ -26,7 +26,7 @@ SpawnRandomBattleGroupType = {
 		([_respawn_point_ground, _faction, "heavy_vehicles"] call SpawnVehicle) select 2;
 	}; 
 
-	if(_tier == 2) then {
+	if(_tier == 1) then {
 		_chance = _chance + chanceOfLightVehicle;
 	};
 	

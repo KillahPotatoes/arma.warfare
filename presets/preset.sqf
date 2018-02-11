@@ -1,7 +1,3 @@
-chanceOfHelicopter = 5;
-chanceOfHeavyVehicle = 10;
-chanceOfLightVehicle =  15;
-
 sector_size = 200;
 
 artilleryWest = ["B_MBT_01_arty_F", "B_MBT_01_mlrs_F"];

@@ -55,8 +55,4 @@ SpawnSectorDefense = {
 	if(_chanceOfGuarded < 50) then {
 		[_location] call SpawnMortarPositions;		
     };
-
-	if(_chanceOfGuarded < 10) then {
-		[_location] call SpawnDefensiveVehicle;
-	};
 };

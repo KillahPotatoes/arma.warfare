@@ -9,6 +9,12 @@ killTicker = {
 
 register_kill = {
 	_victim = _this select 0;
+	_killer = _this select 1;
+
+	_killer_side = side group _killer;
+
+	[_killer_side] call IncrementFactionKillCounter;
+
 	_side = side group _victim;
 	_faction_strength = [_side] call GetFactionStrength;
 	_new_faction_strength = if(isPlayer _victim) then { _faction_strength - 10; } else { _faction_strength - 1; };		

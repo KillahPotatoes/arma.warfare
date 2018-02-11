@@ -1,11 +1,12 @@
 SpawnRandomBattleGroupType = {
 	_faction = _this select 0;
-	_acc_strength = _this select 1;
-
+	
 	_diceRoll = random 100;
 
 	_respawn_point_ground = format["respawn_ground_%1", _faction];
 	_respawn_point_air = format["respawn_air_%1", _faction];
+
+	_tier =  missionNamespace getVariable (format ["%1_tier", _faction]);
 
 	_chance = 0;
 
@@ -13,23 +14,23 @@ SpawnRandomBattleGroupType = {
 		_chance = chanceOfHelicopter;
 	};
     
-	if(_acc_strength > tier_three && _diceRoll < _chance) exitWith {
+	if(_tier == 3 && _diceRoll < _chance) exitWith {
 		([_respawn_point_air, _faction] call SpawnHelicopter) select 2;
 	};
 
-	if(_acc_strength > tier_two) then {
+	if(_tier == 3) then {
 		_chance = _chance + chanceOfHeavyVehicle;
 	};
 	
-	if (_acc_strength > tier_two && _diceRoll < _chance) exitWith {
+	if (_tier == 2 && _diceRoll < _chance) exitWith {
 		([_respawn_point_ground, _faction, "heavy_vehicles"] call SpawnVehicle) select 2;
 	}; 
 
-	if(_acc_strength > tier_one) then {
+	if(_tier == 2) then {
 		_chance = _chance + chanceOfLightVehicle;
 	};
 	
-	if (_acc_strength > tier_one && _diceRoll < _chance) exitWith {
+	if (_tier == 1 && _diceRoll < _chance) exitWith {
 		([_respawn_point_ground, _faction,  "light_vehicles"] call SpawnVehicle) select 2;
 	};
 
@@ -75,13 +76,12 @@ SpawnBattleGroup = {
 	
 	_unit_count = [_faction] call CountBattlegroupUnits;
 	_strength = [_faction] call GetFactionStrength;
-	_acc_strength = [_faction] call GetAccumulatedStrength;
 	_left_over_strength = _strength - _unit_count;
 
 	if (_left_over_strength > 0) then {
 		if (_unit_count < 30) then {
 			_respawn_point = format["respawn_%1", _faction];
-			_battle_group =	[_faction, _acc_strength] call SpawnRandomBattleGroupType;
+			_battle_group =	[_faction] call SpawnRandomBattleGroupType;
 
 			_battle_group deleteGroupWhenEmpty true;
 			[_battle_group] call AddBattleGroups;

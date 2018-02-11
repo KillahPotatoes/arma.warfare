@@ -28,17 +28,17 @@ IncrementFactionKillCounter = {
 	_tier =  missionNamespace getVariable (format ["%1_tier", _side]);
 
 	if(_tier < 3) then {
-		if(_new_kill_count > tier_three && _tier < 3) exitWith {
+		if(_new_kill_count > tier_3 && _tier < 3) exitWith {
 			systemChat format["%1 advanced to tier 3", _side];
 			missionNamespace setVariable [format ["%1_tier", _side], 3, true];
 		};
 		
-		if(_new_kill_count > tier_two && _tier < 2) exitWith {
+		if(_new_kill_count > tier_2 && _tier < 2) exitWith {
 			systemChat format["%1 advanced to tier 2", _side];    
 			missionNamespace setVariable [format ["%1_tier", _side], 2, true];
 		};
 		
-		if(_new_kill_count > tier_one && _tier < 1) exitWith {
+		if(_new_kill_count > tier_1 && _tier < 1) exitWith {
 			systemChat format["%1 advanced to tier 1", _side];
 			missionNamespace setVariable [format ["%1_tier", _side], 1, true];
 		};

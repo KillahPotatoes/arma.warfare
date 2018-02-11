@@ -85,7 +85,7 @@ CheckIfSectorLost = {
 		
 		[_sector] call drawSector;
 		[_sector] call RemoveRespawnPosition;
-		SystemChat format["%1 has lost %2", _side, _sector];
+		SystemChat format["%1 has lost %2", _side, _sector getVariable "name"];
 	};
 };
 

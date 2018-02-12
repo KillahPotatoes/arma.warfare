@@ -2,7 +2,7 @@ SpawnSquad = {
 	_location = _this select 0;
 	_faction = _location getVariable "faction";
 
-	_positionForSoldiers = (getPos _location) getPos [_radius * sqrt random 1, random 360];
+	_positionForSoldiers = (_location getVariable "pos") getPos [_radius * sqrt random 1, random 360];
     _numberOfSoldiers = floor random [3,5,10];
     _group = [_positionForSoldiers, _faction, _numberOfSoldiers] call BIS_fnc_spawnGroup;
     _group setBehaviour "AWARE";
@@ -19,7 +19,7 @@ SpawnMortarPositions = {
 	_mortarType = selectRandom(([_faction] call GetPreset) getVariable "mortars");
 
 	for "_i" from 1 to _numberOfMortars do {
-		_positionForMortar = (getPos _location) getPos [_radius * sqrt random 1, random 360];
+		_positionForMortar = (_location getVariable "pos") getPos [_radius * sqrt random 1, random 360];
 		_pos = [_positionForMortar, 0, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 		_group = [_pos, _orientationOfMortar, _mortarType, _faction] call BIS_fnc_spawnVehicle;
 		(_group select 2) deleteGroupWhenEmpty true;
@@ -35,7 +35,7 @@ SpawnDefensiveVehicle = {
 	_faction = _location getVariable "faction";
 
 	_vehicles = ([_faction] call GetPreset) getVariable "light_vehicles"; 
-	_pos = [getPos _location, 0, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
+	_pos = [_location getVariable "pos", 0, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
 
 	_vehicleType = selectRandom _vehicles;
     _group = [_pos, random 360, _vehicleType, _faction] call BIS_fnc_spawnVehicle;

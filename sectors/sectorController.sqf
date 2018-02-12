@@ -8,7 +8,7 @@ F_getUnitsCount = compileFinal preprocessFileLineNumbers "sectors\findUnitsNearb
 AddAmmoBox = {
 	_sector = _this select 0;
 
-	 _pos = getPos _sector;	 
+	 _pos = _sector getVariable "pos";	 
 	_ammo_box = "B_CargoNet_01_ammo_F";
 	 _safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 	 _ammo_box createVehicle (_pos);
@@ -21,7 +21,8 @@ AddAllSectorsToGlobalArray = {
 		_second_string = _split_string select 1;
 				
 		if ( _first_string == "sector_" ) then {
-			_location = createLocation ["Strategic", getMarkerPos _x, sector_size, sector_size];
+			_location = createGroup sideLogic;
+			_location setVariable ["pos", getMarkerPos _x];
 			_location setVariable ["marker", _x];
 			_location setVariable ["faction", civilian];
 			_location setVariable ["name", _second_string];
@@ -94,14 +95,14 @@ CheckIfSectorLost = {
 CheckIfSectorsAreCaptures = {
 	while {true} do {	
 		{
-			_e_numberEast = [getPos _x , sector_size, EAST] call F_getUnitsCount;
-			_e_numberWest = [getPos _x , sector_size, WEST] call F_getUnitsCount;
-			_e_numberInd = [getPos _x , sector_size, RESISTANCE] call F_getUnitsCount;
+			_e_numberEast = [_x getVariable "pos", sector_size, EAST] call F_getUnitsCount;
+			_e_numberWest = [_x getVariable "pos", sector_size, WEST] call F_getUnitsCount;
+			_e_numberInd = [_x getVariable "pos", sector_size, RESISTANCE] call F_getUnitsCount;
 
 
-			_numberEast = [getPos _x , sector_size / 2 , EAST] call F_getUnitsCount;
-			_numberWest = [getPos _x , sector_size / 2 , WEST] call F_getUnitsCount;
-			_numberInd = [getPos _x , sector_size / 2, RESISTANCE] call F_getUnitsCount;
+			_numberEast = [_x getVariable "pos", sector_size / 2 , EAST] call F_getUnitsCount;
+			_numberWest = [_x getVariable "pos", sector_size / 2 , WEST] call F_getUnitsCount;
+			_numberInd = [_x getVariable "pos", sector_size / 2, RESISTANCE] call F_getUnitsCount;
 
 			[_x, east_sectors, _numberEast, _e_numberWest + _e_numberInd, east] call CheckIfSectorCaptured;
 			[_x, west_sectors, _numberWest, _e_numberEast + _e_numberInd, west] call CheckIfSectorCaptured;

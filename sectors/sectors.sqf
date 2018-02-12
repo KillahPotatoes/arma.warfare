@@ -106,7 +106,7 @@ FindClosestOtherSector = {
 	_current_shortest_distance = 99999;
 
 	{
-		_sector_pos = getPos _x;
+		_sector_pos = _x getVariable "pos";
 		_distance = _leader_pos distance _sector_pos;
 
 		if (_current_shortest_distance > _distance) then {

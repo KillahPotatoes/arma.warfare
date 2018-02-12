@@ -3,7 +3,7 @@ AddRespawnPosition = {
 			
 	[_sector] call RemoveRespawnPosition;
 
-	_respawnReturn = [_side, getPos _sector] call BIS_fnc_addRespawnPosition;
+	_respawnReturn = [_side, _sector getVariable "pos"] call BIS_fnc_addRespawnPosition;
 	_sector setVariable ["currentRespawnPosition", _respawnReturn];
 };
 

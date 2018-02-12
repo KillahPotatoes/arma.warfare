@@ -8,13 +8,13 @@ drawSector = {
  };
 
  _marker = _location getVariable "marker"; 
- _markerPos = getPos _location;
+ _markerPos = _location getVariable "pos"; 
  _marker_outline = toString toArray _marker; 
 
   createMarkerLocal [_marker_outline, _markerPos]; 
  _marker_outline setMarkerColorLocal _color; 
  _marker_outline setMarkerShapeLocal "ELLIPSE"; 
  _marker_outline setMarkerBrushLocal "SolidBorder"; 
- _marker_outline setMarkerSizeLocal [sector_size,sector_size]; 
+ _marker_outline setMarkerSizeLocal [200,200]; 
 };
 

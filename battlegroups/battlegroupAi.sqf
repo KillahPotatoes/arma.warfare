@@ -18,7 +18,7 @@ AttackEnemySector = {
 		_target_sector = [_side, _leader_pos] call FindClosestOtherSector;
 
 		[_battle_group] call DeleteAllWaypoints;
-		_wp1 = _battle_group addWaypoint [getPos _target_sector, 0];
+		_wp1 = _battle_group addWaypoint [_target_sector getVariable "pos", 0];
 		_wp1 setWaypointType "SAD";
 		_battle_group setBehaviour "AWARE";
 		_battle_group enableDynamicSimulation false;

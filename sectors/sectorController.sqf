@@ -99,7 +99,6 @@ CheckIfSectorsAreCaptures = {
 			_e_numberWest = [_x getVariable "pos", sector_size, WEST] call F_getUnitsCount;
 			_e_numberInd = [_x getVariable "pos", sector_size, RESISTANCE] call F_getUnitsCount;
 
-
 			_numberEast = [_x getVariable "pos", sector_size / 2 , EAST] call F_getUnitsCount;
 			_numberWest = [_x getVariable "pos", sector_size / 2 , WEST] call F_getUnitsCount;
 			_numberInd = [_x getVariable "pos", sector_size / 2, RESISTANCE] call F_getUnitsCount;

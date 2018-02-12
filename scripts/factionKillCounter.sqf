@@ -1,21 +1,4 @@
 with uiNamespace do {
-
-	CalculatePercentageTilNextTier = {
-		_side = _this select 0;
-
-		_kill_count = missionNamespace getVariable (format ["%1_kill_counter", _side]);
-		_tier =  missionNamespace getVariable (format ["%1_tier", _side]);
-
-		if (_tier == 3) exitWith { ""; };
-
-		_tier_bound =  if(_tier == 0) then { 0 } else { missionNamespace getVariable (format ["tier_%1", _tier]); };
-		_next_tier_bound =  missionNamespace getVariable (format ["tier_%1", _tier + 1]);
-
-		_percentage = floor(((_kill_count - _tier_bound) / (_next_tier_bound - _tier_bound)) * 100);
-
-		format[" %1%2", _percentage, "%"];
-	};
-
 	[] spawn {
 		waitUntil {!isNull findDisplay 46};
 		disableSerialization;
@@ -36,9 +19,9 @@ with uiNamespace do {
 		missionNamespace getVariable "WEST_tier",
 		missionNamespace getVariable "EAST_tier",
 		missionNamespace getVariable "GUER_tier",
-		[WEST] call CalculatePercentageTilNextTier,
-		[EAST] call CalculatePercentageTilNextTier,
-		[independent] call CalculatePercentageTilNextTier];
+		format[" %1%2", missionNamespace getVariable "WEST_percentage", "%"],
+		format[" %1%2", missionNamespace getVariable "EAST_percentage", "%"],
+		format[" %1%2", missionNamespace getVariable "GUER_percentage", "%"]];
       sleep 10;
 		};
 	};

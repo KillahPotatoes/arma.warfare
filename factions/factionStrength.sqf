@@ -14,7 +14,38 @@ InitializeFactionStats = {
 	WEST_tier = 0;
 	EAST_tier = 0;
 	GUER_tier = 0;	
+
+	WEST_percentage = 0;
+	EAST_percentage = 0;
+	GUER_percentage = 0;	
+
+	publicVariable "WEST_percentage";
+	publicVariable "EAST_percentage";
+	publicVariable "GUER_percentage";
+
+	publicVariable "WEST_tier";
+	publicVariable "EAST_tier";
+	publicVariable "GUER_tier";
 };
+
+CalculatePercentageTilNextTier = {
+		_side = _this select 0;
+
+		_kill_count = missionNamespace getVariable (format ["%1_kill_counter", _side]);
+		_tier =  missionNamespace getVariable (format ["%1_tier", _side]);
+
+		if (_tier == 3) exitWith { ""; };
+
+		_tier_bound =  if(_tier == 0) then { 0 } else { missionNamespace getVariable (format ["tier_%1", _tier]); };
+		_next_tier_bound =  missionNamespace getVariable (format ["tier_%1", _tier + 1]);
+
+		_percentage = floor(((_kill_count - _tier_bound) / (_next_tier_bound - _tier_bound)) * 100);
+
+		_var_name = format["%1_percentage", _side];	
+
+		missionNamespace setVariable [_var_name, _percentage, true];
+		publicVariable _var_name;		
+	};
 
 IncrementFactionKillCounter = {
 	_side = _this select 0;
@@ -45,7 +76,9 @@ IncrementFactionKillCounter = {
 			_msg remoteExec ["hint"]; 
 			missionNamespace setVariable [format ["%1_tier", _side], 1, true];
 		};
-	}
+	};
+
+	[_side] call CalculatePercentageTilNextTier;
 }; 
 
 SetInitialFactionStrength = {
@@ -56,6 +89,8 @@ SetInitialFactionStrength = {
 	_total_strength_var = format ["%1_strength", _side];
 	missionNamespace setVariable [_initial_strength_var, _value, true];
 	missionNamespace setVariable [_total_strength_var, _value, true];
+
+	publicVariable _total_strength_var;
 }; 
 
 SetFactionStrength = {
@@ -63,15 +98,16 @@ SetFactionStrength = {
 	_value = _this select 1;
 
 	_name = format ["%1_strength", _side];
-	missionNamespace setVariable [_name, _value, true]
+	missionNamespace setVariable [_name, _value, true];
+
+	publicVariable _name;	
 }; 
 
 GetFactionStrength = {
 	_side = _this select 0;
 
 	_name = format ["%1_strength", _side];
-	_value = missionNamespace getVariable _name;
-	_value;
+	missionNamespace getVariable _name;
 };
 
 SetFactionSectorIncome = {
@@ -79,15 +115,16 @@ SetFactionSectorIncome = {
 	_value = _this select 1;
 
 	_name = format ["%1_sector_income", _side];
-	missionNamespace setVariable [_name, _value, true]
+	missionNamespace setVariable [_name, _value, true];
+
+	publicVariable _name;
 }; 
 
 GetFactionSectorIncome = {
 	_side = _this select 0;
 
 	_name = format ["%1_sector_income", _side];
-	_value = missionNamespace getVariable _name;
-	_value;	
+	missionNamespace getVariable _name;	
 };
 
 CalculateTierBoundaries = {

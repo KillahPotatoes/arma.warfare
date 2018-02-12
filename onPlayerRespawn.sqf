@@ -14,4 +14,4 @@ _new_group = createGroup [side player, true];
 	
 } forEach units _group;
 
-[_new_group] call AddBattleGroups;
+[_new_group] remoteExec  ["AddBattleGroups", 2];

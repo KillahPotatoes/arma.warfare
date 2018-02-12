@@ -10,8 +10,7 @@ player addAction ["Request squad", {
     {[_x] joinSilent _group} forEach units _soldierGroup;
 
     _soldierGroup deleteGroupWhenEmpty true;
-		[_group] call AddBattleGroups;
-
+		[_group] remoteExec ["AddBattleGroups", 2];
   }, nil, 1.5, true, true, "",
   '
 	_show = false;

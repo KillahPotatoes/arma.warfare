@@ -45,14 +45,12 @@ SpawnDefensiveVehicle = {
 
 SpawnSectorDefense = {
 	_location = _this select 0;	
-	_chanceOfGuarded = random 100;
+	_chance_mortar = random 100;
 	_radius = 25;
-
-    if(_chanceOfGuarded < 80) then {
-		[_location] call SpawnSquad;		
-    };
-
-	if(_chanceOfGuarded < 50) then {
+    
+	[_location] call SpawnSquad;		
+    
+	if(_chance_mortar < 50) then {
 		[_location] call SpawnMortarPositions;		
     };
 };

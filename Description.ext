@@ -1,1 +1,3 @@
 respawnTemplates[] = {"MenuPosition"};
+aikills = 1;
+respawnDelay = 10;

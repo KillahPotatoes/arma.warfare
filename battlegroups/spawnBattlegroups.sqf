@@ -7,17 +7,17 @@ SpawnRandomBattleGroupType = {
 	_respawn_point_air = format["respawn_air_%1", _faction];
 
 	_tier =  missionNamespace getVariable (format ["%1_tier", _faction]);
-	_base_chance = 50 / _tier;
+	_base_chance = 15;
     
-	if(_tier > 2 && _diceRoll < _chance) exitWith {
+	if(_tier > 2 && _diceRoll < _base_chance) exitWith {
 		([_respawn_point_air, _faction] call SpawnHelicopter) select 2;
 	};
 
-	if (_tier > 1 && _diceRoll < (_base_chance * 2))) exitWith {
+	if (_tier > 1 && _diceRoll < (_base_chance * 2)) exitWith {
 		([_respawn_point_ground, _faction, "heavy_vehicles"] call SpawnVehicle) select 2;
 	}; 
 
-	if (_tier > 0 && _diceRoll < (_base_chance * 3))) exitWith {
+	if (_tier > 0 && _diceRoll < (_base_chance * 3)) exitWith {
 		([_respawn_point_ground, _faction,  "light_vehicles"] call SpawnVehicle) select 2;
 	};
 

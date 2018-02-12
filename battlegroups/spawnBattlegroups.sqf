@@ -7,7 +7,7 @@ SpawnRandomBattleGroupType = {
 	_respawn_point_air = format["respawn_air_%1", _faction];
 
 	_tier =  missionNamespace getVariable (format ["%1_tier", _faction]);
-	_base_chance = 15;
+	_base_chance = 20;
     
 	if(_tier > 2 && _diceRoll < _base_chance) exitWith {
 		([_respawn_point_air, _faction] call SpawnHelicopter) select 2;

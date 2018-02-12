@@ -25,7 +25,7 @@ AddBattleGroups = {
 	_side = side _group;
 
 	_groups = missionNamespace getVariable format["%1_battle_groups", _side];
-	_groups pushBack _group;
+	_groups pushBackUnique _group;
 };
 
 GetAllBattleGroups = {

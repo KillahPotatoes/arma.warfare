@@ -33,15 +33,17 @@ CalculatePercentageTilNextTier = {
 
 		_kill_count = missionNamespace getVariable (format ["%1_kill_counter", _side]);
 		_tier =  missionNamespace getVariable (format ["%1_tier", _side]);
-
-		if (_tier == 3) exitWith { ""; };
-
+	
 		_tier_bound =  if(_tier == 0) then { 0 } else { missionNamespace getVariable (format ["tier_%1", _tier]); };
 		_next_tier_bound =  missionNamespace getVariable (format ["tier_%1", _tier + 1]);
 
 		_percentage = floor(((_kill_count - _tier_bound) / (_next_tier_bound - _tier_bound)) * 100);
 
 		_var_name = format["%1_percentage", _side];	
+
+		if (_percentage > 99) then {
+			_percentage = 99;
+		}; 
 
 		missionNamespace setVariable [_var_name, _percentage, true];
 		publicVariable _var_name;		

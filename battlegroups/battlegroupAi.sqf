@@ -14,11 +14,13 @@ AttackEnemySector = {
 
 	if (_other_sector_count > 0) then {
 		_leader_pos = getPos (leader _battle_group);
-
 		_target_sector = [_side, _leader_pos] call FindClosestOtherSector;
 
+		_pos = _target_sector getVariable "pos";
+		_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+
 		[_battle_group] call DeleteAllWaypoints;
-		_wp1 = _battle_group addWaypoint [_target_sector getVariable "pos", 0];
+		_wp1 = _battle_group addWaypoint [_safe_pos, 0];
 		_wp1 setWaypointType "SAD";
 		_battle_group setBehaviour "AWARE";
 		_battle_group enableDynamicSimulation false;

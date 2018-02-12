@@ -65,7 +65,8 @@ CheckIfSectorCaptured = {
 		_friendly_sectors pushBack _sector;		
 		[_sector] call drawSector;
 
-		SystemChat format["%1 has captured %2", _side, _sector getVariable "name"];
+		_msg = format["%1 has captured %2", _side, _sector getVariable "name"];
+		_msg remoteExec ["hint"]; 
 	};
 };
 
@@ -85,7 +86,8 @@ CheckIfSectorLost = {
 		
 		[_sector] call drawSector;
 		[_sector] call RemoveRespawnPosition;
-		SystemChat format["%1 has lost %2", _side, _sector getVariable "name"];
+		_msg = format["%1 has lost %2", _side, _sector getVariable "name"];
+		_msg remoteExec ["hint"]; 
 	};
 };
 

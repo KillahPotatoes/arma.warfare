@@ -8,10 +8,11 @@ F_getUnitsCount = compileFinal preprocessFileLineNumbers "sectors\findUnitsNearb
 AddAmmoBox = {
 	_sector = _this select 0;
 
-	 _pos = _sector getVariable "pos";	 
+	_pos = _sector getVariable "pos";	 
 	_ammo_box = "B_CargoNet_01_ammo_F";
-	 _safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-	 _ammo_box createVehicle (_pos);
+	_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+	_ammo_box createVehicle (_pos);
+	_ammo_box setVariable ["sector", _sector];
 };
 
 AddAllSectorsToGlobalArray = {
@@ -21,16 +22,17 @@ AddAllSectorsToGlobalArray = {
 		_second_string = _split_string select 1;
 				
 		if ( _first_string == "sector_" ) then {
-			_location = createGroup sideLogic;
-			_location setVariable ["pos", getMarkerPos _x];
-			_location setVariable ["marker", _x];
-			_location setVariable ["faction", civilian];
-			_location setVariable ["name", _second_string];
+			_sector = createGroup sideLogic;
+			_sector setVariable ["pos", getMarkerPos _x];
+			_sector setVariable ["marker", _x];
+			_sector setVariable ["faction", civilian];
+			_sector setVariable ["name", _second_string];
 
-			[_location] call drawSector;
-			sectors pushback _location;	
+			[_sector] call drawSector;
+			sectors pushback _sector;	
 			
-			[_location] call AddAmmoBox;		
+			_ammo_box = [_sector] call AddAmmoBox;
+			
 		};
 	} foreach allMapMarkers;
 };

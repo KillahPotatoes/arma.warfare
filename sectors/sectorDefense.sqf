@@ -2,12 +2,13 @@ SpawnSquad = {
 	_location = _this select 0;
 	_faction = _location getVariable "faction";
 
-	_positionForSoldiers = (_location getVariable "pos") getPos [_radius * sqrt random 1, random 360];
-    _numberOfSoldiers = floor random [3,5,10];
+	_positionForSoldiers = [_location getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+    _numberOfSoldiers = 5;
     _group = [_positionForSoldiers, _faction, _numberOfSoldiers] call BIS_fnc_spawnGroup;
     _group setBehaviour "AWARE";
     _group enableDynamicSimulation true;
 	_group deleteGroupWhenEmpty true;
+	_group;
 };
 
 SpawnMortarPositions = {
@@ -43,14 +44,46 @@ SpawnDefensiveVehicle = {
 	(_group select 2) deleteGroupWhenEmpty true;
 };
 
+SpawnReinforcements = {
+	_sector = _this select 0;
+	_defenders = _this select 1;
+	_side = _this select 2;
+
+    _group_count = {alive _x} count units _group;
+
+    _numberOfSoldiers = 5 - _group_count;
+
+    _pos = [_sector getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+    _soldierGroup = [_pos, _side, _numberOfSoldiers] call BIS_fnc_spawnGroup;
+    
+    {[_x] joinSilent _group} forEach units _soldierGroup;
+    _soldierGroup deleteGroupWhenEmpty true;
+};
+
 SpawnSectorDefense = {
-	_location = _this select 0;	
-	_chance_mortar = random 100;
-	_radius = 25;
+	_sector = _this select 0;
+	
+	_side = _sector getVariable "faction";
+	_defenders = _sector getVariable ["defenders", nil];
+
+	if(isNil "_defenders") then {
+		_defensive_squad = [_sector] call SpawnSquad;	
+		_sector setVariable ["defenders", _defensive_squad];
+			
+	} else if (side _defenders isEqualTo _side) then {
+		_number_of_defenders = count units _defenders;
+		[_sector, _defenders, _side] call SpawnReinforcements;
+
+	} else if(!(side _defenders isEqualTo _side)) then {
+		if({alive _x} count units _group > 0) then {
+			[_defenders] call AddBattleGroups;
+		};
+
+		_defensive_squad = [_sector] call SpawnSquad;	
+		_sector setVariable ["defenders", _defensive_squad];	
+	}
     
-	[_location] call SpawnSquad;		
-    
-	if(_chance_mortar < 50) then {
-		[_location] call SpawnMortarPositions;		
+	if(random 100 < 50) then {
+		[_sector] call SpawnMortarPositions;		
     };
 };

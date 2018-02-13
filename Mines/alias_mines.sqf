@@ -36,12 +36,9 @@ generateMines = {
 	};
 };
 
-_sectors = [true] call BIS_fnc_moduleSector;
 {
+	  _pos = _x getVariable "pos";
 	  _name = _x getVariable "name";
-	  [getPos _x,150,"APERSBoundingMine",random [25, 100, 150],false, _name] call generateMines;
-      [getPos _x,500,"APERSBoundingMine",random [25, 100, 150],false, format[ "%1_distant", _name]] call generateMines;
+      [_pos,300,"APERSBoundingMine",random [0, 25, 50],false, _name] call generateMines;
 
-
-
-} forEach _sectors;
+} forEach sectors;

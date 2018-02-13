@@ -5,11 +5,9 @@
 
 [] spawn compileFinal preprocessFileLineNumbers "battlegroups\battlegroupsController.sqf";
 
-//[] spawn compileFinal preprocessFileLineNumbers "showCuratorPoints.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "RYD_FFE\FFE.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "scripts\AIReviveScript.sqf";
 
 [] spawn compileFinal preprocessFileLineNumbers "scripts\killTicker.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "scripts\addKillTickerEventToAllUnits.sqf";
-//[] spawn compileFinal preprocessFileLineNumbers "Mines\alias_mines.sqf";
-//[] spawn compileFinal preprocessFileLineNumbers "artillerySpawn.sqf";
+[] spawn compileFinal preprocessFileLineNumbers "Mines\alias_mines.sqf";

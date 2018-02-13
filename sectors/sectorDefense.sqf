@@ -62,19 +62,6 @@ SpawnMortarPositions = {
 	};
 };
 
-SpawnDefensiveVehicle = {
-	_sector = _this select 0;
-	_side = _sector getVariable "faction";
-
-	_vehicles = ([_side] call GetPreset) getVariable "light_vehicles"; 
-	_pos = [_sector getVariable "pos", 0, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
-
-	_vehicleType = selectRandom _vehicles;
-    _group = [_pos, random 360, _vehicleType, _side] call BIS_fnc_spawnVehicle;
-	(_group select 2) enableDynamicSimulation true; 
-	(_group select 2) deleteGroupWhenEmpty true;
-};
-
 SpawnReinforcements = {
 	_sector = _this select 0;
 	_defenders = _this select 1;
@@ -116,8 +103,6 @@ SpawnSectorDefense = {
 			_sector setVariable ["defenders", _defensive_squad];
 		};	
 	};
+    [_sector] call SpawnMortarPositions;		
     
-	if(random 100 < 999) then {
-		[_sector] call SpawnMortarPositions;		
-    };
 };

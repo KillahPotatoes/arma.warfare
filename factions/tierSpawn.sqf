@@ -46,7 +46,6 @@ initializeBase = {
 	};
 
 	_vehicle_l = ["%1_vehicle_light_parking", _side] call Get;
-	systemChat "Is here";
 	if (!(isNil "_vehicle_l")) then {
 		_light_vehicles = missionNamespace getVariable format["%1_light_vehicles", _side];
 		[_side, _light_vehicles, _vehicle_l, 1, "light_v"] spawn BaseVehicle;
@@ -81,7 +80,7 @@ BaseVehicle = {
 			};
 		};
 
-	 	sleep 10;
+	 	sleep 120;
 	};
 };
 

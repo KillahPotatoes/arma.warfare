@@ -1,3 +1,4 @@
 respawnTemplates[] = {"MenuPosition"};
 aikills = 1;
 respawnDelay = 10;
+DisabledAI = 1;

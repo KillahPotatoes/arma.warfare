@@ -8,6 +8,7 @@ SpawnSquad = {
     _group setBehaviour "AWARE";
     _group enableDynamicSimulation true;
 	_group deleteGroupWhenEmpty true;
+	_defenders allowFleeing 0;
 	_group;
 };
 
@@ -71,10 +72,14 @@ SpawnReinforcements = {
 
     _numberOfSoldiers = 5 - _group_count;
 
+
+
     _pos = [_sector getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
     _soldierGroup = [_pos, _side, _numberOfSoldiers] call BIS_fnc_spawnGroup;
-    
+    	
     {[_x] joinSilent _defenders} forEach units _soldierGroup;
+
+	_defenders allowFleeing 0;
     _soldierGroup deleteGroupWhenEmpty true;
 };
 

@@ -11,8 +11,8 @@ AddAmmoBox = {
 	_pos = _sector getVariable "pos";	 
 	_ammo_box = "B_CargoNet_01_ammo_F";
 	_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-	_ammo_box createVehicle (_pos);
-	//_ammo_box setVariable ["sector", _sector];
+	_obj = _ammo_box createVehicle (_pos);
+	_obj setVariable ["sector", _sector];
 };
 
 AddAllSectorsToGlobalArray = {

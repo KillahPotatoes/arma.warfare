@@ -25,17 +25,5 @@ player addAction ["Halo Insertion", {
     };
     onMapSingleClick {};
   }, nil, 1.5, true, true, "",
-  '
-	_show = false;
-	_trg = cursorTarget;
-	if ( (typeOf _trg) in ["B_CargoNet_01_ammo_F"]
-    && _trg distance player < 3
-    && isTouchingGround player
-    && alive player
-    && lifeState player != "incapacitated"
-    && leader player == player) then {
-		_show = true;
-	};
-	_show
-'
+  '[cursorTarget, player] call CanUseAmmoBox'
   ];

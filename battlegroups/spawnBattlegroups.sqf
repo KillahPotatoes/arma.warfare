@@ -91,7 +91,7 @@ SpawnBattleGroups = {
 SpawnBattleHelicopter = {
 	_side = _this select 0;
 
-	//sleep random[300, 600, 900];
+	sleep random[300, 600, 900];
 	while {true} do {
 		_tier =  ["%1_tier", _side] call Get;
 		

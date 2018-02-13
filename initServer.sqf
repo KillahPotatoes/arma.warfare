@@ -11,3 +11,4 @@
 [] spawn compileFinal preprocessFileLineNumbers "scripts\killTicker.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "scripts\addKillTickerEventToAllUnits.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "Mines\alias_mines.sqf";
+[] spawn compileFinal preprocessFileLineNumbers "factions\tierSpawn.sqf";

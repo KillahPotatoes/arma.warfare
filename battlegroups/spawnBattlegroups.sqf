@@ -52,7 +52,7 @@ SpawnInfantry = {
 
 	_pos = [getMarkerPos _marker, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 	
-    _numberOfSoldiers = floor random [3,5,10];
+    _numberOfSoldiers = floor random [3,5,10]; // TODO make it an even number but so it fills up til 30 overall
     _soldierGroup = [_pos, _faction, _numberOfSoldiers] call BIS_fnc_spawnGroup;
     _soldierGroup setBehaviour "AWARE";
 	_soldierGroup;

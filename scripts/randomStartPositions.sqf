@@ -8,18 +8,6 @@ _prefixes deleteAt (_prefixes find east_prefix);
 
 west_prefix = selectRandom _prefixes;
 
-GetPrefix = {
-	_side = _this select 0;
-
-	if(_side isEqualTo west) exitWith {
-		west_prefix;
-	};
-
-	if(_side isEqualTo east) exitWith {
-		east_prefix;
-	};
-
-	if(_side isEqualTo independent) exitWith {
-		guer_prefix;
-	};
-};
+publicVariable "west_prefix";
+publicVariable "east_prefix";
+publicVariable "guer_prefix";

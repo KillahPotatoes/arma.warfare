@@ -23,9 +23,9 @@ AddRedeployToSectorsActions = {
 
 AddRedeployToHqAction = {
   player addAction ["Redeploy to HQ", {
-       _side = side player;       
-
-	    _respawnMarker = format["respawn_ground_%1", _side];
+      _side = side player;       
+      _prefix = missionNamespace getVariable format["%1_prefix", _side];
+	    _respawnMarker = format["respawn_ground_%1", _prefix];
       _pos = [getMarkerPos _respawnMarker, 0, 15, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
         player setPos _pos;
   }, nil, 1.5, true, true, "",

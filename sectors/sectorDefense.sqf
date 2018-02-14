@@ -9,6 +9,7 @@ SpawnSquad = {
     _group enableDynamicSimulation true;
 	_group deleteGroupWhenEmpty true;
 	_group allowFleeing 0;
+	[_side, _group] call AdjustGroupSkill;		
 	_group;
 };
 
@@ -25,6 +26,8 @@ SpawnMortar = {
 	_group = _static_mortar select 2;
 	_group deleteGroupWhenEmpty true;
 	_group enableDynamicSimulation false; 
+
+	[_side, _group] call AdjustGroupSkill;	
 
 	_name = _static_mortar select 0;
 	_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
@@ -72,8 +75,6 @@ SpawnReinforcements = {
 
     _numberOfSoldiers = 5 - _group_count;
 
-
-
     _pos = [_sector getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
     _soldierGroup = [_pos, _side, _numberOfSoldiers] call BIS_fnc_spawnGroup;
     	
@@ -81,6 +82,8 @@ SpawnReinforcements = {
 
 	_defenders allowFleeing 0;
     _soldierGroup deleteGroupWhenEmpty true;
+
+	[_side, _defenders] call AdjustGroupSkill;
 };
 
 SpawnSectorDefense = {

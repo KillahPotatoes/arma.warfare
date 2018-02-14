@@ -54,14 +54,8 @@ while {true} do {
 				_new_target = [_side, _leader_pos] call FindClosestOwnedSector;				
 				[_g, _new_target] call FindTargetSector;
 			};		
-		}; 
-
-		_current_strength = [_side] call GetFactionStrength;
-		_add_skill = (starting_strength min (abs (_current_strength - starting_strength))) / 100;  
-
-		{
-		  	_x setSkill _add_skill + 0.5;
-		} forEach units _g;		
+		};
+		[_side, _g] call AdjustGroupSkill;	
 		
 	} forEach ([] call GetAllBattleGroups);
 	sleep 10;

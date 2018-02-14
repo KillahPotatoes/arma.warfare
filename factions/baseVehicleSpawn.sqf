@@ -24,7 +24,7 @@ SpawnBaseVehicle = {
 spawnBaseAmmoBox = {
 	_side = _this select 0;
 
-	_prefix = [_side] call GetPrefix;
+	_prefix = missionNamespace getVariable format["%1_prefix", _side];
 
 	_respawn_marker = format["respawn_ground_%1", _prefix];
 
@@ -39,7 +39,7 @@ initializeBase = {
 
 	[_side] call spawnBaseAmmoBox;
 
-	_prefix = [_side] call GetPrefix;
+	_prefix = missionNamespace getVariable format["%1_prefix", _side];
 
 	_heli_pad_b = missionNamespace getVariable [format["%1_helipad_battle", _prefix], nil];
 	if (!(isNil "_heli_pad_b")) then {

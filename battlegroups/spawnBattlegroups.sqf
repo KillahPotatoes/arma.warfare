@@ -4,7 +4,7 @@ SpawnRandomBattleGroupType = {
 	
 	_diceRoll = random 100;
 
-	_prefix = [_faction] call GetPrefix;
+	_prefix = missionNamespace getVariable format["%1_prefix", _faction];
 
 	_respawn_point_ground = format["respawn_ground_%1", _prefix];
 
@@ -128,7 +128,7 @@ SpawnBattleHelicopter = {
 		_left_over_strength = _strength - _unit_count;
 
 		if (_left_over_strength > 0) then {
-			_prefix = [_side] call GetPrefix;			
+			_prefix = missionNamespace getVariable format["%1_prefix", _side];			
 			_battle_helicopter = missionNamespace getVariable [format["%1_battle_heli", _side], nil];
 			_respawn_point_air = format["respawn_air_%1", _prefix];
 

@@ -17,7 +17,7 @@ RemoveRespawnPosition = {
 
 AddInitialRespawnPosition = {
 	_side = _this select 0;
-	_prefix = [_side] call GetPrefix;
+	_prefix = missionNamespace getVariable format["%1_prefix", _side];
 
 	_respawnMarker = format["respawn_ground_%1", _prefix];
 	_pos = getMarkerPos _respawnMarker;

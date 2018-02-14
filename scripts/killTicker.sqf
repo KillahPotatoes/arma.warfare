@@ -17,8 +17,6 @@ register_kill = {
     
 	if (!(_victim_side isEqualTo _killer_side)) then {
 		_kill_point = if(isPlayer _killer) then { 0.2; } else { 1; };
-
-
 		[_killer_side, _kill_point] call IncrementFactionKillCounter;
 	};
 

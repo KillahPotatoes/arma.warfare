@@ -24,7 +24,9 @@ SpawnBaseVehicle = {
 spawnBaseAmmoBox = {
 	_side = _this select 0;
 
-	_respawn_marker = format["respawn_ground_%1", _side];
+	_prefix = [_side] call GetPrefix;
+
+	_respawn_marker = format["respawn_ground_%1", _prefix];
 
 	_pos = getMarkerPos _respawn_marker;;	 
 	_ammo_box = "B_CargoNet_01_ammo_F";	
@@ -37,28 +39,27 @@ initializeBase = {
 
 	[_side] call spawnBaseAmmoBox;
 
-	_heli_pad_b = ["%1_helipad_battle", _side] call Get;
+	_prefix = [_side] call GetPrefix;
 
+	_heli_pad_b = missionNamespace getVariable [format["%1_helipad_battle", _prefix], nil];
 	if (!(isNil "_heli_pad_b")) then {
 		_heli_array_b = missionNamespace getVariable format["%1_gunships", _side];
 		[_side, _heli_array_b, _heli_pad_b, 3, "heli_b"] spawn BaseVehicle;
 	};
-
-	_heli_pad_t = ["%1_helipad_transport", _side] call Get;
-
+ 
+	_heli_pad_t = missionNamespace getVariable [format["%1_helipad_transport", _prefix], nil];
 	if (!(isNil "_heli_pad_t")) then {
 		_heli_array_t = missionNamespace getVariable format["%1_transport_heli", _side];
 		[_side, _heli_array_t, _heli_pad_t, 0, "heli_t"] spawn BaseVehicle;
 	};
 
-	_vehicle_h = ["%1_vehicle_heavy_parking", _side] call Get;
-
+	_vehicle_h = missionNamespace getVariable [format["%1_vehicle_heavy_parking", _prefix], nil];
 	if (!(isNil "_vehicle_h")) then {
 		_heavy_vehicles = missionNamespace getVariable format["%1_heavy_vehicles", _side];
 		[_side, _heavy_vehicles, _vehicle_h, 2, "heavy_v"] spawn BaseVehicle;
 	};
 
-	_vehicle_l = ["%1_vehicle_light_parking", _side] call Get;
+	_vehicle_l = missionNamespace getVariable [format["%1_vehicle_light_parking", _prefix], nil];
 	if (!(isNil "_vehicle_l")) then {
 		_light_vehicles = missionNamespace getVariable format["%1_light_vehicles", _side];
 		[_side, _light_vehicles, _vehicle_l, 1, "light_v"] spawn BaseVehicle;
@@ -73,8 +74,7 @@ BaseVehicle = {
 	_type = _this select 4;
 
 	while {true} do {
-		_tier = ["%1_tier", _side] call Get;
-		
+		_tier =  missionNamespace getVariable [format["%1_tier", _side], nil];
 		if (_tier >= _req_tier) then {
 			_veh = missionNamespace getVariable [format["%1_base_%2", _side, _type], nil];
 

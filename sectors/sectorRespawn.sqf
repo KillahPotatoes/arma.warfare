@@ -17,8 +17,9 @@ RemoveRespawnPosition = {
 
 AddInitialRespawnPosition = {
 	_side = _this select 0;
+	_prefix = [_side] call GetPrefix;
 
-	_respawnMarker = format["respawn_ground_%1", _side];
+	_respawnMarker = format["respawn_ground_%1", _prefix];
 	_pos = getMarkerPos _respawnMarker;
 	
 	[_side, _pos] call BIS_fnc_addRespawnPosition;	

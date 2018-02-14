@@ -4,7 +4,9 @@ SpawnRandomBattleGroupType = {
 	
 	_diceRoll = random 100;
 
-	_respawn_point_ground = format["respawn_ground_%1", _faction];
+	_prefix = [_faction] call GetPrefix;
+
+	_respawn_point_ground = format["respawn_ground_%1", _prefix];
 
 	_tier =  missionNamespace getVariable (format ["%1_tier", _faction]);
 	_base_chance = 20;
@@ -69,7 +71,6 @@ SpawnBattleGroup = {
 
 	if (_left_over_strength > 0) then {
 		if (_unit_count < 30) then {
-			_respawn_point = format["respawn_%1", _faction];
 			_battle_group =	[_faction, _left_over_strength] call SpawnRandomBattleGroupType;
 
 			_battle_group deleteGroupWhenEmpty true;
@@ -96,7 +97,7 @@ WaitUntilHelicopterIsDestroyed = {
 
 	waitUntil {!alive _veh || !canMove _veh};
 
-	_tier =  ["%1_tier", _side] call Get;
+	_tier = missionNamespace getVariable [format["%1_tier", _side], nil];	
 	
 	if(_tier == 0) then {
 		sleep random[600, 900, 1200];
@@ -118,6 +119,7 @@ WaitUntilHelicopterIsDestroyed = {
 SpawnBattleHelicopter = {
 	_side = _this select 0;
 
+	
 	sleep random[600, 900, 1200];
 	while {true} do {
 
@@ -126,9 +128,9 @@ SpawnBattleHelicopter = {
 		_left_over_strength = _strength - _unit_count;
 
 		if (_left_over_strength > 0) then {
-		
-			_battle_helicopter =  ["%1_battle_heli", _side] call Get;
-			_respawn_point_air = format["respawn_air_%1", _side];
+			_prefix = [_side] call GetPrefix;			
+			_battle_helicopter = missionNamespace getVariable [format["%1_battle_heli", _side], nil];
+			_respawn_point_air = format["respawn_air_%1", _prefix];
 
 			if (isNil "_battle_helicopter") then {			
 				_group = ([_respawn_point_air, _side] call SpawnHelicopter);
@@ -146,7 +148,7 @@ SpawnBattleHelicopter = {
 				};
 			};		
 			
-			_battle_helicopter =  ["%1_battle_heli", _side] call Get;
+			_battle_helicopter = missionNamespace getVariable [format["%1_battle_heli", _side], nil];
 			[_side, _battle_helicopter select 0] call WaitUntilHelicopterIsDestroyed;		
 		};
 		sleep 30;

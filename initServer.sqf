@@ -1,4 +1,5 @@
 [] call compileFinal preprocessFileLineNumbers "scripts\hideRespawnMarkers.sqf";
+[] call compileFinal preprocessFileLineNumbers "scripts\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "scripts\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "sectors\sectorController.sqf";

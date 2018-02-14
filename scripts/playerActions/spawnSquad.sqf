@@ -1,4 +1,5 @@
-player addAction ["Request squad", {
+ShowRequestSquadAction = {
+  player addAction ["Request squad", {
     _group = group player;
     _group_count = {alive _x} count units _group;
 
@@ -14,3 +15,6 @@ player addAction ["Request squad", {
   }, nil, 1.5, true, true, "",
   '[cursorTarget, player] call CanUseAmmoBox'
   ];
+};
+
+

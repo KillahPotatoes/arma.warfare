@@ -113,7 +113,8 @@ SpawnBattleHelicopter = {
 				[_group] call AddBattleGroups;
 			};
 		};		
-
+		
+		waitUntil
 		if(_tier == 0) then {
 			sleep random[300, 600, 900];
 		};

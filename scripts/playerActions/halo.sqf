@@ -1,4 +1,6 @@
-player addAction ["Halo Insertion", {
+
+AddHeloAction = {
+  player addAction ["Halo Insertion", {
     openMap true;
     onMapSingleClick {
       onMapSingleClick {};
@@ -27,3 +29,6 @@ player addAction ["Halo Insertion", {
   }, nil, 1.5, true, true, "",
   '[cursorTarget, player] call CanUseAmmoBox'
   ];
+};
+
+

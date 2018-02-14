@@ -70,6 +70,7 @@ CheckIfSectorCaptured = {
 
 		_msg = format["%1 has captured %2", _side, _sector getVariable "name"];
 		_msg remoteExec ["hint"]; 
+		[sectors] remoteExec ["RefreshActionList"];
 	};
 };
 
@@ -91,6 +92,7 @@ CheckIfSectorLost = {
 		[_sector] call RemoveRespawnPosition;
 		_msg = format["%1 has lost %2", _side, _sector getVariable "name"];
 		_msg remoteExec ["hint"]; 
+		[sectors] remoteExec ["RefreshActionList"];
 	};
 };
 

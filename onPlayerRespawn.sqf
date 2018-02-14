@@ -1,18 +1,27 @@
 player enableFatigue false;
 ["Open",true] spawn BIS_fnc_arsenal;
 
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\halo.sqf";
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\spawnSquad.sqf";
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\showArsenal.sqf";
+[sectors] call AddRedeployToSectorsActions;
+[] call ShowRequestSquadAction;
+[] call ShowArsenalAction;
+[] call AddRedeployToHqAction;
+[] call AddHeloAction;
 
-_group = group player;
-_new_group = createGroup [side player, true];
+RemoveSquadMatesWhenPlayerDies = {
+	_group = group player;
 
-{
-	if (!(isPlayer _x)) then {
-		[_x] joinSilent _new_group
-	};
-	
-} forEach units _group;
+	if(count unit _group > 1) then {
+		_new_group = createGroup [side player, true];
 
-[_new_group] remoteExec  ["AddBattleGroups", 2];
+		{
+			if (!(isPlayer _x)) then {
+				[_x] joinSilent _new_group
+			};
+			
+		} forEach units _group;
+
+		[_new_group] remoteExec  ["AddBattleGroups", 2];
+	};	
+};
+
+[] call RemoveSquadMatesWhenPlayerDies;

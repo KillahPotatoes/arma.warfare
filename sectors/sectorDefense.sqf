@@ -8,7 +8,7 @@ SpawnSquad = {
     _group setBehaviour "AWARE";
     _group enableDynamicSimulation true;
 	_group deleteGroupWhenEmpty true;
-	_defenders allowFleeing 0;
+	_group allowFleeing 0;
 	_group;
 };
 

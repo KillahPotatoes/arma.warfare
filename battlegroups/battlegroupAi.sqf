@@ -7,27 +7,34 @@ DeleteAllWaypoints = {
 	};
 };
 
-AttackEnemySector = {
+MoveToSector = {
+	_new_target = _this select 0;
+	_battle_group = _this select 1;
+
+	_pos = _new_target getVariable "pos";
+	_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+
+	[_battle_group] call DeleteAllWaypoints;
+	_wp1 = _battle_group addWaypoint [_safe_pos, 0];
+	_wp1 setWaypointType "SAD";
+	_battle_group setBehaviour "AWARE";
+	_battle_group enableDynamicSimulation false;
+
+	_battle_group setVariable ["target", _new_target];	
+};
+
+FindTargetSector = {
 	_battle_group = _this select 0;
-	_side = side _battle_group;
-	_other_sector_count = [_side] call OtherSectorCount;
+	_new_target = _this select 1;
 
-	if (_other_sector_count > 0) then {
-		_leader_pos = getPos (leader _battle_group);
-		_target_sector = [_side, _leader_pos] call FindClosestOtherSector;
+	_current_target = _battle_group getVariable ["target", "undefined"];
 
-		_pos = _target_sector getVariable "pos";
-		_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	if (_current_target isEqualTo "undefined") exitWith {
+		[_new_target, _battle_group] call MoveToSector;
+	};
 
-		[_battle_group] call DeleteAllWaypoints;
-		_wp1 = _battle_group addWaypoint [_safe_pos, 0];
-		_wp1 setWaypointType "SAD";
-		_battle_group setBehaviour "AWARE";
-		_battle_group enableDynamicSimulation false;
-
-		_battle_group setVariable ["target", _target_sector];
-	} else {
-		// defend?
+	if (!(_new_target isEqualTo _current_target)) exitWith {
+		[_new_target, _battle_group] call MoveToSector;
 	};
 };
 
@@ -35,19 +42,17 @@ while {true} do {
 	{		
 		if (!(player isEqualTo leader _x)) then {
 			_side = side _x; 
+			_leader_pos = getPos (leader _x);
+			_other_sector_count = [_side] call OtherSectorCount;
 
-			_target_sector = _x getVariable ["target", "undefined"];
-
-			if (_target_sector isEqualTo "undefined") then {
-				_new_target = [_x] call AttackEnemySector;
+			if (_other_sector_count > 0) then {			
+				_new_target = [_side, _leader_pos] call FindClosestOtherSector;				
+				[_x, _new_target] call FindTargetSector;
 			} else {
-				_current_owner = _target_sector getVariable "faction";
-				
-				if (_side isEqualTo _current_owner) then {
-					[_x] call AttackEnemySector; 
-					
-				};
+				_new_target = [_side, _leader_pos] call FindClosestOwnedSector;				
+				[_x, _new_target] call FindTargetSector;
 			};
+		
 		}; 
 		
 	} forEach ([] call GetAllBattleGroups);

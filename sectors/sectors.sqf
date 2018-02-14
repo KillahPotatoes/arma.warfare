@@ -23,7 +23,7 @@ GetEnemySectors = {
 	_sectors;
 };
 
-GetSectors = {
+GetOwnedSectors = {
 	_faction = _this select 0;
 
 	_sectors = [];
@@ -92,7 +92,7 @@ OtherSectorCount = {
 
 GetOtherSectors = {
 	_faction = _this select 0;
-	_owned_sectors = [_faction] call GetSectors;
+	_owned_sectors = [_faction] call GetOwnedSectors;
 
 	sectors - _owned_sectors;
 };
@@ -103,6 +103,28 @@ FindClosestOtherSector = {
 	_enemySectors = [_side] call GetOtherSectors;	
 
 	_current_target_sector = _enemySectors select 0;
+	_current_shortest_distance = 99999;
+
+	{
+		_sector_pos = _x getVariable "pos";
+		_distance = _leader_pos distance _sector_pos;
+
+		if (_current_shortest_distance > _distance) then {
+			_current_shortest_distance = _distance;
+			_current_target_sector = _x;
+		};
+
+	} forEach _enemySectors;
+
+	_current_target_sector;
+};
+
+FindClosestOwnedSector = {
+	_side = _this select 0;
+	_pos = _this select 1;
+	_ownedSectors = [_side] call GetOwnedSectors;	
+
+	_current_target_sector = _ownedSectors select 0;
 	_current_shortest_distance = 99999;
 
 	{

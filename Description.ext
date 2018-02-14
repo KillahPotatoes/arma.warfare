@@ -2,3 +2,16 @@ respawnTemplates[] = {"MenuPosition"};
 aikills = 1;
 respawnDelay = 10;
 DisabledAI = 1;
+
+
+corpseManagerMode = 1;
+corpseLimit = 50;
+corpseRemovalMinTime = 120;
+corpseRemovalMaxTime = 240;
+
+wreckManagerMode = 1;
+wreckLimit = 20;
+wreckRemovalMinTime = 60; //seconds
+wreckRemovalMaxTime = 1200; //seconds
+
+minPlayerDistance = 500;

@@ -88,12 +88,36 @@ SpawnBattleGroups = {
 	};
 };
 
+WaitUntilHelicopterIsDestroyed = {
+	_side = _this select 0;
+	_veh = _this select 1;
+
+	waitUntil {!alive _veh || !canMove _veh};
+
+	_tier =  ["%1_tier", _side] call Get;
+	
+	if(_tier == 0) then {
+		sleep random[300, 600, 900];
+	};
+
+	if(_tier == 1) then {
+		sleep random[240, 540, 840];
+	};
+
+	if(_tier == 2) then {
+		sleep random[180, 480, 780];
+	};
+
+	if(_tier == 3) then {
+		sleep random[120, 420, 720];
+	};
+};
+
 SpawnBattleHelicopter = {
 	_side = _this select 0;
 
-	sleep random[300, 600, 900];
+	//sleep random[300, 600, 900];
 	while {true} do {
-		_tier =  ["%1_tier", _side] call Get;
 		
 		_battle_helicopter =  ["%1_battle_heli", _side] call Get;
 		_respawn_point_air = format["respawn_air_%1", _side];
@@ -114,22 +138,8 @@ SpawnBattleHelicopter = {
 			};
 		};		
 		
-		waitUntil
-		if(_tier == 0) then {
-			sleep random[300, 600, 900];
-		};
-
-		if(_tier == 1) then {
-			sleep random[240, 540, 840];
-		};
-
-		if(_tier == 2) then {
-			sleep random[180, 480, 780];
-		};
-
-		if(_tier == 3) then {
-			sleep random[120, 420, 720];
-		};
+		_battle_helicopter =  ["%1_battle_heli", _side] call Get;
+		[_side, _battle_helicopter select 0] call WaitUntilHelicopterIsDestroyed;		
 	};
 };
 

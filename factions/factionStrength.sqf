@@ -51,10 +51,11 @@ CalculatePercentageTilNextTier = {
 
 IncrementFactionKillCounter = {
 	_side = _this select 0;
+	_point = _this select 1;
 
 	_kill_counter = format ["%1_kill_counter", _side];
 	_kill_count = missionNamespace getVariable _kill_counter;
-	_new_kill_count = _kill_count + 1;
+	_new_kill_count = _kill_count + _point;
 
 	missionNamespace setVariable [_kill_counter, _new_kill_count, true];
 
@@ -130,9 +131,9 @@ GetFactionSectorIncome = {
 };
 
 CalculateTierBoundaries = {
-	tier_1 = 40;
-	tier_2 = 80;
-	tier_3 = 120;
+	tier_1 = 30;
+	tier_2 = 60;
+	tier_3 = 90;
 };
 
 [] call InitializeFactionStats;

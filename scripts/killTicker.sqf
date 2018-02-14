@@ -16,7 +16,10 @@ register_kill = {
 	_victim_side = side group _victim;
     
 	if (!(_victim_side isEqualTo _killer_side)) then {
-		[_killer_side] call IncrementFactionKillCounter;
+		_kill_point = if(isPlayer _killer) then { 0.2; } else { 1; };
+
+
+		[_killer_side, _kill_point] call IncrementFactionKillCounter;
 	};
 
 	_faction_strength = [_victim_side] call GetFactionStrength;

@@ -130,9 +130,9 @@ GetFactionSectorIncome = {
 };
 
 CalculateTierBoundaries = {
-	tier_1 = 30;
-	tier_2 = 60;
-	tier_3 = 90;
+	tier_1 = 40;
+	tier_2 = 80;
+	tier_3 = 120;
 };
 
 [] call InitializeFactionStats;

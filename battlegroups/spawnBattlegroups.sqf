@@ -9,11 +9,11 @@ SpawnRandomBattleGroupType = {
 	_base_chance = 20;
     
 	if (_tier > 1 && _diceRoll < (_base_chance * 1)) exitWith {
-		([_respawn_point_ground, _faction, "heavy_vehicles"] call SpawnVehicle) select 2;
+		([_respawn_point_ground, _faction, "_heavy_vehicles"] call SpawnVehicle) select 2;
 	}; 
 
 	if (_tier > 0 && _diceRoll < (_base_chance * 2)) exitWith {
-		([_respawn_point_ground, _faction,  "light_vehicles"] call SpawnVehicle) select 2;
+		([_respawn_point_ground, _faction,  "_light_vehicles"] call SpawnVehicle) select 2;
 	};
 
 	[_respawn_point_ground, _faction] call SpawnInfantry;	

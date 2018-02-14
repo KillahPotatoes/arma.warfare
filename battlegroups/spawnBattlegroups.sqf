@@ -1,5 +1,6 @@
 SpawnRandomBattleGroupType = {
 	_faction = _this select 0;
+	_left_over_strength = _this select 1;
 	
 	_diceRoll = random 100;
 
@@ -16,7 +17,7 @@ SpawnRandomBattleGroupType = {
 		([_respawn_point_ground, _faction,  "_light_vehicles"] call SpawnVehicle) select 2;
 	};
 
-	[_respawn_point_ground, _faction] call SpawnInfantry;	
+	[_respawn_point_ground, _faction, _left_over_strength] call SpawnInfantry;	
 };
 
 SpawnVehicle = {
@@ -49,10 +50,11 @@ SpawnHelicopter = {
 SpawnInfantry = {
   	_marker = _this select 0;
 	_faction = _this select 1;
+	_left_over_strength = _this select 2;
 
 	_pos = [getMarkerPos _marker, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 	
-    _numberOfSoldiers = floor random [3,5,10]; // TODO make it an even number but so it fills up til 30 overall
+	_numberOfSoldiers = if(_left_over_strength > 10) then { floor random [3,5,10]; } else {	_left_over_strength; };
     _soldierGroup = [_pos, _faction, _numberOfSoldiers] call BIS_fnc_spawnGroup;
     _soldierGroup setBehaviour "AWARE";
 	_soldierGroup;
@@ -68,7 +70,7 @@ SpawnBattleGroup = {
 	if (_left_over_strength > 0) then {
 		if (_unit_count < 30) then {
 			_respawn_point = format["respawn_%1", _faction];
-			_battle_group =	[_faction] call SpawnRandomBattleGroupType;
+			_battle_group =	[_faction, _left_over_strength] call SpawnRandomBattleGroupType;
 
 			_battle_group deleteGroupWhenEmpty true;
 			[_battle_group] call AddBattleGroups;
@@ -97,49 +99,57 @@ WaitUntilHelicopterIsDestroyed = {
 	_tier =  ["%1_tier", _side] call Get;
 	
 	if(_tier == 0) then {
-		sleep random[300, 600, 900];
+		sleep random[600, 900, 1200];
 	};
 
 	if(_tier == 1) then {
-		sleep random[240, 540, 840];
+		sleep random[540, 840, 1140];
 	};
 
 	if(_tier == 2) then {
-		sleep random[180, 480, 780];
+		sleep random[480, 780, 1080];
 	};
 
 	if(_tier == 3) then {
-		sleep random[120, 420, 720];
+		sleep random[420, 720, 1020];
 	};
 };
 
 SpawnBattleHelicopter = {
 	_side = _this select 0;
 
-	sleep random[300, 600, 900];
+	sleep random[600, 900, 1200];
 	while {true} do {
+
+		_unit_count = [_side] call CountBattlegroupUnits;
+		_strength = [_side] call GetFactionStrength;
+		_left_over_strength = _strength - _unit_count;
+
+		if (_left_over_strength > 0) then {
 		
-		_battle_helicopter =  ["%1_battle_heli", _side] call Get;
-		_respawn_point_air = format["respawn_air_%1", _side];
+			_battle_helicopter =  ["%1_battle_heli", _side] call Get;
+			_respawn_point_air = format["respawn_air_%1", _side];
 
-		if (isNil "_battle_helicopter") then {			
-			_group = ([_respawn_point_air, _side] call SpawnHelicopter);
-			_group deleteGroupWhenEmpty true;
-			[_group] call AddBattleGroups;
-		} else {
-			_veh = _battle_helicopter select 0;
-
-			if(!alive _veh || !canMove _veh) then {
-				_veh setDamage 1;
-				
+			if (isNil "_battle_helicopter") then {			
 				_group = ([_respawn_point_air, _side] call SpawnHelicopter);
 				_group deleteGroupWhenEmpty true;
 				[_group] call AddBattleGroups;
-			};
-		};		
-		
-		_battle_helicopter =  ["%1_battle_heli", _side] call Get;
-		[_side, _battle_helicopter select 0] call WaitUntilHelicopterIsDestroyed;		
+			} else {
+				_veh = _battle_helicopter select 0;
+
+				if(!alive _veh || !canMove _veh) then {
+					_veh setDamage 1;
+					
+					_group = ([_respawn_point_air, _side] call SpawnHelicopter);
+					_group deleteGroupWhenEmpty true;
+					[_group] call AddBattleGroups;
+				};
+			};		
+			
+			_battle_helicopter =  ["%1_battle_heli", _side] call Get;
+			[_side, _battle_helicopter select 0] call WaitUntilHelicopterIsDestroyed;		
+		};
+		sleep 30;
 	};
 };
 

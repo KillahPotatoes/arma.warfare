@@ -1,12 +1,11 @@
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\playerActions.sqf";
-
 player enableFatigue false;
 
 [] call ShowRequestSquadAction;
 [] call ShowArsenalAction;
-[] call AddRedeployToHqAction;
 [] call AddHeloAction;
+[] call AddRedeployToHqAction;
 [sectors] call AddRedeployToSectorsActions;
+
 
 RemoveSquadMatesWhenPlayerDies = {
 	_player = _this select 0;

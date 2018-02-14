@@ -1,23 +1,15 @@
 CanUseAmmoBox = {
   _trg = _this select 0;
-  _player = _this select 1;
+  _player = _this select 1;  
+  _owner = _trg getVariable "owner";	
   
-  _sector = _trg getVariable ["sector", nil];	
-
-  _isNotSectorBox = isNil "_sector";
-  _isPlayerOwned = false;
-   
-  if(!(_isNotSectorBox)) then {
-    _isPlayerOwned = (_sector getVariable ["faction", nil]) isEqualTo (side _player);
-  };
-
   (typeOf _trg) in ["B_CargoNet_01_ammo_F"]
-  && (_isNotSectorBox || _isPlayerOwned)
-  && _trg distance player < 3
-  && isTouchingGround player
-  && alive player
-  && lifeState player != "incapacitated"
-  && leader player == player;
+  && _owner isEqualTo side player
+  && _trg distance _player < 5
+  && isTouchingGround _player
+  && alive _player
+  && lifeState _player != "incapacitated"
+  && leader _player == _player;
 };
 
 [] call compileFinal preprocessFileLineNumbers "scripts\playerActions\halo.sqf";
@@ -30,9 +22,10 @@ RefreshActionList = {
 
 	removeAllActions player;
 
-	[_sectors] call AddRedeployToSectorsActions;
 	[] call ShowRequestSquadAction;
 	[] call ShowArsenalAction;
-	[] call AddRedeployToHqAction;
 	[] call AddHeloAction;
+	[] call AddRedeployToHqAction;
+	[_sectors] call AddRedeployToSectorsActions;
+
 };

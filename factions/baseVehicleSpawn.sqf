@@ -21,8 +21,21 @@ SpawnBaseVehicle = {
 	};
 };
 
+spawnBaseAmmoBox = {
+	_side = _this select 0;
+
+	_respawn_marker = format["respawn_ground_%1", _side];
+
+	_pos = getMarkerPos _respawn_marker;;	 
+	_ammo_box = "B_CargoNet_01_ammo_F";	
+	_obj = _ammo_box createVehicle (_pos);
+	_obj setVariable ["owner", _side, true];
+};
+
 initializeBase = {
 	_side = _this select 0;
+
+	[_side] call spawnBaseAmmoBox;
 
 	_heli_pad_b = ["%1_helipad_battle", _side] call Get;
 

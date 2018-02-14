@@ -10,10 +10,7 @@ AddAmmoBox = {
 
 	_pos = _sector getVariable "pos";	 
 	_ammo_box = "B_CargoNet_01_ammo_F";
-	_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-	_obj = _ammo_box createVehicle (_pos);
-	_obj setVariable ["sector", _sector];
-	publicVariable "sectors";
+	_ammo_box createVehicle (_pos);	
 };
 
 AddAllSectorsToGlobalArray = {
@@ -33,7 +30,8 @@ AddAllSectorsToGlobalArray = {
 			sectors pushback _sector;	
 			
 			_ammo_box = [_sector] call AddAmmoBox;
-			
+			_sector setVariable ["box", _ammo_box];
+			_ammo_box setVariable ["owner", civilian, true];			
 		};
 	} foreach allMapMarkers;
 	publicVariable "sectors";
@@ -72,7 +70,13 @@ CheckIfSectorCaptured = {
 
 		_msg = format["%1 has captured %2", _side, _sector getVariable "name"];
 		_msg remoteExec ["hint"]; 
+
+		_ammo_box = _sector getVariable "box";
+		_ammo_box setVariable ["owner", _side, true];
+		
 		[sectors] remoteExec ["RefreshActionList"];
+
+		publicVariable "sectors";
 	};
 };
 
@@ -94,7 +98,13 @@ CheckIfSectorLost = {
 		[_sector] call RemoveRespawnPosition;
 		_msg = format["%1 has lost %2", _side, _sector getVariable "name"];
 		_msg remoteExec ["hint"]; 
+
+		_ammo_box = _sector getVariable "box";
+		_ammo_box setVariable ["owner", civilian, true];
+
 		[sectors] remoteExec ["RefreshActionList"];
+		publicVariable "sectors";
+		
 	};
 };
 

@@ -1,2 +1,3 @@
 player enableFatigue false;
-//[] spawn compileFinal preprocessFileLineNumbers "grid\hostileGrid.sqf";
+[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\playerActions.sqf";
+

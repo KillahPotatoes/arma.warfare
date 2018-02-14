@@ -18,7 +18,7 @@ SpawnMortar = {
 
 	_orientationOfMortar = random 360;
 	
-	_mortarType = selectRandom(([_side] call GetPreset) getVariable "mortars");
+	_mortarType = selectRandom (missionNamespace getVariable format["%1_mortars", _side]);
 	_pos = [_sector getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 				
 	_static_mortar = [_pos, _orientationOfMortar, _mortarType, _side] call BIS_fnc_spawnVehicle;

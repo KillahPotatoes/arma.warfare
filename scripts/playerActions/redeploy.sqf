@@ -1,5 +1,3 @@
-
-
 AddRedeployOption = {
   _sector = _this select 0;
   _action_name = format["Redeploy to %1", _sector getVariable "name"];

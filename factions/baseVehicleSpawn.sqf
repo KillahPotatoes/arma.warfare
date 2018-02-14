@@ -27,7 +27,7 @@ initializeBase = {
 	_heli_pad_b = ["%1_helipad_battle", _side] call Get;
 
 	if (!(isNil "_heli_pad_b")) then {
-		_heli_array_b = ([_side] call GetPreset) getVariable "helicopters"; 
+		_heli_array_b = missionNamespace getVariable format["%1_gunships", _side];
 		[_side, _heli_array_b, _heli_pad_b, 3, "heli_b"] spawn BaseVehicle;
 	};
 

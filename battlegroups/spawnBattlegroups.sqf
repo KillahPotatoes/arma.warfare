@@ -24,7 +24,7 @@ SpawnVehicle = {
 	_faction = _this select 1;
 	_vehicle_type = _this select 2;
 
-	_vehicles = ([_faction] call GetPreset) getVariable _vehicle_type; 
+	_vehicles = missionNamespace getVariable format["%1%2", _faction, _vehicle_type]; 
 	_pos = [getMarkerPos _marker, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
 
 	_vehicleType = selectRandom _vehicles;
@@ -35,7 +35,7 @@ SpawnHelicopter = {
 	_marker = _this select 0;
 	_faction = _this select 1;
 
-	 _helicopters = ([_faction] call GetPreset) getVariable "helicopters"; 
+	_helicopters = missionNamespace getVariable format["%1_gunships", _faction]; 	
 
 	_heliType = selectRandom _helicopters;
 	_pos = getMarkerPos _marker;

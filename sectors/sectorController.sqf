@@ -13,6 +13,7 @@ AddAmmoBox = {
 	_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 	_obj = _ammo_box createVehicle (_pos);
 	_obj setVariable ["sector", _sector];
+	publicVariable "sectors";
 };
 
 AddAllSectorsToGlobalArray = {
@@ -35,6 +36,7 @@ AddAllSectorsToGlobalArray = {
 			
 		};
 	} foreach allMapMarkers;
+	publicVariable "sectors";
 };
 
 RemoveSectorFromArray = {

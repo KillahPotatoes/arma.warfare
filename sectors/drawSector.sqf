@@ -1,7 +1,7 @@
 drawSector = { 
  _location = _this select 0; 
  _faction = (_location getVariable "faction"); 
- _color = warfare_color_inactive;
+ _color = "ColorGrey";
  
  if (!(_faction isEqualTo civilian)) then {
      _color = [_faction, true] call BIS_fnc_sideColor;

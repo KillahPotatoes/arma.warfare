@@ -116,7 +116,7 @@ WaitUntilHelicopterIsDestroyed = {
 SpawnBattleHelicopter = {
 	_side = _this select 0;
 
-	//sleep random[300, 600, 900];
+	sleep random[300, 600, 900];
 	while {true} do {
 		
 		_battle_helicopter =  ["%1_battle_heli", _side] call Get;

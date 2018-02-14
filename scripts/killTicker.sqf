@@ -21,6 +21,6 @@ register_kill = {
 	};
 
 	_faction_strength = [_victim_side] call GetFactionStrength;
-	_new_faction_strength = if(isPlayer _victim) then { _faction_strength - 10; } else { _faction_strength - 1; };		
+	_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (_faction_strength / 5); } else { _faction_strength - 1; };		
 	[_victim_side, _new_faction_strength] call SetFactionStrength;
 };

@@ -40,20 +40,28 @@ FindTargetSector = {
 
 while {true} do {
 	{		
-		if (!(player isEqualTo leader _x)) then {
-			_side = side _x; 
-			_leader_pos = getPos (leader _x);
+		_g = _x;
+		_side = side _g; 
+
+		if (!(player isEqualTo leader _g)) then {
+			_leader_pos = getPos (leader _g);
 			_other_sector_count = [_side] call OtherSectorCount;
 
 			if (_other_sector_count > 0) then {			
 				_new_target = [_side, _leader_pos] call FindClosestOtherSector;				
-				[_x, _new_target] call FindTargetSector;
+				[_g, _new_target] call FindTargetSector;
 			} else {
 				_new_target = [_side, _leader_pos] call FindClosestOwnedSector;				
-				[_x, _new_target] call FindTargetSector;
-			};
-		
+				[_g, _new_target] call FindTargetSector;
+			};		
 		}; 
+
+		_current_strength = [_side] call GetFactionStrength;
+		_add_skill = (starting_strength min (abs (_current_strength - starting_strength))) / 100;  
+
+		{
+		  	_x setSkill _add_skill + 0.5;
+		} forEach units _g;		
 		
 	} forEach ([] call GetAllBattleGroups);
 	sleep 10;

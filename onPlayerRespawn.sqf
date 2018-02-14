@@ -6,7 +6,6 @@ player enableFatigue false;
 [] call AddRedeployToHqAction;
 [sectors] call AddRedeployToSectorsActions;
 
-
 RemoveSquadMatesWhenPlayerDies = {
 	_player = _this select 0;
 	_group = group player;

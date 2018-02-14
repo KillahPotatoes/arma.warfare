@@ -1,7 +1,7 @@
 InitializeFactionStats = {
-	[West, 50] call SetInitialFactionStrength;
-	[East, 50] call SetInitialFactionStrength;
-	[independent, 50] call SetInitialFactionStrength;
+	[West, starting_strength] call SetFactionStrength;
+	[East, starting_strength] call SetFactionStrength;
+	[independent, starting_strength] call SetFactionStrength;
 
 	[West, 0] call SetFactionSectorIncome;
 	[East, 0] call SetFactionSectorIncome;
@@ -82,18 +82,6 @@ IncrementFactionKillCounter = {
 	};
 
 	[_side] call CalculatePercentageTilNextTier;
-}; 
-
-SetInitialFactionStrength = {
-	_side = _this select 0;
-	_value = _this select 1;
-
-	_initial_strength_var = format ["%1_initial_strength", _side];
-	_total_strength_var = format ["%1_strength", _side];
-	missionNamespace setVariable [_initial_strength_var, _value, true];
-	missionNamespace setVariable [_total_strength_var, _value, true];
-
-	publicVariable _total_strength_var;
 }; 
 
 SetFactionStrength = {

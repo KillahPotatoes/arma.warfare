@@ -64,7 +64,7 @@ Strength is deminished by one point per soldier killed.
 
 If a player is killed the strength is deminished by one fifth. (Better stay alive) 
 
-Strength determines manpower. Your active AI soldiers capturing new sectors are the lesser of 30 or strength. 
+Strength determines manpower. Your number  of active AI soldiers capturing new sectors are the lesser of 30 or your faction strength. 
 
 ### Tier
 
@@ -98,6 +98,11 @@ You win when all enemy sides have 0 in strength, 0 in income and no players aliv
 
 ##### Lose condition
 You lose when strength is 0 and you die (no respawn possible)
+
+## Planned features
+
+###### Different infantry for different tiers
+###### Redeploy to captured sectors 
 
 
 

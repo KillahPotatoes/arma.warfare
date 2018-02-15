@@ -112,7 +112,7 @@ You lose when strength is 0 and you die (no respawn possible)
 
 ## Mission setup
 
-##### placing sectors
+##### Placing sectors
 Place markers with the naming convention 'sector_\<name\>'.
 An ammobox will spawn in its center så make sure its empty.
 

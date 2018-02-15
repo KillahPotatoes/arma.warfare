@@ -110,6 +110,38 @@ You win when all enemy sides have 0 in strength, 0 in income and no players aliv
 ##### Lose condition
 You lose when strength is 0 and you die (no respawn possible)
 
+## Mission setup
+
+Place markers with the naming convention "sector_<name>".
+An ammobox will spawn in its center så make sure its empty.
+
+Copy the starting base from the template mission, it should include:
+
+###### 2 grasscutters:
+<prefix>_light_vehicle_parking
+  
+<prefix>_heavy_vehicle_parking
+  
+This is where empty vehicles for players will spawn  
+
+###### 2 helipads
+<prefix>_transport_helipad
+  
+<prefix>_battle_helipad
+
+This is where empty helicopters for players will spawn  
+
+###### 2 respawn points
+<prefix>_ground_respawn
+<prefix>_air_respawn
+
+Place the '<prefix>_air_respawn' in the outskirts of the map on the same side of the base. Ai helicopters will spawn from here.
+Place the '<prefix>_ground_respawn' on an open area. In the center the ammobox and players will spawn. Around it the ai will spawn. 
+
+###### Prefix
+
+Use delta, charlie and alpha. On mission start each faction will be assigned on of these prefixes by random.
+
 ## Planned features
 
 ###### Different infantry for different tiers

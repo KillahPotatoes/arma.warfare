@@ -1,20 +1,73 @@
 # arma.warfare
 
-## Planned features
+This is a sector control mission for Arma 3 with emphasize on easy setup for new missions, combined arms gameplay and automatic difficulty scaling.
 
-- Scripted sectors
-- Sectors connected in a graph, where you can only capture sectors in a certain sequence
-- Attacking sectors that are not unlocked for capture will have small fob and laptop that can be hacked for intel
-- End game: Faction will stop spawning units and be eliminated when score reaches zero
-- Score: Holding sectors increase score at rate of X per minute. Losing a soldier gives -1
-- Put every vehicle, heli etc, out in config files
+## Features
 
-If reaching the laptop in a uncapturable sector you can choose among:
-Intel: can give location of all enemy units
-Sabotage: The sector will not unlock connected sectors for capture for another X minutes
+### Start base (HQ)
 
-Resources: 
+Your startbase consists of an ammobox, with the actions 'Request squad', 'Arsenal' and 'Helo Insertion'.
 
-https://community.bistudio.com/wiki/Code_Optimisation
-https://community.bistudio.com/wiki/Category:Scripting_Commands_Arma_3
-https://community.bistudio.com/wiki/Debugging_Techniques
+Your base will also work as a spawnpoint for AI:
+Tier 0: Infantry will spawn regulary
+Tier 1: Infantry and light vehicles will spawn regulary
+Tier 2: Infantry, light vehicles and heavy vehicles will spawn regulary
+
+Empy vehicles for player use will also spawn:
+Tier 0 or higher: A transport helicopter will spawn in base
+Tier 1 or higher: A light vehichle will spawn in base
+Tier 2 or higher: A heavy vehichle will spawn in base
+Tier 3 or higher: A gunship will spawn in base
+
+There will always only exist one of each vehicle type available for the player per side. If any of these are destroyed they will
+respawn in the base after a certain time
+
+### AI
+
+The AI that spawns in sectors will remain in sectors and protect them.
+
+The Ai that spawns in the starting base will move towards uncaptured sectors to capture them. They will also report enemy activity 
+to the mortar positions in captured sectors.
+
+### Sectors
+
+Sectors have a radius of 200 m. To capture it a friendly unit have to be within 25 m of the center, and no enemies within 200m of the radius.
+If units belonging to several factions come within 25 m of the center the sector will become neutral (grey)
+
+A captured sector give +1 every 30 second to faction strength.
+
+Every sector will have an ammobox. If the sector belongs to your side you will have 'Request squad', 'Arsenal', 'Helo insertion' and 'Redeploy to HQ' actions available.
+
+#### Sector defense
+
+Once a sector is taken, 5 soldiers will spawn and one mortar position. These will remain in the sector to defend it.
+
+### Actions
+
+#### Request squad
+
+Gives you a random squad of 8. If you already have squad mates, it will reinforce your squad so you are a squad of 8 again. 
+
+#### Redeploy to HQ
+
+Send you back to your HQ. Your squad won't follow
+
+#### Helo insertion
+
+Spawn 2000 m over the ground at any point chosen by clicking on the map. Any teammates nearby will drop with you. 
+
+### Strength
+
+Strength is increased by holding sectors by 2 points per minute per sector.
+Strength is deminished by one point per soldier killed.
+
+If a player is killed the strength is deminished by one fifth. (Better stay alive) 
+
+Strength determines manpower. Your active AI soldiers capturing new sectors are the lesser of 30 or strength. 
+
+### Tier
+
+
+
+
+

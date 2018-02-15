@@ -83,6 +83,51 @@ randomSeed=12054250;
 class ScenarioData
 {
 	author="sondrebakken";
+	respawn=3;
+};
+class CustomAttributes
+{
+	class Category0
+	{
+		name="Multiplayer";
+		class Attribute0
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
+					class value
+					{
+						items=1;
+						class Item0
+						{
+							class data
+							{
+								class type
+								{
+									type[]=
+									{
+										"STRING"
+									};
+								};
+								value="MenuPosition";
+							};
+						};
+					};
+				};
+			};
+		};
+		nAttributes=1;
+	};
 };
 class Mission
 {
@@ -370,7 +415,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={1703.3873,5.5,5629.3315};
-				angles[]={-0,1.7617353,0};
+				angles[]={0,1.7617353,0};
 			};
 			side="Empty";
 			flags=4;
@@ -387,7 +432,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={1694.2002,5.5,5598.5864};
-				angles[]={-0,1.7258514,0};
+				angles[]={0,1.7258514,0};
 			};
 			side="Empty";
 			flags=4;
@@ -434,7 +479,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={1688.1931,5.5,5571.9639};
-				angles[]={-0,1.7089217,0};
+				angles[]={0,1.7089217,0};
 			};
 			side="Empty";
 			flags=4;
@@ -451,7 +496,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={1682.5646,5.5,5549.1587};
-				angles[]={-0,1.552994,0};
+				angles[]={0,1.552994,0};
 			};
 			side="Empty";
 			flags=4;
@@ -536,7 +581,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={6377.1509,8.0500002,5367.1797};
-				angles[]={-0,2.4169333,0};
+				angles[]={0,2.4169333,0};
 			};
 			side="Empty";
 			flags=4;
@@ -553,7 +598,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={6361.4541,8.0600004,5353.7446};
-				angles[]={-0,2.3810494,0};
+				angles[]={0,2.3810494,0};
 			};
 			side="Empty";
 			flags=4;
@@ -570,7 +615,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={6349.0479,8.0900002,5339.8398};
-				angles[]={-0,2.3641198,0};
+				angles[]={0,2.3641198,0};
 			};
 			side="Empty";
 			flags=4;
@@ -587,7 +632,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={6338.4585,8.107708,5327.3062};
-				angles[]={-0,2.2081919,6.278194};
+				angles[]={0,2.2081919,6.278194};
 			};
 			side="Empty";
 			flags=4;
@@ -621,7 +666,7 @@ class Mission
 					};
 					id=24;
 					type="O_officer_F";
-					atlOffset=124.22496;
+					atlOffset=124.22497;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -689,7 +734,7 @@ class Mission
 			{
 			};
 			id=23;
-			atlOffset=124.22496;
+			atlOffset=124.22497;
 		};
 		class Item23
 		{
@@ -713,7 +758,7 @@ class Mission
 					};
 					id=26;
 					type="O_engineer_F";
-					atlOffset=124.22426;
+					atlOffset=124.22427;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -781,7 +826,7 @@ class Mission
 			{
 			};
 			id=25;
-			atlOffset=124.22426;
+			atlOffset=124.22427;
 		};
 		class Item24
 		{
@@ -805,7 +850,7 @@ class Mission
 					};
 					id=28;
 					type="O_medic_F";
-					atlOffset=124.20416;
+					atlOffset=124.20417;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -873,7 +918,7 @@ class Mission
 			{
 			};
 			id=27;
-			atlOffset=124.20416;
+			atlOffset=124.20417;
 		};
 		class Item25
 		{
@@ -897,7 +942,7 @@ class Mission
 					};
 					id=30;
 					type="O_soldier_exp_F";
-					atlOffset=124.20495;
+					atlOffset=124.20496;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -965,7 +1010,7 @@ class Mission
 			{
 			};
 			id=29;
-			atlOffset=124.20495;
+			atlOffset=124.20496;
 		};
 		class Item26
 		{
@@ -989,7 +1034,7 @@ class Mission
 					};
 					id=32;
 					type="I_Soldier_exp_F";
-					atlOffset=124.26721;
+					atlOffset=124.2672;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -1057,7 +1102,7 @@ class Mission
 			{
 			};
 			id=31;
-			atlOffset=124.26721;
+			atlOffset=124.2672;
 		};
 		class Item27
 		{
@@ -1634,7 +1679,7 @@ class Mission
 					};
 					id=45;
 					type="B_soldier_exp_F";
-					atlOffset=124.26869;
+					atlOffset=124.26868;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -1702,7 +1747,7 @@ class Mission
 			{
 			};
 			id=44;
-			atlOffset=124.26869;
+			atlOffset=124.26868;
 		};
 		class Item34
 		{

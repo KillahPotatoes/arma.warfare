@@ -2,7 +2,7 @@ respawnTemplates[] = {"MenuPosition"};
 aikills = 1;
 respawnDelay = 10;
 DisabledAI = 1;
-
+respawn = 3;
 
 corpseManagerMode = 1;
 corpseLimit = 50;

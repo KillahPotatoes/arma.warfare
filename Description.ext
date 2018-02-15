@@ -14,6 +14,13 @@ wreckLimit = 20;
 wreckRemovalMinTime = 60; //seconds
 wreckRemovalMaxTime = 1200; //seconds
 
+ReviveMode = 1;
+ReviveUnconsciousStateMode = 0;
+ReviveRequiredItems = 0;
+reviveDelay = 6;
+reviveForceRespawnDelay = 3;
+reviveBleedOutDelay = 600;
+
 minPlayerDistance = 500;
 
 class CfgRemoteExec

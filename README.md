@@ -43,6 +43,8 @@ A captured sector give +1 every 30 second to faction strength.
 
 Every sector will have an ammobox. If the sector belongs to your side you will have 'Request squad', 'Arsenal', 'Helo insertion' and 'Redeploy to HQ' actions available.
 
+All sectors will have a random number of mines scattered around them, so be careful
+
 #### Sector defense
 Once a sector is taken, 5 soldiers will spawn and one mortar position. These will remain in the sector to defend it.
 

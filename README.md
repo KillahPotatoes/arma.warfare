@@ -8,15 +8,24 @@ This is a sector control mission for Arma 3 with emphasize on easy setup for new
 Your startbase consists of an ammobox, with the actions 'Request squad', 'Arsenal' and 'Helo Insertion'.
 
 Your base will also work as a spawnpoint for AI:
+
 Tier 0: Infantry will spawn regulary
+
 Tier 1: Infantry and light vehicles will spawn regulary
+
 Tier 2: Infantry, light vehicles and heavy vehicles will spawn regulary
 
+
 Empy vehicles for player use will also spawn:
+
 Tier 0 or higher: A transport helicopter will spawn in base
+
 Tier 1 or higher: A light vehichle will spawn in base
+
 Tier 2 or higher: A heavy vehichle will spawn in base
+
 Tier 3 or higher: A gunship will spawn in base
+
 
 There will always only exist one of each vehicle type available for the player per side. If any of these are destroyed they will
 respawn in the base after a certain time

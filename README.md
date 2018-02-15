@@ -4,6 +4,22 @@ This is a sector control mission for Arma 3 with emphasize on easy setup for new
 
 ## Features
 
+### Faction stats
+
+On the right side of the screen you will see
+
+#### T0 0% (+0) 50
+
+repeated three times in blue, red, green representing the stats for each faction.
+
+T0 = Tier 0
+
+0% = progress towards next tier
+
+(+0) = sectors held. Each sector gives 2 points per minute
+
+50 = current strength of the faction. If strength is >30 the AI unit cap will be 30, but if <30 the unit cap will be equal strength
+
 ### Start base (HQ)
 Your startbase consists of an ammobox, with the actions 'Request squad', 'Arsenal' and 'Helo Insertion'.
 

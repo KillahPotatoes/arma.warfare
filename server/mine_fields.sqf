@@ -36,9 +36,12 @@ generateMines = {
 	};
 };
 
-{
+initialize_mine_fields = {
+	{
 	  _pos = _x getVariable "pos";
 	  _name = _x getVariable "name";
       [_pos,300,"APERSBoundingMine",random [0, 25, 50],false, _name] call generateMines;
 
-} forEach sectors;
+	} forEach sectors;
+}
+

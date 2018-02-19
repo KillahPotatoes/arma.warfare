@@ -21,5 +21,8 @@ independent setFriend [east, 0];
 
 [] spawn compileFinal preprocessFileLineNumbers "scripts\killTicker.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "scripts\addKillTickerEventToAllUnits.sqf";
-[] spawn compileFinal preprocessFileLineNumbers "Mines\alias_mines.sqf";
+[] spawn compileFinal preprocessFileLineNumbers "server\mine_fields.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "factions\baseVehicleSpawn.sqf";
+
+// Methods
+[] call initialize_mine_fields;

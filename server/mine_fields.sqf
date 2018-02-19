@@ -1,6 +1,6 @@
 
 generate_mines = {
-	private params [_field_center, _field_radius, _nclass_mines, _number_mines, _debugs_mines, _name];
+	params ["_field_center", "_field_radius", "_nclass_mines", "_number_mines", "_debugs_mines", "_name"];
 
 	_IED_blow_trigger = false;
 
@@ -31,10 +31,10 @@ generate_mines = {
 
 initialize_mine_fields = {
 	{
-	  _pos = _x getVariable "pos";
-	  _name = _x getVariable "name";
-      [_pos,300,"APERSBoundingMine",random [0, 25, 50],false, _name] call generate_mines;
+	  _pos = _x getVariable pos;
+	  _name = _x getVariable sector_name;
+      [_pos,300,mine,random [0, 25, 50],false, _name] call generate_mines;
 
-	} forEach sectors;
-}
+	} count sectors;
+};
 

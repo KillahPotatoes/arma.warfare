@@ -1,142 +1,102 @@
-sectors = [];
-west_sectors = [];
-ind_sectors = [];
-east_sectors = [];
+add_ammo_box = {
+	params ["_sector"];
 
-GetEnemySectors = {
-	_faction = _this select 0;
-
-	_sectors = [];
-
-	if(_faction isEqualTo WEST) then {
-		_sectors = ind_sectors + east_sectors;
-	};
-
-	if(_faction isEqualTo EAST) then {
-		_sectors = ind_sectors + west_sectors;
-	};
-
-	if(_faction isEqualTo independent) then {
-		_sectors = west_sectors + east_sectors;
-	};
-
-	_sectors;
+	_pos = _sector getVariable pos;	 
+	ammo_box createVehicle (_pos);	
 };
 
-GetOwnedSectors = {
-	_faction = _this select 0;
+initialize_sectors = {
+	private _sectors = [];
+	{
+		_split_string = [_x, 7] call S_SplitString;
+		_first_string = _split_string select 0;
+		_second_string = _split_string select 1;
+				
+		if ( _first_string isEqualTo sector_prefix) then {
+			_sector = createGroup sideLogic;
+			_sector setVariable [pos, getMarkerPos _x];
+			_sector setVariable [marker, _x];
+			_sector setVariable [owned_by, civilian];
+			_sector setVariable [sector_name, _second_string];
 
-	_sectors = [];
+			[_sector] call draw_sector;
+			_sectors pushback _sector;	
+			
+			_ammo_box = [_sector] call add_ammo_box;
+			_sector setVariable [box, _ammo_box];
+			_ammo_box setVariable [owned_by, civilian, true];			
+		};
+	} count allMapMarkers;
 
-	if(_faction isEqualTo WEST) then {
-		_sectors = west_sectors;
-	};
-
-	if(_faction isEqualTo EAST) then {
-		_sectors =  east_sectors;
-	};
-
-	if(_faction isEqualTo independent) then {
-		_sectors = ind_sectors;
-	};
-
-	_sectors;
+	missionNamespace setVariable ["sectors", _sectors, true];
+	missionNamespace setVariable ["west_sectors", [], true];
+	missionNamespace setVariable ["east_sectors", [], true];
+	missionNamespace setVariable ["guer_sectors", [], true];
 };
 
-SectorCount = {
-	_faction = _this select 0;
-
-	_c = 0;
-
-	if(_faction isEqualTo WEST) then {
-		_c = count west_sectors;
-	};
-
-	if(_faction isEqualTo EAST) then {
-		_c = count east_sectors;
-	};
-
-	if(_faction isEqualTo independent) then {
-		_c = count ind_sectors;
-	};
-
-	_c;
+add_sector = {
+	params ["_side", "_sector"];
+	private _sectors = missionNamespace getVariable format["%1_sectors", _side];
+	_sectors pushBack _sector;
 };
 
-EnemySectorCount = {
-	_faction = _this select 0;
-
-	_c = 0;
-
-	if(_faction isEqualTo WEST) then {
-		_c = count ind_sectors + count west_sectors;
-	};
-
-	if(_faction isEqualTo EAST) then {
-		_c = count ind_sectors + count west_sectors;
-	};
-
-	if(_faction isEqualTo independent) then {
-		_c = count east_sectors + count west_sectors;
-	};
-
-	_c;
+remove_sector = {
+	params ["_side", "_sector"];
+	private _sectors = missionNamespace getVariable format["%1_sectors", _side];
+	private _index = _sectors find (_sector); 
+	_sectors deleteAt (_index);		
 };
 
-OtherSectorCount = {
-	_faction = _this select 0;
-	_owned_sectors_count = [_faction] call SectorCount;
-
-	count sectors - _owned_sectors_count;
+get_owned_sectors = {
+	params ["_side"];
+	missionNamespace getVariable format["%1_sectors", _side];
 };
 
-GetOtherSectors = {
-	_faction = _this select 0;
-	_owned_sectors = [_faction] call GetOwnedSectors;
-
-	sectors - _owned_sectors;
+get_sector_count = {
+	params ["_side"];
+	count (_side call get_owned_sectors);
 };
 
-FindClosestOtherSector = {
-	_side = _this select 0;
-	_pos = _this select 1;
-	_enemySectors = [_side] call GetOtherSectors;	
+count_other_sectors = {
+	params ["_side"];
+	(count sectors) - (_side call get_sector_count);
+};
 
-	_current_target_sector = _enemySectors select 0;
-	_current_shortest_distance = 99999;
+get_other_sectors = {
+	params ["_side"];
+	sectors - (_side call get_owned_sectors);
+};
+
+find_closest_sector = {
+	params ["_sectors", "_pos"];
+
+	_current_sector = _sectors select 0;
+	_shortest_distance = 99999;
 
 	{
-		_sector_pos = _x getVariable "pos";
-		_distance = _leader_pos distance _sector_pos;
+		_sector_pos = _x getVariable pos;
+		_distance = _pos distance _sector_pos;
 
-		if (_current_shortest_distance > _distance) then {
-			_current_shortest_distance = _distance;
-			_current_target_sector = _x;
+		if (_shortest_distance > _distance) then {
+			_shortest_distance = _distance;
+			_current_sector = _x;
 		};
 
-	} forEach _enemySectors;
+	} forEach _sectors;
 
-	_current_target_sector;
+	_current_sector;
 };
 
-FindClosestOwnedSector = {
-	_side = _this select 0;
-	_pos = _this select 1;
-	_ownedSectors = [_side] call GetOwnedSectors;	
+find_closest_target_sector = {
+	params ["_side", "_pos"];
 
-	_current_target_sector = _ownedSectors select 0;
-	_current_shortest_distance = 99999;
+	_sectors = [_side] call get_other_sectors;	
+	[_sectors, _pos] call find_closest_sector;
+};
 
-	{
-		_sector_pos = _x getVariable "pos";
-		_distance = _leader_pos distance _sector_pos;
-
-		if (_current_shortest_distance > _distance) then {
-			_current_shortest_distance = _distance;
-			_current_target_sector = _x;
-		};
-
-	} forEach _enemySectors;
-
-	_current_target_sector;
+find_closest_friendly_sector = {
+	params ["_side", "_pos"];
+	
+	_sectors = [_side] call get_owned_sectors;	
+	[_sectors, _pos] call find_closest_sector;
 };

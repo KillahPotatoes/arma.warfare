@@ -1,10 +1,32 @@
 with uiNamespace do {
 
-	PrintPercentage = {
-		_side = _this select 0;
+	get_tier_progress = {
+		params ["_side"];
+		missionNamespace getVariable format ["%1_tier_prog",  _side];
+	};
 
-		_tier = missionNamespace getVariable format["%1_tier", _side];
-		_percentage = missionNamespace getVariable format["%1_percentage", _side];
+	get_tier = {
+		params ["_side"];
+		missionNamespace getVariable format ["%1_tier",  _side];
+	};
+
+
+	get_strength = {
+		params ["_side"];
+		missionNamespace getVariable format ["%1_strength",  _side];
+	};
+
+
+	get_income = {
+		params ["_side"];
+		missionNamespace getVariable format ["%1_income", _side];
+	};
+
+	print_percentage = {
+		params ["_side"];
+
+		_tier = _side call get_tier; 
+		_percentage = _side call get_tier_progress;
 
 		if (_tier == 3) exitWith {
 			"";
@@ -13,13 +35,27 @@ with uiNamespace do {
 		format[" %1%2", _percentage, "%"];
 	};
 
-	PrintStrength = {
-		_side = _this select 0;
-		_strength = floor (missionNamespace getVariable format["%1_strength", _side]);
+	print_faction_stats = {
+		params ["_side", "_color"];
+
+		format[
+			"<t color='%1' align='right' size='1'>T%2%3 (+%4) %5</t>",
+			_color,
+			[_side] call get_tier,
+			[_side] call print_percentage,
+			[_side] call get_income,
+			[_side] call print_strength
+			];
+	};
+
+	print_strength = {
+		params ["_side"];
+
+		_strength = floor ([_side] call get_strength);
 
 		if (_strength < 0) exitWith {
 			0;
-		}; 
+		};
 
 		_strength;
 	};
@@ -28,26 +64,18 @@ with uiNamespace do {
 		waitUntil {!isNull findDisplay 46};
 		disableSerialization;
 
-		_ctrl = findDisplay 46 ctrlCreate ["RscStructuredText", -1];
+		private _ctrl = findDisplay 46 ctrlCreate ["RscStructuredText", -1];
 		_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.08];
 		_ctrl ctrlCommit 0;
 
 		while {true} do {
 			_ctrl ctrlSetStructuredText parseText format[
-				"<t color='#000f72' align='right' size='1'>T%7%10 (+%2) %1</t><br /><t color='#720000' align='right' size='1'>T%8%11 (+%4) %3</t><br /><t color='#097200' align='right' size='1'>T%9%12 (+%6) %5</t>",
-        [WEST] call PrintStrength,
-        missionNamespace getVariable "WEST_sector_income",
-        [EAST] call PrintStrength,
-        missionNamespace getVariable "EAST_sector_income",
-        [independent] call PrintStrength,
-        missionNamespace getVariable "GUER_sector_income",
-		missionNamespace getVariable "WEST_tier",
-		missionNamespace getVariable "EAST_tier",
-		missionNamespace getVariable "GUER_tier",
-		[WEST] call PrintPercentage,
-		[EAST] call PrintPercentage,
-		[independent] call PrintPercentage];
-      sleep 10;
+				"%1<br />%2<br />%3",
+				[west, '#000f72'] call print_faction_stats,
+				[east, '#720000'] call print_faction_stats,
+				[independent, '#097200'] call print_faction_stats
+				];
+      	sleep 2;
 		};
 	};
 

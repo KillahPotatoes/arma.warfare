@@ -1,62 +1,55 @@
-DeleteAllWaypoints = {
-	_group = _this select 0;
+delete_all_waypoints = {
+	params ["_group"];
 
 	while {(count (waypoints _group)) > 0} do
 	{
-		deleteWaypoint ((waypoints _group) select 0);
+		deleteWaypoint [_group, 0];
 	};
 };
 
-MoveToSector = {
-	_new_target = _this select 0;
-	_battle_group = _this select 1;
+create_waypoint = {
+	params ["_target", "_group"];
+	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 
-	_pos = _new_target getVariable "pos";
-	_safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
-
-	[_battle_group] call DeleteAllWaypoints;
-	_wp1 = _battle_group addWaypoint [_safe_pos, 0];
-	_wp1 setWaypointType "SAD";
-	_battle_group setBehaviour "AWARE";
-	_battle_group enableDynamicSimulation false;
-
-	_battle_group setVariable ["target", _new_target];	
+	_group call delete_all_waypoints; 
+	_w = _group addWaypoint [_pos, 0];
+	_w setWaypointType "SAD";
+	
+	_group setBehaviour "AWARE";
+	_group setVariable ["target", _target];	
 };
 
-FindTargetSector = {
-	_battle_group = _this select 0;
-	_new_target = _this select 1;
+move_to_sector = {
+	params ["_target", "_group"];
 
-	_current_target = _battle_group getVariable ["target", "undefined"];
+	private _curr_target = _group getVariable "target";
 
-	if (_current_target isEqualTo "undefined") exitWith {
-		[_new_target, _battle_group] call MoveToSector;
-	};
-
-	if (!(_new_target isEqualTo _current_target)) exitWith {
-		[_new_target, _battle_group] call MoveToSector;
+	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)}) exitWith {
+		[_target, _group] call create_waypoint;
 	};
 };
 
-while {true} do {
-	{		
-		_g = _x;
-		_side = side _g; 
+group_ai = {
+	while {true} do {
+		{		
+			private _group = _x;
+			private _side = side _group; 
 
-		if (!(player isEqualTo leader _g)) then {
-			_leader_pos = getPos (leader _g);
-			_other_sector_count = [_side] call OtherSectorCount;
+			if (!(player isEqualTo leader _group)) then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
+				private _pos = getPosWorld (leader _group);
+				private _sector_c = [_side] call count_other_sectors; // gets list of uncapturedSectors
 
-			if (_other_sector_count > 0) then {			
-				_new_target = [_side, _leader_pos] call FindClosestOtherSector;				
-				[_g, _new_target] call FindTargetSector;
-			} else {
-				_new_target = [_side, _leader_pos] call FindClosestOwnedSector;				
-				[_g, _new_target] call FindTargetSector;
-			};		
-		};
-		[_side, _g] call AdjustGroupSkill;	
-		
-	} forEach ([] call GetAllBattleGroups);
-	sleep 10;
+				private _target = if(_sector_c > 0) 
+					then { 
+						[_side, _pos] call find_closest_target_sector
+					} else {
+						[_side, _pos] call find_closest_friendly_sector;	
+					};
+					
+				[_target, _group] call move_to_sector;
+			};
+		} forEach ([] call get_all_battle_groups);
+		sleep 10;
+	};
 };
+

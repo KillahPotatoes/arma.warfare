@@ -1,116 +1,116 @@
-SpawnSquad = {
-	_sector = _this select 0;
-	_side = _sector getVariable "faction";
+spawn_squad = {
+	params ["_sector"];
 
-	_positionForSoldiers = [_sector getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    _numberOfSoldiers = 5;
-    _group = [_positionForSoldiers, _side, _numberOfSoldiers] call BIS_fnc_spawnGroup;
+	_side = _sector getVariable owned_by;
+	_safe_pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+    
+    _group = [_safe_pos, _side, defender_cap] call BIS_fnc_spawnGroup;
     _group setBehaviour "AWARE";
     _group enableDynamicSimulation true;
 	_group deleteGroupWhenEmpty true;
-	_group allowFleeing 0;
-	[_side, _group] call AdjustGroupSkill;		
 	_group;
 };
 
-SpawnMortar = {
-	_sector = _this select 0;
-	_side = _sector getVariable "faction";
+spawn_mortar = {
+	params ["_sector"];
+	private _side = _sector getVariable owned_by;
 
-	_orientationOfMortar = random 360;
-	
-	_mortarType = selectRandom (missionNamespace getVariable format["%1_mortars", _side]);
-	_pos = [_sector getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _orientation = random 360;	
+	private _type = selectRandom (missionNamespace getVariable format["%1_mortars", _side]);
+	private _pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 				
-	_static_mortar = [_pos, _orientationOfMortar, _mortarType, _side] call BIS_fnc_spawnVehicle;
-	_group = _static_mortar select 2;
+	private _mortar = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
+	private _group = _mortar select 2;
 	_group deleteGroupWhenEmpty true;
 	_group enableDynamicSimulation false; 
 
-	[_side, _group] call AdjustGroupSkill;	
-
-	_name = _static_mortar select 0;
+	private _name = _mortar select 0;
 	_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
 
-	_static_mortar;
+	_mortar;
 };
 
-SpawnMortarPositions = {
-	_sector = _this select 0;
-	_side = _sector getVariable "faction";
+should_spawn_mortar = {
+	params ["_sector", "_sector_owner"];
 
-	_mortar = _sector getVariable ["mortar", nil];
+	private _mortar = _sector getVariable mortar;
+	if(isNil "_mortar") exitWith {
+		true;
+	};
 
-	if(isNil "_mortar") then {
-		_mortar_squad = [_sector] call SpawnMortar;	
-		_sector setVariable ["mortar", _mortar_squad];	
-
-	} else {		
-		_vehicle = _mortar select 0;
-		_mortar_group = _mortar select 2;
-
-		if (side _mortar_group isEqualTo _side) then {					
-			_mortar_dead = ({alive _x} count units _mortar_group) == 0;
-			if (_mortar_dead) then {
-				deleteVehicle _vehicle;
-				_mortar_squad = [_sector] call SpawnMortar;	
-				_sector setVariable ["mortar", _mortar_squad];
-			};
-		};
-
-	    if(!(side _mortar_group isEqualTo _side)) then {
-			deleteVehicle _vehicle;
-			_mortar_squad = [_sector] call SpawnMortar;	
-			_sector setVariable ["mortar", _mortar_squad];	
-		};	
+	private _group = _mortar select 2;
+	if(side _group isEqualTo _sector_owner && ({alive _x} count units _group) > 0) exitWith {
+		false;
 	};
 };
 
-SpawnReinforcements = {
-	_sector = _this select 0;
-	_defenders = _this select 1;
-	_side = _this select 2;
+should_remove_mortar = {
+	params ["_sector", "_sector_owner"];
 
-    _group_count = {alive _x} count units _defenders;
+	private _mortar = _sector getVariable mortar;
+	if(isNil "_mortar") exitWith {
+		false;
+	};
 
-    _numberOfSoldiers = 5 - _group_count;
-
-    _pos = [_sector getVariable "pos", 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    _soldierGroup = [_pos, _side, _numberOfSoldiers] call BIS_fnc_spawnGroup;
-    	
-    {[_x] joinSilent _defenders} forEach units _soldierGroup;
-
-	_defenders allowFleeing 0;
-    _soldierGroup deleteGroupWhenEmpty true;
-
-	[_side, _defenders] call AdjustGroupSkill;
+	private _group = _mortar select 2;
+	if(!(side _group isEqualTo _sector_owner) || ({alive _x} count units _group) == 0) exitWith {
+		true;
+	};
 };
 
-SpawnSectorDefense = {
-	_sector = _this select 0;
+spawn_mortar_pos = {
+	params ["_sector"];
+
+	if([_sector, _side] call should_remove_mortar) then {
+		private _mortar = _sector getVariable mortar;
+		deleteVehicle (_mortar select 0);
+	};
+
+	if([_sector, _side] call should_spawn_mortar) then {
+		_new_mortar = _sector call spawn_mortar;	
+		_sector setVariable [mortar, _new_mortar];	
+	};
+};
+
+spawn_reinforcments = {
+	params ["_sector", "_defenders", "_side"];
 	
-	_side = _sector getVariable "faction";
-	_defenders = _sector getVariable ["defenders", nil];
+    private _group_count = {alive _x} count units _defenders;
+    private _new_soldiers = defender_cap - _group_count;
 
-	if(isNil "_defenders") then {
-		_defensive_squad = [_sector] call SpawnSquad;	
-		_sector setVariable ["defenders", _defensive_squad];
-			
-	} else {		
-		if (side _defenders isEqualTo _side) then {
-			_number_of_defenders = count units _defenders;
-			[_sector, _defenders, _side] call SpawnReinforcements;
+    private _pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+    private _group = [_pos, _side, _new_soldiers] call BIS_fnc_spawnGroup;
+    	
+    {[_x] joinSilent _defenders} forEach units _group;
+};
+
+
+spawn_sector_squad = {
+	params ["_sector"];
+	private _side = _sector getVariable owned_by;
+	private _sector_defense = _sector getVariable sector_def;
+
+	if(isNil "_sector_defense") exitWith {
+		_defensive_squad = [_sector] call spawn_squad;	
+		_sector setVariable [sector_def, _defensive_squad];
+	}; 	
+
+	if (side _sector_defense isEqualTo _side) exitWith {
+		[_sector, _sector_defense, _side] call spawn_reinforcments;
+	};
+
+	if(!(side _sector_defense isEqualTo _side)) exitWith {
+		if({alive _x} count units _sector_defense > 0) then {
+			[_sector_defense] call add_battle_group;
 		};
 
-	    if(!(side _defenders isEqualTo _side)) then {
-			if({alive _x} count units _defenders > 0) then {
-				[_defenders] call AddBattleGroups;
-			};
-
-			_defensive_squad = [_sector] call SpawnSquad;	
-			_sector setVariable ["defenders", _defensive_squad];
-		};	
+		_defensive_squad = [_sector] call spawn_squad;	
+		_sector setVariable [sector_def, _defensive_squad];
 	};
-    [_sector] call SpawnMortarPositions;		
-    
 };
+
+spawn_sector_defense = {
+	params ["_sector"];
+	_sector call spawn_sector_squad;
+	_sector call spawn_mortar_pos;
+}

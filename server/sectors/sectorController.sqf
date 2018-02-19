@@ -1,134 +1,83 @@
-F_getUnitsCount = compileFinal preprocessFileLineNumbers "sectors\findUnitsNearby.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\sectors.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\sectorIncome.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\drawSector.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\sectorRespawn.sqf";
-[] call compileFinal preprocessFileLineNumbers "sectors\sectorDefense.sqf";
 
-AddAmmoBox = {
-	_sector = _this select 0;
 
-	_pos = _sector getVariable "pos";	 
-	_ammo_box = "B_CargoNet_01_ammo_F";
-	_ammo_box createVehicle (_pos);	
+capture_sector = {
+	params ["_sector", "_side"];
+
+	[_sector, _side] call change_sector_ownership;
+
+	_msg = format["%1 has captured %2", _side, _sector getVariable sector_name];
+	_msg remoteExec ["hint"]; 
 };
 
-AddAllSectorsToGlobalArray = {
-	{
-		_split_string = [_x, 7] call S_SplitString;
-		_first_string = _split_string select 0;
-		_second_string = _split_string select 1;
-				
-		if ( _first_string == "sector_" ) then {
-			_sector = createGroup sideLogic;
-			_sector setVariable ["pos", getMarkerPos _x];
-			_sector setVariable ["marker", _x];
-			_sector setVariable ["faction", civilian];
-			_sector setVariable ["name", _second_string];
+lose_sector = {
+	params ["_sector", "_side"];
 
-			[_sector] call drawSector;
-			sectors pushback _sector;	
-			
-			_ammo_box = [_sector] call AddAmmoBox;
-			_sector setVariable ["box", _ammo_box];
-			_ammo_box setVariable ["owner", civilian, true];			
+	[_sector, civilian] call change_sector_ownership;
+
+	_msg = format["%1 has lost %2", _side, _sector getVariable sector_name];
+	_msg remoteExec ["hint"]; 
+};
+
+change_sector_ownership = {
+	params ["_sector", "_new_owner"];
+
+	_old_owner = _sector getVariable owned_by;
+	_sector setVariable [owned_by, _new_owner, true];
+	_sector call draw_sector;
+
+	_ammo_box = _sector getVariable box;		
+	_ammo_box setVariable [owned_by, _new_owner, true];
+
+	if (!(_old_owner isEqualTo civilian)) then {
+		_sector call remove_respawn_position;	
+		[_old_owner, _sector] call remove_sector;
+	};
+
+	if(!(_new_owner isEqualTo civilian)) then {
+		[_sector] call add_respawn_position;
+		[_sector] call spawn_sector_defense;
+		[_new_owner, _sector] call add_sector;
+	};
+};
+
+check_if_sector_is_attacked = {
+	params ["_side", "_sector", "_friendly_units_center", "_enemy_units_center", "_enemy_units_nearby"];
+
+	if (_friendly_units_center) exitWith {
+		private _sector_owner = _sector getVariable owned_by;
+
+		if(_side isEqualTo _sector_owner && _enemy_units_center) exitWith {
+			[_sector, _side] call lose_sector;
 		};
-	} foreach allMapMarkers;
-	publicVariable "sectors";
-};
 
-RemoveSectorFromArray = {
-	_sector = _this select 0;
-	_sector_array = _this select 1;
-
-	_index = _sector_array find (_x); 
-	if(_index > -1) then {
-		_sector_array deleteAt (_index);						
+		if(!(_side isEqualTo _sector_owner) && !_enemy_units_nearby) exitWith {
+			[_sector, _side] call capture_sector;
+		};
 	};
 };
 
-CheckIfSectorCaptured = {
-	_sector = _this select 0;
-	_friendly_sectors = _this select 1;
-	_friendly_unit_count = _this select 2;
-	_enemy_unit_count = _this select 3;	
-	_side = _this select 4;	
-
-	if (!(_sector in _friendly_sectors) && _friendly_unit_count > 0 && _enemy_unit_count == 0) then {
-		
-		[_sector, ind_sectors] call RemoveSectorFromArray;
-		[_sector, east_sectors] call RemoveSectorFromArray;
-		[_sector, west_sectors] call RemoveSectorFromArray;
-
-		_sector setVariable ["faction", _side];
-
-		[_sector] call AddRespawnPosition;
-		[_sector] call SpawnSectorDefense;
-
-		_friendly_sectors pushBack _sector;		
-		[_sector] call drawSector;
-
-		_msg = format["%1 has captured %2", _side, _sector getVariable "name"];
-		_msg remoteExec ["hint"]; 
-
-		_ammo_box = _sector getVariable "box";
-		_ammo_box setVariable ["owner", _side, true];
-		
-		[sectors] remoteExec ["RefreshActionList"];
-
-		publicVariable "sectors";
-	};
-};
-
-CheckIfSectorLost = {
-	_sector = _this select 0;
-	_friendly_sectors = _this select 1;
-	_enemy_unit_count = _this select 2;	
-	_side = _this select 3;	
-
-	if (_sector in _friendly_sectors && _enemy_unit_count > 0) then {
-		
-		[_sector, ind_sectors] call RemoveSectorFromArray;
-		[_sector, east_sectors] call RemoveSectorFromArray;
-		[_sector, west_sectors] call RemoveSectorFromArray;
-
-		_sector setVariable ["faction", civilian];
-		
-		[_sector] call drawSector;
-		[_sector] call RemoveRespawnPosition;
-		_msg = format["%1 has lost %2", _side, _sector getVariable "name"];
-		_msg remoteExec ["hint"]; 
-
-		_ammo_box = _sector getVariable "box";
-		_ammo_box setVariable ["owner", civilian, true];
-
-		[sectors] remoteExec ["RefreshActionList"];
-		publicVariable "sectors";
-		
-	};
-};
-
-CheckIfSectorsAreCaptures = {
+initialize_sector_control = {
 	while {true} do {	
 		{
-			_e_numberEast = [_x getVariable "pos", sector_size, EAST] call F_getUnitsCount;
-			_e_numberWest = [_x getVariable "pos", sector_size, WEST] call F_getUnitsCount;
-			_e_numberInd = [_x getVariable "pos", sector_size, RESISTANCE] call F_getUnitsCount;
+			private _sector = _x;
+			private _pos = _sector getVariable pos;
 
-			_numberEast = [_x getVariable "pos", sector_size / 4 , EAST] call F_getUnitsCount;
-			_numberWest = [_x getVariable "pos", sector_size / 4, WEST] call F_getUnitsCount;
-			_numberInd = [_x getVariable "pos", sector_size / 4, RESISTANCE] call F_getUnitsCount;
+			private _east_inner_pres = [_pos , EAST] call any_units_in_sector_center;
+			private _west_inner_pres = [_pos, WEST] call any_units_in_sector_center;
+			private _guer_inner_pres = [_pos, RESISTANCE] call any_units_in_sector_center;
 
-			[_x, east_sectors, _numberEast, _e_numberWest + _e_numberInd, east] call CheckIfSectorCaptured;
-			[_x, west_sectors, _numberWest, _e_numberEast + _e_numberInd, west] call CheckIfSectorCaptured;
-			[_x, ind_sectors, _numberInd, _e_numberWest + _e_numberEast, resistance] call CheckIfSectorCaptured;
+			if (_east_inner_pres || _west_inner_pres || _guer_inner_pres) then {
 
-			[_x, east_sectors, _numberWest + _numberInd, east] call CheckIfSectorLost;
-			[_x, west_sectors, _numberEast + _numberInd, west] call CheckIfSectorLost;
-			[_x, ind_sectors, _numberWest + _numberEast, resistance] call CheckIfSectorLost;
-		} foreach sectors;
+				private _east_pres = [_pos , EAST] call any_units_in_sector;
+				private _west_pres = [_pos, WEST] call any_units_in_sector;
+				private _guer_pres = [_pos, RESISTANCE] call any_units_in_sector;
+
+				[west, _sector, _west_inner_pres, _guer_inner_pres || _east_inner_pres, _east_pres || _guer_pres] call check_if_sector_is_attacked;
+				[east, _sector, _east_inner_pres, _guer_inner_pres || _west_inner_pres, _west_pres || _guer_pres] call check_if_sector_is_attacked;
+				[independent, _sector, _guer_inner_pres, _west_inner_pres || _east_inner_pres, _east_pres || _west_pres] call check_if_sector_is_attacked;			
+			};
+
+		} forEach sectors;
 	};
 };
 
-[] call AddAllSectorsToGlobalArray;
-[] spawn CheckIfSectorsAreCaptures;

@@ -6,7 +6,7 @@ AddHeloAction = {
       onMapSingleClick {};
         {
           _x setVariable ["distance", _x distance player];
-        } forEach units group player;
+        } count units group player;
 
       _height = 2000;
 
@@ -19,7 +19,7 @@ AddHeloAction = {
             _height = _height - 20;
             [_x,_height] spawn BIS_fnc_halo;
         };
-      } forEach units group player;
+      } count units group player;
       openMap false;
     };
     waitUntil {
@@ -27,7 +27,7 @@ AddHeloAction = {
     };
     onMapSingleClick {};
   }, nil, 1.5, true, true, "",
-  '[cursorTarget, player] call CanUseAmmoBox'
+  '[cursorTarget, player] call can_use_ammo_box'
   ];
 };
 

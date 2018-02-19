@@ -1,6 +1,5 @@
 S_SplitString = {
-  _marker = _this select 0;
-  _charNumber = _this select 1;
+  params ["_marker", "_charNumber"];
   
   _sub_string_1 = toArray _marker;   
   _sub_string_1 resize _charNumber;

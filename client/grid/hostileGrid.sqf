@@ -5,7 +5,7 @@ _kp_markers_start = 0.5;
 _kp_markers_change = 0.02;
 
 while {true} do {
-	{deleteMarkerLocal _x;} forEach _kp_markers_array;
+	{deleteMarkerLocal _x;} count _kp_markers_array;
 	_kp_markers_array = [];
 	{
 		if ((side _x == east || side _x == independent) && (({!captive _x} count (units _x) ) > 0)) then {
@@ -45,6 +45,6 @@ while {true} do {
 				_kp_markers_array pushBack _kp_markers_name;
 			};
 		};
-	} forEach allGroups;
+	} count allGroups;
 	uiSleep (2);
 };

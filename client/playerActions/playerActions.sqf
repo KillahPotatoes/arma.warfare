@@ -1,9 +1,9 @@
-CanUseAmmoBox = {
-  _trg = _this select 0;
-  _player = _this select 1;  
-  _owner = _trg getVariable "owner";	
+can_use_ammo_box = {
+  params ["_trg", "_player"];
+
+  _owner = _trg getVariable owned_by;
   
-  (typeOf _trg) in ["B_CargoNet_01_ammo_F"]
+  (typeOf _trg) in [ammo_box]
   && _owner isEqualTo side player
   && _trg distance _player < 5
   && isTouchingGround _player
@@ -12,13 +12,8 @@ CanUseAmmoBox = {
   && leader _player == _player;
 };
 
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\halo.sqf";
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\spawnSquad.sqf";
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\showArsenal.sqf";
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\redeploy.sqf";
-
 RefreshActionList = {
-	_sectors = _this select 0;
+  params ["_sectors"];
 
 	removeAllActions player;
 

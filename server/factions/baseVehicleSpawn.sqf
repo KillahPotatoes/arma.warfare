@@ -1,104 +1,77 @@
-SpawnBaseVehicle = {
-	_side = _this select 0;
-	_parking_spot = _this select 1;
-	_veh_array = _this select 2;
-	_type = _this select 3;
-
-	_pos = getPos _parking_spot;
-
-	_isEmpty = !(_pos isFlatEmpty  [3, -1, -1, -1, -1, false, _parking_spot] isEqualTo []);
-
-	if (_isEmpty) then {
-		_veh_type = selectRandom _veh_array;
-		_veh = _veh_type createVehicle _pos;
-
-		_dir = getDir _parking_spot;
-		_veh setDir _dir;
-
-		missionNamespace setVariable [format["%1_base_%2", _side, _type], _veh];		
-	} else {
-		systemChat format["Something is obstructing the %1 respawn area", _type];
-	};
+set_base_vehicle = {
+	params ["_side", "_type", "_veh"];
+	missionNamespace setVariable [format ["%1_%2", _side, _type], _veh];
 };
 
-spawnBaseAmmoBox = {
-	_side = _this select 0;
-
-	_prefix = missionNamespace getVariable format["%1_prefix", _side];
-
-	_respawn_marker = format["respawn_ground_%1", _prefix];
-
-	_pos = getMarkerPos _respawn_marker;;	 
-	_ammo_box = "B_CargoNet_01_ammo_F";	
-	_obj = _ammo_box createVehicle (_pos);
-	_obj setVariable ["owner", _side, true];
+get_base_vehicles = {
+	params ["_side", "_type"];
+	missionNamespace getVariable format ["%1_%2s", _side, _type];
 };
 
-initializeBase = {
-	_side = _this select 0;
+spawn_base_vehicle = {
+	params ["_side", "_obj", "_vehicles", "_type"];
 
-	[_side] call spawnBaseAmmoBox;
+	private _pos = getPos _obj;
+	private _isEmpty = !(_pos isFlatEmpty  [3, -1, -1, -1, -1, false, _obj] isEqualTo []);
 
-	_prefix = missionNamespace getVariable format["%1_prefix", _side];
+	if (_isEmpty) exitWith {
+		private _veh_type = selectRandom _vehicles;
+		private _veh = _veh_type createVehicle _pos;
 
-	_heli_pad_b = missionNamespace getVariable [format["%1_helipad_battle", _prefix], nil];
-	if (!(isNil "_heli_pad_b")) then {
-		_heli_array_b = missionNamespace getVariable format["%1_gunships", _side];
-		[_side, _heli_array_b, _heli_pad_b, 3, "heli_b"] spawn BaseVehicle;
-	};
- 
-	_heli_pad_t = missionNamespace getVariable [format["%1_helipad_transport", _prefix], nil];
-	if (!(isNil "_heli_pad_t")) then {
-		_heli_array_t = missionNamespace getVariable format["%1_transport_heli", _side];
-		[_side, _heli_array_t, _heli_pad_t, 0, "heli_t"] spawn BaseVehicle;
-	};
+		[_side, _type, _veh] call set_base_vehicle;
 
-	_vehicle_h = missionNamespace getVariable [format["%1_vehicle_heavy_parking", _prefix], nil];
-	if (!(isNil "_vehicle_h")) then {
-		_heavy_vehicles = missionNamespace getVariable format["%1_heavy_vehicles", _side];
-		[_side, _heavy_vehicles, _vehicle_h, 2, "heavy_v"] spawn BaseVehicle;
-	};
-
-	_vehicle_l = missionNamespace getVariable [format["%1_vehicle_light_parking", _prefix], nil];
-	if (!(isNil "_vehicle_l")) then {
-		_light_vehicles = missionNamespace getVariable format["%1_light_vehicles", _side];
-		[_side, _light_vehicles, _vehicle_l, 1, "light_v"] spawn BaseVehicle;
-	};
+		_veh setDir (getDir _obj);
+		_veh;
+	}; 
+	
+	systemChat format["Something is obstructing the %1 respawn area", _type];
 };
 
-BaseVehicle = {
-	_side = _this select 0;
-	_veh_array = _this select 1;
-	_parking_spot = _this select 2;
-	_req_tier = _this select 3;
-	_type = _this select 4;
+spawn_base_ammobox = {
+	params ["_side"];
 
+	private _marker = [_side, respawn_ground] call get_prefixed_name;	
+	private _pos = getMarkerPos _marker;	 
+	private _box = ammo_box createVehicle (_pos);
+
+	_box setVariable [owned_by, _side, true];
+};
+
+initialize_base = {
+	params ["_side"];
+
+	[_side] call spawn_base_ammobox;
+	[_side, 3, "gunship"] spawn base_vehicle;
+	[_side, 0, "transport_heli"] spawn base_vehicle;
+	[_side, 2, "heavy_vehicle"] spawn base_vehicle;
+	[_side, 1, "light_vehicle"] spawn base_vehicle;
+};
+
+base_vehicle = {
+	params ["_side", "_req_tier", "_type"];
+
+	private _veh_types = [_side, _type] call get_base_vehicles;
+	private _base_marker_name = [_side, _type] call get_prefixed_name;
+	private _base_marker = missionNamespace getVariable _base_marker_name;
+	
 	while {true} do {
-		_tier =  missionNamespace getVariable [format["%1_tier", _side], nil];
+		private _tier = [_side] call get_tier;
+
 		if (_tier >= _req_tier) then {
-			_veh = missionNamespace getVariable [format["%1_base_%2", _side, _type], nil];
+			private _veh = [_side, _base_marker, _veh_types, _type] call spawn_base_vehicle;
 
-			if(isNil "_veh") then {
-				[_side, _parking_spot, _veh_array, _type] call SpawnBaseVehicle;
-			} else {
-				if(!alive _veh) exitWith {
-					
-					[_side, _parking_spot, _veh_array, _type] call SpawnBaseVehicle;
-				};
-
-				if(!canMove _veh) exitWith {
-					sleep 60;
-					_veh setDamage 1;
-				};
+			if(!isNil "_veh") exitWith {
+				waitUntil {!canMove _veh};
+				sleep 120;
+				_veh setDamage 1;
 			};
 		};
-
-	 	sleep 120;
+		sleep 120;
 	};
 };
 
-[WEST] call initializeBase;
-[EAST] call initializeBase;
-[independent] call initializeBase;
-
-
+initialize_bases = {
+	[WEST] call initialize_base;
+	[EAST] call initialize_base;
+	[independent] call initialize_base;
+};

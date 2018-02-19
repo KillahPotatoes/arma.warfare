@@ -1,49 +1,52 @@
-EAST_battle_groups = [];
-WEST_battle_groups = [];
-GUER_battle_groups = [];
+initialize_battle_groups = {
+	missionNamespace setVariable ["west_groups", [], true];
+	missionNamespace setVariable ["east_groups", [], true];
+	missionNamespace setVariable ["guer_groups", [], true];
+};
 
-RemoveNullGroupsFromArray = {
-	_array = _this select 0;
+get_battlegroups = {
+	params ["_side"];
+	missionNamespace getVariable format["%1_groups", _side];
+};
 
-	_temp_array = [];	
+remove_null = {
+	params ["_array"];
+	private _new_arr = [];	
+
 	{
-      	if (isNull _x) then {
-        	_temp_array pushBack _x;
+      	if (!isNull _x) then {
+        	_new_arr pushBack _x;
 		}; 
 	} forEach _array;
 
-	_array - _temp_array;
+	_new_arr;
 };
 
-GetBattleGroups = {
-	_side = _this select 0;
-	missionNamespace getVariable format["%1_battle_groups", _side];
+add_battle_group = {	
+	params ["_group"];	
+	((side _group) call get_battlegroups) pushBackUnique _group;
 };
 
-AddBattleGroups = {	
-	_group = _this select 0;
-	_side = side _group;
+get_all_battle_groups = {
+	EAST_groups = [EAST_groups] call remove_null;
+	WEST_groups = [WEST_groups] call remove_null;
+	GUER_groups = [GUER_groups] call remove_null;
 
-	_groups = missionNamespace getVariable format["%1_battle_groups", _side];
-	_groups pushBackUnique _group;
+	EAST_groups + WEST_groups + GUER_groups;
 };
 
-GetAllBattleGroups = {
-	EAST_battle_groups = [EAST_battle_groups] call RemoveNullGroupsFromArray;
-	WEST_battle_groups = [WEST_battle_groups] call RemoveNullGroupsFromArray;
-	GUER_battle_groups = [GUER_battle_groups] call RemoveNullGroupsFromArray;
-
-	EAST_battle_groups + WEST_battle_groups + GUER_battle_groups;
-};
-
-CountBattlegroupUnits = {
-	_side = _this select 0;
+count_battlegroup_units = {
+	params ["_side"];
+	
+	private _groups = [_side] call get_battlegroups;
 	_sum = 0;
 
 	{
 		_group = _x;
 		_sum = _sum + ({alive _x} count units _group);
-	} forEach ([_side] call GetBattleGroups);
+	} forEach _groups;
 
 	_sum;
 };
+
+

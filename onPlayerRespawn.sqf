@@ -7,7 +7,8 @@ player enableFatigue false;
 [sectors] call AddRedeployToSectorsActions;
 
 RemoveSquadMatesWhenPlayerDies = {
-	_player = _this select 0;
+	params ["_player"];
+
 	_group = group player;
 
 	if(count units _group > 1) then {
@@ -18,9 +19,9 @@ RemoveSquadMatesWhenPlayerDies = {
 				[_x] joinSilent _new_group;
 			};
 			
-		} forEach units _group;
+		} count units _group;
 
-		[_new_group] remoteExec  ["AddBattleGroups", 2];
+		[_new_group] remoteExec  ["add_battle_group", 2];
 	};	
 };
 

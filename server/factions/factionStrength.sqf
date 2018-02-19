@@ -1,128 +1,60 @@
-InitializeFactionStats = {
-	[West, starting_strength] call SetFactionStrength;
-	[East, starting_strength] call SetFactionStrength;
-	[independent, starting_strength] call SetFactionStrength;
-
-	[West, 0] call SetFactionSectorIncome;
-	[East, 0] call SetFactionSectorIncome;
-	[independent, 0] call SetFactionSectorIncome;
-
-	WEST_kill_counter = 0;
-	EAST_kill_counter = 0;
-	GUER_kill_counter = 0;
-
-	WEST_tier = 0;
-	EAST_tier = 0;
-	GUER_tier = 0;	
-
-	WEST_percentage = 0;
-	EAST_percentage = 0;
-	GUER_percentage = 0;	
-
-	publicVariable "WEST_percentage";
-	publicVariable "EAST_percentage";
-	publicVariable "GUER_percentage";
-
-	publicVariable "WEST_tier";
-	publicVariable "EAST_tier";
-	publicVariable "GUER_tier";
+initialize_faction_stats = {
+	West call initialize_faction;
+	East call initialize_faction;
+	independent call initialize_faction;
 };
 
-CalculatePercentageTilNextTier = {
-		_side = _this select 0;
+initialize_faction = {
+	params ["_side"];
 
-		_kill_count = missionNamespace getVariable (format ["%1_kill_counter", _side]);
-		_tier =  missionNamespace getVariable (format ["%1_tier", _side]);
+	[_side, starting_strength] call set_strength;
+	[_side, 0] call set_income;
+	[_side, 0] call set_kill_count;
+	[_side, 0] call set_tier;
+	[_side, 0] call set_tier_progress;	
+};
+
+calculate_tier_progress = {
+	params ["_side"];
 	
-		_tier_bound =  if(_tier == 0) then { 0 } else { missionNamespace getVariable (format ["tier_%1", _tier]); };
-		_next_tier_bound =  missionNamespace getVariable (format ["tier_%1", _tier + 1]);
+	_kill_count = _side call get_kill_count;
+	_tier =  ([_side] call get_tier) + 1;
 
-		_percentage = floor(((_kill_count - _tier_bound) / (_next_tier_bound - _tier_bound)) * 100);
+	_tier_bound =  if(_tier == 0) then { 0; } else { _tier call get_tier_bound; };
+	_next_tier_bound = (_tier + 1) call get_tier_bound
 
-		_var_name = format["%1_percentage", _side];	
+	_percentage = floor(((_kill_count - _tier_bound) / (_next_tier_bound - _tier_bound)) * 100);
 
-		if (_percentage > 99) then {
-			_percentage = 99;
-		}; 
+	[_side, 99 min _percentage] call set_tier_progress;
+};
 
-		missionNamespace setVariable [_var_name, _percentage, true];
-		publicVariable _var_name;		
+increment_kill_counter = {
+	private params ["_side", "_kill_point"];
+	private _tier =  _side call get_tier;
+
+	if(_tier < 3) exitWith {
+		private _new_kill_count = [_side] call get_kill_count + _kill_point;		
+
+		[_new_kill_count, _side] call increment_tier;
+		[_new_kill_count, _side] call set_kill_count;
+		[_side] call CalculatePercentageTilNextTier;
 	};
+}; 
 
-IncrementFactionKillCounter = {
-	_side = _this select 0;
-	_point = _this select 1;
+increment_tier = {
+	private params ["_kill_count", "_side"];
 
-	_kill_counter = format ["%1_kill_counter", _side];
-	_kill_count = missionNamespace getVariable _kill_counter;
-	_new_kill_count = _kill_count + _point;
+	private _tier = (_side call get_tier) + 1;
+	private _next_tier = tier + 1;
+	private _tier_bound = format["tier_%1", next_tier];
 
-	missionNamespace setVariable [_kill_counter, _new_kill_count, true];
-
-	_tier =  missionNamespace getVariable (format ["%1_tier", _side]);
-
-	if(_tier < 3) then {
-		if(_new_kill_count > tier_3 && _tier < 3) exitWith {
-			_msg = format["%1 advanced to tier 3", _side];
-			_msg remoteExec ["hint"]; 
-			missionNamespace setVariable [format ["%1_tier", _side], 3, true];
-		};
+	if(_kill_count > tier_bound) exitWith {
+		private _msg = format["%1 advanced to tier %2", _side, next_tier];
+		_msg remoteExec ["hint"]; 
 		
-		if(_new_kill_count > tier_2 && _tier < 2) exitWith {
-			_msg = format["%1 advanced to tier 2", _side];  
-			_msg remoteExec ["hint"];   
-			missionNamespace setVariable [format ["%1_tier", _side], 2, true];
-		};
-		
-		if(_new_kill_count > tier_1 && _tier < 1) exitWith {
-			_msg = format["%1 advanced to tier 1", _side];
-			_msg remoteExec ["hint"]; 
-			missionNamespace setVariable [format ["%1_tier", _side], 1, true];
-		};
+		[_side, _next_tier] call set_tier;
 	};
-
-	[_side] call CalculatePercentageTilNextTier;
-}; 
-
-SetFactionStrength = {
-	_side = _this select 0;
-	_value = _this select 1;
-
-	_name = format ["%1_strength", _side];
-	missionNamespace setVariable [_name, _value, true];
-
-	publicVariable _name;	
-}; 
-
-GetFactionStrength = {
-	_side = _this select 0;
-
-	_name = format ["%1_strength", _side];
-	missionNamespace getVariable _name;
 };
 
-SetFactionSectorIncome = {
-	_side = _this select 0;
-	_value = _this select 1;
 
-	_name = format ["%1_sector_income", _side];
-	missionNamespace setVariable [_name, _value, true];
 
-	publicVariable _name;
-}; 
-
-GetFactionSectorIncome = {
-	_side = _this select 0;
-
-	_name = format ["%1_sector_income", _side];
-	missionNamespace getVariable _name;	
-};
-
-CalculateTierBoundaries = {
-	tier_1 = 30;
-	tier_2 = 60;
-	tier_3 = 90;
-};
-
-[] call InitializeFactionStats;
-[] call CalculateTierBoundaries;

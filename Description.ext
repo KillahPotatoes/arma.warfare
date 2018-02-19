@@ -3,6 +3,7 @@ aikills = 1;
 respawnDelay = 10;
 DisabledAI = 1;
 respawn = 3;
+respawnButton = 1;
 
 corpseManagerMode = 1;
 corpseLimit = 50;

@@ -1,22 +1,21 @@
-CalculateIncomeBasedOnSectors = {
-      _side = _this select 0;
+calc_income = {
+      params ["_side"];
 
-      _sectorCount = [_side] call SectorCount;
+      private _count = _side call get_sector_count;
+      private _strength = _side call get_strength;
+      private _new_strength = _strength + (_count  / 30);
 
-      _factionStrength = [_side] call GetFactionStrength;
-      _newFactionStrength = _factionStrength + _sectorCount  / 30;
-
-      [_side, _newFactionStrength] call SetFactionStrength;
-      [_side, _sectorCount] call SetFactionSectorIncome;
+      [_side, _new_strength] call set_strength;
+      [_side, _count] call set_income;
 };
 
-CalculateIncome = {
+sector_income = {
       while {true} do {
-            [west] call CalculateIncomeBasedOnSectors;
-            [east] call CalculateIncomeBasedOnSectors;
-            [independent] call CalculateIncomeBasedOnSectors;
+            west call calc_income;
+            east call calc_income;
+            independent call calc_income;
             sleep 2;
       };
 };
 
-[] spawn CalculateIncome;
+

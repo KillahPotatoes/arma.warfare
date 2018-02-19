@@ -1,30 +1,36 @@
-AddRespawnPosition = {
-	_sector = _this select 0;
+get_respawn = {
+	params ["_sector"];
+	_sector getVariable [respawn_pos, [sideUnknown, 0]];
+};
+
+add_respawn_position = {
+	params ["_sector"];
 			
-	[_sector] call RemoveRespawnPosition;
-
-	_respawnReturn = [_side, _sector getVariable "pos"] call BIS_fnc_addRespawnPosition;
-	_sector setVariable ["currentRespawnPosition", _respawnReturn];
+	[_sector] call remove_respawn_position;
+	_respawn = [_side, _sector getVariable pos] call BIS_fnc_addRespawnPosition;
+	_sector setVariable [respawn_pos, _respawn];
 };
 
-RemoveRespawnPosition = {
-	_sector = _this select 0;
+remove_respawn_position = {
+	params ["_sector"];
 
-	(_sector getVariable ["currentRespawnPosition", [sideUnknown, 0]]) params ["_last_owner", "_index"];
+	(_sector call get_respawn) params ["_last_owner", "_index"];
 	[_last_owner, _index] call bis_fnc_removeRespawnPosition;
-	_sector setVariable ["currentRespawnPosition", nil];
+	_sector setVariable [respawn_pos, nil];
 };
 
-AddInitialRespawnPosition = {
-	_side = _this select 0;
-	_prefix = missionNamespace getVariable format["%1_prefix", _side];
+add_initial_respawn_positions = {
+	params ["_side"];
 
-	_respawnMarker = format["respawn_ground_%1", _prefix];
-	_pos = getMarkerPos _respawnMarker;
+	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
+	private _pos = getMarkerPos _respawn_marker;
 	
 	[_side, _pos] call BIS_fnc_addRespawnPosition;	
 };
 
-[west] call AddInitialRespawnPosition;
-[east] call AddInitialRespawnPosition;
-[independent] call AddInitialRespawnPosition;
+initialize_base_respawns = {
+	[west] call add_initial_respawn_positions;
+	[east] call add_initial_respawn_positions;
+	[independent] call add_initial_respawn_positions;
+};
+

@@ -1,3 +1,3 @@
-[] spawn compileFinal preprocessFileLineNumbers "scripts\factionKillCounter.sqf";
-[] call compileFinal preprocessFileLineNumbers "scripts\playerActions\playerActions.sqf";
+[] spawn compileFinal preprocessFileLineNumbers "client\ui\factionKillCounter.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\playerActions\playerActions.sqf";
 

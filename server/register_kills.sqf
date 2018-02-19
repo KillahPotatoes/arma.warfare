@@ -1,29 +1,29 @@
-while {true} do {
-    sleep 2;
-    {
-        if !(_x getVariable ["killTickerEventAdded",false]) then {
-            _x spawn killTicker;
-            _x setVariable ["killTickerEventAdded",true]
-        };
-    } foreach allUnits;
+add_kill_ticker_to_all_units = {
+	while {true} do {
+		sleep 2;
+		{
+			if !(_x getVariable ["killTickerEventAdded",false]) then {
+				_x spawn kill_ticker;
+				_x setVariable ["killTickerEventAdded",true]
+			};
+		} count allUnits;
+	};
 };
 
-killTicker = {
+kill_ticker = {
 	_this addMPEventHandler ['MPKilled',{
-		_unit = _this select 0;
-		_killer = _this select 1;
-
-		[_unit,_killer] call register_kill;
+		private params [_victim, _killer];
+		
+		[_victim,_killer] call register_kill;
 		}
 	];
 };
 
 register_kill = {
-	_victim = _this select 0;
-	_killer = _this select 1;
+	private params [_victim, _killer];
 
-	_killer_side = side group _killer;
-	_victim_side = side group _victim;
+	private _killer_side = side group _killer;
+	private _victim_side = side group _victim;
     
 	if (!(_victim_side isEqualTo _killer_side)) then {
 		_kill_point = if(isPlayer _killer) then { 0.2; } else { 1; };

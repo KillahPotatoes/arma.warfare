@@ -17,6 +17,9 @@
 [] spawn compileFinal preprocessFileLineNumbers "server\mine_fields.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "server\factions\baseVehicleSpawn.sqf";
 
-// Methods
+// Game setup
 [] call initialize_mine_fields;
 [] call setup_faction_relations;
+
+// Game threads
+[] spawn add_kill_ticker_to_all_units;

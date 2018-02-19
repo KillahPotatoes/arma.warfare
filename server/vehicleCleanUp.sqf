@@ -1,4 +1,4 @@
-CleanUpUnmovableVehicles =  {
+vehicle_clean_up =  {
 	while {true} do {
 		{
 			_veh = _x;
@@ -12,11 +12,10 @@ CleanUpUnmovableVehicles =  {
 				
 			};
 		
-		} forEach vehicles;
+		} count vehicles;
 
 		sleep 300;
 	};
 };
 
-[] spawn CleanUpUnmovableVehicles;
 

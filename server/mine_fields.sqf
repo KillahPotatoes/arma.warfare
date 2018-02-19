@@ -1,13 +1,6 @@
 
-generateMines = {
-	if (!isServer) exitwith {};
-
-	_field_center = _this select 0;
-	_field_radius = _this select 1;
-	_nclass_mines = _this select 2;
-	_number_mines = _this select 3;
-	_debugs_mines = _this select 4;
-	_name = _this select 5;
+generate_mines = {
+	private params [_field_center, _field_radius, _nclass_mines, _number_mines, _debugs_mines, _name];
 
 	_IED_blow_trigger = false;
 
@@ -40,7 +33,7 @@ initialize_mine_fields = {
 	{
 	  _pos = _x getVariable "pos";
 	  _name = _x getVariable "name";
-      [_pos,300,"APERSBoundingMine",random [0, 25, 50],false, _name] call generateMines;
+      [_pos,300,"APERSBoundingMine",random [0, 25, 50],false, _name] call generate_mines;
 
 	} forEach sectors;
 }

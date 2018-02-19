@@ -17,7 +17,7 @@ independent setFriend [east, 0];
 [] call compileFinal preprocessFileLineNumbers "scripts\vehicleCleanUp.sqf";
 
 [] spawn compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupsController.sqf";
-[] spawn compileFinal preprocessFileLineNumbers "RYD_FFE\FFE.sqf";
+[] spawn compileFinal preprocessFileLineNumbers "server\artillery_ai\FFE.sqf";
 
 [] spawn compileFinal preprocessFileLineNumbers "scripts\killTicker.sqf";
 [] spawn compileFinal preprocessFileLineNumbers "scripts\addKillTickerEventToAllUnits.sqf";

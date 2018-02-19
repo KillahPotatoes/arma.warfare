@@ -1,14 +1,8 @@
-EAST setFriend [WEST, 0];
-WEST setFriend [EAST, 0];
 
-independent setFriend [west, 0];
-west setFriend [independent, 0];
-
-east setFriend [independent, 0];
-independent setFriend [east, 0];
 
 
 [] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\faction_relations.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
@@ -25,3 +19,4 @@ independent setFriend [east, 0];
 
 // Methods
 [] call initialize_mine_fields;
+[] call setup_faction_relations;

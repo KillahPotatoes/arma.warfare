@@ -50,10 +50,24 @@ spawn_gunship_group = {
 	_veh;
 };
 
+get_infantry_spawn_position = {
+	params ["_pos", "_side"];
+
+	if(_side call get_sector_count > 0) exitWith {
+		private _sectors = _side call get_owned_sectors;
+
+		private _sector = selectRandom _sectors;
+		private _sector_pos = _sector getVariable pos;
+		[_sector_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	};
+
+	[_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+};
+
 spawn_infantry = {
 	params ["_pos", "_side", "_unused_strength"];
-
-	_pos = [_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;		
+	
+	_pos = [_pos, _side] call get_infantry_spawn_position;
 	_soldier_count = if(_unused_strength > 10) then { floor random [3,5,10]; } else { _unused_strength; };
     _group = [_pos, _side, _soldier_count] call BIS_fnc_spawnGroup;
     _group setBehaviour "AWARE";

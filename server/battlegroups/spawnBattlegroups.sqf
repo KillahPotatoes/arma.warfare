@@ -58,7 +58,7 @@ get_infantry_spawn_position = {
 	if((count _safe_sectors) > 0) exitWith {
 		private _sector = selectRandom _safe_sectors;
 		private _sector_pos = _sector getVariable pos;
-		[_sector_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+		[_sector_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 	};
 
 	[_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	

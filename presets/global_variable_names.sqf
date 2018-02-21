@@ -6,5 +6,6 @@ mortar = "mortar";
 sector_def = "def";
 respawn_pos = "respawn_pos";
 respawn_ground = "respawn_ground";
+respawn_air = "respawn_air";
 sector_name = "name";
 box = "box";

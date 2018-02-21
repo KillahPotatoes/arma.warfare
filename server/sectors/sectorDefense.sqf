@@ -1,13 +1,11 @@
-spawn_squad = {
+spawn_defensive_squad = {
 	params ["_sector"];
 
 	_side = _sector getVariable owned_by;
 	_safe_pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    
-    _group = [_safe_pos, _side, defender_cap] call BIS_fnc_spawnGroup;
+    private _group = [_safe_pos, _side, defender_cap, true] call spawn_infantry;
+	
     _group setBehaviour "AWARE";
-    _group enableDynamicSimulation true;
-	_group deleteGroupWhenEmpty true;
 	_group;
 };
 
@@ -79,7 +77,7 @@ spawn_reinforcments = {
     private _new_soldiers = defender_cap - _group_count;
 
     private _pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    private _group = [_pos, _side, _new_soldiers] call BIS_fnc_spawnGroup;
+    private _group = [_pos, _side, _new_soldiers, true] call spawn_infantry;
     	
     {[_x] joinSilent _defenders} forEach units _group;
 };
@@ -91,7 +89,7 @@ spawn_sector_squad = {
 	private _sector_defense = _sector getVariable sector_def;
 
 	if(isNil "_sector_defense") exitWith {
-		_defensive_squad = [_sector] call spawn_squad;	
+		_defensive_squad = [_sector] call spawn_defensive_squad;	
 		_sector setVariable [sector_def, _defensive_squad];
 	}; 	
 
@@ -104,7 +102,7 @@ spawn_sector_squad = {
 			[_sector_defense] call add_battle_group;
 		};
 
-		_defensive_squad = [_sector] call spawn_squad;	
+		_defensive_squad = [_sector] call spawn_defensive_squad;	
 		_sector setVariable [sector_def, _defensive_squad];
 	};
 };
@@ -113,4 +111,5 @@ spawn_sector_defense = {
 	params ["_sector"];
 	_sector call spawn_sector_squad;
 	_sector call spawn_mortar_pos;
+	_sector call spawn_patrol_squad;
 }

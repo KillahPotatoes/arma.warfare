@@ -1,11 +1,15 @@
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
-[] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\vehicleCleanUp.sqf";
+
+// Shared scripts
+[] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\spawn_infantry.sqf";
+
 
 // Third party scripts
 [] spawn compileFinal preprocessFileLineNumbers "server\artillery_ai\FFE.sqf";
@@ -19,6 +23,7 @@
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectorRespawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectorDefense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectorController.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\sector_patrols.sqf";
 
 // Faction
 [] call compileFinal preprocessFileLineNumbers "server\factions\factionStrength.sqf";

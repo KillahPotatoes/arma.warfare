@@ -18,7 +18,7 @@ AddRedeployToSectorsActions = {
   
   {
     [_x] call AddRedeployOption;
-  } count _sectors;
+  } forEach _sectors;
 };
 
 AddRedeployToHqAction = {

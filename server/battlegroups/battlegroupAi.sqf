@@ -12,7 +12,7 @@ create_waypoint = {
 	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 
 	_group call delete_all_waypoints; 
-	_w = _group addWaypoint [_pos, 0];
+	_w = _group addWaypoint [_pos, 5];
 	_w setWaypointType "SAD";
 	
 	_group setBehaviour "AWARE";

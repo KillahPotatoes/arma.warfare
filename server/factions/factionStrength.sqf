@@ -35,8 +35,8 @@ increment_kill_counter = {
 	if(_tier < 3) exitWith {
 		private _new_kill_count = [_side] call get_kill_count + _kill_point;		
 
-		[_new_kill_count, _side] call increment_tier;
-		[_new_kill_count, _side] call set_kill_count;
+		[_side, _new_kill_count] call increment_tier;
+		[_side, _new_kill_count] call set_kill_count;
 		[_side] call CalculatePercentageTilNextTier;
 	};
 }; 

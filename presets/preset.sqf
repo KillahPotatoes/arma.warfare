@@ -4,6 +4,7 @@ sector_size = 200; // sector size
 starting_strength  = 50;
 unit_cap = 30;
 defender_cap = 5;
+patrol_cap = 3;
 initial_skill = 0.5;
 tier_2_vehicle_chance = 10;
 tier_1_vehicle_chance = 40;

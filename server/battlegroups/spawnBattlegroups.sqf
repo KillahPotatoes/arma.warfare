@@ -27,7 +27,7 @@ spawn_random_group = {
 		([_pos, _side, "light"] call spawn_vehicle_group);
 	};
 
-	[_pos, _side, _unused_strength] call spawn_infantry;	
+	[_pos, _side, _unused_strength] call spawn_squad;	
 };
 
 spawn_vehicle_group = {
@@ -64,12 +64,13 @@ get_infantry_spawn_position = {
 	[_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 };
 
-spawn_infantry = {
+spawn_squad = {
 	params ["_pos", "_side", "_unused_strength"];
 	
 	_pos = [_pos, _side] call get_infantry_spawn_position;
 	_soldier_count = if(_unused_strength > 10) then { floor random [3,5,10]; } else { _unused_strength; };
-    _group = [_pos, _side, _soldier_count] call BIS_fnc_spawnGroup;
+    _group = [_pos, _side, _soldier_count, false] call spawn_infantry;
+	
     _group setBehaviour "AWARE";
 	_group;
 };
@@ -87,8 +88,7 @@ spawn_battle_group = {
 	private _unused_strength = [_side] call get_unused_strength;
 
 	if (_unit_count < unit_cap && {_unused_strength > 0}) then {
-		private _group = [_side, _unused_strength] call spawn_random_group;
-		_group deleteGroupWhenEmpty true;
+		private _group = [_side, _unused_strength] call spawn_random_group;		;
 		[_group] call add_battle_group;
 	};	
 };
@@ -120,7 +120,7 @@ spawn_gunships = {
 				(_gunship select 0) setDamage 1;					
 			}; 
 
-			private _pos = getMarkerPos [_side, respawn_air] call get_prefixed_name;
+			private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 			_gunship = [_pos, _side] call spawn_gunship_group;
 			[_gunship select 2] call add_battle_group;
 

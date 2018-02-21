@@ -1,4 +1,4 @@
-find_enemies_in_area = {
+find_units_in_area = {
 	params ["_position", "_distance", "_side"];
 
 	_infantrycount = _side countSide ( [ _position nearEntities [ "Man", _distance] , { !(captive _x) && ((getpos _x) select 2 < 100) } ] call BIS_fnc_conditionalSelect );
@@ -12,13 +12,23 @@ find_enemies_in_area = {
 any_units_in_sector = {
 	params ["_position", "_side"];
 	
-	[_position, sector_size, _side] call find_enemies_in_area > 0;
+	[_position, sector_size, _side] call find_units_in_area > 0;
 }; 
 
 any_units_in_sector_center = {
 	params ["_position", "_side"];
 	
-	[_position, sector_size / 4, _side] call find_enemies_in_area > 0;
+	[_position, sector_size / 4, _side] call find_units_in_area > 0;
 }; 
 
+any_enemies_nearby_sector = {
+	params ["_position", "_side"];
 
+	private _enemies = (factions - _side);
+
+	_faction_nearby = {
+		[_position, sector_size * 2, _x] call find_units_in_area > 0;
+	} count _enemies;
+	
+	_faction_nearby > 0;
+}; 

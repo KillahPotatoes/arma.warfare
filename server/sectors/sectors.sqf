@@ -34,6 +34,22 @@ initialize_sectors = {
 	missionNamespace setVariable ["guer_sectors", [], true];
 };
 
+get_safe_sectors = {
+	params ["_side"];
+	
+	private _safe_sectors = [];
+
+	{	
+		private _pos = _x getVariable pos;
+
+		if([_pos, _side] call any_enemies_nearby_sector) then {
+			_safe_sectors pushBack _x;
+		};
+	} forEach (_side call get_owned_sectors);
+
+	_safe_sectors;
+};
+
 add_sector = {
 	params ["_side", "_sector"];
 	private _sectors = missionNamespace getVariable format["%1_sectors", _side];

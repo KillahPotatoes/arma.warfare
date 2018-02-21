@@ -53,10 +53,10 @@ spawn_gunship_group = {
 get_infantry_spawn_position = {
 	params ["_pos", "_side"];
 
-	if(_side call get_sector_count > 0) exitWith {
-		private _sectors = _side call get_owned_sectors;
+	private _safe_sectors = _side call get_safe_sectors;
 
-		private _sector = selectRandom _sectors;
+	if((count _safe_sectors) > 0) exitWith {
+		private _sector = selectRandom _safe_sectors;
 		private _sector_pos = _sector getVariable pos;
 		[_sector_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 	};

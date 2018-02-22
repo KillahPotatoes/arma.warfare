@@ -61,8 +61,8 @@ RydFFE_Other = [] + RydFFE_Add_Other;
 
 _allArty = RydFFE_SPMortar + RydFFE_Mortar + RydFFE_Rocket;
 
-[] call compile preprocessFile "RYD_FFE\FFE_fnc.sqf";
-Shellview = compile preprocessFile "RYD_FFE\Shellview.sqf";
+[] call compile preprocessFile "server\artillery_ai\FFE_fnc.sqf";
+Shellview = compile preprocessFile "server\artillery_ai\Shellview.sqf";
 
 _allArty = [_allArty] call RydFFE_AutoConfig;
 

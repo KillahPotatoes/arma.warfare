@@ -12,15 +12,3 @@ can_use_ammo_box = {
   && leader _player == _player;
 };
 
-RefreshActionList = {
-  params ["_sectors"];
-
-	removeAllActions player;
-
-	[] call ShowRequestSquadAction;
-	[] call ShowArsenalAction;
-	[] call AddHeloAction;
-	[] call AddRedeployToHqAction;
-	[_sectors] call AddRedeployToSectorsActions;
-
-};

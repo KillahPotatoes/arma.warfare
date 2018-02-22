@@ -28,10 +28,10 @@ initialize_sectors = {
 		};
 	} count allMapMarkers;
 
-	missionNamespace setVariable ["sectors", _sectors, true];
-	missionNamespace setVariable ["west_sectors", [], true];
-	missionNamespace setVariable ["east_sectors", [], true];
-	missionNamespace setVariable ["guer_sectors", [], true];
+	missionNamespace setVariable ["sectors", _sectors];
+	missionNamespace setVariable ["west_sectors", []];
+	missionNamespace setVariable ["east_sectors", []];
+	missionNamespace setVariable ["guer_sectors", []];
 };
 
 get_safe_sectors = {

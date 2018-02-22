@@ -1,9 +1,4 @@
-check_if_player_already_in_hq = {
-  params ["_player"];
 
-  private _pos = getMarkerPos ([side _player, respawn_ground] call get_prefixed_name);
-  (getPos _player) distance _pos > 25; 
-};
 
 AddRedeployToHqAction = {
   player addAction ["Redeploy to HQ", {

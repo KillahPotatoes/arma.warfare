@@ -12,3 +12,12 @@ can_use_ammo_box = {
   && leader _player == _player;
 };
 
+is_ammobox = {
+  params ["_trg", "_player"];
+  
+  (typeOf _trg) in [ammo_box]
+  && _trg distance _player < 5
+  && isTouchingGround _player
+  && alive _player
+  && lifeState _player != "incapacitated";
+};

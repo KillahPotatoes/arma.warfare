@@ -19,7 +19,7 @@ AddHeloAction = {
             _height = _height - 20;
             [_x,_height] spawn BIS_fnc_halo;
         };
-      } count units group player;
+      } forEach units group player;
       openMap false;
     };
     waitUntil {

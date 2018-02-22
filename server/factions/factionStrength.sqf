@@ -45,7 +45,7 @@ increment_tier = {
 	params ["_side", "_kill_count"];
 
 	private _tier = _side call get_tier;
-	private _next_tier = tier + 1;
+	private _next_tier = _tier + 1;
 	private _tier_bound = _next_tier call get_tier_bound;
 
 	if(_kill_count > _tier_bound) exitWith {

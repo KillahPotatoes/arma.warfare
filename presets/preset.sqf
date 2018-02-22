@@ -42,3 +42,18 @@ east_transport_helis = ["O_Heli_Light_02_unarmed_F"];
 west_mortars = ["B_Mortar_01_F"];
 guer_mortars = ["I_Mortar_01_F"];
 east_mortars = ["O_Mortar_01_F"];
+
+west_buy_vehicles = [
+	["Hunter GMG 1", "B_MRAP_01_gmg_F", 200, 0], 
+	["Hunter HMG", "B_MRAP_01_hmg_F", 300, 0], 
+	["Tanks 1",	"rhsusf_m1a2sep1tuskiiwd_usarmy", 3243, 1], 
+	["Tanks 1",	"rhsusf_m1a1aim_tuski_wd", 3243, 1], 
+	["Tanks 1",	"rhsusf_m1a1aimwd_usarmy", 3243, 1]
+];
+
+west_buy_helicopters = [
+	["UH60M2",	"RHS_UH60M2", 1233, 0], 
+	["AH64D 1",	"RHS_AH64D_wd", 3243, 1], 
+	["AH64D CS", "RHS_AH64D_wd_CS", 3243, 2],
+	["AH64D AA", "RHS_AH64D_wd_AA", 3243, 3]
+];

@@ -9,3 +9,7 @@ respawn_ground = "respawn_ground";
 respawn_air = "respawn_air";
 sector_name = "name";
 box = "box";
+
+vehicle1 = "vehicle";
+helicopter = "helicopter";
+infantry = "infantry";

@@ -4,6 +4,7 @@ player enableFatigue false;
 [] call ShowArsenalAction;
 [] call AddHeloAction;
 [] call AddRedeployToHqAction;
+[] call add_buy_options;
 
 RemoveSquadMatesWhenPlayerDies = {
 	params ["_player"];

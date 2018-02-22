@@ -60,17 +60,22 @@ with uiNamespace do {
 		_strength;
 	};
 
+	print_cash = {
+		format["<t color='#000000' align='right' size='1'>$ %1</t>", player getVariable "cash"];
+	};
+
 	[] spawn {
 		waitUntil {!isNull findDisplay 46};
 		disableSerialization;
 
 		private _ctrl = findDisplay 46 ctrlCreate ["RscStructuredText", -1];
-		_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.08];
+		_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.10];
 		_ctrl ctrlCommit 0;
 
 		while {true} do {
 			_ctrl ctrlSetStructuredText parseText format[
-				"%1<br />%2<br />%3",
+				"%1<br />%2<br />%3<br />%4",
+				[] call print_cash,
 				[west, '#000f72'] call print_faction_stats,
 				[east, '#720000'] call print_faction_stats,
 				[independent, '#097200'] call print_faction_stats

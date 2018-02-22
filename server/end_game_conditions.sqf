@@ -33,6 +33,8 @@ check_end_game_state = {
 	if(_side call check_if_lost) exitWith {
 		active_factions = active_factions - [_side];
 	};
+
+	active_factions pushBackUnique _side;
 };
 
 end_game_conditions_check = {

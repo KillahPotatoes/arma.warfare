@@ -12,7 +12,7 @@ spawn_base_vehicle = {
 	params ["_side", "_obj", "_vehicles", "_type"];
 
 	private _pos = getPos _obj;
-	private _isEmpty = !(_pos isFlatEmpty  [3, -1, -1, -1, -1, false, _obj] isEqualTo []);
+	private _isEmpty = [_pos] call check_if_any_units_to_close;
 
 	if (_isEmpty) exitWith {
 		private _veh_type = selectRandom _vehicles;

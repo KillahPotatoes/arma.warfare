@@ -2,7 +2,7 @@
 [] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\common\common.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\vehicleCleanUp.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";

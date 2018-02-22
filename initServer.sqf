@@ -54,6 +54,7 @@
 [] spawn spawn_battle_groups;
 [] spawn group_ai;
 [] spawn skill_balancing;
-[] spawn sector_income;
 [] spawn initialize_sector_control;
+[] spawn sector_income;
+
 

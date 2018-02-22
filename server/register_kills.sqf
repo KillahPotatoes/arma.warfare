@@ -12,7 +12,8 @@ add_kill_ticker_to_all_units = {
 
 kill_ticker = {
 	_this addMPEventHandler ['MPKilled',{
-			params call register_kill;
+			params ["_victim", "_killer"];
+			[_victim, _killer] call register_kill;
 		}
 	];
 };
@@ -25,7 +26,7 @@ register_kill = {
     
 	if (!(_victim_side isEqualTo _killer_side)) then {
 		_kill_point = if(isPlayer _killer) then { 0.2; } else { 1; };
-		[_killer_side, _kill_point] call IncrementFactionKillCounter;
+		[_killer_side, _kill_point] call increment_kill_counter;
 	};
 
 	_faction_strength = _victim_side call get_strength;

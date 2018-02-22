@@ -35,7 +35,7 @@ get_kill_count = {
 
 set_kill_count = {
 	params ["_side", "_value"];
-	missionNamespace getVariable [format ["%1_kill_counter",  _side], _value];
+	missionNamespace setVariable [format ["%1_kill_counter",  _side], _value];
 };
 
 set_strength = {

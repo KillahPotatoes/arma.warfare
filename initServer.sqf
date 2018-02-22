@@ -5,6 +5,7 @@
 [] call compileFinal preprocessFileLineNumbers "server\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\vehicleCleanUp.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
 
 // Shared scripts
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
@@ -49,6 +50,7 @@
 [] call initialize_battle_groups;
 
 // Game threads
+[] spawn end_game_conditions_check;
 [] spawn add_kill_ticker_to_all_units;
 [] spawn vehicle_clean_up;
 [] spawn spawn_battle_groups;

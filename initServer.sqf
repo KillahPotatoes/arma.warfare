@@ -58,5 +58,6 @@
 [] spawn skill_balancing;
 [] spawn initialize_sector_control;
 [] spawn sector_income;
+[] spawn sector_cash_generation;
 
 

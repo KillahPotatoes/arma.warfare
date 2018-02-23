@@ -1,8 +1,11 @@
-add_ammo_box = {
+add_sector_box = {
 	params ["_sector"];
 
 	_pos = _sector getVariable pos;	 
-	ammo_box createVehicle (_pos);	
+	_ammo_box = ammo_box createVehicle (_pos);	
+	_sector setVariable [box, _ammo_box];
+	_ammo_box setVariable [owned_by, civilian, true];	
+	_ammo_box setVariable [cash, 0, true];
 };
 
 initialize_sectors = {
@@ -22,9 +25,7 @@ initialize_sectors = {
 			[_sector] call draw_sector;
 			_sectors pushback _sector;	
 			
-			_ammo_box = [_sector] call add_ammo_box;
-			_sector setVariable [box, _ammo_box];
-			_ammo_box setVariable [owned_by, civilian, true];			
+			_ammo_box = [_sector] call add_sector_box;					
 		};
 	} count allMapMarkers;
 

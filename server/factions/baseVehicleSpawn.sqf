@@ -4,9 +4,10 @@ spawn_base_ammobox = {
 
 	private _marker = [_side, respawn_ground] call get_prefixed_name;	
 	private _pos = getMarkerPos _marker;	 
-	private _box = ammo_box createVehicle (_pos);
+	private _ammo_box = ammo_box createVehicle (_pos);
 
-	_box setVariable [owned_by, _side, true];
+	_ammo_box setVariable [owned_by, _side, true];
+	_ammo_box setVariable [cash, 0, true];
 };
 
 initialize_bases = {

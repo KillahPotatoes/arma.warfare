@@ -1,15 +1,6 @@
 
 buy_options = [];
 
-is_close_to_hq = {
-	params ["_player"];
-
-	private _respawn_marker = [side _player, respawn_ground] call get_prefixed_name;
-	private _pos = getMarkerPos _respawn_marker;
-
-	(getPos player) distance _pos < 25; 
-};
-
 remove_all_options = {
 	{
 		player removeAction _x;
@@ -80,7 +71,7 @@ list_options = {
 				[_base_marker, _class_name, _price] call buy_vehicle;
 				
 
-			}, [_type, _class_name, _price], (_priority - 1), false, true, "", '[player] call is_close_to_hq']);
+			}, [_type, _class_name, _price], (_priority - 1), false, true, "", '[player] call is_player_close_to_hq']);
 		};
 	
 	} forEach _options;
@@ -98,7 +89,7 @@ create_buy_menu = {
 		[_type, _priority] call list_options;
 
 
-	}, [_type, _priority], _priority, false, false, "", '[player] call is_close_to_hq'];
+	}, [_type, _priority], _priority, false, false, "", '[player] call is_player_close_to_hq'];
 	
 };
 

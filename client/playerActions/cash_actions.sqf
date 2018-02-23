@@ -13,20 +13,18 @@ add_take_cash_from_ammobox = {
       _player_cash = player getVariable cash;
       player setVariable [cash, (_cash + _player_cash)];
     }, nil, 1.5, true, true, "",
-    '[cursorTarget, player] call is_ammobox'
+    '[cursorTarget, player] call is_ammo_box && !([player] call is_close_to_enemy_hq)'
     ];
 };
 
 add_store_cash_action = {
-
   player addAction ["Store cash", {
      _player_cash = player getVariable cash;
       player setVariable [cash, 0];
       _cash = cursorTarget getVariable cash;      
       cursorTarget setVariable [cash, (_cash + _player_cash), true];
-
   }, nil, 1.5, true, true, "",
-  '[cursorTarget, player] call can_use_ammo_box && [player] call is_close_to_hq'
+  '[cursorTarget, player] call can_use_ammo_box && [player] call is_player_close_to_hq'
   ];
 };
 

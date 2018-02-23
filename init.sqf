@@ -4,6 +4,7 @@
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\end_mission.sqf";
 
+// Player actions
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\playerActions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\halo.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\spawnSquad.sqf";

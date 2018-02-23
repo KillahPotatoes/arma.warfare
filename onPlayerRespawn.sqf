@@ -5,6 +5,8 @@ player enableFatigue false;
 [] call AddHeloAction;
 [] call AddRedeployToHqAction;
 [] call add_buy_options;
+[] call add_take_cash_from_ammobox;
+[] call add_store_cash_action;
 
 RemoveSquadMatesWhenPlayerDies = {
 	params ["_player"];

@@ -39,7 +39,7 @@ sector_cash_generation = {
 reset_sector_cash = {
       params ["_new_owner", "_sector"];
 
-      if(_new_owner countSide allPlayers == 0) then {
+      if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian)) then {
             _ammo_box = _sector getVariable box;
             _ammo_box setVariable [cash, 0, true];
       };

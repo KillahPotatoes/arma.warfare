@@ -29,19 +29,18 @@ is_close_to_hq = {
 	private _pos = getMarkerPos _respawn_marker;
 
 	(getPos player) distance _pos < 25; 
-}
+};
 
 is_player_close_to_hq = {
 	params ["_player"];
 
-  _player call is_close_to_hq;
+  [side _player] call is_close_to_hq;
 };
 
 is_close_to_enemy_hq = {
 	params ["_player"];
 
-  _enemy = factions - (side _player);
-
+  _enemy = factions - [side _player];
   _isClose = true;
 
   {

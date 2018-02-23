@@ -12,6 +12,7 @@ tier_1 = 30;
 tier_2 = 60;
 tier_3 = 90;
 cash_per_minute = 10;
+squad_size = 8;
 factions = [west, east, independent];
 
 ammo_box = "B_CargoNet_01_ammo_F";
@@ -44,17 +45,30 @@ west_mortars = ["B_Mortar_01_F"];
 guer_mortars = ["I_Mortar_01_F"];
 east_mortars = ["O_Mortar_01_F"];
 
-west_buy_vehicles = [
+west_buy_vehicle = [
 	["Hunter GMG 1", "B_MRAP_01_gmg_F", 200, 0], 
 	["Hunter HMG", "B_MRAP_01_hmg_F", 300, 0], 
-	["Tanks 1",	"rhsusf_m1a2sep1tuskiiwd_usarmy", 3243, 1], 
-	["Tanks 1",	"rhsusf_m1a1aim_tuski_wd", 3243, 1], 
-	["Tanks 1",	"rhsusf_m1a1aimwd_usarmy", 3243, 1]
+	["Tanks 1",	"rhsusf_m1a2sep1tuskiiwd_usarmy", 500, 1], 
+	["Tanks 1",	"rhsusf_m1a1aim_tuski_wd", 750, 1], 
+	["Tanks 1",	"rhsusf_m1a1aimwd_usarmy", 1000, 1]
 ];
 
-west_buy_helicopters = [
-	["UH60M2",	"RHS_UH60M2", 1233, 0], 
-	["AH64D 1",	"RHS_AH64D_wd", 3243, 1], 
-	["AH64D CS", "RHS_AH64D_wd_CS", 3243, 2],
-	["AH64D AA", "RHS_AH64D_wd_AA", 3243, 3]
+west_buy_helicopter = [
+	["UH60M2",	"RHS_UH60M2", 300, 0], 
+	["AH64D 1",	"RHS_AH64D_wd", 800, 1], 
+	["AH64D CS", "RHS_AH64D_wd_CS", 1000, 2],
+	["AH64D AA", "RHS_AH64D_wd_AA", 1200, 3]
+];
+
+west_buy_infantry = [
+	["Rifleman", "B_soldier_F", 20, 0],
+	["Autorifle man", "B_soldier_AR_F", 30, 0],
+	["Heavy Gunner", "B_HeavyGunner_F", 40, 0],	
+	["Grenadier",	"B_Soldier_GL_F", 50, 0], 
+	["Demolition", "B_soldier_exp_F", 50, 0],
+	["Medic", "B_medic_F", 60, 0],	
+	["Sharpshooter", "B_Sharpshooter_F", 60, 0], 
+	["Engineer", "B_engineer_F", 80, 0],
+	["AA soldier", "B_soldier_AA_F", 100, 0],
+	["AT soldier", "B_soldier_AT_F", 100, 0]
 ];

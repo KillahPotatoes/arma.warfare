@@ -1,6 +1,10 @@
 can_use_ammo_box = {
   params ["_trg", "_player"];
 
+  if(isNil "_trg") exitWith {
+    false;
+  };
+
   _owner = _trg getVariable owned_by;
   
   (typeOf _trg) in [ammo_box]
@@ -15,6 +19,10 @@ can_use_ammo_box = {
 is_ammo_box = {
   params ["_trg", "_player"];
   
+  if(isNil "_trg") exitWith {
+    false;
+  };
+
   (typeOf _trg) in [ammo_box]
   && _trg distance _player < 5
   && isTouchingGround _player

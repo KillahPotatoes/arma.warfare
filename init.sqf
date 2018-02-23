@@ -7,12 +7,13 @@
 // Player actions
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\playerActions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\halo.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\playerActions\spawnSquad.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\showArsenal.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\redeploy.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\cash_actions.sqf";
 
-[] call compileFinal preprocessFileLineNumbers "client\buyVehicles\buy_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_infantry_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_vehicle_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_menu_controller.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";
 
 player setVariable [cash, 0];

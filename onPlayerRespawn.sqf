@@ -1,6 +1,5 @@
 player enableFatigue false;
 
-[] call ShowRequestSquadAction;
 [] call ShowArsenalAction;
 [] call AddHeloAction;
 [] call AddRedeployToHqAction;

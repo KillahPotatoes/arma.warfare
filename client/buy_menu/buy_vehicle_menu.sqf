@@ -1,29 +1,3 @@
-
-buy_options = [];
-
-remove_all_options = {
-	{
-		player removeAction _x;
-	} forEach buy_options;
-
-	buy_options = [];
-};
-
-check_if_can_afford = {
-	params ["_price"];
-
-	private _cash = player getVariable cash;
-	_cash >= _price;
-};
-
-widthdraw_cash = {
-	params ["_price"];
-
-	private _cash = player getVariable cash;
-	private _new_amount = _cash - _price;
-	player setVariable [cash, _new_amount];
-};
-
 buy_vehicle = {
 	params ["_base_marker", "_class_name", "_price"];
 
@@ -47,7 +21,7 @@ buy_vehicle = {
 list_options = {
 	params ["_type", "_priority"];
 
-	private _options = missionNamespace getVariable format["%1_buy_%2s", side player, _type];
+	private _options = missionNamespace getVariable format["%1_buy_%2", side player, _type];
 
 	{
 		private _name = _x select 0;
@@ -89,11 +63,6 @@ create_buy_menu = {
 		[_type, _priority] call list_options;
 
 
-	}, [_type, _priority], _priority, false, false, "", '[player] call is_player_close_to_hq'];
-	
+	}, [_type, _priority], _priority, false, false, "", '[player] call is_player_close_to_hq'];	
 };
 
-add_buy_options = {	
-	["Buy vehicle", vehicle1, 10] call create_buy_menu;
-	["Buy helicopter", helicopter, 20] call create_buy_menu;
-;}

@@ -38,6 +38,8 @@ change_sector_ownership = {
 		[_sector] call spawn_sector_defense;
 		[_new_owner, _sector] call add_sector;
 	};
+
+	[_new_owner, _sector] call reset_sector_cash;
 };
 
 check_if_sector_is_attacked = {

@@ -19,24 +19,33 @@ remove_all_options = {
 };
 
 check_if_can_afford = {
-	true;
+	params ["_price"];
+
+	private _cash = player getVariable "cash";
+	_cash >= _price;
 };
 
 widthdraw_cash = {
+	params ["_price"];
 
+	private _cash = player getVariable "cash";
+	private _new_amount = _cash - _price;
+	player setVariable ["cash", _new_amount];
 };
 
 buy_vehicle = {
-	params ["_base_marker", "_class_name"];
+	params ["_base_marker", "_class_name", "_price"];
 
 	private _pos = getPos _base_marker;
 	private _isEmpty = [_pos] call check_if_any_units_to_close;
 
 	if (_isEmpty) exitWith {
 		
-		if ([] call check_if_can_afford) exitWith {
+		if ([_price] call check_if_can_afford) exitWith {
 			private _veh = _class_name createVehicle _pos;
 			_veh setDir (getDir _base_marker);
+
+			[_price] call widthdraw_cash;
 		};
 
 		systemChat "You cannot afford that vehicle";		
@@ -62,16 +71,17 @@ list_options = {
 				private _params = _this select 3;
 				private _type = _params select 0;
 				private _class_name = _params select 1;
+				private _price = _params select 2;
 
 				[] call remove_all_options;
 				
 				private _base_marker_name = [side player, _type] call get_prefixed_name;
 				private _base_marker = missionNamespace getVariable _base_marker_name;
 
-				[_base_marker, _class_name] call buy_vehicle;
+				[_base_marker, _class_name, _price] call buy_vehicle;
 				
 
-			}, [_type, _class_name], (_priority - 1), false, true, "", '[player] call is_close_to_hq']);
+			}, [_type, _class_name, _price], (_priority - 1), false, true, "", '[player] call is_close_to_hq']);
 		};
 	
 	} forEach _options;

@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=352;
+		nextID=354;
 	};
 	class MarkerIDProvider
 	{
@@ -17,9 +17,9 @@ class EditorData
 	class Camera
 	{
 		pos[]={2590.9211,90.091278,622.05658};
-		dir[]={0.52075738,-0.53065187,0.66877866};
-		up[]={0.32603049,0.84757757,0.41870275};
-		aside[]={0.78902864,-1.5738624e-007,-0.61439425};
+		dir[]={0.41273475,-0.54841381,0.72729355};
+		up[]={0.27068046,0.83619404,0.47697651};
+		aside[]={0.86974186,-3.4582627e-007,-0.49357349};
 	};
 };
 binarizationWanted=0;
@@ -32,14 +32,13 @@ addons[]=
 	"asr_ai3_skills",
 	"A3_Structures_F_Mil_Helipads",
 	"A3_Structures_F_System",
-	"A3_Modules_F_Curator_Curator",
-	"A3_Characters_F_Mark"
+	"A3_Modules_F_Curator_Curator"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=7;
+		items=6;
 		class Item0
 		{
 			className="A3_Modules_F";
@@ -82,13 +81,6 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item6
-		{
-			className="A3_Characters_F_Mark";
-			name="Arma 3 Marksmen - Characters and Clothing";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
-		};
 	};
 };
 randomSeed=3755020;
@@ -118,7 +110,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=39;
+		items=38;
 		class Item0
 		{
 			dataType="Logic";
@@ -1702,149 +1694,6 @@ class Mission
 				};
 				nAttributes=4;
 			};
-		};
-		class Item38
-		{
-			dataType="Group";
-			side="West";
-			class Entities
-			{
-				items=8;
-				class Item0
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1653.4678,5.5014391,5304.9463};
-					};
-					side="West";
-					flags=7;
-					class Attributes
-					{
-						rank="SERGEANT";
-					};
-					id=342;
-					type="B_Soldier_SL_F";
-				};
-				class Item1
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1658.4678,5.5014391,5299.9463};
-					};
-					side="West";
-					flags=5;
-					class Attributes
-					{
-						skill=0.40000001;
-					};
-					id=343;
-					type="B_soldier_AR_F";
-				};
-				class Item2
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1648.4678,5.5014391,5299.9463};
-					};
-					side="West";
-					flags=5;
-					class Attributes
-					{
-						skill=0.44999999;
-						rank="CORPORAL";
-					};
-					id=344;
-					type="B_HeavyGunner_F";
-				};
-				class Item3
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1663.4678,5.5014391,5294.9463};
-					};
-					side="West";
-					flags=5;
-					class Attributes
-					{
-						skill=0.40000001;
-					};
-					id=345;
-					type="B_soldier_AAR_F";
-				};
-				class Item4
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1643.4678,5.5014391,5294.9463};
-					};
-					side="West";
-					flags=5;
-					class Attributes
-					{
-						skill=0.40000001;
-					};
-					id=346;
-					type="B_soldier_M_F";
-				};
-				class Item5
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1668.4678,5.5014391,5289.9463};
-					};
-					side="West";
-					flags=5;
-					class Attributes
-					{
-						skill=0.44999999;
-						rank="CORPORAL";
-					};
-					id=347;
-					type="B_Sharpshooter_F";
-				};
-				class Item6
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1638.4678,5.5014391,5289.9463};
-					};
-					side="West";
-					flags=5;
-					class Attributes
-					{
-						skill=0.40000001;
-					};
-					id=348;
-					type="B_soldier_LAT_F";
-				};
-				class Item7
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1673.4678,5.5014391,5284.9463};
-					};
-					side="West";
-					flags=5;
-					class Attributes
-					{
-						skill=0.40000001;
-					};
-					id=349;
-					type="B_medic_F";
-				};
-			};
-			class Attributes
-			{
-			};
-			id=341;
 		};
 	};
 };

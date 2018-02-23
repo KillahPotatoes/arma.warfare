@@ -82,7 +82,6 @@ spawn_reinforcments = {
     {[_x] joinSilent _defenders} forEach units _group;
 };
 
-
 spawn_sector_squad = {
 	params ["_sector"];
 	private _side = _sector getVariable owned_by;
@@ -111,5 +110,5 @@ spawn_sector_defense = {
 	params ["_sector"];
 	_sector call spawn_sector_squad;
 	_sector call spawn_mortar_pos;
-	_sector call spawn_patrol_squad;
-}
+	//_sector call spawn_patrol_squad;
+};

@@ -27,7 +27,7 @@ sector_cash_generation = {
 
                   if(_side in factions) then {
                         private _ammo_box = _sector getVariable box;
-                        private _cash = _ammobox getVariable cash;
+                        private _cash = _ammo_box getVariable cash;
 
                         _ammo_box setVariable [cash, (_cash + cash_per_minute), true];
                   };

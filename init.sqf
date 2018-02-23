@@ -9,8 +9,12 @@
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\showArsenal.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\redeploy.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buyVehicles\buy_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";
+
 player setVariable [cash, 0];
+
 [] spawn compileFinal preprocessFileLineNumbers "client\ui\factionKillCounter.sqf";
 
+[] call show_cash_markers;
 
 

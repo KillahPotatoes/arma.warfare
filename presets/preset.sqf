@@ -11,6 +11,7 @@ tier_1_vehicle_chance = 40;
 tier_1 = 30;
 tier_2 = 60;
 tier_3 = 90;
+cash_per_minute = 10;
 factions = [west, east, independent];
 
 ammo_box = "B_CargoNet_01_ammo_F";

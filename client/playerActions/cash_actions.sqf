@@ -20,6 +20,8 @@ add_store_cash_action = {
   player addAction ["Store cash", {
       private _cash = _this select 3;
 
+      
+
       [player side, _cash] remoteExecCall store_cash;
 
   }, _cash, 1.5, true, true, "",

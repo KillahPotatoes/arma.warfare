@@ -21,16 +21,16 @@ remove_all_options = {
 check_if_can_afford = {
 	params ["_price"];
 
-	private _cash = player getVariable "cash";
+	private _cash = player getVariable cash;
 	_cash >= _price;
 };
 
 widthdraw_cash = {
 	params ["_price"];
 
-	private _cash = player getVariable "cash";
+	private _cash = player getVariable cash;
 	private _new_amount = _cash - _price;
-	player setVariable ["cash", _new_amount];
+	player setVariable [cash, _new_amount];
 };
 
 buy_vehicle = {
@@ -41,11 +41,10 @@ buy_vehicle = {
 
 	if (_isEmpty) exitWith {
 		
-		if ([_price] call check_if_can_afford) exitWith {
+		if (_price call check_if_can_afford) exitWith {
 			private _veh = _class_name createVehicle _pos;
 			_veh setDir (getDir _base_marker);
-
-			[_price] call widthdraw_cash;
+			_price call widthdraw_cash;
 		};
 
 		systemChat "You cannot afford that vehicle";		

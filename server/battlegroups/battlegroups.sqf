@@ -6,7 +6,8 @@ initialize_battle_groups = {
 
 get_battlegroups = {
 	params ["_side"];
-	missionNamespace getVariable format["%1_groups", _side];
+	private _group = missionNamespace getVariable format["%1_groups", _side];
+	[_group] call remove_null;
 };
 
 remove_null = {

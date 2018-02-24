@@ -7,7 +7,7 @@ spawn_base_ammobox = {
 	private _ammo_box = ammo_box createVehicle (_pos);
 
 	_ammo_box setVariable [owned_by, _side, true];
-	_ammo_box setVariable [cash, 0, true];
+	_ammo_box setVariable [cash, 100, true];
 };
 
 initialize_bases = {

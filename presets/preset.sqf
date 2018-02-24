@@ -46,17 +46,23 @@ guer_mortars = ["I_Mortar_01_F"];
 east_mortars = ["O_Mortar_01_F"];
 
 west_buy_vehicle = [
-	["Hunter GMG 1", "B_MRAP_01_gmg_F", 200, 0], 
-	["Hunter HMG", "B_MRAP_01_hmg_F", 300, 0], 
-	["Tanks 1",	"rhsusf_m1a2sep1tuskiiwd_usarmy", 500, 1], 
-	["Tanks 1",	"rhsusf_m1a1aim_tuski_wd", 750, 1], 
-	["Tanks 1",	"rhsusf_m1a1aimwd_usarmy", 1000, 1]
+	["Hunter", "B_MRAP_01F", 100, 0], 
+	["Prowler", "B_LSV_unarmed_F", 100, 0], 
+	["Prowler", "B_LSV_armed_F", 150, 1], 
+	["Hunter GMG 1", "B_MRAP_01_gmg_F", 200, 1], 
+	["Hunter HMG", "B_MRAP_01_hmg_F", 300, 1], 
+	["Tanks 1",	"rhsusf_m1a2sep1tuskiiwd_usarmy", 500, 2], 
+	["Tanks 1",	"rhsusf_m1a1aim_tuski_wd", 750, 2], 
+	["Tanks 1",	"rhsusf_m1a1aimwd_usarmy", 1000, 2]
 ];
 
 west_buy_helicopter = [
+	["MH-9 Hummingbird", "B_Heli_Light_01_F", 200, 0], 
 	["UH60M2",	"RHS_UH60M2", 300, 0], 
-	["AH64D 1",	"RHS_AH64D_wd", 800, 1], 
-	["AH64D CS", "RHS_AH64D_wd_CS", 1000, 2],
+	["CH-67 Huron",	"B_Heli_Transport_03_unarmed_F", 400, 0], 
+	["AH-9 Pawnee",	"B_Heli_Light_01_dynamicLoadout_F", 300, 1], 	
+	["AH64D 1",	"RHS_AH64D_wd", 800, 3], 
+	["AH64D CS", "RHS_AH64D_wd_CS", 1000, 3],
 	["AH64D AA", "RHS_AH64D_wd_AA", 1200, 3]
 ];
 

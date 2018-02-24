@@ -1,50 +1,55 @@
-waitUntil {!isNull player};
+close_to_any_owned_sectors = {
+	params ["_pos", "_sector_boxes"];
 
-_kp_markers_array = [];
-_kp_markers_start = 0.5;
-_kp_markers_change = 0.02;
+	_is_close = 999999;
 
-while {true} do {
-	{deleteMarkerLocal _x;} count _kp_markers_array;
-	_kp_markers_array = [];
 	{
-		if ((side _x == east || side _x == independent) && (({!captive _x} count (units _x) ) > 0)) then {
-      _kp_markers_pos = getPosATL leader _x;
-			_kp_markers_posx = floor (_kp_markers_pos select 0);
-			_kp_markers_posx = _kp_markers_posx - (_kp_markers_posx mod 200);
-			_kp_markers_posy = floor (_kp_markers_pos select 1);
-			_kp_markers_posy = _kp_markers_posy - (_kp_markers_posy mod 200);
+		if((_x getVariable owned_by) isEqualTo playerSide) then {
 
-			// Chernarus Grid Fix
-			if (worldName == "Chernarus") then {
-				_kp_markers_posy = _kp_markers_posy - 140;
-				if ((_kp_markers_posy + 200) < (_kp_markers_pos select 1)) then {
-					_kp_markers_posy = _kp_markers_posy + 200;
-				};
-			};
-
-			// Sahrani Grid Fix
-			if (worldName == "Sara") then {
-				_kp_markers_posy = _kp_markers_posy - 20;
-				if ((_kp_markers_posy + 200) < (_kp_markers_pos select 1)) then {
-					_kp_markers_posy = _kp_markers_posy + 200;
-				};
-			};
-
-			_kp_markers_name = format["kp_marker_grid_%1_%2", _kp_markers_posx, _kp_markers_posy];
-			_kp_markers_color = format["Color%1", side _x];
-
-			if ((markerShape _kp_markers_name) isEqualTo "RECTANGLE") then {
-				_kp_markers_name setMarkerAlphaLocal ((markerAlpha _kp_markers_name) +  _kp_markers_change);
-			} else {
-				createMarkerLocal[_kp_markers_name, [_kp_markers_posx + 100, _kp_markers_posy + 100, 0]];
-				_kp_markers_name setMarkerShapeLocal "RECTANGLE";
-				_kp_markers_name setMarkerSizeLocal [100,100];
-				_kp_markers_name setMarkerColorLocal _kp_markers_color;
-				_kp_markers_name setMarkerAlphaLocal (_kp_markers_start +  _kp_markers_change);
-				_kp_markers_array pushBack _kp_markers_name;
-			};
+			_is_close = _is_close min ((getPosWorld _x) distance2D _pos);
 		};
-	} count allGroups;
-	uiSleep (2);
+	} forEach _sector_boxes;
+
+	_is_close;
+};
+
+show_enemy_markers = {
+	_enemy_markers_array = [];
+	
+	_sector_boxes = allMissionObjects "B_CargoNet_01_ammo_F";
+
+	_enemies = factions - [playerSide];
+	
+	while {true} do {
+		{deleteMarkerLocal _x;} count _enemy_markers_array;
+		_enemy_markers_array = [];
+
+		{
+			if ((side _x) in _enemies) then {
+				_markers_pos = getPosWorld (leader _x);
+
+				_distance = [_markers_pos, _sector_boxes] call close_to_any_owned_sectors;
+
+				if(_distance < 200) then {				
+
+					_markers_posx = floor (_markers_pos select 0);
+					_markers_posy = floor (_markers_pos select 1);
+
+					_markers_name = format["_marker_grid_%1_%2", _markers_pos select 0, _markers_pos select 1];
+					_markers_color = format["Color%1", side _x];
+					
+					_alpha = (200 - _distance) / 200;
+
+					createMarkerLocal[_markers_name, _markers_pos];
+					_markers_name setMarkerBrushLocal "SolidBorder"; 
+					_markers_name setMarkerShapeLocal "ELLIPSE";
+					_markers_name setMarkerSizeLocal [15,15];
+					_markers_name setMarkerColorLocal _markers_color;
+					_markers_name setMarkerAlphaLocal _alpha;
+					_enemy_markers_array pushBack _markers_name;					
+				};
+			};
+		} forEach allGroups;
+		uiSleep (2);
+	};	
 };

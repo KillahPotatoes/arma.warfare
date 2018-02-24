@@ -10,7 +10,9 @@ get_skill = {
 
 calc_skill = {
 	params ["_side"];
-	_skill = (starting_strength min (abs (0 min ((_side call get_strength) - starting_strength)))) / 100;  
+
+	_half = starting_strength / 2;
+	_skill = (0 max (0.5 min ((_half - ((_side call get_strength) - _half)) / starting_strength)));   
 	[_side, _skill] call set_skill;
 };
 

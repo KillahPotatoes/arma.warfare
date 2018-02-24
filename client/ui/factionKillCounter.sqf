@@ -51,7 +51,7 @@ with uiNamespace do {
 	print_strength = {
 		params ["_side"];
 
-		_strength = floor ([_side] call get_strength);
+		_strength = ceil ([_side] call get_strength);
 
 		if (_strength < 0) exitWith {
 			0;

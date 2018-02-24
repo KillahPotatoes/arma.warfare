@@ -22,6 +22,7 @@ player setVariable [cash, 0];
 [] spawn compileFinal preprocessFileLineNumbers "client\ui\factionKillCounter.sqf";
 
 [] spawn show_enemy_markers;
+[] spawn show_friendly_markers;
 [] spawn show_cash_markers;
 
 

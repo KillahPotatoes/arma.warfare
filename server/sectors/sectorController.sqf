@@ -3,19 +3,19 @@
 capture_sector = {
 	params ["_sector", "_side"];
 
-	[_sector, _side] call change_sector_ownership;
-
 	_msg = format["%1 has captured %2", _side, _sector getVariable sector_name];
 	_msg remoteExec ["hint"]; 
+
+	[_sector, _side] call change_sector_ownership;
 };
 
 lose_sector = {
 	params ["_sector", "_side"];
 
-	[_sector, civilian] call change_sector_ownership;
-
 	_msg = format["%1 has lost %2", _side, _sector getVariable sector_name];
 	_msg remoteExec ["hint"]; 
+
+	[_sector, civilian] call change_sector_ownership;
 };
 
 change_sector_ownership = {

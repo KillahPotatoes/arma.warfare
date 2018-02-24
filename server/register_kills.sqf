@@ -19,15 +19,8 @@ kill_ticker = {
 };
 
 calculate_kill_points = {
-	params ["_side"];
-
-	_players = _side countSide allPlayers;
-
-	if(_players == 0) exitWith {
-		1;
-	};
-
-	1 / (_players * 2);
+	params ["_killer_side"];
+	1 / ((_killer_side countSide allPlayers) + 1);
 };
 
 register_kill = {

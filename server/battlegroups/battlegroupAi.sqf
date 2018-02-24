@@ -41,7 +41,7 @@ group_ai = {
 
 				private _target = if(_sector_c > 0) 
 					then { 
-						[_side, _pos] call find_closest_target_sector
+						[_side, _pos] call find_closest_target_sector;
 					} else {
 						[_side, _pos] call find_closest_friendly_sector;	
 					};

@@ -46,9 +46,9 @@ guer_mortars = ["I_Mortar_01_F"];
 east_mortars = ["O_Mortar_01_F"];
 
 west_buy_vehicle = [
-	["Hunter", "B_MRAP_01F", 100, 0], 
-	["Prowler", "B_LSV_unarmed_F", 100, 0], 
-	["Prowler", "B_LSV_armed_F", 150, 1], 
+	["Hunter", "B_MRAP_01_F", 100, 0], 
+	["Prowler", "B_LSV_01_unarmed_F", 100, 0], 
+	["Prowler", "B_LSV_01_armed_F", 150, 1], 
 	["Hunter GMG 1", "B_MRAP_01_gmg_F", 200, 1], 
 	["Hunter HMG", "B_MRAP_01_hmg_F", 300, 1], 
 	["Tanks 1",	"rhsusf_m1a2sep1tuskiiwd_usarmy", 500, 2], 

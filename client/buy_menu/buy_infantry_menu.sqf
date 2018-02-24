@@ -1,19 +1,16 @@
 buy_infantry = {
 	params ["_class_name", "_price"];
 
-	private _pos = [getPos player, 0, 15, 5, 0, 0, 0] call BIS_fnc_findSafePos;
-
-	_group = group player;
-    _group_count = {alive _x} count units _group;
-
-    _numberOfSoldiers = squad_size - _group_count;
-		
 		if (_price call check_if_can_afford) exitWith {
 
-			if (_numberOfSoldiers > 0) exitWith {
-				private _soldier = _class_name createVehicle _pos;
+			_group = group player;
+			_group_count = {alive _x} count units _group;
+			_numberOfSoldiers = squad_size - _group_count;
 
-				[_soldier] joinSilent _group;
+			if (_numberOfSoldiers > 0) exitWith {
+
+				_class_name createUnit[getPos player, _group];
+
 				_price call widthdraw_cash;
 
 				[_group] remoteExec ["add_battle_group", 2];

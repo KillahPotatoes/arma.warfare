@@ -27,7 +27,7 @@ AddHeloAction = {
     };
     onMapSingleClick {};
   }, nil, 1.5, true, true, "",
-  '[cursorTarget, player] call can_use_ammo_box'
+  '[player] call is_player_close_to_hq'
   ];
 };
 

@@ -49,7 +49,7 @@ increment_tier = {
 	private _tier_bound = _next_tier call get_tier_bound;
 
 	if(_kill_count > _tier_bound) exitWith {
-		private _msg = format["%1 advanced to tier %2", _side, next_tier];
+		private _msg = format["%1 advanced to tier %2", _side, _next_tier];
 		_msg remoteExec ["hint"]; 
 		
 		[_side, _next_tier] call set_tier;

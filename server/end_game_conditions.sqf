@@ -1,15 +1,5 @@
 active_factions = [east, west, independent];
 
-delete_playable_units = {
-	params ["_side"];
-	
-	{
-		if(side _x isEqualTo _side) then {
-			deleteVehicle _x;			
-		};
-	} forEach playableUnits;
-};
-
 check_if_lost = {
 	params ["_side"];
 	private _lost = false;
@@ -19,7 +9,7 @@ check_if_lost = {
 		_players = _side countSide allPlayers;
 
 		if (_players == 0) then {
-			_side call delete_playable_units;
+			
 			_lost = true;
 		};
 	};

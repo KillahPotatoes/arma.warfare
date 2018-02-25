@@ -14,6 +14,7 @@ tier_3 = 90;
 cash_per_minute = 10;
 squad_size = 8;
 factions = [west, east, independent];
+show_all = false;
 
 ammo_box = "B_CargoNet_01_ammo_F";
 mine = "APERSBoundingMine";

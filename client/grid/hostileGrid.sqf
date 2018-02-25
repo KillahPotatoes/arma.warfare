@@ -42,7 +42,7 @@ show_friendly_markers = {
 		_markers_array = [];
 
 		{
-			if ((side _x) isEqualTo playerSide) then {
+			if ((side _x) isEqualTo playerSide || show_all) then {
 				_markers_pos = getPosWorld (leader _x);
 
 				_distance = [_markers_pos, _sector_boxes] call close_to_any_owned_sectors;				

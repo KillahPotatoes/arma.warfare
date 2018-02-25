@@ -3,10 +3,17 @@ calc_income = {
 
       private _count = _side call get_sector_count;
       private _strength = _side call get_strength;
-      private _new_strength = _strength + (_count  / ((count sectors) * 5));
+      private _new_strength = _strength + (_count  / (_side call calc_income_factor));
+      _new_strength = _new_strength / ((_side countSide allPlayers) + 1);
 
       [_side, _new_strength] call set_strength;
       [_side, _count] call set_income;
+};
+
+calc_income_factor = {
+     params ["_side"];
+      
+     (count sectors) * (10 / ((_side countSide allPlayers) + 1));
 };
 
 sector_income = {

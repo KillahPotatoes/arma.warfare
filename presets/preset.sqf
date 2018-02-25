@@ -6,8 +6,7 @@ unit_cap = 30;
 defender_cap = 5;
 patrol_cap = 3;
 initial_skill = 0.5;
-tier_2_vehicle_chance = 10;
-tier_1_vehicle_chance = 40;
+vehicle_chance = 30;
 tier_1 = 30;
 tier_2 = 60;
 tier_3 = 90;
@@ -29,6 +28,10 @@ tier_3_gunship_respawn_time = [420, 720, 1020];
 west_heavy_vehicles = ["rhsusf_m1a2sep1tuskiiwd_usarmy", "rhsusf_m1a1aim_tuski_wd", "rhsusf_m1a1aimwd_usarmy"];
 guer_heavy_vehicles = ["rhsgref_cdf_t80b_tv", "rhsgref_cdf_t72bb_tv", "rhsgref_cdf_t72ba_tv"];
 east_heavy_vehicles = ["rhs_t80bv", "rhs_t90a_tv", "rhs_t72bd_tv"];
+
+west_medium_vehicles = ["B_MRAP_01_gmg_F", "B_MRAP_01_hmg_F"];
+guer_medium_vehicles = ["rhsgref_cdf_reg_uaz_dshkm", "rhsgref_cdf_reg_uaz_ags", "rhssaf_m1025_olive_m2"];
+east_medium_vehicles = ["rhs_tigr_sts_msv", "rhsgref_BRDM2_ATGM_msv", "rhsgref_BRDM2_HQ_msv"];
 
 west_light_vehicles = ["B_MRAP_01_gmg_F", "B_MRAP_01_hmg_F"];
 guer_light_vehicles = ["rhsgref_cdf_reg_uaz_dshkm", "rhsgref_cdf_reg_uaz_ags", "rhssaf_m1025_olive_m2"];

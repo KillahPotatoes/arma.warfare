@@ -31,7 +31,6 @@ move_to_sector = {
 	};
 
 	if ((_target getVariable pos) distance2D (getPosWorld leader _group) < 200) then {	
-		_group setSpeedMode "LIMITED";		
 		_group setCombatMode "RED";
 	};		
 };

@@ -15,11 +15,11 @@
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_vehicle_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_menu_controller.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\grid\hostileGrid.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
 
 player setVariable [cash, 0];
 
-[] spawn compileFinal preprocessFileLineNumbers "client\ui\factionKillCounter.sqf";
+[] spawn compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
 
 [] spawn show_enemy_markers;
 [] spawn show_friendly_markers;

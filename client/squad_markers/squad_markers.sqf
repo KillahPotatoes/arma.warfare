@@ -34,7 +34,7 @@ create_unit_marker = {
 
 show_friendly_markers = {
 	_markers_array = [];
-	_sector_boxes = allMissionObjects "B_CargoNet_01_ammo_F";
+	_sector_boxes = allMissionObjects ammo_box;
 	_marker_name = "friendly";
 		
 	while {true} do {
@@ -59,7 +59,7 @@ show_friendly_markers = {
 
 show_enemy_markers = {
 	_markers_array = [];	
-	_sector_boxes = allMissionObjects "B_CargoNet_01_ammo_F";
+	_sector_boxes = allMissionObjects ammo_box;
 	_enemies = factions - [playerSide];
 	_marker_name = "enemy";
 	

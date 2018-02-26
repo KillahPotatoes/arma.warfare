@@ -5,7 +5,7 @@ generate_mines = {
 	_IED_blow_trigger = false;
 
 	if ((_nclass_mines=="IEDLandBig_F") or (_nclass_mines=="IEDUrbanBig_F") or (_nclass_mines=="IEDUrbanSmall_F") or (_nclass_mines=="IEDLandSmall_F")) then {
-	_IED_blow_trigger = true; //_IED_blow_trigger = "APERSBoundingMine";
+	_IED_blow_trigger = true; //_IED_blow_trigger = mine;
 	};
 
 	_nm =0;

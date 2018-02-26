@@ -33,7 +33,7 @@ update_cash_markers = {
 };
 
 show_cash_markers = {
-	_cash_storage_boxes = allMissionObjects "B_CargoNet_01_ammo_F";
+	_cash_storage_boxes = allMissionObjects ammo_box;
 	[_cash_storage_boxes] call create_cash_markers;
 	_side = playerSide;
 

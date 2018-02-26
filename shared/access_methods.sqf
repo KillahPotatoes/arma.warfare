@@ -5,7 +5,7 @@ get_prefixed_name = {
 
 get_tier_bound = {
 	params ["_num"];
-	missionNamespace getVariable format ["tier_%1",  _num];
+	_num * starting_strength;
 };
 
 set_tier_progress = {

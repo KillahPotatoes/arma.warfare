@@ -25,6 +25,7 @@
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectorDefense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectorController.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sector_patrols.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\defensive_groups.sqf";
 
 // Faction
 [] call compileFinal preprocessFileLineNumbers "server\factions\factionStrength.sqf";
@@ -48,6 +49,7 @@
 [] call initialize_bases;
 [] call initialize_base_respawns;
 [] call initialize_battle_groups;
+[] call initialize_defensive_groups;
 
 // Game threads
 [] spawn end_game_conditions_check;
@@ -59,5 +61,6 @@
 [] spawn initialize_sector_control;
 [] spawn sector_income;
 [] spawn sector_cash_generation;
+[] spawn defensive_group_chatter;
 
 

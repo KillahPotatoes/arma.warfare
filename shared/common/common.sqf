@@ -14,6 +14,6 @@ check_if_player_already_in_hq = {
 };
 
 calc_number_of_soldiers = {
-	params ["_soldier_cap"]
+	params ["_soldier_cap"];
 	floor random [_soldier_cap / 2, _soldier_cap / 1.5, _soldier_cap];
 };

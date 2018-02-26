@@ -31,9 +31,9 @@ west_medium_vehicles = ["B_MRAP_01_gmg_F", "B_MRAP_01_hmg_F"];
 guer_medium_vehicles = ["rhsgref_cdf_reg_uaz_dshkm", "rhsgref_cdf_reg_uaz_ags", "rhssaf_m1025_olive_m2"];
 east_medium_vehicles = ["rhs_tigr_sts_msv", "rhsgref_BRDM2_ATGM_msv", "rhsgref_BRDM2_HQ_msv"];
 
-west_light_vehicles = ["B_MRAP_01_gmg_F", "B_MRAP_01_hmg_F"];
-guer_light_vehicles = ["rhsgref_cdf_reg_uaz_dshkm", "rhsgref_cdf_reg_uaz_ags", "rhssaf_m1025_olive_m2"];
-east_light_vehicles = ["rhs_tigr_sts_msv", "rhsgref_BRDM2_ATGM_msv", "rhsgref_BRDM2_HQ_msv"];
+west_light_vehicles = ["B_LSV_01_unarmed_F", "B_MRAP_01_F"];
+guer_light_vehicles = ["I_G_offroad_01_F"];
+east_light_vehicles = ["O_LSV_02_unarmed_F"];
 
 west_gunships = ["RHS_AH64D_wd", "RHS_AH64D_wd_CS", "RHS_AH64D_wd_AA"];
 guer_gunships = ["rhsgref_cdf_Mi35", "rhsgref_cdf_Mi24D", "rhsgref_cdf_Mi24D_early"];

@@ -3,10 +3,12 @@ spawn_defensive_squad = {
 
 	_side = _sector getVariable owned_by;
 	_safe_pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-	private _number_of_soldiers = [] call calc_number_of_soldiers;
+	private _number_of_soldiers = defender_cap call calc_number_of_soldiers;
     private _group = [_safe_pos, _side, _number_of_soldiers, true] call spawn_infantry;
 	
     _group setBehaviour "AWARE";
+
+	_group setVariable ["location", _sector getVariable "name"];
 	_group;
 };
 
@@ -72,7 +74,7 @@ spawn_mortar_pos = {
 };
 
 calc_number_of_soldiers = {
-	params ["_soldier_cap"]
+	params ["_soldier_cap"];
 	floor random [_soldier_cap / 2, _soldier_cap / 1.5, _soldier_cap];
 };
 
@@ -87,6 +89,7 @@ spawn_reinforcments = {
     private _group = [_pos, _side, _new_soldiers, true] call spawn_infantry;
     	
     {[_x] joinSilent _defenders} forEach units _group;
+	_defenders;
 };
 
 spawn_sector_squad = {
@@ -97,15 +100,18 @@ spawn_sector_squad = {
 	if(isNil "_sector_defense") exitWith {
 		_defensive_squad = [_sector] call spawn_defensive_squad;	
 		_sector setVariable [sector_def, _defensive_squad];
+		_defensive_squad call add_defensive_group;
 	}; 	
 
 	if (side _sector_defense isEqualTo _side) exitWith {
-		[_sector, _sector_defense, _side] call spawn_reinforcments;
+		_defensive_squad = [_sector, _sector_defense, _side] call spawn_reinforcments;
+		_defensive_squad call add_defensive_group;
 	};
 
 	if(!(side _sector_defense isEqualTo _side)) exitWith {
 		if({alive _x} count units _sector_defense > 0) then {
-			[_sector_defense] call add_battle_group;
+			_sector_defense call remove_defensive_group;
+			_sector_defense call add_battle_group;
 		};
 
 		_defensive_squad = [_sector] call spawn_defensive_squad;	

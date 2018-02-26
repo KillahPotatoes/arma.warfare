@@ -24,6 +24,8 @@ remove_null = {
 
 add_battle_group = {	
 	params ["_group"];	
+	_curr_count = {alive _x} count units _group;
+	_group setVariable [soldier_count, _curr_count];
 	((side _group) call get_battlegroups) pushBackUnique _group;
 };
 

@@ -20,26 +20,42 @@ spawn_random_group = {
 	private _rnd = random 100;
 
 	if (_tier > 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
-		([_pos, _side, "heavy"] call spawn_vehicle_group);
+		([_pos, _side, "heavy", _unused_strength] call spawn_vehicle_group);
 	}; 
 
 	if (_tier > 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
-		([_pos, _side, "medium"] call spawn_vehicle_group);
+		([_pos, _side, "medium", _unused_strength] call spawn_vehicle_group);
 	};
 
 	if (_tier > 0 && {_rnd < vehicle_chance}) exitWith {
-		([_pos, _side, "light"] call spawn_vehicle_group);
+		([_pos, _side, "light", _unused_strength] call spawn_vehicle_group);
 	};
 
 	[_pos, _side, _unused_strength] call spawn_squad;	
 };
 
+add_soldiers_to_cargo = {
+	params ["_vehicle"];
+	_cargoCapacity = _vehicle emptyPositions "cargo";
+	_cargo = _cargoCapacity min unused_strength;
+
+	_soldiers = [_pos, _side, _cargo, false] call spawn_infantry;	
+
+	{
+		_x moveInCargo _vehicle;
+	} forEach units _soldiers
+
+	[_soldiers] call add_battle_group;
+};
+
 spawn_vehicle_group = {
-	params ["_pos", "_side", "_type"];
+	params ["_pos", "_side", "_type", "unused_strength"];
 	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
 
 	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
-    [_pos, 180, _vehicle_type, _side] call BIS_fnc_spawnVehicle select 2;
+	_veh_array = [_pos, 180, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
+    (_veh_array select 0) call add_soldiers_to_cargo;
+	_veh_array select 2;
 };
 
 spawn_gunship_group = {
@@ -72,11 +88,8 @@ spawn_squad = {
 	params ["_pos", "_side", "_unused_strength"];
 	
 	_pos = [_pos, _side] call get_infantry_spawn_position;
-	_soldier_count = if(_unused_strength > 10) then { floor random [3,5,10]; } else { _unused_strength; };
-    _group = [_pos, _side, _soldier_count, false] call spawn_infantry;
-	
-    _group setBehaviour "AWARE";
-	_group;
+	_soldier_count = (squad_cap call calc_number_of_soldiers) min _unused_strength;
+    [_pos, _side, _soldier_count, false] call spawn_infantry;	
 };
 
 get_unused_strength = {

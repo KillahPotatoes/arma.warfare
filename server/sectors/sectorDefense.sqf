@@ -3,7 +3,8 @@ spawn_defensive_squad = {
 
 	_side = _sector getVariable owned_by;
 	_safe_pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    private _group = [_safe_pos, _side, defender_cap, true] call spawn_infantry;
+	private _number_of_soldiers = [] call calc_number_of_soldiers;
+    private _group = [_safe_pos, _side, _number_of_soldiers, true] call spawn_infantry;
 	
     _group setBehaviour "AWARE";
 	_group;
@@ -70,11 +71,17 @@ spawn_mortar_pos = {
 	};
 };
 
+calc_number_of_soldiers = {
+	params ["_soldier_cap"]
+	floor random [_soldier_cap / 2, _soldier_cap / 1.5, _soldier_cap];
+};
+
 spawn_reinforcments = {
 	params ["_sector", "_defenders", "_side"];
 	
     private _group_count = {alive _x} count units _defenders;
-    private _new_soldiers = defender_cap - _group_count;
+
+	private _new_soldiers = 0 max ((defender_cap call calc_number_of_soldiers) - _group_count);
 
     private _pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
     private _group = [_pos, _side, _new_soldiers, true] call spawn_infantry;

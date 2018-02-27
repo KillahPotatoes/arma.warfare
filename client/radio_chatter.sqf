@@ -44,34 +44,34 @@ report_casualities_in_sector = {
 
 	if(!isNull _group) then {	
 		if(_deaths == 1) exitWith {
-			(leader _group) sideChat format[selectRandom oneCasualty, _location];
+			(leader _group) sideChat format[selectRandom oneCasualtyInSector, _location];
 		};
 
 		if(_deaths > 3) exitWith {
-			(leader _group) sideChat format[selectRandom heavyCasualties, _deaths, _location];
+			(leader _group) sideChat format[selectRandom heavyCasualtiesInSector, _deaths, _location];
 		};
 
 		if(_deaths > 1) exitWith {
-			(leader _group) sideChat format[selectRandom multipleCasualties, _deaths, _location];
+			(leader _group) sideChat format[selectRandom multipleCasualtiesInSector, _deaths, _location];
 		};	
 	};
 	
 };
 
-oneCasualty = [
+oneCasualtyInSector = [
 	"We lost a soldier at %1", 
 	"We have one down at %1", 
 	"We are one less at %1", 
 	"We lost one at %1"
 ];
 
-multipleCasualties = [
+multipleCasualtiesInSector = [
 	"We are taking casualties. %1 down at %2", 
 	"We just lost %1 soldiers at %2", 
 	"We lost %1 guys at %2"
 ];
 
-heavyCasualties = [
+heavyCasualtiesInSector = [
 	"We need backup! Just lost %1 at %2",
 	"We are taking heavy casualties at %2",
 	"Send backup. %1 just got killed at %2"

@@ -132,21 +132,25 @@ spawn_gunships = {
 	
 	while {true} do {
 		private _tier = [_side] call get_tier;	
-		sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
 
-		if ([_side] call get_unused_strength > 0) then {
-			private _gunship = _side call get_gunship;
+		if(_tier > 0) then {
+			if ([_side] call get_unused_strength > 0) then {
+				private _gunship = _side call get_gunship;
 
-			if (!isNil format["%1_gunship", _side]) then {	
-				(_gunship select 0) setDamage 1;					
-			}; 
+				if (!isNil format["%1_gunship", _side]) then {	
+					(_gunship select 0) setDamage 1;					
+				}; 
 
-			private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
-			_gunship = [_pos, _side] call spawn_gunship_group;
-			[_gunship select 2] call add_battle_group;
+				private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
+				_gunship = [_pos, _side] call spawn_gunship_group;
+				[_gunship select 2] call add_battle_group;
 
-			waitUntil {!canMove (_gunship select 0)};					
-		};		
+				waitUntil {!canMove (_gunship select 0)};
+				_tier = [_side] call get_tier;
+				sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
+			};				
+		};
+		sleep 10;		
 	};
 };
 

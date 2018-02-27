@@ -11,7 +11,7 @@ add_sector_box = {
 initialize_sectors = {
 	private _sectors = [];
 	{
-		_split_string = [_x, 7] call S_SplitString;
+		_split_string = [_x, 7] call split_string;
 		_first_string = _split_string select 0;
 		_second_string = _split_string select 1;
 				

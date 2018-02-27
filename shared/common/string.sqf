@@ -17,7 +17,7 @@ replace_underscore = {
 
   private _str = _str splitString "_";
   _str joinString " ";
-}
+};
 
 get_direction = {
   params ["_pos1", "_pos2"];

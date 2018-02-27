@@ -20,6 +20,17 @@ T0 = Tier 0
 
 50 = current strength of the faction. If strength is >30 the AI unit cap will be 30, but if <30 the unit cap will be equal strength
 
+### Cash
+
+Cash is generated at held sectors. You can grab the cash from the ammobox at each sector and use it to buy infantry, helis and vehicles.
+What is available for you to buy depends on the tier you are in.
+
+Infantry can be bought at each sector while vehicles and helicopters can only be bought at the startingbase. 
+You can also store money at your base. This is the only place where they will be safe. If you die you lose all cash you have on you, 
+and if a sector is captured all money that are there will be lost.
+
+You can grab money from sectors that are not yours, so money raids on enemy sectors that have been held for a long time is a good strategy.
+
 ### Start base (HQ)
 Your startbase consists of an ammobox, ammo container, repair container and a medical container.
 
@@ -111,17 +122,15 @@ An ammobox will spawn in its center så make sure its empty.
 
 Copy the starting base from the template mission, it should include:
 
-##### 2 grasscutters:
-###### \<prefix\>_light_vehicle_parking  
-###### \<prefix\>_heavy_vehicle_parking
+##### 1 grasscutters:
+###### \<prefix\>_vehicle_parking  
   
-This is where empty vehicles for players will spawn  
+This is where bought vehicles for players will spawn  
 
-##### 2 helipads
-###### \<prefix\>_transport_helipad  
-###### \<prefix\>_battle_helipad
+##### 1 helipads
+###### \<prefix\>_heli  
 
-This is where empty helicopters for players will spawn  
+This is where bought helicopters for players will spawn  
 
 ##### 2 respawn points
 ###### \<prefix\>_ground_respawn

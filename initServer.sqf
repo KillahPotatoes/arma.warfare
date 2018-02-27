@@ -9,7 +9,6 @@
 
 // Shared scripts
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
-[] call compileFinal preprocessFileLineNumbers "shared\spawn_infantry.sqf";
 
 
 // Third party scripts
@@ -37,6 +36,7 @@
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\adjust_skill_levels.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 
 // Radio chatter
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";

@@ -14,9 +14,9 @@ report_casualities_over_radio = {
 
 	if (_deaths > 0) exitWith {
 		private _pos = getPosWorld (leader _group);
-		private _closest_sector = [_pos, sectors] call find_closest_sector;
+		private _closest_sector = [sectors, _pos] call find_closest_sector;
 		private _sector_pos = _closest_sector getVariable pos;
-		private _distance = _sector_pos distance2D _pos;
+		private _distance = floor(_sector_pos distance2D _pos);
 		private _location = [_closest_sector getVariable sector_name] call replace_underscore;
 
 		if (_distance > 200) exitWith {

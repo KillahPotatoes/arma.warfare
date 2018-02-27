@@ -7,8 +7,6 @@ spawn_defensive_squad = {
     private _group = [_safe_pos, _side, _number_of_soldiers, true] call spawn_infantry;
 	
     _group setBehaviour "AWARE";
-
-	_group setVariable ["location", _sector getVariable "name"];
 	_group;
 };
 

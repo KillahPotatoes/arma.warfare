@@ -2,6 +2,8 @@
 
 This is a sector control mission for Arma 3 with emphasize on easy setup for new missions, combined arms gameplay and automatic difficulty scaling.
 
+There are 4 player slots on each side so you can play this PVP but PVE works great too. 
+
 ## Features
 
 ### Faction stats

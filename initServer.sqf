@@ -38,6 +38,9 @@
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\adjust_skill_levels.sqf";
 
+// Radio chatter
+[] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
+
 // Game setup
 [] call initialize_sectors;
 [] call draw_all_sectors;

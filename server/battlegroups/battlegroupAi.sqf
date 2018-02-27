@@ -53,7 +53,7 @@ group_ai = {
 					};
 				
 				[_target, _group] call move_to_sector;
-				[_group] remoteExec ["report_casualities"];
+				[_group] call report_casualities_over_radio;
 			};
 		} forEach ([] call get_all_battle_groups);
 		sleep 10;

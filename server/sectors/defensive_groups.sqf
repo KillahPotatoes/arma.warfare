@@ -34,10 +34,8 @@ get_all_defensive_groups = {
 defensive_group_chatter = {
 	while {true} do {
 		{
-			[_x] remoteExec ["report_defensive_casualities"];
+			[_x] call report_casualities_over_radio;
 		} forEach ([] call get_all_defensive_groups);
 		sleep 10;
 	};	
 };
-
-

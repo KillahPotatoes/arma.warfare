@@ -23,11 +23,11 @@ oneCasualty = [
 	"We lost a soldier %1m %2 of %3", 
 	"We have one down %1m %2 of %3", 
 	"We are one less at %1m %2 of %3", 
-	"We lost one at %1m %2 of %3"
+	"We lost one %1m %2 of %3"
 ];
 
 multipleCasualties = [
-	"We are taking casualties. %1 down at %2m %3 of %4", 
+	"We are taking casualties. %1 down %2m %3 of %4", 
 	"We just lost %1 soldiers %2m %3 of %4",  
 	"We lost %1 guys %2m %3 of %4"
 ];

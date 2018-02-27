@@ -2,6 +2,7 @@
 [] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\radio_chatter.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\end_mission.sqf";
 
 // Player actions

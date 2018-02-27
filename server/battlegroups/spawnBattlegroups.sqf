@@ -35,26 +35,30 @@ spawn_random_group = {
 };
 
 add_soldiers_to_cargo = {
-	params ["_vehicle"];
+	params ["_veh_array", "_unused_strength"];
+
+	_vehicle = _veh_array select 0;
+	_group = _veh_array select 2;
+
 	_cargoCapacity = _vehicle emptyPositions "cargo";
-	_cargo = _cargoCapacity min unused_strength;
+	_cargo = _cargoCapacity min _unused_strength;
 
 	_soldiers = [_pos, _side, _cargo, false] call spawn_infantry;	
 
 	{
 		_x moveInCargo _vehicle;
-	} forEach units _soldiers
-
-	[_soldiers] call add_battle_group;
+        [_x] joinSilent _group;
+		
+	} forEach units _soldiers;
 };
 
 spawn_vehicle_group = {
-	params ["_pos", "_side", "_type", "unused_strength"];
+	params ["_pos", "_side", "_type", "_unused_strength"];
 	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
 
 	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
 	_veh_array = [_pos, 180, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
-    (_veh_array select 0) call add_soldiers_to_cargo;
+    [_veh_array, _unused_strength] call add_soldiers_to_cargo;
 	_veh_array select 2;
 };
 

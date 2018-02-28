@@ -40,7 +40,7 @@ set_kill_count = {
 
 set_strength = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_strength", _side], _value, true];
+	missionNamespace setVariable [format ["%1_strength", _side], ((starting_strength * 2) max _value), true];
 }; 
 
 get_strength = {
@@ -56,4 +56,9 @@ set_income = {
 get_income = {
 	params ["_side"];
 	missionNamespace getVariable format ["%1_income", _side];
+};
+
+get_faction_names = {
+  params ["_side"];
+  missionNamespace getVariable format["%1_faction_name", _side];
 };

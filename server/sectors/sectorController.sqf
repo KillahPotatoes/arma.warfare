@@ -4,7 +4,7 @@ capture_sector = {
 	params ["_sector", "_side"];
 
 	_name = [_sector getVariable sector_name] call replace_underscore;
-	_msg = format["%1 has captured %2", _side, _name];
+	_msg = format["%1 has captured %2", _side call get_faction_names, _name];
 	_msg remoteExec ["hint"]; 
 
 	[_sector, _side] call change_sector_ownership;
@@ -14,7 +14,7 @@ lose_sector = {
 	params ["_sector", "_side"];
 
 	_name = [_sector getVariable sector_name] call replace_underscore;
-	_msg = format["%1 has lost %2", _side, _name];
+	_msg = format["%1 has lost %2", _side call get_faction_names, _name];
 	_msg remoteExec ["hint"]; 
 
 	[_sector, civilian] call change_sector_ownership;
@@ -82,6 +82,7 @@ initialize_sector_control = {
 			};
 
 		} forEach sectors;
+		sleep 5;
 	};
 };
 

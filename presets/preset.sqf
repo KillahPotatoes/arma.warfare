@@ -3,7 +3,7 @@
 sector_size = 200; // sector size
 starting_strength  = 50;
 unit_cap = 30;
-defender_cap = 10;
+defender_cap = 5;
 squad_cap = 12;
 patrol_cap = 3;
 initial_skill = 0.5;
@@ -13,14 +13,16 @@ squad_size = 8;
 factions = [west, east, independent];
 show_all = false;
 
+guer_faction_name = "The resistance";
+west_faction_name = "Nato";
+east_faction_name = "China";
+
 ammo_box = "B_CargoNet_01_ammo_F";
 mine = "APERSBoundingMine";
 
-tier_0_gunship_respawn_time = [600, 900, 1200];
-tier_1_gunship_respawn_time = [540, 840, 1140];
-tier_2_gunship_respawn_time = [480, 780, 1080];
-tier_3_gunship_respawn_time = [420, 720, 1020];
-
+tier_1_gunship_respawn_time = [600, 900, 1200];
+tier_2_gunship_respawn_time = [540, 840, 1140];
+tier_3_gunship_respawn_time = [480, 780, 1080];
 
 // Presets
 west_heavy_vehicles = ["rhsusf_m1a2sep1tuskiiwd_usarmy", "rhsusf_m1a1aim_tuski_wd", "rhsusf_m1a1aimwd_usarmy"];

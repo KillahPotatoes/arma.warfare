@@ -39,5 +39,6 @@ show_cash_markers = {
 
 	while {true} do {
 		[_cash_storage_boxes] call update_cash_markers;
+		sleep 2;
 	};
 };

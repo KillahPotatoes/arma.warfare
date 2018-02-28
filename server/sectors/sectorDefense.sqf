@@ -87,6 +87,7 @@ spawn_reinforcments = {
     private _group = [_pos, _side, _new_soldiers, true] call spawn_infantry;
     	
     {[_x] joinSilent _defenders} forEach units _group;
+	deleteGroup _group;
 	_defenders;
 };
 

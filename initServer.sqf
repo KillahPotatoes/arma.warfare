@@ -4,8 +4,9 @@
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\vehicleCleanUp.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\clean_up.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\profiling.sqf";
 
 // Shared scripts
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
@@ -57,7 +58,7 @@
 // Game threads
 [] spawn end_game_conditions_check;
 [] spawn add_kill_ticker_to_all_units;
-[] spawn vehicle_clean_up;
+[] spawn clean_up;
 [] spawn spawn_battle_groups;
 [] spawn group_ai;
 [] spawn skill_balancing;

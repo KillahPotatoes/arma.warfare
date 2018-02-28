@@ -33,7 +33,7 @@ end_game_conditions_check = {
 		[west] call check_end_game_state; 
 		[independent] call check_end_game_state; 		
 		
-		sleep 2;
+		sleep 10;
 	};
 	[active_factions] remoteExec ["end_mission"];
 };

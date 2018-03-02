@@ -10,6 +10,7 @@
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\showArsenal.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\redeploy.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\cash_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\playerActions\squad_actions.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_infantry_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_vehicle_menu.sqf";

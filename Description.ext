@@ -7,7 +7,7 @@ respawnButton = 1;
 
 corpseManagerMode = 1;
 corpseLimit = 0;
-corpseRemovalMinTime = 120;
+corpseRemovalMinTime = 60;
 
 wreckManagerMode = 1;
 wreckLimit = 0;

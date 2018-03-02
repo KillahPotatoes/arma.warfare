@@ -5,6 +5,8 @@ player enableFatigue false;
 [] call add_buy_options;
 [] call add_take_cash_from_ammobox;
 [] call add_store_cash_action;
+[] call join_squad;
+[] call leave_squad;
 
 RemoveSquadMatesWhenPlayerDies = {
 	params ["_player"];

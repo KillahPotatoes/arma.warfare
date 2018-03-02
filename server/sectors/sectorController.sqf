@@ -46,18 +46,17 @@ change_sector_ownership = {
 
 check_if_sector_is_attacked = {
 	params ["_side", "_sector", "_friendly_units_center", "_enemy_units_center", "_enemy_units_nearby"];
+	
+	private _sector_owner = _sector getVariable owned_by;
 
-	if (_friendly_units_center) exitWith {
-		private _sector_owner = _sector getVariable owned_by;
-
-		if(_side isEqualTo _sector_owner && _enemy_units_center) exitWith {
-			[_sector, _side] call lose_sector;
-		};
-
-		if(!(_side isEqualTo _sector_owner) && !_enemy_units_nearby) exitWith {
-			[_sector, _side] call capture_sector;
-		};
+	if(_side isEqualTo _sector_owner && _enemy_units_center) exitWith {
+		[_sector, _side] call lose_sector;
 	};
+
+	if(!(_side isEqualTo _sector_owner) && !_enemy_units_nearby && _friendly_units_center) exitWith {
+		[_sector, _side] call capture_sector;
+	};
+	
 };
 
 initialize_sector_control = {

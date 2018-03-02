@@ -15,6 +15,7 @@ get_gunship_types = {
 
 spawn_random_group = {
 	params ["_side", "_unused_strength"];	
+		
 	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
 	private _tier = [_side] call get_tier;
 	private _rnd = random 100;
@@ -108,8 +109,8 @@ spawn_battle_group = {
 	private _unit_count = [_side] call count_battlegroup_units;	
 	private _unused_strength = [_side] call get_unused_strength;
 
-	if (_unit_count < unit_cap && {_unused_strength > 0}) then {
-		private _group = [_side, _unused_strength] call spawn_random_group;		;
+	if(_unused_strength > (squad_cap / 6)) then {
+		private _group = [_side, _unused_strength] call spawn_random_group;	
 		[_group] call add_battle_group;
 	};	
 };

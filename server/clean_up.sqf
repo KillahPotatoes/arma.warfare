@@ -20,7 +20,6 @@ broken_vehicles = {
 };
 
 empty_groups = {
-	systemChat "Deleting groups";
 	{ 
 		if (!(isGroupDeletedWhenEmpty _x)) then {
 			_x deleteGroupWhenEmpty true;

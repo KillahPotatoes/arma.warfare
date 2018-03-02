@@ -6,14 +6,12 @@ respawn = 3;
 respawnButton = 1;
 
 corpseManagerMode = 1;
-corpseLimit = 30;
+corpseLimit = 0;
 corpseRemovalMinTime = 120;
-corpseRemovalMaxTime = 240;
 
 wreckManagerMode = 1;
-wreckLimit = 10;
-wreckRemovalMinTime = 60; //seconds
-wreckRemovalMaxTime = 1200; //seconds
+wreckLimit = 0;
+wreckRemovalMinTime = 900; //seconds
 
 ReviveMode = 1;
 ReviveUnconsciousStateMode = 0;

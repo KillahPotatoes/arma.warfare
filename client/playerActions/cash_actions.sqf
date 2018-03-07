@@ -26,7 +26,7 @@ add_store_cash_action = {
       cursorTarget setVariable [cash, (_cash + _player_cash), true];
       systemChat format["You stored %1 $", _player_cash];
   }, nil, 1.5, true, true, "",
-  '[cursorTarget, player] call can_use_ammo_box && [player] call is_player_close_to_hq && [player] call player_has_cash'
+  '[cursorTarget, player] call can_use_ammo_box && [player] call player_has_cash'
   ];
 };
 

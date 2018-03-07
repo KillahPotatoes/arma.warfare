@@ -4,12 +4,11 @@
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\vehicleCleanUp.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\clean_up.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
 
 // Shared scripts
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
-[] call compileFinal preprocessFileLineNumbers "shared\spawn_infantry.sqf";
 
 
 // Third party scripts
@@ -37,6 +36,10 @@
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\adjust_skill_levels.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
+
+// Radio chatter
+[] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
 // Game setup
 [] call initialize_sectors;
@@ -54,7 +57,7 @@
 // Game threads
 [] spawn end_game_conditions_check;
 [] spawn add_kill_ticker_to_all_units;
-[] spawn vehicle_clean_up;
+[] spawn clean_up;
 [] spawn spawn_battle_groups;
 [] spawn group_ai;
 [] spawn skill_balancing;

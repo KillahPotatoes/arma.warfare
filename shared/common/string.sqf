@@ -1,4 +1,4 @@
-S_SplitString = {
+split_string = {
   params ["_marker", "_charNumber"];
   
   _sub_string_1 = toArray _marker;   
@@ -10,4 +10,11 @@ S_SplitString = {
   _sub_string_2 = toString _sub_string_2;
 
   [_sub_string_1, _sub_string_2];
+};
+
+replace_underscore = {
+  params ["_str"];
+
+  private _str = _str splitString "_";
+  _str joinString " ";
 };

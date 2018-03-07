@@ -3,7 +3,8 @@
 capture_sector = {
 	params ["_sector", "_side"];
 
-	_msg = format["%1 has captured %2", _side, _sector getVariable sector_name];
+	_name = [_sector getVariable sector_name] call replace_underscore;
+	_msg = format["%1 has captured %2", _side call get_faction_names, _name];
 	_msg remoteExec ["hint"]; 
 
 	[_sector, _side] call change_sector_ownership;
@@ -12,7 +13,8 @@ capture_sector = {
 lose_sector = {
 	params ["_sector", "_side"];
 
-	_msg = format["%1 has lost %2", _side, _sector getVariable sector_name];
+	_name = [_sector getVariable sector_name] call replace_underscore;
+	_msg = format["%1 has lost %2", _side call get_faction_names, _name];
 	_msg remoteExec ["hint"]; 
 
 	[_sector, civilian] call change_sector_ownership;
@@ -44,18 +46,17 @@ change_sector_ownership = {
 
 check_if_sector_is_attacked = {
 	params ["_side", "_sector", "_friendly_units_center", "_enemy_units_center", "_enemy_units_nearby"];
+	
+	private _sector_owner = _sector getVariable owned_by;
 
-	if (_friendly_units_center) exitWith {
-		private _sector_owner = _sector getVariable owned_by;
-
-		if(_side isEqualTo _sector_owner && _enemy_units_center) exitWith {
-			[_sector, _side] call lose_sector;
-		};
-
-		if(!(_side isEqualTo _sector_owner) && !_enemy_units_nearby) exitWith {
-			[_sector, _side] call capture_sector;
-		};
+	if(_side isEqualTo _sector_owner && _enemy_units_center) exitWith {
+		[_sector, _side] call lose_sector;
 	};
+
+	if(!(_side isEqualTo _sector_owner) && !_enemy_units_nearby && _friendly_units_center) exitWith {
+		[_sector, _side] call capture_sector;
+	};
+	
 };
 
 initialize_sector_control = {
@@ -80,6 +81,7 @@ initialize_sector_control = {
 			};
 
 		} forEach sectors;
+		sleep 5;
 	};
 };
 

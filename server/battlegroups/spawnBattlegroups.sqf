@@ -14,34 +14,35 @@ get_gunship_types = {
 };
 
 spawn_random_group = {
-	params ["_side", "_unused_strength"];	
+	params ["_side", "_can_spawn"];	
+		
 	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
 	private _tier = [_side] call get_tier;
 	private _rnd = random 100;
 
-	if (_tier > 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
-		([_pos, _side, "heavy", _unused_strength] call spawn_vehicle_group);
+	if (_tier >= 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
+		([_pos, _side, "heavy", _can_spawn] call spawn_vehicle_group);
 	}; 
 
-	if (_tier > 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
-		([_pos, _side, "medium", _unused_strength] call spawn_vehicle_group);
+	if (_tier >= 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
+		([_pos, _side, "medium", _can_spawn] call spawn_vehicle_group);
 	};
 
-	if (_tier > 0 && {_rnd < vehicle_chance}) exitWith {
-		([_pos, _side, "light", _unused_strength] call spawn_vehicle_group);
+	if (_tier >= 0 && {_rnd < vehicle_chance}) exitWith {
+		([_pos, _side, "light", _can_spawn] call spawn_vehicle_group);
 	};
 
-	[_pos, _side, _unused_strength] call spawn_squad;	
+	[_pos, _side, _can_spawn] call spawn_squad;	
 };
 
 add_soldiers_to_cargo = {
-	params ["_veh_array", "_unused_strength"];
+	params ["_veh_array", "_can_spawn"];
 
 	_vehicle = _veh_array select 0;
 	_group = _veh_array select 2;
 
 	_cargoCapacity = _vehicle emptyPositions "cargo";
-	_cargo = _cargoCapacity min _unused_strength;
+	_cargo = _cargoCapacity min _can_spawn;
 
 	_soldiers = [_pos, _side, _cargo, false] call spawn_infantry;	
 
@@ -53,13 +54,20 @@ add_soldiers_to_cargo = {
 };
 
 spawn_vehicle_group = {
-	params ["_pos", "_side", "_type", "_unused_strength"];
+	params ["_pos", "_side", "_type", "_can_spawn"];
 	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
 
 	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
 	_veh_array = [_pos, 180, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
-    [_veh_array, _unused_strength] call add_soldiers_to_cargo;
-	_veh_array select 2;
+	_group = _veh_array select 2;
+
+	_can_spawn = _can_spawn - (count units _group); 
+
+	if(_can_spawn > 0) then {
+    	[_veh_array, _can_spawn] call add_soldiers_to_cargo;		
+	};
+
+	_group;
 };
 
 spawn_gunship_group = {
@@ -89,10 +97,10 @@ get_infantry_spawn_position = {
 };
 
 spawn_squad = {
-	params ["_pos", "_side", "_unused_strength"];
+	params ["_pos", "_side", "_can_spawn"];
 	
 	_pos = [_pos, _side] call get_infantry_spawn_position;
-	_soldier_count = (squad_cap call calc_number_of_soldiers) min _unused_strength;
+	_soldier_count = (squad_cap call calc_number_of_soldiers) min _can_spawn;
     [_pos, _side, _soldier_count, false] call spawn_infantry;	
 };
 
@@ -106,10 +114,10 @@ spawn_battle_group = {
 	params ["_side"];
 	
 	private _unit_count = [_side] call count_battlegroup_units;	
-	private _unused_strength = [_side] call get_unused_strength;
+	private _can_spawn = (unit_cap - _unit_count) min ([_side] call get_unused_strength); 
 
-	if (_unit_count < unit_cap && {_unused_strength > 0}) then {
-		private _group = [_side, _unused_strength] call spawn_random_group;		;
+	if (_can_spawn > (squad_cap / 2)) then {
+		private _group = [_side, _can_spawn] call spawn_random_group;		;
 		[_group] call add_battle_group;
 	};	
 };
@@ -132,21 +140,24 @@ spawn_gunships = {
 	
 	while {true} do {
 		private _tier = [_side] call get_tier;	
-		sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
 
-		if ([_side] call get_unused_strength > 0) then {
-			private _gunship = _side call get_gunship;
+		if(_tier > 0) then {
+			sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
+			if ([_side] call get_unused_strength > 0) then {
+				private _gunship = _side call get_gunship;
 
-			if (!isNil format["%1_gunship", _side]) then {	
-				(_gunship select 0) setDamage 1;					
-			}; 
+				if (!isNil format["%1_gunship", _side]) then {	
+					(_gunship select 0) setDamage 1;					
+				}; 
 
-			private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
-			_gunship = [_pos, _side] call spawn_gunship_group;
-			[_gunship select 2] call add_battle_group;
+				private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
+				_gunship = [_pos, _side] call spawn_gunship_group;
+				[_gunship select 2] call add_battle_group;
 
-			waitUntil {!canMove (_gunship select 0)};					
-		};		
+				waitUntil {!canMove (_gunship select 0)};
+			};				
+		};
+		sleep 10;		
 	};
 };
 

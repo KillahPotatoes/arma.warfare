@@ -1,19 +1,17 @@
 respawnTemplates[] = {"MenuPosition"};
-aikills = 1;
+aiKills = 1;
 respawnDelay = 10;
 DisabledAI = 1;
 respawn = 3;
 respawnButton = 1;
 
 corpseManagerMode = 1;
-corpseLimit = 50;
-corpseRemovalMinTime = 120;
-corpseRemovalMaxTime = 240;
+corpseLimit = 0;
+corpseRemovalMinTime = 60;
 
 wreckManagerMode = 1;
-wreckLimit = 20;
-wreckRemovalMinTime = 60; //seconds
-wreckRemovalMaxTime = 1200; //seconds
+wreckLimit = 0;
+wreckRemovalMinTime = 900; //seconds
 
 ReviveMode = 1;
 ReviveUnconsciousStateMode = 0;
@@ -23,6 +21,7 @@ reviveForceRespawnDelay = 3;
 reviveBleedOutDelay = 600;
 
 minPlayerDistance = 500;
+author = "Sondre Bjørnvold Bakken";
 
 class CfgRemoteExec
 {        

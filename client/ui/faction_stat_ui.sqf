@@ -2,7 +2,6 @@
 show_ui = {
 	
 	with uiNamespace do {
-		systemChat "Uinamespace";
 		get_tier_progress = {
 			params ["_side"];
 			missionNamespace getVariable format ["%1_tier_prog",  _side];
@@ -61,8 +60,6 @@ show_ui = {
 		};
 
 		[] spawn {
-			systemChat "spawn Uinamespace";
-			
 			waitUntil {!isNull findDisplay 46};
 			disableSerialization;
 

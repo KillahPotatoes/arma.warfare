@@ -26,7 +26,7 @@ move_to_sector = {
 
 	private _curr_target = _group getVariable "target";
 
-	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)}) then {
+	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)} || {count (waypoints _group) == 0}) then {
 		[_target, _group] call create_waypoint;
 	};
 

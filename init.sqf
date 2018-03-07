@@ -20,10 +20,12 @@
 
 player setVariable [cash, 0];
 
-[] spawn compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
 
 [] spawn show_enemy_markers;
 [] spawn show_friendly_markers;
 [] spawn show_cash_markers;
+[] spawn show_ui;
 
+loaded_event = addMissionEventHandler ["Loaded",{ [] spawn show_ui; }];
 

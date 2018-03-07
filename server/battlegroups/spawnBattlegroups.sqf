@@ -20,15 +20,15 @@ spawn_random_group = {
 	private _tier = [_side] call get_tier;
 	private _rnd = random 100;
 
-	if (_tier > 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
+	if (_tier >= 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
 		([_pos, _side, "heavy", _can_spawn] call spawn_vehicle_group);
 	}; 
 
-	if (_tier > 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
+	if (_tier >= 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
 		([_pos, _side, "medium", _can_spawn] call spawn_vehicle_group);
 	};
 
-	if (_tier > 0 && {_rnd < vehicle_chance}) exitWith {
+	if (_tier >= 0 && {_rnd < vehicle_chance}) exitWith {
 		([_pos, _side, "light", _can_spawn] call spawn_vehicle_group);
 	};
 

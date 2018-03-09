@@ -31,12 +31,24 @@ report_casualities_over_radio = {
 report_next_waypoint = {
 	params ["_group", "_target"];
 
-	_name = [_target getVariable sector_name] call replace_underscore;
-	[_group, _name] remoteExec ["report_next_waypoint"];
+	private _veh = vehicle leader (west_groups select 0);
+	private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank";
+	private _sector_name = [_target getVariable sector_name] call replace_underscore;
+
+	private _msg = if (_is_veh) then {
+		private _class_name = typeOf _veh;
+		private _veh_name = _class_name call get_vehicle_display_name;
+		format["%1 is moving towards %2", _veh_name, _sector_name];
+	} else {
+		private _count = { alive _x } count units _group;
+		format["Squad of %1 moving towards %1", _count, _sector_name];
+	};	
+	
+	[_group, _msg] remoteExec ["client_report_next_waypoint"];
 };
 
 report_incoming_support = {
 	params ["_side", "_msg"];
-	[_side, _msg] remoteExec ["report_incoming_support"];
+	[_side, _msg] remoteExec ["client_report_incoming_support"];
 };
 

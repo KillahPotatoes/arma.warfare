@@ -19,12 +19,12 @@ report_casualities = {
 	
 };
 
-report_next_waypoint = {
-	params ["_group", "_sector_name"];
-	(leader _group) sideChat format["Moving towards %1", _sector_name];
+client_report_next_waypoint = {
+	params ["_group", "_msg"];
+	(leader _group) sideChat _msg;
 };
 
-report_incoming_support = {
+client_report_incoming_support = {
 	params ["_side", "_msg"];
 	[_side, "HQ"] sideChat _msg;
 };

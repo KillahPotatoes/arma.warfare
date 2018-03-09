@@ -28,7 +28,7 @@ move_to_sector = {
 
 	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)} || {count (waypoints _group) == 0}) then {
 		[_target, _group] call create_waypoint;	
-		[_group, _target] call report_next_waypoints;	
+		[_group, _target] call report_next_waypoint;	
 	};
 
 	if ((_target getVariable pos) distance2D (getPosWorld leader _group) < 200) then {	

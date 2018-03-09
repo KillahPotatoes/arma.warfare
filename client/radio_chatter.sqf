@@ -19,9 +19,9 @@ report_casualities = {
 	
 };
 
-report_next_waypoints = {
-	params ["_leader", "_sector_name"];
-	_leader sideChat format["Moving towards %1", _sector_name];
+report_next_waypoint = {
+	params ["_group", "_sector_name"];
+	(leader _group) sideChat format["Moving towards %1", _sector_name];
 };
 
 report_incoming_support = {

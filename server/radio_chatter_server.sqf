@@ -28,12 +28,11 @@ report_casualities_over_radio = {
 	};
 };
 
-report_next_waypoints = {
+report_next_waypoint = {
 	params ["_group", "_target"];
 
 	_name = [_target getVariable sector_name] call replace_underscore;
-	
-	[leader _group, _name] remoteExec ["report_next_waypoints"];
+	[_group, _name] remoteExec ["report_next_waypoint"];
 };
 
 report_incoming_support = {

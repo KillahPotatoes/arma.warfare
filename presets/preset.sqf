@@ -45,6 +45,58 @@ west_transport_helis = ["RHS_UH60M2"];
 guer_transport_helis = ["I_Heli_light_03_unarmed_F"];
 east_transport_helis = ["O_Heli_Light_02_unarmed_F"];
 
+west_squad = [
+	"B_soldier_F",
+	"B_soldier_AR_F",
+	"B_HeavyGunner_F",	
+	"B_Soldier_GL_F", 
+	"B_soldier_exp_F",
+	"B_medic_F",	
+	"B_Sharpshooter_F", 
+	"B_engineer_F",
+	"B_soldier_AA_F",
+	"B_soldier_AT_F"
+];
+
+east_squad = [
+	"O_soldier_F",
+	"O_soldier_AR_F",
+	"O_HeavyGunner_F",	
+	"O_Soldier_GL_F", 
+	"O_soldier_exp_F",
+	"O_medic_F",	
+	"O_Sharpshooter_F", 
+	"O_engineer_F",
+	"O_soldier_AA_F",
+	"O_soldier_AT_F"
+];
+
+guer_squad = [
+	"I_soldier_F",
+	"I_soldier_AR_F",
+	"I_HeavyGunner_F",	
+	"I_Soldier_GL_F", 
+	"I_soldier_exp_F",
+	"I_medic_F",	
+	"I_Sharpshooter_F", 
+	"I_engineer_F",
+	"I_soldier_AA_F",
+	"I_soldier_AT_F"
+];
+
+
+east_infantry = [
+	east_squad
+];
+
+west_infantry = [
+	west_squad
+];
+
+guer_infantry = [
+	guer_squad
+];
+
 west_mortars = ["B_Mortar_01_F"];
 guer_mortars = ["I_Mortar_01_F"];
 east_mortars = ["O_Mortar_01_F"];

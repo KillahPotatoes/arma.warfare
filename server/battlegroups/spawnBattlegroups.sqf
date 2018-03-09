@@ -39,9 +39,10 @@ add_soldiers_to_cargo = {
 	params ["_veh_array", "_can_spawn"];
 
 	_vehicle = _veh_array select 0;
+	_crew_count = count (_veh_array select 1);
 	_group = _veh_array select 2;
 
-	_cargoCapacity = _vehicle emptyPositions "cargo";
+	_cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
 	_cargo = _cargoCapacity min _can_spawn;
 
 	_soldiers = [_pos, _side, _cargo, false] call spawn_infantry;	
@@ -57,8 +58,21 @@ spawn_vehicle_group = {
 	params ["_pos", "_side", "_type", "_can_spawn"];
 	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
 
-	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;	
-	_veh_array = [_pos, 180, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
+	private _road = _pos nearRoads 25;
+	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
+
+	if (!(_road isEqualTo [])) then {		
+		_road_pos = getPos (selectRandom _road);
+		if ([_road_pos] call check_if_any_units_to_close) then {
+			_pos = _road_pos;
+		};
+	};
+
+	private _sector = [sectors, _pos] call find_closest_sector;
+	private _sector_pos = _sector getVariable pos;
+	private _dir = _pos getDir _sector_pos;
+
+	_veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
 	_group = _veh_array select 2;
 
 	_can_spawn = _can_spawn - (count units _group); 

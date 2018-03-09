@@ -19,6 +19,16 @@ report_casualities = {
 	
 };
 
+report_next_waypoints = {
+	params ["_leader", "_sector_name"];
+	_leader sideChat format["Moving towards %1", _sector_name];
+};
+
+report_incoming_support = {
+	params ["_side", "_msg"];
+	[_side, "HQ"] sideChat _msg;
+};
+
 oneCasualty = [
 	"We lost a soldier %1m %2 of %3", 
 	"We have one down %1m %2 of %3", 

@@ -27,3 +27,17 @@ report_casualities_over_radio = {
 		[_group, _deaths, _location] remoteExec ["report_casualities_in_sector"];
 	};
 };
+
+report_next_waypoints = {
+	params ["_group", "_target"];
+
+	_name = [_target getVariable sector_name] call replace_underscore;
+	
+	[leader _group, _name] remoteExec ["report_next_waypoints"];
+};
+
+report_incoming_support = {
+	params ["_side", "_msg"];
+	[_side, _msg] remoteExec ["report_incoming_support"];
+};
+

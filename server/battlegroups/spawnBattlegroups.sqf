@@ -66,6 +66,8 @@ spawn_vehicle_group = {
 	if(_can_spawn > 0) then {
     	[_veh_array, _can_spawn] call add_soldiers_to_cargo;		
 	};
+	
+	[_side, format["%1 is deployed in base and ready to head out", _vehicle_type call get_vehicle_display_name]] call report_incoming_support;
 
 	_group;
 };
@@ -73,10 +75,21 @@ spawn_vehicle_group = {
 spawn_gunship_group = {
 	params ["_pos", "_side"];
 	
-	_gunship = selectRandom (_side call get_gunship_types); 
-	
-	_pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
-    _veh = [_pos, 180, _gunship, _side] call BIS_fnc_spawnVehicle;
+	private _gunship = selectRandom (_side call get_gunship_types); 
+	private _gunship_name = _gunship call get_vehicle_display_name;
+
+	[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call report_incoming_support;
+	sleep 120;
+
+	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
+	private _base_pos = getMarkerPos _respawn_marker;
+
+	private _dir = _pos getDir _base_pos;
+
+	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
+    private _veh = [_pos, _dir, _gunship, _side] call BIS_fnc_spawnVehicle;
+
+	[_side, format["%1 has arrived. See you soon!", _gunship_name]] call report_incoming_support;
 
 	[_side, _veh] call set_gunship;
 	_veh;
@@ -144,6 +157,7 @@ spawn_gunships = {
 		if(_tier > 0) then {
 			sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
 			if ([_side] call get_unused_strength > 0) then {
+
 				private _gunship = _side call get_gunship;
 
 				if (!isNil format["%1_gunship", _side]) then {	

@@ -13,9 +13,18 @@ create_waypoint = {
 
 	_group call delete_all_waypoints; 
 	_w = _group addWaypoint [_pos, 5];
-	_w setWaypointType "SAD";
-	
-	_group setBehaviour "AWARE";
+
+	private _veh = vehicle leader _group;
+	private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Tank";
+
+	if (_is_veh) then {
+		_w setWaypointType "MOVE";
+		_group setBehaviour "SAFE";
+	} else {
+		_w setWaypointType "SAD";
+		_group setBehaviour "AWARE";
+	};
+		
 	_group setSpeedMode "NORMAL";
 	_group setCombatMode "YELLOW";
 	_group setVariable ["target", _target];	
@@ -31,7 +40,15 @@ move_to_sector = {
 		[_group, _target] call report_next_waypoint;	
 	};
 
-	if ((_target getVariable pos) distance2D (getPosWorld leader _group) < 200) then {	
+	if ((_target getVariable pos) distance2D (getPosWorld leader _group) < 200) then {
+		private _veh = vehicle leader _group;	
+		private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Tank";
+
+		if (_is_veh) then {
+			_group setSpeedMode "LIMITED";
+			_group setBehaviour "AWARE";
+		};
+
 		_group setCombatMode "RED";
 	};		
 };
@@ -56,8 +73,9 @@ group_ai = {
 				[_target, _group] call move_to_sector;
 				[_group] call report_casualities_over_radio;
 			};
+			sleep random 2;
 		} forEach ([] call get_all_battle_groups);
-		sleep 10;
+		
 	};
 };
 

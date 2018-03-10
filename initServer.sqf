@@ -58,6 +58,7 @@
 // Game threads
 [] spawn end_game_conditions_check;
 [] spawn add_kill_ticker_to_all_units;
+[] spawn add_kill_ticker_to_all_vehicles;
 [] spawn clean_up;
 [] spawn spawn_battle_groups;
 [] spawn group_ai;

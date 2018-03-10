@@ -41,7 +41,7 @@ report_next_waypoint = {
 		format["%1 is moving towards %2", _veh_name, _sector_name];
 	} else {
 		private _count = { alive _x } count units _group;
-		format["Squad of %1 moving towards %1", _count, _sector_name];
+		format["Squad of %1 moving towards %2", _count, _sector_name];
 	};	
 	
 	[_group, _msg] remoteExec ["client_report_next_waypoint"];
@@ -50,5 +50,10 @@ report_next_waypoint = {
 report_incoming_support = {
 	params ["_side", "_msg"];
 	[_side, _msg] remoteExec ["client_report_incoming_support"];
+};
+
+report_lost_support = {
+	params ["_side", "_msg"];
+	[_side, _msg] remoteExec ["client_report_lost_support"];
 };
 

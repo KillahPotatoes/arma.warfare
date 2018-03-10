@@ -29,6 +29,11 @@ client_report_incoming_support = {
 	[_side, "HQ"] sideChat _msg;
 };
 
+client_report_lost_support = {
+	params ["_side", "_msg"];
+	[_side, "HQ"] sideChat _msg;
+};
+
 oneCasualty = [
 	"We lost a soldier %1m %2 of %3", 
 	"We have one down %1m %2 of %3", 

@@ -69,14 +69,15 @@ get_smallest_group = {
 	params ["_groups"];
 
 	_current_group = _groups select 0;
-	_smallest_count = 0;
+	_smallest_count = 999999;
 
 	{
-		_count = { alive _x } count units _x;
+		private _g = _x;
+		_count = { alive _x } count units _g;
 
-		if (_smallest_count > _count && _count != 0) then {
+		if (_smallest_count > _count && _count != 0 && !(isPlayer leader _g)) then {
 			_smallest_count = _count;
-			_current_group = _x;
+			_current_group = _g;
 		};
 
 	} forEach _groups;

@@ -34,21 +34,26 @@ join_nearby_group = {
 	params ["_group"];
 
 	private _joined_other_group = false;
+	private _group_count = { alive _x } count units _group;
 
-	if ((({ alive _x } count units _group) < 3) && {!([_group] call check_if_in_vehicle)}) then {
-		private _groups = [side _group] call get_battlegroups;
+	if (!(isPlayer leader _group) && {_group_count < 3} && {_group_count > 0} && {!([_group] call check_if_in_vehicle)}) then {
+		private _groups = ([side _group] call get_battlegroups) - [_group];
 		private _pos = getPos leader _group;
-		private _nearby_groups = _groups select { [_x, _pos, 100] call check_if_group_nearby && !([_x] call check_if_in_vehicle) };
+		private _nearby_groups = _groups select { [_x, _pos, 100] call check_if_group_nearby && !([_x] call check_if_in_vehicle) && !(isPlayer leader _x)};
 
 		if(!(_nearby_groups isEqualTo [])) then {
 			private _smallest_group = [_nearby_groups] call get_smallest_group;
-		
+
+			systemChat format["Group %1 of %2 joined nearby group %3 of %4", groupId _group, _group_count, groupId _smallest_group, count units _smallest_group];
+
 			{		
 				[_x] joinSilent _smallest_group;		
 			} forEach units _group;
 
 			deleteGroup _group;
-			systemChat format["Group %1 of %2 joined nearby group %3 of %4", groupId _group, count units _group, groupId _smallest_group, count units _smallest_group];
+			
+			private _new_count = { alive _x } count units _smallest_group;
+			_smallest_group setVariable [soldier_count, _new_count];			
 			_joined_other_group = true;
 		};		
 	};
@@ -86,7 +91,7 @@ group_ai = {
 			private _group = _x;
 			private _side = side _group; 
 
-			if (!(player isEqualTo leader _group) && _side in factions) then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
+			if (!(isPlayer leader _group) && _side in factions) then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
 				private _pos = getPosWorld (leader _group);
 
 				private _sector_c = [_side] call count_other_sectors; // gets list of uncapturedSectors

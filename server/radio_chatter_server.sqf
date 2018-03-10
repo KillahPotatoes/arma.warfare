@@ -1,8 +1,8 @@
 calculate_deaths = {
 	params ["_group"];
 
-	private _prev_count = _group getVariable soldier_count;
-	private _curr_count = {alive _x} count units _group;	
+	private _curr_count = {alive _x} count units _group;		
+	private _prev_count = _group getVariable [soldier_count, _curr_count];
 	_group setVariable [soldier_count , _curr_count];
 
 	_prev_count - _curr_count;

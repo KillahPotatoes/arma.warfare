@@ -53,4 +53,34 @@ count_battlegroup_units = {
 	_sum;
 };
 
+check_if_group_nearby = {
+	params ["_group", "_pos", "_distance"];
+
+	((getPos leader _group) distance _pos) < _distance;
+};
+
+check_if_in_vehicle = {
+	params ["_group"];
+	private _veh = vehicle leader _group;
+	(_veh isKindOf "Car" || _veh isKindOf "Tank" || _veh isKindOf "Air");
+};
+
+get_smallest_group = {
+	params ["_groups"];
+
+	_current_group = _groups select 0;
+	_smallest_count = 0;
+
+	{
+		_count = { alive _x } count units _x;
+
+		if (_smallest_count > _count && _count != 0) then {
+			_smallest_count = _count;
+			_current_group = _x;
+		};
+
+	} forEach _groups;
+
+	_current_group;
+};
 

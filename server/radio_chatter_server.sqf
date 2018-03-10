@@ -31,7 +31,7 @@ report_casualities_over_radio = {
 report_next_waypoint = {
 	params ["_group", "_target"];
 
-	private _veh = vehicle leader (west_groups select 0);
+	private _veh = vehicle leader _group;
 	private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank";
 	private _sector_name = [_target getVariable sector_name] call replace_underscore;
 

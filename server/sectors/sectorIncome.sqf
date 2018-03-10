@@ -12,7 +12,7 @@ calc_income = {
 calc_income_factor = {
      params ["_side"];
       
-     (count sectors) * (4 + (_side countSide allPlayers));
+     (count sectors) * (5 + (_side countSide allPlayers));
 };
 
 sector_income = {

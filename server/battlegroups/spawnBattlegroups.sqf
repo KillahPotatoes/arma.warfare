@@ -61,10 +61,18 @@ spawn_vehicle_group = {
 	private _road = _pos nearRoads 25;
 	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
 
-	if (!(_road isEqualTo [])) then {		
-		_road_pos = getPos (selectRandom _road);
-		if ([_road_pos] call check_if_any_units_to_close) then {
-			_pos = _road_pos;
+	if (!(_road isEqualTo [])) then {
+
+		private _is_safe = false;
+		private _attempt_counter = 0;
+		while {!_is_safe && _attempt_counter < 10} do {
+			_attempt_counter = _attempt_counter + 1;
+			
+			_road_pos = getPos (selectRandom _road);
+			_is_safe = [_road_pos] call check_if_any_units_to_close;
+			if (_is_safe) then {
+				_pos = _road_pos;
+			};
 		};
 	};
 

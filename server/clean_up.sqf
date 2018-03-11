@@ -1,7 +1,9 @@
 clean_up =  {
 	while {true} do {
-		[] call broken_vehicles;
-		[] call empty_groups;
+		[] spawn broken_vehicles;
+		[] spawn empty_groups;
+		[] spawn clean_up_dead;
+		[] call status;
 		sleep 300;
 	};
 };
@@ -12,6 +14,7 @@ broken_vehicles = {
 		if(_veh isKindOf "Tank" || _veh isKindOf "Car" || _veh isKindOf "Air") then {		
 			if({_x distance _veh < 100} count allPlayers == 0) then {
 				if(!canMove _veh && alive _veh) then {
+					sleep random 60;
 					_veh setDammage 1;             
 				};
 			}; 					
@@ -25,4 +28,61 @@ empty_groups = {
 			_x deleteGroupWhenEmpty true;
 		}; 
  	} forEach allGroups;
+};
+
+status = {
+    _dead = count allDead;
+    _vehicles = count vehicles;
+    _groups = count allGroups;
+    _units = count allUnits;
+
+    diag_log format["Dead: %1, Vehicles: %2, Groups: %3, Units: %4", _dead, _vehicles, _groups, _units];
+};
+
+clean_up_dead = {
+	{
+		private _obj = _x;
+		if({_x distance _obj < 200} count allPlayers == 0) then {
+			deleteVehicle _obj;
+		};		
+	} forEach allDead;	
+};
+
+clean_up_vehicles = {
+	{
+		if(_x isKindOf "Tank" || _x isKindOf "Car" || _x isKindOf "Air") then {
+			deleteVehicle _x;
+		};
+	} forEach vehicles;	
+};
+
+clean_up_groups = {
+	
+	{
+		deleteGroup _x;
+	} forEach allGroups;
+};
+
+clean_up_units = {
+	{
+		if(!(dynamicSimulationEnabled _x)) then {
+			deleteVehicle _x;
+		};
+	} forEach allUnits;	
+};
+
+clean_up_dynamic_units = {
+	{
+		if((dynamicSimulationEnabled _x)) then {
+			deleteVehicle _x;
+		};
+	} forEach allUnits;	
+};
+
+clean_all = {
+	[] call clean_up_dynamic_units;
+	[] call clean_up_units;
+	[] call clean_up_vehicles;
+	[] call clean_up_groups;
+	[] call clean_up_dead;
 };

@@ -164,9 +164,9 @@ spawn_battle_groups = {
 
 	while {true} do {
 		sleep 30;
-		[West] call spawn_battle_group;
-		[East] call spawn_battle_group;
-		[Independent] call spawn_battle_group;
+		[West] spawn spawn_battle_group;
+		[East] spawn spawn_battle_group;
+		[Independent] spawn spawn_battle_group;
 	};
 };
 

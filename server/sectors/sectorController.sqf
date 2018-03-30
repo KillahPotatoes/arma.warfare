@@ -58,9 +58,10 @@ check_if_sector_is_attacked = {
 	};
 	
 };
-
+	
 initialize_sector_control = {
 	while {true} do {	
+		//_t6 = diag_tickTime;
 		{
 			private _sector = _x;
 			private _pos = _sector getVariable pos;
@@ -81,6 +82,9 @@ initialize_sector_control = {
 			};
 
 		} forEach sectors;
+
+		//[_t6, "initialize_sector_control"] spawn report_time;	
+
 		sleep 5;
 	};
 };

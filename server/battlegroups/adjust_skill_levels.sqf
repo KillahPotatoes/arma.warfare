@@ -29,7 +29,9 @@ adjust_skill = {
 
 skill_balancing = {
 	while {true} do {
+		//_t4 = diag_tickTime;
 		[] call adjust_skill;
+		//[_t4, "skill_balancing"] spawn report_time;			
 		sleep 10;
 	};
 };

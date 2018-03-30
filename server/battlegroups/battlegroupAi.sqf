@@ -69,7 +69,7 @@ move_to_sector = {
 	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)} || {count (waypoints _group) == 0}) then {
 		if (!([_group] call join_nearby_group)) then {
 			[_target, _group] call create_waypoint;		
-			[_group, _target] call report_next_waypoint;
+			[_group, _target] spawn report_next_waypoint;
 		};
 	};
 
@@ -87,6 +87,8 @@ move_to_sector = {
 
 group_ai = {
 	while {true} do {
+		//_t3 = diag_tickTime;
+		
 		{		
 			private _group = _x;
 			private _side = side _group; 
@@ -102,12 +104,13 @@ group_ai = {
 						[_side, _pos] call find_closest_friendly_sector;	
 					};
 				
-				[_target, _group] call move_to_sector;
-				[_group] call report_casualities_over_radio;
+				[_target, _group] spawn move_to_sector;
+				[_group] spawn report_casualities_over_radio;
 			};
-			sleep random 5;
 		} forEach ([] call get_all_battle_groups);
-		
+
+		//[_t3, "group_ai"] spawn report_time;	
+		sleep random 10;
 	};
 };
 

@@ -1,7 +1,7 @@
 
 report_casualities = {
 	params ["_group", "_deaths", "_distance", "_direction", "_location"];
-	sleep random 10;
+	sleep random 5;
 
 	if(!isNull _group) then {
 		if(_deaths == 1) exitWith {
@@ -21,6 +21,7 @@ report_casualities = {
 
 client_report_next_waypoint = {
 	params ["_group", "_msg"];
+	sleep random 5;
 	(leader _group) sideChat _msg;
 };
 

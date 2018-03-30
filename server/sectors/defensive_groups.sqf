@@ -35,9 +35,11 @@ get_all_defensive_groups = {
 
 defensive_group_chatter = {
 	while {true} do {
+		//_t7 = diag_tickTime;
 		{
-			[_x] call report_casualities_over_radio;
+			[_x] spawn report_casualities_over_radio;
 		} forEach ([] call get_all_defensive_groups);
+		//[_t7, "defensive_group_chatter"] spawn report_time;			
 		sleep 10;
 	};	
 };

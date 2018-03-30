@@ -31,29 +31,26 @@ spawn_mortar = {
 should_spawn_mortar = {
 	params ["_sector", "_sector_owner"];
 
-	private _mortar = _sector getVariable mortar;
-	if(isNil "_mortar") exitWith {
-		true;
-	};
-
+	private _mortar = _sector getVariable mortar;	
 	private _group = _mortar select 2;
+
 	if(side _group isEqualTo _sector_owner && ({alive _x} count units _group) > 0) exitWith {
 		false;
 	};
+
+	true;
 };
 
 should_remove_mortar = {
 	params ["_sector", "_sector_owner"];
 
-	private _mortar = _sector getVariable mortar;
-	if(isNil "_mortar") exitWith {
-		false;
-	};
-
+	private _mortar = _sector getVariable mortar;	
 	private _group = _mortar select 2;
 	if(!(side _group isEqualTo _sector_owner) || ({alive _x} count units _group) == 0) exitWith {
 		true;
 	};
+
+	false;
 };
 
 spawn_mortar_pos = {

@@ -1,9 +1,14 @@
 clean_up =  {
 	while {true} do {
+		//_t5 = diag_tickTime;
+		
 		[] spawn broken_vehicles;
 		[] spawn empty_groups;
 		[] spawn clean_up_dead;
 		[] call status;
+
+		//[_t5, "clean_up"] spawn report_time;		
+		
 		sleep 300;
 	};
 };

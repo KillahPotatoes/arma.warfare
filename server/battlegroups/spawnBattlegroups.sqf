@@ -147,7 +147,7 @@ get_unused_strength = {
 
 spawn_battle_group = {
 	params ["_side"];
-	
+	//_t2 = diag_tickTime;
 	private _unit_count = [_side] call count_battlegroup_units;	
 	private _can_spawn = (unit_cap - _unit_count) min ([_side] call get_unused_strength); 
 
@@ -155,6 +155,7 @@ spawn_battle_group = {
 		private _group = [_side, _can_spawn] call spawn_random_group;		;
 		[_group] call add_battle_group;
 	};	
+	//[_t2, "spawn_battle_groups"] spawn report_time;	
 };
 
 spawn_battle_groups = {
@@ -163,7 +164,8 @@ spawn_battle_groups = {
 	[independent] spawn spawn_gunships;
 
 	while {true} do {
-		sleep 30;
+		sleep 30;		
+		
 		[West] spawn spawn_battle_group;
 		[East] spawn spawn_battle_group;
 		[Independent] spawn spawn_battle_group;
@@ -174,6 +176,8 @@ spawn_gunships = {
 	params ["_side"];
 	
 	while {true} do {
+		//_t1 = diag_tickTime;
+
 		private _tier = [_side] call get_tier;	
 
 		if(_tier > 0) then {
@@ -193,6 +197,8 @@ spawn_gunships = {
 				waitUntil {!canMove (_gunship select 0)};
 			};				
 		};
+
+		//[_t1, "spawn_gunship"] spawn report_time;
 		sleep 10;		
 	};
 };

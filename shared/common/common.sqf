@@ -41,3 +41,8 @@ is_between = {
 
   _val >= _start && _val <= _end;
 };
+
+report_time = {
+    params ["_time", "_message"];
+    diag_log format["Time: %1: %2", diag_tickTime - _time, _message];
+};

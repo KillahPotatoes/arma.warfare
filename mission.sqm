@@ -28,8 +28,7 @@ addons[]=
 	"asr_ai3_skills",
 	"A3_Structures_F_Mil_Helipads",
 	"A3_Structures_F_System",
-	"A3_Supplies_F_Heli_Slingload",
-	"A3_Modules_F_Curator_Curator"
+	"A3_Supplies_F_Heli_Slingload"
 };
 class AddonsMetaData
 {
@@ -114,7 +113,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=46;
+		items=45;
 		class Item0
 		{
 			dataType="Logic";
@@ -2170,118 +2169,6 @@ class Mission
 			angle=230.32394;
 			id=57;
 			atlOffset=0.15893555;
-		};
-		class Item45
-		{
-			dataType="Logic";
-			class PositionInfo
-			{
-				position[]={179.38901,0.16944885,129.769};
-			};
-			id=118;
-			type="ModuleCurator_F";
-			atlOffset=99.750999;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ModuleCurator_F_Owner";
-					expression="_this setVariable ['Owner',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="zCurator";
-						};
-					};
-				};
-				class Attribute1
-				{
-					property="ModuleCurator_F_Forced";
-					expression="_this setVariable ['Forced',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute2
-				{
-					property="ModuleCurator_F_Name";
-					expression="_this setVariable ['Name',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="";
-						};
-					};
-				};
-				class Attribute3
-				{
-					property="ModuleCurator_F_Addons";
-					expression="_this setVariable ['Addons',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=2;
-						};
-					};
-				};
-				nAttributes=4;
-			};
-		};
-	};
-	class Connections
-	{
-		class LinkIDProvider
-		{
-			nextID=1;
-		};
-		class Links
-		{
-			items=1;
-			class Item0
-			{
-				linkID=0;
-				item0=118;
-				item1=32;
-				class CustomData
-				{
-					type="Sync";
-				};
-			};
 		};
 	};
 };

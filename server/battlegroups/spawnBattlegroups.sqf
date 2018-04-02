@@ -35,7 +35,7 @@ spawn_random_group = {
 		[_group] call add_battle_group;
 	};
 
-	if (_rnd > 80 && serverTime > 300) exitWith {
+	if (_rnd > 80 && (([] call seconds_since_start) > 300)) exitWith {
 		[_side, _can_spawn] call helicopter_insertion;
 	};
 

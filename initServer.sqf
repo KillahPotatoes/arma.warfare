@@ -1,3 +1,9 @@
+startTime = serverTime;
+
+seconds_since_start = {
+	serverTime - startTime;
+};
+
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
@@ -68,5 +74,7 @@
 [] spawn sector_income;
 [] spawn sector_cash_generation;
 [] spawn defensive_group_chatter;
+
+
 
 

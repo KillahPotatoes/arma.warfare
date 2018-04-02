@@ -21,18 +21,37 @@ spawn_random_group = {
 	private _rnd = random 100;
 
 	if (_tier >= 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
-		([_pos, _side, "heavy", _can_spawn] call spawn_vehicle_group);
+		private _group = [_pos, _side, "heavy", _can_spawn] call spawn_vehicle_group;
+		[_group] call add_battle_group;		
 	}; 
 
 	if (_tier >= 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
-		([_pos, _side, "medium", _can_spawn] call spawn_vehicle_group);
+		private _group = [_pos, _side, "medium", _can_spawn] call spawn_vehicle_group;
+		[_group] call add_battle_group;
 	};
 
 	if (_tier >= 0 && {_rnd < vehicle_chance}) exitWith {
-		([_pos, _side, "light", _can_spawn] call spawn_vehicle_group);
+		private _group = [_pos, _side, "light", _can_spawn] call spawn_vehicle_group;
+		[_group] call add_battle_group;
 	};
 
-	[_pos, _side, _can_spawn] call spawn_squad;	
+	if (_rnd > 80 && serverTime > 300) exitWith {
+		[_side, _can_spawn] call helicopter_insertion;
+	};
+
+	private _group = [_pos, _side, _can_spawn] call spawn_squad;	
+	[_group] call add_battle_group;
+};
+
+helicopter_insertion = {
+	params ["_side", "_can_spawn"];
+	
+	private _sector = [_side] call find_random_enemy_sector;
+
+	if (!(_sector isEqualTo [])) exitWith {
+		private _pos = [_sector getVariable pos, 200, 400, 15, 0, 0, 0] call BIS_fnc_findSafePos;
+		[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
+	};	
 };
 
 add_soldiers_to_cargo = {
@@ -41,11 +60,12 @@ add_soldiers_to_cargo = {
 	_vehicle = _veh_array select 0;
 	_crew_count = count (_veh_array select 1);
 	_group = _veh_array select 2;
+	_side = side _group;
 
 	_cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
 	_cargo = _cargoCapacity min _can_spawn;
 
-	_soldiers = [_pos, _side, _cargo, false] call spawn_infantry;	
+	_soldiers = [[0,0,0], _side, _cargo, false] call spawn_infantry;	
 
 	{
 		_x moveInCargo _vehicle;
@@ -89,13 +109,23 @@ spawn_vehicle_group = {
     	[_veh_array, _can_spawn] call add_soldiers_to_cargo;		
 	};
 	
-	[_side, format["%1 is deployed in base and ready to head out", _vehicle_type call get_vehicle_display_name]] call report_incoming_support;
-
 	_group;
 };
 
+spawn_helicopter = {
+	params ["_side", "_helicopter"];
+
+	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
+	private _base_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
+
+	private _dir = _pos getDir _base_pos;
+
+	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
+    [_pos, _dir, _helicopter, _side] call BIS_fnc_spawnVehicle;
+};
+
 spawn_gunship_group = {
-	params ["_pos", "_side"];
+	params ["_side"];
 	
 	private _gunship = selectRandom (_side call get_gunship_types); 
 	private _gunship_name = _gunship call get_vehicle_display_name;
@@ -103,13 +133,7 @@ spawn_gunship_group = {
 	[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call report_incoming_support;
 	sleep 120;
 
-	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
-	private _base_pos = getMarkerPos _respawn_marker;
-
-	private _dir = _pos getDir _base_pos;
-
-	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
-    private _veh = [_pos, _dir, _gunship, _side] call BIS_fnc_spawnVehicle;
+    private _veh = [_side, _gunship] call spawn_helicopter;
 
 	[_side, format["%1 has arrived. See you soon!", _gunship_name]] call report_incoming_support;
 
@@ -152,8 +176,7 @@ spawn_battle_group = {
 	private _can_spawn = (unit_cap - _unit_count) min ([_side] call get_unused_strength); 
 
 	if (_can_spawn > (squad_cap / 2)) then {
-		private _group = [_side, _can_spawn] call spawn_random_group;		;
-		[_group] call add_battle_group;
+		private _group = [_side, _can_spawn] call spawn_random_group;		
 	};	
 	//[_t2, "spawn_battle_groups"] spawn report_time;	
 };
@@ -189,9 +212,8 @@ spawn_gunships = {
 				if (!isNil format["%1_gunship", _side]) then {	
 					(_gunship select 0) setDamage 1;					
 				}; 
-
-				private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
-				_gunship = [_pos, _side] call spawn_gunship_group;
+				
+				_gunship = [_side] call spawn_gunship_group;
 				[_gunship select 2] call add_battle_group;
 
 				waitUntil {!canMove (_gunship select 0)};

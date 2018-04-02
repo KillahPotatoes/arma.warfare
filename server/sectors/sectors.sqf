@@ -117,3 +117,11 @@ find_closest_friendly_sector = {
 	_sectors = [_side] call get_owned_sectors;	
 	[_sectors, _pos] call find_closest_sector;
 };
+
+find_random_enemy_sector = {
+	params ["_side"];
+
+	_sectors = [_side] call get_other_sectors;	
+
+	selectRandom _sectors;
+};

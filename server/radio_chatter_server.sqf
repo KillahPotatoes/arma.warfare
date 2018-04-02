@@ -32,7 +32,7 @@ report_next_waypoint = {
 	params ["_group", "_target"];
 
 	private _veh = vehicle leader _group;
-	private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank";
+	private _is_veh = (_veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank") && ((group driver _veh) isEqualTo _group);
 	private _sector_name = [_target getVariable sector_name] call replace_underscore;
 
 	private _msg = if (_is_veh) then {

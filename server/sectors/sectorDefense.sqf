@@ -32,6 +32,11 @@ should_spawn_mortar = {
 	params ["_sector", "_sector_owner"];
 
 	private _mortar = _sector getVariable mortar;	
+
+	if(isNil "_mortar") exitWith {
+		true;
+	};
+
 	private _group = _mortar select 2;
 
 	if(side _group isEqualTo _sector_owner && ({alive _x} count units _group) > 0) exitWith {
@@ -45,6 +50,10 @@ should_remove_mortar = {
 	params ["_sector", "_sector_owner"];
 
 	private _mortar = _sector getVariable mortar;	
+	if(isNil "_mortar") exitWith {
+		false;
+	};
+
 	private _group = _mortar select 2;
 	if(!(side _group isEqualTo _sector_owner) || ({alive _x} count units _group) == 0) exitWith {
 		true;

@@ -93,7 +93,7 @@ group_ai = {
 			private _group = _x;
 			private _side = side _group; 
 
-			if (!(isPlayer leader _group) && _side in factions) then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
+			if (!(isPlayer leader _group) && _side in factions && _group getVariable "active") then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
 				private _pos = getPosWorld (leader _group);
 
 				private _sector_c = [_side] call count_other_sectors; // gets list of uncapturedSectors

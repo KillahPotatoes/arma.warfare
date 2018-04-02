@@ -23,8 +23,9 @@ remove_null = {
 };
 
 add_battle_group = {	
-	params ["_group"];	
-	_curr_count = {alive _x} count units _group;
+	params ["_group", ["_active", true]];	
+	_group setVariable ["active", _active];
+	_curr_count = {alive _x} count (units _group);
 	_group setVariable [soldier_count, _curr_count];
     _group deleteGroupWhenEmpty true;
 

@@ -37,6 +37,7 @@
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\adjust_skill_levels.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 
 // Radio chatter

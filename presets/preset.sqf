@@ -3,7 +3,7 @@
 sector_size = 200; // sector size
 starting_strength  = 50;
 unit_cap = 30;
-defender_cap = 5;
+defender_cap = 8;
 squad_cap = 12;
 patrol_cap = 3;
 initial_skill = 0.5;

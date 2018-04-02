@@ -172,10 +172,11 @@ get_unused_strength = {
 spawn_battle_group = {
 	params ["_side"];
 	//_t2 = diag_tickTime;
-	private _unit_count = [_side] call count_battlegroup_units;	
-	private _can_spawn = (unit_cap - _unit_count) min ([_side] call get_unused_strength); 
+	private _unit_count = _side call count_battlegroup_units;	
+	private _strength = _side call get_sstrength;
+	private _can_spawn = (unit_cap - _unit_count) min (_side call get_unused_strength); 
 
-	if (_can_spawn > (squad_cap / 2)) then {
+	if (_can_spawn > (squad_cap / 2) || (_strength <= (squad_cap / 2))) then {
 		private _group = [_side, _can_spawn] call spawn_random_group;		
 	};	
 	//[_t2, "spawn_battle_groups"] spawn report_time;	

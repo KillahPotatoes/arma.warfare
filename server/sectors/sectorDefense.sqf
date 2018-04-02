@@ -3,7 +3,7 @@ spawn_defensive_squad = {
 
 	private _side = _sector getVariable owned_by;
 	private _safe_pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    private _group = [_safe_pos, _side, defender_cap, true] call spawn_infantry;
+    private _group = [_safe_pos, _side, defender_cap call calc_number_of_soldiers, true] call spawn_infantry;
 	
     _group setBehaviour "AWARE";
 	_group;

@@ -173,7 +173,7 @@ spawn_battle_group = {
 	params ["_side"];
 	//_t2 = diag_tickTime;
 	private _unit_count = _side call count_battlegroup_units;	
-	private _strength = _side call get_sstrength;
+	private _strength = _side call get_strength;
 	private _can_spawn = (unit_cap - _unit_count) min (_side call get_unused_strength); 
 
 	if (_can_spawn > (squad_cap / 2) || (_strength <= (squad_cap / 2))) then {

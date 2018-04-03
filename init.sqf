@@ -1,4 +1,5 @@
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\radio_chatter.sqf";
@@ -11,6 +12,7 @@
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\redeploy.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\cash_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\squad_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\playerActions\heli_taxi.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_infantry_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_vehicle_menu.sqf";

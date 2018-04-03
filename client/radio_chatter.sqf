@@ -19,6 +19,11 @@ report_casualities = {
 	
 };
 
+report_heli_taxi_status = {
+	params ["_group", "_msg"];
+	(leader _group) sideChat _msg;
+};
+
 client_report_next_waypoint = {
 	params ["_group", "_msg"];
 	sleep random 5;

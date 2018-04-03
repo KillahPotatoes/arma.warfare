@@ -7,6 +7,8 @@ player enableFatigue false;
 [] call add_store_cash_action;
 [] call join_squad;
 [] call leave_squad;
+[] call show_order_heli_taxi;
+[] call give_destination_to_heli_taxi;
 
 RemoveSquadMatesWhenPlayerDies = {
 	params ["_player"];

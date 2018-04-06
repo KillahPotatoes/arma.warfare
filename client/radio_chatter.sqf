@@ -19,26 +19,19 @@ report_casualities = {
 	
 };
 
-report_heli_taxi_status = {
-	params ["_group", "_msg"];
-	(leader _group) sideChat _msg;
-};
-
-client_report_next_waypoint = {
+group_report_client = {
 	params ["_group", "_msg"];
 	sleep random 5;
 	(leader _group) sideChat _msg;
 };
 
-client_report_incoming_support = {
+
+HQ_report_client = {
 	params ["_side", "_msg"];
+	sleep random 5;
 	[_side, "HQ"] sideChat _msg;
 };
 
-client_report_lost_support = {
-	params ["_side", "_msg"];
-	[_side, "HQ"] sideChat _msg;
-};
 
 oneCasualty = [
 	"We lost a soldier %1m %2 of %3", 

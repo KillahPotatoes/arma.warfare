@@ -35,7 +35,7 @@ spawn_random_group = {
 		[_group] call add_battle_group;
 	};
 
-	if (_rnd > 80 && (([] call seconds_since_start) > 300)) exitWith {
+	if (_rnd > 70 && (([] call seconds_since_start) > 300)) exitWith {
 		[_side, _can_spawn] call helicopter_insertion;
 	};
 
@@ -130,12 +130,12 @@ spawn_gunship_group = {
 	private _gunship = selectRandom (_side call get_gunship_types); 
 	private _gunship_name = _gunship call get_vehicle_display_name;
 
-	[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call report_incoming_support;
+	[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call HQ_report;
 	sleep 120;
 
     private _veh = [_side, _gunship] call spawn_helicopter;
 
-	[_side, format["%1 has arrived. See you soon!", _gunship_name]] call report_incoming_support;
+	[_side, format["%1 has arrived. See you soon!", _gunship_name]] call HQ_report;
 
 	[_side, _veh] call set_gunship;
 	_veh;

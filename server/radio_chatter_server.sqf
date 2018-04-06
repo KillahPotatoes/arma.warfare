@@ -44,16 +44,10 @@ report_next_waypoint = {
 		format["Squad of %1 moving towards %2", _count, _sector_name];
 	};	
 	
-	[_group, _msg] remoteExec ["client_report_next_waypoint"];
+	[_group, _msg] remoteExec ["group_report_client"];
 };
 
-report_incoming_support = {
+HQ_report = {
 	params ["_side", "_msg"];
-	[_side, _msg] remoteExec ["client_report_incoming_support"];
+	[_side, _msg] remoteExec ["HQ_report_client"];
 };
-
-report_lost_support = {
-	params ["_side", "_msg"];
-	[_side, _msg] remoteExec ["client_report_lost_support"];
-};
-

@@ -58,7 +58,10 @@ spawn_transport_heli = {
 	private _transport_heli = selectRandom (_side call get_transport_heli_type);		
     private _veh = [_side, _transport_heli] call spawn_helicopter;
 
-	(_veh select 2) deleteGroupWhenEmpty true;
+	private _group = _veh select 2;
+	
+	_group setBehaviour "CARELESS";
+	_group deleteGroupWhenEmpty true;
 	_veh;
 };
 
@@ -115,9 +118,12 @@ take_off_and_despawn = {
 		sleep 1;
 	};
 
-	if (alive _heli_vehicle) then
+	if (alive _heli_vehicle) exitWith
 	{
 		{ deleteVehicle _x } forEach (crew _heli_vehicle); 
 		deleteVehicle _heli_vehicle;
+		true;
 	};
+
+	false;
 };

@@ -44,7 +44,7 @@ report_lost_vehicle = {
 					format["We lost a %1 in %2", _veh_name, _location];			
 				};				
 				
-				[_side, _msg] call report_lost_support;
+				[_side, _msg] call HQ_report;
 			};
 		}
 	];

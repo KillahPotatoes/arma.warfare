@@ -8,10 +8,10 @@ heli_price = 10;
 landing_marker = "landing";
 destination_marker = "destination";
 
-show_order_heli_taxi = {  
-	heli_active = false;	
-	heli_timer = time;
+heli_active = false;	
+heli_timer = time;
 
+show_order_heli_taxi = {  
   	player addAction [format["Request heli pick-up - %1$", heli_price], {
 		private _price = heli_price;
 		private _time = time - heli_timer;
@@ -71,7 +71,6 @@ order_helicopter_taxi = {
 	private _group = _heli select 2;
 
 	_veh setVariable ["role", "taxi"];
-	_veh setVariable [owned_by, player];
 	_veh setVariable ["hasOrders", false];
 
 	_price call widthdraw_cash;
@@ -238,7 +237,7 @@ is_inside_heli_taxi = {
 
 	private _veh = vehicle _player;
 
-	if ((_veh getVariable owned_by) isEqualTo _player && (_veh getVariable "role") isEqualTo "taxi") exitWith {
+	if ((_veh getVariable "role") isEqualTo "taxi") exitWith {
 		true;
 	};
 

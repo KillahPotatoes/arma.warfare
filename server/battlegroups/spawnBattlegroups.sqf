@@ -43,17 +43,6 @@ spawn_random_group = {
 	[_group] call add_battle_group;
 };
 
-helicopter_insertion = {
-	params ["_side", "_can_spawn"];
-	
-	private _sector = [_side] call find_random_enemy_sector;
-
-	if (!(_sector isEqualTo [])) exitWith {
-		private _pos = [_sector getVariable pos, 200, 400, 15, 0, 0, 0] call BIS_fnc_findSafePos;
-		[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
-	};	
-};
-
 add_soldiers_to_cargo = {
 	params ["_veh_array", "_can_spawn"];
 

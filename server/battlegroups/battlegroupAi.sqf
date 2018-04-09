@@ -44,8 +44,6 @@ join_nearby_group = {
 		if(!(_nearby_groups isEqualTo [])) then {
 			private _smallest_group = [_nearby_groups] call get_smallest_group;
 
-			systemChat format["Group %1 of %2 joined nearby group %3 of %4", groupId _group, _group_count, groupId _smallest_group, count units _smallest_group];
-
 			{		
 				[_x] joinSilent _smallest_group;		
 			} forEach units _group;

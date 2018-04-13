@@ -8,12 +8,11 @@ can_use_ammo_box = {
   _owner = _trg getVariable owned_by;
   
   (typeOf _trg) in [ammo_box]
-  && _owner isEqualTo side player
-  && _trg distance _player < 5
+  && _owner isEqualTo side _player
+  && (_trg distance _player) < 5
   && isTouchingGround _player
   && alive _player
-  && lifeState _player != "incapacitated"
-  && leader _player == _player;
+  && lifeState _player != "incapacitated";
 };
 
 is_ammo_box = {
@@ -43,6 +42,12 @@ is_player_close_to_hq = {
 	params ["_player"];
 
   [side _player] call is_close_to_hq;
+};
+
+is_leader = {
+	params ["_player"];
+
+  isPlayer (leader (group _player));   
 };
 
 is_close_to_enemy_hq = {

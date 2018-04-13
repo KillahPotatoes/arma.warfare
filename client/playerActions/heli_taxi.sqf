@@ -3,7 +3,7 @@ heli_wait_period_on_crash = 900;
 heli_will_wait_time = 600;
 
 heli_wait_period = heli_wait_period_on_despawn;
-heli_price = 10;
+heli_price = 500;
 
 landing_marker = "landing";
 destination_marker = "destination";
@@ -39,7 +39,7 @@ show_order_heli_taxi = {
 		onMapSingleClick {};
 		
     }, nil, 1.5, true, true, "",
-    '[player] call can_order_heli'
+    '[player] call can_order_heli && [player] call is_leader'
     ];
 };
 

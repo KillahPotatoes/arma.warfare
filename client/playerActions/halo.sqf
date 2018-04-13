@@ -27,7 +27,7 @@ AddHeloAction = {
     };
     onMapSingleClick {};
   }, nil, 1.5, true, true, "",
-  '[player] call is_player_close_to_hq'
+  '[player] call is_player_close_to_hq && [player] call is_leader'
   ];
 };
 

@@ -41,7 +41,6 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\battlegroups\adjust_skill_levels.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 
@@ -68,9 +67,7 @@ seconds_since_start = {
 [] spawn clean_up;
 [] spawn spawn_battle_groups;
 [] spawn group_ai;
-[] spawn skill_balancing;
 [] spawn initialize_sector_control;
-[] spawn sector_income;
 [] spawn sector_cash_generation;
 [] spawn defensive_group_chatter;
 

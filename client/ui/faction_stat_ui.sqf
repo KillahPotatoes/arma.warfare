@@ -18,12 +18,6 @@ show_ui = {
 			missionNamespace getVariable format ["%1_strength",  _side];
 		};
 
-
-		get_income = {
-			params ["_side"];
-			missionNamespace getVariable format ["%1_income", _side];
-		};
-
 		print_percentage = {
 			params ["_side"];
 
@@ -41,11 +35,10 @@ show_ui = {
 			params ["_side", "_color"];
 
 			format[
-				"<t color='%1' align='right' size='1'>T%2%3 (+%4) %5</t>",
+				"<t color='%1' align='right' size='1'>T%2%3 %4</t>",
 				_color,
 				[_side] call get_tier,
 				[_side] call print_percentage,
-				[_side] call get_income,
 				[_side] call print_strength
 				];
 		};

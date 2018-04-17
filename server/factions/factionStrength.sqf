@@ -41,6 +41,13 @@ increment_kill_counter = {
 	};
 }; 
 
+buy_manpower_server = {
+	params ["_side"];
+
+	private _new_strength = ([_side] call get_strength) + 10;
+	[_side, _new_strength] call set_strength;
+};
+
 increment_tier = {
 	params ["_side", "_kill_count"];
 

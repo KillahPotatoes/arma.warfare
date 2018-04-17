@@ -1,7 +1,7 @@
 // Global variables
 
 sector_size = 200; // sector size
-starting_strength  = 50;
+starting_strength  = 500;
 unit_cap = 30;
 defender_cap = 8;
 squad_cap = 12;

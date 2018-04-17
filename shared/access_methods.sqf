@@ -5,7 +5,7 @@ get_prefixed_name = {
 
 get_tier_bound = {
 	params ["_num"];
-	_num * starting_strength;
+	_num * (starting_strength / 10);
 };
 
 set_tier_progress = {
@@ -40,7 +40,7 @@ set_kill_count = {
 
 set_strength = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_strength", _side], ((starting_strength * 2) min _value), true];
+	missionNamespace setVariable [format ["%1_strength", _side], _value, true];
 }; 
 
 get_strength = {

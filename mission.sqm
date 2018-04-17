@@ -1777,6 +1777,7 @@ class Mission
 			};
 			id=49;
 			type="B_Slingload_01_Ammo_F";
+			atlOffset=-0.0077495575;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1835,6 +1836,7 @@ class Mission
 			};
 			id=50;
 			type="B_Slingload_01_Fuel_F";
+			atlOffset=-0.017148972;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1893,6 +1895,7 @@ class Mission
 			};
 			id=51;
 			type="B_Slingload_01_Repair_F";
+			atlOffset=-0.011003494;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1932,6 +1935,7 @@ class Mission
 			};
 			id=52;
 			type="B_Slingload_01_Medevac_F";
+			atlOffset=-0.0063266754;
 			class CustomAttributes
 			{
 				class Attribute0

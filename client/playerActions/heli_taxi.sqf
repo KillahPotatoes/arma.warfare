@@ -172,6 +172,14 @@ give_destination_to_heli_taxi = {
   ];
 };
 
+give_destination_to_heli_taxi = {
+  player addAction ["Take control", {
+	  player remoteControl driver vehicle player;
+  }, nil, 1.5, true, true, "",
+  '[player] call can_take_control'
+  ];
+};
+
 send_heli_to_drop_off_destination = {
 	params ["_pos"];
 
@@ -213,6 +221,11 @@ heli_has_no_orders = {
 can_order_heli = {
 	params ["_player"];
 	!(_player call is_inside_heli_taxi) && !heli_active;
+};
+
+can_take_control = {
+	params ["_player"];
+	(_player call heli_is_operational) && (_player call is_inside_heli_taxi);
 };
 
 can_give_destination = {

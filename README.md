@@ -10,7 +10,7 @@ There are 4 player slots on each side so you can play this PVP but PVE works gre
 
 On the right side of the screen you will see
 
-#### T0 0% (+0) 50
+#### T0 0% 500
 
 repeated three times in blue, red, green representing the stats for each faction.
 
@@ -20,7 +20,7 @@ T0 = Tier 0
 
 (+0) = sectors held. Each sector gives 2 points per minute
 
-50 = current strength of the faction. If strength is >30 the AI unit cap will be 30, but if <30 the unit cap will be equal strength
+500 = current strength of the faction. If strength is >30 the AI unit cap will be 30, but if <30 the unit cap will be equal strength
 
 ### Cash
 
@@ -43,16 +43,38 @@ Based on tier different vehicles and helicopters can also be bought in the start
 You can also perform a halo insertion from the start base.
 Spawn 2000 m over the ground at any point chosen by clicking on the map. Any teammates nearby will drop with you. 
 
+### Heli taxi
+
+If you are the leader of your group you can order a heli taxi for a certain amount of cash. A heli will come land, and upon entering you will take control of the helicopter. When exiting the helicopter will leave. There will be a time penalty between each time you can use the helicopter, and if its shot down there will be a longer penalty
+
+### Rank
+
+You will get a rank based on number of kills since last death, this rank will make your teammates have a higher skill:
+
+0-5 kills: Private, skill 0.5 (default rank, default skill)
+5.-10 kills: Sergant: skill : 0.6
+10-15 kills: Lieutenant: skill: 0.7
+15-20 kills: Captain: skill: 0.8;
+20-25 kills: Major: skill: 0.9;
+25+ kills: Colonel: 1
 
 ### AI
 
 AI will consist of both sector defenders and attacking battlegroups. When a sector is captured a group will spawn and defend that sector. Battlegroups will spawn in the sectors and in the startbase. These will move towards uncaptured sectors and attack them.
+
+##### Ai squads
+
+You can join AI squads by walking up to one team member and chose join squad.
 
 ##### Ai Gunship
 AI gunship will spawn with random intervals. How often is determined by tier.
 
 ##### Ai skills
 Ai skills will increase when strength deminishes 
+
+##### Ai heli insertion
+
+Helicopters with a squad will sometimes spawn and disembark close to enemy sectors
 
 ### Sectors
 
@@ -70,8 +92,10 @@ Once a sector is taken, a group of soldiers and a mortar position will spawn. Th
 
 ### Strength
 
-Strength is increased based on sectors held, and dimished when losing soldiers.
+Strength dimished when losing soldiers.
 If a player is killed there is a big penalty on strength, so better stay alive. 
+
+You can increase strength at HQ buy buying 1 strength for 10 cash
 
 Strength determines manpower. Your number  of active AI soldiers capturing new sectors are the lesser of 30 or your faction strength. 
 
@@ -145,10 +169,7 @@ Place the '\<prefix\>_ground_respawn' on an open area. In the center the ammobox
 
 Use delta, charlie and alpha. On mission start each faction will be assigned on of these prefixes by random.
 
-## Planned features
 
-##### Different infantry for different tiers
-##### Redeploy to captured sectors 
 
 
 

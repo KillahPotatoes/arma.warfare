@@ -20,8 +20,11 @@
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_menu_controller.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
 
 player setVariable [cash, 0];
+player setVariable ["rank", 0];
+player setVariable ["kills", 0];
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
 
@@ -29,6 +32,7 @@ player setVariable [cash, 0];
 [] spawn show_friendly_markers;
 [] spawn show_cash_markers;
 [] spawn show_ui;
+[] spawn calculate_rank_and_skill;
 
 loaded_event = addMissionEventHandler ["Loaded",{ [] spawn show_ui; }];
 

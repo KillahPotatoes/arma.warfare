@@ -61,4 +61,10 @@ get_vehicle_display_name = {
 	_class_name;
 };
 
+adjust_skill = {
+	params ["_skill", "_squad"];
 
+	{		
+		_x setSkill _skill;
+	} forEach (units _squad);	
+};

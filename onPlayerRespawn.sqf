@@ -20,8 +20,17 @@ RemoveSquadMatesWhenPlayerDies = {
 		private _new_group = createGroup [side _player, true];
 		[player] joinSilent _new_group;		
 	};	
+
+	[0.5, _group] spawn adjust_skill;
 };
 
-[] call reset_kill_count;
+reset_player_stats = {
+	params ["_player"];
 
+	_player setVariable ["kills", 0];
+	_player setVariable ["rank", 0];
+	_player setVariable [cash, 0];
+};
+
+[player] call reset_player_stats;
 [player] call RemoveSquadMatesWhenPlayerDies;

@@ -48,6 +48,12 @@ show_ui = {
 			0 max (ceil ([_side] call get_strength));
 		};
 
+		print_rank = {
+			private _ranks = ["Private", "Sergant", "Lieutenant", "Captain", "Major", "Elite"];
+			private _rank = player getVariable "rank";
+			format["<t color='#000000' align='right' size='1'>%1</t>", _ranks select _rank];
+		};
+
 		print_cash = {
 			format["<t color='#000000' align='right' size='1'>$ %1</t>", player getVariable "cash"];
 		};
@@ -57,13 +63,14 @@ show_ui = {
 			disableSerialization;
 
 			private _ctrl = findDisplay 46 ctrlCreate ["RscStructuredText", -1];
-			_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.10];
+			_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.15];
 			_ctrl ctrlCommit 0;
 
 			while {true} do {			
 				
 				_ctrl ctrlSetStructuredText parseText format[
-					"%1<br />%2<br />%3<br />%4",
+					"%1<br />%2<br />%3<br />%4<br />%5",
+					[] call print_rank,
 					[] call print_cash,
 					[west, '#000f72'] call print_faction_stats,
 					[east, '#720000'] call print_faction_stats,

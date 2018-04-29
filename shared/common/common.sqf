@@ -47,23 +47,7 @@ report_time = {
     diag_log format["Time: %1: %2", diag_tickTime - _time, _message];
 };
 
-get_transport_heli_type = {
-	params ["_side"];
-	missionNamespace getVariable format["%1_transport_helis", _side];
-};
 
-spawn_transport_heli = {
-	params ["_side"];
-
-	private _transport_heli = selectRandom (_side call get_transport_heli_type);		
-    private _veh = [_side, _transport_heli] call spawn_helicopter;
-
-	private _group = _veh select 2;
-	
-	_group setBehaviour "CARELESS";
-	_group deleteGroupWhenEmpty true;
-	_veh;
-};
 
 get_vehicle_display_name = {
     params ["_class_name"];
@@ -77,53 +61,4 @@ get_vehicle_display_name = {
 	_class_name;
 };
 
-land_helicopter = {
-	params ["_heli_group", "_heli_vehicle", "_mode", "_pos"];
 
-	_heli_group move _pos;
-
-	sleep 3;
-
-	while { ( (alive _heli_vehicle) && !(unitReady _heli_vehicle) ) } do
-	{
-		sleep 1;
-	};
-
-	if (alive _heli_vehicle) then
-	{
-		_heli_vehicle land _mode;
-	};
-
-  sleep 3;
-
-	while { ( (alive _heli_vehicle) && !(isTouchingGround _heli_vehicle) ) } do
-	{
-		sleep 1;
-	};
-};
-
-take_off_and_despawn = {
-	params ["_heli_group", "_heli_vehicle"];
-	
-	private _side = side _heli_group;
-
-	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
-
-	_heli_group move _pos;
-
-	sleep 3;
-
-	while { ( (alive _heli_vehicle) && !(unitReady _heli_vehicle) ) } do
-	{
-		sleep 1;
-	};
-
-	if (alive _heli_vehicle) exitWith
-	{
-		{ deleteVehicle _x } forEach (crew _heli_vehicle); 
-		deleteVehicle _heli_vehicle;
-		true;
-	};
-
-	false;
-};

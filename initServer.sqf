@@ -9,6 +9,7 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\clean_up.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
@@ -40,6 +41,7 @@ seconds_since_start = {
 // battlegroups
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
@@ -66,6 +68,7 @@ seconds_since_start = {
 [] spawn add_kill_ticker_to_all_vehicles;
 [] spawn clean_up;
 [] spawn spawn_battle_groups;
+[] spawn spawn_gunship_groups;
 [] spawn group_ai;
 [] spawn initialize_sector_control;
 [] spawn sector_cash_generation;

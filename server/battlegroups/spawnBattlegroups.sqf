@@ -48,9 +48,8 @@ add_soldiers_to_cargo = {
 	} forEach units _soldiers;
 };
 
-spawn_vehicle_group = {
-	params ["_pos", "_side", "_type", "_can_spawn"];
-	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
+try_find_unoccupied_nearby_road = {
+	params ["_pos"];
 
 	private _road = _pos nearRoads 25;
 	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
@@ -70,12 +69,26 @@ spawn_vehicle_group = {
 		};
 	};
 
+	_pos;
+};
+
+find_direction_towards_closest_sector = {
+	params ["_pos"];
+	
 	private _sector = [sectors, _pos] call find_closest_sector;
 	private _sector_pos = _sector getVariable pos;
-	private _dir = _pos getDir _sector_pos;
+	_pos getDir _sector_pos;
+};
 
-	_veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
-	_group = _veh_array select 2;
+spawn_vehicle_group = {
+	params ["_pos", "_side", "_type", "_can_spawn"];
+	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
+
+	_pos = [_pos] call try_find_unoccupied_nearby_road;
+
+	private _dir = [_pos] call find_direction_towards_closest_sector;
+	private _veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
+	private _group = _veh_array select 2;
 
 	_can_spawn = _can_spawn - (count units _group); 
 
@@ -85,8 +98,6 @@ spawn_vehicle_group = {
 	
 	_group;
 };
-
-
 
 get_infantry_spawn_position = {
 	params ["_pos", "_side"];
@@ -108,12 +119,6 @@ spawn_squad = {
 	_pos = [_pos, _side] call get_infantry_spawn_position;
 	_soldier_count = (squad_cap call calc_number_of_soldiers) min _can_spawn;
     [_pos, _side, _soldier_count, false] call spawn_infantry;	
-};
-
-get_unused_strength = {
-	params ["_side"];
-
-	(_side call get_strength) - (_side call count_battlegroup_units);
 };
 
 spawn_battle_group = {

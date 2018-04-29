@@ -22,4 +22,6 @@ RemoveSquadMatesWhenPlayerDies = {
 	};	
 };
 
+[] call reset_kill_count;
+
 [player] call RemoveSquadMatesWhenPlayerDies;

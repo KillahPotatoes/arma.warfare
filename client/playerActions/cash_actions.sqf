@@ -30,6 +30,24 @@ add_store_cash_action = {
   ];
 };
 
+buy_manpower = {
+  player addAction ["Buy 10 manpower points", {
+      _price = 100;
+
+      if (_price call check_if_can_afford) exitWith {
+        _price call widthdraw_cash;
+
+        [side player] remoteExec ["buy_manpower_server", 2];
+        systemChat format["You bought %1 manpower points", 10];        
+	  	};
+
+		  systemChat "You cannot afford 10 manpower points";
+      
+  }, nil, 1.5, true, true, "",
+  '[player] call is_player_close_to_hq'
+  ];
+};
+
 player_has_cash = {
     params ["_player"];
 

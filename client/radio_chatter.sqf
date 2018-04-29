@@ -25,7 +25,6 @@ group_report_client = {
 	(leader _group) sideChat _msg;
 };
 
-
 HQ_report_client = {
 	params ["_side", "_msg"];
 	sleep random 5;

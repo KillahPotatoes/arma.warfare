@@ -18,12 +18,6 @@ show_ui = {
 			missionNamespace getVariable format ["%1_strength",  _side];
 		};
 
-
-		get_income = {
-			params ["_side"];
-			missionNamespace getVariable format ["%1_income", _side];
-		};
-
 		print_percentage = {
 			params ["_side"];
 
@@ -41,11 +35,10 @@ show_ui = {
 			params ["_side", "_color"];
 
 			format[
-				"<t color='%1' align='right' size='1'>T%2%3 (+%4) %5</t>",
+				"<t color='%1' align='right' size='1'>T%2%3 %4</t>",
 				_color,
 				[_side] call get_tier,
 				[_side] call print_percentage,
-				[_side] call get_income,
 				[_side] call print_strength
 				];
 		};
@@ -53,6 +46,12 @@ show_ui = {
 		print_strength = {
 			params ["_side"];
 			0 max (ceil ([_side] call get_strength));
+		};
+
+		print_rank = {
+			private _ranks = ["Private", "Sergant", "Lieutenant", "Captain", "Major", "Elite"];
+			private _rank = player getVariable "rank";
+			format["<t color='#000000' align='right' size='1'>%1</t>", _ranks select _rank];
 		};
 
 		print_cash = {
@@ -64,13 +63,14 @@ show_ui = {
 			disableSerialization;
 
 			private _ctrl = findDisplay 46 ctrlCreate ["RscStructuredText", -1];
-			_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.10];
+			_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.15];
 			_ctrl ctrlCommit 0;
 
 			while {true} do {			
 				
 				_ctrl ctrlSetStructuredText parseText format[
-					"%1<br />%2<br />%3<br />%4",
+					"%1<br />%2<br />%3<br />%4<br />%5",
+					[] call print_rank,
 					[] call print_cash,
 					[west, '#000f72'] call print_faction_stats,
 					[east, '#720000'] call print_faction_stats,

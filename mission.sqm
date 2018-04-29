@@ -8,11 +8,11 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=119;
+		nextID=120;
 	};
 	class Camera
 	{
-		pos[]={7229.2715,61.497581,5418.8188};
+		pos[]={7210.062,118.74238,5323.2964};
 		dir[]={-0.16469733,-0.44935331,0.87804919};
 		up[]={-0.082841754,0.89335012,0.44165298};
 		aside[]={0.98286301,4.1927706e-008,0.18435755};
@@ -28,7 +28,8 @@ addons[]=
 	"asr_ai3_skills",
 	"A3_Structures_F_Mil_Helipads",
 	"A3_Structures_F_System",
-	"A3_Supplies_F_Heli_Slingload"
+	"A3_Supplies_F_Heli_Slingload",
+	"A3_Modules_F_Curator_Curator"
 };
 class AddonsMetaData
 {
@@ -113,7 +114,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=45;
+		items=46;
 		class Item0
 		{
 			dataType="Logic";
@@ -1777,6 +1778,7 @@ class Mission
 			};
 			id=49;
 			type="B_Slingload_01_Ammo_F";
+			atlOffset=-0.0077495575;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1835,6 +1837,7 @@ class Mission
 			};
 			id=50;
 			type="B_Slingload_01_Fuel_F";
+			atlOffset=-0.017148972;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1893,6 +1896,7 @@ class Mission
 			};
 			id=51;
 			type="B_Slingload_01_Repair_F";
+			atlOffset=-0.011003494;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1932,6 +1936,7 @@ class Mission
 			};
 			id=52;
 			type="B_Slingload_01_Medevac_F";
+			atlOffset=-0.0063266754;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -2163,6 +2168,96 @@ class Mission
 			angle=230.32394;
 			id=57;
 			atlOffset=0.15893555;
+		};
+		class Item45
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={7238.0942,23.609226,5450.6689};
+			};
+			id=119;
+			type="ModuleCurator_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ModuleCurator_F_Owner";
+					expression="_this setVariable ['Owner',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="zCurator";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="ModuleCurator_F_Forced";
+					expression="_this setVariable ['Forced',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute2
+				{
+					property="ModuleCurator_F_Name";
+					expression="_this setVariable ['Name',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ModuleCurator_F_Addons";
+					expression="_this setVariable ['Addons',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=2;
+						};
+					};
+				};
+				nAttributes=4;
+			};
 		};
 	};
 };

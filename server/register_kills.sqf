@@ -53,7 +53,7 @@ report_lost_vehicle = {
 kill_ticker = {
 	_this addMPEventHandler ['MPKilled',{
 			params ["_victim", "_killer"];
-			[_victim, _killer] call register_kill;
+			[_victim, _killer] spawn register_kill;
 		}
 	];
 };
@@ -67,15 +67,20 @@ register_kill = {
 	params ["_victim", "_killer"];
 
 	private _killer_side = side group _killer;
-	private _victim_side = side group _victim;
-    
-	_kill_point = _killer_side call calculate_kill_points;
+	private _victim_side = side group _victim;    
 
 	if (!(_victim_side isEqualTo _killer_side)) then {
+		_kill_point = _killer_side call calculate_kill_points;		
 		[_killer_side, _kill_point] call increment_kill_counter;
 	};
 
+	if ((isPlayer _killer)) then {
+		[] remoteExec ["increment_player_kill_counter", _killer];
+	};
+
+	_death_penalty = (_victim_side countSide allPlayers) + 1;
+
 	_faction_strength = _victim_side call get_strength;
-	_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 5)); } else { _faction_strength - _kill_point };		
+	_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 10)); } else { _faction_strength - _death_penalty };		
 	[_victim_side, _new_faction_strength] call set_strength;
 };

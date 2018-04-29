@@ -1,3 +1,8 @@
+create_soldier = {
+	params ["_group", "_class_name"];
+	_class_name createUnit[getPos player, _group, "", ([player] call get_rank_skill)];
+};
+
 buy_infantry = {
 	params ["_class_name", "_price"];
 
@@ -8,11 +13,8 @@ buy_infantry = {
 			_numberOfSoldiers = squad_size - _group_count;
 
 			if (_numberOfSoldiers > 0) exitWith {
-
-				_class_name createUnit[getPos player, _group];
-
+				[_group, _class_name] call create_soldier;
 				_price call widthdraw_cash;
-
 				[_group] remoteExec ["add_battle_group", 2];
 			};
 

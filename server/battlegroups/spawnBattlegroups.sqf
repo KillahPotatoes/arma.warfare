@@ -1,18 +1,3 @@
-set_gunship = {
-	params ["_side", "_gunship"];
-	missionNamespace setVariable [format["%1_gunship", _side], _gunship];
-};
-
-get_gunship = {
-	params ["_side"];
-	missionNamespace getVariable format["%1_gunship", _side];
-};
-
-get_gunship_types = {
-	params ["_side"];
-	missionNamespace getVariable format["%1_gunships", _side]; 
-};
-
 spawn_random_group = {
 	params ["_side", "_can_spawn"];	
 		
@@ -63,9 +48,8 @@ add_soldiers_to_cargo = {
 	} forEach units _soldiers;
 };
 
-spawn_vehicle_group = {
-	params ["_pos", "_side", "_type", "_can_spawn"];
-	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
+try_find_unoccupied_nearby_road = {
+	params ["_pos"];
 
 	private _road = _pos nearRoads 25;
 	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
@@ -85,12 +69,26 @@ spawn_vehicle_group = {
 		};
 	};
 
+	_pos;
+};
+
+find_direction_towards_closest_sector = {
+	params ["_pos"];
+	
 	private _sector = [sectors, _pos] call find_closest_sector;
 	private _sector_pos = _sector getVariable pos;
-	private _dir = _pos getDir _sector_pos;
+	_pos getDir _sector_pos;
+};
 
-	_veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
-	_group = _veh_array select 2;
+spawn_vehicle_group = {
+	params ["_pos", "_side", "_type", "_can_spawn"];
+	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_%2_vehicles", _side, _type]);
+
+	_pos = [_pos] call try_find_unoccupied_nearby_road;
+
+	private _dir = [_pos] call find_direction_towards_closest_sector;
+	private _veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
+	private _group = _veh_array select 2;
 
 	_can_spawn = _can_spawn - (count units _group); 
 
@@ -99,35 +97,6 @@ spawn_vehicle_group = {
 	};
 	
 	_group;
-};
-
-spawn_helicopter = {
-	params ["_side", "_helicopter"];
-
-	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
-	private _base_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
-
-	private _dir = _pos getDir _base_pos;
-
-	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
-    [_pos, _dir, _helicopter, _side] call BIS_fnc_spawnVehicle;
-};
-
-spawn_gunship_group = {
-	params ["_side"];
-	
-	private _gunship = selectRandom (_side call get_gunship_types); 
-	private _gunship_name = _gunship call get_vehicle_display_name;
-
-	[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call HQ_report;
-	sleep 120;
-
-    private _veh = [_side, _gunship] call spawn_helicopter;
-
-	[_side, format["%1 has arrived. See you soon!", _gunship_name]] call HQ_report;
-
-	[_side, _veh] call set_gunship;
-	_veh;
 };
 
 get_infantry_spawn_position = {
@@ -152,12 +121,6 @@ spawn_squad = {
     [_pos, _side, _soldier_count, false] call spawn_infantry;	
 };
 
-get_unused_strength = {
-	params ["_side"];
-
-	(_side call get_strength) - (_side call count_battlegroup_units);
-};
-
 spawn_battle_group = {
 	params ["_side"];
 	//_t2 = diag_tickTime;
@@ -172,10 +135,6 @@ spawn_battle_group = {
 };
 
 spawn_battle_groups = {
-	[West] spawn spawn_gunships;
-	[East] spawn spawn_gunships;
-	[independent] spawn spawn_gunships;
-
 	while {true} do {
 		sleep 30;		
 		
@@ -185,34 +144,6 @@ spawn_battle_groups = {
 	};
 };
 
-spawn_gunships = {
-	params ["_side"];
-	
-	while {true} do {
-		//_t1 = diag_tickTime;
 
-		private _tier = [_side] call get_tier;	
-
-		if(_tier > 0) then {
-			sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
-			if ([_side] call get_unused_strength > 0) then {
-
-				private _gunship = _side call get_gunship;
-
-				if (!isNil format["%1_gunship", _side]) then {	
-					(_gunship select 0) setDamage 1;					
-				}; 
-				
-				_gunship = [_side] call spawn_gunship_group;
-				[_gunship select 2] call add_battle_group;
-
-				waitUntil {!canMove (_gunship select 0)};
-			};				
-		};
-
-		//[_t1, "spawn_gunship"] spawn report_time;
-		sleep 10;		
-	};
-};
 
 

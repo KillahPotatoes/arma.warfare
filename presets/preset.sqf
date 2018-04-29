@@ -1,12 +1,11 @@
 // Global variables
 
 sector_size = 200; // sector size
-starting_strength  = 50;
+starting_strength  = 500;
 unit_cap = 30;
 defender_cap = 8;
 squad_cap = 12;
 patrol_cap = 3;
-initial_skill = 0.5;
 vehicle_chance = 20;
 cash_per_minute = 10;
 squad_size = 8;

@@ -8,7 +8,6 @@ player enableFatigue false;
 [] call join_squad;
 [] call leave_squad;
 [] call show_order_heli_taxi;
-[] call take_control_over_heli;
 [] call buy_manpower;
 
 RemoveSquadMatesWhenPlayerDies = {

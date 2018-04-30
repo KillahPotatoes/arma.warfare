@@ -1,9 +1,9 @@
-heli_wait_period_on_despawn = 0;
+heli_wait_period_on_despawn = 120;
 heli_wait_period_on_crash = 900;
 heli_will_wait_time = 600;
 
 heli_wait_period = heli_wait_period_on_despawn;
-heli_price = 0;
+heli_price = 200;
 
 landing_marker = "landing";
 
@@ -81,6 +81,12 @@ order_helicopter_taxi = {
 		[_group, format["%1 has landed. Waiting for squad to pick up!", _name]] spawn group_report_client;
 		[_veh, _group] spawn cancel_taxi_after_certain_time;
 	};
+
+	waituntil { player in _veh || !(alive _veh)};
+
+	if (player in _veh && alive _veh) then {
+		[] call take_control_over_heli;		
+	};
 };
 
 set_heli_crashed_state = {
@@ -127,7 +133,7 @@ empty_vehicle_cargo = {
 	
 	{
 		if(!((group _x) isEqualTo (group _vehicle))) then {
-			doGetOut _x;			
+			moveOut _x;			
 		};
 	} forEach crew _vehicle;	
 };
@@ -157,25 +163,20 @@ cancel_taxi_after_certain_time = {
 	};	
 };
 
-take_control_over_heli = {
-  player addAction ["Take control", {
-	  private _heli = vehicle player;
-	  private _pilot = driver _heli;
-	  private _group = group _pilot;
-	  private _pilot_type = typeOf _pilot;
+take_control_over_heli = {  
+	private _heli = vehicle player;
+	private _pilot = driver _heli;
+	private _group = group _pilot;
+	private _pilot_type = typeOf _pilot;
 
-	  _group deleteGroupWhenEmpty false;
-	  deleteVehicle _pilot;
-	  _heli lockDriver false;
-	  moveOut player;
-	  player moveInDriver _heli;
-	  
-	  waituntil { !(player in _heli) };
-	  [_pilot_type, _group, _heli] spawn send_heli_to_HQ;
-
-  }, nil, 1.5, true, true, "",
-  '[player] call can_take_control'
-  ];
+	_group deleteGroupWhenEmpty false;
+	deleteVehicle _pilot;
+	_heli lockDriver false;
+	moveOut player;
+	player moveInDriver _heli;
+	
+	waituntil { !(player in _heli) };
+	[_pilot_type, _group, _heli] spawn send_heli_to_HQ;  
 };
 
 send_heli_to_HQ = {

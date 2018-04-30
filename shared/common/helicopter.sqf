@@ -62,11 +62,9 @@ toggle_damage_while_landing = {
 	params ["_veh"];
 
 	waitUntil { ((getPosATL _veh) select 2) < 3 };
-	systemChat "Allow damage: false";
 	_veh allowDamage false;
 	waitUntil { isTouchingGround _veh };
 	sleep 3;
-	systemChat "Allow damage: true";
 	_veh allowDamage true;
 };
 

@@ -32,3 +32,8 @@ any_enemies_nearby_sector = {
 	
 	_faction_nearby > 0;
 }; 
+
+is_air_space_clear = {
+	params ["_pos"];
+	(count (_pos nearEntities [ ["Air"], 100]) == 0); 
+};

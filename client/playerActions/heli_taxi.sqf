@@ -1,9 +1,9 @@
-heli_wait_period_on_despawn = 120;
+heli_wait_period_on_despawn = 0;
 heli_wait_period_on_crash = 900;
 heli_will_wait_time = 600;
 
 heli_wait_period = heli_wait_period_on_despawn;
-heli_price = 200;
+heli_price = 0;
 
 landing_marker = "landing";
 
@@ -181,13 +181,12 @@ take_control_over_heli = {
 
 send_heli_to_HQ = {
 	params ["_pilot_type", "_group", "_heli"];
-		
-	private _pilot = _group createUnit [_pilot_type, [0,0,0], [], 0, "NONE"];
-	_pilot moveInDriver _heli;
-	_group deleteGroupWhenEmpty true;
-	_heli lockDriver true;
-
 	if(canMove _heli) exitWith {
+		private _pilot = _group createUnit [_pilot_type, [0,0,0], [], 0, "NONE"];
+		_pilot moveInDriver _heli;
+		_group deleteGroupWhenEmpty true;
+		_heli lockDriver true;
+	
 		private _name = (typeOf _heli) call get_vehicle_display_name;	
 		[_group, format["Helicopter transport mission successful! %1 is heading back to HQ!", _name]] spawn group_report_client;		
 		[_group, _heli] spawn take_off_and_despawn_heli_taxi;

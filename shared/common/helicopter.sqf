@@ -7,7 +7,11 @@ spawn_helicopter = {
 	private _dir = _pos getDir _base_pos;
 
 	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
-    [_pos, _dir, _helicopter, _side] call BIS_fnc_spawnVehicle;
+    private _heli = [_pos, _dir, _helicopter, _side] call BIS_fnc_spawnVehicle;
+
+	(_heli select 0) lockDriver true;
+
+	_heli;
 };
 
 get_transport_heli_type = {
@@ -41,16 +45,29 @@ land_helicopter = {
 	};
 
 	if (alive _heli_vehicle) then
-	{
+	{	
+		[_heli_vehicle] spawn toggle_damage_while_landing;
 		_heli_vehicle land _mode;
 	};
 
-  sleep 3;
+  	sleep 3;
 
 	while { ( (alive _heli_vehicle) && !(isTouchingGround _heli_vehicle) ) } do
 	{
 		sleep 1;
-	};
+	};		
+};
+
+toggle_damage_while_landing = {
+	params ["_veh"];
+
+	waitUntil { ((getPosATL _veh) select 2) < 3 };
+	systemChat "Allow damage: false";
+	_veh allowDamage false;
+	waitUntil { isTouchingGround _veh };
+	sleep 3;
+	systemChat "Allow damage: true";
+	_veh allowDamage true;
 };
 
 take_off_and_despawn = {

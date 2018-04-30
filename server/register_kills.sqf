@@ -69,8 +69,8 @@ register_kill = {
 	private _killer_side = side group _killer;
 	private _victim_side = side group _victim;    
 
-	if (!(_victim_side isEqualTo _killer_side)) then {
-		_kill_point = _killer_side call calculate_kill_points;		
+	if (!(_victim_side isEqualTo _killer_side) && {_killer_side in factions}) then {
+		_kill_point = _killer_side call calculate_kill_points;	
 		[_killer_side, _kill_point] call increment_kill_counter;
 	};
 

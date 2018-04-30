@@ -160,12 +160,18 @@ cancel_taxi_after_certain_time = {
 take_control_over_heli = {
   player addAction ["Take control", {
 	  private _heli = vehicle player;
-	  private _driver = driver vehicle player;
-	 
+	  private _pilot = driver _heli;
+	  private _group = group _pilot;
+	  private _pilot_type = typeOf _pilot;
+
+	  _group deleteGroupWhenEmpty false;
+	  deleteVehicle _pilot;
+	  _heli lockDriver false;
+	  moveOut player;
 	  player moveInDriver _heli;
 	  
 	  waituntil { !(player in _heli) };
-	  [_driver] spawn send_heli_to_HQ;
+	  [_pilot_type, _group, _heli] spawn send_heli_to_HQ;
 
   }, nil, 1.5, true, true, "",
   '[player] call can_take_control'
@@ -173,11 +179,13 @@ take_control_over_heli = {
 };
 
 send_heli_to_HQ = {
-	params ["_driver"];
-	private _heli = vehicle player;
-	private _group = group driver _heli;
-	_driver moveInDriver _heli;
-	
+	params ["_pilot_type", "_group", "_heli"];
+		
+	private _pilot = _group createUnit [_pilot_type, [0,0,0], [], 0, "NONE"];
+	_pilot moveInDriver _heli;
+	_group deleteGroupWhenEmpty true;
+	_heli lockDriver true;
+
 	if(canMove _heli) exitWith {
 		private _name = (typeOf _heli) call get_vehicle_display_name;	
 		[_group, format["Helicopter transport mission successful! %1 is heading back to HQ!", _name]] spawn group_report_client;		

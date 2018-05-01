@@ -1,9 +1,9 @@
-heli_wait_period_on_despawn = 0;
+heli_wait_period_on_despawn = 300;
 heli_wait_period_on_crash = 900;
 heli_will_wait_time = 600;
 
 heli_wait_period = heli_wait_period_on_despawn;
-heli_price = 0;
+heli_price = 200;
 
 landing_marker = "landing";
 
@@ -11,11 +11,11 @@ heli_active = false;
 heli_timer = time;
 
 show_order_heli_taxi = {  
-  	player addAction [format["Request heli pick-up - %1$", heli_price], {
+  	player addAction ["Request heli pick-up", {
 		private _price = heli_price;
 		private _time = time - heli_timer;
 		if(!(_price call check_if_can_afford)) exitWith {
-			systemChat "You cannot afford a heli pickup";				
+			systemChat format["You cannot afford a heli pickup: %1$", heli_price];				
 		};
 
 		if(_time < heli_wait_period) exitWith {

@@ -60,7 +60,7 @@ kill_ticker = {
 
 calculate_kill_points = {
 	params ["_killer_side"];
-	1 / ((_killer_side countSide allPlayers) + 1);
+	1 / (((_killer_side countSide allPlayers) + 1) min 2);
 };
 
 register_kill = {
@@ -78,7 +78,7 @@ register_kill = {
 		[] remoteExec ["increment_player_kill_counter", _killer];
 	};
 
-	_death_penalty = (_victim_side countSide allPlayers) + 1;
+	_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
 	_faction_strength = _victim_side call get_strength;
 	_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 10)); } else { _faction_strength - _death_penalty };		

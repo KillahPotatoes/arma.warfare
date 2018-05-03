@@ -48,9 +48,9 @@ increment_kill_counter = {
 }; 
 
 buy_manpower_server = {
-	params ["_side"];
+	params ["_side", "_manpower"];
 
-	private _new_strength = ([_side] call get_strength) + 10;
+	private _new_strength = ([_side] call get_strength) + _manpower;
 	[_side, _new_strength] call set_strength;
 };
 

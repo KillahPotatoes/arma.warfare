@@ -18,6 +18,7 @@
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_infantry_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_vehicle_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_menu_controller.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_manpower_manu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";

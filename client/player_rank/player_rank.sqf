@@ -29,7 +29,9 @@ calculate_rank_and_skill = {
 				player setVariable ["rank", _new_rank];
 
 				private _new_skill = [_new_rank] call get_skill_based_on_rank;
-				[_new_skill, group player] spawn adjust_skill;	
+				if(player isEqualTo (leader group player)) then {
+					[_new_skill, group player] spawn adjust_skill;	
+				};
 			};
 		};
 		_last_kill_count = _current_kill_count;

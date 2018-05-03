@@ -3,9 +3,7 @@ spawn_helicopter = {
 
 	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 	private _base_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
-
 	private _dir = _pos getDir _base_pos;
-
 	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
 
 	waitUntil { [_pos] call is_air_space_clear; };
@@ -13,7 +11,6 @@ spawn_helicopter = {
     private _heli = [_pos, _dir, _helicopter, _side] call BIS_fnc_spawnVehicle;
 
 	(_heli select 0) lockDriver true;
-
 	_heli;
 };
 
@@ -75,7 +72,6 @@ take_off_and_despawn = {
 	params ["_heli_group", "_heli_vehicle"];
 	
 	private _side = side _heli_group;
-
 	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 
 	_heli_group move _pos;
@@ -95,4 +91,22 @@ take_off_and_despawn = {
 	};
 
 	false;
+};
+
+remove_soldiers = {
+	{ 
+		if(hasInterface && (_x in (group player))) then {
+			_x call refund;
+		};
+		
+		deleteVehicle _x 
+	} forEach (crew _heli_vehicle); 
+};
+
+refund = {
+	params ["_soldier"];
+
+	private _cash = player getVariable [cash, 0];
+	systemChat "A soldier has been refunded for 20$";
+	player setVariable [cash, _cash + 20]
 };

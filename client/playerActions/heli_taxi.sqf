@@ -9,13 +9,14 @@ landing_marker = "landing";
 
 heli_active = false;	
 heli_timer = time;
+heli_arrived_at_HQ = false;
 
 show_send_heli_off_action = {
 	player addAction ["Send off", {
 		_heli = cursorTarget getVariable _heli;
 		private _group = group driver heli;
 		[_group, "Heading back to HQ"] spawn group_report_client;		
-		heli_active = !([_group, _heli] call take_off_and_despawn);
+		heli_arrived_at_HQ = !([_group, _heli] call take_off_and_despawn);
     }, nil, 1.5, true, true, "",
     '[cursorTarget] call is_heli_taxi'
     ];
@@ -31,8 +32,9 @@ show_order_heli_taxi = {
 		onMapSingleClick {
 			onMapSingleClick {}; 				        
 			openMap false;
-			
+
 			heli_active = true;
+			heli_arrived_at_HQ = false;
 			[_pos, heli_price] spawn order_helicopter_taxi;	
 			[_pos, landing_marker, "hd_pickup"] call create_heli_marker;
 		};
@@ -134,10 +136,10 @@ put_player_in_pilot_position = {
 check_status = {
 	params ["_heli"];
 
-	waitUntil {!(alive _heli && canMove _heli && heli_active)};
+	waitUntil {!(alive _heli && canMove _heli)};
 	sleep 3; // to make sure heli_active is updated
 
-	if (heli_active) then {
+	if (!heli_arrived_at_HQ) then {
 		if(!(player in _heli)) then {
 			private _name = (typeOf _heli) call get_vehicle_display_name;
 			[playerSide, format["%1 is down! You are on your own!", _name]] spawn HQ_report_client;
@@ -169,7 +171,7 @@ interrupt_heli_transport_misson = {
 	[_group, "We can't wait any longer! Transport heli is heading back to HQ!"] spawn group_report_client;
 	_heli call empty_vehicle_cargo;
 	deleteMarkerLocal landing_marker;
-	heli_active = !([_group, _heli] call take_off_and_despawn);
+	heli_arrived_at_HQ = !([_group, _heli] call take_off_and_despawn);
 };
 
 empty_vehicle_cargo = {

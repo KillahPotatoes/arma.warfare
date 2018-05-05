@@ -9,6 +9,7 @@ populate_random_houses = {
 				private _sector = [sectors, getPos _player] call find_closest_sector;
 				if([_house, _player, _sector] call house_can_be_populated) then {
 					if((random 100) < 10) then {
+						systemChat "populating house";
 						[side _player, _house] spawn populate_house;
 					};
 				};
@@ -23,6 +24,7 @@ populate_random_houses = {
 populate_house = {
 	params ["_side", "_building"];
 
+	systemChat "Populating house";
 	private _allpositions = _building buildingPos -1;
 	private _random_number_of_soldiers = random (count _allpositions);
 	_house setVariable ["occupied", true];
@@ -50,6 +52,8 @@ house_can_be_populated = {
 	private _not_populated = !(_building getVariable ["occupied", false]);
 	private _is_enemy_sector = (_side in factions) && !((side _player) isEqualTo _side)
 
+	systemChat "Checking if house can be populated";
+
 	_not_nearby_players && _closer_to_sector_than_player && _not_populated && _not_within_sector && _is_enemy_sector;
 };
 
@@ -66,6 +70,7 @@ remove_when_no_player_closeby = {
 
 	deleteGroup _group;
 	_house setVariable ["occupied", nil];
+	systemChat "Removing group from house";
 };
 
 players_nearby = {

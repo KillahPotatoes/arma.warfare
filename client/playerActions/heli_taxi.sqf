@@ -17,6 +17,7 @@ show_send_heli_off_action = {
 		private _group = group driver heli;
 		[_group, "Heading back to HQ"] spawn group_report_client;		
 		heli_arrived_at_HQ = !([_group, _heli] call take_off_and_despawn);
+		systemChat "Sending helicopter to HQ";
     }, nil, 1.5, true, true, "",
     '[cursorTarget] call is_heli_taxi'
     ];
@@ -32,6 +33,8 @@ show_order_heli_taxi = {
 		onMapSingleClick {
 			onMapSingleClick {}; 				        
 			openMap false;
+
+			systemChat "Ordering heli";
 
 			heli_active = true;
 			heli_arrived_at_HQ = false;
@@ -106,8 +109,10 @@ toggle_pilot_control = {
 
 	while (canMove _heli && alive _heli) do {
 		waituntil {player in _heli};
+		systemChat "put_player_in_pilot_position";
 		[_pilot, _group, _heli] call put_player_in_pilot_position;
 		waitUntil {!(player in _heli)};
+		systemChat "replace_player_with_pilot";
 		[_pilot_type, _group, _heli] call replace_player_with_pilot;
 	};
 };
@@ -138,7 +143,7 @@ check_status = {
 
 	waitUntil {!(alive _heli && canMove _heli)};
 	sleep 3; // to make sure heli_active is updated
-
+	systemChat "Heli state changed";
 	if (!heli_arrived_at_HQ) then {
 		if(!(player in _heli)) then {
 			private _name = (typeOf _heli) call get_vehicle_display_name;
@@ -146,6 +151,7 @@ check_status = {
 		}
 		heli_wait_period = heli_wait_period_on_crash;
 	} else {
+		systemChat "Heli back at HQ";
 		heli_wait_period = heli_wait_period_on_despawn;
 	};
 
@@ -157,12 +163,19 @@ check_status = {
 on_heli_idle_wait = {
 	params ["_wait_period", "_heli", "_group"];
 
+	systemChat "on_heli_idle_wait";
+	
 	private _timer = time + _wait_period;
 	waituntil {(player in _heli) || time > _timer};
+	systemChat "wait time is up";
+	
 
-	if (!(player in _heli)) then {
+	if (!(player in _heli)) exitWith {
+		systemChat "interrupt_heli_transport_misson";
 		[_heli, _group] call interrupt_heli_transport_misson;
 	};
+
+	systemChat "but player is in heli";
 };
 
 interrupt_heli_transport_misson = {
@@ -176,7 +189,7 @@ interrupt_heli_transport_misson = {
 
 empty_vehicle_cargo = {
 	params ["_heli"];
-	
+	systemChat "Empty transport heli";
 	{
 		if(!((group _x) isEqualTo (group _vehicle))) then {
 			moveOut _x;			

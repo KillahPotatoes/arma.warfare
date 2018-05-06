@@ -45,6 +45,7 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
 
 
 // Radio chatter
@@ -74,7 +75,7 @@ seconds_since_start = {
 [] spawn initialize_sector_control;
 [] spawn sector_cash_generation;
 [] spawn defensive_group_chatter;
-
+[] spawn populate_random_houses;
 
 
 

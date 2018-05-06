@@ -204,5 +204,5 @@ can_order_heli = {
 
 is_heli_taxi = {
 	params ["_heli"];
-	_heli getVariable ["taxi", false];
+	_heli getVariable ["taxi", false] && ((_heli distance _player) < 25);
 };

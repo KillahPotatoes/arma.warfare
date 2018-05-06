@@ -85,7 +85,7 @@ take_off_and_despawn = {
 
 	if (alive _heli_vehicle) exitWith
 	{
-		{ deleteVehicle _x } forEach (crew _heli_vehicle); 
+		[_heli_vehicle] call remove_soldiers; 
 		deleteVehicle _heli_vehicle;
 		true;
 	};
@@ -94,8 +94,9 @@ take_off_and_despawn = {
 };
 
 remove_soldiers = {
+	params ["_heli_vehicle"];
 	{ 
-		if(hasInterface && (_x in (group player))) then {
+		if(hasInterface && ((group _x) isEqualTo (group player))) then {
 			_x call refund;
 		};
 		
@@ -106,7 +107,15 @@ remove_soldiers = {
 refund = {
 	params ["_soldier"];
 
+	private _side = side _soldier;
+	private _soldier_types = missionNamespace getVariable format["%1_buy_infantry", _side];
 	private _cash = player getVariable [cash, 0];
-	systemChat "A soldier has been refunded for 20$";
-	player setVariable [cash, _cash + 20]
+
+	{
+		if ((typeOf _soldier) isEqualTo (_x select 1)) then {
+			private _price = _x select 2;
+			player setVariable [cash, _cash + _price];
+			systemChat format["A soldier has been refunded for %1", _price];
+		};
+	} forEach _soldier_types;
 };

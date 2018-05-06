@@ -1,9 +1,9 @@
-heli_wait_period_on_despawn = 300;
+heli_wait_period_on_despawn = 0; //300;
 heli_wait_period_on_crash = 900;
 heli_will_wait_time = 300;
 
 heli_wait_period = heli_wait_period_on_despawn;
-heli_price = 200;
+heli_price = 0; //200;
 
 landing_marker = "landing";
 
@@ -12,12 +12,13 @@ heli_timer = time;
 heli_arrived_at_HQ = false;
 
 show_send_heli_off_action = {
-	player addAction ["Send off", {
-		_heli = cursorTarget getVariable _heli;
-		private _group = group driver heli;
+	player addAction ["Send off", {		
+		private _heli = cursorTarget;
+		private _group = group driver _heli;
 		[_group, "Heading back to HQ"] spawn group_report_client;		
-		heli_arrived_at_HQ = !([_group, _heli] call take_off_and_despawn);
-		systemChat "Sending helicopter to HQ";
+		heli_arrived_at_HQ = [_group, _heli] call take_off_and_despawn;
+		systemChat "Sending helicopter to HQ";			
+		
     }, nil, 1.5, true, true, "",
     '[cursorTarget] call is_heli_taxi'
     ];
@@ -84,17 +85,17 @@ order_helicopter_taxi = {
 	private _arr = [side player] call spawn_transport_heli;
 	private _heli = _arr select 0;
 	private _group = _arr select 2;
-	private _name = (typeOf _veh) call get_vehicle_display_name;	
+	private _name = (typeOf _heli) call get_vehicle_display_name;	
 
-	_veh spawn check_status;
-	_veh setVariable ["taxi", true];
+	_heli spawn check_status;
+	_heli setVariable ["taxi", true];
 	_price call widthdraw_cash;
 
-	[_group, format["%1 is on its way to given pick up destination!", _name]] spawn group_report_client;
+	[_group, "Transport heli is on its way to given pick up destination!"] spawn group_report_client;
 	[_group, _heli, "GET IN", _pos] call land_helicopter; 
 
 	if (canMove _heli) exitWith {
-		[_group, format["%1 has landed. Waiting for squad to pick up!", _name]] spawn group_report_client;
+		[_group, "Transport heli has landed. Waiting for squad to pick up!"] spawn group_report_client;
 		[heli_will_wait_time, _heli, _group] spawn on_heli_idle_wait;
 		[_heli] spawn toggle_pilot_control;
 	};
@@ -107,13 +108,13 @@ toggle_pilot_control = {
 	private _group = group _pilot;
 	private _pilot_type = typeOf _pilot;
 
-	while (canMove _heli && alive _heli) do {
+	while {canMove _heli && alive _heli} do {
 		waituntil {player in _heli};
 		systemChat "put_player_in_pilot_position";
-		[_pilot, _group, _heli] call put_player_in_pilot_position;
+		[_group, _heli] call put_player_in_pilot_position;
 		waitUntil {!(player in _heli)};
 		systemChat "replace_player_with_pilot";
-		[_pilot_type, _group, _heli] call replace_player_with_pilot;
+		[_pilot_type, _group, _heli] call replace_player_with_pilot;		
 	};
 };
 
@@ -124,15 +125,16 @@ replace_player_with_pilot = {
 	_pilot moveInDriver _heli;
 	_group deleteGroupWhenEmpty true;
 	_heli lockDriver true;
+	_heli engineOn true;
 
 	[heli_will_wait_time, _heli, _group] spawn on_heli_idle_wait;
 };
 
 put_player_in_pilot_position = {
-	params ["_pilot", "_group", "_heli"];
+	params ["_group", "_heli"];
 
 	_group deleteGroupWhenEmpty false;
-	deleteVehicle _pilot;
+	deleteVehicle (driver _heli);
 	_heli lockDriver false;
 	moveOut player;
 	player moveInDriver _heli;
@@ -145,10 +147,9 @@ check_status = {
 	sleep 3; // to make sure heli_active is updated
 	systemChat "Heli state changed";
 	if (!heli_arrived_at_HQ) then {
-		if(!(player in _heli)) then {
-			private _name = (typeOf _heli) call get_vehicle_display_name;
-			[playerSide, format["%1 is down! You are on your own!", _name]] spawn HQ_report_client;
-		}
+		if(!(player in _heli)) then {			
+			[playerSide, "Transport heli is down! You are on your own!"] spawn HQ_report_client;
+		};
 		heli_wait_period = heli_wait_period_on_crash;
 	} else {
 		systemChat "Heli back at HQ";
@@ -184,14 +185,14 @@ interrupt_heli_transport_misson = {
 	[_group, "We can't wait any longer! Transport heli is heading back to HQ!"] spawn group_report_client;
 	_heli call empty_vehicle_cargo;
 	deleteMarkerLocal landing_marker;
-	heli_arrived_at_HQ = !([_group, _heli] call take_off_and_despawn);
+	heli_arrived_at_HQ = [_group, _heli] call take_off_and_despawn;
 };
 
 empty_vehicle_cargo = {
 	params ["_heli"];
 	systemChat "Empty transport heli";
 	{
-		if(!((group _x) isEqualTo (group _vehicle))) then {
+		if(!((group _x) isEqualTo (group _heli))) then {
 			moveOut _x;			
 		};
 	} forEach crew _heli;	

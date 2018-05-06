@@ -69,4 +69,3 @@ create_infantry_buy_menu = {
 	}, [_type, _priority], _priority, false, false, "", 
 	'([player] call is_player_close_to_hq || {[cursorTarget, player] call can_use_ammo_box}) && [player] call is_leader'];	
 };
-

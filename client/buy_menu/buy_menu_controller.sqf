@@ -28,5 +28,5 @@ add_buy_options = {
 	["Buy vehicle", vehicle1, 10] call create_buy_menu;
 	["Buy helicopter", helicopter, 20] call create_buy_menu;
 	["Buy infantry", infantry, 30] call create_infantry_buy_menu;
-	["Buy manpower", infantry, 30] call create_manpower_buy_menu;
+	["Buy manpower", 40] call create_manpower_buy_menu;
 ;}

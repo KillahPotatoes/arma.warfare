@@ -18,7 +18,7 @@ buy_vehicle = {
 	systemChat format["Something is obstructing the %1 respawn area", _type];
 };
 
-list_options = {
+list_vehicle_options = {
 	params ["_type", "_priority"];
 
 	private _options = missionNamespace getVariable format["%1_buy_%2", side player, _type];
@@ -60,7 +60,7 @@ create_buy_menu = {
 		private _type = _params select 0;
 		private _priority = _params select 1;
 		[] call remove_all_options;
-		[_type, _priority] call list_options;
+		[_type, _priority] call list_vehicle_options;
 
 
 	}, [_type, _priority], _priority, false, false, "", '[player] call is_player_close_to_hq'];	

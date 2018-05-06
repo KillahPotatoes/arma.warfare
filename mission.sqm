@@ -13,9 +13,9 @@ class EditorData
 	class Camera
 	{
 		pos[]={7221.3726,98.817268,5445.7959};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,0};
+		dir[]={-0.17678176,-0.56104553,0.80869198};
+		up[]={-0.11981629,0.8277846,0.54810303};
+		aside[]={0.97693318,-1.777662e-007,0.21355981};
 	};
 };
 binarizationWanted=0;
@@ -35,7 +35,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=7;
+		items=8;
 		class Item0
 		{
 			className="A3_Modules_F";
@@ -66,19 +66,26 @@ class AddonsMetaData
 		};
 		class Item4
 		{
+			className="A3_Data_F";
+			name="Arma 3 - Main Configuration";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item5
+		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item5
+		class Item6
 		{
 			className="A3_Structures_F";
 			name="Arma 3 - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item6
+		class Item7
 		{
 			className="A3_Supplies_F_Heli";
 			name="Arma 3 Helicopters - Ammoboxes and Supplies";
@@ -392,32 +399,31 @@ class Mission
 		class Item8
 		{
 			dataType="Marker";
-			position[]={9482.252,-54.726391,12750.6};
+			position[]={8108.5151,-54.726391,9599.084};
 			name="charlie_respawn_air";
 			type="respawn_air";
 			colorName="ColorGreen";
 			id=9;
-			atlOffset=19.942951;
+			atlOffset=-84.20118;
 		};
 		class Item9
 		{
 			dataType="Marker";
-			position[]={7771.8115,17.103157,4.9766235};
+			position[]={7367.7715,17.103157,4772.6543};
 			name="bravo_respawn_air";
 			type="respawn_air";
 			colorName="ColorRed";
 			id=10;
-			atlOffset=90.198853;
+			atlOffset=-43.877808;
 		};
 		class Item10
 		{
 			dataType="Marker";
-			position[]={-14.491699,0,6405.0352};
+			position[]={4284.4985,405.01694,6647.4609};
 			name="alpha_respawn_air";
 			type="respawn_air";
 			colorName="ColorBlue";
 			id=11;
-			atlOffset=93.614304;
 		};
 		class Item11
 		{

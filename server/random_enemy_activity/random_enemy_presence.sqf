@@ -1,5 +1,5 @@
 random_enemies = [];
-max_random_enemies = 30;
+max_random_enemies = 10;
 
 populate_random_houses = {
 	while {true} do {
@@ -13,7 +13,7 @@ populate_random_houses = {
 				private _sector = [sectors, getPos _player] call find_closest_sector;
 				
 				if([_house, _player, _sector] call house_can_be_populated) then {
-					if((random 100) < 100) then {
+					if((random 100) < 10) then {
 						private _side = _sector getVariable owned_by;
 						[_side, _house] spawn populate_house;
 					};
@@ -21,8 +21,7 @@ populate_random_houses = {
 			} forEach _houses;
 
 		} forEach allPlayers;
-		systemChat format["%1 random enemies", count random_enemies];
-		sleep 60;
+		sleep 10;
 	};
 
 };
@@ -30,9 +29,8 @@ populate_random_houses = {
 populate_house = {
 	params ["_side", "_building"];
 
-	systemChat "Populating house";
 	private _allpositions = _building buildingPos -1;
-	private _random_number_of_soldiers = random (count _allpositions);
+	private _random_number_of_soldiers = random (count _allpositions) min (max_random_enemies - (count random_enemies));
 	_building setVariable ["occupied", true];
 
 	private _group = [[0,0,0], _side, _random_number_of_soldiers, true] call spawn_infantry;
@@ -81,7 +79,6 @@ remove_when_no_player_closeby = {
 
 	deleteGroup _group;
 	_house setVariable ["occupied", nil];
-	systemChat "Removing group from house";
 };
 
 players_nearby = {

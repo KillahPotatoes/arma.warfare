@@ -3,27 +3,33 @@ max_random_enemies = 10;
 
 populate_random_houses = {
 	while {true} do {
-		{
-			random_enemies = [random_enemies] call remove_null;
-			private _player = _x;
-			private _houses = nearestObjects [_player, ["house"], 600];
-
-			{
-				private _house = _x;
-				private _sector = [sectors, getPos _player] call find_closest_sector;
-				
-				if([_house, _player, _sector] call house_can_be_populated) then {
-					if((random 100) < 10) then {
-						private _side = _sector getVariable owned_by;
-						[_side, _house] spawn populate_house;
-					};
-				};
-			} forEach _houses;
-
-		} forEach allPlayers;
+		random_enemies = [random_enemies] call remove_null;
+		if(max_random_enemies > (count random_enemies)) then {
+			{		
+				[_x] spawn check_houses_to_populate;
+			} forEach allPlayers;
+		};		
+		
 		sleep 10;
 	};
+};
 
+check_houses_to_populate = {
+	params ["_player"];
+	
+	private _houses = _player nearObjects ["house", 600];
+
+	{
+		private _house = _x;
+		private _sector = [sectors, getPos _house] call find_closest_sector;
+		private _side = _sector getVariable owned_by;
+
+		if([_house, _player, _sector, _side] call house_can_be_populated) then {
+			if((random 100) < 10) then {				
+				[_side, _house] spawn populate_house;
+			};
+		};
+	} forEach _houses;
 };
 
 populate_house = {
@@ -49,21 +55,17 @@ populate_house = {
 };
 
 house_can_be_populated = {
-	params ["_building", "_player", "_sector"];
+	params ["_building", "_player", "_sector", "_side"];
 
 	private _sector_pos = _sector getVariable pos;
-	private _side = _sector getVariable owned_by;
-	private _pos = getPos _building;
+	private _pos = getPos _building;	
 	private _player_pos = getPos _player;
-	private _not_nearby_players = !([_pos, 400] call players_nearby);
-	// only pick houses that are closer to enemy sector than player
-	private _closer_to_sector_than_player = (_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos);
-	private _not_within_sector = (_sector_pos distance2D _player_pos) > 200;
-	private _not_populated = !(_building getVariable ["occupied", false]);
-	private _is_enemy_sector = (_side in factions) && !((side _player) isEqualTo _side);
-	private _not_over_cap = max_random_enemies > (count random_enemies);
 
-	_not_nearby_players && _closer_to_sector_than_player && _not_populated && _not_within_sector && _is_enemy_sector && _not_over_cap;
+	!([_pos, _side] call any_enemies_nearby)
+	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
+	&& {(_sector_pos distance2D _pos) > 200}
+	&& {!(_building getVariable ["occupied", false])}
+	&& {(_side in factions) && !((side _player) isEqualTo _side)};
 };
 
 remove_when_no_player_closeby = {

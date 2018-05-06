@@ -21,7 +21,7 @@ any_units_in_sector_center = {
 	[_position, sector_size / 4, _side] call find_units_in_area > 0;
 }; 
 
-any_enemies_nearby_sector = {
+any_enemies_nearby = {
 	params ["_position", "_side"];
 
 	private _enemies = (factions - [_side]);

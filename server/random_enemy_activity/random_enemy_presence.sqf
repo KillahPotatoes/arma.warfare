@@ -17,18 +17,19 @@ populate_random_houses = {
 check_houses_to_populate = {
 	params ["_player"];
 	
-	private _houses = _player nearObjects ["house", 600];
+	private _houses = (_player nearObjects ["house", 600]) call BIS_fnc_arrayShuffle;
 
 	{
 		private _house = _x;
 		private _sector = [sectors, getPos _house] call find_closest_sector;
 		private _side = _sector getVariable owned_by;
 
-		if([_house, _player, _sector, _side] call house_can_be_populated) then {
-			if((random 100) < 10) then {				
-				[_side, _house] spawn populate_house;
-			};
+		if([_house, _player, _sector, _side] call house_can_be_populated) then {							
+			[_side, _house] spawn populate_house;			
 		};
+
+		if(max_random_enemies <= (count random_enemies)) exitWith {};
+
 	} forEach _houses;
 };
 
@@ -61,11 +62,11 @@ house_can_be_populated = {
 	private _pos = getPos _building;	
 	private _player_pos = getPos _player;
 
-	!([_pos, _side] call any_enemies_nearby)
+	(_side in factions) && !((side _player) isEqualTo _side)
 	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
 	&& {(_sector_pos distance2D _pos) > 200}
-	&& {!(_building getVariable ["occupied", false])}
-	&& {(_side in factions) && !((side _player) isEqualTo _side)};
+	&& {!(_building getVariable ["occupied", false])}	
+	&& {!([_pos, _side] call any_enemies_nearby)}
 };
 
 remove_when_no_player_closeby = {

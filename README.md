@@ -18,9 +18,7 @@ T0 = Tier 0
 
 0% = progress towards next tier
 
-(+0) = sectors held. Each sector gives 2 points per minute
-
-500 = current strength of the faction. If strength is >30 the AI unit cap will be 30, but if <30 the unit cap will be equal strength
+500 = current strength of the faction. 
 
 ### Cash
 
@@ -45,7 +43,11 @@ Spawn 2000 m over the ground at any point chosen by clicking on the map. Any tea
 
 ### Heli taxi
 
-If you are the leader of your group you can order a heli taxi for a certain amount of cash. A heli will come land, and upon entering you will take control of the helicopter. When exiting the helicopter will leave. There will be a time penalty between each time you can use the helicopter, and if its shot down there will be a longer penalty
+If you are the leader of your group you can order a heli taxi for a certain amount of cash. A heli will come land, and upon entering you will take control of the helicopter. 
+
+#### Refund
+
+If you put teammembers inside the helicopter and tell it to leave you will get the money back when the helicopter despawn
 
 ### Rank
 

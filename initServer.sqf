@@ -51,6 +51,9 @@ seconds_since_start = {
 // Radio chatter
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
+_startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
+_manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
+
 // Game setup
 [] call initialize_sectors;
 [] call draw_all_sectors;
@@ -58,7 +61,7 @@ seconds_since_start = {
 [] call hide_respawn_markers;
 [] call initialize_mine_fields;
 [] call setup_faction_relations;
-[] call initialize_faction_stats;
+[_manpower, _tier] call initialize_faction_stats;
 [] call initialize_bases;
 [] call initialize_base_respawns;
 [] call initialize_battle_groups;

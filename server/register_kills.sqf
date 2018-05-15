@@ -66,21 +66,23 @@ calculate_kill_points = {
 register_kill = {
 	params ["_victim", "_killer"];
 
-	private _killer_side = side group _killer;
-	private _victim_side = side group _victim;    
+	if (!(isNil "_victim" || isNil "_killer")) then {
+		private _killer_side = side group _killer;
+		private _victim_side = side group _victim;    
 
-	if (!(_victim_side isEqualTo _killer_side) && {_killer_side in factions}) then {
-		_kill_point = _killer_side call calculate_kill_points;	
-		[_killer_side, _kill_point] call increment_kill_counter;
-	};
+		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in factions}) then {
+			_kill_point = _killer_side call calculate_kill_points;	
+			[_killer_side, _kill_point] call increment_kill_counter;
+		};
 
-	if ((isPlayer _killer)) then {
-		[] remoteExec ["increment_player_kill_counter", _killer];
-	};
+		if ((isPlayer _killer)) then {
+			[] remoteExec ["increment_player_kill_counter", _killer];
+		};
 
-	_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
+		_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
-	_faction_strength = _victim_side call get_strength;
-	_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 10)); } else { _faction_strength - _death_penalty };		
-	[_victim_side, _new_faction_strength] call set_strength;
+		_faction_strength = _victim_side call get_strength;
+		_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 10)); } else { _faction_strength - _death_penalty };		
+		[_victim_side, _new_faction_strength] call set_strength;
+	};	
 };

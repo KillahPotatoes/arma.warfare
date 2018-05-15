@@ -158,9 +158,9 @@ on_heli_idle_wait = {
 	params ["_wait_period", "_heli", "_group"];
 
 	private _timer = time + _wait_period;
-	waituntil {(player in _heli) || time > _timer};
+	waituntil {(player in _heli) || time > _timer || !(alive _heli)};
 
-	if (!(player in _heli)) exitWith {
+	if (!(player in _heli) && (alive _heli)) exitWith {
 		[_heli, _group] call interrupt_heli_transport_misson;
 	};
 };

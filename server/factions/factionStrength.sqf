@@ -1,16 +1,18 @@
 initialize_faction_stats = {
-	West call initialize_faction;
-	East call initialize_faction;
-	independent call initialize_faction;
+	params ["_manpower", "_tier"];
+
+	[West, _manpower, _tier] call initialize_faction;
+	[East, _manpower, _tier] call initialize_faction;
+	[independent, _manpower, _tier] call initialize_faction;
 };
 
 initialize_faction = {
-	params ["_side"];
+	params ["_side", "_manpower", "_tier"];
 
-	[_side, starting_strength] call set_strength;
+	[_side, _manpower] call set_strength;
 	[_side, 0] call set_income;
 	[_side, 0] call set_kill_count;
-	[_side, 0] call set_tier;
+	[_side, _tier] call set_tier;
 	[_side, 0] call set_tier_progress;	
 };
 

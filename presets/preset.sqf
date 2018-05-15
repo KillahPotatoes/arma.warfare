@@ -102,7 +102,7 @@ east_mortars = ["O_Mortar_01_F"];
 
 west_buy_vehicle = [
 	["Hunter", "B_MRAP_01_F", 100, 0], 
-	["Prowler", "B_LSV_01_unarmed_F", 100, 0], 
+	["Prowler", "B_LSV_01_unarmed_F", 0, 0], 
 	["Prowler", "B_LSV_01_armed_F", 150, 1], 
 	["Hunter GMG", "B_MRAP_01_gmg_F", 200, 1], 
 	["Hunter HMG", "B_MRAP_01_hmg_F", 300, 1], 
@@ -112,19 +112,19 @@ west_buy_vehicle = [
 ];
 
 guer_buy_vehicle = [
-	["Strider", "I_MRAP_03_F", 100, 0], 
+	["Strider", "I_MRAP_03_F", 0, 0], 
 	["Strider GMG", "I_MRAP_03_gmg_F", 200, 1], 
 	["Strider HMG", "I_MRAP_03_hmg_F", 300, 1], 
 	["MBT-52 Kuma 1", "I_MBT_03_cannon_F", 1000, 2]
 ];
 
 east_buy_vehicle = [
-	["Ifrit", "O_MRAP_02_F", 100, 0], 
+	["Ifrit", "O_MRAP_02_F", 0, 0], 
 	["Qilin", "O_LSV_02_unarmed_F", 100, 0], 
 	["Qilin Armed", "O_LSV_02_armed_F", 150, 1], 
 	["Ifrit GMG", "O_MRAP_02_gmg_F", 200, 1], 
 	["Ifrit HMG", "O_MRAP_02_hmg_F", 300, 1], 
-	["T-100 Varsuk",	"O_MBT_02_cannon_F", 1000, 2] 
+	["T-100 Varsuk", "O_MBT_02_cannon_F", 1000, 2] 
 ];
 
 west_buy_helicopter = [

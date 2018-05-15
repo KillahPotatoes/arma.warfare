@@ -52,6 +52,7 @@ dispatch_heli_battlegroup = {
 		unassignVehicle _x;
 	} forEach units _grp;
 
-	_group setVariable ["active", true];
+	_grp setVariable ["active", true];
+	sleep 30;
 };
 

@@ -99,7 +99,7 @@ spawn_reinforcments = {
 spawn_sector_squad = {
 	params ["_sector"];
 
-	sleep 10; // So you wont hit them with your car!
+	sleep 60; // So you wont hit them with your car!
 
 	private _side = _sector getVariable owned_by;
 	private _sector_defense = _sector getVariable sector_def;

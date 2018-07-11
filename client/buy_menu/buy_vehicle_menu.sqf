@@ -26,7 +26,7 @@ list_vehicle_options = {
 	{
 		private _name = _x select 0;
 		private _class_name = _x select 1;
-		private _price = _x select 2;
+		private _price = [_x select 2] call get_price_based_on_rank;
 		private _req_tier = _x select 3;
 
 

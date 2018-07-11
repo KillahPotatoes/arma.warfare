@@ -17,7 +17,8 @@ list_manpower_options = {
 
 	{
 		private _manpower = _x;
-		private _price = _manpower * 10;
+		private _unit_price = [10] call get_price_based_on_rank;
+		private _price = _manpower * _unit_price;
 		private _cash = player getVariable [cash, 0];
 
 		if (_price <= _cash) then {
@@ -33,10 +34,11 @@ list_max_manpower_option = {
 	params ["_options", "_priority"];
 
 	private _cash = player getVariable [cash, 0];
-	private _manpower = (_cash - (_cash mod 10)) / 10;
+	private _unit_price = [10] call get_price_based_on_rank;
+	private _manpower = (_cash - (_cash mod _unit_price)) / _unit_price;
 
 	if (_manpower > 0 && !(_manpower in _options)) exitWith {
-		private _price = _manpower * 10;
+		private _price = _manpower * _unit_price;
 		[_manpower, _price, _priority] call list_manpower_option;
 	};
 

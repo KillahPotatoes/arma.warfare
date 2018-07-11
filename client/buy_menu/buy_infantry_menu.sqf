@@ -1,6 +1,6 @@
 create_soldier = {
 	params ["_group", "_class_name"];
-	_class_name createUnit[getPos player, _group, "", ([player] call get_rank_skill)];
+	_class_name createUnit[getPos player, _group, "", ([] call get_rank_skill)];
 };
 
 buy_infantry = {
@@ -32,7 +32,7 @@ infantry_list_options = {
 	{
 		private _name = _x select 0;
 		private _class_name = _x select 1;
-		private _price = _x select 2;
+		private _price = [_x select 2] call get_price_based_on_rank;
 		private _req_tier = _x select 3;
 
 		if ((side player) call get_tier >= _req_tier) then {
@@ -64,7 +64,6 @@ create_infantry_buy_menu = {
 		private _priority = _params select 1;
 		[] call remove_all_options;
 		[_type, _priority] call infantry_list_options;
-
 
 	}, [_type, _priority], _priority, false, false, "", 
 	'([player] call is_player_close_to_hq || {[cursorTarget, player] call can_use_ammo_box}) && [player] call is_leader'];	

@@ -106,9 +106,9 @@ west_buy_vehicle = [
 	["Prowler", "B_LSV_01_armed_F", 150, 1], 
 	["Hunter GMG", "B_MRAP_01_gmg_F", 200, 1], 
 	["Hunter HMG", "B_MRAP_01_hmg_F", 300, 1], 
-	["Tanks 1",	"rhsusf_m1a2sep1tuskiiwd_usarmy", 500, 2], 
-	["Tanks 1",	"rhsusf_m1a1aim_tuski_wd", 750, 2], 
-	["Tanks 1",	"rhsusf_m1a1aimwd_usarmy", 1000, 2]
+	["m1a2sep1tuskiiwd", "rhsusf_m1a2sep1tuskiiwd_usarmy", 500, 2], 
+	["m1a1aim",	"rhsusf_m1a1aim_tuski_wd", 750, 2], 
+	["m1a1aimwd", "rhsusf_m1a1aimwd_usarmy", 1000, 2]
 ];
 
 guer_buy_vehicle = [

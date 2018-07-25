@@ -28,7 +28,7 @@ reset_player_stats = {
 	params ["_player"];
 
 	_player setVariable ["kills", 0];
-	_player setVariable ["rank", 0];
+	_player setVariable ["rank", 0, true];
 	_player setVariable [cash, 0];
 };
 

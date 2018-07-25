@@ -16,20 +16,11 @@ spawn_gunships = {
 			sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
 			if ([_side] call get_unused_strength > 0) then {
 
-				private _gunship = _side call get_gunship;
-
-				if (!isNil format["%1_gunship", _side]) then {	
-					(_gunship select 0) setDamage 1;					
-				}; 
-				
-				_gunship = [_side] call spawn_gunship_group;
+				private _gunship = [_side] call spawn_gunship_group;
 				[_gunship select 2] call add_battle_group;
-
-				waitUntil {!canMove (_gunship select 0)};
 			};				
 		};
 
-		//[_t1, "spawn_gunship"] spawn report_time;
 		sleep 10;		
 	};
 };
@@ -47,18 +38,7 @@ spawn_gunship_group = {
 
 	[_side, format["%1 has arrived. See you soon!", _gunship_name]] call HQ_report;
 
-	[_side, _veh] call set_gunship;
 	_veh;
-};
-
-set_gunship = {
-	params ["_side", "_gunship"];
-	missionNamespace setVariable [format["%1_gunship", _side], _gunship];
-};
-
-get_gunship = {
-	params ["_side"];
-	missionNamespace getVariable format["%1_gunship", _side];
 };
 
 get_gunship_types = {

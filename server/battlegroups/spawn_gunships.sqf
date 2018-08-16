@@ -14,11 +14,9 @@ spawn_gunships = {
 
 		if(_tier > 0) then {
 			sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
-			if ([_side] call get_unused_strength > 0) then {
-
-				private _gunship = [_side] call spawn_gunship_group;
-				[_gunship select 2] call add_battle_group;
-			};				
+			
+			private _gunship = [_side] call spawn_gunship_group;
+			[_gunship select 2] call add_battle_group;							
 		};
 
 		sleep 10;		

@@ -4,24 +4,18 @@ create_soldier = {
 };
 
 buy_infantry = {
-	params ["_class_name", "_price"];
+	params ["_class_name"];
+		_group = group player;
+		_group_count = {alive _x} count units _group;
+		_numberOfSoldiers = squad_size - _group_count;
 
-		if (_price call check_if_can_afford) exitWith {
-
-			_group = group player;
-			_group_count = {alive _x} count units _group;
-			_numberOfSoldiers = squad_size - _group_count;
-
-			if (_numberOfSoldiers > 0) exitWith {
-				[_group, _class_name] call create_soldier;
-				_price call widthdraw_cash;
-				[_group] remoteExec ["add_battle_group", 2];
-			};
-
-			systemChat "You have the maximum allowed amount of people";		
+		if (_numberOfSoldiers > 0) exitWith {
+			[_group, _class_name] call create_soldier;			
+			[_group] remoteExec ["add_battle_group", 2];
 		};
 
-		systemChat "You cannot afford that soldier";		
+		systemChat "You have the maximum allowed amount of people";		
+		
 };
 
 infantry_list_options = {
@@ -32,22 +26,20 @@ infantry_list_options = {
 	{
 		private _name = _x select 0;
 		private _class_name = _x select 1;
-		private _price = [_x select 2] call get_price_based_on_rank;
 		private _req_tier = _x select 3;
 
 		if ((side player) call get_tier >= _req_tier) then {
-			buy_options pushBack (player addAction [format[" %2 - %1$", _price, _name], {	
+			buy_options pushBack (player addAction [format[" %1", _name], {	
 				private _params = _this select 3;
 				private _type = _params select 0;
-				private _class_name = _params select 1;
-				private _price = _params select 2;
+				private _class_name = _params select 1;				
 
 				[] call remove_all_options;
 							
-				[_class_name, _price] call buy_infantry;
+				[_class_name] call buy_infantry;
 				
 
-			}, [_type, _class_name, _price], (_priority - 1), false, false, "", 
+			}, [_type, _class_name], (_priority - 1), false, false, "", 
 			'[player] call is_player_close_to_hq || {[cursorTarget, player] call can_use_ammo_box}']);
 		};
 	

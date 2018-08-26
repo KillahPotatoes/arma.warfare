@@ -3,7 +3,6 @@ heli_wait_period_on_crash = 900;
 heli_will_wait_time = 300;
 
 heli_wait_period = heli_wait_period_on_despawn;
-heli_price = 200;
 
 landing_marker = "landing";
 
@@ -26,7 +25,6 @@ show_send_heli_off_action = {
 show_order_heli_taxi = {  
   	player addAction ["Request heli pick-up", {
 		
-		if(!([] call check_if_can_afford_helicopter_transport)) exitWith {};
 		if(!([] call check_if_transport_helicopter_available)) exitWith {};
 		
 		openMap true;
@@ -36,7 +34,7 @@ show_order_heli_taxi = {
 
 			heli_active = true;
 			heli_arrived_at_HQ = false;
-			[_pos, heli_price] spawn order_helicopter_taxi;	
+			[_pos] spawn order_helicopter_taxi;	
 			[_pos, landing_marker, "hd_pickup"] call create_heli_marker;
 		};
 		waitUntil {
@@ -47,14 +45,6 @@ show_order_heli_taxi = {
     }, nil, 1.5, true, true, "",
     '[player] call can_order_heli && [player] call is_leader'
     ];
-};
-
-check_if_can_afford_helicopter_transport = {
-	if(!(heli_price call check_if_can_afford)) exitWith {
-		systemChat format["You cannot afford a heli pickup: %1$", heli_price];	
-		false;			
-	};
-	true;
 };
 
 check_if_transport_helicopter_available = {
@@ -77,7 +67,7 @@ create_heli_marker = {
 };
 
 order_helicopter_taxi = {
-	params ["_pos", "_price"];
+	params ["_pos"];
 
 	private _arr = [side player] call spawn_transport_heli;
 	private _heli = _arr select 0;
@@ -86,7 +76,6 @@ order_helicopter_taxi = {
 
 	_heli spawn check_status;
 	_heli setVariable ["taxi", true];
-	_price call widthdraw_cash;
 
 	[_group, "Transport heli is on its way to given pick up destination!"] spawn group_report_client;
 	[_group, _heli, "GET IN", _pos] call land_helicopter; 

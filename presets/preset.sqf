@@ -36,9 +36,9 @@ west_light_vehicles = ["B_LSV_01_unarmed_F", "B_MRAP_01_F"];
 guer_light_vehicles = ["I_G_offroad_01_F"];
 east_light_vehicles = ["O_LSV_02_unarmed_F"];
 
-west_gunships = ["RHS_AH64D_wd", "RHS_AH64D_wd_CS", "RHS_AH64D_wd_AA"]//, "B_Plane_Fighter_01_F", "B_Plane_CAS_01_dynamicLoadout_F"];
-guer_gunships = ["rhsgref_cdf_Mi35", "rhsgref_cdf_Mi24D"]//, "I_Plane_Fighter_04_F", "I_Plane_Fighter_03_dynamicLoadout_F"];
-east_gunships = ["O_Heli_Light_02_dynamicLoadout_F", "O_Heli_Attack_02_dynamicLoadout_F"]//, "O_Plane_Fighter_02_F", "O_Plane_CAS_02_dynamicLoadout_F"];
+west_gunships = ["RHS_AH64D_wd", "RHS_AH64D_wd_CS", "RHS_AH64D_wd_AA"];//, "B_Plane_Fighter_01_F", "B_Plane_CAS_01_dynamicLoadout_F"];
+guer_gunships = ["rhsgref_cdf_Mi35", "rhsgref_cdf_Mi24D"];//, "I_Plane_Fighter_04_F", "I_Plane_Fighter_03_dynamicLoadout_F"];
+east_gunships = ["O_Heli_Light_02_dynamicLoadout_F", "O_Heli_Attack_02_dynamicLoadout_F"];//, "O_Plane_Fighter_02_F", "O_Plane_CAS_02_dynamicLoadout_F"];
 
 west_transport_helis = ["RHS_UH60M2"];
 guer_transport_helis = ["I_Heli_light_03_unarmed_F"];

@@ -22,6 +22,7 @@
 [] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
 
 player setVariable [cash, 0];
 player setVariable ["rank", 0, true];

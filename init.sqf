@@ -15,8 +15,8 @@
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\squad_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\heli_taxi.sqf";
 
-[] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_infantry_menu.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_vehicle_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\buy_menu\get_infantry_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\buy_menu\get_vehicle_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_menu_controller.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_manpower_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";

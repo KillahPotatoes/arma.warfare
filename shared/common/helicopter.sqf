@@ -16,7 +16,7 @@ spawn_helicopter = {
 
 get_transport_heli_type = {
 	params ["_side"];
-	missionNamespace getVariable format["%1_transport_helis", _side];
+	missionNamespace getVariable format["%1_heli_transport", _side];
 };
 
 spawn_transport_heli = {

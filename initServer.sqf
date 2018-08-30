@@ -38,8 +38,9 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\factions\baseVehicleSpawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\faction_relations.sqf";
 
-// battlegroups
+// battlegroups 
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\helo_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";

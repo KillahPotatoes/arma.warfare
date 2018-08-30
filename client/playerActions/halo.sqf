@@ -4,22 +4,16 @@ AddHeloAction = {
     openMap true;
     onMapSingleClick {
       onMapSingleClick {};
-        {
-          _x setVariable ["distance", _x distance player];
-        } count units group player;
 
-      _height = 2000;
+      private _soldiers = (units group player) select {  
+        (_x distance player) < 100 
+        && isTouchingGround _x
+        && alive _x
+        && lifeState _x != "incapacitated" 
+      };
 
-      {
-        if(isTouchingGround _X
-          && alive _X
-          && lifeState _X != "incapacitated"
-          && _x getVariable "distance" < 100) then {
-            _x setPos (_pos getPos [25 * sqrt random 1, random 360]);
-            _height = _height - 20;
-            [_x,_height] spawn BIS_fnc_halo;
-        };
-      } forEach units group player;
+      [_soldiers, _pos] spawn helo;
+      
       openMap false;
     };
     waitUntil {
@@ -30,5 +24,6 @@ AddHeloAction = {
   '[player] call is_player_close_to_hq && [player] call is_leader'
   ];
 };
+
 
 

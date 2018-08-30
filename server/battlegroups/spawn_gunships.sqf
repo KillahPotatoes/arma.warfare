@@ -14,6 +14,8 @@ spawn_gunships = {
 
 		if(_tier > 0) then {
 			sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
+
+			private _gunships = [_side, helicopter] call get_vehicles_based_on_tier;
 			
 			private _gunship = [_side] call spawn_gunship_group;
 			[_gunship select 2] call add_battle_group;							

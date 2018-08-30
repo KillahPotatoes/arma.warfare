@@ -2,7 +2,7 @@ player enableFatigue false;
 
 [] call ShowArsenalAction;
 [] call AddHeloAction;
-[] call add_buy_options;
+[] call add_get_options;
 [] call add_take_cash_from_ammobox;
 [] call add_store_cash_action;
 [] call join_squad;

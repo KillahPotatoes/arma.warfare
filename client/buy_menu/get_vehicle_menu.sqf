@@ -7,13 +7,11 @@ get_vehicle = {
 	if (_isEmpty) exitWith {
 		private _veh = _class_name createVehicle _pos;
 		_veh setDir (getDir _base_marker);
-		_veh setVariable["penalty", [playerSide, _penalty], true];
+		_veh setVariable ["penalty", [playerSide, _penalty], true];
 	}; 
 	
 	systemChat format["Something is obstructing the %1 respawn area", _type];
 };
-
-
 
 list_vehicle_options = {
 	params ["_type", "_priority"];
@@ -29,6 +27,7 @@ list_vehicle_options = {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
+			private _type = _params select 2;
 
 			[] call remove_all_options;
 			
@@ -38,7 +37,7 @@ list_vehicle_options = {
 			[_base_marker, _class_name, _penalty] call get_vehicle;
 			
 
-		}, [_class_name, _penalty], (_priority - 1), false, true, "", '[player] call is_player_close_to_hq']);
+		}, [_class_name, _penalty, _type], (_priority - 1), false, true, "", '[player] call is_player_close_to_hq']);
 	
 
 	} forEach _options;

@@ -24,25 +24,20 @@ infantry_list_options = {
 	private _options = missionNamespace getVariable format["%1_infantry", side player];
 
 	{
-		private _class_name = _x select 0;
-		private _req_tier = _x select 1;
-
+		private _class_name = _x;
 		private _name = _class_name call get_vehicle_display_name;
+		
+		buy_options pushBack (player addAction [format[" %1", _name], {	
+			private _params = _this select 3;
+			private _class_name = _params select 0;				
 
-		if ((side player) call get_tier >= _req_tier) then {
-			buy_options pushBack (player addAction [format[" %1", _name], {	
-				private _params = _this select 3;
-				private _type = _params select 0;
-				private _class_name = _params select 1;				
+			[] call remove_all_options;
+						
+			[_class_name] call get_infantry;
 
-				[] call remove_all_options;
-							
-				[_class_name] call buy_infantry;
-				
-
-			}, [_type, _class_name], (_priority - 1), false, false, "", 
-			'[player] call is_player_close_to_hq || {[cursorTarget, player] call can_use_ammo_box}']);
-		};
+		}, [_class_name], (_priority - 1), false, false, "", 
+		'[player] call is_player_close_to_hq || {[cursorTarget, player] call can_use_ammo_box}']);
+		
 	
 	} forEach _options;
 };

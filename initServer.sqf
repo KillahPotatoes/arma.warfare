@@ -5,7 +5,7 @@ seconds_since_start = {
 };
 
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
-[] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
+[] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";

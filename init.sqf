@@ -1,7 +1,7 @@
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
-[] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
+[] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\radio_chatter.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\end_mission.sqf";

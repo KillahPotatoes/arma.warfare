@@ -42,9 +42,9 @@ class Params
 	class StartingTier
 	{
 		title = "Starting tier"; // Param name visible in the list
-		values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
+		values[] = {0,1,2}; // Values; must be integers; has to have the same number of elements as 'texts'
 		texts[] = {"0 Only light transport vehicles","1 Armed vehicles","2 Tanks","3 More tanks"}; // Description of each selectable item
-		default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
+		default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
 		// Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
 	};
 	class Manpower

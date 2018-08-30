@@ -66,14 +66,33 @@ create_heli_marker = {
 	_name setMarkerTypeLocal _type;
 };
 
+spawn_taxi_heli = {
+	params ["_side"];
+
+	private _arr = selectRandom (_side call get_transport_heli_type);	
+	private _class_name = arr select 0;	
+	private _penalty = arr select 1;	
+    private _veh = [_side, _class_name] call spawn_helicopter;
+
+	private _group = _veh select 2;
+	private _heli = _veh select 0;
+
+	_heli setVariable ["penalty", [playerSide, _penalty], true];
+		
+	_group setBehaviour "CARELESS";
+	_group deleteGroupWhenEmpty true;
+	_veh;
+};
+
 order_helicopter_taxi = {
 	params ["_pos"];
 
-	private _arr = [side player] call spawn_transport_heli;
+	private _arr = [side player] call spawn_taxi_heli;
 	private _heli = _arr select 0;
 	private _group = _arr select 2;
 	private _name = (typeOf _heli) call get_vehicle_display_name;	
 
+	
 	_heli spawn check_status;
 	_heli setVariable ["taxi", true];
 

@@ -6,17 +6,17 @@ spawn_random_group = {
 	private _rnd = random 100;
 
 	if (_tier >= 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
-		private _group = [_pos, _side, _tier, _can_spawn] call spawn_vehicle_group;
+		private _group = [_pos, _side, 2, _can_spawn] call spawn_vehicle_group;
 		[_group] call add_battle_group;		
 	}; 
 
 	if (_tier >= 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
-		private _group = [_pos, _side, _tier, _can_spawn] call spawn_vehicle_group;
+		private _group = [_pos, _side, 1, _can_spawn] call spawn_vehicle_group;
 		[_group] call add_battle_group;
 	};
 
 	if (_tier >= 0 && {_rnd < vehicle_chance}) exitWith {
-		private _group = [_pos, _side, _tier, _can_spawn] call spawn_vehicle_group;
+		private _group = [_pos, _side, 0, _can_spawn] call spawn_vehicle_group;
 		[_group] call add_battle_group;
 	};
 
@@ -25,10 +25,10 @@ spawn_random_group = {
 	};
 
 	if (_rnd > 70 && (([] call seconds_since_start) > 300)) exitWith {
-		[_side, _can_spawn] call helo_insertion;
+		[_side, _can_spawn] spawn helo_insertion;
 	};
 
-	private _group = [_pos, _side, _can_spawn] call spawn_squad;	
+	private _group = [_pos, _side, _can_spawn] call spawn_squad;
 	[_group] call add_battle_group;
 };
 
@@ -86,7 +86,7 @@ find_direction_towards_closest_sector = {
 
 spawn_vehicle_group = {
 	params ["_pos", "_side", "_tier", "_can_spawn"];
-	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_vehicles_tier_%2", _side, _tier]);
+	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_vehicle_tier_%2", _side, _tier]) select 0;
 
 	_pos = [_pos] call try_find_unoccupied_nearby_road;
 

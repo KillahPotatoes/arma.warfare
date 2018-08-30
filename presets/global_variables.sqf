@@ -28,6 +28,7 @@ cash_per_minute = 10;
 squad_size = 8;
 factions = [west, east, independent];
 show_all = false;
+max_tier = 2;
 
 guer_faction_name = "The resistance";
 west_faction_name = "Nato";

@@ -28,7 +28,7 @@ get_vehicles_based_on_tier = {
 	params ["_side", "_type"];
 
 	private _options = [];
-	private _tier = _side call get_tier;
+	private _tier = (_side call get_tier);
 
 	for "_x" from 0 to _tier step 1 do {
 		_options = _options + (missionNamespace getVariable format["%1_%2_tier_%3", _side, _type, _x]);

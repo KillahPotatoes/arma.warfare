@@ -48,7 +48,7 @@ induce_lost_vehicle_penalty = {
 
 		private _veh_name = (typeOf _victim) call get_vehicle_display_name;
 
-		private _msg = format["We lost %1 manpower points due to the loss of %2", _penalty, _veh_name];
+		private _msg = format["We lost %1 manpower points due to the loss of %2", _penalty_size, _veh_name];
 		
 		[_side, _msg] call HQ_report;
 	};

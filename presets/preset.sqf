@@ -41,9 +41,9 @@ guer_infantry = [
 
 // ARTILLERY
 
-west_artillery = ["B_Mortar_01_F"];
-guer_artillery = ["I_Mortar_01_F"];
-east_artillery = ["O_Mortar_01_F"];
+west_artillery = ["RHS_M119_WD", "B_Mortar_01_F"];
+guer_artillery = ["I_Mortar_01_F", "rhsgref_nat_d30"];
+east_artillery = ["O_Mortar_01_F", "rhs_D30_msv"];
 
 // WEST VEHICLES
 

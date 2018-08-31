@@ -54,7 +54,7 @@ if (isNil "RydFFE_Add_Rocket") then {RydFFE_Add_Rocket = []};
 if (isNil "RydFFE_Add_Other") then {RydFFE_Add_Other = []};
 if (isNil "RydFFE_IowaMode") then {RydFFE_IowaMode = false};
 
-RydFFE_SPMortar = ["o_mbt_02_arty_f","o_t_mbt_02_arty_ghex_f","b_mbt_01_arty_f", "b_t_mbt_01_arty_f"] + RydFFE_Add_SPMortar;
+RydFFE_SPMortar = ["o_mbt_02_arty_f","o_t_mbt_02_arty_ghex_f","b_mbt_01_arty_f", "b_t_mbt_01_arty_f", "RHS_M119_WD", "rhs_D30_msv", "rhsgref_nat_d30"] + RydFFE_Add_SPMortar;
 RydFFE_Mortar = ["i_mortar_01_f","o_mortar_01_f","b_g_mortar_01_f","b_mortar_01_f"] + RydFFE_Add_Mortar;
 RydFFE_Rocket = ["b_mbt_01_mlrs_f", "b_t_mbt_01_mlrs_f"] + RydFFE_Add_Rocket;
 RydFFE_Other = [] + RydFFE_Add_Other;

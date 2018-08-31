@@ -11,7 +11,7 @@
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\halo.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\showArsenal.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\redeploy.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\playerActions\cash_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\playerActions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\squad_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\heli_taxi.sqf";
 
@@ -19,12 +19,12 @@
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\get_vehicle_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_menu_controller.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\buy_menu\buy_manpower_menu.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\ui\cash_boxes.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\ui\manpower_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
 
-player setVariable [cash, 0];
+player setVariable [manpower, 0];
 player setVariable ["rank", 0, true];
 player setVariable ["kills", 0];
 
@@ -32,9 +32,10 @@ player setVariable ["kills", 0];
 
 [] spawn show_enemy_markers;
 [] spawn show_friendly_markers;
-[] spawn show_cash_markers;
+[] spawn show_manpower_markers;
 [] spawn show_ui;
 [] spawn calculate_rank_and_skill;
+
 
 loaded_event = addMissionEventHandler ["Loaded",{ [] spawn show_ui; }];
 

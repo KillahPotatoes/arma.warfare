@@ -9,7 +9,7 @@ respawn_ground = "respawn_ground";
 respawn_air = "respawn_air";
 sector_name = "name";
 box = "box";
-cash = "cash";
+manpower = "manpower";
 soldier_count = "s_count";
 
 vehicle1 = "vehicle";
@@ -24,7 +24,7 @@ defender_cap = 8;
 squad_cap = 12;
 patrol_cap = 3;
 vehicle_chance = 30;
-cash_per_minute = 10;
+manpower_per_minute = 1;
 squad_size = 8;
 factions = [west, east, independent];
 show_all = false;

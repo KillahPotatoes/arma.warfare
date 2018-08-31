@@ -77,7 +77,7 @@ private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 [] spawn spawn_gunship_groups;
 [] spawn group_ai;
 [] spawn initialize_sector_control;
-[] spawn sector_cash_generation;
+[] spawn sector_manpower_generation;
 [] spawn defensive_group_chatter;
 [] spawn populate_random_houses;
 

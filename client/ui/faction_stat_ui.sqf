@@ -54,8 +54,8 @@ show_ui = {
 			format["<t color='#000000' align='right' size='1'>%1</t>", _ranks select _rank];
 		};
 
-		print_cash = {
-			format["<t color='#000000' align='right' size='1'>$ %1</t>", player getVariable "cash"];
+		print_manpower = {
+			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable "manpower"];
 		};
 
 		[] spawn {
@@ -71,7 +71,7 @@ show_ui = {
 				_ctrl ctrlSetStructuredText parseText format[
 					"%1<br />%2<br />%3<br />%4<br />%5",
 					[] call print_rank,
-					[] call print_cash,
+					[] call print_manpower,
 					[west, '#000f72'] call print_faction_stats,
 					[east, '#720000'] call print_faction_stats,
 					[independent, '#097200'] call print_faction_stats

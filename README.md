@@ -22,13 +22,13 @@ T0 = Tier 0
 
 500 = current strength of the faction. If strength is >30 the AI unit cap will be 30, but if <30 the unit cap will be equal strength
 
-### Cash
+### manpower
 
-Cash is generated at held sectors. You can grab the cash from the ammobox at each sector and use it to buy infantry, helis and vehicles.
+manpower is generated at held sectors. You can grab the manpower from the ammobox at each sector and use it to buy infantry, helis and vehicles.
 What is available for you to buy depends on the tier you are in.
 
 Infantry can be bought at each sector while vehicles and helicopters can only be bought at the startingbase. 
-You can also store money at your base. This is the only place where they will be safe. If you die you lose all cash you have on you, 
+You can also store money at your base. This is the only place where they will be safe. If you die you lose all manpower you have on you, 
 and if a sector is captured all money that are there will be lost.
 
 You can grab money from sectors that are not yours, so money raids on enemy sectors that have been held for a long time is a good strategy.
@@ -45,7 +45,7 @@ Spawn 2000 m over the ground at any point chosen by clicking on the map. Any tea
 
 ### Heli taxi
 
-If you are the leader of your group you can order a heli taxi for a certain amount of cash. A heli will come land, and upon entering you will take control of the helicopter. When exiting the helicopter will leave. There will be a time penalty between each time you can use the helicopter, and if its shot down there will be a longer penalty
+If you are the leader of your group you can order a heli taxi for a certain amount of manpower. A heli will come land, and upon entering you will take control of the helicopter. When exiting the helicopter will leave. There will be a time penalty between each time you can use the helicopter, and if its shot down there will be a longer penalty
 
 ### Rank
 
@@ -95,7 +95,7 @@ Once a sector is taken, a group of soldiers and a mortar position will spawn. Th
 Strength dimished when losing soldiers.
 If a player is killed there is a big penalty on strength, so better stay alive. 
 
-You can increase strength at HQ buy buying 1 strength for 10 cash
+You can increase strength at HQ buy buying 1 strength for 10 manpower
 
 Strength determines manpower. Your number  of active AI soldiers capturing new sectors are the lesser of 30 or your faction strength. 
 

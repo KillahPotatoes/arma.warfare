@@ -2,14 +2,23 @@ pick_soldiers = {
 	params ["_side", "_number"];
 
 	private _infantry_preset = missionNamespace getVariable format["%1_infantry", _side];
-	private _squad_preset = selectRandom _infantry_preset;
+	private _count = count _infantry_preset;
 
 	private _squad = [];
 	for "_x" from 0 to _number step 1 do {
-		_squad pushBack (selectRandom _squad_preset); 
+		private _index = [_count] call get_distribution; // CHECK
+		_squad pushBack (_infantry_preset select _index); 
 	};
 
 	_squad; 
+};
+
+get_distribution = {
+	params ["_number"];
+	private _new_number = (_number * 2) - 1;
+	private _n = floor random [0, 0, _new_number];
+	if (_n > 9) exitWith { _n - 9 };
+	_n;
 };
 
 spawn_infantry = {

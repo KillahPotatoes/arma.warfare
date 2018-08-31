@@ -16,18 +16,19 @@ spawn_helicopter = {
 
 get_transport_heli_type = {
 	params ["_side"];
-	missionNamespace getVariable format["%1_transport_helis", _side];
+	missionNamespace getVariable format["%1_helicopter_transport", _side];
 };
 
 spawn_transport_heli = {
 	params ["_side"];
 
-	private _transport_heli = selectRandom (_side call get_transport_heli_type);		
-    private _veh = [_side, _transport_heli] call spawn_helicopter;
+	private _arr = selectRandom (_side call get_transport_heli_type);	
+	private _class_name = _arr select 0;		
+    private _veh = [_side, _class_name] call spawn_helicopter;
 
 	private _group = _veh select 2;
 	
-	_group setBehaviour "CARELESS";
+	_group setBehaviour "AWARE";
 	_group deleteGroupWhenEmpty true;
 	_veh;
 };
@@ -76,16 +77,11 @@ take_off_and_despawn = {
 
 	_heli_group move _pos;
 
-	sleep 3;
-
-	while { ( (alive _heli_vehicle) && !(unitReady _heli_vehicle) ) } do
-	{
-		sleep 1;
-	};
-
+	waitUntil { !(alive _heli_vehicle) || ((_pos distance2D (getPos _heli_vehicle)) < 200) };
+	
 	if (alive _heli_vehicle) exitWith
 	{
-		{ deleteVehicle _x } forEach (crew _heli_vehicle); 
+		[_heli_vehicle] call remove_soldiers; 
 		deleteVehicle _heli_vehicle;
 		true;
 	};
@@ -94,8 +90,9 @@ take_off_and_despawn = {
 };
 
 remove_soldiers = {
+	params ["_heli_vehicle"];
 	{ 
-		if(hasInterface && (_x in (group player))) then {
+		if(hasInterface && ((group _x) isEqualTo (group player))) then {
 			_x call refund;
 		};
 		
@@ -106,7 +103,15 @@ remove_soldiers = {
 refund = {
 	params ["_soldier"];
 
-	private _cash = player getVariable [cash, 0];
-	systemChat "A soldier has been refunded for 20$";
-	player setVariable [cash, _cash + 20]
+	private _side = side _soldier;
+	private _soldier_types = missionNamespace getVariable format["%1_buy_infantry", _side];
+	private _manpower = player getVariable [manpower, 0];
+
+	{
+		if ((typeOf _soldier) isEqualTo (_x select 1)) then {
+			private _price = _x select 2;
+			player setVariable [manpower, _manpower + _price];
+			systemChat format["A soldier has been refunded for %1", _price];
+		};
+	} forEach _soldier_types;
 };

@@ -13,6 +13,30 @@ check_if_player_already_in_hq = {
   (getPos _player) distance _pos > 25; 
 };
 
+helo = {
+  params ["_squad", "_pos"];
+  private _height = helo_height;
+
+  {
+    _x setPos (_pos getPos [25 * sqrt random 1, random 360]);
+    _height = _height - 20;
+    [_x,_height] spawn BIS_fnc_halo;
+  } forEach _squad;
+};
+
+get_vehicles_based_on_tier = {
+	params ["_side", "_type"];
+
+	private _options = [];
+	private _tier = (_side call get_tier);
+
+	for "_x" from 0 to _tier step 1 do {
+		_options = _options + (missionNamespace getVariable format["%1_%2_tier_%3", _side, _type, _x]);
+	};
+
+	_options;
+};
+
 calc_number_of_soldiers = {
 	params ["_soldier_cap"];
 	floor random [_soldier_cap / 2, _soldier_cap / 1.5, _soldier_cap];

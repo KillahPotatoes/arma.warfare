@@ -41,7 +41,7 @@ change_sector_ownership = {
 		[_new_owner, _sector] call add_sector;
 	};
 
-	[_new_owner, _sector] call reset_sector_cash;
+	[_new_owner, _sector] call reset_sector_manpower;
 };
 
 check_if_sector_is_attacked = {

@@ -2,13 +2,15 @@ player enableFatigue false;
 
 [] call ShowArsenalAction;
 [] call AddHeloAction;
-[] call add_buy_options;
-[] call add_take_cash_from_ammobox;
-[] call add_store_cash_action;
+[] call add_get_options;
+[] call add_take_manpower_from_ammobox;
+[] call add_store_manpower_action;
 [] call join_squad;
 [] call leave_squad;
 [] call show_order_heli_taxi;
-[] call buy_manpower;
+[] call show_send_heli_off_action;
+[] call remove_vehicle;
+
 
 RemoveSquadMatesWhenPlayerDies = {
 	params ["_player"];
@@ -27,8 +29,8 @@ reset_player_stats = {
 	params ["_player"];
 
 	_player setVariable ["kills", 0];
-	_player setVariable ["rank", 0];
-	_player setVariable [cash, 0];
+	_player setVariable ["rank", 0, true];
+	_player setVariable [manpower, 0];
 };
 
 [player] call reset_player_stats;

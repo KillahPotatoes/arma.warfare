@@ -5,7 +5,7 @@ seconds_since_start = {
 };
 
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
-[] call compileFinal preprocessFileLineNumbers "presets\global_variable_names.sqf";
+[] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
@@ -38,17 +38,22 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\factions\baseVehicleSpawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\faction_relations.sqf";
 
-// battlegroups
+// battlegroups 
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\helo_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
 
 
 // Radio chatter
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
+
+private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
+private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 
 // Game setup
 [] call initialize_sectors;
@@ -57,7 +62,7 @@ seconds_since_start = {
 [] call hide_respawn_markers;
 [] call initialize_mine_fields;
 [] call setup_faction_relations;
-[] call initialize_faction_stats;
+[_manpower, _startingTier] call initialize_faction_stats;
 [] call initialize_bases;
 [] call initialize_base_respawns;
 [] call initialize_battle_groups;
@@ -72,9 +77,9 @@ seconds_since_start = {
 [] spawn spawn_gunship_groups;
 [] spawn group_ai;
 [] spawn initialize_sector_control;
-[] spawn sector_cash_generation;
+[] spawn sector_manpower_generation;
 [] spawn defensive_group_chatter;
-
+[] spawn populate_random_houses;
 
 
 

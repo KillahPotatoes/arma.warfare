@@ -40,18 +40,33 @@ do_helicopter_insertion = {
 	private _name = (typeOf (_heli select 0)) call get_vehicle_display_name;
 
 	[_side, format["%1 inserting squad of %2 near %3", _name, count units _group, [_sector_name] call replace_underscore]] spawn HQ_report;
-	[_heli select 2, _heli select 0, "GET OUT", _pos] call land_helicopter; 
-	[_group, _heli] call dispatch_heli_battlegroup;
+	[_heli select 2, _heli select 0, _pos] call move_to_sector_outskirt; 
+	
+	[_group, _heli select 0] call dispatch_heli_battlegroup;	
 	[_heli select 2, _heli select 0] spawn take_off_and_despawn; 	
 };
 
 dispatch_heli_battlegroup = {
-	params ["_grp", "_heli"];
+	params ["_grp", "_heli_vehicle"];
+
+	[_heli_vehicle] spawn toggle_damage_while_landing;
 
 	{
 		unassignVehicle _x;
 	} forEach units _grp;
 
-	_group setVariable ["active", true];
+	_grp setVariable ["active", true];	
+};
+
+move_to_sector_outskirt = {
+	params ["_heli_group", "_heli_vehicle", "_pos"];
+
+	_heli_group move _pos;
+
+	sleep 3;
+
+	waitUntil {
+		alive _heli_vehicle && unitReady _heli_vehicle
+	};
 };
 

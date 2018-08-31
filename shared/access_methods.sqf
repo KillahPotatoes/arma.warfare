@@ -25,7 +25,7 @@ get_tier = {
 
 set_tier = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_tier",  _side], _value, true];
+	missionNamespace setVariable [format ["%1_tier",  _side], _value min 2, true];
 };
 
 get_kill_count = {

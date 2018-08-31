@@ -5,7 +5,7 @@ add_sector_box = {
 	_ammo_box = ammo_box createVehicle (_pos);	
 	_sector setVariable [box, _ammo_box];
 	_ammo_box setVariable [owned_by, civilian, true];	
-	_ammo_box setVariable [cash, 0, true];
+	_ammo_box setVariable [manpower, 0, true];
 };
 
 initialize_sectors = {
@@ -43,7 +43,7 @@ get_safe_sectors = {
 	{	
 		private _pos = _x getVariable pos;
 
-		if(!([_pos, _side] call any_enemies_nearby_sector)) then {
+		if(!([_pos, _side] call any_enemies_nearby)) then {
 			_safe_sectors pushBack _x;
 		};
 	} forEach (_side call get_owned_sectors);

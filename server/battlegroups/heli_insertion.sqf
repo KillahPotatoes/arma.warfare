@@ -41,6 +41,7 @@ do_helicopter_insertion = {
 
 	[_side, format["%1 inserting squad of %2 near %3", _name, count units _group, [_sector_name] call replace_underscore]] spawn HQ_report;
 	[_heli select 2, _heli select 0, "GET OUT", _pos] call land_helicopter; 
+	sleep 30;
 	[_group, _heli] call dispatch_heli_battlegroup;
 	[_heli select 2, _heli select 0] spawn take_off_and_despawn; 	
 };

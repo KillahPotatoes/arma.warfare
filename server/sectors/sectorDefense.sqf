@@ -9,35 +9,35 @@ spawn_defensive_squad = {
 	_group;
 };
 
-spawn_mortar = {
+spawn_artillery = {
 	params ["_sector"];
 	private _side = _sector getVariable owned_by;
 
 	private _orientation = random 360;	
-	private _type = selectRandom (missionNamespace getVariable format["%1_mortars", _side]);
+	private _type = selectRandom (missionNamespace getVariable format["%1_artillery", _side]);
 	private _pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 				
-	private _mortar = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
-	private _group = _mortar select 2;
+	private _artillery = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
+	private _group = _artillery select 2;
 	_group deleteGroupWhenEmpty true;
 	_group enableDynamicSimulation false; 
 
-	private _name = _mortar select 0;
+	private _name = _artillery select 0;
 	_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
 
-	_mortar;
+	_artillery;
 };
 
-should_spawn_mortar = {
+should_spawn_artillery = {
 	params ["_sector", "_sector_owner"];
 
-	private _mortar = _sector getVariable mortar;	
+	private _artillery = _sector getVariable artillery;	
 
-	if(isNil "_mortar") exitWith {
+	if(isNil "_artillery") exitWith {
 		true;
 	};
 
-	private _group = _mortar select 2;
+	private _group = _artillery select 2;
 
 	if(side _group isEqualTo _sector_owner && ({alive _x} count units _group) > 0) exitWith {
 		false;
@@ -46,15 +46,15 @@ should_spawn_mortar = {
 	true;
 };
 
-should_remove_mortar = {
+should_remove_artillery = {
 	params ["_sector", "_sector_owner"];
 
-	private _mortar = _sector getVariable mortar;	
-	if(isNil "_mortar") exitWith {
+	private _artillery = _sector getVariable artillery;	
+	if(isNil "_artillery") exitWith {
 		false;
 	};
 
-	private _group = _mortar select 2;
+	private _group = _artillery select 2;
 	if(!(side _group isEqualTo _sector_owner) || ({alive _x} count units _group) == 0) exitWith {
 		true;
 	};
@@ -62,17 +62,17 @@ should_remove_mortar = {
 	false;
 };
 
-spawn_mortar_pos = {
+spawn_artillery_pos = {
 	params ["_sector"];
 
-	if([_sector, _side] call should_remove_mortar) then {
-		private _mortar = _sector getVariable mortar;
-		deleteVehicle (_mortar select 0);
+	if([_sector, _side] call should_remove_artillery) then {
+		private _artillery = _sector getVariable artillery;
+		deleteVehicle (_artillery select 0);
 	};
 
-	if([_sector, _side] call should_spawn_mortar) then {
-		_new_mortar = _sector call spawn_mortar;	
-		_sector setVariable [mortar, _new_mortar];	
+	if([_sector, _side] call should_spawn_artillery) then {
+		_new_artillery = _sector call spawn_artillery;	
+		_sector setVariable [artillery, _new_artillery];	
 	};
 };
 
@@ -129,6 +129,6 @@ spawn_sector_squad = {
 spawn_sector_defense = {
 	params ["_sector"];
 	_sector call spawn_sector_squad;
-	_sector call spawn_mortar_pos;
+	_sector call spawn_artillery_pos;
 	//_sector call spawn_patrol_squad;
 };

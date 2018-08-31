@@ -1,7 +1,7 @@
 spawn_random_group = {
 	params ["_side", "_can_spawn"];	
 		
-	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
+	/*private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
 	private _tier = [_side] call get_tier;
 	private _rnd = random 100;
 
@@ -29,7 +29,9 @@ spawn_random_group = {
 	};
 
 	private _group = [_pos, _side, _can_spawn] call spawn_squad;
-	[_group] call add_battle_group;
+	[_group] call add_battle_group;*/
+
+	[_side, _can_spawn] call helicopter_insertion;
 };
 
 add_soldiers_to_cargo = {

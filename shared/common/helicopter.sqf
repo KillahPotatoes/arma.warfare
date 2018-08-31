@@ -16,14 +16,14 @@ spawn_helicopter = {
 
 get_transport_heli_type = {
 	params ["_side"];
-	missionNamespace getVariable format["%1_heli_transport", _side];
+	missionNamespace getVariable format["%1_helicopter_transport", _side];
 };
 
 spawn_transport_heli = {
 	params ["_side"];
 
 	private _arr = selectRandom (_side call get_transport_heli_type);	
-	private _class_name = arr select 0;		
+	private _class_name = _arr select 0;		
     private _veh = [_side, _class_name] call spawn_helicopter;
 
 	private _group = _veh select 2;

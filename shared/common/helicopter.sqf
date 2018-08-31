@@ -28,7 +28,7 @@ spawn_transport_heli = {
 
 	private _group = _veh select 2;
 	
-	_group setBehaviour "CARELESS";
+	_group setBehaviour "AWARE";
 	_group deleteGroupWhenEmpty true;
 	_veh;
 };
@@ -77,13 +77,8 @@ take_off_and_despawn = {
 
 	_heli_group move _pos;
 
-	sleep 3;
-
-	while { ( (alive _heli_vehicle) && !(unitReady _heli_vehicle) ) } do
-	{
-		sleep 1;
-	};
-
+	waitUntil { !(alive _heli_vehicle) || ((_pos distance2D (getPos _heli_vehicle)) < 200) };
+	
 	if (alive _heli_vehicle) exitWith
 	{
 		[_heli_vehicle] call remove_soldiers; 

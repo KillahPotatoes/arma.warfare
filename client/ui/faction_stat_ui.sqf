@@ -24,7 +24,7 @@ show_ui = {
 			_tier = _side call get_tier; 
 			_percentage = _side call get_tier_progress;
 
-			if (_tier == 3) exitWith {
+			if (_tier == 2) exitWith {
 				"";
 			}; 
 

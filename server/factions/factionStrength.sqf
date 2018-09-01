@@ -26,7 +26,7 @@ calculate_tier_progress = {
 	params ["_side"];
 	
 	_kill_count = _side call get_kill_count;
-	_tier =  _side call get_tier;
+	_tier = _side call get_tier;
 
 	_tier_bound =  if(_tier == 0) then { 0; } else { _tier call get_tier_bound; };
 	_next_tier_bound = (_tier + 1) call get_tier_bound;

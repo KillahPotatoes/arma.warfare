@@ -11,7 +11,10 @@ spawn_gunships = {
 		private _tier = [_side] call get_tier;
 		sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
 		private _gunship = [_side] call spawn_gunship_group;
-		[_gunship select 2] call add_battle_group;							
+
+		if (!isNil "_gunship") exitWith {
+			[_gunship select 2] call add_battle_group;							
+		};
 	};
 };
 
@@ -19,16 +22,18 @@ spawn_gunship_group = {
 	params ["_side"];
 
 	private _options = [_side, helicopter] call get_vehicles_based_on_tier;
-	
-	private _gunship = (selectRandom _options) select 0; 
-	private _gunship_name = _gunship call get_vehicle_display_name;
 
-	[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call HQ_report;
-	sleep 120;
+	if(!(_options isEqualTo [])) exitWith {
+		private _gunship = (selectRandom _options) select 0; 
+		private _gunship_name = _gunship call get_vehicle_display_name;
 
-    private _veh = [_side, _gunship] call spawn_helicopter;
+		[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call HQ_report;
+		sleep 120;
 
-	[_side, format["%1 has arrived. See you soon!", _gunship_name]] call HQ_report;
+		private _veh = [_side, _gunship] call spawn_helicopter;
 
-	_veh;
+		[_side, format["%1 has arrived. See you soon!", _gunship_name]] call HQ_report;
+
+		_veh;
+	};
 };

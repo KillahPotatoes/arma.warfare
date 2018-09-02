@@ -41,9 +41,9 @@ guer_infantry = [
 
 // ARTILLERY
 
-west_artillery = ["RHS_M119_WD", "B_Mortar_01_F"];
-guer_artillery = ["I_Mortar_01_F", "rhsgref_nat_d30"];
-east_artillery = ["O_Mortar_01_F", "rhs_D30_msv"];
+west_artillery = ["B_Mortar_01_F"];
+guer_artillery = ["I_Mortar_01_F",];
+east_artillery = ["O_Mortar_01_F",];
 
 // WEST VEHICLES
 
@@ -114,10 +114,7 @@ west_helicopter_transport = [
 ];
 
 west_helicopter_tier_2 = [
-	["B_Heli_Attack_01_F", 40], // AH-99 Blackfoot
-	["RHS_AH64D_wd", 50], // AH64D
-	["RHS_AH64D_wd_CS", 50], // AH64D CS
-	["RHS_AH64D_wd_AA", 50] // AH64D AA
+	["B_Heli_Attack_01_F", 40] // AH-99 Blackfoot	
 ];
 
 west_helicopter_tier_1 = [

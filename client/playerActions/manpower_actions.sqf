@@ -26,7 +26,7 @@ add_store_manpower_action = {
       cursorTarget setVariable [manpower, (_manpower + _player_manpower), true];
       systemChat format["You stored %1 MP", _player_manpower];
   }, nil, 1.5, true, true, "",
-  '[cursorTarget, player] call can_use_ammo_box && [player] call player_has_manpower && !([player] call is_close_to_enemy_hq)'
+  '[cursorTarget, player] call can_use_ammo_box && [player] call player_has_manpower && !([player] call is_player_close_to_hq)'
   ];
 };
 

@@ -7,7 +7,7 @@ heli_wait_period = heli_wait_period_on_despawn;
 landing_marker = "landing";
 
 heli_active = false;	
-heli_timer = time;
+heli_timer = time - heli_wait_period;
 heli_arrived_at_HQ = false;
 
 show_send_heli_off_action = {
@@ -79,7 +79,7 @@ spawn_taxi_heli = {
 
 	_heli setVariable ["penalty", [playerSide, _penalty], true];
 		
-	_group setBehaviour "AWARE";
+	_group setBehaviour "CARELESS";
 	_group deleteGroupWhenEmpty true;
 	_veh;
 };

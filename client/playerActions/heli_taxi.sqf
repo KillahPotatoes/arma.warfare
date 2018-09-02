@@ -79,7 +79,7 @@ spawn_taxi_heli = {
 
 	_heli setVariable ["penalty", [playerSide, _penalty], true];
 		
-	_group setBehaviour "CARELESS";
+	_group setBehaviour "AWARE";
 	_group deleteGroupWhenEmpty true;
 	_veh;
 };

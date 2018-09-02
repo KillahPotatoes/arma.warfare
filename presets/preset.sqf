@@ -42,8 +42,8 @@ guer_infantry = [
 // ARTILLERY
 
 west_artillery = ["B_Mortar_01_F"];
-guer_artillery = ["I_Mortar_01_F"];
-east_artillery = ["O_Mortar_01_F"];
+guer_artillery = ["I_Mortar_01_F",];
+east_artillery = ["O_Mortar_01_F",];
 
 // WEST VEHICLES
 
@@ -52,9 +52,9 @@ west_vehicle_tier_2 = [
 	["B_APC_Wheeled_01_cannon_F", 30], // AMV-7 Marshall
 	["B_MBT_01_TUSK_F", 30], // M2A4 Slammer UP 
 	["B_APC_Wheeled_03_cannon_F", 30], // AFV-4 Gorgon
-	["B_MBT_01_cannon_F", 30], // M2A1 Slammer
-	["B_MBT_01_arty_F", 30], // M4 Scorcher 
-	["B_MBT_01_mlrs_F", 30] // M5 Sandstorm MLRS
+	["B_MBT_01_cannon_F", 30] // M2A1 Slammer
+	//["B_MBT_01_arty_F", 30], // M4 Scorcher 
+	//["B_MBT_01_mlrs_F", 30] // M5 Sandstorm MLRS
 ];
 
 west_vehicle_tier_1 = [
@@ -90,8 +90,8 @@ guer_vehicle_tier_0 = [
 east_vehicle_tier_2 = [
 	["O_MBT_02_cannon_F", 30], // T-100 Varsuk
 	["O_APC_Tracked_02_cannon_F", 30], // BTR-K Kamysh
-	["O_APC_Tracked_02_AA_F", 30], // ZSU-39 Tigris
-	["O_MBT_02_arty_F", 30] // 2S9 Sochor
+	["O_APC_Tracked_02_AA_F", 30] // ZSU-39 Tigris
+	//["O_MBT_02_arty_F", 30] // 2S9 Sochor
 ];
 
 east_vehicle_tier_1 = [
@@ -114,20 +114,16 @@ west_helicopter_transport = [
 ];
 
 west_helicopter_tier_2 = [
-	["B_Heli_Attack_01_F", 40] // AH-99 Blackfoot
+	["B_Heli_Attack_01_F", 40] // AH-99 Blackfoot	
 ];
 
 west_helicopter_tier_1 = [
-	["B_Heli_Light_01_armed_F", 30] // AH-9 Pawnee with rockets
+	
 ];
 
 west_helicopter_tier_0 = [
-	["B_Heli_Light_01_dynamicLoadout_F", 20] // AH-9 Pawnee
+	["B_Heli_Light_01_armed_F", 30] // AH-9 Pawnee with rockets
 ];
-
-//	["AH64D 1",	"RHS_AH64D_wd", 800, 3],
-//	["AH64D CS", "RHS_AH64D_wd_CS", 1000, 3],
-//	["AH64D AA", "RHS_AH64D_wd_AA", 1200, 3]
 
 // EAST HELICOPTERS
 

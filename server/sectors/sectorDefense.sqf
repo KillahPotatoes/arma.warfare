@@ -2,11 +2,45 @@ spawn_defensive_squad = {
 	params ["_sector"];
 
 	private _side = _sector getVariable owned_by;
-	private _safe_pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    private _group = [_safe_pos, _side, defender_cap call calc_number_of_soldiers, true] call spawn_infantry;
+	private _pos = _sector getVariable pos;
+    private _group = [[_pos select 0, _pos select 1, 3000], _side, defender_cap call calc_number_of_soldiers, true] call spawn_infantry;
 	
-    _group setBehaviour "AWARE";
+	[_group, _pos] call place_defensive_soldiers;
+
+    _group setBehaviour "SAFE";
+
 	_group;
+};
+
+place_defensive_soldiers = {
+	params ["_group","_pos"];
+
+	private _positions = [_pos] call get_positions_to_populate;
+	private _units = units _group;
+	
+	{
+		if (_forEachIndex < (count _positions)) then {
+			(_x) setPosATL (_positions select _forEachIndex);
+		} else {
+			private _safe_pos = [_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+			(_x) setPos _safe_pos;
+		}
+
+	} forEach _units;
+};
+
+get_positions_to_populate = {
+	params ["_pos"];
+	
+	private _houses = _pos nearObjects ["house", 25];
+
+	private _positions = [];
+
+	{
+		_positions = _positions + (_x buildingPos -1);
+	} forEach _houses;
+
+	_positions call BIS_fnc_arrayShuffle;
 };
 
 spawn_artillery = {
@@ -15,7 +49,7 @@ spawn_artillery = {
 
 	private _orientation = random 360;	
 	private _type = selectRandom (missionNamespace getVariable format["%1_artillery", _side]);
-	private _pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _pos = [_sector getVariable pos, 0, 25, 7, 0, 0, 0] call BIS_fnc_findSafePos;
 				
 	private _artillery = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
 	private _group = _artillery select 2;
@@ -88,9 +122,11 @@ spawn_reinforcments = {
 
 	private _new_soldiers = 0 max ((defender_cap call calc_number_of_soldiers) - _group_count);
 
-    private _pos = [_sector getVariable pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
-    private _group = [_pos, _side, _new_soldiers, true] call spawn_infantry;
-    	
+    private _pos = _sector getVariable pos;	
+    private _group = [[_pos select 0, _pos select 1, 3000], _side, _new_soldiers, true] call spawn_infantry;
+	
+	[_group, _pos] call place_defensive_soldiers;
+
     {[_x] joinSilent _defenders} forEach units _group;
 	deleteGroup _group;
 	_defenders;
@@ -99,7 +135,7 @@ spawn_reinforcments = {
 spawn_sector_squad = {
 	params ["_sector"];
 
-	sleep 60; // So you wont hit them with your car!
+	sleep 10; // So you wont hit them with your car!
 
 	private _side = _sector getVariable owned_by;
 	private _sector_defense = _sector getVariable sector_def;

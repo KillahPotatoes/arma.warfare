@@ -16,7 +16,12 @@ get_vehicle = {
 list_vehicle_options = {
 	params ["_type", "_priority"];
 
-	private _options = [(side player), _type] call get_vehicles_based_on_tier;
+	private _side = side player;
+	private _options = [_side, _type] call get_vehicles_based_on_tier;
+
+	if(_type isEqualTo helicopter) then {
+		_options = _options + (missionNamespace getVariable format["%1_%2_transport", _side, helicopter]);
+	};
 
 	{
 		private _class_name = _x select 0;

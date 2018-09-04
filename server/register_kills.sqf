@@ -106,11 +106,13 @@ register_kill = {
 			[] remoteExec ["increment_player_kill_counter", _killer];
 		};
 
-		_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
+		if (_victim_side in factions) then {
+			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
-		_faction_strength = _victim_side call get_strength;
-		_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 10)); } else { _faction_strength - _death_penalty };		
-		[_victim_side, _new_faction_strength] call set_strength;
+			_faction_strength = _victim_side call get_strength;
+			_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 10)); } else { _faction_strength - _death_penalty };		
+			[_victim_side, _new_faction_strength] call set_strength;
+		};
 	};	
 };
 

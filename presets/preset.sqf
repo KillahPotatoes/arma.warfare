@@ -9,8 +9,8 @@ west_infantry = [
 	"B_medic_F",
 	"B_Sharpshooter_F",
 	"B_engineer_F",
-	"B_Soldier_AAT_F",
-	"B_Soldier_AAA_F"
+	"B_Soldier_AT_F",
+	"B_Soldier_AA_F"
 ];
 
 east_infantry = [
@@ -22,8 +22,8 @@ east_infantry = [
 	"O_medic_F",
 	"O_Sharpshooter_F",
 	"O_engineer_F",
-	"O_Soldier_AAT_F",
-	"O_Soldier_AAA_F"
+	"O_Soldier_AT_F",
+	"O_Soldier_AA_F"
 ];
 
 guer_infantry = [
@@ -35,8 +35,8 @@ guer_infantry = [
 	"I_medic_F",
 	"I_Sharpshooter_F",
 	"I_engineer_F",
-	"I_Soldier_AAT_F",
-	"I_Soldier_AAA_F"
+	"I_Soldier_AT_F",
+	"I_Soldier_AA_F"
 ];
 
 // ARTILLERY

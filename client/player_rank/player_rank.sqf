@@ -16,12 +16,6 @@ get_skill_based_on_rank = {
 	(_rank / (max_rank * 2)) + 0.5;
 };
 
-get_price_based_on_rank = {
-	params ["_price"];
-	private _rank = [] call calculate_rank;
-	_price - ((_price / (max_rank * 2)) * _rank); 	
-};
-
 calculate_rank_and_skill = {
 	private _last_kill_count = 0;
 	while {true} do {

@@ -18,20 +18,17 @@ T0 = Tier 0
 
 0% = progress towards next tier
 
-(+0) = sectors held. Each sector gives 2 points per minute
-
-500 = current strength of the faction. If strength is >30 the AI unit cap will be 30, but if <30 the unit cap will be equal strength
+500 = current strength of the faction
 
 ### manpower
 
-manpower is generated at held sectors. You can grab the manpower from the ammobox at each sector and use it to buy infantry, helis and vehicles.
-What is available for you to buy depends on the tier you are in.
+Manpower is lost when you lose soldiers and manpower is generated at held sectors. Manpower can be collected at sectors and brough back to HQ to increase the factions manpower.
 
-Infantry can be bought at each sector while vehicles and helicopters can only be bought at the startingbase. 
-You can also store money at your base. This is the only place where they will be safe. If you die you lose all manpower you have on you, 
-and if a sector is captured all money that are there will be lost.
+A sector will produce manpower once captured. If an enemy captures your sector you will lose whatever manpower was in that sector.
 
-You can grab money from sectors that are not yours, so money raids on enemy sectors that have been held for a long time is a good strategy.
+## Player vehicles
+
+The player can get vehicles in HQ. These are free but will give a penalty if lost. If brough back to HQ the player can return the vehicle with no penalty.
 
 ### Start base (HQ)
 Your startbase consists of an ammobox, ammo container, repair container and a medical container.
@@ -45,7 +42,11 @@ Spawn 2000 m over the ground at any point chosen by clicking on the map. Any tea
 
 ### Heli taxi
 
-If you are the leader of your group you can order a heli taxi for a certain amount of manpower. A heli will come land, and upon entering you will take control of the helicopter. When exiting the helicopter will leave. There will be a time penalty between each time you can use the helicopter, and if its shot down there will be a longer penalty
+If you are the leader of your group you can order a heli taxi. A heli will come land, and upon entering you will take control of the helicopter. 
+
+When you are done with the heli taxi you can ask it to leave. 
+
+There will be a time penalty between each time you can use the helicopter, and if its shot down there will be a longer penalty and also a manpower penalty.
 
 ### Rank
 
@@ -62,6 +63,8 @@ You will get a rank based on number of kills since last death, this rank will ma
 
 AI will consist of both sector defenders and attacking battlegroups. When a sector is captured a group will spawn and defend that sector. Battlegroups will spawn in the sectors and in the startbase. These will move towards uncaptured sectors and attack them.
 
+AI will use heli insertions, and helo insertions besides just spawning squads and vehicle groups in HQ and sectors.
+
 ##### Ai squads
 
 You can join AI squads by walking up to one team member and chose join squad.
@@ -69,64 +72,23 @@ You can join AI squads by walking up to one team member and chose join squad.
 ##### Ai Gunship
 AI gunship will spawn with random intervals. How often is determined by tier.
 
-##### Ai skills
-Ai skills will increase when strength deminishes 
-
-##### Ai heli insertion
-
-Helicopters with a squad will sometimes spawn and disembark close to enemy sectors
-
 ### Sectors
 
 Sectors have a radius of 200 m. To capture it a friendly unit have to be within 25 m of the center, and no enemies within 200m.
 If units belonging to several factions come within 25 m of the center the sector will become neutral (grey)
-
-A captured sector will increase strength over time.
 
 Every sector will have an ammobox where you can buy infantry and access the arsenal.
 
 All sectors will have a random number of mines scattered around them, so be careful
 
 #### Sector defense
-Once a sector is taken, a group of soldiers and a mortar position will spawn. These will remain in the sector to defend it and give artillery support.
+Once a sector is taken, a group of soldiers and a artillery position will spawn. These will remain in the sector to defend it and give artillery support.
 
-### Strength
-
-Strength dimished when losing soldiers.
-If a player is killed there is a big penalty on strength, so better stay alive. 
-
-You can increase strength at HQ buy buying 1 strength for 10 manpower
-
-Strength determines manpower. Your number  of active AI soldiers capturing new sectors are the lesser of 30 or your faction strength. 
 
 ### Tier
 
 Tier determines what kind of units AI spawn and what kind of vehicles you have available in the base.
 Each side advance through tiers per X enemy kills. 
-
-#### Tier 0
-Ai only spawn infantry. 
-Ai Gunship spawns rarely.
-
-Transport vehicles and helicopters can be bought.
-
-#### Tier 1
-Ai spawn Infantry and light vehicles.
-Ai Gunship spawns a bit more frequently than in tier 0;
-
-Armed vehicles and helicopters can be bought.
-
-#### Tier 2
-Ai spawn Infantry, light vehicles and heavy vehicles.
-Ai Gunship spawns a bit more frequently than in tier 1;
-
-Armed heavy vehicles can be bought.
-
-#### Tier 3
-Ai spawn Infantry, light vehicles and heavy vehicles.
-Ai Gunship spawns a bit more frequently than in tier 2;
-
-Gunships can be bought.
 
 ### Endgame
 
@@ -138,8 +100,6 @@ You lose when strength is 0 and you die (no respawn possible)
 
 ## Mission setup
 
-The missions is best played on a 3x3 km area with about 5-7 sectors.
-
 ##### Placing sectors
 Place markers with the naming convention 'sector_\<name\>'.
 An ammobox will spawn in its center så make sure its empty.
@@ -149,21 +109,21 @@ An ammobox will spawn in its center så make sure its empty.
 Copy the starting base from the template mission, it should include:
 
 ##### 1 grasscutters:
-###### \<prefix\>_vehicle_parking  
+###### \<prefix\>_vehicle
   
 This is where bought vehicles for players will spawn  
 
 ##### 1 helipads
-###### \<prefix\>_heli  
+###### \<prefix\>_helicopter  
 
 This is where bought helicopters for players will spawn  
 
 ##### 2 respawn points
-###### \<prefix\>_ground_respawn
-###### \<prefix\>_air_respawn
+###### \<prefix\>_respawn_ground
+###### \<prefix\>_respawn_air
 
-Place the '\<prefix\>_air_respawn' in the outskirts of the map on the same side of the base. Ai helicopters will spawn from here.
-Place the '\<prefix\>_ground_respawn' on an open area. In the center the ammobox and players will spawn. Around it the ai will spawn. 
+Place the '\<prefix\>_respawn_air' in the outskirts of the map on the same side of the base. Ai helicopters will spawn from here.
+Place the '\<prefix\>_respawn_ground' on an open area. In the center the ammobox and players will spawn. Around it the ai will spawn. 
 
 ##### Prefix
 

@@ -41,9 +41,9 @@ guer_infantry = [
 
 // ARTILLERY
 
-west_artillery = ["B_Mortar_01_F"];
-guer_artillery = ["I_Mortar_01_F"];
-east_artillery = ["O_Mortar_01_F"];
+west_artillery = ["RHS_M119_WD", "B_Mortar_01_F"];
+guer_artillery = ["I_Mortar_01_F", "rhsgref_nat_d30"];
+east_artillery = ["O_Mortar_01_F", "rhs_D30_msv"];
 
 // WEST VEHICLES
 
@@ -114,7 +114,10 @@ west_helicopter_transport = [
 ];
 
 west_helicopter_tier_2 = [
-	["B_Heli_Attack_01_F", 40] // AH-99 Blackfoot	
+	["B_Heli_Attack_01_F", 40], // AH-99 Blackfoot
+	["RHS_AH64D_wd", 50], // AH64D
+	["RHS_AH64D_wd_CS", 50], // AH64D CS
+	["RHS_AH64D_wd_AA", 50] // AH64D AA	
 ];
 
 west_helicopter_tier_1 = [
@@ -133,7 +136,10 @@ east_helicopter_transport = [
 ];
 
 east_helicopter_tier_2 = [
-	["O_Heli_Attack_02_F", 40] // Mi-48 Kajman with rockets
+	["O_Heli_Attack_02_F", 40], // Mi-48 Kajman with rockets
+	["RHS_Mi8MTV3_heavy_vvs", 40], // Mi-8MTV-3
+	["rhs_mi28n_vvs", 40], // Mi-28N
+	["RHS_Ka52_vvsc", 40] // Ka-52
 ];
 
 east_helicopter_tier_1 = [
@@ -152,7 +158,8 @@ guer_helicopter_transport = [
 ];
 
 guer_helicopter_tier_2 = [
-	
+	["rhsgref_cdf_Mi24D", 40], // Mi-24D
+	["rhsgref_cdf_reg_Mi17Sh", 40] // Mi-8AMTSh
 ];
 
 guer_helicopter_tier_1 = [

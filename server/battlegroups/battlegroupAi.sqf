@@ -66,8 +66,11 @@ move_to_sector = {
 
 	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)} || {count (waypoints _group) == 0}) then {
 		if (!([_group] call join_nearby_group)) then {
-			[_target, _group] call create_waypoint;		
-			[_group, _target] spawn report_next_waypoint;
+			[_target, _group] call create_waypoint;	
+
+			/*if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)}) then {
+				[_group, _target] spawn report_next_waypoint;
+			};	*/
 		};
 	};
 
@@ -92,18 +95,13 @@ group_ai = {
 			private _side = side _group; 
 
 			if (!(isPlayer leader _group) && _side in factions && _group getVariable "active") then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
-				private _pos = getPosWorld (leader _group);
-
-				private _sector_c = [_side] call count_other_sectors; // gets list of uncapturedSectors
-
-				private _target = if(_sector_c > 0) then { 
-						[_side, _pos] call find_closest_target_sector;
-					} else {
-						[_side, _pos] call find_closest_friendly_sector;	
-					};
+				private _isAir = (vehicle leader _group) isKindOf "Air";
 				
-				[_target, _group] spawn move_to_sector;
-				[_group] spawn report_casualities_over_radio;
+				if (_isAir) exitWith {
+					[_group, _side] spawn air_group_ai;
+				};
+
+				[_group, _side] spawn ground_group_ai;
 			};
 		} forEach ([] call get_all_battle_groups);
 
@@ -112,3 +110,48 @@ group_ai = {
 	};
 };
 
+air_group_ai = {
+	params ["_group", "_side"];
+	
+	private _target = [_group, _side] call find_air_target;
+
+	[_target, _group] spawn move_to_sector;
+};
+
+find_air_target = {
+	params ["_group", "_side"];
+
+	private _pos = getPosWorld (leader _group);
+
+	private _enemy_sectors = [_side] call find_enemy_sectors;
+	private _unsafe_sectors = [_side] call get_unsafe_sectors;
+
+	if((count _enemy_sectors) > 0) exitWith { 
+		[_enemy_sectors, _pos] call find_closest_sector;
+	}; 
+	
+	if ((count _unsafe_sectors) > 0) exitWith {
+		[_unsafe_sectors, _pos] call find_closest_sector;
+	}; 
+
+	[_side, _pos] call find_closest_friendly_sector;
+};
+
+ground_group_ai = {
+	params ["_group", "_side"];
+	private _pos = getPosWorld (leader _group);
+
+	private _sectors = [_side] call get_other_sectors; // gets list of uncapturedSectors
+	private _unsafe_sectors = [_side] call get_unsafe_sectors;
+
+	private _sectors = _sectors + _unsafe_sectors;
+
+	private _target = if((count _sectors) > 0) then { 
+			[_sectors, _pos] call find_closest_sector;
+		} else {
+			[_side, _pos] call find_closest_friendly_sector;		
+		};
+	
+	[_target, _group] spawn move_to_sector;
+	[_group] spawn report_casualities_over_radio;
+};

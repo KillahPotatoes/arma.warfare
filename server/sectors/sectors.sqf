@@ -36,14 +36,14 @@ initialize_sectors = {
 };
 
 get_safe_sectors = {
-	params ["_side"];
+	params ["_side", "_distance"];
 	
 	private _safe_sectors = [];
 
 	{	
 		private _pos = _x getVariable pos;
 
-		if(!([_pos, _side] call any_enemies_nearby)) then {
+		if(!([_pos, _side, _distance] call any_enemies_nearby)) then {
 			_safe_sectors pushBack _x;
 		};
 	} forEach (_side call get_owned_sectors);
@@ -52,9 +52,9 @@ get_safe_sectors = {
 };
 
 get_unsafe_sectors = {
-	params ["_side"];
+	params ["_side", "_distance"];
 	
-	private _safe_sectors = _side call get_safe_sectors;
+	private _safe_sectors = [_side, _distance] call get_safe_sectors;
 	
 	(_side call get_owned_sectors) - _safe_sectors;
 };

@@ -107,7 +107,7 @@ spawn_vehicle_group = {
 get_infantry_spawn_position = {
 	params ["_pos", "_side"];
 
-	private _safe_sectors = _side call get_safe_sectors;
+	private _safe_sectors = [_side, (sector_size * 2)] call get_safe_sectors;
 
 	if((count _safe_sectors) > 0) exitWith {
 		private _sector = selectRandom _safe_sectors;

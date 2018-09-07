@@ -77,9 +77,9 @@ house_can_be_populated = {
 
 	(_side in factions) && !((side _player) isEqualTo _side)
 	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
-	&& {(_sector_pos distance2D _pos) > 200}
+	&& {(_sector_pos distance2D _pos) > sector_size}
 	&& {!(_building getVariable ["occupied", false])}	
-	&& {!([_pos, _side] call any_enemies_nearby)}
+	&& {!([_pos, _side, 400] call any_enemies_nearby)}
 };
 
 remove_when_no_player_closeby = {

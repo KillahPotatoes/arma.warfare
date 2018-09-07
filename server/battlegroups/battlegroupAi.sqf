@@ -124,7 +124,7 @@ find_air_target = {
 	private _pos = getPosWorld (leader _group);
 
 	private _enemy_sectors = [_side] call find_enemy_sectors;
-	private _unsafe_sectors = [_side] call get_unsafe_sectors;
+	private _unsafe_sectors = [_side, sector_size] call get_unsafe_sectors;
 
 	if((count _enemy_sectors) > 0) exitWith { 
 		[_enemy_sectors, _pos] call find_closest_sector;
@@ -142,7 +142,7 @@ ground_group_ai = {
 	private _pos = getPosWorld (leader _group);
 
 	private _sectors = [_side] call get_other_sectors; // gets list of uncapturedSectors
-	private _unsafe_sectors = [_side] call get_unsafe_sectors;
+	private _unsafe_sectors = [_side, sector_size] call get_unsafe_sectors;
 
 	private _sectors = _sectors + _unsafe_sectors;
 

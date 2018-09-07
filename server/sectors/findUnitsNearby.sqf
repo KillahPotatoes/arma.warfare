@@ -22,12 +22,12 @@ any_units_in_sector_center = {
 }; 
 
 any_enemies_nearby = {
-	params ["_position", "_side"];
+	params ["_position", "_side", "_distance"];
 
 	private _enemies = (factions - [_side]);
 
 	_faction_nearby = {
-		[_position, sector_size * 2, _x] call find_units_in_area > 0;
+		[_position, _distance, _x] call find_units_in_area > 0;
 	} count _enemies;
 	
 	_faction_nearby > 0;

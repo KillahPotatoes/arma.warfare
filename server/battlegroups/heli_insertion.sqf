@@ -20,7 +20,7 @@ add_soldiers_to_helicopter_cargo = {
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 	
-	private _sector = [_side] call find_random_enemy_sector;
+	private _sector = [_side] call find_random_other_sector;
 
 	if (!(_sector isEqualTo [])) exitWith {
 		private _spawn_pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);

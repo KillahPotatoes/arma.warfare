@@ -10,7 +10,6 @@
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\playerActions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\halo.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\showArsenal.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\playerActions\redeploy.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\squad_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\heli_taxi.sqf";

@@ -36,19 +36,27 @@ initialize_sectors = {
 };
 
 get_safe_sectors = {
-	params ["_side"];
+	params ["_side", "_distance"];
 	
 	private _safe_sectors = [];
 
 	{	
 		private _pos = _x getVariable pos;
 
-		if(!([_pos, _side] call any_enemies_nearby)) then {
+		if(!([_pos, _side, _distance] call any_enemies_nearby)) then {
 			_safe_sectors pushBack _x;
 		};
 	} forEach (_side call get_owned_sectors);
 
 	_safe_sectors;
+};
+
+get_unsafe_sectors = {
+	params ["_side", "_distance"];
+	
+	private _safe_sectors = [_side, _distance] call get_safe_sectors;
+	
+	(_side call get_owned_sectors) - _safe_sectors;
 };
 
 add_sector = {
@@ -67,16 +75,6 @@ remove_sector = {
 get_owned_sectors = {
 	params ["_side"];
 	missionNamespace getVariable format["%1_sectors", _side];
-};
-
-get_sector_count = {
-	params ["_side"];
-	count (_side call get_owned_sectors);
-};
-
-count_other_sectors = {
-	params ["_side"];
-	(count sectors) - (_side call get_sector_count);
 };
 
 get_other_sectors = {
@@ -104,13 +102,6 @@ find_closest_sector = {
 	_current_sector;
 };
 
-find_closest_target_sector = {
-	params ["_side", "_pos"];
-
-	_sectors = [_side] call get_other_sectors;	
-	[_sectors, _pos] call find_closest_sector;
-};
-
 find_closest_friendly_sector = {
 	params ["_side", "_pos"];
 	
@@ -118,10 +109,22 @@ find_closest_friendly_sector = {
 	[_sectors, _pos] call find_closest_sector;
 };
 
-find_random_enemy_sector = {
+find_random_other_sector = {
 	params ["_side"];
 
 	_sectors = [_side] call get_other_sectors;	
 
 	selectRandom _sectors;
+};
+
+find_enemy_sectors = {
+	params ["_side"];
+
+	private _enemy = factions - [_side];
+
+	private _sectors = [];
+	_sectors = _sectors + ([_enemy select 0] call get_owned_sectors);
+	_sectors = _sectors + ([_enemy select 1] call get_owned_sectors);
+	
+	_sectors;
 };

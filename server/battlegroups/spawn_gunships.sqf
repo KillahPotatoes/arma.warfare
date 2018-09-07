@@ -32,8 +32,6 @@ spawn_gunship_group = {
 
 		private _veh = [_side, _gunship] call spawn_helicopter;
 
-		[_side, format["%1 has arrived. See you soon!", _gunship_name]] call HQ_report;
-
 		_veh;
 	};
 };

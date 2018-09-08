@@ -50,7 +50,7 @@ spawn_artillery = {
 	private _orientation = random 360;	
 	private _type = selectRandom (missionNamespace getVariable format["%1_artillery", _side]);
 	private _sector_pos = _sector getVariable pos;
-	private _pos = [_sector_pos, 5, 25, 7, 10, 0, 0,[_sector_pos, _sector_pos]] call BIS_fnc_findSafePos;
+	private _pos = [_sector_pos, 5, 25, 7, 0.25, 0, 0,[_sector_pos, _sector_pos]] call BIS_fnc_findSafePos;
 				
 	if(!(_pos isEqualTo _sector_pos)) exitWith {
 		private _artillery = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;

@@ -10,10 +10,13 @@ spawn_gunships = {
 	while {true} do {
 		private _tier = [_side] call get_tier;
 		sleep random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]);
-		private _gunship = [_side] call spawn_gunship_group;
 
-		if (!isNil "_gunship") exitWith {
-			[_gunship select 2] call add_battle_group;							
+		if (([_side] call count_enemy_sectors) > 0) then {
+			private _gunship = [_side] call spawn_gunship_group;
+
+			if (!isNil "_gunship") exitWith {
+				[_gunship select 2] call add_battle_group;							
+			};
 		};
 	};
 };

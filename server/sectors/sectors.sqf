@@ -130,3 +130,9 @@ find_enemy_sectors = {
 	
 	_sectors;
 };
+
+count_enemy_sectors = {
+	params ["_side"];
+
+	count ([_side] call find_enemy_sectors);
+};

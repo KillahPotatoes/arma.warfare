@@ -49,17 +49,20 @@ spawn_artillery = {
 
 	private _orientation = random 360;	
 	private _type = selectRandom (missionNamespace getVariable format["%1_artillery", _side]);
-	private _pos = [_sector getVariable pos, 0, 25, 7, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _sector_pos = _sector getVariable pos;
+	private _pos = [_sector_pos, 5, 25, 7, 10, 0, 0,[_sector_pos, _sector_pos]] call BIS_fnc_findSafePos;
 				
-	private _artillery = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
-	private _group = _artillery select 2;
-	_group deleteGroupWhenEmpty true;
-	_group enableDynamicSimulation false; 
+	if(!(_pos isEqualTo _sector_pos)) exitWith {
+		private _artillery = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
+		private _group = _artillery select 2;
+		_group deleteGroupWhenEmpty true;
+		_group enableDynamicSimulation false; 
 
-	private _name = _artillery select 0;
-	_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
+		private _name = _artillery select 0;
+		_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
 
-	_artillery;
+		_artillery;
+	};	
 };
 
 should_spawn_artillery = {
@@ -106,7 +109,10 @@ spawn_artillery_pos = {
 
 	if([_sector, _side] call should_spawn_artillery) then {
 		_new_artillery = _sector call spawn_artillery;	
-		_sector setVariable [artillery, _new_artillery];	
+
+		if (!(isNil "_new_artillery")) then {
+			_sector setVariable [artillery, _new_artillery];	
+		};
 	};
 };
 

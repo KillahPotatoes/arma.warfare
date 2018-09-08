@@ -8,7 +8,7 @@ add_take_manpower_from_player_action = {
 
 add_take_manpower_from_ammobox = {  
   player addAction ["Take manpower", {
-      private _manpower = cursorTarget getVariable manpower;
+      private _manpower = floor(cursorTarget getVariable manpower);
       cursorTarget setVariable [manpower, 0, true];
       private _player_manpower = player getVariable manpower;
       player setVariable [manpower, (_manpower + _player_manpower)];

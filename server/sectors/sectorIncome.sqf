@@ -9,7 +9,9 @@ sector_manpower_generation = {
                         private _ammo_box = _sector getVariable box;
                         private _manpower = _ammo_box getVariable manpower;
 
-                        _ammo_box setVariable [manpower, (_manpower + manpower_per_minute + (_sector call get_additional_income_based_on_stationed_players)), true];
+                        private _generated = manpower_per_minute + (_sector call get_additional_income_based_on_stationed_players);
+
+                        _ammo_box setVariable [manpower, (_manpower + _generated), true];
                   };
 
             } forEach sectors;      

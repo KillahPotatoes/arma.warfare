@@ -11,11 +11,13 @@ add_sector_box = {
 initialize_sectors = {
 	private _sectors = [];
 	{
-		_split_string = [_x, 7] call split_string;
-		_first_string = _split_string select 0;
-		_second_string = _split_string select 1;
-				
-		if ( _first_string isEqualTo sector_prefix) then {
+		_type = getMarkerType _x;
+
+		if (_type isEqualTo "hd_objective") then {
+			_split_string = [_x, 7] call split_string;
+			_first_string = _split_string select 0;
+			_second_string = _split_string select 1;					
+			
 			_sector = createGroup sideLogic;
 			_sector setVariable [pos, getMarkerPos _x];
 			_sector setVariable [marker, _x];
@@ -25,7 +27,7 @@ initialize_sectors = {
 			[_sector] call draw_sector;
 			_sectors pushback _sector;	
 			
-			_ammo_box = [_sector] call add_sector_box;					
+			_ammo_box = [_sector] call add_sector_box;	
 		};
 	} count allMapMarkers;
 
@@ -105,7 +107,7 @@ find_closest_sector = {
 find_closest_friendly_sector = {
 	params ["_side", "_pos"];
 	
-	_sectors = [_side] call get_owned_sectors;	
+	private _sectors = [_side] call get_owned_sectors;	
 	[_sectors, _pos] call find_closest_sector;
 };
 
@@ -127,4 +129,10 @@ find_enemy_sectors = {
 	_sectors = _sectors + ([_enemy select 1] call get_owned_sectors);
 	
 	_sectors;
+};
+
+count_enemy_sectors = {
+	params ["_side"];
+
+	count ([_side] call find_enemy_sectors);
 };

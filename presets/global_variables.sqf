@@ -35,8 +35,10 @@ west_faction_name = "Nato";
 east_faction_name = "China";
 
 ammo_box = "B_CargoNet_01_ammo_F";
-mine = "APERSBoundingMine";
 
-tier_1_gunship_respawn_time = [600, 900, 1200];
-tier_2_gunship_respawn_time = [540, 840, 1140];
-tier_3_gunship_respawn_time = [480, 780, 1080];
+anti_vehicle_mines = ["SLAMDirectionalMine", "ATMine"];		
+anti_personel_mines = ["APERSBoundingMine", "APERSMine", "APERSTripMine"];
+
+tier_0_gunship_respawn_time = [600, 900, 1200];
+tier_1_gunship_respawn_time = [540, 840, 1140];
+tier_2_gunship_respawn_time = [480, 780, 1080];

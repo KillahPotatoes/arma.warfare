@@ -134,7 +134,7 @@ find_air_target = {
 		[_unsafe_sectors, _pos] call find_closest_sector;
 	}; 
 
-	[_side, _pos] call find_closest_friendly_sector;
+	[sectors, _pos] call find_closest_sector;
 };
 
 ground_group_ai = {
@@ -149,7 +149,7 @@ ground_group_ai = {
 	private _target = if((count _sectors) > 0) then { 
 			[_sectors, _pos] call find_closest_sector;
 		} else {
-			[_side, _pos] call find_closest_friendly_sector;		
+			[sectors, _pos] call find_closest_sector;		
 		};
 	
 	[_target, _group] spawn move_to_sector;

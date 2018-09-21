@@ -1,3 +1,6 @@
+#include "defines.hpp"
+#include "dialogs.hpp"
+
 respawnTemplates[] = {"MenuPosition"};
 aiKills = 1;
 respawnDelay = 10;
@@ -55,3 +58,4 @@ class Params
 		default = 300;
 	};
 };
+

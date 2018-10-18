@@ -3,6 +3,7 @@ sector_prefix = "sector_";
 pos = "pos";
 marker = "marker";
 artillery = "artillery";
+static = "static";
 sector_def = "def";
 respawn_pos = "respawn_pos";
 respawn_ground = "respawn_ground";

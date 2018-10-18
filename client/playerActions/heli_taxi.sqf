@@ -4,8 +4,6 @@ heli_will_wait_time = 300;
 
 heli_wait_period = heli_wait_period_on_despawn;
 
-landing_marker = "landing";
-
 heli_active = false;	
 heli_timer = time - heli_wait_period;
 heli_arrived_at_HQ = false;
@@ -63,7 +61,6 @@ request_heli_taxi = {
 		heli_active = true;
 		heli_arrived_at_HQ = false;
 		[_pos, _class_name, _penalty] spawn order_helicopter_taxi;	
-		[_pos, landing_marker, "hd_pickup"] call create_heli_marker;
 	};
 	waitUntil {
 		!visibleMap;
@@ -100,14 +97,6 @@ check_if_transport_helicopter_available = {
 		false;
 	};
 	true;
-};
-
-create_heli_marker = {
-	params ["_pos", "_name", "_type"];
-	createMarkerLocal [_name, _pos];
-	_name setMarkerColorLocal "ColorBlack";
-	_name setMarkerAlphaLocal 1;
-	_name setMarkerTypeLocal _type;
 };
 
 spawn_taxi_heli = {
@@ -199,7 +188,6 @@ check_status = {
 
 	heli_active = false;
 	heli_timer = time;
-	deleteMarkerLocal landing_marker;
 };
 
 on_heli_idle_wait = {
@@ -218,7 +206,6 @@ interrupt_heli_transport_misson = {
 		
 	[_group, "We can't wait any longer! Transport heli is heading back to HQ!"] spawn group_report_client;
 	_heli call empty_vehicle_cargo;
-	deleteMarkerLocal landing_marker;
 	heli_arrived_at_HQ = [_group, _heli] call take_off_and_despawn;
 };
 

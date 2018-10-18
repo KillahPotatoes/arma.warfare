@@ -1,12 +1,12 @@
 
-buy_options = [];
+curr_options = [];
 
 remove_all_options = {
 	{
 		player removeAction _x;
-	} forEach buy_options;
+	} forEach curr_options;
 
-	buy_options = [];
+	curr_options = [];
 };
 
 add_get_options = {	

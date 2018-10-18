@@ -28,7 +28,7 @@ list_vehicle_options = {
 		private _penalty = _x select 1;
 		private _name = _class_name call get_vehicle_display_name;
 		
-		buy_options pushBack (player addAction [format[" %1", _name], {
+		curr_options pushBack (player addAction [format[" %1", _name], {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;

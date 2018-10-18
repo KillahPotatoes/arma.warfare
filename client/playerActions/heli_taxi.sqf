@@ -22,39 +22,89 @@ show_send_heli_off_action = {
     ];
 };
 
+create_taxi_menu = {
+	params ["_title", "_type", "_priority"];
+
+	player addAction [_title, {
+		private _params = _this select 3;
+
+		private _type = _params select 0;
+		private _priority = _params select 1;
+		[] call remove_all_options;
+		[_type, _priority] call list_taxi_options;
+
+
+	}, [_type, _priority], _priority, false, false, "", true];	
+};
+
+show_taxi_options = {
+	params ["_type", "_priority"];
+
+	private _side = side player;
+	private _options = missionNamespace getVariable format["%1_%2_transport", _side, _type];
+
+	{
+		private _class_name = _x select 0;
+		private _penalty = _x select 1;
+		private _name = _class_name call get_vehicle_display_name;
+		
+		curr_options pushBack (player addAction [format[" %1", _name], {
+			private _params = _this select 3;
+			private _class_name = _params select 0;
+			private _penalty = _params select 1;
+
+			[] call remove_all_options;
+						
+			[_class_name, _penalty] call request_heli_taxi;
+			
+
+		}, [_class_name, _penalty], (_priority - 1), false, true]);
+	
+
+	} forEach _options;
+};
+
+request_heli_taxi = {
+	params ["_class_name", "_penalty"];
+
+	openMap true;
+	[_class_name, _penalty] onMapSingleClick {
+		onMapSingleClick {}; // To remove the code triggered on map click so you cannot click twice 				        
+		openMap false;
+
+		private _class_name = _this select 0;
+		private _penalty = _this select 1;
+
+		heli_active = true;
+		heli_arrived_at_HQ = false;
+		[_pos, _class_name, _penalty] spawn order_helicopter_taxi;	
+		[_pos, landing_marker, "hd_pickup"] call create_heli_marker;
+	};
+	waitUntil {
+		!visibleMap;
+	};
+	onMapSingleClick {}; // Remove the code in map click even if you didnt trigger onMapSingleClick
+};
+
 show_order_heli_taxi = {  
   	player addAction ["Request heli pick-up", {
 		
 		if(!([] call check_if_transport_helicopter_available)) exitWith {};
+		[helicopter, 50] call show_taxi_options;		
 		
-		openMap true;
-		onMapSingleClick {
-			onMapSingleClick {}; 				        
-			openMap false;
-
-			heli_active = true;
-			heli_arrived_at_HQ = false;
-			[_pos] spawn order_helicopter_taxi;	
-			[_pos, landing_marker, "hd_pickup"] call create_heli_marker;
-		};
-		waitUntil {
-			!visibleMap;
-		};
-		onMapSingleClick {};
-		
-    }, nil, 1.5, true, true, "",
+    }, nil, 50, false, false, "",
     '[player] call can_order_heli && [player] call is_leader'
     ];
 };
 
 check_if_transport_helicopter_available = {
-	private _time = time - heli_timer;
+	/*private _time = time - heli_timer;
 	if(_time < heli_wait_period) exitWith {
 		private _time_left = heli_wait_period - _time;
 		private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;	
 		[playerSide, format["Helicopter transport is not available yet! Try again in %1 minutes", _wait_minutes]] spawn HQ_report_client;
 		false;
-	};
+	};*/
 	true;
 };
 
@@ -67,11 +117,8 @@ create_heli_marker = {
 };
 
 spawn_taxi_heli = {
-	params ["_side"];
+	params ["_side", "_class_name", "_penalty"];
 
-	private _arr = selectRandom (_side call get_transport_heli_type);	
-	private _class_name = _arr select 0;	
-	private _penalty = _arr select 1;	
     private _veh = [_side, _class_name] call spawn_helicopter;
 
 	private _group = _veh select 2;
@@ -85,13 +132,12 @@ spawn_taxi_heli = {
 };
 
 order_helicopter_taxi = {
-	params ["_pos"];
+	params ["_pos", "_class_name", "_penalty"];
 
-	private _arr = [side player] call spawn_taxi_heli;
+	private _arr = [side player, _class_name, _penalty] call spawn_taxi_heli;
 	private _heli = _arr select 0;
 	private _group = _arr select 2;
 	private _name = (typeOf _heli) call get_vehicle_display_name;	
-
 	
 	_heli spawn check_status;
 	_heli setVariable ["taxi", true];

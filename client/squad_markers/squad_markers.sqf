@@ -16,9 +16,6 @@ close_to_any_owned_sectors = {
 create_unit_marker = {
 	params ["_group", "_alpha", "_marker_name", "_markers_pos"];
 
-	_markers_posx = floor (_markers_pos select 0);
-	_markers_posy = floor (_markers_pos select 1);
-
 	_markers_name = format["_marker_%1_%2_%3", _marker_name, _markers_pos select 0, _markers_pos select 1];
 	_markers_color = format["Color%1", side _group];
 	
@@ -30,6 +27,36 @@ create_unit_marker = {
 	_markers_name setMarkerColorLocal _markers_color;
 	
 	_markers_name;
+};
+
+create_named_unit_marker = {
+	params ["_group", "_alpha", "_marker_name", "_markers_pos"];
+
+	_markers_name = format["_named_marker_%1_%2_%3", _marker_name, _markers_pos select 0, _markers_pos select 1];
+	_markers_color = format["Color%1", side _group];
+	
+	createMarkerLocal[_markers_name, [(_markers_pos select 0) + 15, _markers_pos select 1, (_markers_pos select 2)  + 15]];
+	_markers_name setMarkerTypeLocal "mil_box";
+	_markers_name setMarkerSizeLocal [0,0];
+	_markers_name setMarkerColorLocal _markers_color;
+	_markers_name setMarkerTextLocal ([_group] call get_unit_marker_text);
+	
+	_markers_name;
+};
+
+get_unit_marker_text = {
+	params ["_group"];
+
+	private _veh = vehicle leader _group;
+	private _is_veh = (_veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank");
+
+	if (_is_veh) exitWith {
+		private _class_name = typeOf _veh;
+		private _veh_name = _class_name call get_vehicle_display_name;
+		format["%1 - %2", _group, _veh_name];
+	};
+
+	format["%1", _group];
 };
 
 show_friendly_markers = {
@@ -49,13 +76,13 @@ show_friendly_markers = {
 				_alpha = 1 min (_distance / 200);
 
 				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call create_unit_marker);					
+				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call create_named_unit_marker);					
 				
 			};
 		} forEach allGroups;
-		uiSleep (2);
+		uiSleep (1);
 	};	
 };
-
 
 show_enemy_markers = {
 	_markers_array = [];	

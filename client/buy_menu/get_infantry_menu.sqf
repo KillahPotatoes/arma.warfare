@@ -27,7 +27,7 @@ infantry_list_options = {
 		private _class_name = _x;
 		private _name = _class_name call get_vehicle_display_name;
 		
-		curr_options pushBack (player addAction [format[" %1", _name], {	
+		curr_options pushBack (player addAction [[_name, 2] call addActionText, {	
 			private _params = _this select 3;
 			private _class_name = _params select 0;				
 
@@ -45,13 +45,21 @@ infantry_list_options = {
 create_infantry_menu = {
 	params ["_title", "_priority"];
 
-	player addAction [_title, {
+	missionNameSpace setVariable [format["Menu_%1", _title], false];	
+
+	player addAction [[_title, 0] call addActionText, {
 		private _params = _this select 3;
 
 		private _priority = _params select 0;
-		[] call remove_all_options;
-		[_priority] call infantry_list_options;
+		private _title = _params select 1;
 
-	}, [_priority], _priority, false, false, "", 
+		[] call remove_all_options;
+
+		private _open = missionNameSpace getVariable format["Menu_%1", _title];	
+		missionNameSpace setVariable [format["Menu_%1", _title], !_open];	
+		if(!_open) then {			
+			[_priority] call infantry_list_options;
+		};
+	}, [_priority, _title], _priority, false, false, "", 
 	'([player] call is_player_close_to_hq || {[cursorTarget, player] call can_use_ammo_box}) && [player] call is_leader'];	
 };

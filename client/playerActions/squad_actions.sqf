@@ -11,7 +11,7 @@ empty_squad = {
 };
 
 join_squad = {  
-  player addAction ["Join squad", {    
+  player addAction [["Join squad", 0] call addActionText, {    
 		private _group = group cursorTarget;
 		private _player_group = group player;	
 		[player] join _group;
@@ -20,20 +20,20 @@ join_squad = {
 		_group setVariable [soldier_count, _new_count];		
 
 		deleteGroup _player_group;
-    }, cursorTarget, 1.5, true, true, "",
+    }, cursorTarget, 70, true, true, "",
     '[cursorTarget, player] call is_friendly_soldier && (player call empty_squad)'
     ];
 };
 
 
 leave_squad = {  
-  	player addAction ["Leave squad", {
+  	player addAction [["Leave squad", 0] call addActionText, {
 		private _current_group = group player;
 		[player] join grpNull;
 
 		private _new_count = { alive _x } count units _current_group;
 		_current_group setVariable [soldier_count, _new_count];	
-    }, nil, 1.5, true, true, "",
+    }, nil, 70, true, true, "",
     '!(player call empty_squad)'
     ];
 };

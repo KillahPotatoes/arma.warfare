@@ -11,30 +11,15 @@ heli_timer = time - heli_wait_period;
 heli_arrived_at_HQ = false;
 
 show_send_heli_off_action = {
-	player addAction ["Send off", {		
+	player addAction [["Send off", 0] call addActionText, {		
 		private _heli = cursorTarget;
 		private _group = group driver _heli;
 		[_group, "Heading back to HQ"] spawn group_report_client;		
 		heli_arrived_at_HQ = [_group, _heli] call take_off_and_despawn;
 		
-    }, nil, 1.5, true, true, "",
+    }, nil, 90, true, true, "",
     '[cursorTarget] call is_heli_taxi'
     ];
-};
-
-create_taxi_menu = {
-	params ["_title", "_type", "_priority"];
-
-	player addAction [_title, {
-		private _params = _this select 3;
-
-		private _type = _params select 0;
-		private _priority = _params select 1;
-		[] call remove_all_options;
-		[_type, _priority] call list_taxi_options;
-
-
-	}, [_type, _priority], _priority, false, false, "", true];	
 };
 
 show_taxi_options = {
@@ -48,7 +33,7 @@ show_taxi_options = {
 		private _penalty = _x select 1;
 		private _name = _class_name call get_vehicle_display_name;
 		
-		curr_options pushBack (player addAction [format[" %1", _name], {
+		curr_options pushBack (player addAction [[_name, 2] call addActionText, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
@@ -87,24 +72,33 @@ request_heli_taxi = {
 };
 
 show_order_heli_taxi = {  
-  	player addAction ["Request heli pick-up", {
+	missionNameSpace setVariable ["Request_heli_menu", false];	
+
+  	player addAction [["Request heli pick-up", 0] call addActionText, {
 		
-		if(!([] call check_if_transport_helicopter_available)) exitWith {};
-		[helicopter, 50] call show_taxi_options;		
+		private _open = missionNameSpace getVariable "Request_heli_menu";
+
+		[] call remove_all_options;
+		if(!_open && {[] call check_if_transport_helicopter_available}) then {	
+			missionNameSpace setVariable ["Request_heli_menu", true];	
+			[helicopter, 100] call show_taxi_options;	
+		} else {
+			missionNameSpace setVariable ["Request_heli_menu", false];	
+		};	
 		
-    }, nil, 50, false, false, "",
+    }, nil, 100, false, false, "",
     '[player] call can_order_heli && [player] call is_leader'
     ];
 };
 
 check_if_transport_helicopter_available = {
-	/*private _time = time - heli_timer;
+	private _time = time - heli_timer;
 	if(_time < heli_wait_period) exitWith {
 		private _time_left = heli_wait_period - _time;
 		private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;	
 		[playerSide, format["Helicopter transport is not available yet! Try again in %1 minutes", _wait_minutes]] spawn HQ_report_client;
 		false;
-	};*/
+	};
 	true;
 };
 

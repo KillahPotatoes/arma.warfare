@@ -28,7 +28,7 @@ list_vehicle_options = {
 		private _penalty = _x select 1;
 		private _name = _class_name call get_vehicle_display_name;
 		
-		curr_options pushBack (player addAction [format[" %1", _name], {
+		curr_options pushBack (player addAction [[_name, 2] call addActionText, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
@@ -51,15 +51,22 @@ list_vehicle_options = {
 create_menu = {
 	params ["_title", "_type", "_priority"];
 
-	player addAction [_title, {
+	missionNameSpace setVariable [format["Menu_%1", _title], false];	
+
+	player addAction [[_title, 0] call addActionText, {
 		private _params = _this select 3;
 
 		private _type = _params select 0;
 		private _priority = _params select 1;
+		private _title = _params select 2;
+
 		[] call remove_all_options;
-		[_type, _priority] call list_vehicle_options;
 
-
-	}, [_type, _priority], _priority, false, false, "", '[player] call is_player_close_to_hq'];	
+		private _open = missionNameSpace getVariable format["Menu_%1", _title];	
+		missionNameSpace setVariable [format["Menu_%1", _title], !_open];	
+		if(!_open) then {
+			[_type, _priority] call list_vehicle_options;
+		};
+	}, [_type, _priority, _title], _priority, false, false, "", '[player] call is_player_close_to_hq'];	
 };
 

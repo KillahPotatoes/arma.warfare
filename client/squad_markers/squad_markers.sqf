@@ -80,7 +80,7 @@ show_friendly_markers = {
 				
 			};
 		} forEach allGroups;
-		uiSleep (1);
+		uiSleep (0.1);
 	};	
 };
 

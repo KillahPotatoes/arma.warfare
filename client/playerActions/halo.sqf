@@ -1,6 +1,6 @@
 
 AddHeloAction = {
-  player addAction ["Halo Insertion", {
+  player addAction [["Halo Insertion", 0] call addActionText, {
     openMap true;
     onMapSingleClick {
       onMapSingleClick {};
@@ -20,7 +20,7 @@ AddHeloAction = {
       !visibleMap;
     };
     onMapSingleClick {};
-  }, nil, 1.5, true, true, "",
+  }, nil, 90, true, true, "",
   '[player] call is_player_close_to_hq && [player] call is_leader'
   ];
 };

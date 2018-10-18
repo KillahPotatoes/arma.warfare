@@ -1,7 +1,7 @@
 ShowArsenalAction = {  
-  player addAction ["Arsenal", {
+  player addAction [["Arsenal", 0] call addActionText, {
       ["Open",true] spawn BIS_fnc_arsenal;
-    }, nil, 1.5, true, true, "",
+    }, nil, 150, true, true, "",
     '[cursorTarget, player] call can_use_ammo_box'
     ];
 };

@@ -1,5 +1,5 @@
 remove_vehicle = {
-  	player addAction ["Return vehicle", {
+  	player addAction [["Return vehicle", 0] call addActionText, {
     	private _veh = cursorTarget;
 
 		if(0 == count crew _veh) exitWith {
@@ -8,7 +8,7 @@ remove_vehicle = {
 		};
 		
 		systemChat "Vehicle is not empty";
-  	}, nil, 1.5, true, true, "",
+  	}, nil, 70, true, true, "",
   	'[player] call is_player_in_hq && [cursorTarget, player] call is_close_to_vehicle'
   	];
 };

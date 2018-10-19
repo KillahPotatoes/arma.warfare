@@ -1,7 +1,7 @@
 is_friendly_soldier = {
 	params ["_cursorTarget", "_player"];
 
-	(side cursorTarget) isEqualTo (side _player) && _cursorTarget isKindOf "Man" && ((getPos _cursorTarget) distance (getPos _player) < 25);	
+	_cursorTarget isKindOf "Man" && {(side cursorTarget) isEqualTo (side _player)} && {((getPos _cursorTarget) distance (getPos _player) < 25)};	
 };
 
 empty_squad = {

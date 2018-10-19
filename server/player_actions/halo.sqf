@@ -1,12 +1,15 @@
+add_halo_action = {
+  params ["_box"];
 
-AddHeloAction = {
-  player addAction [["Halo Insertion", 0] call addActionText, {
+  _box addAction [["Halo Insertion", 0] call addActionText, {
+    params ["_target", "_caller"];
+
     openMap true;
     onMapSingleClick {
       onMapSingleClick {};
 
-      private _soldiers = (units group player) select {  
-        (_x distance player) < 100 
+      private _soldiers = (units group _caller) select {  
+        (_x distance _caller) < 100 
         && isTouchingGround _x
         && alive _x
         && lifeState _x != "incapacitated" 
@@ -21,7 +24,7 @@ AddHeloAction = {
     };
     onMapSingleClick {};
   }, nil, 90, true, true, "",
-  '[player] call is_player_close_to_hq && [player] call is_leader'
+  '[_this] call is_leader && [_this] call not_in_vehicle && [_target, _this] call owned_box'
   ];
 };
 

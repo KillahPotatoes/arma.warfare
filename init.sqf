@@ -8,7 +8,6 @@
 
 // Player actions
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\playerActions.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\playerActions\halo.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\squad_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\playerActions\heli_taxi.sqf";

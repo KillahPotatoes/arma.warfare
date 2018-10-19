@@ -4,7 +4,7 @@ add_arsenal_action = {
   _box addAction [["Arsenal", 0] call addActionText, {
       ["Open",true] spawn BIS_fnc_arsenal;
     }, nil, 150, true, false, "",
-    '[_target, _this] call owned_box', 10
+    '[_target, _this] call owned_box && [_this] call not_in_vehicle', 10
     ];
 };
 

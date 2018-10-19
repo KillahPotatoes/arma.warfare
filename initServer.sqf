@@ -22,6 +22,7 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\mine_fields.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "server\player_actions\show_arsenal.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\player_actions\halo.sqf";
 
 // Sectors
 [] call compileFinal preprocessFileLineNumbers "server\sectors\findUnitsNearby.sqf";

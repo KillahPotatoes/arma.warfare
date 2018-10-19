@@ -36,7 +36,7 @@ helo = {
   } forEach _squad;
 };
 
-get_vehicles_based_on_tier = {
+get_units_based_on_tier = {
 	params ["_side", "_type"];
 
 	private _options = [];

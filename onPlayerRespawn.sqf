@@ -1,6 +1,5 @@
 player enableFatigue false;
 
-[] call add_get_options;
 [] call join_squad;
 [] call leave_squad;
 [] call show_order_heli_taxi;
@@ -13,7 +12,7 @@ RemoveSquadMatesWhenPlayerDies = {
 	if(count units _group > 1) then {
 		private _new_group = createGroup [side _player, true];
 		[player] joinSilent _new_group;		
-	};	
+	};
 
 	[0.5, _group] spawn adjust_skill;
 };

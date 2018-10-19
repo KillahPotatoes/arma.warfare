@@ -10,6 +10,7 @@ add_sector_box = {
 	_ammo_box call add_arsenal_action;
 	_ammo_box call add_take_manpower_action;
 	_ammo_box call add_store_manpower_action;
+	[_ammo_box, "Get infantry", infantry, 130] call create_menu;
 };
 
 initialize_sectors = {

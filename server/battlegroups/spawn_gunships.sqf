@@ -26,7 +26,7 @@ spawn_gunships = {
 spawn_gunship_group = {
 	params ["_side"];
 
-	private _options = [_side, helicopter] call get_vehicles_based_on_tier;
+	private _options = [_side, helicopter] call get_units_based_on_tier;
 
 	if(!(_options isEqualTo [])) exitWith {
 		private _gunship = (selectRandom _options) select 0; 

@@ -24,7 +24,7 @@ add_halo_action = {
     };
     onMapSingleClick {};
   }, nil, 90, true, true, "",
-  '[_this] call is_leader && [_this] call not_in_vehicle && [_target, _this] call owned_box'
+  '[_this] call is_leader && [_this] call not_in_vehicle && [_target, _this] call owned_box', 10
   ];
 };
 

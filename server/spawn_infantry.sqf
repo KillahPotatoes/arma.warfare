@@ -1,13 +1,14 @@
 pick_soldiers = {
 	params ["_side", "_number"];
 
-	private _infantry_preset = missionNamespace getVariable format["%1_infantry", _side];
+	private _infantry_preset = [_side, infantry] call get_units_based_on_tier;
 	private _count = count _infantry_preset;
 
 	private _squad = [];
 	for "_x" from 0 to _number step 1 do {
-		private _index = [_count] call get_distribution; // CHECK
-		_squad pushBack (_infantry_preset select _index); 
+		private _index = [_count] call get_distribution;
+		private _class_name = (_infantry_preset select _index) select 0;
+		_squad pushBack (_class_name); 
 	};
 
 	_squad; 

@@ -1,3 +1,32 @@
+curr_options = [];
+
+remove_all_options = {
+	{
+		player removeAction _x;
+	} forEach curr_options;
+
+	curr_options = [];
+};
+
+create_soldier = {
+	params ["_group", "_class_name"];
+	_class_name createUnit[getPos player, _group, "", ([] call get_rank_skill)];
+};
+
+get_infantry = {
+	params ["_class_name"];
+	_group = group player;
+	_group_count = {alive _x} count units _group;
+	_numberOfSoldiers = squad_size - _group_count;
+
+	if (_numberOfSoldiers > 0) exitWith {
+		[_group, _class_name] call create_soldier;			
+		[_group] remoteExec ["add_battle_group", 2];
+	};
+
+	systemChat "You have the maximum allowed amount of people";		
+};
+
 get_vehicle = {
 	params ["_base_marker", "_class_name", "_penalty"];
 
@@ -15,11 +44,11 @@ get_vehicle = {
 	systemChat format["Something is obstructing the %1 respawn area", _type];
 };
 
-list_vehicle_options = {
+list_options = {
 	params ["_type", "_priority"];
 
 	private _side = side player;
-	private _options = [_side, _type] call get_vehicles_based_on_tier;
+	private _options = [_side, _type] call get_units_based_on_tier;
 
 	if(_type isEqualTo helicopter) then {
 		_options = _options + (missionNamespace getVariable format["%1_%2_transport", _side, helicopter]);
@@ -37,38 +66,39 @@ list_vehicle_options = {
 			private _type = _params select 2;
 
 			[] call remove_all_options;
-			
-			private _base_marker_name = [side player, _type] call get_prefixed_name;
-			private _base_marker = missionNamespace getVariable _base_marker_name;
 
-			[_base_marker, _class_name, _penalty] call get_vehicle;
-			
+			if(_type isEqualTo infantry) then {
+				[_class_name] call get_infantry;
+			} else {
+				private _base_marker_name = [side player, _type] call get_prefixed_name;
+				private _base_marker = missionNamespace getVariable _base_marker_name;
 
+				[_base_marker, _class_name, _penalty] call get_vehicle;
+			};
 		}, [_class_name, _penalty, _type], (_priority - 1), false, true, "", '[player] call is_player_close_to_hq']);
-	
-
 	} forEach _options;
 };
 
 create_menu = {
-	params ["_title", "_type", "_priority"];
+	params ["_box", "_title", "_type", "_priority"];
 
 	missionNameSpace setVariable [format["Menu_%1", _title], false];	
 
-	player addAction [[_title, 0] call addActionText, {
-		private _params = _this select 3;
+	_box addAction [[_title, 0] call addActionText, {
+		params ["_target", "_caller", "_actionId", "_arguments"];
 
-		private _type = _params select 0;
-		private _priority = _params select 1;
-		private _title = _params select 2;
+		private _type = _arguments select 0;
+		private _priority = _arguments select 1;
+		private _title = _arguments select 2;
 
 		[] call remove_all_options;
 
 		private _open = missionNameSpace getVariable format["Menu_%1", _title];	
 		missionNameSpace setVariable [format["Menu_%1", _title], !_open];	
+
 		if(!_open) then {
-			[_type, _priority] call list_vehicle_options;
+			[_type, _priority] call list_options;
 		};
-	}, [_type, _priority, _title], _priority, false, false, "", '[player] call is_player_close_to_hq'];	
+	}, [_type, _priority, _title], _priority, false, false, "", '[_target, _this] call owned_box', 10]	
 };
 

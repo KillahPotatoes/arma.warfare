@@ -1,42 +1,42 @@
 // Presets
 
-west_infantry = [
-	"B_soldier_F",
-	"B_soldier_AR_F",
-	"B_HeavyGunner_F",
-	"B_Soldier_GL_F",
-	"B_soldier_exp_F",
-	"B_medic_F",
-	"B_Sharpshooter_F",
-	"B_engineer_F",
-	"B_Soldier_AT_F",
-	"B_Soldier_AA_F"
+west_infantry_tier_0 = [
+	["B_soldier_F", 0],
+	["B_soldier_AR_F", 0],
+	["B_HeavyGunner_F", 0],
+	["B_Soldier_GL_F", 0],
+	["B_soldier_exp_F", 0],
+	["B_medic_F", 0],
+	["B_Sharpshooter_F", 0],
+	["B_engineer_F", 0],
+	["B_Soldier_AT_F", 0],
+	["B_Soldier_AA_F", 0]
 ];
 
-east_infantry = [
-	"O_soldier_F",
-	"O_soldier_AR_F",
-	"O_HeavyGunner_F",
-	"O_Soldier_GL_F",
-	"O_soldier_exp_F",
-	"O_medic_F",
-	"O_Sharpshooter_F",
-	"O_engineer_F",
-	"O_Soldier_AT_F",
-	"O_Soldier_AA_F"
+east_infantry_tier_0 = [
+	["O_soldier_F", 0],
+	["O_soldier_AR_F", 0],
+	["O_HeavyGunner_F", 0],
+	["O_Soldier_GL_F", 0],
+	["O_soldier_exp_F", 0],
+	["O_medic_F", 0],
+	["O_Sharpshooter_F", 0],
+	["O_engineer_F", 0],
+	["O_Soldier_AT_F", 0],
+	["O_Soldier_AA_F", 0]
 ];
 
-guer_infantry = [
-	"I_soldier_F",
-	"I_soldier_AR_F",
-	"I_HeavyGunner_F",
-	"I_Soldier_GL_F",
-	"I_soldier_exp_F",
-	"I_medic_F",
-	"I_Sharpshooter_F",
-	"I_engineer_F",
-	"I_Soldier_AT_F",
-	"I_Soldier_AA_F"
+guer_infantry_tier_0 = [
+	["I_soldier_F", 0],
+	["I_soldier_AR_F", 0],
+	["I_HeavyGunner_F", 0],
+	["I_Soldier_GL_F", 0],
+	["I_soldier_exp_F", 0],
+	["I_medic_F", 0],
+	["I_Sharpshooter_F", 0],
+	["I_engineer_F", 0],
+	["I_Soldier_AT_F", 0],
+	["I_Soldier_AA_F", 0]
 ];
 
 // ARTILLERY

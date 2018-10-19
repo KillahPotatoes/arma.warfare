@@ -6,6 +6,8 @@ add_sector_box = {
 	_sector setVariable [box, _ammo_box];
 	_ammo_box setVariable [owned_by, civilian, true];	
 	_ammo_box setVariable [manpower, 0, true];
+
+	_ammo_box call add_arsenal_action;
 };
 
 initialize_sectors = {

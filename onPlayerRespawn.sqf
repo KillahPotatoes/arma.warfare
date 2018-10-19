@@ -1,6 +1,5 @@
 player enableFatigue false;
 
-[] call ShowArsenalAction;
 [] call AddHeloAction;
 [] call add_get_options;
 [] call add_take_manpower_from_ammobox;

@@ -1,15 +1,3 @@
-addActionText = {
-  params ["_text", "_level"];
-
-  private _indentation = "";
-
-  for "_x" from 0 to _level step 1 do {
-		_indentation = format["%1%2",_indentation, " "];
-	};
-
-  format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
-};
-
 not_in_vehicle = {
 	params ["_player"];
 

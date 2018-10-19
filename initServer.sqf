@@ -17,10 +17,11 @@ seconds_since_start = {
 // Shared scripts
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 
-
 // Third party scripts
 [] spawn compileFinal preprocessFileLineNumbers "server\artillery_ai\FFE.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\mine_fields.sqf";
+
+[] call compileFinal preprocessFileLineNumbers "server\player_actions\show_arsenal.sqf";
 
 // Sectors
 [] call compileFinal preprocessFileLineNumbers "server\sectors\findUnitsNearby.sqf";

@@ -2,7 +2,8 @@ player enableFatigue false;
 
 [] call join_squad;
 [] call leave_squad;
-[] call show_order_heli_taxi;
+[helicopter] call show_order_taxi;
+[vehicle1] call show_order_taxi;
 
 RemoveSquadMatesWhenPlayerDies = {
 	params ["_player"];

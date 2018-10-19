@@ -9,14 +9,18 @@ heli_timer = time - heli_wait_period;
 heli_arrived_at_HQ = false;
 
 show_send_heli_off_action = {
-	player addAction [["Send off", 0] call addActionText, {		
-		private _heli = cursorTarget;
+	params ["_veh"];
+
+	_veh addAction [["Send off", 0] call addActionText, {	
+		params ["_target", "_caller"];
+
+		private _heli = _target;
 		private _group = group driver _heli;
 		[_group, "Heading back to HQ"] spawn group_report_client;		
 		heli_arrived_at_HQ = [_group, _heli] call take_off_and_despawn;
 		
     }, nil, 90, true, true, "",
-    '[cursorTarget] call is_heli_taxi'
+    '[_target] call is_heli_taxi', 10
     ];
 };
 
@@ -106,6 +110,8 @@ spawn_taxi_heli = {
 
 	private _group = _veh select 2;
 	private _heli = _veh select 0;
+
+	_heli call show_send_heli_off_action;
 
 	_heli setVariable ["penalty", [playerSide, _penalty], true];
 		

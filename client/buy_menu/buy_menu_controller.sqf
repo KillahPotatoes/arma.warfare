@@ -12,6 +12,5 @@ remove_all_options = {
 add_get_options = {	
 	["Get vehicle", vehicle1, 110] call create_menu;
 	["Get helicopter", helicopter, 120] call create_menu;
-	["Get infantry", 130] call create_infantry_menu;
-	[100] call create_manpower_menu;
+	["Get infantry", 130] call create_infantry_menu;	
 ;}

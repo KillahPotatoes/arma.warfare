@@ -9,6 +9,7 @@ spawn_base_ammobox = {
 	_ammo_box setVariable [owned_by, _side, true];
 	_ammo_box call add_arsenal_action;
 	_ammo_box call add_halo_action;
+	_ammo_box call add_manpower_action;
 };
 
 initialize_bases = {

@@ -1,8 +1,6 @@
 player enableFatigue false;
 
 [] call add_get_options;
-[] call add_take_manpower_from_ammobox;
-[] call add_store_manpower_action;
 [] call join_squad;
 [] call leave_squad;
 [] call show_order_heli_taxi;

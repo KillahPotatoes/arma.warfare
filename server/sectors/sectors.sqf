@@ -8,6 +8,8 @@ add_sector_box = {
 	_ammo_box setVariable [manpower, 0, true];
 
 	_ammo_box call add_arsenal_action;
+	_ammo_box call add_take_manpower_action;
+	_ammo_box call add_store_manpower_action;
 };
 
 initialize_sectors = {

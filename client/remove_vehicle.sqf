@@ -1,22 +1,23 @@
-remove_vehicle = {
-  	player addAction [["Return vehicle", 0] call addActionText, {
-    	private _veh = cursorTarget;
+remove_vehicle_action = {
+	params["_veh"];
 
-		if(0 == count crew _veh) exitWith {
-			deleteVehicle _veh;
+  	_veh addAction [["Return vehicle", 0] call addActionText, {
+    	params ["_target", "_caller"];
+
+		if(0 == count crew _target) exitWith {
+			deleteVehicle _target;
 			systemChat "Vehicle returned";
 		};
 		
 		systemChat "Vehicle is not empty";
-  	}, nil, 70, true, true, "",
-  	'[player] call is_player_in_hq && [cursorTarget, player] call is_close_to_vehicle'
+  	}, nil, 70, false, true, "",
+  	'[_this] call is_player_in_hq && [_target, _this] call is_same_side && [_this] call not_in_vehicle', 10
   	];
 };
 
-is_close_to_vehicle = {
-	params ["_cursorTarget", "_player"];
-
-	((_cursorTarget getVariable ["penalty", [0, 0]] select 1) > 0) && ((getPos _cursorTarget) distance (getPos _player) < 25);	
+is_same_side = {
+	params ["_vehicle","_player"];
+	(side _vehicle) isEqualTo civilian || (side _vehicle) isEqualTo (side _player);
 };
 
 is_player_in_hq = {

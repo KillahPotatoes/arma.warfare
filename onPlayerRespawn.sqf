@@ -9,7 +9,6 @@ player enableFatigue false;
 [] call leave_squad;
 [] call show_order_heli_taxi;
 [] call show_send_heli_off_action;
-[] call remove_vehicle;
 
 
 RemoveSquadMatesWhenPlayerDies = {

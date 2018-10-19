@@ -8,6 +8,8 @@ get_vehicle = {
 		private _veh = _class_name createVehicle _pos;
 		_veh setDir (getDir _base_marker);
 		_veh setVariable ["penalty", [playerSide, _penalty], true];
+
+		[_veh] call remove_vehicle_action;
 	}; 
 	
 	systemChat format["Something is obstructing the %1 respawn area", _type];

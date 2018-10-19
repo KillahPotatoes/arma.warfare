@@ -10,6 +10,12 @@ addActionText = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
+not_in_vehicle = {
+	params ["_player"];
+
+	_player isEqualTo (vehicle _player);
+};
+
 can_use_ammo_box = {
   params ["_trg", "_player"];
 

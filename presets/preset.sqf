@@ -47,6 +47,11 @@ east_static = ["O_Mortar_01_F"];
 
 // WEST VEHICLES
 
+west_vehicle_transport = [
+	["B_MRAP_01_F", 10], // Hunter
+	["B_LSV_01_unarmed_F", 10] // Prowler
+];
+
 west_vehicle_tier_2 = [
 	["B_APC_Tracked_01_AA_F", 30], // IFV-6a Cheetah
 	["B_APC_Wheeled_01_cannon_F", 30], // AMV-7 Marshall
@@ -70,6 +75,10 @@ west_vehicle_tier_0 = [
 
 // GUER VEHICLES
 
+guer_vehicle_transport = [
+	["I_MRAP_03_F", 10] // Strider
+];
+
 guer_vehicle_tier_2 = [
 	["I_MBT_03_cannon_F", 30], // MBT-52 Kuma 1
 	["I_APC_tracked_03_cannon_F", 30], // FV-720 Mora
@@ -86,6 +95,11 @@ guer_vehicle_tier_0 = [
 ];
 
 // EAST VEHICLES
+
+east_vehicle_transport = [
+	["O_MRAP_02_F", 10], // Ifrit
+	["O_LSV_02_unarmed_F", 10] // Qilin
+];
 
 east_vehicle_tier_2 = [
 	["O_MBT_02_cannon_F", 30], // T-100 Varsuk

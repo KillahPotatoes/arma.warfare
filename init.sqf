@@ -7,9 +7,9 @@
 [] call compileFinal preprocessFileLineNumbers "client\end_mission.sqf";
 
 // Player actions
-[] call compileFinal preprocessFileLineNumbers "client\playerActions\playerActions.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\playerActions\squad_actions.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\playerActions\heli_taxi.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\player_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\squad_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\vehicle_taxi.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\manpower_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";

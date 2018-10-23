@@ -12,24 +12,24 @@ show_send_to_HQ_action = {
 	params ["_veh"];
 
 	_veh addAction [["Send off", 0] call addActionText, {	
-		params ["_target", "_caller"];
+		params ["_target", "_caller", "_actionId"];
 
-		private _vehicle = _target;
-		private _group = group driver _vehicle;
+		private _veh = _target;
+		private _group = group driver _veh;
 		[_group, "Heading back to HQ"] spawn group_report_client;	
 
-		if(_vehicle isKindOf "Air") then {
-			taxi_arrived_at_HQ = [_group, _vehicle] call take_off_and_despawn;
+		if(_veh isKindOf "Air") then {
+			taxi_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
+		} else {
 
-		} else if(_veh isKindOf "Car" || _veh isKindOf "Tank") then {
-			
 		};
 
+		_veh removeAction _actionId;
+
     }, nil, 90, true, false, "",
-    '', 10
+    '[_this] call not_in_vehicle', 10
     ];
 };
-
 
 show_order_taxi = {
 	params ["_title", "_type", "_priority"];
@@ -123,19 +123,18 @@ order_taxi = {
 	if (canMove _taxi) exitWith {
 		[_group, "Transport has arrived. Waiting for squad to pick up!"] spawn group_report_client;
 		[taxi_will_wait_time, _taxi, _group] spawn on_taxi_idle_wait;
-		[_taxi] spawn toggle_control;
+		[_taxi, _type] spawn toggle_control;
 	};
 };
 
 spawn_taxi = {
 	params ["_side", "_class_name", "_penalty", "_type"];
 
-	if(_type isEqualTo helicopter) then {
-	    private _veh = [_side, _class_name] call spawn_helicopter;
+	private _veh = if(_type isEqualTo helicopter) then {
+	    [_side, _class_name] call spawn_helicopter;
 	} else {
-		if(_type isEqualTo vehicle1) then {
-	    	systemChat "Spawn vehicle taxi";
-		};
+		systemChat "Create a vehicle";
+		[_side, _class_name] call spawn_helicopter;
 	};
 
 	private _group = _veh select 2;
@@ -170,7 +169,7 @@ toggle_control = {
 	params ["_taxi", "_type"];
 
 	private _driver = driver _taxi;
-	private _group = group _pilot;
+	private _group = group _driver; 
 	private _driver_type = typeOf _driver;
 
 	while {canMove _taxi && alive _taxi} do {
@@ -184,8 +183,8 @@ toggle_control = {
 replace_player_with_driver = {
 	params ["_driver_type", "_group", "_taxi", "_type"];
 
-	private _pilot = _group createUnit [_driver_type, [0,0,0], [], 0, "NONE"];
-	_pilot moveInDriver _taxi;
+	private _driver = _group createUnit [_driver_type, [0,0,0], [], 0, "NONE"];
+	_driver moveInDriver _taxi;
 	_group deleteGroupWhenEmpty true;
 	_taxi lockDriver true;
 	_taxi engineOn true;

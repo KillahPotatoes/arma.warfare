@@ -1,6 +1,5 @@
 not_in_vehicle = {
 	params ["_player"];
-
 	_player isEqualTo (vehicle _player);
 };
 

@@ -40,10 +40,7 @@ land_helicopter = {
 
 	sleep 3;
 
-	while { ( (alive _heli_vehicle) && !(unitReady _heli_vehicle) ) } do
-	{
-		sleep 1;
-	};
+	waitUntil { !(alive _heli_vehicle) || (unitReady _heli_vehicle) };
 
 	if (alive _heli_vehicle) then
 	{	
@@ -53,10 +50,7 @@ land_helicopter = {
 
   	sleep 3;
 
-	while { ( (alive _heli_vehicle) && !(isTouchingGround _heli_vehicle) ) } do
-	{
-		sleep 1;
-	};		
+	waitUntil { !(alive _heli_vehicle) || (isTouchingGround _heli_vehicle) };
 };
 
 toggle_damage_while_landing = {
@@ -90,8 +84,8 @@ take_off_and_despawn = {
 };
 
 remove_soldiers = {
-	params ["_heli_vehicle"];
+	params ["_veh"];
 	{
 		deleteVehicle _x 
-	} forEach (crew _heli_vehicle); 
+	} forEach (crew _veh); 
 };

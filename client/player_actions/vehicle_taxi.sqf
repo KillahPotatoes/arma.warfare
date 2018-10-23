@@ -21,7 +21,7 @@ show_send_to_HQ_action = {
 		if(_veh isKindOf "Air") then {
 			taxi_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
 		} else {
-
+			taxi_arrived_at_HQ = [_group, _veh] call send_to_HQ;
 		};
 
 		_veh removeAction _actionId;
@@ -29,6 +29,26 @@ show_send_to_HQ_action = {
     }, nil, 90, true, false, "",
     '[_this] call not_in_vehicle', 10
     ];
+};
+
+send_to_HQ = {
+	params ["_group", "_veh"];
+	
+	private _side = side _group;
+	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
+
+	_group addWaypoint [_pos, 100];
+	
+	waitUntil { !(alive _veh) || ((_pos distance2D (getPos _veh)) < 100) };
+	
+	if (alive _veh) exitWith
+	{
+		[_veh] call remove_soldiers; 
+		deleteVehicle _veh;
+		true;
+	};
+
+	false;
 };
 
 show_order_taxi = {
@@ -114,17 +134,23 @@ order_taxi = {
 
 	if(_type isEqualTo helicopter) then {
 		[_group, _taxi, "GET IN", _pos] call land_helicopter; 
-	} else {
-		if(_type isEqualTo vehicle1) then {
-	    	systemChat "Order vehicle taxi"; // TODO
-		};
+	} else {		
+		[_group, _taxi, _pos] call send_vehicle_taxi;			
 	};	
 
 	if (canMove _taxi) exitWith {
 		[_group, "Transport has arrived. Waiting for squad to pick up!"] spawn group_report_client;
-		[taxi_will_wait_time, _taxi, _group] spawn on_taxi_idle_wait;
+		[taxi_will_wait_time, _taxi, _group, _type] spawn on_taxi_idle_wait;
 		[_taxi, _type] spawn toggle_control;
 	};
+};
+
+send_vehicle_taxi = {
+	params ["_veh_group", "_veh_vehicle", "_pos"];
+
+	_veh_group move _pos;
+	sleep 3;
+	waitUntil { !(alive _veh_vehicle) || (unitReady _veh_vehicle) };
 };
 
 spawn_taxi = {
@@ -133,8 +159,7 @@ spawn_taxi = {
 	private _veh = if(_type isEqualTo helicopter) then {
 	    [_side, _class_name] call spawn_helicopter;
 	} else {
-		systemChat "Create a vehicle";
-		[_side, _class_name] call spawn_helicopter;
+		[_side, _class_name] call spawn_vehicle;
 	};
 
 	private _group = _veh select 2;
@@ -147,6 +172,38 @@ spawn_taxi = {
 	_group setBehaviour "CARELESS";
 	_group deleteGroupWhenEmpty true;
 	_veh;
+};
+
+spawn_helicopter = {
+	params ["_side", "_helicopter"];
+
+	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
+	private _base_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
+	private _dir = _pos getDir _base_pos;
+	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
+
+	waitUntil { [_pos] call is_air_space_clear; };
+
+    private _heli = [_pos, _dir, _helicopter, _side] call BIS_fnc_spawnVehicle;
+
+	(_heli select 0) lockDriver true;
+	_heli;
+};
+
+spawn_vehicle = {
+	params ["_side", "_penalty"];
+
+	private _base_marker_name = [_side, _type] call get_prefixed_name;
+	private _base_marker = missionNamespace getVariable _base_marker_name;
+
+	private _pos = getPos _base_marker;
+
+	waitUntil { [_pos] call check_if_any_units_to_close; };
+
+	private _veh = [_pos, getDir _base_marker, _class_name, _side] call BIS_fnc_spawnVehicle;
+
+	(_veh select 0) lockDriver true;
+	_veh;	
 };
 
 check_if_transport_available = {

@@ -13,9 +13,11 @@ show_send_to_HQ_action = {
 
 	_veh addAction [["Send off", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId"];
-
 		private _veh = _target;
 		private _group = group driver _veh;
+
+		_veh removeAction _actionId;
+
 		[_group, "Heading back to HQ"] spawn group_report_client;	
 
 		if(_veh isKindOf "Air") then {
@@ -23,9 +25,6 @@ show_send_to_HQ_action = {
 		} else {
 			taxi_arrived_at_HQ = [_group, _veh] call send_to_HQ;
 		};
-
-		_veh removeAction _actionId;
-
     }, nil, 90, true, false, "",
     '[_this] call not_in_vehicle', 10
     ];

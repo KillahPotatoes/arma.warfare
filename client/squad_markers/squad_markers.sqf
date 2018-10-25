@@ -65,11 +65,14 @@ show_friendly_markers = {
 	_marker_name = "friendly";
 		
 	while {true} do {
-		{deleteMarkerLocal _x;} count _markers_array;
+		{
+			deleteMarkerLocal _x;
+		} count _markers_array;
+		
 		_markers_array = [];
 
 		{
-			if ((side _x) isEqualTo playerSide || show_all) then {
+			if (show_all || ((side _x) isEqualTo playerSide && !(_x getVariable [defense, false]) && ((leader _x) distance2D [0,0]) > 100)) then {
 				_markers_pos = getPosWorld (leader _x);
 
 				_distance = [_markers_pos, _sector_boxes] call close_to_any_owned_sectors;				

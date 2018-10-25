@@ -12,6 +12,7 @@ sector_name = "name";
 box = "box";
 manpower = "manpower";
 soldier_count = "s_count";
+defense = "defense";
 
 vehicle1 = "vehicle";
 helicopter = "helicopter";

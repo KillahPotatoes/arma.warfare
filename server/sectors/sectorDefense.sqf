@@ -8,6 +8,7 @@ spawn_defensive_squad = {
 	[_group, _pos] call place_defensive_soldiers;
 
     _group setBehaviour "SAFE";
+	_group setVariable [defense, true];
 
 	_group;
 };
@@ -57,6 +58,7 @@ spawn_static = {
 		private _group = _static select 2;
 		_group deleteGroupWhenEmpty true;
 		_group enableDynamicSimulation false; 
+		_group setVariable [defense, true];
 
 		private _name = _static select 0;
 		_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];

@@ -60,28 +60,26 @@ check_if_sector_is_attacked = {
 };
 	
 initialize_sector_control = {
+	params ["_sector"];
+
 	while {true} do {	
 		//_t6 = diag_tickTime;
-		{
-			private _sector = _x;
-			private _pos = _sector getVariable pos;
+		private _pos = _sector getVariable pos;
 
-			private _east_inner_pres = [_pos , EAST] call any_units_in_sector_center;
-			private _west_inner_pres = [_pos, WEST] call any_units_in_sector_center;
-			private _guer_inner_pres = [_pos, RESISTANCE] call any_units_in_sector_center;
+		private _east_inner_pres = [_pos , EAST] call any_units_in_sector_center;
+		private _west_inner_pres = [_pos, WEST] call any_units_in_sector_center;
+		private _guer_inner_pres = [_pos, RESISTANCE] call any_units_in_sector_center;
 
-			if (_east_inner_pres || _west_inner_pres || _guer_inner_pres) then {
+		if (_east_inner_pres || _west_inner_pres || _guer_inner_pres) then {
 
-				private _east_pres = [_pos , EAST] call any_units_in_sector;
-				private _west_pres = [_pos, WEST] call any_units_in_sector;
-				private _guer_pres = [_pos, RESISTANCE] call any_units_in_sector;
+			private _east_pres = [_pos , EAST] call any_units_in_sector;
+			private _west_pres = [_pos, WEST] call any_units_in_sector;
+			private _guer_pres = [_pos, RESISTANCE] call any_units_in_sector;
 
-				[west, _sector, _west_inner_pres, _guer_inner_pres || _east_inner_pres, _east_pres || _guer_pres] call check_if_sector_is_attacked;
-				[east, _sector, _east_inner_pres, _guer_inner_pres || _west_inner_pres, _west_pres || _guer_pres] call check_if_sector_is_attacked;
-				[independent, _sector, _guer_inner_pres, _west_inner_pres || _east_inner_pres, _east_pres || _west_pres] call check_if_sector_is_attacked;			
-			};
-
-		} forEach sectors;
+			[west, _sector, _west_inner_pres, _guer_inner_pres || _east_inner_pres, _east_pres || _guer_pres] call check_if_sector_is_attacked;
+			[east, _sector, _east_inner_pres, _guer_inner_pres || _west_inner_pres, _west_pres || _guer_pres] call check_if_sector_is_attacked;
+			[independent, _sector, _guer_inner_pres, _west_inner_pres || _east_inner_pres, _east_pres || _west_pres] call check_if_sector_is_attacked;			
+		};
 
 		//[_t6, "initialize_sector_control"] spawn report_time;	
 

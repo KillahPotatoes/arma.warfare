@@ -33,6 +33,10 @@ initialize_sectors = {
 			_sectors pushback _sector;	
 			
 			_ammo_box = [_sector] call add_sector_box;	
+
+			[_sector] spawn initialize_sector_control;
+
+			true;
 		};
 	} count allMapMarkers;
 
@@ -41,6 +45,7 @@ initialize_sectors = {
 	missionNamespace setVariable ["east_sectors", []];
 	missionNamespace setVariable ["guer_sectors", []];
 };
+
 
 get_safe_sectors = {
 	params ["_side", "_distance"];

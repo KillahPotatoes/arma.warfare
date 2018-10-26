@@ -1,12 +1,27 @@
 decrement_counter = {
-	params ["_counter"];
+	params ["_counter", "_sector", "_side"];
 
-	if(_counter > 0) exitWith {
-		systemChat format["%1", capture_time - (_counter-1)];
-		_counter - 1;
+	if(_counter > 0) exitWith {		
+		[_counter - 1, _sector, _side] spawn update_progress_bar;
+		_counter - 1;		
 	};
-
 	_counter;
+};
+
+increment_counter = {
+	params ["_counter", "_sector", "_side"];
+
+	if(_counter < 30) exitWith {		
+		[_counter + 1, _sector, _side] spawn update_progress_bar;
+		_counter + 1;
+	};
+	_counter;
+};
+
+reset_counter = {
+	params ["_sector"];
+	[0, _sector, civilian] spawn update_progress_bar;
+	0;
 };
 
 capture_sector = {
@@ -66,48 +81,41 @@ initialize_sector_control = {
 		if (_owner isEqualTo civilian) then {
 			private _units = [_sector] call get_all_units_in_sector;
 
-			if(count _units == 0) exitWith { _counter = [_counter] call decrement_counter; }; // if no units, no change
+			if(count _units == 0) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if no units, no change
 
 			private _factions = [_units] call get_all_factions_in_list;
-			if(count _factions > 1) exitWith { _counter = [_counter] call decrement_counter; }; // if more than one faction present, no change
+			if(count _factions > 1) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if more than one faction present, no change
 
 			private _faction = _factions select 0;
-			if(!([_faction, _pos] call any_friendlies_in_sector_center)) exitWith { _counter = [_counter] call decrement_counter; }; // no units in sector center, no change
+			if(!([_faction, _pos] call any_friendlies_in_sector_center)) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // no units in sector center, no change
 
 			if(_current_faction isEqualTo _faction) then {
 
-				if(_counter >= capture_time) exitWith {
-					_counter = 0;
+				if(_counter == capture_time) then {					
 					[_sector, _current_faction] call capture_sector;
-				};
-
-				_counter = _counter + 1;				
-				
-				systemChat format["%1 will captured this sector in %2", _current_faction, capture_time - _counter];
+				} else {
+					_counter = [_counter, _sector, _current_faction] call increment_counter; 
+				}
 
 			} else {
-				_counter = 0;
+				_counter = [_sector] call reset_counter;
 				_current_faction = _faction;
 			};
 		} else {
 			if(!([_owner, _pos] call any_enemies_in_sector_center)) exitWith { 
-				systemchat "No enemies in center";
 				if(!([_owner, _pos] call any_enemies_in_sector)) exitWith {
-					systemchat "No enemies in sector";
-
-					_counter = [_counter] call decrement_counter; 
+					_counter = [_counter, _sector, _owner] call increment_counter; 
 				};
 			};
-
-			_counter = _counter + 1;
-			systemChat format["%1 will lose this sector in %2", _owner, capture_time - _counter];
-
-			if(_counter >= capture_time) exitWith {
-					_counter = 0;
-					[_sector, _current_faction] call lose_sector;
+	
+			if(_counter == 0) then {
+				[_sector, _current_faction] call lose_sector;
+			} else {
+				_counter = [_counter, _sector, _owner] call decrement_counter; 
 			};
 
 		};
+
 		sleep 1;
 	};
 };

@@ -55,7 +55,7 @@ get_safe_sectors = {
 	{	
 		private _pos = _x getVariable pos;
 
-		if(!([_pos, _side, _distance] call any_enemies_nearby)) then {
+		if(!([_pos, _side, _distance] call any_enemies_in_area)) then {
 			_safe_sectors pushBack _x;
 		};
 	} forEach (_side call get_owned_sectors);

@@ -14,6 +14,11 @@ spawn_helicopter = {
 	_heli;
 };
 
+is_air_space_clear = {
+	params ["_pos"];
+	(count (_pos nearEntities [ ["Air"], 100]) == 0); 
+};
+
 get_transport_heli_type = {
 	params ["_side"];
 	missionNamespace getVariable format["%1_helicopter_transport", _side];

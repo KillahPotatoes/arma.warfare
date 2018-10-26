@@ -27,7 +27,8 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\player_actions\get_units_menu.sqf";
 
 // Sectors
-[] call compileFinal preprocessFileLineNumbers "server\sectors\findUnitsNearby.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\find_units_in_area.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\find_units_in_sector.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectors.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectorIncome.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\drawSector.sqf";

@@ -1,4 +1,13 @@
+decrement_counter = {
+	params ["_counter"];
 
+	if(_counter > 0) exitWith {
+		systemChat format["%1", capture_time - (_counter-1)];
+		_counter - 1;
+	};
+
+	_counter;
+};
 
 capture_sector = {
 	params ["_sector", "_side"];
@@ -44,46 +53,61 @@ change_sector_ownership = {
 	[_new_owner, _sector] call reset_sector_manpower;
 };
 
-check_if_sector_is_attacked = {
-	params ["_side", "_sector", "_friendly_units_center", "_enemy_units_center", "_enemy_units_nearby"];
-	
-	private _sector_owner = _sector getVariable owned_by;
-
-	if(_side isEqualTo _sector_owner && _enemy_units_center) exitWith {
-		[_sector, _side] call lose_sector;
-	};
-
-	if(!(_side isEqualTo _sector_owner) && !_enemy_units_nearby && _friendly_units_center) exitWith {
-		[_sector, _side] call capture_sector;
-	};
-	
-};
-	
 initialize_sector_control = {
 	params ["_sector"];
+	
+	private _pos = _sector getVariable pos;
+	private _counter = 0;
+	private _current_faction = _sector getVariable owned_by;
 
 	while {true} do {	
-		//_t6 = diag_tickTime;
-		private _pos = _sector getVariable pos;
+		private _owner = _sector getVariable owned_by;
 
-		private _east_inner_pres = [_pos , EAST] call any_units_in_sector_center;
-		private _west_inner_pres = [_pos, WEST] call any_units_in_sector_center;
-		private _guer_inner_pres = [_pos, RESISTANCE] call any_units_in_sector_center;
+		if (_owner isEqualTo civilian) then {
+			private _units = [_sector] call get_all_units_in_sector;
 
-		if (_east_inner_pres || _west_inner_pres || _guer_inner_pres) then {
+			if(count _units == 0) exitWith { _counter = [_counter] call decrement_counter; }; // if no units, no change
 
-			private _east_pres = [_pos , EAST] call any_units_in_sector;
-			private _west_pres = [_pos, WEST] call any_units_in_sector;
-			private _guer_pres = [_pos, RESISTANCE] call any_units_in_sector;
+			private _factions = [_units] call get_all_factions_in_list;
+			if(count _factions > 1) exitWith { _counter = [_counter] call decrement_counter; }; // if more than one faction present, no change
 
-			[west, _sector, _west_inner_pres, _guer_inner_pres || _east_inner_pres, _east_pres || _guer_pres] call check_if_sector_is_attacked;
-			[east, _sector, _east_inner_pres, _guer_inner_pres || _west_inner_pres, _west_pres || _guer_pres] call check_if_sector_is_attacked;
-			[independent, _sector, _guer_inner_pres, _west_inner_pres || _east_inner_pres, _east_pres || _west_pres] call check_if_sector_is_attacked;			
+			private _faction = _factions select 0;
+			if(!([_faction, _pos] call any_friendlies_in_sector_center)) exitWith { _counter = [_counter] call decrement_counter; }; // no units in sector center, no change
+
+			if(_current_faction isEqualTo _faction) then {
+
+				if(_counter >= capture_time) exitWith {
+					_counter = 0;
+					[_sector, _current_faction] call capture_sector;
+				};
+
+				_counter = _counter + 1;				
+				
+				systemChat format["%1 will captured this sector in %2", _current_faction, capture_time - _counter];
+
+			} else {
+				_counter = 0;
+				_current_faction = _faction;
+			};
+		} else {
+			if(!([_owner, _pos] call any_enemies_in_sector_center)) exitWith { 
+				systemchat "No enemies in center";
+				if(!([_owner, _pos] call any_enemies_in_sector)) exitWith {
+					systemchat "No enemies in sector";
+
+					_counter = [_counter] call decrement_counter; 
+				};
+			};
+
+			_counter = _counter + 1;
+			systemChat format["%1 will lose this sector in %2", _owner, capture_time - _counter];
+
+			if(_counter >= capture_time) exitWith {
+					_counter = 0;
+					[_sector, _current_faction] call lose_sector;
+			};
+
 		};
-
-		//[_t6, "initialize_sector_control"] spawn report_time;	
-
-		sleep 5;
+		sleep 1;
 	};
 };
-

@@ -87,27 +87,3 @@ show_friendly_markers = {
 	};	
 };
 
-show_enemy_markers = {
-	_markers_array = [];	
-	_sector_boxes = allMissionObjects ammo_box;
-	_enemies = factions - [playerSide];
-	_marker_name = "enemy";
-	
-	while {true} do {
-		{deleteMarkerLocal _x;} count _markers_array;
-		_markers_array = [];
-
-		{
-			if ((side _x) in _enemies) then {
-				_markers_pos = getPosWorld (leader _x);
-				_distance = [_markers_pos, _sector_boxes] call close_to_any_owned_sectors;
-
-				if(_distance < 300) then {				
-					_alpha = (300 - _distance) / 300;		
-					_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call create_unit_marker);			
-				};
-			};
-		} forEach allGroups;
-		uiSleep (2);
-	};	
-};

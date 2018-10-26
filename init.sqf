@@ -22,7 +22,6 @@ player setVariable ["kills", 0];
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
 
-[] spawn show_enemy_markers;
 [] spawn show_friendly_markers;
 [] spawn show_manpower_markers;
 [] spawn show_ui;

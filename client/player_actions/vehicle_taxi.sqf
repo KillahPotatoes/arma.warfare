@@ -61,7 +61,7 @@ show_order_taxi = {
 		private _priority = _arguments select 1;
 		private _open = missionNameSpace getVariable [format["taxi_%1_menu", _type], false];
 
-		[] call remove_all_options;
+		[player] call remove_all_options;
 		if(!_open && {[_type] call check_if_transport_available}) then {	
 			missionNameSpace setVariable [format["taxi_%1_menu", _type], true];
 			[_type, _priority] call show_taxi_options;
@@ -90,7 +90,7 @@ show_taxi_options = {
 			private _penalty = _params select 1;
 			private _type = _params select 2;
 
-			[] call remove_all_options;
+			[player] call remove_all_options;
 			[_class_name, _penalty, _type] call request_taxi;
 		}, [_class_name, _penalty, _type], (_priority - 1), false, true]);
 	} forEach _options;

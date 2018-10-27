@@ -5,23 +5,20 @@ decrement_counter = {
 		[_counter - 1, _sector, _side] spawn update_progress_bar;
 		_counter - 1;		
 	};
+	
+	[0, _sector, civilian] spawn update_progress_bar;
+	
 	_counter;
 };
 
 increment_counter = {
 	params ["_counter", "_sector", "_side"];
 
-	if(_counter < 30) exitWith {		
+	if(_counter < capture_time) exitWith {		
 		[_counter + 1, _sector, _side] spawn update_progress_bar;
 		_counter + 1;
 	};
 	_counter;
-};
-
-reset_counter = {
-	params ["_sector"];
-	[0, _sector, civilian] spawn update_progress_bar;
-	0;
 };
 
 capture_sector = {
@@ -61,7 +58,7 @@ change_sector_ownership = {
 
 	if(!(_new_owner isEqualTo civilian)) then {
 		[_sector] call add_respawn_position;
-		[_sector] call spawn_sector_defense;
+		//[_sector] call spawn_sector_defense; TODO remove this when own thread spawn defense
 		[_new_owner, _sector] call add_sector;
 	};
 
@@ -98,8 +95,11 @@ initialize_sector_control = {
 				}
 
 			} else {
-				_counter = [_sector] call reset_counter;
-				_current_faction = _faction;
+				if(_counter == 0) then {
+					_current_faction = _faction;
+				} else {
+					 _counter = [_counter, _sector, _current_faction] call decrement_counter;
+				};
 			};
 		} else {
 			if(!([_owner, _pos] call any_enemies_in_sector_center)) exitWith { 

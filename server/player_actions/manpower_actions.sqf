@@ -2,7 +2,7 @@ add_take_manpower_from_player_action = {
   player addAction ["Take manpower", {
       ["Open",true] spawn BIS_fnc_arsenal;
     }, nil, 80, true, true, "",
-    '[cursorTarget, player] call can_use_ammo_box'
+    ''
     ];
 }; // TODO
 
@@ -38,10 +38,22 @@ add_take_manpower_action = {
     ];
 };
 
+// add_take_intel_action = {
+//   params ["_box"];
+
+//   _box addAction [["Take intel", 0] call addActionText, {
+//       params ["_target", "_caller"];
+
+      
+//   }, nil, 80, true, false, "",
+//   '[_this] call is_enemy_box',10
+//   ];
+// }
+
 add_store_manpower_action = {
   params ["_box"];
 
-  player addAction [["Store manpower", 0] call addActionText, {
+  _box addAction [["Store manpower", 0] call addActionText, {
       params ["_target", "_caller"];
 
       private _player_manpower = _caller getVariable manpower;

@@ -1,8 +1,10 @@
 curr_options = [];
 
 remove_all_options = {
+	params ["_box"];
+	
 	{
-		player removeAction _x;
+		_box removeAction _x;
 	} forEach curr_options;
 
 	curr_options = [];
@@ -45,7 +47,7 @@ get_vehicle = {
 };
 
 list_options = {
-	params ["_type", "_priority"];
+	params ["_type", "_priority", "_box"];
 
 	private _side = side player;
 	private _options = [_side, _type] call get_units_based_on_tier;
@@ -59,13 +61,14 @@ list_options = {
 		private _penalty = _x select 1;
 		private _name = _class_name call get_vehicle_display_name;
 		
-		curr_options pushBack (player addAction [[_name, 2] call addActionText, {
+		curr_options pushBack (_box addAction [[_name, 2] call addActionText, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
 			private _type = _params select 2;
+			private _box = _params select 3;
 
-			[] call remove_all_options;
+			[_box] call remove_all_options;
 
 			if(_type isEqualTo infantry) then {
 				[_class_name] call get_infantry;
@@ -75,7 +78,7 @@ list_options = {
 
 				[_base_marker, _class_name, _penalty] call get_vehicle;
 			};
-		}, [_class_name, _penalty, _type], (_priority - 1), false, true, "", '[player] call is_player_close_to_hq']);
+		}, [_class_name, _penalty, _type, _box], (_priority - 1), false, true, "", '', 10]);
 	} forEach _options;
 };
 
@@ -90,15 +93,16 @@ create_menu = {
 		private _type = _arguments select 0;
 		private _priority = _arguments select 1;
 		private _title = _arguments select 2;
+		private _box = _arguments select 3;
 
-		[] call remove_all_options;
+		[_box] call remove_all_options;
 
 		private _open = missionNameSpace getVariable format["Menu_%1", _title];	
 		missionNameSpace setVariable [format["Menu_%1", _title], !_open];	
 
 		if(!_open) then {
-			[_type, _priority] call list_options;
+			[_type, _priority, _box] call list_options;
 		};
-	}, [_type, _priority, _title], _priority, false, false, "", '[_target, _this] call owned_box', 10]	
+	}, [_type, _priority, _title, _box], _priority, false, false, "", '[_target, _this] call owned_box', 10]	
 };
 

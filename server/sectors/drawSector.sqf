@@ -28,9 +28,11 @@ update_progress_bar = {
     params ["_counter", "_sector", "_side"];
         
     _color = "ColorGrey";
+    _opacity = 0;
     
     if (!(_side isEqualTo civilian)) then {
         _color = [_side, true] call BIS_fnc_sideColor;
+        _opacity = 0.8;        
     };
 
     _marker = _sector getVariable marker; 
@@ -43,7 +45,7 @@ update_progress_bar = {
     _marker_outline = format["%1-progress", toString toArray _marker]; 
     createMarker [_marker_outline, _markerPos]; 
     _marker_outline setMarkerColor _color; 
-    _marker_outline setMarkerAlpha 0.8;
+    _marker_outline setMarkerAlpha _opacity;
     _marker_outline setMarkerShape "RECTANGLE"; 
     _marker_outline setMarkerBrush "SolidBorder"; 
     _marker_outline setMarkerSize [_progress,20]; 

@@ -57,8 +57,7 @@ change_sector_ownership = {
 	};
 
 	if(!(_new_owner isEqualTo civilian)) then {
-		[_sector] call add_respawn_position;
-		//[_sector] call spawn_sector_defense; TODO remove this when own thread spawn defense
+		[_sector] call add_respawn_position;		
 		[_new_owner, _sector] call add_sector;
 	};
 

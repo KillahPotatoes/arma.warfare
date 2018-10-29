@@ -57,13 +57,11 @@ populate_house = {
 	_positions = _positions call BIS_fnc_arrayShuffle;
 
 	{
-		_x setPosATL (_allpositions select (_positions select _forEachIndex));
-		_x unassignItem "NVGoggles"; 
-		_x removeItem "NVGoggles";
-		_x addPrimaryWeaponItem "acc_flashlight";
-		_x enableGunLights "forceon";
+		_x setPosATL (_allpositions select (_positions select _forEachIndex));		
 		random_enemies pushBack _x;
 	} forEach units _group;
+
+	[_group] call remove_nvg_and_add_flash_light;
 
 	[_group, _building] spawn remove_when_no_player_closeby;
 };

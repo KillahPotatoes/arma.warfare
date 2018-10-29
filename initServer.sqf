@@ -6,13 +6,15 @@ seconds_since_start = {
 
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\hideRespawnMarkers.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\randomStartPositions.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\hide_respawn_markers.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_start_positions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\clean_up.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\find_units_in_area.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\find_units_in_sector.sqf";
 
 // Shared scripts
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
@@ -27,28 +29,28 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\player_actions\get_units_menu.sqf";
 
 // Sectors
-[] call compileFinal preprocessFileLineNumbers "server\sectors\find_units_in_area.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\find_units_in_sector.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\sectors.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\sectorIncome.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\drawSector.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\sectorRespawn.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\sectorDefense.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\sectorController.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\sector_patrols.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\defensive_groups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\sector_income.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\draw_sector.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\sector_respawn.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\sector_controller.sqf";
+
+// Sector defense
+[] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_defense.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_squad_defense.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_static_defense.sqf";
 
 // Faction
-[] call compileFinal preprocessFileLineNumbers "server\factions\factionStrength.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\factions\baseVehicleSpawn.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\factions\faction_strength.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\factions\base_vehicle_spawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\faction_relations.sqf";
 
 // battlegroups 
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\helo_insertion.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawnBattlegroups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_battlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroupAi.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
@@ -71,7 +73,7 @@ private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 [] call initialize_bases;
 [] call initialize_base_respawns;
 [] call initialize_battle_groups;
-[] call initialize_defensive_groups;
+[] call initialize_sector_defense;
 
 // Game threads
 [] spawn end_game_conditions_check;
@@ -82,7 +84,6 @@ private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 [] spawn spawn_gunship_groups;
 [] spawn group_ai;
 [] spawn sector_manpower_generation;
-[] spawn defensive_group_chatter;
 [] spawn populate_random_houses;
 
 

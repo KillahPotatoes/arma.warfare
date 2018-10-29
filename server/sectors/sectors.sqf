@@ -126,6 +126,7 @@ find_random_other_sector = {
 	params ["_side"];
 
 	_sectors = [_side] call get_other_sectors;	
+	_sectors = _sectors + ["_side", sector_size] call get_unsafe_sectors;
 
 	selectRandom _sectors;
 };

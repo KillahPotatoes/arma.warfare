@@ -18,7 +18,7 @@ addActionText = {
 
   private _indentation = "";
 
-  for "_x" from 0 to _level step 1 do {
+  for "_x" from 1 to _level step 1 do {
 		_indentation = format["%1%2",_indentation, " "];
 	};
 
@@ -47,6 +47,28 @@ get_units_based_on_tier = {
 	};
 
 	_options;
+};
+
+remove_nvg_and_add_flash_light = {
+	params ["_group"];
+
+	{
+		[_x] call remove_nvg_and_add_flash_light_unit;
+	} forEach units _group;
+};
+
+
+remove_nvg_and_add_flash_light_unit = {
+    params ["_unit"];
+
+    private _side = side _unit;
+
+    private _nvgoogles = missionNamespace getVariable format["nvgoogles_%1", _side];
+    
+  	_unit unassignItem _nvgoogles; 
+		_unit removeItem _nvgoogles;
+		_unit addPrimaryWeaponItem "acc_flashlight";
+		//_unit enableGunLights "forceon";
 };
 
 calc_number_of_soldiers = {

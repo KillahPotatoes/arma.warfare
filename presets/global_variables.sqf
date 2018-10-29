@@ -22,7 +22,8 @@ sector_size = 200; // sector size
 helo_height = 2000;
 starting_strength  = 500;
 unit_cap = 30;
-defender_cap = 8;
+defender_cap = 10;
+static_cap = 3;
 squad_cap = 12;
 patrol_cap = 3;
 vehicle_chance = 30;
@@ -31,7 +32,7 @@ squad_size = 8;
 factions = [west, east, independent];
 show_all = false;
 max_tier = 2;
-capture_time = 60;
+capture_time = 10;
 
 guer_faction_name = "The resistance";
 west_faction_name = "Nato";
@@ -46,3 +47,7 @@ tier_base_gunship_respawn_time = 300;
 tier_0_gunship_respawn_time = 900;
 tier_1_gunship_respawn_time = 600;
 tier_2_gunship_respawn_time = 300;
+
+nvgoogles_guer = "NVGoggles_INDEP";
+nvgoogles_west = "NVGoggles";
+nvgoogles_east = "NVGoggles_OPFOR";

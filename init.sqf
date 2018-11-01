@@ -11,6 +11,11 @@
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\squad_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\vehicle_taxi.sqf";
 
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\show_arsenal.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\halo.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";
+
 [] call compileFinal preprocessFileLineNumbers "client\ui\manpower_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
@@ -26,7 +31,7 @@ player setVariable ["kills", 0];
 [] spawn show_manpower_markers;
 [] spawn show_ui;
 [] spawn calculate_rank_and_skill;
-
+[] spawn initialize_ammo_boxes;
 
 loaded_event = addMissionEventHandler ["Loaded",{ [] spawn show_ui; }];
 

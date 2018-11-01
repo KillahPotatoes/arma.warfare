@@ -1,11 +1,11 @@
 player enableFatigue false;
 
-[] call join_squad;
-[] call leave_squad;
-["Request helicopter pick-up", helicopter, 95] call show_order_taxi;
-["Request vehicle pick-up", vehicle1, 93] call show_order_taxi;
+[] spawn join_squad;
+[] spawn leave_squad;
+["Request helicopter pick-up", helicopter, 95] spawn show_order_taxi;
+["Request vehicle pick-up", vehicle1, 93] spawn show_order_taxi;
 
-RemoveSquadMatesWhenPlayerDies = {
+remove_squad_mates_on_death = {
 	params ["_player"];
 
 	private _group = group player;
@@ -27,4 +27,4 @@ reset_player_stats = {
 };
 
 [player] call reset_player_stats;
-[player] call RemoveSquadMatesWhenPlayerDies;
+[player] call remove_squad_mates_on_death;

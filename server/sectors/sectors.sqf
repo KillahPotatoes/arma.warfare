@@ -6,12 +6,7 @@ add_sector_box = {
 	_sector setVariable [box, _ammo_box];
 	_ammo_box setVariable [owned_by, civilian, true];	
 	_ammo_box setVariable [manpower, 0, true];
-
-	_ammo_box call add_arsenal_action;
-	_ammo_box call add_take_manpower_action;
-	_ammo_box call add_store_manpower_action;
-	// _ammo_box call add_take_intel_action;
-	[_ammo_box, "Get infantry", infantry, 130] call create_menu;
+	_ammo_box setVariable ["sector", true, true];
 };
 
 initialize_sectors = {

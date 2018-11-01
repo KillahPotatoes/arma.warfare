@@ -6,6 +6,8 @@ spawn_defensive_squad = {
 	[_group, _pos] call place_defensive_soldiers;
 	[_group] call remove_nvg_and_add_flash_light;
 
+	[_group] call spawn_defense_vehicle;
+
     _group setBehaviour "SAFE";
 	_group setVariable [defense, true];
 

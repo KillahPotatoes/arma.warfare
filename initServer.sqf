@@ -37,6 +37,7 @@ seconds_since_start = {
 
 // Sector defense
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_defense.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_vehicle_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_squad_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_static_defense.sqf";
 

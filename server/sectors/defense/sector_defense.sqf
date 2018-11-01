@@ -32,7 +32,7 @@ spawn_sector_defense = {
 					};
 				};
 
-				if(isNil "_static_defense" || {![_static_defense] call _static_alive}) then {
+				if(isNil "_static_defense" || {!([_static_defense] call _static_alive)}) then {
 					systemChat "SPAWN STATIC DEFENSE"; 
 					_static_defense = [_pos, _current_faction] call spawn_static;					
 				};				

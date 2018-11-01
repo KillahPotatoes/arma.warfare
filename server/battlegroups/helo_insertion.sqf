@@ -3,11 +3,11 @@ helo_insertion = {
 	
 	private _sector = [_side] call find_random_other_sector;
 
-	if (!(_sector isEqualTo [])) exitWith {
-		private _s_pos = _sector getVariable pos;
-		private _pos1 = [_s_pos, 200, 600, 1, 0, 0, 0, [], [_s_pos, _s_pos]] call BIS_fnc_findSafePos;
-		[_side, _can_spawn, _pos1, (_sector getVariable sector_name)] call do_helo_insertion;
-	};	
+	if (!isNil "_sector") exitWith {};
+
+	private _s_pos = _sector getVariable pos;
+	private _pos1 = [_s_pos, 200, 600, 1, 0, 0, 0, [], [_s_pos, _s_pos]] call BIS_fnc_findSafePos;
+	[_side, _can_spawn, _pos1, (_sector getVariable sector_name)] call do_helo_insertion;
 };
 
 do_helo_insertion = {

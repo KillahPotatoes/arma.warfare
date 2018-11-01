@@ -26,14 +26,12 @@ spawn_sector_defense = {
 						_sector_defense = [_pos, _current_faction] call spawn_defensive_squad;						
 					} else {
 						if({alive _x} count units _sector_defense < (defender_cap / 2)) then {
-							systemChat "SPAWN REINFORCEMENTS"; 
 							[_pos, _sector_defense] call spawn_reinforcments;
 						};		
 					};
 				};
 
 				if(isNil "_static_defense" || {!([_static_defense] call static_alive)}) then {
-					systemChat "SPAWN STATIC DEFENSE"; 
 					_static_defense = [_pos, _current_faction] call spawn_static;					
 				};				
 

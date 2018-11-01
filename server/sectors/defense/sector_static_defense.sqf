@@ -21,7 +21,7 @@ spawn_static = {
 	};	
 };
 
-_remove_static = {
+remove_static = {
 	params ["_static"];	
 	private _group = _static select 2;
 
@@ -32,7 +32,7 @@ _remove_static = {
 	deleteVehicle (_static select 0);	
 };
 
-_static_alive = {
+static_alive = {
 	params ["_static"];
 	
 	private _group = _static select 2;

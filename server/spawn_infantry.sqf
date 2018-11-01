@@ -28,6 +28,7 @@ spawn_infantry = {
 	private _squad = [_side, _number] call pick_soldiers;
 	private _group = [_pos, _side, _squad] call BIS_fnc_spawnGroup;
     _group enableDynamicSimulation _dynamicSimulation;
+	_group deleteGroupWhenEmpty true;
 	
 	_group;
 };

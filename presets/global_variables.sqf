@@ -43,7 +43,7 @@ ammo_box = "B_CargoNet_01_ammo_F";
 anti_vehicle_mines = ["SLAMDirectionalMine", "ATMine"];		
 anti_personel_mines = ["APERSBoundingMine", "APERSMine", "APERSTripMine"];
 
-tier_base_gunship_respawn_time = 300;
+tier_base_gunship_respawn_time = 900;
 tier_0_gunship_respawn_time = 900;
 tier_1_gunship_respawn_time = 600;
 tier_2_gunship_respawn_time = 300;

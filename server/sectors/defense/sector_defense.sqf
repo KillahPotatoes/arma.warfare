@@ -1,44 +1,11 @@
-clean_up_sector_squad = {
-	params ["_group"];
-	
-	// Move group to battlegroup or delete if empty
-
-	if({alive _x} count units _group > 0) then {			
-		_group call add_battle_group;
-	} else {
-		deleteGroup _group;
-	};
-};
-
-clean_up_sector_static = {
-	params ["_group", "_static"];
-	
-	// Move group to battlegroup or delete if empty
-
-	if({alive _x} count units _group > 0) then {			
-		_group call add_battle_group;
-	} else {
-		deleteGroup _group;
-	};
-	
-	// Delete statics
-	{
-		deleteVehicle _x;
-	} forEach _static;
-
-	[];
-};
-
 spawn_sector_defense = {
 	params ["_sector"];
 
 	private _pos = _sector getVariable pos;
 	private _current_faction = _sector getVariable owned_by; 
-	private _counter = 0;
-	private _def_group = nil;
-	private _static_group = nil;
-	private _static_type = nil;
-	private _static = [];
+	private _sector_defense = nil;
+	private _static_defense = nil;
+	private _sleep = 1;
 
 	while {true} do {		
 		private _faction = _sector getVariable owned_by; 
@@ -46,46 +13,40 @@ spawn_sector_defense = {
 		if(!(_faction isEqualTo civilian) && {!([_faction, _pos] call any_enemies_in_sector)}) then {
 		
 			if(_current_faction isEqualTo _faction) then {				
-				_counter = _counter + 1;
+				
+				_sleep = 300;
 
-				if((_counter mod 10) == 0 && ({ alive _x } count _static) < static_cap) then {
-
-					private _veh = if(isNil "_static_group") then {
-						 [_sector, _static_type] call spawn_static;
+				if(isNil "_sector_defense") then {
+					_sector_defense = [_pos, _current_faction] call spawn_defensive_squad;							
+				} else {
+					if(!(side _sector_defense isEqualTo _current_faction)) then {
+						if({alive _x} count units _sector_defense > 0) then {			
+							_sector_defense call add_battle_group;
+						};					
+						_sector_defense = [_pos, _current_faction] call spawn_defensive_squad;						
 					} else {
-						 [_sector, _static_type, _static_group] call spawn_static;
+						if({alive _x} count units _sector_defense < (defender_cap / 2)) then {
+							systemChat "SPAWN REINFORCEMENTS"; 
+							[_pos, _sector_defense] call spawn_reinforcments;
+						};		
 					};
-
-					if ((isNil "_veh")) exitWith {};
-
-					_static pushBack (_veh)
 				};
 
-				[_sector, _def_group] call spawn_defensive_reinforcements;
+				if(isNil "_static_defense" || {![_static_defense] call _static_alive}) then {
+					systemChat "SPAWN STATIC DEFENSE"; 
+					_static_defense = [_pos, _current_faction] call spawn_static;					
+				};				
 
 			} else {
-				if(!(isNil "_def_group")) then {
-					_static = [_static_group, _static] call clean_up_sector_static;
-					[_def_group] call clean_up_sector_squad;
+				if(!isNil "_static_defense") then {
+					[_static_defense] call remove_static;
 				};
-
-				if(!(isNil "_static_group")) then {
-					_static = [_static_group, _static] call clean_up_sector_static;
-				};
-
-				_unit_count = defender_cap call calc_number_of_soldiers;
-				_def_group = [_sector, _unit_count] call spawn_defensive_squad;
-
-				_static_type = selectRandom (missionNamespace getVariable format["%1_static", _faction]);
-				
-				_counter = 0;				
+				_sleep = 1;
 			};
 		};	
 
 		_current_faction = _faction;
-
-		sleep 1;
-
+		sleep _sleep;
 	};
 };
 

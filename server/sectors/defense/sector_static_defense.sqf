@@ -1,18 +1,18 @@
 spawn_static = {
-	params ["_sector"];
-	private _side = _sector getVariable owned_by;
+	params ["_pos", "_side"];
 
 	private _orientation = random 360;	
 	private _type = selectRandom (missionNamespace getVariable format["%1_static", _side]);
 	private _sector_pos = _sector getVariable pos;
-	private _pos = [_sector_pos, 5, 25, 7, 0.25, 0, 0,[_sector_pos, _sector_pos]] call BIS_fnc_findSafePos;
+	private _static_pos = [_pos, 5, 25, 7, 0.25, 0, 0,[_pos, _pos]] call BIS_fnc_findSafePos;
 				
-	if(!(_pos isEqualTo _sector_pos)) exitWith {
-		private _static = [_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
+	if(!(_static_pos isEqualTo _pos)) exitWith {
+		private _static = [_static_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
 		private _group = _static select 2;
 		_group deleteGroupWhenEmpty true;
 		_group enableDynamicSimulation false; 
 		_group setVariable [defense, true];
+		[_group] call remove_nvg_and_add_flash_light;
 
 		private _name = _static select 0;
 		_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
@@ -21,55 +21,24 @@ spawn_static = {
 	};	
 };
 
-should_spawn_static = {
-	params ["_sector", "_sector_owner"];
-
-	private _static = _sector getVariable static;	
-
-	if(isNil "_static") exitWith {
-		true;
-	};
-
+_remove_static = {
+	params ["_static"];	
 	private _group = _static select 2;
 
-	if(side _group isEqualTo _sector_owner && ({alive _x} count units _group) > 0) exitWith {
-		false;
-	};
+	{
+		_x setDamage 1;
+	} forEach units _group;
 
-	true;
+	deleteVehicle (_static select 0);	
 };
 
-should_remove_static = {
-	params ["_sector", "_sector_owner"];
-
-	private _static = _sector getVariable static;	
-	if(isNil "_static") exitWith {
-		false;
-	};
-
+_static_alive = {
+	params ["_static"];
+	
 	private _group = _static select 2;
-	if(!(side _group isEqualTo _sector_owner) || ({alive _x} count units _group) == 0) exitWith {
-		true;
-	};
+	private _veh = _static select 0;
 
-	false;
-};
-
-spawn_static_pos = {
-	params ["_sector"];
-
-	if([_sector, _side] call should_remove_static) then {
-		private _static = _sector getVariable static;
-		deleteVehicle (_static select 0);
-	};
-
-	if([_sector, _side] call should_spawn_static) then {
-		_new_static = _sector call spawn_static;	
-
-		if (!(isNil "_new_static")) then {
-			_sector setVariable [static, _new_static];	
-		};
-	};
+	(({alive _x} count units _group) > 0 && (damage _veh < 1));	
 };
 
 

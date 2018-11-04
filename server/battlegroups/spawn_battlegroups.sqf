@@ -44,13 +44,18 @@ add_soldiers_to_cargo = {
 	_cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
 	_cargo = _cargoCapacity min _can_spawn;
 
-	_soldiers = [[0,0,0], _side, _cargo, false] call spawn_infantry;	
+	if(_cargo > 0) then {
 
-	{
-		_x moveInCargo _vehicle;
-        [_x] joinSilent _group;
-		
-	} forEach units _soldiers;
+		_soldiers = [[0,0,0], _side, _cargo, false] call spawn_infantry;	
+
+		{
+			_x moveInCargo _vehicle;
+			[_x] joinSilent _group;
+			
+		} forEach units _soldiers;
+
+		deleteGroup _soldiers;
+	};
 };
 
 try_find_unoccupied_nearby_road = {
@@ -140,12 +145,14 @@ spawn_battle_group = {
 };
 
 spawn_battle_groups = {
+	sleep 30;		
+
 	while {true} do {
-		sleep 30;		
-		
 		[West] spawn spawn_battle_group;
 		[East] spawn spawn_battle_group;
 		[Independent] spawn spawn_battle_group;
+
+		sleep 120;
 	};
 };
 

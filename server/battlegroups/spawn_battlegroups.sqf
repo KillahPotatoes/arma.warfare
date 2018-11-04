@@ -110,13 +110,25 @@ get_infantry_spawn_position = {
 
 	private _safe_sectors = [_side, (sector_size * 2)] call get_safe_sectors;
 
-	if((count _safe_sectors) > 0) exitWith {
-		private _sector = selectRandom _safe_sectors;
-		private _sector_pos = _sector getVariable pos;
-		[_sector_pos, 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
-	};
+	private _safe_pos = [_pos];
 
-	[_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+	{
+		_safe_pos = _safe_pos + [_x getVariable pos]
+	} forEach _safe_sectors;
+	
+	private _target_sectors = [_side] call get_other_sectors;	
+	_target_sectors = _target_sectors + ([_side] call get_unsafe_sectors);
+	
+	if(_target_sectors isEqualTo []) exitWith {};
+
+	private _preferred_target = [_target_sectors, _pos] call find_closest_sector;
+
+	_safe_pos = _safe_pos apply { [_x distance (_preferred_target getVariable pos), _x] };
+	_safe_pos sort true;
+
+	private _best_pos = (_safe_pos select 0) select 1;
+
+	[_best_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 };
 
 spawn_squad = {
@@ -141,15 +153,20 @@ spawn_battle_group = {
 };
 
 spawn_battle_groups = {
+	params ["_side"];
+
 	sleep 30;		
 
 	while {true} do {
-		[West] spawn spawn_battle_group;
-		[East] spawn spawn_battle_group;
-		[Independent] spawn spawn_battle_group;
-
+		[_side] spawn spawn_battle_group;
 		sleep 120;
 	};
+};
+
+initialize_spawn_battle_groups = {	
+	[West] spawn spawn_battle_groups;
+	[East] spawn spawn_battle_groups;
+	[Independent] spawn spawn_battle_groups;
 };
 
 

@@ -42,7 +42,6 @@ initialize_sectors = {
 	missionNamespace setVariable ["guer_sectors", []];
 };
 
-
 get_safe_sectors = {
 	params ["_side", "_distance"];
 	
@@ -60,9 +59,9 @@ get_safe_sectors = {
 };
 
 get_unsafe_sectors = {
-	params ["_side", "_distance"];
+	params ["_side"];
 	
-	private _safe_sectors = [_side, _distance] call get_safe_sectors;
+	private _safe_sectors = [_side, sector_size] call get_safe_sectors;
 	
 	(_side call get_owned_sectors) - _safe_sectors;
 };
@@ -78,6 +77,16 @@ remove_sector = {
 	private _sectors = missionNamespace getVariable format["%1_sectors", _side];
 	private _index = _sectors find (_sector); 
 	_sectors deleteAt (_index);		
+};
+
+get_unowned_sectors = {
+	private _sectors = sectors;
+	
+	{
+		_sectors = _sectors - (missionNamespace getVariable format["%1_sectors", _x]);
+	} foreach factions;
+
+	_sectors;
 };
 
 get_owned_sectors = {
@@ -115,17 +124,6 @@ find_closest_friendly_sector = {
 	
 	private _sectors = [_side] call get_owned_sectors;	
 	[_sectors, _pos] call find_closest_sector;
-};
-
-find_random_other_sector = {
-	params ["_side"];
-	
-	_sectors = [_side] call get_other_sectors;	
-	_sectors = _sectors + [_side, sector_size] call get_unsafe_sectors;
-	
-	if(_sectors isEqualTo []) exitWith {};
-
-	selectRandom _sectors;
 };
 
 find_enemy_sectors = {

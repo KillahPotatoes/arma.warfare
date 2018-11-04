@@ -75,7 +75,7 @@ private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 [] spawn add_kill_ticker_to_all_units;
 [] spawn add_kill_ticker_to_all_vehicles;
 [] spawn clean_up;
-[] spawn spawn_battle_groups;
+[] spawn initialize_spawn_battle_groups;
 [] spawn spawn_gunship_groups;
 [] spawn group_ai;
 [] spawn sector_manpower_generation;

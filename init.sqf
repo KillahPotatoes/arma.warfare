@@ -11,6 +11,9 @@
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\squad_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\vehicle_taxi.sqf";
 
+[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_area.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_sector.sqf";
+
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\show_arsenal.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";

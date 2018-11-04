@@ -13,8 +13,8 @@ seconds_since_start = {
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\clean_up.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\find_units_in_area.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\find_units_in_sector.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_area.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_sector.sqf";
 
 // Shared scripts
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";

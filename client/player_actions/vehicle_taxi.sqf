@@ -14,6 +14,7 @@ show_send_to_HQ_action = {
 	_veh addAction [["Send off", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId"];
 		private _veh = _target;
+		_veh lock true;
 		private _group = group driver _veh;
 
 		_veh removeAction _actionId;

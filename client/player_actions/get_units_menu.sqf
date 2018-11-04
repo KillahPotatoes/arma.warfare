@@ -94,12 +94,11 @@ create_menu = {
 		private _priority = _arguments select 1;
 		private _title = _arguments select 2;
 		private _box = _arguments select 3;
-		private __disable_on_enemies_nearby = _arguments select 4;
+		private _disable_on_enemies_nearby = _arguments select 4;
 
-		if(_disable_on_enemies_nearby) then {
-			private _side = side player; 
-			any_enemies_in_sector
-		}
+		if(_disable_on_enemies_nearby && {[side player, getPos _box] call any_enemies_in_sector}) exitWith { 
+			systemChat "Cannot spawn units when enemies nearby";
+		};			
 
 		[_box] call remove_all_options;
 

@@ -1,7 +1,7 @@
 is_friendly_soldier = {
 	params ["_cursorTarget", "_player"];
 
-	_cursorTarget isKindOf "Man" && {(side cursorTarget) isEqualTo (side _player)} && {((getPos _cursorTarget) distance (getPos _player) < 25)};	
+	_cursorTarget isKindOf "Man" && {(side cursorTarget) isEqualTo (side _player)} && {((getPos _cursorTarget) distance (getPos _player) < 25)} && {((getPos _cursorTarget) distance (getPos _player) > 1)};	
 };
 
 empty_squad = {
@@ -13,6 +13,7 @@ empty_squad = {
 join_squad = {  
   player addAction [["Join squad", 0] call addActionText, {    
 		private _group = group cursorTarget;
+
 		private _player_group = group player;	
 		[player] join _group;
 

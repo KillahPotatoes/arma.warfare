@@ -4,7 +4,7 @@ spawn_gunship_groups = {
 	[independent] spawn spawn_gunships;
 };
 
-find_target_sector = {
+find_target_sectors = {
 	params ["_side"];
 	
 	([_side] call find_enemy_sectors) + ([_side] call get_unsafe_sectors);
@@ -19,9 +19,9 @@ spawn_gunships = {
 		
 		sleep _wait_time;
 
-		private _sectors = [_side] call find_target_sector;
+		private _sectors = [_side] call find_target_sectors;
 
-		if ((count _sectors) > 0) exitWith {};
+		if ((count _sectors) == 0) exitWith {};
 
 		private _gunship = [_side] call spawn_gunship_group;
 		if (isNil "_gunship") exitWith {};

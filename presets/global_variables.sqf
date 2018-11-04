@@ -26,7 +26,6 @@ defender_cap = 10;
 static_cap = 3;
 squad_cap = 12;
 patrol_cap = 3;
-vehicle_chance = 30;
 manpower_per_minute = 1;
 squad_size = 8;
 factions = [west, east, independent];

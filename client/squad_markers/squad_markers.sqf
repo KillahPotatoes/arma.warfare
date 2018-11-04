@@ -59,6 +59,12 @@ get_unit_marker_text = {
 	format["%1", _group];
 };
 
+any_alive = {
+	params ["_group"];
+
+	({ alive _x; }count units _group) > 0;
+};
+
 show_friendly_markers = {
 	_markers_array = [];
 	_sector_boxes = allMissionObjects ammo_box;
@@ -71,8 +77,13 @@ show_friendly_markers = {
 		
 		_markers_array = [];
 
-		{
-			if (show_all || ((side _x) isEqualTo playerSide && !(_x getVariable [defense, false]) && ((leader _x) distance2D [0,0]) > 100)) then {
+		{			
+			if (show_all 
+				|| (_x call any_alive) 
+				&& ((side _x) isEqualTo playerSide) 
+				&& (!(_x getVariable [defense, false])) 
+				&& (((leader _x) distance2D [0,0]) > 100)) then {
+			
 				_markers_pos = getPosWorld (leader _x);
 
 				_distance = [_markers_pos, _sector_boxes] call close_to_any_owned_sectors;				

@@ -37,7 +37,9 @@
 
 // battlegroups 
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroups.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_battlegroups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_battlegroups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_infantry_groups.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_vehicle_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";

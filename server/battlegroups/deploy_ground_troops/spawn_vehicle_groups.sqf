@@ -105,70 +105,34 @@ spawn_vehicle_group = {
 	_group;
 };
 
-get_infantry_spawn_position = {
-	params ["_pos", "_side"];
+spawn_random_vehicle_group = {
+	params ["_side", "_can_spawn"];	
+		
+	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
+	private _tier = [_side] call get_tier;
+	private _rnd = random 100;
 
-	private _safe_sectors = [_side, (sector_size * 2)] call get_safe_sectors;
+	if (_tier >= 2 && {_rnd < (100 / 3)}) exitWith {
+		private _group = [_pos, _side, 2, _can_spawn] call spawn_vehicle_group;
+		[_group] call add_battle_group;		
+	}; 
 
-	private _safe_pos = [_pos];
-
-	{
-		_safe_pos = _safe_pos + [_x getVariable pos]
-	} forEach _safe_sectors;
+	if (_tier >= 1 && {_rnd < (100 / 1.5)}) exitWith {
+		private _group = [_pos, _side, 1, _can_spawn] call spawn_vehicle_group;
+		[_group] call add_battle_group;
+	};
 	
-	private _target_sectors = [_side] call get_other_sectors;	
-	_target_sectors = _target_sectors + ([_side] call get_unsafe_sectors);
-	
-	if(_target_sectors isEqualTo []) exitWith {};
-
-	private _preferred_target = [_target_sectors, _pos] call find_closest_sector;
-
-	_safe_pos = _safe_pos apply { [_x distance (_preferred_target getVariable pos), _x] };
-	_safe_pos sort true;
-
-	private _best_pos = (_safe_pos select 0) select 1;
-
-	[_best_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+	private _group = [_pos, _side, 0, _can_spawn] call spawn_vehicle_group;
+	[_group] call add_battle_group;	
 };
 
-spawn_squad = {
-	params ["_pos", "_side", "_can_spawn"];
-	
-	_pos = [_pos, _side] call get_infantry_spawn_position;
-	_soldier_count = (squad_cap call calc_number_of_soldiers) min _can_spawn;
-    [_pos, _side, _soldier_count, false] call spawn_infantry;	
-};
-
-spawn_battle_group = {
+spawn_vehicle_groups = {
 	params ["_side"];
-	//_t2 = diag_tickTime;
 	private _unit_count = _side call count_battlegroup_units;	
 	private _strength = _side call get_strength;
 	private _can_spawn = (unit_cap - _unit_count) min (_side call get_unused_strength); 
 
-	if (_can_spawn > (squad_cap / 2) || (_strength == _can_spawn)) then {
-		private _group = [_side, _can_spawn] call spawn_random_group;		
+	if (_can_spawn > (squad_cap / 2) || (_strength == _can_spawn)) exitWith {
+		[_side, _can_spawn] call spawn_random_vehicle_group;		
 	};	
-	//[_t2, "spawn_battle_groups"] spawn report_time;	
-};
-
-spawn_battle_groups = {
-	params ["_side"];
-
-	sleep 30;		
-
-	while {true} do {
-		[_side] spawn spawn_battle_group;
-		sleep 120;
-	};
-};
-
-initialize_spawn_battle_groups = {	
-	[West] spawn spawn_battle_groups;
-	[East] spawn spawn_battle_groups;
-	[Independent] spawn spawn_battle_groups;
-};
-
-
-
-
+}

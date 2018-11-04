@@ -22,28 +22,32 @@ pick_sector = {
 
 	private _sectors = [_side] call get_unsafe_sectors;
 	
-	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors; };
+	if(!(_sectors isEqualTo [])) exitWith { [selectRandom _sectors, true]; };
 
 	_sectors = [] call get_unowned_sectors;	
 
-	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors; };
+	if(!(_sectors isEqualTo [])) exitWith { [selectRandom _sectors, true]; };
 
 	_sectors = [_side] call find_enemy_sectors;
 	
-	selectRandom _sectors;
+	[selectRandom _sectors, false];
 };
 
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 	
-	private _sector = [_side] call pick_sector;
+	private _target = [_side] call pick_sector;
+	private _sector = _target select 0;
+	private _safe = _target select 1;
 
 	if (isNil "_sector") exitWith {};
 
 	private _spawn_pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 	private _sector_pos = _sector getVariable pos;
 	private _dir = _sector_pos getDir _spawn_pos;
-	private _pos = [_sector_pos, 500, _dir] call BIS_fnc_relPos;
+	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
+
+	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 
 	[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
 };

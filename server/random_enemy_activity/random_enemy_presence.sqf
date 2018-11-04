@@ -46,6 +46,8 @@ populate_house = {
 	private _random_number_of_soldiers = random ((count _allpositions) min (max_random_enemies - (count random_enemies)));
 	_building setVariable ["occupied", true];
 
+	if(_random_number_of_soldiers < 1) exitWith {};
+
 	private _group = [[0,0,0], _side, _random_number_of_soldiers, true] call spawn_infantry;
 	_group setBehaviour "SAFE";
 

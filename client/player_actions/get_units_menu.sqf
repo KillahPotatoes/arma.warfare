@@ -83,7 +83,7 @@ list_options = {
 };
 
 create_menu = {
-	params ["_box", "_title", "_type", "_priority"];
+	params ["_box", "_title", "_type", "_priority", "_disable_on_enemies_nearby"];
 
 	missionNameSpace setVariable [format["Menu_%1", _title], false];	
 
@@ -94,6 +94,12 @@ create_menu = {
 		private _priority = _arguments select 1;
 		private _title = _arguments select 2;
 		private _box = _arguments select 3;
+		private __disable_on_enemies_nearby = _arguments select 4;
+
+		if(_disable_on_enemies_nearby) then {
+			private _side = side player; 
+			any_enemies_in_sector
+		}
 
 		[_box] call remove_all_options;
 
@@ -103,6 +109,6 @@ create_menu = {
 		if(!_open) then {
 			[_type, _priority, _box] call list_options;
 		};
-	}, [_type, _priority, _title, _box], _priority, false, false, "", '[_target, _this] call owned_box', 10]	
+	}, [_type, _priority, _title, _box, _disable_on_enemies_nearby], _priority, false, false, "", '[_target, _this] call owned_box', 10]	
 };
 

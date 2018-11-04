@@ -25,16 +25,7 @@ addActionText = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
-helo = {
-  params ["_squad", "_pos"];
-  private _height = helo_height;
 
-  {
-    _x setPos (_pos getPos [25 * sqrt random 1, random 360]);
-    _height = _height - 20;
-    [_x,_height] spawn BIS_fnc_halo;
-  } forEach _squad;
-};
 
 get_units_based_on_tier = {
 	params ["_side", "_type"];

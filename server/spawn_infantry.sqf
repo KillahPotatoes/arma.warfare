@@ -14,14 +14,6 @@ pick_soldiers = {
 	_squad; 
 };
 
-get_distribution = {
-	params ["_number"];
-	private _new_number = (_number * 2) - 1;
-	private _n = floor random [0, 0, _new_number];
-	if (_n > (_number - 1)) exitWith { _n - (_number - 1) };
-	_n;
-};
-
 spawn_infantry = {
 	params ["_pos", "_side", "_number", "_dynamicSimulation"];
 

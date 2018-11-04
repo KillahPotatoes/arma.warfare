@@ -34,7 +34,6 @@ add_HQ_actions = {
 	params ["_ammo_box"];
 
 	_ammo_box call add_arsenal_action;
-	_ammo_box call add_halo_action;
 	_ammo_box call add_manpower_action;
 	[_ammo_box, "Get vehicle", vehicle1, 110] call create_menu;
 	[_ammo_box, "Get helicopter", helicopter, 120] call create_menu;

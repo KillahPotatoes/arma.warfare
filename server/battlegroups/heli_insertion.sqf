@@ -22,7 +22,7 @@ helicopter_insertion = {
 	
 	private _sector = [_side] call find_random_other_sector;
 
-	if (!isNil "_sector") exitWith {};
+	if (isNil "_sector") exitWith {};
 
 	private _spawn_pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 	private _sector_pos = _sector getVariable pos;

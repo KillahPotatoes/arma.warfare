@@ -1,7 +1,8 @@
 spawn_defensive_squad = {
 	params ["_pos", "_side"];
 
-    private _group = [[_pos select 0, _pos select 1, 3000], _side, defender_cap call calc_number_of_soldiers, true] call spawn_infantry;
+	private _number_of_soldiers = defender_cap call calc_number_of_soldiers;
+    private _group = [[_pos select 0, _pos select 1, 3000], _side, _number_of_soldiers, true] call spawn_infantry;
 	
 	[_group, _pos] call place_defensive_soldiers;
 	[_group] call remove_nvg_and_add_flash_light;
@@ -58,9 +59,11 @@ spawn_reinforcments = {
 	params ["_pos", "_group"];
 	
 	private _side = side _group;
-    private _group_count = {alive _x} count units _defenders;
+    private _group_count = {alive _x} count units _group;
 
 	private _new_soldiers = 0 max ((defender_cap call calc_number_of_soldiers) - _group_count);
+
+	if(_new_soldiers < 1) exitWith {};
 
     private _pos = _sector getVariable pos;	
     private _tmp_group = [[_pos select 0, _pos select 1, 3000], _side, _new_soldiers, true] call spawn_infantry;

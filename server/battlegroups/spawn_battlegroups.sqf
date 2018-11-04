@@ -20,12 +20,8 @@ spawn_random_group = {
 		[_group] call add_battle_group;
 	};
 
-	if (_rnd > 90 && (([] call seconds_since_start) > 300)) exitWith {
-		[_side, _can_spawn] call helicopter_insertion;
-	};
-
 	if (_rnd > 80 && (([] call seconds_since_start) > 300)) exitWith {
-		[_side, _can_spawn] spawn helo_insertion;
+		[_side, _can_spawn] call helicopter_insertion;
 	};
 
 	private _group = [_pos, _side, _can_spawn] call spawn_squad;

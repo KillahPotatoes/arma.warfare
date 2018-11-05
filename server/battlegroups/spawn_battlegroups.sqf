@@ -20,7 +20,7 @@ spawn_random_group = {
 		[_group] call add_battle_group;
 	};
 
-	if (_rnd > 80 && (([] call seconds_since_start) > 300)) exitWith {
+	if (_rnd > 80) exitWith {
 		[_side, _can_spawn] call helicopter_insertion;
 	};
 
@@ -68,7 +68,7 @@ try_find_unoccupied_nearby_road = {
 			_attempt_counter = _attempt_counter + 1;
 			
 			_road_pos = getPos (selectRandom _road);
-			_is_safe = [_road_pos] call check_if_any_units_to_close;
+			_is_safe = !([_road_pos] call any_units_to_close);
 			if (_is_safe) then {
 				_pos = _road_pos;
 			};

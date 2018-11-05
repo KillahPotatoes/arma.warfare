@@ -1,10 +1,43 @@
 add_take_manpower_from_player_action = {  
   player addAction ["Take manpower", {
-      ["Open",true] spawn BIS_fnc_arsenal;
-    }, nil, 80, true, true, "",
-    ''
-    ];
-}; // TODO
+		  params ["_target", "_caller", "_actionId", "_arguments"];
+
+      private _manpower = floor(_caller getVariable manpower) + (cursorTarget getVariable manpower);
+    
+      _caller setVariable [manpower, _manpower, true];
+      cursorTarget setVariable [manpower, 0, true];
+      systemChat format["You took %1 MP", _manpower];
+    }, nil, 80, true, true, "", '[cursorTarget] call can_take_manpower_from_player'];
+}; 
+
+add_give_manpower_to_player_action = {  
+  player addAction ["Give manpower", {
+      
+      private _manpower = floor(_caller getVariable manpower) + (cursorTarget getVariable manpower);
+    
+      _caller setVariable [manpower, 0, true];
+      cursorTarget setVariable [manpower, _manpower, true];
+      systemChat format["You gave %1 MP", _manpower]
+    }, nil, 80, true, true, "", '[cursorTarget] call can_give_manpower_to_player'];
+};
+
+can_take_manpower_from_player = {
+  params ["_other_player"];
+
+  isPlayer _other_player 
+  && {player distance _other_player < 3} 
+  && {(_other_player getVariable manpower) > 0}
+  && {(lifeState _other_player == "DEAD") || (lifeState _other_player == "INCAPACITATED")};
+};
+
+can_give_manpower_to_player = {
+  params ["_other_player"];
+
+  isPlayer _other_player 
+  && {player distance _other_player < 3} 
+  && {(player getVariable manpower) > 0}
+  && {(lifeState _other_player == "INJURED") || (lifeState _other_player == "HEALTHY")};
+};
 
 add_manpower_action = {
 	params ["_box"];

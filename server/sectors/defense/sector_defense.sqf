@@ -39,11 +39,13 @@ spawn_sector_defense = {
 				if(!isNil "_static_defense") then {
 					[_static_defense] call remove_static;
 				};
+
+				_current_faction = _faction;
 				_sleep = 1;
 			};
 		};	
 
-		_current_faction = _faction;
+		
 		sleep _sleep;
 	};
 };

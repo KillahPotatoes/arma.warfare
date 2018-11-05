@@ -2,22 +2,26 @@ taxi_wait_period_on_despawn = 300;
 taxi_wait_period_on_crash = 900;
 taxi_will_wait_time = 300;
 
-taxi_wait_period = taxi_wait_period_on_despawn;
+helicopter_taxi_wait_period = 0;
+vehicle_taxi_wait_period = 0;
 
 taxi_active = false;	
-taxi_timer = time - taxi_wait_period;
+taxi_timer = time;
 taxi_arrived_at_HQ = false;
 
-show_send_to_HQ_action = {
+cancel_taxi_id = nil;
+
+show_cancel_taxi_action = {
 	params ["_veh"];
 
-	_veh addAction [["Send off", 0] call addActionText, {	
-		params ["_target", "_caller", "_actionId"];
-		private _veh = _target;
+	cancel_taxi_id = player addAction [["Cancel taxi", 0] call addActionText, {	
+		params ["_target", "_caller", "_actionId", "_arguments"];
+
+		private _veh = _arguments select 0;
 		_veh lock true;
 		private _group = group driver _veh;
 
-		_veh removeAction _actionId;
+		player removeAction cancel_taxi_id;
 
 		[_group, "Heading back to HQ"] spawn group_report_client;	
 
@@ -26,9 +30,13 @@ show_send_to_HQ_action = {
 		} else {
 			taxi_arrived_at_HQ = [_group, _veh] call send_to_HQ;
 		};
-    }, nil, 90, true, false, "",
-    '[_this] call not_in_vehicle', 10
-    ];
+    }, ["_veh"], 90, true, false, "",
+    '!([_this, _veh] call in_taxi)'];
+};
+
+in_taxi = {
+	params ["_player", "_veh"];
+	_veh isEqualTo (vehicle _player);
 };
 
 send_to_HQ = {
@@ -70,7 +78,7 @@ show_order_taxi = {
 			missionNameSpace setVariable [format["taxi_%1_menu", _type], false];	
 		};	
     }, [_type, _priority], _priority, false, false, "",
-    '[] call can_order_taxi && [player] call is_leader'
+    '!taxi_active && [player] call is_leader'
     ];
 };
 
@@ -127,8 +135,8 @@ order_taxi = {
 	private _group = _arr select 2;
 	private _name = (typeOf _taxi) call get_vehicle_display_name;	
 	
+	[_taxi] spawn show_cancel_taxi_action;
 	[_taxi, _type] spawn check_status;
-	_taxi setVariable ["taxi", true];
 
 	[_group, "Transport is on its way to given pick up destination!"] spawn group_report_client;
 
@@ -198,7 +206,7 @@ spawn_vehicle = {
 
 	private _pos = getPos _base_marker;
 
-	waitUntil { [_pos] call check_if_any_units_to_close; };
+	waitUntil { !([_pos] call any_units_to_close); };
 
 	private _veh = [_pos, getDir _base_marker, _class_name, _side] call BIS_fnc_spawnVehicle;
 
@@ -209,12 +217,11 @@ spawn_vehicle = {
 check_if_transport_available = {
 	params ["_type"];
 
-	private _timer = taxi_timer;
-	private _wait_period = taxi_wait_period;
-	private _time = time - _timer;
+	private _wait_period = (missionNameSpace getVariable format["%1_taxi_wait_period", _type]);
+	private _time = taxi_timer + _wait_period;
 
-	if(_time < _wait_period) exitWith {
-		private _time_left = _wait_period - _time;
+	if(_time > time) exitWith {
+		private _time_left = _time - time;
 		private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;	
 		[playerSide, format["Transport is not available yet! Try again in %1 minutes", _wait_minutes]] spawn HQ_report_client;
 		false;
@@ -268,13 +275,15 @@ check_status = {
 		if(!(player in _taxi)) then {			
 			[playerSide, "Transport vehicle is down! You are on your own!"] spawn HQ_report_client; // TODO make classname specific
 		};
-		taxi_wait_period = taxi_wait_period_on_crash; // TODO make type specific
+
+		missionNamespace setVariable [format["%1_taxi_wait_period", _type],taxi_wait_period_on_crash];
 	} else {
-		taxi_wait_period = taxi_wait_period_on_despawn; // TODO make type specific
+		missionNamespace setVariable [format["%1_taxi_wait_period", _type],taxi_wait_period_on_despawn];
 	};
 
 	taxi_active = false;
-	taxi_timer = time;  // TODO make type specific
+	player removeAction cancel_taxi_id;
+	taxi_timer = time;
 };
 
 on_taxi_idle_wait = {
@@ -295,11 +304,12 @@ interrupt_taxi_misson = {
 	_taxi call empty_vehicle_cargo;
 
 	if(_type isEqualTo helicopter) then {
-		taxi_arrived_at_HQ = [_group, _taxi] call take_off_and_despawn;
+		taxi_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
 	} else {
-		systemChat "Send back to HQ"
+		taxi_arrived_at_HQ = [_group, _veh] call send_to_HQ;
 	};
 
+	player removeAction cancel_taxi_id;
 };
 
 empty_vehicle_cargo = {
@@ -311,6 +321,4 @@ empty_vehicle_cargo = {
 	} forEach crew _taxi;	
 };
 
-can_order_taxi = {
-	!taxi_active;
-};
+

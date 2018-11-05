@@ -49,7 +49,8 @@ east_static = ["O_Mortar_01_F"];
 
 west_vehicle_transport = [
 	["B_MRAP_01_F", 10], // Hunter
-	["B_LSV_01_unarmed_F", 10] // Prowler
+	["B_LSV_01_unarmed_F", 10], // Prowler
+	["B_Truck_01_covered_F", 10] // Prowler
 ];
 
 west_vehicle_tier_2 = [
@@ -57,26 +58,29 @@ west_vehicle_tier_2 = [
 	["B_APC_Wheeled_01_cannon_F", 30], // AMV-7 Marshall
 	["B_MBT_01_TUSK_F", 30], // M2A4 Slammer UP 
 	["B_APC_Wheeled_03_cannon_F", 30], // AFV-4 Gorgon
-	["B_MBT_01_cannon_F", 30] // M2A1 Slammer
-	//["B_MBT_01_arty_F", 30], // M4 Scorcher 
-	//["B_MBT_01_mlrs_F", 30] // M5 Sandstorm MLRS
+	["B_MBT_01_cannon_F", 30], // M2A1 Slammer
+	["B_AFV_Wheeled_01_up_cannon_F", 30], // M2A1 Slammer
+	["B_AFV_Wheeled_01_cannon_F", 30] // M2A1 Slammer
+
 ];
 
 west_vehicle_tier_1 = [
-	["B_LSV_01_armed_F", 20], // Prowler
 	["B_MRAP_01_gmg_F", 20], // Hunter GMG
-	["B_MRAP_01_hmg_F", 20] // Hunter HMG
+	["B_MRAP_01_hmg_F", 20], // Hunter HMG
+	["B_APC_Tracked_01_rcws_F", 20] // Hunter HMG
 ];
 
 west_vehicle_tier_0 = [
-	["B_MRAP_01_F", 10], // Hunter
-	["B_LSV_01_unarmed_F", 10] // Prowler
+	["B_LSV_01_AT_F", 10], // Prowler
+	["B_LSV_01_armed_F", 10] // Prowler
 ];
 
 // GUER VEHICLES
 
 guer_vehicle_transport = [
-	["I_MRAP_03_F", 10] // Strider
+	["I_MRAP_03_F", 10], // Strider
+	["I_Truck_02_covered_F", 10], // Strider
+	["I_G_Offroad_01_F", 10] // Strider
 ];
 
 guer_vehicle_tier_2 = [
@@ -87,18 +91,23 @@ guer_vehicle_tier_2 = [
 
 guer_vehicle_tier_1 = [
 	["I_MRAP_03_gmg_F", 20], // Strider GMG
-	["I_MRAP_03_hmg_F", 20] // Strider HMG
+	["I_MRAP_03_hmg_F", 20], // Strider HMG
+	["I_LT_01_cannon_F", 20], // Strider HMG
+	["I_LT_01_AT_F", 20], // Strider HMG
+	["I_LT_01_AA_F", 20] // Strider HMG
 ];
 
 guer_vehicle_tier_0 = [
-	["I_MRAP_03_F", 10] // Strider
+	["I_G_Offroad_01_AT_F", 10], // Strider
+	["I_G_Offroad_01_armed_F", 10] // Strider
 ];
 
 // EAST VEHICLES
 
 east_vehicle_transport = [
 	["O_MRAP_02_F", 10], // Ifrit
-	["O_LSV_02_unarmed_F", 10] // Qilin
+	["O_LSV_02_unarmed_F", 10], // Qilin
+	["O_Truck_03_covered_F", 10] // Qilin
 ];
 
 east_vehicle_tier_2 = [
@@ -107,18 +116,17 @@ east_vehicle_tier_2 = [
 	["O_MBT_02_cannon_F", 30], // T-100 Varsuk
 	["O_APC_Tracked_02_cannon_F", 30], // BTR-K Kamysh
 	["O_APC_Tracked_02_AA_F", 30] // ZSU-39 Tigris
-	//["O_MBT_02_arty_F", 30] // 2S9 Sochor
 ];
 
 east_vehicle_tier_1 = [
-	["O_LSV_02_armed_F", 20], // Qilin Armed
+	["O_APC_Wheeled_02_rcws_v2_F", 20], // Ifrit GMG
 	["O_MRAP_02_gmg_F", 20], // Ifrit GMG
 	["O_MRAP_02_hmg_F", 20] // Ifrit HMG
 ];
 
 east_vehicle_tier_0 = [
-	["O_MRAP_02_F", 10], // Ifrit
-	["O_LSV_02_unarmed_F", 10] // Qilin
+	["O_LSV_02_armed_F", 10], // Qilin
+	["O_LSV_02_AT_F", 10] // Qilin
 ];
 
 // WEST HELICOPTERS

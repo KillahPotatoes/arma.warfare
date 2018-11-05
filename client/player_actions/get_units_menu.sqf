@@ -1,13 +1,13 @@
-curr_options = [];
-
 remove_all_options = {
 	params ["_box"];
 	
+	private _options = _box getVariable ["menu", []];
+
 	{
 		_box removeAction _x;
-	} forEach curr_options;
+	} forEach _options;
 
-	curr_options = [];
+	_box setVariable ["menu", []];
 };
 
 create_soldier = {
@@ -56,12 +56,18 @@ list_options = {
 		_options = _options + (missionNamespace getVariable format["%1_%2_transport", _side, helicopter]);
 	};
 
+	if(_type isEqualTo vehicle1) then {
+		_options = _options + (missionNamespace getVariable format["%1_%2_transport", _side, vehicle1]);
+	};
+
+	private _sub_options = [];
+
 	{
 		private _class_name = _x select 0;
 		private _penalty = _x select 1;
-		private _name = _class_name call get_vehicle_display_name;
-		
-		curr_options pushBack (_box addAction [[_name, 2] call addActionText, {
+		private _name = _class_name call get_vehicle_display_name;		
+
+		_sub_options pushBack (_box addAction [[_name, 2] call addActionText, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
@@ -79,13 +85,16 @@ list_options = {
 				[_base_marker, _class_name, _penalty] call get_vehicle;
 			};
 		}, [_class_name, _penalty, _type, _box], (_priority - 1), false, true, "", '', 10]);
+
 	} forEach _options;
+
+	_box setVariable ["menu", _sub_options];
 };
 
 create_menu = {
 	params ["_box", "_title", "_type", "_priority", "_disable_on_enemies_nearby"];
 
-	missionNameSpace setVariable [format["Menu_%1", _title], false];	
+	_box setVariable [format["Menu_%1", _title], false];	
 
 	_box addAction [[_title, 0] call addActionText, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
@@ -102,12 +111,14 @@ create_menu = {
 
 		[_box] call remove_all_options;
 
-		private _open = missionNameSpace getVariable format["Menu_%1", _title];	
-		missionNameSpace setVariable [format["Menu_%1", _title], !_open];	
-
+		private _open = _box getVariable format["Menu_%1", _title];	
+		
 		if(!_open) then {
 			[_type, _priority, _box] call list_options;
-		};
+			_box setVariable [format["Menu_%1", _title], true];	
+		} else {
+			_box setVariable [format["Menu_%1", _title], false];	
+		}
 	}, [_type, _priority, _title, _box, _disable_on_enemies_nearby], _priority, false, false, "", '[_target, _this] call owned_box', 10]	
 };
 

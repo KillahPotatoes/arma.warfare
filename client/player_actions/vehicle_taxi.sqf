@@ -1,3 +1,5 @@
+taxi_options = [];
+
 taxi_wait_period_on_despawn = 300;
 taxi_wait_period_on_crash = 900;
 taxi_will_wait_time = 300;
@@ -10,6 +12,15 @@ taxi_timer = time;
 taxi_arrived_at_HQ = false;
 
 cancel_taxi_id = nil;
+
+remove_all_taxi_options = {
+	
+	{
+		player removeAction _x;
+	} forEach taxi_options;
+
+	taxi_options = [];
+};
 
 show_cancel_taxi_action = {
 	params ["_veh"];
@@ -75,7 +86,7 @@ show_order_taxi = {
 		private _priority = _arguments select 1;
 		private _open = missionNameSpace getVariable [format["taxi_%1_menu", _type], false];
 
-		[player] call remove_all_options;
+		[player] call remove_all_taxi_options;
 		if(!_open && {[_type] call check_if_transport_available}) then {	
 			missionNameSpace setVariable [format["taxi_%1_menu", _type], true];
 			[_type, _priority] call show_taxi_options;
@@ -98,13 +109,13 @@ show_taxi_options = {
 		private _penalty = _x select 1;
 		private _name = _class_name call get_vehicle_display_name;
 		
-		curr_options pushBack (player addAction [[_name, 2] call addActionText, {
+		taxi_options pushBack (player addAction [[_name, 2] call addActionText, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
 			private _type = _params select 2;
 
-			[player] call remove_all_options;
+			[player] call remove_all_taxi_options;
 			[_class_name, _penalty, _type] call request_taxi;
 		}, [_class_name, _penalty, _type], (_priority - 1), false, true]);
 	} forEach _options;

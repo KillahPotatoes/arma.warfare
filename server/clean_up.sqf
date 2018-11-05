@@ -22,7 +22,7 @@ broken_vehicles = {
 				};
 			}; 					
 		};		
-	} count vehicles;
+	} foreach vehicles;
 };
 
 kill_vehicle = {

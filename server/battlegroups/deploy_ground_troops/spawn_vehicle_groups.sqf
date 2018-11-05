@@ -1,34 +1,3 @@
-spawn_random_group = {
-	params ["_side", "_can_spawn"];	
-		
-	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
-	private _tier = [_side] call get_tier;
-	private _rnd = random 100;
-
-	if (_tier >= 2 && {_rnd < (vehicle_chance / 3)}) exitWith {
-		private _group = [_pos, _side, 2, _can_spawn] call spawn_vehicle_group;
-		[_group] call add_battle_group;		
-	}; 
-
-	if (_tier >= 1 && {_rnd < (vehicle_chance / 1.5)}) exitWith {
-		private _group = [_pos, _side, 1, _can_spawn] call spawn_vehicle_group;
-		[_group] call add_battle_group;
-	};
-
-	if (_tier >= 0 && {_rnd < vehicle_chance}) exitWith {
-		private _group = [_pos, _side, 0, _can_spawn] call spawn_vehicle_group;
-		[_group] call add_battle_group;
-	};
-
-	if (_rnd > 80) exitWith {
-		[_side, _can_spawn] call helicopter_insertion;
-	};
-
-	private _group = [_pos, _side, _can_spawn] call spawn_squad;
-	[_group] call add_battle_group;
-
-};
-
 add_soldiers_to_cargo = {
 	params ["_veh_array", "_can_spawn"];
 

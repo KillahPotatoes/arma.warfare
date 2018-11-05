@@ -3,7 +3,6 @@ clean_up =  {
 		//_t5 = diag_tickTime;
 		
 		[] spawn broken_vehicles;
-		[] spawn empty_groups;
 		[] spawn clean_up_dead;
 		[] call status;
 
@@ -19,20 +18,18 @@ broken_vehicles = {
 		if(_veh isKindOf "Tank" || _veh isKindOf "Car" || _veh isKindOf "Air") then {		
 			if({_x distance _veh < 100} count allPlayers == 0) then {
 				if(!canMove _veh && alive _veh) then {
-					sleep random 60;     
-					_veh setDammage 1;        
+					[_veh] spawn kill_vehicle;    
 				};
 			}; 					
 		};		
 	} count vehicles;
 };
 
-empty_groups = {
-	{ 
-		if (!(isGroupDeletedWhenEmpty _x)) then {
-			_x deleteGroupWhenEmpty true;
-		}; 
- 	} forEach allGroups;
+kill_vehicle = {
+	params ["_veh"];
+
+	sleep random 60;     
+	_veh setDammage 1;  
 };
 
 status = {

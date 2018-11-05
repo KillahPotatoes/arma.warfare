@@ -4,7 +4,7 @@ spawn_random_infantry_group = {
 	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);	
 	private _rnd = random 100;
 
-	if (_rnd > 80 && (([] call seconds_since_start) > 300)) exitWith {
+	if (_rnd > 80) exitWith {
 		[_side, _can_spawn] call helicopter_insertion;
 	};
 

@@ -14,6 +14,8 @@ cancel_taxi_id = nil;
 show_cancel_taxi_action = {
 	params ["_veh"];
 
+	_veh setVariable ["taxi", true];
+
 	cancel_taxi_id = player addAction [["Cancel taxi", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
@@ -21,22 +23,25 @@ show_cancel_taxi_action = {
 		_veh lock true;
 		private _group = group driver _veh;
 
+		[_veh] call throw_out_players;
+
 		player removeAction cancel_taxi_id;
 
 		[_group, "Heading back to HQ"] spawn group_report_client;	
+
+		sleep 3;
 
 		if(_veh isKindOf "Air") then {
 			taxi_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
 		} else {
 			taxi_arrived_at_HQ = [_group, _veh] call send_to_HQ;
 		};
-    }, ["_veh"], 90, true, false, "",
-    '!([_this, _veh] call in_taxi)'];
+    }, [_veh], 90, true, false, "",
+    '!([] call in_taxi)'];
 };
 
-in_taxi = {
-	params ["_player", "_veh"];
-	_veh isEqualTo (vehicle _player);
+in_taxi = {	
+	(vehicle player) getVariable ["taxi", false];
 };
 
 send_to_HQ = {
@@ -173,8 +178,6 @@ spawn_taxi = {
 	private _group = _veh select 2;
 	private _taxi = _veh select 0;
 
-	_taxi call show_send_to_HQ_action;
-
 	_taxi setVariable ["penalty", [playerSide, _penalty], true];
 		
 	_group setBehaviour "CARELESS";
@@ -223,7 +226,7 @@ check_if_transport_available = {
 	if(_time > time) exitWith {
 		private _time_left = _time - time;
 		private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;	
-		[playerSide, format["Transport is not available yet! Try again in %1 minutes", _wait_minutes]] spawn HQ_report_client;
+		systemChat format["Transport is not available yet! Try again in %1 minutes", _wait_minutes];
 		false;
 	};
 	true;
@@ -304,9 +307,9 @@ interrupt_taxi_misson = {
 	_taxi call empty_vehicle_cargo;
 
 	if(_type isEqualTo helicopter) then {
-		taxi_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
+		taxi_arrived_at_HQ = [_group, _taxi] call take_off_and_despawn;
 	} else {
-		taxi_arrived_at_HQ = [_group, _veh] call send_to_HQ;
+		taxi_arrived_at_HQ = [_group, _taxi] call send_to_HQ;
 	};
 
 	player removeAction cancel_taxi_id;
@@ -321,4 +324,12 @@ empty_vehicle_cargo = {
 	} forEach crew _taxi;	
 };
 
+throw_out_players = {
+	params ["_taxi"];
+	{
+		if(isPlayer _x) then {
+			moveOut _x;			
+		};
+	} forEach crew _taxi;	
+};
 

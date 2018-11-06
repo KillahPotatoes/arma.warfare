@@ -95,7 +95,7 @@ group_ai = {
 			private _group = _x;
 			private _side = side _group; 
 
-			if (!(isPlayer leader _group) && _side in factions && _group getVariable "active") then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
+			if (!(isPlayer leader _group) && _side in all_sides && _group getVariable "active") then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
 				private _isAir = (vehicle leader _group) isKindOf "Air";
 				
 				if (_isAir) exitWith {

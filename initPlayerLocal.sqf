@@ -1,3 +1,1 @@
-player enableFatigue false;
-
-
+player enableStamina false;

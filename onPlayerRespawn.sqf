@@ -1,4 +1,4 @@
-player enableFatigue false;
+player enableStamina false;
 
 [] spawn join_squad;
 [] spawn leave_squad;

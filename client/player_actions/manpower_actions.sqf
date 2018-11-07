@@ -53,7 +53,9 @@ add_manpower_action = {
 		[side _caller, _manpower] remoteExec ["buy_manpower_server", 2];
 		systemChat format["You added %1 manpower points", _manpower];     
 
-	}, nil, 100, false, false, "", '[_target, _this] call owned_box && [_this] call player_has_manpower'], 10	
+	}, nil, 100, false, false, "", 
+  '[_target, _this] call owned_box && [_this] call player_has_manpower', 10
+  ];	
 };
 
 add_take_manpower_action = {  
@@ -71,18 +73,6 @@ add_take_manpower_action = {
     '[_target] call box_has_manpower', 10
     ];
 };
-
-// add_take_intel_action = {
-//   params ["_box"];
-
-//   _box addAction [["Take intel", 0] call addActionText, {
-//       params ["_target", "_caller"];
-
-      
-//   }, nil, 80, true, false, "",
-//   '[_this] call is_enemy_box',10
-//   ];
-// }
 
 add_store_manpower_action = {
   params ["_box"];

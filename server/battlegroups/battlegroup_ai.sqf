@@ -13,6 +13,7 @@ create_waypoint = {
 
 	_group call delete_all_waypoints; 
 	_w = _group addWaypoint [_pos, 5];
+	//_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
 
 	private _veh = vehicle leader _group;
 	private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Tank";

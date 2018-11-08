@@ -79,9 +79,10 @@ initialize_sector_control = {
 
 			if(count _units == 0) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if no units, no change
 
-			private _factions = [_units] call get_all_factions_in_list;
+			private _factions = all_sides select {_x countSide _units > 0};
 			if(count _factions > 1) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if more than one faction present, no change
 
+			// Get the only faction in sector
 			private _faction = _factions select 0;
 			if(!([_faction, _pos] call any_friendlies_in_sector_center)) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // no units in sector center, no change
 

@@ -45,14 +45,3 @@ spawn_squad = {
 	_soldier_count = (squad_cap call calc_number_of_soldiers) min _can_spawn;
     [_pos, _side, _soldier_count, false] call spawn_infantry;	
 };
-
-spawn_infantry_groups = {
-	params ["_side"];
-	private _unit_count = _side call count_battlegroup_units;	
-	private _strength = _side call get_strength;
-	private _can_spawn = (unit_cap - _unit_count) min (_side call get_unused_strength); 
-
-	if (_can_spawn > (squad_cap / 2) || (_strength == _can_spawn)) exitWith {
-		[_side, _can_spawn] call spawn_random_infantry_group;		
-	};	
-};

@@ -14,17 +14,9 @@ create_waypoint = {
 	_group call delete_all_waypoints; 
 	_w = _group addWaypoint [_pos, 5];
 	//_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
-
-	private _veh = vehicle leader _group;
-	private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Tank";
-
-	if (_is_veh) then {
-		_w setWaypointType "MOVE";
-		_group setBehaviour "SAFE";
-	} else {
-		_w setWaypointType "SAD";
-		_group setBehaviour "AWARE";
-	};
+	
+	_w setWaypointType "SAD";
+	_group setBehaviour "AWARE";
 		
 	_group setSpeedMode "NORMAL";
 	_group setCombatMode "YELLOW";
@@ -109,33 +101,6 @@ group_ai = {
 		//[_t3, "group_ai"] spawn report_time;	
 		sleep random 10;
 	};
-};
-
-air_group_ai = {
-	params ["_group", "_side"];
-	
-	private _target = [_group, _side] call find_air_target;
-
-	[_target, _group] spawn move_to_sector;
-};
-
-find_air_target = {
-	params ["_group", "_side"];
-
-	private _pos = getPosWorld (leader _group);
-
-	private _enemy_sectors = [_side] call find_enemy_sectors;
-	private _unsafe_sectors = [_side] call get_unsafe_sectors;
-
-	if ((count _unsafe_sectors) > 0) exitWith {
-		[_unsafe_sectors, _pos] call find_closest_sector;
-	}; 
-
-	if((count _enemy_sectors) > 0) exitWith { 
-		[_enemy_sectors, _pos] call find_closest_sector;
-	}; 
-
-	[sectors, _pos] call find_closest_sector;
 };
 
 ground_group_ai = {

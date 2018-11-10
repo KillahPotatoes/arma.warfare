@@ -1,19 +1,11 @@
-delete_all_waypoints = {
-	params ["_group"];
 
-	while {(count (waypoints _group)) > 0} do
-	{
-		deleteWaypoint [_group, 0];
-	};
-};
-
-create_waypoint = {
+infantry_create_waypoint = {
 	params ["_target", "_group"];
 	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 
 	_group call delete_all_waypoints; 
 	_w = _group addWaypoint [_pos, 5];
-	//_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
+	_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
 	
 	_w setWaypointType "SAD";
 	_group setBehaviour "AWARE";
@@ -29,10 +21,10 @@ join_nearby_group = {
 	private _joined_other_group = false;
 	private _group_count = { alive _x } count units _group;
 
-	if (!(isPlayer leader _group) && {_group_count < 3} && {_group_count > 0} && {!([_group] call check_if_in_vehicle)}) then {
+	if (!(isPlayer leader _group) && {_group_count < 3} && {_group_count > 0} && {!([_group] call in_vehicle)}) then {
 		private _groups = ([side _group] call get_battlegroups) - [_group];
 		private _pos = getPos leader _group;
-		private _nearby_groups = _groups select { [_x, _pos, 100] call check_if_group_nearby && !([_x] call check_if_in_vehicle) && !(isPlayer leader _x)};
+		private _nearby_groups = _groups select { [_x, _pos, 100] call group_nearby && !([_x] call in_vehicle) && !(isPlayer leader _x)};
 
 		if(!(_nearby_groups isEqualTo [])) then {
 			private _smallest_group = [_nearby_groups] call get_smallest_group;
@@ -52,72 +44,45 @@ join_nearby_group = {
 	_joined_other_group;
 };
 
-move_to_sector = {
-	params ["_target", "_group"];
+infantry_move_to_sector = {
+	params ["_new_target", "_group"];
 
-	private _curr_target = _group getVariable "target";
-
-	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)} || {count (waypoints _group) == 0}) then {
-		if (!([_group] call join_nearby_group)) then {
-			[_target, _group] call create_waypoint;	
-
-			/*if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)}) then {
-				[_group, _target] spawn report_next_waypoint;
-			};	*/
-		};
+	if ([_group, _new_target] call should_change_target && !([_group] call join_nearby_group)) then {
+		[_new_target, _group] call infantry_create_waypoint;			
 	};
 
-	if ((_target getVariable pos) distance2D (getPosWorld leader _group) < 200) then {
-		private _veh = vehicle leader _group;	
-		private _is_veh = _veh isKindOf "Car" || _veh isKindOf "Tank";
+	if ([_group] call needs_new_waypoint) then {
+		private _target = _group getVariable "target";
+		[_target, _group] call vehicle_create_waypoint;	
+	};
 
-		if (_is_veh) then {
-			_group setSpeedMode "LIMITED";
-		};
+	if ([_group] call approaching_target) then {
 		_group setBehaviour "AWARE";
 		_group setCombatMode "RED";
 	};		
 };
 
-group_ai = {
-	while {true} do {
-		//_t3 = diag_tickTime;
-		
-		{		
-			private _group = _x;
-			private _side = side _group; 
+initialize_infantry_group_ai = {
+	params ["_group"];
 
-			if (!(isPlayer leader _group) && _side in factions && _group getVariable "active") then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
-				private _isAir = (vehicle leader _group) isKindOf "Air";
-				
-				if (_isAir) exitWith {
-					[_group, _side] spawn air_group_ai;
-				};
+	private _side = side _group; 
 
-				[_group, _side] spawn ground_group_ai;
-			};
-		} forEach ([] call get_all_battle_groups);
+	while{[_group] call group_is_alive} do {
 
-		//[_t3, "group_ai"] spawn report_time;	
-		sleep random 10;
+		if([_group] call group_should_be_commanded) then {
+			[_group, _side] spawn infantry_group_ai;
+		};
+
+		sleep 10;
 	};
 };
 
-ground_group_ai = {
+infantry_group_ai = {
 	params ["_group", "_side"];
+
 	private _pos = getPosWorld (leader _group);
-
-	private _sectors = [_side] call get_other_sectors; // gets list of uncapturedSectors
-	private _unsafe_sectors = [_side] call get_unsafe_sectors;
-
-	private _sectors = _sectors + _unsafe_sectors;
-
-	private _target = if((count _sectors) > 0) then { 
-			[_sectors, _pos] call find_closest_sector;
-		} else {
-			[sectors, _pos] call find_closest_sector;		
-		};
+	private _target = [_side, _pos] call get_ground_target;
 	
-	[_target, _group] spawn move_to_sector;
+	[_target, _group] spawn infantry_move_to_sector;
 	[_group] spawn report_casualities_over_radio;
 };

@@ -1,41 +1,49 @@
-create_waypoint = {
+air_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _pos = _target getVariable pos;
 
 	_group call delete_all_waypoints; 
 	_w = _group addWaypoint [_pos, 5];
-	//_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
+	_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
 	
 	_w setWaypointType "SAD";
 	_group setBehaviour "AWARE";
 		
-	_group setSpeedMode "NORMAL";
 	_group setCombatMode "YELLOW";
 	_group setVariable ["target", _target];	
 };
 
-move_to_sector = {
-	params ["_target", "_group"];
+air_move_to_sector = {
+	params ["_new_target", "_group"];
 
-	private _curr_target = _group getVariable "target";
-
-	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)} || {count (waypoints _group) == 0}) then {
-		[_target, _group] call create_waypoint;	
+	if ([_group, _new_target] call should_change_target) then {
+		[_new_target, _group] call air_create_waypoint;	
 	};
 
-	if ((_target getVariable pos) distance2D (getPosWorld leader _group) < 200) then {
-		
-		_group setBehaviour "AWARE";
+	if ([_group] call needs_new_waypoint) then {
+		private _target = _group getVariable "target";
+		[_target, _group] call vehicle_create_waypoint;	
+	};
+
+	if ([_group] call approaching_target) then {		
 		_group setCombatMode "RED";
 	};		
 };
 
-air_group_ai = {
-	params ["_group", "_side"];
-	
-	private _target = [_group, _side] call find_air_target;
+initialize_air_group_ai = {
+	params ["_group"];
 
-	[_target, _group] spawn move_to_sector;
+	private _side = side _group; 
+
+	while{[_group] call group_is_alive} do {
+
+		if([_group] call group_should_be_commanded) then {
+			private _target = [_group, _side] call find_air_target;
+			[_target, _group] spawn air_move_to_sector;
+		};
+
+		sleep 10;
+	};
 };
 
 find_air_target = {

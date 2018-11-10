@@ -7,23 +7,72 @@ delete_all_waypoints = {
 	};
 };
 
-group_ai = {
-	while {true} do {
-		{		
-			private _group = _x;
-			private _side = side _group; 
+group_is_alive = {
+	params ["_group"];
 
-			if (!(isPlayer leader _group) && _side in factions && _group getVariable "active") then { // TODO check if in group && (leader or injured) to avoid getting new checkpoints while waiting for revive
-				private _isAir = (vehicle leader _group) isKindOf "Air";
-				
-				if (_isAir) exitWith {
-					[_group, _side] spawn air_group_ai;
-				};
-
-				[_group, _side] spawn ground_group_ai;
-			};
-		} forEach ([] call get_all_battle_groups);
-
-		sleep random 10;
-	};
+	{alive _x} count units _group > 0;
 };
+
+group_should_be_commanded = {
+	params ["_group"];
+
+	!(isPlayer leader _group) && (side _group) in factions && _group getVariable "active";
+};
+
+should_change_target = {
+	params ["_group", "_new_target"];
+
+	private _curr_target = _group getVariable "target";
+
+	isNil "_curr_target" || {!(_new_target isEqualTo _curr_target)};
+};
+
+needs_new_waypoint = {
+	params ["_group"];
+
+	private _target = _group getVariable "target";
+
+	if(isNil "_target") exitWith { false; };
+
+	(_target getVariable pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
+};
+
+approaching_target = {
+	params["_group"];
+
+	private _target = _group getVariable "target";
+
+	if(isNil "_target") exitWith { false; };
+	(_target getVariable pos) distance2D (getPosWorld leader _group) < 200;
+};
+
+get_ground_target = {
+	params ["_side", "_pos"];
+
+	private _sectors = [_side] call get_other_sectors;
+	private _unsafe_sectors = [_side] call get_unsafe_sectors;
+	private _targets = _sectors + _unsafe_sectors;
+
+	if((count _targets) > 0) exitWith { 
+		[_targets, _pos] call find_closest_sector;
+	};
+
+	[sectors, _pos] call find_closest_sector;		
+};
+
+initialize_battlegroup_ai = {
+	params ["_group"];
+
+	private _veh = vehicle leader _group;
+	
+	if(_veh isKindOf "Air") exitWith {
+		[_group] spawn initialize_air_group_ai;
+	};
+	
+	if(_veh isKindOf "Car" || _veh isKindOf "Tank") exitWith {
+		[_group] spawn initialize_vehicle_group_ai;
+	};
+
+	[_group] spawn initialize_infantry_group_ai;
+};
+

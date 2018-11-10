@@ -1,11 +1,11 @@
 
-create_waypoint = {
+vehicle_create_waypoint = {
 	params ["_target", "_group"];
 	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 
 	_group call delete_all_waypoints; 
-	_w = _group addWaypoint [_pos, 5];
-	//_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
+	_w = _group addWaypoint [_pos, 20];
+	_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
 
 	_w setWaypointType "MOVE";
 	_group setBehaviour "SAFE";
@@ -15,37 +15,46 @@ create_waypoint = {
 	_group setVariable ["target", _target];	
 };
 
-move_to_sector = {
-	params ["_target", "_group"];
+initialize_vehicle_group_ai = {
+	params ["_group"];
 
-	private _curr_target = _group getVariable "target";
+	private _side = side _group;
 
-	if (isNil "_curr_target" || {!(_target isEqualTo _curr_target)} || {count (waypoints _group) == 0}) then {
-		[_target, _group] call create_waypoint;	
+	while{[_group] call group_is_alive} do {
+
+		if([_group] call group_should_be_commanded) then {
+			[_group, _side] spawn vehicle_group_ai;
+		};
+
+		sleep 10;
+	};
+};
+
+vehicle_move_to_sector = {
+	params ["_new_target", "_group"];
+
+	if ([_group, _new_target] call should_change_target) then {
+		[_new_target, _group] call vehicle_create_waypoint;	
 	};
 
-	if ((_target getVariable pos) distance2D (getPosWorld leader _group) < 200) then {
+	if ([_group] call needs_new_waypoint) then {
+		private _target = _group getVariable "target";
+		[_target, _group] call vehicle_create_waypoint;	
+	};
+
+	if ([_group] call approaching_target) then {	
 		_group setSpeedMode "LIMITED";
 		_group setBehaviour "AWARE";
 		_group setCombatMode "RED";
 	};		
 };
 
-ground_group_ai = {
+vehicle_group_ai = {
 	params ["_group", "_side"];
+
 	private _pos = getPosWorld (leader _group);
-
-	private _sectors = [_side] call get_other_sectors; // gets list of uncapturedSectors
-	private _unsafe_sectors = [_side] call get_unsafe_sectors;
-
-	private _sectors = _sectors + _unsafe_sectors;
-
-	private _target = if((count _sectors) > 0) then { 
-			[_sectors, _pos] call find_closest_sector;
-		} else {
-			[sectors, _pos] call find_closest_sector;		
-		};
+	private _target = [_side, _pos] call get_ground_target;
 	
-	[_target, _group] spawn move_to_sector;
+	[_target, _group] spawn vehicle_move_to_sector;
 	[_group] spawn report_casualities_over_radio;
 };

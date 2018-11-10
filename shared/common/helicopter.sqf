@@ -74,18 +74,22 @@ take_off_and_despawn = {
 	private _side = side _heli_group;
 	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 
-	_heli_group addWaypoint [_pos, 100];
-	
-	waitUntil { !(alive _heli_vehicle) || ((_pos distance2D (getPos _heli_vehicle)) < 200) };
-	
-	if (alive _heli_vehicle) exitWith
-	{
-		[_heli_vehicle] call remove_soldiers; 
-		deleteVehicle _heli_vehicle;
-		true;
-	};
+	while {alive _heli_vehicle} do {
+		_heli_group move _pos;
+		_heli_group setCombatMode "BLUE";
 
-	false;
+		sleep 3;
+		
+		waitUntil { !(alive _heli_vehicle) || ((_pos distance2D (getPos _heli_vehicle)) < 200) || (unitReady _heli_vehicle) };
+		
+		if ((alive _heli_vehicle) && ((_pos distance2D (getPos _heli_vehicle)) < 200)) exitWith	{
+			[_heli_vehicle] call remove_soldiers; 
+			deleteVehicle _heli_vehicle;
+			true;
+		};
+
+		false;
+	};
 };
 
 remove_soldiers = {

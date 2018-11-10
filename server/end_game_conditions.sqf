@@ -1,6 +1,6 @@
 active_factions = [east, west, independent];
 
-check_if_lost = {
+lost = {
 	params ["_side"];
 	private _lost = false;
 
@@ -20,7 +20,7 @@ check_if_lost = {
 check_end_game_state = {
 	params ["_side"];
 	
-	if(_side call check_if_lost) exitWith {
+	if(_side call lost) exitWith {
 		active_factions = active_factions - [_side];
 	};
 

@@ -87,7 +87,7 @@ show_order_taxi = {
 		private _open = missionNameSpace getVariable [format["taxi_%1_menu", _type], false];
 
 		[player] call remove_all_taxi_options;
-		if(!_open && {[_type] call check_if_transport_available}) then {	
+		if(!_open && {[_type] call transport_available}) then {	
 			missionNameSpace setVariable [format["taxi_%1_menu", _type], true];
 			[_type, _priority] call show_taxi_options;
 		} else {
@@ -228,7 +228,7 @@ spawn_vehicle = {
 	_veh;	
 };
 
-check_if_transport_available = {
+transport_available = {
 	params ["_type"];
 
 	private _wait_period = (missionNameSpace getVariable format["%1_taxi_wait_period", _type]);

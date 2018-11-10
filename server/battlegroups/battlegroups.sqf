@@ -30,6 +30,8 @@ add_battle_group = {
     _group deleteGroupWhenEmpty true;
 
 	((side _group) call get_battlegroups) pushBackUnique _group;
+
+	_group call initialize_battlegroup_ai;
 };
 
 get_all_battle_groups = {
@@ -54,13 +56,13 @@ count_battlegroup_units = {
 	_sum;
 };
 
-check_if_group_nearby = {
+group_nearby = {
 	params ["_group", "_pos", "_distance"];
 
 	((getPos leader _group) distance _pos) < _distance;
 };
 
-check_if_in_vehicle = {
+in_vehicle = {
 	params ["_group"];
 	private _veh = vehicle leader _group;
 	(_veh isKindOf "Car" || _veh isKindOf "Tank" || _veh isKindOf "Air");

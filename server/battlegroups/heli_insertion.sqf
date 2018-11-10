@@ -7,12 +7,11 @@ add_soldiers_to_helicopter_cargo = {
 	private _cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
 	private _cargo = (_cargoCapacity min _can_spawn) min squad_cap;
 	private _group = [[0,0,0], _side, _cargo, false] call spawn_infantry;	
+	[_group, false] call add_battle_group;
 
 	{
 		_x moveInCargo _vehicle;    
 	} forEach units _group;
-
-	[_group, false] call add_battle_group;
 
 	_group;
 };

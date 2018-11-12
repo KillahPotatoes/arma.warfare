@@ -2,7 +2,7 @@ get_next_vehicle_cycle = {
 	params ["_curr_cycle"];
 
 	private _min_cycles_between_vehicle_spawn = 0;
-	private _max_cycles_between_vehicle_spawn = 5;
+	private _max_cycles_between_vehicle_spawn = 3;
 
 	_curr_cycle + (_min_cycles_between_vehicle_spawn + floor random (_max_cycles_between_vehicle_spawn - _min_cycles_between_vehicle_spawn));
 };
@@ -16,12 +16,10 @@ spawn_battle_groups = {
 	sleep 10;		
 
 	while {true} do {
-
 		private _unit_count = _side call count_battlegroup_units;	
-		private _strength = _side call get_strength;
-		private _can_spawn = (unit_cap - _unit_count) min (_side call get_unused_strength); 
+		private _can_spawn = unit_cap - _unit_count; 
 
-		if (_can_spawn > (squad_cap / 2) || (_strength == _can_spawn)) then {
+		if (_can_spawn > (squad_cap / 2)) then {
 			if(_cycle_counter == _next_vehicle_cycle) then {
 				_cycle_counter = _cycle_counter + 1;
 				[_side, _can_spawn] spawn spawn_random_vehicle_group;

@@ -16,12 +16,6 @@ initialize_faction = {
 	[_side, 0] call set_tier_progress;	
 };
 
-get_unused_strength = {
-	params ["_side"];
-
-	(_side call get_strength) - (_side call count_battlegroup_units);
-};
-
 calculate_tier_progress = {
 	params ["_side"];
 	

@@ -48,16 +48,6 @@ get_strength = {
 	missionNamespace getVariable format ["%1_strength",  _side];
 };
 
-set_income = {
-	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_income", _side], _value, true];
-}; 
-
-get_income = {
-	params ["_side"];
-	missionNamespace getVariable format ["%1_income", _side];
-};
-
 get_faction_names = {
   params ["_side"];
   missionNamespace getVariable format["%1_faction_name", _side];

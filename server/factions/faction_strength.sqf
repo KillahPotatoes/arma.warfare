@@ -10,7 +10,6 @@ initialize_faction = {
 	params ["_side", "_manpower", "_tier"];
 
 	[_side, _manpower] call set_strength;
-	[_side, 0] call set_income;
 	[_side, _tier call get_tier_bound] call set_kill_count;
 	[_side, _tier] call set_tier;
 	[_side, 0] call set_tier_progress;	

@@ -15,7 +15,7 @@ spawn_battle_groups = {
 
 	sleep 10;		
 
-	while {true} do {
+	while {_side in active_factions} do {
 		private _unit_count = _side call count_battlegroup_units;	
 		private _can_spawn = unit_cap - _unit_count; 
 

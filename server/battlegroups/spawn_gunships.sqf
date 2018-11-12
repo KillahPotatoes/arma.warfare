@@ -13,7 +13,7 @@ find_target_sectors = {
 spawn_gunships = {
 	params ["_side"];
 	
-	while {true} do {
+	while {_side in active_factions} do {
 		private _tier = [_side] call get_tier;
 		private _wait_time = tier_base_gunship_respawn_time + (random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]));
 		

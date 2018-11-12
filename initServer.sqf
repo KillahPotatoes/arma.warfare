@@ -1,3 +1,5 @@
+enableSaving [false, false];
+
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\hide_respawn_markers.sqf";

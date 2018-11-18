@@ -12,11 +12,11 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=186;
+		nextID=187;
 	};
 	class Camera
 	{
-		pos[]={2082.9255,180.1216,5420.418};
+		pos[]={2076.8103,302.69199,5331.4009};
 		dir[]={0.024374371,-0.68022686,0.73259825};
 		up[]={0.022619389,0.73300129,0.67985064};
 		aside[]={0.99944687,7.043127e-009,-0.033252839};
@@ -32,7 +32,6 @@ addons[]=
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
 	"A3_Characters_F",
-	"asr_ai3_skills",
 	"A3_Structures_F_EPA_Civ_Constructions",
 	"A3_Structures_F_Civ_Camping",
 	"A3_Structures_F_Mil_Cargo",
@@ -205,7 +204,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={2101.2754,6.6999998,5628.8413};
-				angles[]={-0,1.7905842,0};
+				angles[]={0,1.7905842,0};
 			};
 			side="Empty";
 			flags=4;
@@ -258,7 +257,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={2087.4421,8.0390043,5635.6743};
-				angles[]={-0,3.3472085,0};
+				angles[]={0,3.3472085,0};
 			};
 			side="Empty";
 			flags=4;
@@ -267,6 +266,7 @@ class Mission
 			};
 			id=1000;
 			type="B_Slingload_01_Ammo_F";
+			atlOffset=-0.023032665;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -443,6 +443,7 @@ class Mission
 			};
 			id=1003;
 			type="B_Slingload_01_Fuel_F";
+			atlOffset=-0.010055542;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -610,7 +611,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={2081.2551,8.0889168,5605.6626};
-				angles[]={-0,3.2864861,0};
+				angles[]={0,3.2864861,0};
 			};
 			side="Empty";
 			flags=4;
@@ -619,6 +620,7 @@ class Mission
 			};
 			id=1006;
 			type="B_Slingload_01_Medevac_F";
+			atlOffset=-0.00022602081;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -729,7 +731,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={2082.885,8.0846977,5615.918};
-				angles[]={-0,3.3226407,0};
+				angles[]={0,3.3226407,0};
 			};
 			side="Empty";
 			flags=4;
@@ -738,6 +740,7 @@ class Mission
 			};
 			id=1009;
 			type="B_Slingload_01_Repair_F";
+			atlOffset=-0.0058188438;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1116,7 +1119,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={2096.2285,6.73,5600.2993};
-				angles[]={-0,1.7317332,0};
+				angles[]={0,1.7317332,0};
 			};
 			side="Empty";
 			flags=4;

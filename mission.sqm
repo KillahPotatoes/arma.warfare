@@ -12,14 +12,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=177;
+		nextID=185;
 	};
 	class Camera
 	{
-		pos[]={2740.6104,173.13591,4947.5996};
-		dir[]={-0.85486019,-0.17278831,-0.48928428};
-		up[]={-0.14997476,0.98495555,-0.085838504};
-		aside[]={-0.49675664,-4.1059684e-007,0.86791551};
+		pos[]={3465.3755,151.20995,3879.1094};
+		dir[]={-0.38473743,-0.33238003,-0.86113757};
+		up[]={-0.13559866,0.94312531,-0.30350089};
+		aside[]={-0.91304547,-6.2213803e-007,0.40793064};
 	};
 };
 binarizationWanted=0;
@@ -108,12 +108,41 @@ class AddonsMetaData
 randomSeed=10383248;
 class ScenarioData
 {
-	author="sondrebakken";
+	author="Sondre Bjørnvold Bakken";
+};
+class CustomAttributes
+{
+	class Category0
+	{
+		name="Scenario";
+		class Attribute0
+		{
+			property="EnableDebugConsole";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"SCALAR"
+						};
+					};
+					value=1;
+				};
+			};
+		};
+		nAttributes=1;
+	};
 };
 class Mission
 {
 	class Intel
 	{
+		briefingName="SC 12 arma.warfare Stratis";
+		resistanceWest=0;
 		timeOfChanges=1800.0002;
 		startWeather=0.30000001;
 		startWind=0.1;
@@ -821,12 +850,12 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={4212.6221,76.692886,5509.8218};
-				angles[]={5.9803009,0,0.43113953};
+				position[]={4212.6221,76.692459,5509.8218};
+				angles[]={5.9803009,0,0.43113121};
 			};
 			id=1012;
 			type="ModuleTimeMultiplier_F";
-			atlOffset=0.057426453;
+			atlOffset=0.056999207;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -844,7 +873,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=60;
+							value=12;
 						};
 					};
 				};
@@ -2048,17 +2077,17 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={3444.1777,370.73557,3798.7869};
-						angles[]={6.1934271,3.4155264,6.2033539};
+						position[]={3444.1777,129.9444,3798.7869};
+						angles[]={6.1934271,3.4155264,6.1884727};
 					};
 					side="Empty";
+					flags=4;
 					class Attributes
 					{
 						skill=0.2;
 					};
 					id=1062;
 					type="Land_ToiletBox_F";
-					atlOffset=240.79117;
 				};
 				class Item2
 				{
@@ -2749,17 +2778,17 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={3441.7473,371.16138,3799.4834};
+						position[]={3441.7473,130.20261,3799.4834};
 						angles[]={6.1934271,3.4166822,6.2033539};
 					};
 					side="Empty";
+					flags=4;
 					class Attributes
 					{
 						skill=0.2;
 					};
 					id=1101;
 					type="Land_ToiletBox_F";
-					atlOffset=240.95877;
 				};
 				class Item41
 				{
@@ -2907,7 +2936,7 @@ class Mission
 				};
 			};
 			id=1060;
-			atlOffset=1.5643616;
+			atlOffset=1.0937347;
 		};
 		class Item52
 		{

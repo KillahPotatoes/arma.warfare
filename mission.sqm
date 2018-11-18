@@ -12,14 +12,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=185;
+		nextID=186;
 	};
 	class Camera
 	{
-		pos[]={3465.3755,151.20995,3879.1094};
-		dir[]={-0.38473743,-0.33238003,-0.86113757};
-		up[]={-0.13559866,0.94312531,-0.30350089};
-		aside[]={-0.91304547,-6.2213803e-007,0.40793064};
+		pos[]={2082.9255,180.1216,5420.418};
+		dir[]={0.024374371,-0.68022686,0.73259825};
+		up[]={0.022619389,0.73300129,0.67985064};
+		aside[]={0.99944687,7.043127e-009,-0.033252839};
 	};
 };
 binarizationWanted=0;
@@ -32,6 +32,7 @@ addons[]=
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
 	"A3_Characters_F",
+	"asr_ai3_skills",
 	"A3_Structures_F_EPA_Civ_Constructions",
 	"A3_Structures_F_Civ_Camping",
 	"A3_Structures_F_Mil_Cargo",
@@ -203,8 +204,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4382.1099,129.00499,6762.7026};
-				angles[]={6.255693,5.2724857,6.19839};
+				position[]={2101.2754,6.6999998,5628.8413};
+				angles[]={-0,1.7905842,0};
 			};
 			side="Empty";
 			flags=4;
@@ -256,8 +257,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4370.3784,130.24362,6767.3013};
-				angles[]={6.1416407,2.159584,0.11942752};
+				position[]={2087.4421,8.0390043,5635.6743};
+				angles[]={-0,3.3472085,0};
 			};
 			side="Empty";
 			flags=4;
@@ -266,7 +267,6 @@ class Mission
 			};
 			id=1000;
 			type="B_Slingload_01_Ammo_F";
-			atlOffset=-0.29771423;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -433,8 +433,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4367.3096,129.26074,6762.5068};
-				angles[]={6.1884689,2.1823149,0.06739822};
+				position[]={2085.4653,8.0582991,5626.0908};
+				angles[]={0.0049914722,3.3814626,6.2806959};
 			};
 			side="Empty";
 			flags=4;
@@ -443,7 +443,6 @@ class Mission
 			};
 			id=1003;
 			type="B_Slingload_01_Fuel_F";
-			atlOffset=-0.31245422;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -610,8 +609,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4365.6807,130.28552,6731.6704};
-				angles[]={6.2731848,0.32048082,0.01499443};
+				position[]={2081.2551,8.0889168,5605.6626};
+				angles[]={-0,3.2864861,0};
 			};
 			side="Empty";
 			flags=4;
@@ -620,7 +619,6 @@ class Mission
 			};
 			id=1006;
 			type="B_Slingload_01_Medevac_F";
-			atlOffset=-0.085754395;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -730,8 +728,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4364.8779,128.73718,6757.5801};
-				angles[]={0,2.1087186,0};
+				position[]={2082.885,8.0846977,5615.918};
+				angles[]={-0,3.3226407,0};
 			};
 			side="Empty";
 			flags=4;
@@ -740,7 +738,6 @@ class Mission
 			};
 			id=1009;
 			type="B_Slingload_01_Repair_F";
-			atlOffset=-0.36374664;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1058,11 +1055,11 @@ class Mission
 		class Item28
 		{
 			dataType="Marker";
-			position[]={3522.2444,200.85339,4910.6934};
-			name="sector_Mountain_Outpost";
+			position[]={4508.7896,202.02246,6789.8936};
+			name="sector_Kill_Farm";
 			type="hd_objective";
 			id=1024;
-			atlOffset=0.057418823;
+			atlOffset=95.718254;
 		};
 		class Item29
 		{
@@ -1085,13 +1082,12 @@ class Mission
 		class Item31
 		{
 			dataType="Marker";
-			position[]={4372.0215,129.09839,6730.0889};
+			position[]={2110.3831,6.7087107,5611.7495};
 			name="alpha_respawn_ground";
 			type="respawn_unknown";
 			colorName="ColorWEST";
 			angle=105.67449;
 			id=1028;
-			atlOffset=0.057434082;
 		};
 		class Item32
 		{
@@ -1119,8 +1115,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4373.4375,128.9137,6747.1641};
-				angles[]={0.0075011365,2.0236149,0};
+				position[]={2096.2285,6.73,5600.2993};
+				angles[]={-0,1.7317332,0};
 			};
 			side="Empty";
 			flags=4;
@@ -1130,7 +1126,6 @@ class Mission
 			};
 			id=1031;
 			type="Land_ClutterCutter_large_F";
-			atlOffset=0.057418823;
 		};
 		class Item35
 		{
@@ -2023,11 +2018,11 @@ class Mission
 		class Item48
 		{
 			dataType="Marker";
-			position[]={2103.7744,6.7574263,5632.0181};
+			position[]={3976.9514,71.334229,5873.8174};
 			name="sector_Stratis_Air_Base";
 			type="hd_objective";
 			id=1057;
-			atlOffset=0.057426453;
+			atlOffset=-3.0519943;
 		};
 		class Item49
 		{

@@ -5,7 +5,7 @@ sector_manpower_generation = {
                   private _sector = _x;
                   private _side = _sector getVariable owned_by;
 
-                  if(_side in factions) then {
+                  if(_side in all_sides) then {
                         private _ammo_box = _sector getVariable box;
                         private _manpower = _ammo_box getVariable manpower;
 

@@ -33,7 +33,7 @@ get_vehicle = {
 	params ["_base_marker", "_class_name", "_penalty"];
 
 	private _pos = getPos _base_marker;
-	private _isEmpty = !([_pos] call any_units_to_close);
+	private _isEmpty = !([_pos] call any_units_too_close);
 
 	if (_isEmpty) exitWith {
 		private _veh = _class_name createVehicle _pos;

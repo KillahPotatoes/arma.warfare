@@ -97,7 +97,7 @@ register_kill = {
 		private _killer_side = side group _killer;
 		private _victim_side = side group _victim;    
 
-		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in factions}) then {
+		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in all_sides}) then {
 			_kill_point = _killer_side call calculate_kill_points;	
 			[_killer_side, _kill_point] call increment_kill_counter;
 		};
@@ -106,7 +106,7 @@ register_kill = {
 			[] remoteExec ["increment_player_kill_counter", _killer];
 		};
 
-		if (_victim_side in factions) then {
+		if (_victim_side in all_sides) then {
 			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
 			_faction_strength = _victim_side call get_strength;

@@ -6,19 +6,19 @@ not_in_vehicle = {
 is_leader = {
 	params ["_player"];
 
-  isPlayer (leader (group _player));   
+	isPlayer (leader (group _player));   
 };
 
 initialize_ammo_boxes = {
-		 {
-			 	if(_x getVariable ["HQ", false]) then {
-					 [_x] spawn add_HQ_actions;
-				 };
+	{
+		if(_x getVariable ["HQ", false]) then {
+			[_x] spawn add_HQ_actions;
+		};
 
-				 if(_x getVariable ["sector", false]) then {
-					 [_x] spawn add_sector_actions;
-				 };
-		 } forEach allMissionObjects ammo_box;
+		if(_x getVariable ["sector", false]) then {
+			[_x] spawn add_sector_actions;
+		};
+	} forEach entities ammo_box;
 };
 
 add_sector_actions = {

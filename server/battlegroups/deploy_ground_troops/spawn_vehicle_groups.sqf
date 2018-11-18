@@ -37,7 +37,7 @@ try_find_unoccupied_nearby_road = {
 			_attempt_counter = _attempt_counter + 1;
 			
 			_road_pos = getPos (selectRandom _road);
-			_is_safe = !([_road_pos] call any_units_to_close);
+			_is_safe = !([_road_pos] call any_units_too_close);
 			if (_is_safe) then {
 				_pos = _road_pos;
 			};

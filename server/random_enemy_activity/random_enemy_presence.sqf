@@ -75,7 +75,7 @@ house_can_be_populated = {
 	private _pos = getPos _building;	
 	private _player_pos = getPos _player;
 
-	(_side in factions) && !((side _player) isEqualTo _side)
+	(_side in all_sides) && !((side _player) isEqualTo _side)
 	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
 	&& {(_sector_pos distance2D _pos) > sector_size}
 	&& {!(_building getVariable ["occupied", false])}	

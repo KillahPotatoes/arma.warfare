@@ -84,7 +84,7 @@ get_unowned_sectors = {
 	
 	{
 		_sectors = _sectors - (missionNamespace getVariable format["%1_sectors", _x]);
-	} foreach factions;
+	} foreach all_sides;
 
 	_sectors;
 };
@@ -129,7 +129,7 @@ find_closest_friendly_sector = {
 find_enemy_sectors = {
 	params ["_side"];
 
-	private _enemy = factions - [_side];
+	private _enemy = all_sides - [_side];
 
 	private _sectors = [];
 	_sectors = _sectors + ([_enemy select 0] call get_owned_sectors);

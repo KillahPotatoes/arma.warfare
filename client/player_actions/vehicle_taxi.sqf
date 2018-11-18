@@ -220,7 +220,7 @@ spawn_vehicle = {
 
 	private _pos = getPos _base_marker;
 
-	waitUntil { !([_pos] call any_units_to_close); };
+	waitUntil { !([_pos] call any_units_too_close); };
 
 	private _veh = [_pos, getDir _base_marker, _class_name, _side] call BIS_fnc_spawnVehicle;
 

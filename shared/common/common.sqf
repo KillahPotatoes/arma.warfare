@@ -13,6 +13,11 @@ player_already_in_hq = {
   (getPos _player) distance _pos > 25; 
 };
 
+not_in_vehicle = {
+	params ["_unit"];
+	_unit isEqualTo (vehicle _unit);
+};
+
 addActionText = {
   params ["_text", "_level"];
 

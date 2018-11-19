@@ -56,3 +56,15 @@ any_friendlies_in_area = {
 	[_units, _side] call any_friendlies_in_list;
 };
 
+get_friendly_squads_in_area = {
+	params ["_pos", "_side", ["_distance", 50];
+
+	allGroups select {
+		private _unit = ;
+		(side _x isEqualTo _side) 
+		&& [(leader _x)] call not_in_vehicle 
+		&& (_pos distance (leader _x)) < _distance;
+	};
+};
+
+

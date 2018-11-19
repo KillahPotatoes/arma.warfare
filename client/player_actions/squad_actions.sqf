@@ -26,7 +26,6 @@ join_squad = {
     ];
 };
 
-
 leave_squad = {  
   	player addAction [["Leave squad", 0] call addActionText, {
 		private _current_group = group player;

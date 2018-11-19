@@ -9,7 +9,7 @@
 // Player actions
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\player_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\squad_actions.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\player_actions\vehicle_taxi.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\vehicle_veh.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_area.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_sector.sqf";

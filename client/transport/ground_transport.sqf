@@ -1,6 +1,6 @@
-vehicle_taxi_wait_period = 0;
+vehicle_transport_wait_period = 0;
 
-send_vehicle_taxi = {
+send_vehicle_transport = {
 	params ["_veh_group", "_veh_vehicle", "_pos"];
 
 	_veh_group move _pos;

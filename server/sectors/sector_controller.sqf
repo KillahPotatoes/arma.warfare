@@ -25,6 +25,8 @@ capture_sector = {
 	params ["_sector", "_side"];
 
 	_name = [_sector getVariable sector_name] call replace_underscore;
+	_sector setVariable ["reinforements_available", true];
+
 	_msg = format["%1 has captured %2", _side call get_faction_names, _name];
 	_msg remoteExec ["hint"]; 
 
@@ -35,6 +37,7 @@ lose_sector = {
 	params ["_sector", "_side"];
 
 	_name = [_sector getVariable sector_name] call replace_underscore;
+	_sector setVariable ["reinforements_available", false];
 	_msg = format["%1 has lost %2", _side call get_faction_names, _name];
 	_msg remoteExec ["hint"]; 
 
@@ -64,12 +67,26 @@ change_sector_ownership = {
 	[_new_owner, _sector] call reset_sector_manpower;
 };
 
+reinforcements_cool_down = {
+	params ["_sector"];
+
+	_sector setVariable ["reinforements_available", false];
+	private _current_owner = _sector getVariable owned_by;
+
+	sleep 300;
+
+	if((_sector getVariable owned_by) isEqualTo _current_owner) exitWith {
+		_sector setVariable ["reinforements_available", true];
+	};
+};
+
 initialize_sector_control = {
 	params ["_sector"];
 	
 	private _pos = _sector getVariable pos;
 	private _counter = 0;
 	private _current_faction = _sector getVariable owned_by;
+	_sector setVariable ["reinforements_available", false];
 
 	while {true} do {	
 		private _owner = _sector getVariable owned_by;
@@ -102,12 +119,25 @@ initialize_sector_control = {
 				};
 			};
 		} else {
-			if(!([_owner, _pos] call any_enemies_in_sector_center)) exitWith { 
-				if(!([_owner, _pos] call any_enemies_in_sector)) exitWith {
+			private _under_attack = ([_owner, _pos] call any_enemies_in_sector);
+			private _being_overtaken = ([_owner, _pos] call any_enemies_in_sector_center);
+
+			if(_under_attack) then {
+					if(_sector getVariable "reinforements_available") then {
+					private _success = [_owner, _sector] call try_spawn_heli_reinforcements;
+
+					if(_success) then {
+						[_sector] spawn reinforcements_cool_down;				 
+					};
+				};
+			};
+
+			if(!_being_overtaken) exitWith { 
+				if(!_under_attack) exitWith {
 					_counter = [_counter, _sector, _owner] call increment_counter; 
 				};
 			};
-	
+		
 			if(_counter == 0) then {
 				[_sector, _current_faction] call lose_sector;
 			} else {

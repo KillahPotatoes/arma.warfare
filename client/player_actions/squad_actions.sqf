@@ -39,6 +39,25 @@ leave_squad = {
     ];
 };
 
+find_friendly_squads = {
+	params ["_group", "_side", "_distance"];
+		
+	!(group player isEqualTo _group)
+	&& (side _group isEqualTo _side) 
+	&& [(leader _group)] call not_in_vehicle 
+	&& (_pos distance (leader _group)) < _distance;
+};
+
+get_friendly_squads_in_area = {
+	params ["_pos", "_side", ["_distance", 50]];
+	allGroups select { [_x, _side, _distance] call find_friendly_squads; };
+};
+
+any_friendly_squads_in_area = {
+	params ["_pos", "_side", ["_distance", 50]];
+	allGroups findIf { [_x, _side, _distance] call find_friendly_squads; } != -1;
+};
+
 get_squad_name = {
 	params ["_group"];
 	_split_string = [groupId _group, 0] call split_string;
@@ -46,8 +65,9 @@ get_squad_name = {
 };
 
 list_join_options = {
-	private _side = side player;
+	params ["_priority"];
 
+	private _side = side player;
 	private _squads = [getPos player, side player] call get_friendly_squads_in_area;
 
 	{
@@ -70,10 +90,10 @@ create_join_menu = {
 		[] call remove_all_join_options;
 
 		if(!join_menu_open) then {
-			[] call list_join_options;
+			[91] call list_join_options;
 			join_menu_open = true;
 		} else {
 			join_menu_open = false;
 		}
-	}, [], _priority, false, false, "", 'player call empty_squad && {[getPos player, side player] call any_friendly_squads_in_area}', 10]	
+	}, [], 91, false, false, "", 'player call empty_squad && {[getPos player, side player] call any_friendly_squads_in_area}', 10]	
 };

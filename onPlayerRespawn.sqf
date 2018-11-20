@@ -1,6 +1,6 @@
 player enableStamina false;
 
-[] spawn join_squad;
+[] spawn create_join_menu;
 [] spawn leave_squad;
 [] spawn add_give_manpower_to_player_action;
 [] spawn add_take_manpower_from_player_action;

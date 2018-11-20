@@ -40,11 +40,11 @@ Based on tier different vehicles and helicopters can also be bought in the start
 You can also perform a halo insertion from the start base.
 Spawn 2000 m over the ground at any point chosen by clicking on the map. Any teammates nearby will drop with you. 
 
-### Heli taxi
+### Heli transport
 
-If you are the leader of your group you can order a heli taxi. A heli will come land, and upon entering you will take control of the helicopter. 
+If you are the leader of your group you can order a heli transport. A heli will come land, and upon entering you will take control of the helicopter. 
 
-When you are done with the heli taxi you can ask it to leave. 
+When you are done with the heli transport you can ask it to leave. 
 
 There will be a time penalty between each time you can use the helicopter, and if its shot down there will be a longer penalty and also a manpower penalty.
 

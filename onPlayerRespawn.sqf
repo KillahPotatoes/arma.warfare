@@ -5,8 +5,8 @@ player enableStamina false;
 [] spawn add_give_manpower_to_player_action;
 [] spawn add_take_manpower_from_player_action;
 
-["Request helicopter pick-up", helicopter, 95] spawn show_order_taxi;
-["Request vehicle pick-up", vehicle1, 93] spawn show_order_taxi;
+["Request helicopter pick-up", helicopter, 95] spawn show_order_transport;
+["Request vehicle pick-up", vehicle1, 93] spawn show_order_transport;
 
 remove_squad_mates_on_death = {
 	params ["_player"];

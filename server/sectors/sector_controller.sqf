@@ -111,6 +111,7 @@ initialize_sector_control = {
 			if(_counter == 0) then {
 				[_sector, _current_faction] call lose_sector;
 			} else {
+				[_owner, _sector] spawn try_spawn_heli_reinforcements;
 				_counter = [_counter, _sector, _owner] call decrement_counter; 
 			};
 

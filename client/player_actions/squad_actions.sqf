@@ -1,7 +1,12 @@
-is_friendly_soldier = {
-	params ["_cursorTarget", "_player"];
+join_menu_open = false;
+join_options = [];
 
-	_cursorTarget isKindOf "Man" && {(side cursorTarget) isEqualTo (side _player)} && {((getPos _cursorTarget) distance (getPos _player) < 25)} && {((getPos _cursorTarget) distance (getPos _player) > 1)};	
+remove_all_join_options = {
+	{
+		player removeAction _x;
+	} forEach join_options;
+
+	join_options = [];
 };
 
 empty_squad = {
@@ -11,19 +16,15 @@ empty_squad = {
 };
 
 join_squad = {  
-  player addAction [["Join squad", 0] call addActionText, {    
-		private _group = group cursorTarget;
+  	params ["_group"];
 
-		private _player_group = group player;	
-		[player] join _group;
+	private _player_group = group player;	
+	[player] join _group;
 
-		private _new_count = { alive _x } count units _group;
-		_group setVariable [soldier_count, _new_count];		
+	private _new_count = { alive _x } count units _group;
+	_group setVariable [soldier_count, _new_count];		
 
-		deleteGroup _player_group;
-    }, cursorTarget, 70, true, true, "",
-    '[cursorTarget, player] call is_friendly_soldier && (player call empty_squad)'
-    ];
+	deleteGroup _player_group;
 };
 
 leave_squad = {  
@@ -36,4 +37,43 @@ leave_squad = {
     }, nil, 70, true, true, "",
     '!(player call empty_squad)'
     ];
+};
+
+get_squad_name = {
+	params ["_group"];
+	_split_string = [groupId _group, 0] call split_string;
+	_split_string select 1;
+};
+
+list_join_options = {
+	private _side = side player;
+
+	private _squads = [getPos player, side player] call get_friendly_squads_in_area;
+
+	{
+		private _name = [_x] call get_squad_name;
+		join_options pushBack (player addAction [[_name, 2] call addActionText, {
+			private _params = _this select 3;
+			private _group = _params select 0;
+
+			[_group] call join_squad;
+			[] call remove_all_join_options;
+		}, [_x], (_priority - 1), false, true, "", 'player call empty_squad', 10]);
+
+	} forEach _squads;
+};
+
+create_join_menu = {
+	player addAction [["Join squad", 0] call addActionText, {
+		params ["_target", "_caller", "_actionId", "_arguments"];
+
+		[] call remove_all_join_options;
+
+		if(!join_menu_open) then {
+			[] call list_join_options;
+			join_menu_open = true;
+		} else {
+			join_menu_open = false;
+		}
+	}, [], _priority, false, false, "", 'player call empty_squad && {[getPos player, side player] call any_friendly_squads_in_area}', 10]	
 };

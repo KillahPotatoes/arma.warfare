@@ -67,4 +67,14 @@ get_friendly_squads_in_area = {
 	};
 };
 
+any_friendly_squads_in_area = {
+	params ["_pos", "_side", ["_distance", 50];
+
+	allGroups findIf {
+		private _unit = ;
+		(side _x isEqualTo _side) 
+		&& [(leader _x)] call not_in_vehicle 
+		&& (_pos distance (leader _x)) < _distance;
+	} != -1;
+};
 

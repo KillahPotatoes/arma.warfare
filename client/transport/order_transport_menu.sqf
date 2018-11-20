@@ -1,3 +1,8 @@
+[] call compileFinal preprocessFileLineNumbers "client\transport\active_transport_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\transport\air_transport.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\transport\ground_transport.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\transport\transport_common.sqf";
+
 transport_options = [];
 
 remove_all_transport_options = {

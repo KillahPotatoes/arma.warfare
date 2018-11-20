@@ -10,39 +10,18 @@ in_transport = {
 	(vehicle player) getVariable ["transport", false];
 };
 
-send_to_HQ = {
-	params ["_group", "_veh"];
-	
-	private _side = side _group;
-	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
-
-	_group addWaypoint [_pos, 100];
-	
-	waitUntil { !(alive _veh) || ((_pos distance2D (getPos _veh)) < 100) };
-	
-	if (alive _veh) exitWith
-	{
-		[_veh] call remove_soldiers; 
-		deleteVehicle _veh;
-		true;
-	};
-
-	false;
-};
-
 update_transport_orders = {
-	params ["_group", "_veh", "_pos"];
+	params ["_group", "_veh"];
 
 	openMap true;
-	[_group, _veh, _pos] onMapSingleClick {
+	[_group, _veh] onMapSingleClick {
 		onMapSingleClick {}; // To remove the code triggered on map click so you cannot click twice 				        
 		openMap false;
 
 		private _group = _this select 0;
 		private _veh = _this select 1;
-		private _pos = _this select 2;
 		
-		[_group, _veh, _pos] call move_transport_to_pick_up;
+		[_group, _veh, _pos, "Receivering new orders. On its way!"] spawn move_transport_to_pick_up;
 	};
 	waitUntil {
 		!visibleMap;
@@ -112,13 +91,13 @@ order_transport = {
 	[_veh] spawn show_active_transport_menu;
 	[_veh] spawn check_status;
 
-	[_group, _veh, _pos] call move_transport_to_pick_up;
+	[_group, _veh, _pos, "Transport is on its way to given pick up destination!"] spawn move_transport_to_pick_up;
 };
 
 move_transport_to_pick_up = {
-	params ["_group", "_veh", "_pos"];
+	params ["_group", "_veh", "_pos", "_msg"];
 
-	[_group, "Transport is on its way to given pick up destination!"] spawn group_report_client;
+	[_group, _msg] spawn group_report_client;
 
 	if(_veh isKindOf "Air") then {
 		[_group, _veh, "GET IN", _pos] call land_helicopter; 
@@ -174,8 +153,20 @@ put_player_in_position = {
 	player moveInDriver _veh;
 };
 
+set_wait_time = {
+	params ["_class_name", "_duration"];
+
+	if(_class_name isKindOf "Air") exitWith {
+		missionNamespace setVariable [format["%1_transport_wait_period", helicopter], _duration];
+	};
+
+	missionNamespace setVariable [format["%1_transport_wait_period", vehicle1], _duration];
+};
+
 check_status = {
 	params ["_veh"];
+
+	private _class_name = typeOf _veh;
 
 	waitUntil {!(alive _veh && canMove _veh)};
 	sleep 3; // to make sure heli_active is updated
@@ -184,13 +175,13 @@ check_status = {
 			[playerSide, "Transport vehicle is down! You are on your own!"] spawn HQ_report_client; // TODO make classname specific
 		};
 
-		missionNamespace setVariable [format["%1_transport_wait_period", _type],transport_wait_period_on_crash];
+		[_class_name, transport_wait_period_on_crash] call set_wait_time;
 	} else {
-		missionNamespace setVariable [format["%1_transport_wait_period", _type],transport_wait_period_on_despawn];
+		[_class_name, transport_wait_period_on_despawn] call set_wait_time;
 	};
 
 	transport_active = false;
-	player removeAction cancel_transport_id;
+	[] call remove_active_transport_menu;
 	transport_timer = time;
 };
 
@@ -206,15 +197,14 @@ on_transport_idle_wait = {
 };
 
 interrupt_transport_misson = {
-	params ["_veh", "_group", "_msg", ["empty_vehicle", false]];
+	params ["_veh", "_group", "_msg", ["_empty_vehicle", false]];
 		
-	player removeAction cancel_transport_id;
-	player removeAction update_orders_id;
+	[] call remove_active_transport_menu;
 
 	_veh lock true;
 	[_group, _msg] spawn group_report_client;
 	
-	if(empty_vehicle) then {
+	if(_empty_vehicle) then {
 		_veh call empty_vehicle_cargo;
 	} else {
 		_veh call throw_out_players;

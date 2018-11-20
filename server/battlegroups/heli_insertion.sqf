@@ -94,8 +94,12 @@ try_spawn_heli_reinforcements = {
 	private _unit_count = _side call count_battlegroup_units;	
 	private _can_spawn = unit_cap - _unit_count; 
 
-	if (_can_spawn > (squad_cap / 2)) then {
+	if (_can_spawn > (squad_cap / 2)) exitWith {
 		private _pos = _sector getVariable pos;
+		systemChat "Getting reinforcements";
 		[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
+
+		true;
 	};	
+	false;
 };

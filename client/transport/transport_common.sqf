@@ -5,6 +5,7 @@ transport_will_wait_time = 300;
 transport_active = false;	
 transport_timer = time;
 transport_arrived_at_HQ = false;
+new_orders = false;
 
 in_transport = {	
 	(vehicle player) getVariable ["transport", false];
@@ -20,6 +21,8 @@ update_transport_orders = {
 
 		private _group = _this select 0;
 		private _veh = _this select 1;
+
+		new_orders = true;
 		
 		[_group, _veh, _pos, "Receivering new orders. On its way!"] spawn move_transport_to_pick_up;
 	};
@@ -90,6 +93,7 @@ order_transport = {
 	
 	[_veh] spawn show_active_transport_menu;
 	[_veh] spawn check_status;
+	[_veh] spawn toggle_control;
 
 	[_group, _veh, _pos, "Transport is on its way to given pick up destination!"] spawn move_transport_to_pick_up;
 };
@@ -108,7 +112,6 @@ move_transport_to_pick_up = {
 	if (canMove _veh) exitWith {
 		[_group, "Transport has arrived. Waiting for squad to pick up!"] spawn group_report_client;
 		[transport_will_wait_time, _veh, _group] spawn on_transport_idle_wait;
-		[_veh] spawn toggle_control;
 	};
 };
 
@@ -188,10 +191,12 @@ check_status = {
 on_transport_idle_wait = {
 	params ["_wait_period", "_veh", "_group"];
 
-	private _timer = time + _wait_period;
-	waituntil {(player in _veh) || time > _timer || !(alive _veh)};
+	new_orders = false;
 
-	if (!(player in _veh) && (alive _veh)) exitWith {
+	private _timer = time + _wait_period;
+	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders};
+
+	if (!(player in _veh) && (alive _veh) && !new_orders) exitWith {
 		[_veh, _group, "We can't wait any longer! Transport is heading back to HQ!", true] call interrupt_transport_misson;
 	};
 };

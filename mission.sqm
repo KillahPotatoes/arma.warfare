@@ -8,18 +8,18 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1120;
+		nextID=1123;
 	};
 	class LayerIndexProvider
 	{
-		nextID=187;
+		nextID=189;
 	};
 	class Camera
 	{
-		pos[]={2076.8103,302.69199,5331.4009};
-		dir[]={0.024374371,-0.68022686,0.73259825};
-		up[]={0.022619389,0.73300129,0.67985064};
-		aside[]={0.99944687,7.043127e-009,-0.033252839};
+		pos[]={3541.2292,216.9131,4830.9014};
+		dir[]={0,-0.70710683,0.70710683};
+		up[]={0,0.70710677,0.70710677};
+		aside[]={0.99999994,0,0};
 	};
 };
 binarizationWanted=0;
@@ -1067,11 +1067,10 @@ class Mission
 		class Item29
 		{
 			dataType="Marker";
-			position[]={4323.9834,177.32724,4372.4214};
+			position[]={4321.9043,177.24869,4369.3032};
 			name="sector_Old_Outpost";
 			type="hd_objective";
 			id=1025;
-			atlOffset=0.057434082;
 		};
 		class Item30
 		{
@@ -2021,22 +2020,13 @@ class Mission
 		class Item48
 		{
 			dataType="Marker";
-			position[]={3976.9514,71.334229,5873.8174};
-			name="sector_Stratis_Air_Base";
-			type="hd_objective";
-			id=1057;
-			atlOffset=-3.0519943;
-		};
-		class Item49
-		{
-			dataType="Marker";
 			position[]={2882.5732,3.3490515,6063.3921};
 			name="sector_Agia_Marina";
 			type="hd_objective";
 			id=1058;
 			atlOffset=0.057426691;
 		};
-		class Item50
+		class Item49
 		{
 			dataType="Marker";
 			position[]={3470.8564,126.20508,3806.8103};
@@ -2045,7 +2035,7 @@ class Mission
 			id=1059;
 			atlOffset=-1.7402954;
 		};
-		class Item51
+		class Item50
 		{
 			dataType="Layer";
 			name="Camp Courage";
@@ -2936,7 +2926,7 @@ class Mission
 			id=1060;
 			atlOffset=1.0937347;
 		};
-		class Item52
+		class Item51
 		{
 			dataType="Object";
 			class PositionInfo
@@ -2953,7 +2943,7 @@ class Mission
 			type="Land_Cargo_Tower_V3_F";
 			atlOffset=0.057403564;
 		};
-		class Item53
+		class Item52
 		{
 			dataType="Marker";
 			position[]={3470.8674,128.00641,3806.6211};
@@ -2966,7 +2956,7 @@ class Mission
 			id=1112;
 			atlOffset=0.057434082;
 		};
-		class Item54
+		class Item53
 		{
 			dataType="Marker";
 			position[]={3689.8684,156.43668,2870.1882};
@@ -2979,7 +2969,7 @@ class Mission
 			id=1113;
 			atlOffset=0.057403564;
 		};
-		class Item55
+		class Item54
 		{
 			dataType="Marker";
 			position[]={3510.3132,200.62683,4917.0503};
@@ -2992,7 +2982,7 @@ class Mission
 			id=1114;
 			atlOffset=0.057434082;
 		};
-		class Item56
+		class Item55
 		{
 			dataType="Marker";
 			position[]={5249.8672,223.51239,5030.1572};
@@ -3005,7 +2995,7 @@ class Mission
 			id=1115;
 			atlOffset=0.057418823;
 		};
-		class Item57
+		class Item56
 		{
 			dataType="Marker";
 			position[]={3254.5842,5.1244578,5804.4712};
@@ -3018,7 +3008,7 @@ class Mission
 			id=1116;
 			atlOffset=0.057426453;
 		};
-		class Item58
+		class Item57
 		{
 			dataType="Marker";
 			position[]={4323.958,177.33267,4372.6401};
@@ -3031,7 +3021,7 @@ class Mission
 			id=1117;
 			atlOffset=0.057434082;
 		};
-		class Item59
+		class Item58
 		{
 			dataType="Marker";
 			position[]={2983.0813,171.45743,1870.9712};
@@ -3044,7 +3034,7 @@ class Mission
 			id=1118;
 			atlOffset=0.057434082;
 		};
-		class Item60
+		class Item59
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -3135,6 +3125,15 @@ class Mission
 				};
 				nAttributes=4;
 			};
+		};
+		class Item60
+		{
+			dataType="Marker";
+			position[]={3534.3159,197.867,4915.8418};
+			name="sector_Mountain_Outpost";
+			type="hd_objective";
+			id=1122;
+			atlOffset=-3.2677307;
 		};
 	};
 };

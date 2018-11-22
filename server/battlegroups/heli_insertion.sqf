@@ -21,25 +21,25 @@ pick_sector = {
 
 	private _sectors = [_side] call get_unsafe_sectors;
 	
-	if(!(_sectors isEqualTo [])) exitWith { [selectRandom _sectors, true]; };
+	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 
 	_sectors = [] call get_unowned_sectors;	
 
-	if(!(_sectors isEqualTo [])) exitWith { [selectRandom _sectors, true]; };
+	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 
 	_sectors = [_side] call find_enemy_sectors;
 	
-	[selectRandom _sectors, false];
+	selectRandom _sectors;
 };
 
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 	
-	private _target = [_side] call pick_sector;
-	private _sector = _target select 0;
-	private _safe = _target select 1;
-
+	private _sector = [_side] call pick_sector;
+	
 	if (isNil "_sector") exitWith {};
+
+	private _safe = !([_side, _sector getVariable pos] call any_enemies_in_sector);
 
 	private _spawn_pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 	private _sector_pos = _sector getVariable pos;

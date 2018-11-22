@@ -28,7 +28,8 @@ get_infantry_spawn_position = {
 	
 	if(_target_sectors isEqualTo []) exitWith {};
 
-	private _preferred_target = [_target_sectors, _pos] call find_closest_sector;
+	private _preferred_targets = [_target_sectors, _pos] call find_potential_target_sectors;
+	private _preferred_target = selectRandom _preferred_targets;
 
 	_safe_pos = _safe_pos apply { [_x distance (_preferred_target getVariable pos), _x] };
 	_safe_pos sort true;
@@ -36,6 +37,18 @@ get_infantry_spawn_position = {
 	private _best_pos = (_safe_pos select 0) select 1;
 
 	[_best_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
+};
+
+find_potential_target_sectors = {
+	params ["_sectors", "_pos"];
+
+	private _sorted_sectors = _sectors apply { [_pos distance (_sectors getVariable pos), _x] };
+	_sorted_sectors sort true;
+
+	private _closest_sector = _sorted_sectors select 0;
+	private _shortest_distance = _closest_sector select 0;
+
+	_sorted_sectors select { (_x select 0) < (_shortest_distance + 1000) };
 };
 
 spawn_squad = {

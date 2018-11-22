@@ -19,10 +19,6 @@ add_soldiers_to_helicopter_cargo = {
 pick_sector = {
 	params ["_side"];
 
-	private _sectors = [_side] call get_unsafe_sectors;
-	
-	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
-
 	_sectors = [] call get_unowned_sectors;	
 
 	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
@@ -36,7 +32,7 @@ helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 	
 	private _sector = [_side] call pick_sector;
-	
+
 	if (isNil "_sector") exitWith {};
 
 	private _safe = !([_side, _sector getVariable pos] call any_enemies_in_sector);

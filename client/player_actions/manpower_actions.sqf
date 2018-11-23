@@ -1,24 +1,24 @@
 add_take_manpower_from_player_action = {  
-  player addAction [["Take manpower", 0] call addActionText, {
+  player addAction [[localize "TAKE_MANPOWER", 0] call addActionText, {
 		  params ["_target", "_caller"];
 
       private _manpower = floor(_caller getVariable [manpower, 0]) + (cursorTarget getVariable [manpower, 0]);
     
       _caller setVariable [manpower, _manpower, true];
       cursorTarget setVariable [manpower, 0, true];
-      systemChat format["You took %1 MP", _manpower];
+      systemChat format[localize "YOU_TOOK_MANPOWER", _manpower];
     }, nil, arwa_manpower_actions, true, true, "", '[cursorTarget] call can_take_manpower_from_player'];
 }; 
 
 add_give_manpower_to_player_action = {  
-  player addAction [["Give manpower", 0] call addActionText, {
+  player addAction [[localize "GIVE_MANPOWER", 0] call addActionText, {
 		  params ["_target", "_caller"];
       
       private _manpower = floor(_caller getVariable [manpower, 0]) + (cursorTarget getVariable [manpower, 0]);
     
       _caller setVariable [manpower, 0, true];
       cursorTarget setVariable [manpower, _manpower, true];
-      systemChat format["You gave %1 MP", _manpower]
+      systemChat format[localize "YOU_GAVE_MANPOWER", _manpower]
     }, nil, arwa_manpower_actions, true, true, "", '[cursorTarget] call can_give_manpower_to_player'];
 };
 
@@ -43,7 +43,7 @@ can_give_manpower_to_player = {
 add_manpower_action = {
 	params ["_box"];
 
-	_box addAction [["Add manpower points", 0] call addActionText, {	
+	_box addAction [[localize "ADD_MANPOWER", 0] call addActionText, {	
 		params ["_target", "_caller"];
 
 		private _manpower = _caller getVariable [manpower, 0];
@@ -51,7 +51,7 @@ add_manpower_action = {
 		_caller setVariable [manpower, 0];
 
 		[side _caller, _manpower] remoteExec ["buy_manpower_server", 2];
-		systemChat format["You added %1 manpower points", _manpower];     
+		systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];     
 
 	}, nil, arwa_manpower_actions, false, false, "", 
   '[_target, _this] call owned_box && [_this] call player_has_manpower', 10
@@ -61,14 +61,14 @@ add_manpower_action = {
 add_take_manpower_action = {  
   params ["_box"];
 
-  _box addAction [["Take manpower", 0] call addActionText, {
+  _box addAction [[localize "TAKE_MANPOWER", 0] call addActionText, {
       params ["_target", "_caller"];
 
       private _manpower = floor(_target getVariable manpower);
       _target setVariable [manpower, 0, true];
       private _player_manpower = _caller getVariable manpower;
       _caller setVariable [manpower, (_manpower + _player_manpower)];
-      systemChat format["You took %1 MP", _manpower];
+      systemChat format[localize "YOU_TOOK_MANPOWER", _manpower];
     }, nil, arwa_manpower_actions, true, false, "",
     '[_target] call box_has_manpower', 10
     ];
@@ -77,14 +77,14 @@ add_take_manpower_action = {
 add_store_manpower_action = {
   params ["_box"];
 
-  _box addAction [["Store manpower", 0] call addActionText, {
+  _box addAction [[localize "STORE_MANPOWER", 0] call addActionText, {
       params ["_target", "_caller"];
 
       private _player_manpower = _caller getVariable manpower;
       _caller setVariable [manpower, 0];
       private _manpower = _target getVariable manpower;      
       _target setVariable [manpower, (_manpower + _player_manpower), true];
-      systemChat format["You stored %1 MP", _player_manpower];
+      systemChat format[localize "YOU_STORED_MANPOWER", _player_manpower];
   }, nil, arwa_manpower_actions, true, false, "",
   '[_this] call player_has_manpower',10
   ];

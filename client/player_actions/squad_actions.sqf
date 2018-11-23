@@ -84,7 +84,7 @@ list_join_options = {
 };
 
 create_join_menu = {
-	player addAction [["Join squad", 0] call addActionText, {
+	player addAction [[localize "JOIN_SQUAD", 0] call addActionText, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		[] call remove_all_join_options;

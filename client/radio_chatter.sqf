@@ -5,15 +5,15 @@ report_casualities = {
 
 	if(!isNull _group) then {
 		if(_deaths == 1) exitWith {
-			(leader _group) sideChat format[selectRandom oneCasualty, _distance, _direction, _location];
+			(leader _group) sideChat format[localize selectRandom oneCasualty, _distance, _direction, _location];
 		};
 
 		if(_deaths > 3) exitWith {
-			(leader _group) sideChat format[selectRandom heavyCasualties, _deaths, _distance, _direction, _location];
+			(leader _group) sideChat format[localize selectRandom heavyCasualties, _deaths, _distance, _direction, _location];
 		};
 
 		if(_deaths > 1) exitWith {
-			(leader _group) sideChat format[selectRandom multipleCasualties, _deaths, _distance, _direction, _location];
+			(leader _group) sideChat format[localize selectRandom multipleCasualties, _deaths, _distance, _direction, _location];
 		};	
 	};
 	
@@ -33,22 +33,22 @@ HQ_report_client = {
 
 
 oneCasualty = [
-	"We lost a soldier %1m %2 of %3", 
-	"We have one down %1m %2 of %3", 
-	"We are one less at %1m %2 of %3", 
-	"We lost one %1m %2 of %3"
+	"ONE_CASUALITY_VAR1", 
+	"ONE_CASUALITY_VAR2", 
+	"ONE_CASUALITY_VAR3", 
+	"ONE_CASUALITY_VAR4"
 ];
 
 multipleCasualties = [
-	"We are taking casualties. %1 down %2m %3 of %4", 
-	"We just lost %1 soldiers %2m %3 of %4",  
-	"We lost %1 guys %2m %3 of %4"
+	"MULTIPLE_CASUALITIES_VAR1", 
+	"MULTIPLE_CASUALITIES_VAR2",  
+	"MULTIPLE_CASUALITIES_VAR3"
 ];
 
 heavyCasualties = [
-	"We need backup! Just lost %1 soldiers %2m %3 of %4",
-	"We are taking heavy casualties %2m %3 of %4. %1 guys down!",
-	"Send backup. %1 just got killed %2m %3 of %4"
+	"HEAVY_CASUALITIES_VAR1",
+	"HEAVY_CASUALITIES_VAR2",
+	"HEAVY_CASUALITIES_VAR3"
 ];
 
 report_casualities_in_sector = {
@@ -57,35 +57,35 @@ report_casualities_in_sector = {
 
 	if(!isNull _group) then {	
 		if(_deaths == 1) exitWith {
-			(leader _group) sideChat format[selectRandom oneCasualtyInSector, _location];
+			(leader _group) sideChat format[localize selectRandom oneCasualtyInSector, _location];
 		};
 
 		if(_deaths > 3) exitWith {
-			(leader _group) sideChat format[selectRandom heavyCasualtiesInSector, _deaths, _location];
+			(leader _group) sideChat format[localize selectRandom heavyCasualtiesInSector, _deaths, _location];
 		};
 
 		if(_deaths > 1) exitWith {
-			(leader _group) sideChat format[selectRandom multipleCasualtiesInSector, _deaths, _location];
+			(leader _group) sideChat format[localize selectRandom multipleCasualtiesInSector, _deaths, _location];
 		};	
 	};
 	
 };
 
 oneCasualtyInSector = [
-	"We lost a soldier at %1", 
-	"We have one down at %1", 
-	"We are one less at %1", 
-	"We lost one at %1"
+	"ONE_CASUALITY_IN_SECTOR_VAR1",
+	"ONE_CASUALITY_IN_SECTOR_VAR2",
+	"ONE_CASUALITY_IN_SECTOR_VAR3",
+	"ONE_CASUALITY_IN_SECTOR_VAR4"
 ];
 
 multipleCasualtiesInSector = [
-	"We are taking casualties. %1 down at %2", 
-	"We just lost %1 soldiers at %2", 
-	"We lost %1 guys at %2"
+	"MULTIPLE_CASUALITIES_IN_SECTOR_VAR1", 
+	"MULTIPLE_CASUALITIES_IN_SECTOR_VAR2", 
+	"MULTIPLE_CASUALITIES_IN_SECTOR_VAR3"
 ];
 
 heavyCasualtiesInSector = [
-	"We need backup! Just lost %1 at %2",
-	"We are taking heavy casualties at %2",
-	"Send backup. %1 just got killed at %2"
+	"HEAVY_CASUALITIES_IN_SECTOR_VAR1",
+	"HEAVY_CASUALITIES_IN_SECTOR_VAR2",
+	"HEAVY_CASUALITIES_IN_SECTOR_VAR3"
 ];

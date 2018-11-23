@@ -26,7 +26,7 @@ get_infantry = {
 		[_group] remoteExec ["add_battle_group", 2];
 	};
 
-	systemChat "You have the maximum allowed amount of people";		
+	systemChat localize "MAXIMUM_AMOUNT_OF_UNITS";		
 };
 
 get_vehicle = {
@@ -43,7 +43,7 @@ get_vehicle = {
 		[_veh] call remove_vehicle_action;
 	}; 
 	
-	systemChat format["Something is obstructing the %1 respawn area", _type];
+	systemChat format[localize "OBSTRUCTING_THE_RESPAWN_AREA", _type];
 };
 
 list_options = {
@@ -106,7 +106,7 @@ create_menu = {
 		private _disable_on_enemies_nearby = _arguments select 4;
 
 		if(_disable_on_enemies_nearby && {[side player, getPos _box] call any_enemies_in_sector}) exitWith { 
-			systemChat "Cannot spawn units when enemies nearby";
+			systemChat localize "CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
 		};			
 
 		[_box] call remove_all_options;

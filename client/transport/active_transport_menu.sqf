@@ -18,7 +18,7 @@ remove_active_transport_menu = {
 show_update_orders = {
 	params ["_veh"];
 
-	update_orders_id = player addAction [["Update transport orders", 0] call addActionText, {	
+	update_orders_id = player addAction [[localize "UPDATE_TRANSPORT_ORDERS", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _veh = _arguments select 0;
@@ -34,7 +34,7 @@ show_cancel_transport_action = {
 
 	_veh setVariable ["taxi", true];
 
-	cancel_transport_id = player addAction [["Cancel transport", 0] call addActionText, {	
+	cancel_transport_id = player addAction [[localize "CANCEL_TRANSPORT_ORDERS", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _veh = _arguments select 0;

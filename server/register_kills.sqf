@@ -48,7 +48,7 @@ induce_lost_vehicle_penalty = {
 
 		private _veh_name = (typeOf _victim) call get_vehicle_display_name;
 
-		private _msg = format["We lost %1 manpower points due to the loss of %2", _penalty_size, _veh_name];
+		private _msg = format[localize "PLAYER_VEHICLE_LOST", _penalty_size, _veh_name];
 		
 		[_side, _msg] call HQ_report;
 	};
@@ -68,9 +68,9 @@ report_lost_vehicle = {
 
 		private _msg = if (_distance > 200) then {
 			private _direction = [_sector_pos, _pos] call get_direction;
-			format["We lost a %1 %2m %3 of %4", _veh_name, _distance, _direction, _location];	
+			format[localize "VEHICLE_LOST", _veh_name, _distance, _direction, _location];	
 		} else {
-			format["We lost a %1 in %2", _veh_name, _location];			
+			format[localize "VEHICLE_LOST_IN_SECTOR", _veh_name, _location];			
 		};				
 		
 		[_side, _msg] call HQ_report;

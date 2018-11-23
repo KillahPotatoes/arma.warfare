@@ -24,7 +24,7 @@ update_transport_orders = {
 
 		new_orders = true;
 		
-		[_group, _veh, _pos, "Receivering new orders. On its way!"] spawn move_transport_to_pick_up;
+		[_group, _veh, _pos, localize "TRANSPORT_RECEIVED_NEW_ORDERS"] spawn move_transport_to_pick_up;
 	};
 	waitUntil {
 		!visibleMap;
@@ -41,7 +41,7 @@ transport_available = {
 	if(_time > time) exitWith {
 		private _time_left = _time - time;
 		private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;	
-		systemChat format["Transport is not available yet! Try again in %1 minutes", _wait_minutes];
+		systemChat format[localize "TRANSPORT_UNAVAILABLE", _wait_minutes];
 		false;
 	};
 	true;
@@ -95,7 +95,7 @@ order_transport = {
 	[_veh] spawn check_status;
 	[_veh] spawn toggle_control;
 
-	[_group, _veh, _pos, "Transport is on its way to given pick up destination!"] spawn move_transport_to_pick_up;
+	[_group, _veh, _pos, localize "TRANSPORT_ON_ITS_WAY"] spawn move_transport_to_pick_up;
 };
 
 move_transport_to_pick_up = {
@@ -110,7 +110,7 @@ move_transport_to_pick_up = {
 	};	
 
 	if (canMove _veh) exitWith {
-		[_group, "Transport has arrived. Waiting for squad to pick up!"] spawn group_report_client;
+		[_group, localize "TRANSPORT_HAS_ARRIVED"] spawn group_report_client;
 		[transport_will_wait_time, _veh, _group] spawn on_transport_idle_wait;
 	};
 };
@@ -175,7 +175,7 @@ check_status = {
 	sleep 3; // to make sure heli_active is updated
 	if (!transport_arrived_at_HQ) then {
 		if(!(player in _veh)) then {			
-			[playerSide, "Transport vehicle is down! You are on your own!"] spawn HQ_report_client; // TODO make classname specific
+			[playerSide, localize "TRANSPORT_DOWN"] spawn HQ_report_client; // TODO make classname specific
 		};
 
 		[_class_name, transport_wait_period_on_crash] call set_wait_time;
@@ -197,7 +197,7 @@ on_transport_idle_wait = {
 	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders};
 
 	if (!(player in _veh) && (alive _veh) && !new_orders) exitWith {
-		[_veh, _group, "We can't wait any longer! Transport is heading back to HQ!", true] call interrupt_transport_misson;
+		[_veh, _group, localize "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call interrupt_transport_misson;
 	};
 };
 

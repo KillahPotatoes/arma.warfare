@@ -24,7 +24,7 @@ add_sector_actions = {
 	_ammo_box call add_arsenal_action;
 	_ammo_box call add_take_manpower_action;
 	_ammo_box call add_store_manpower_action;
-	[_ammo_box, "Get infantry", infantry, arwa_infantry_menu, true] call create_menu;
+	[_ammo_box, localize "GET_INFANTRY", infantry, arwa_infantry_menu, true] call create_menu;
 };
 
 add_HQ_actions = {
@@ -32,7 +32,7 @@ add_HQ_actions = {
 
 	_ammo_box call add_arsenal_action;
 	_ammo_box call add_manpower_action;
-	[_ammo_box, "Get vehicle", vehicle1, arwa_ground_vehicle_menu, false] call create_menu;
-	[_ammo_box, "Get helicopter", helicopter, arwa_air_vehicle_menu, false] call create_menu;
-	[_ammo_box, "Get infantry", infantry, arwa_infantry_menu, false] call create_menu;	
+	[_ammo_box, localize "GET_VEHICLES", vehicle1, arwa_ground_vehicle_menu, false] call create_menu;
+	[_ammo_box, localize "GET_HELICOPTERS", helicopter, arwa_air_vehicle_menu, false] call create_menu;
+	[_ammo_box, localize "GET_INFANTRY", infantry, arwa_infantry_menu, false] call create_menu;	
 };

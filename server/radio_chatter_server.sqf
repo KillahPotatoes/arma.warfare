@@ -40,10 +40,10 @@ report_next_waypoint = {
 		private _msg = if (_is_veh) then {
 			private _class_name = typeOf _veh;
 			private _veh_name = _class_name call get_vehicle_display_name;
-			format["%1 is moving towards %2", _veh_name, _sector_name];
+			format[localize "VEHICLE_MOVING_TO", _veh_name, _sector_name];
 		} else {
 			private _count = { alive _x } count units _group;
-			format["Squad of %1 moving towards %2", _count, _sector_name];
+			format[localize "SQUAD_MOVING_TO", _count, _sector_name];
 		};	
 
 		[_group, _msg] remoteExec ["group_report_client"];

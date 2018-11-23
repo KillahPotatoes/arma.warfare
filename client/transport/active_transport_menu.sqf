@@ -25,7 +25,7 @@ show_update_orders = {
 		private _group = group driver _veh;
 		[_group, _veh] call update_transport_orders;
 		
-    }, [_veh], 90, true, false, "",
+    }, [_veh], arwa_active_transport_actions, true, false, "",
     '!([] call in_transport)'];
 };
 
@@ -41,6 +41,6 @@ show_cancel_transport_action = {
 		private _group = group driver _veh;
 
 		[_veh, _group, "Heading back to HQ"] call interrupt_transport_misson;
-    }, [_veh], 90, true, false, "",
+    }, [_veh], arwa_active_transport_actions, true, false, "",
     '!([] call in_transport)'];
 };

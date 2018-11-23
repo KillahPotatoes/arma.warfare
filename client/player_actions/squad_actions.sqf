@@ -34,7 +34,7 @@ leave_squad = {
 
 		private _new_count = { alive _x } count units _current_group;
 		_current_group setVariable [soldier_count, _new_count];	
-    }, nil, 70, true, true, "",
+    }, nil, arwa_squad_actions, true, true, "",
     '!(player call empty_squad)'
     ];
 };
@@ -95,5 +95,5 @@ create_join_menu = {
 		} else {
 			join_menu_open = false;
 		}
-	}, [], 91, false, false, "", 'player call empty_squad && {[getPos player, side player] call any_friendly_squads_in_area}', 10]	
+	}, [], arwa_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, side player] call any_friendly_squads_in_area}', 10]	
 };

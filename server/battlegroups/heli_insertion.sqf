@@ -24,8 +24,8 @@ pick_sector = {
 	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 
 	_sectors = [_side] call find_enemy_sectors;
-	
-	selectRandom _sectors;
+
+	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 };
 
 helicopter_insertion = {

@@ -50,3 +50,16 @@ tier_2_gunship_respawn_time = 300;
 nvgoogles_guer = "NVGoggles_INDEP";
 nvgoogles_west = "NVGoggles";
 nvgoogles_east = "NVGoggles_OPFOR";
+
+// Action priority
+
+arwa_air_vehicle_menu = 150;
+arwa_ground_vehicle_menu = 140;
+arwa_infantry_menu = 130;
+arwa_manpower_actions = 120;
+arwa_open_arsenal = 160;
+arwa_squad_actions = 110;
+arwa_return_vehicle = 90;
+arwa_ground_transport_actions = 70;
+arwa_air_transport_actions = 80;
+arwa_active_transport_actions = 80;

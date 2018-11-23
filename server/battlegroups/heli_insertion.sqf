@@ -5,7 +5,7 @@ add_soldiers_to_helicopter_cargo = {
 	private _crew_count = count (_veh_array select 1);
 	private _side = side (_veh_array select 2);
 	private _cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
-	private _cargo = (_cargoCapacity min _can_spawn) min squad_cap;
+	private _cargo = (_cargoCapacity min _can_spawn) min arwa_squad_cap;
 	private _group = [[0,0,0], _side, _cargo, false] call spawn_infantry;	
 	[_group, false] call add_battle_group;
 
@@ -88,9 +88,9 @@ move_to_sector_outskirt = {
 try_spawn_heli_reinforcements = {
 	params ["_side", "_sector"];
 	private _unit_count = _side call count_battlegroup_units;	
-	private _can_spawn = unit_cap - _unit_count; 
+	private _can_spawn = arwa_unit_cap - _unit_count; 
 
-	if (_can_spawn > (squad_cap / 2)) exitWith {
+	if (_can_spawn > (arwa_squad_cap / 2)) exitWith {
 		private _pos = _sector getVariable pos;
 		[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
 		true;

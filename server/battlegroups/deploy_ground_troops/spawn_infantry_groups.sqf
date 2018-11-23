@@ -15,7 +15,7 @@ spawn_random_infantry_group = {
 get_infantry_spawn_position = {
 	params ["_pos", "_side"];
 
-	private _safe_sectors = [_side, (sector_size * 2)] call get_safe_sectors;
+	private _safe_sectors = [_side, (arwa_sector_size * 2)] call get_safe_sectors;
 
 	private _safe_pos = [_pos];
 
@@ -55,6 +55,6 @@ spawn_squad = {
 	params ["_pos", "_side", "_can_spawn"];
 	
 	_pos = [_pos, _side] call get_infantry_spawn_position;
-	_soldier_count = (squad_cap call calc_number_of_soldiers) min _can_spawn;
+	_soldier_count = (arwa_squad_cap call calc_number_of_soldiers) min _can_spawn;
     [_pos, _side, _soldier_count, false] call spawn_infantry;	
 };

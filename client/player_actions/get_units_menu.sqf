@@ -19,7 +19,7 @@ get_infantry = {
 	params ["_class_name"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
-	_numberOfSoldiers = squad_size - _group_count;
+	_numberOfSoldiers = arwa_squad_cap - _group_count;
 
 	if (_numberOfSoldiers > 0) exitWith {
 		[_group, _class_name] call create_soldier;			

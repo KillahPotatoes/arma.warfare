@@ -56,7 +56,7 @@ enableSaving [false, false];
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
 private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
-private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
+arwa_starting_strength = ["Manpower", arwa_starting_strength] call BIS_fnc_getParamValue;
 
 // Game setup
 [] call initialize_sectors;
@@ -65,7 +65,7 @@ private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 [] call hide_respawn_markers;
 [] call initialize_mine_fields;
 [] call setup_faction_relations;
-[_manpower, _startingTier] call initialize_faction_stats;
+[arwa_starting_strength, _startingTier] call initialize_faction_stats;
 [] call initialize_bases;
 [] call initialize_base_respawns;
 [] call initialize_battle_groups;

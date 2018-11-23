@@ -84,7 +84,7 @@ show_friendly_markers = {
 		_markers_array = [];
 
 		{			
-			if (show_all 
+			if (arwa_show_all 
 				|| (_x call any_alive) 
 				&& ((side _x) isEqualTo playerSide) 
 				&& (!(_x getVariable [defense, false])) 

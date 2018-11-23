@@ -14,7 +14,7 @@ decrement_counter = {
 increment_counter = {
 	params ["_counter", "_sector", "_side"];
 
-	if(_counter < capture_time) exitWith {		
+	if(_counter < arwa_capture_time) exitWith {		
 		[_counter + 1, _sector, _side] spawn update_progress_bar;
 		_counter + 1;
 	};
@@ -96,7 +96,7 @@ initialize_sector_control = {
 
 			if(count _units == 0) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if no units, no change
 
-			private _factions = all_sides select {_x countSide _units > 0};
+			private _factions = arwa_all_sides select {_x countSide _units > 0};
 			if(count _factions > 1) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if more than one faction present, no change
 
 			// Get the only faction in sector
@@ -105,7 +105,7 @@ initialize_sector_control = {
 
 			if(_current_faction isEqualTo _faction) then {
 
-				if(_counter == capture_time) then {					
+				if(_counter == arwa_capture_time) then {					
 					[_sector, _current_faction] call capture_sector;
 				} else {
 					_counter = [_counter, _sector, _current_faction] call increment_counter; 

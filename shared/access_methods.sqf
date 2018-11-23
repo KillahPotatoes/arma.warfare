@@ -5,7 +5,7 @@ get_prefixed_name = {
 
 get_tier_bound = {
 	params ["_num"];
-	_num * (starting_strength / 10);
+	_num * (arwa_starting_strength / 10);
 };
 
 set_tier_progress = {

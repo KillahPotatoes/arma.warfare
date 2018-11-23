@@ -68,23 +68,4 @@ in_vehicle = {
 	(_veh isKindOf "Car" || _veh isKindOf "Tank" || _veh isKindOf "Air");
 };
 
-get_smallest_group = {
-	params ["_groups"];
-
-	_current_group = _groups select 0;
-	_smallest_count = 999999;
-
-	{
-		private _g = _x;
-		_count = { alive _x } count units _g;
-
-		if (_smallest_count > _count && _count != 0 && !(isPlayer leader _g)) then {
-			_smallest_count = _count;
-			_current_group = _g;
-		};
-
-	} forEach _groups;
-
-	_current_group;
-};
 

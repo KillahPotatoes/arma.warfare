@@ -17,9 +17,9 @@ spawn_battle_groups = {
 
 	while {_side in active_factions} do {
 		private _unit_count = _side call count_battlegroup_units;	
-		private _can_spawn = unit_cap - _unit_count; 
+		private _can_spawn = arwa_unit_cap - _unit_count; 
 
-		if (_can_spawn > (squad_cap / 2)) then {
+		if (_can_spawn > (arwa_squad_cap / 2)) then {
 			if(_cycle_counter == _next_vehicle_cycle) then {
 				_cycle_counter = _cycle_counter + 1;
 				[_side, _can_spawn] spawn spawn_random_vehicle_group;
@@ -30,7 +30,7 @@ spawn_battle_groups = {
 			};
 		};	
 		
-		sleep (120 + (floor random 60));
+		sleep (arwa_spawn_forces_interval + (floor random arwa_spawn_forces_interval_variation));
 	};
 };
 

@@ -26,7 +26,7 @@
             <Original>Take manpower</Original>
         </Key>
         <Key ID="GIVE_MANPOWER">
-            <Original>You added %1 manpower points</Original>
+            <Original>Give manpower</Original>
         </Key>
         <Key ID="ADD_MANPOWER">
             <Original>Add manpower</Original>

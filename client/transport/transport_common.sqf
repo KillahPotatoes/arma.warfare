@@ -194,7 +194,7 @@ on_transport_idle_wait = {
 	new_orders = false;
 
 	private _timer = time + _wait_period;
-	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders};
+	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders || !(alive player)};
 
 	if (!(player in _veh) && (alive _veh) && !new_orders) exitWith {
 		[_veh, _group, localize "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call interrupt_transport_misson;

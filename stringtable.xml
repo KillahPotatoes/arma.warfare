@@ -22,6 +22,9 @@
         <Key ID="YOU_ADDED_MANPOWER">
             <Original>You added %1 manpower points</Original>
         </Key>
+         <Key ID="NOT_ENOUGH_MANPOWER">
+            <Original>Not enough manpower</Original>
+        </Key>
         <Key ID="TAKE_MANPOWER">
             <Original>Take manpower</Original>
         </Key>

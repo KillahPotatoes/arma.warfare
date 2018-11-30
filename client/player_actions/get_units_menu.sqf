@@ -74,7 +74,9 @@ list_options = {
 			private _type = _params select 2;
 			private _box = _params select 3;
 
-			[_box] call remove_all_options;
+			[_box] call remove_all_options;	
+
+			if(((side player) call get_strength) <= 0) exitWith { systemChat localize "NOT_ENOUGH_MANPOWER"; }	
 
 			if(_type isEqualTo infantry) then {
 				[_class_name] call get_infantry;
@@ -84,6 +86,7 @@ list_options = {
 
 				[_base_marker, _class_name, _penalty] call get_vehicle;
 			};
+			
 		}, [_class_name, _penalty, _type, _box], (_priority - 1), false, true, "", '', 10]);
 
 	} forEach _options;
@@ -110,6 +113,8 @@ create_menu = {
 		};			
 
 		[_box] call remove_all_options;
+
+		if(((side player) call get_strength) <= 0) exitWith { systemChat localize "NOT_ENOUGH_MANPOWER"; }
 
 		private _open = _box getVariable format["Menu_%1", _title];	
 		

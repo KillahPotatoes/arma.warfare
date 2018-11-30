@@ -181,6 +181,7 @@ check_status = {
 		[_class_name, transport_wait_period_on_crash] call set_wait_time;
 	} else {
 		[_class_name, transport_wait_period_on_despawn] call set_wait_time;
+		[playerSide, localize "TRANSPORT_ARRIVED_IN_HQ"] spawn HQ_report_client;
 	};
 
 	transport_active = false;

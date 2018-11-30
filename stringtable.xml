@@ -31,6 +31,9 @@
         <Key ID="GIVE_MANPOWER">
             <Original>Give manpower</Original>
         </Key>
+         <Key ID="TRANSPORT_ARRIVED_IN_HQ">
+            <Original>Transport arrived safely back in HQ</Original>
+        </Key>
         <Key ID="ADD_MANPOWER">
             <Original>Add manpower</Original>
         </Key>

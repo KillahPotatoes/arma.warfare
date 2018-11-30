@@ -43,7 +43,7 @@ approaching_target = {
 	private _target = _group getVariable "target";
 
 	if(isNil "_target") exitWith { false; };
-	(_target getVariable pos) distance2D (getPosWorld leader _group) < 200;
+	(_target getVariable pos) distance2D (getPosWorld leader _group) < arwa_sector_size;
 };
 
 get_ground_target = {

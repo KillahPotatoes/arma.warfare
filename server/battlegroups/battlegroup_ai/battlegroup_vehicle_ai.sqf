@@ -1,10 +1,16 @@
 
 vehicle_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _pos = _target getVariable pos;
 
 	_group call delete_all_waypoints; 
-	_w = _group addWaypoint [_pos, 20];
+	
+	_w = if ((_target getVariable pos) distance2D (getPosWorld leader _group) > arwa_sector_size) then {
+		_group addWaypoint [_pos, arwa_sector_size];
+	} else {
+		_group addWaypoint [_pos, 20];
+	};
+
 	_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
 
 	_w setWaypointType "MOVE";

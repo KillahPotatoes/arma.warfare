@@ -4,12 +4,18 @@ infantry_create_waypoint = {
 	private _pos = _target getVariable pos;
 
 	_group call delete_all_waypoints; 
-	_w = _group addWaypoint [_pos, 5];
-	_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
 	
-	_w setWaypointType "SAD";
+	if ((_target getVariable pos) distance2D (getPosWorld leader _group) > arwa_sector_size) then {
+		private _w1 = _group addWaypoint [_pos, arwa_sector_size];
+		_w1 setWaypointType "SENTRY";
+	};
+
+	private _w2 = _group addWaypoint [_pos, 5];
+
+	_w2 setWaypointStatements ["true","[group this] call delete_all_waypoints"];
+	_w2 setWaypointType "SAD";
+
 	_group setBehaviour "AWARE";
-		
 	_group setSpeedMode "NORMAL";
 	_group setCombatMode "YELLOW";
 	_group setVariable ["target", _target];	

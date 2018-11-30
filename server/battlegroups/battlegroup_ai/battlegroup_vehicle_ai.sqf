@@ -5,17 +5,16 @@ vehicle_create_waypoint = {
 
 	_group call delete_all_waypoints; 
 	
-	_w = if ((_target getVariable pos) distance2D (getPosWorld leader _group) > arwa_sector_size) then {
-		_group addWaypoint [_pos, arwa_sector_size];
-	} else {
-		_group addWaypoint [_pos, 20];
+	if ((_target getVariable pos) distance2D (getPosWorld leader _group) > arwa_sector_size) then {
+		private _w1 = _group addWaypoint [_pos, arwa_sector_size];
+		_w1 setWaypointType "SENTRY";
 	};
 
-	_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];
+	private _w2 = _group addWaypoint [_pos, 20];
+	_w2 setWaypointType "MOVE";
+	_w2 setWaypointStatements ["true","[group this] call delete_all_waypoints"];
 
-	_w setWaypointType "MOVE";
 	_group setBehaviour "SAFE";
-		
 	_group setSpeedMode "NORMAL";
 	_group setCombatMode "YELLOW";
 	_group setVariable ["target", _target];	

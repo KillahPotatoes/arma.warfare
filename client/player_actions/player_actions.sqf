@@ -22,8 +22,6 @@ add_sector_actions = {
 	params ["_ammo_box"];
 
 	_ammo_box call add_arsenal_action;
-	_ammo_box call add_take_manpower_action;
-	_ammo_box call add_store_manpower_action;
 	[_ammo_box, localize "GET_INFANTRY", infantry, arwa_infantry_menu, true] call create_menu;
 };
 

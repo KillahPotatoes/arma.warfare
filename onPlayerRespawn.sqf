@@ -2,8 +2,8 @@ player enableStamina false;
 
 [] spawn create_join_menu;
 [] spawn leave_squad;
-[] spawn add_give_manpower_to_player_action;
-[] spawn add_take_manpower_from_player_action;
+[] spawn add_take_manpower;
+[] spawn add_store_manpower;
 
 [localize "REQUEST_AIR_TRANSPORT", helicopter, arwa_air_transport_actions] spawn show_order_transport;
 [localize "REQUEST_VEHICLE_TRANSPORT", vehicle1, arwa_ground_transport_actions] spawn show_order_transport;

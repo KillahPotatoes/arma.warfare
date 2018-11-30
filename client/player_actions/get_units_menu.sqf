@@ -76,7 +76,9 @@ list_options = {
 
 			[_box] call remove_all_options;	
 
-			if(((side player) call get_strength) <= 0) exitWith { systemChat localize "NOT_ENOUGH_MANPOWER"; }	
+			if(([side player] call get_strength) <= 0) exitWith { 
+				systemChat localize "NOT_ENOUGH_MANPOWER"; 
+			};	
 
 			if(_type isEqualTo infantry) then {
 				[_class_name] call get_infantry;
@@ -114,7 +116,9 @@ create_menu = {
 
 		[_box] call remove_all_options;
 
-		if(((side player) call get_strength) <= 0) exitWith { systemChat localize "NOT_ENOUGH_MANPOWER"; }
+		if(([side player] call get_strength) <= 0) exitWith { 
+			systemChat localize "NOT_ENOUGH_MANPOWER"; 
+		};
 
 		private _open = _box getVariable format["Menu_%1", _title];	
 		

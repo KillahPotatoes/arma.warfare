@@ -22,7 +22,7 @@ west_faction_name = "Nato";
 east_faction_name = "China";
 
 // Global vars
-
+arwa_respawn_cooldown = 900;
 arwa_sector_size = 200; 
 arwa_starting_strength  = 500;
 arwa_unit_cap = 30;

@@ -73,7 +73,7 @@ reinforcements_cool_down = {
 	_sector setVariable ["reinforements_available", false];
 	private _current_owner = _sector getVariable owned_by;
 
-	sleep 300;
+	sleep arwa_respawn_cooldown;
 
 	if((_sector getVariable owned_by) isEqualTo _current_owner) exitWith {
 		_sector setVariable ["reinforements_available", true];

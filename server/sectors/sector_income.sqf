@@ -1,6 +1,6 @@
 sector_manpower_generation = {
       while {true} do {
-            sleep 60;
+            sleep arwa_manpower_generation_time;
             {
                   private _sector = _x;
                   private _side = _sector getVariable owned_by;
@@ -9,7 +9,7 @@ sector_manpower_generation = {
                         private _ammo_box = _sector getVariable box;
                         private _manpower = _ammo_box getVariable manpower;
 
-                        private _generated = arwa_manpower_per_minute + (_sector call get_additional_income_based_on_stationed_players);
+                        private _generated = 1 + (_sector call get_additional_income_based_on_stationed_players);
 
                         _ammo_box setVariable [manpower, (_manpower + _generated), true];
                   };
@@ -43,5 +43,5 @@ get_additional_income_based_on_stationed_players = {
             false;
       } count allPlayers;
 
-      arwa_manpower_per_minute * _total_factor;
+      _total_factor;
 };

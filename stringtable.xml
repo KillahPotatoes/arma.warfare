@@ -166,5 +166,17 @@
         <Key ID="REQUEST_VEHICLE_TRANSPORT">
             <Original>Request vehicle pick-up</Original>
         </Key>
+        <Key ID="HAS_LOST_SECTOR">
+            <Original>%1 has lost %2</Original>
+        </Key>
+        <Key ID="HAS_CAPTURED_SECTOR">
+            <Original>%1 has captured %2</Original>
+        </Key>
+         <Key ID="SECTOR_IS_UNDER_ATTACK">
+            <Original>%1 is under attack!</Original>
+        </Key>
+        <Key ID="MANPOWER_IS_LOST">
+            <Original>%1 gained %2 manpower when capturing %3</Original>
+        </Key>
     </Package>
 </Project>

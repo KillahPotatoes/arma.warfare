@@ -74,7 +74,7 @@ request_transport = {
 		private _penalty = _this select 1;
 
 		transport_active = true;
-		transport_arrived_at_HQ = false; // TODO make type dependent
+		transport_arrived_at_HQ = false;
 		[_pos, _class_name, _penalty] spawn order_transport;	
 	};
 	waitUntil {

@@ -59,7 +59,7 @@ change_sector_ownership = {
 
 	if(!(_new_owner isEqualTo civilian)) then {
 		[_sector] call add_respawn_position;		
-		[_new_owner, _old_owner, _sector] call add_sector;
+		[_new_owner, _sector] call add_sector;
 	};
 
 	[_new_owner, _old_owner, _sector, _sector_name] call reset_sector_manpower;

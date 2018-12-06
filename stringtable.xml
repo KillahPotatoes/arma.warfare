@@ -55,6 +55,9 @@
         <Key ID="JOIN_SQUAD">
             <Original>Join squad</Original>
         </Key>
+        <Key ID="LEAVE_SQUAD">
+            <Original>Leave squad</Original>
+        </Key>
         <Key ID="UPDATE_TRANSPORT_ORDERS">
             <Original>Update transport orders</Original>
         </Key>

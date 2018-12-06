@@ -28,7 +28,7 @@ join_squad = {
 };
 
 leave_squad = {  
-  	player addAction [["Leave squad", 0] call addActionText, {
+  	player addAction [[localize "LEAVE_SQUAD", 0] call addActionText, {
 		private _current_group = group player;
 		[player] join grpNull;
 
@@ -90,7 +90,7 @@ create_join_menu = {
 		[] call remove_all_join_options;
 
 		if(!join_menu_open) then {
-			[91] call list_join_options;
+			[arwa_squad_actions] call list_join_options;
 			join_menu_open = true;
 		} else {
 			join_menu_open = false;

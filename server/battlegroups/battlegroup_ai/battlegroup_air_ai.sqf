@@ -31,11 +31,15 @@ air_move_to_sector = {
 };
 
 initialize_air_group_ai = {
-	params ["_group"];
+	params ["_group", "_veh"];
 
 	private _side = side _group; 
 
 	while{[_group] call group_is_alive} do {
+
+		if(!(someAmmo _veh)) exitWith {
+			[_group, _veh] spawn take_off_and_despawn;
+		};
 
 		if([_group] call group_should_be_commanded) then {
 			private _target = [_group, _side] call find_air_target;

@@ -66,7 +66,7 @@ initialize_battlegroup_ai = {
 	private _veh = vehicle leader _group;
 	
 	if(_veh isKindOf "Air") exitWith {
-		[_group] spawn initialize_air_group_ai;
+		[_group, _veh] spawn initialize_air_group_ai;
 	};
 	
 	if(_veh isKindOf "Car" || _veh isKindOf "Tank") exitWith {

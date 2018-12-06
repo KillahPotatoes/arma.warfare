@@ -4,10 +4,10 @@ get_respawn = {
 };
 
 add_respawn_position = {
-	params ["_sector"];
+	params ["_sector", "_new_owner"];
 			
 	[_sector] call remove_respawn_position;
-	_respawn = [_side, _sector getVariable pos] call BIS_fnc_addRespawnPosition;
+	_respawn = [_new_owner, _sector getVariable pos] call BIS_fnc_addRespawnPosition;
 	_sector setVariable [respawn_pos, _respawn];
 };
 

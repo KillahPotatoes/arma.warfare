@@ -31,6 +31,11 @@ HQ_report_client = {
 	[_side, "HQ"] sideChat _msg;
 };
 
+HQ_report_client_all = {
+	params ["_msg"];	
+	[side player, "HQ"] sideChat _msg;
+};
+
 
 oneCasualty = [
 	"ONE_CASUALITY_VAR1", 

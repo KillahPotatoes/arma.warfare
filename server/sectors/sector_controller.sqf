@@ -22,29 +22,29 @@ increment_counter = {
 };
 
 capture_sector = {
-	params ["_sector", "_side", "_sector_name"];
+	params ["_sector", "_new_owner", "_sector_name", "_old_owner"];
 
 	_sector setVariable ["reinforements_available", true];
 
-	_msg = format[localize "HAS_CAPTURED_SECTOR", _side call get_faction_names, _sector_name];
+	_msg = format[localize "HAS_CAPTURED_SECTOR", _new_owner call get_faction_names, _sector_name];
 	_msg remoteExec ["hint"]; 
 
-	[_sector, _side, _sector_name] call change_sector_ownership;
+	[_sector, _new_owner, _sector_name, _old_owner] call change_sector_ownership;
 };
 
 lose_sector = {
-	params ["_sector", "_side", "_sector_name"];
+	params ["_sector", "_old_owner", "_sector_name"];
 
 	_sector setVariable ["reinforements_available", false];
-	_msg = format[localize "HAS_LOST_SECTOR", _side call get_faction_names, _sector_name];
+	_msg = format[localize "HAS_LOST_SECTOR", _old_owner call get_faction_names, _sector_name];
 	_msg remoteExec ["hint"]; 
 
-	[_sector, civilian, _sector_name] call change_sector_ownership;
+	[_sector, civilian, _sector_name, _old_owner] call change_sector_ownership;
 };
 
 change_sector_ownership = {
-	params ["_sector", "_new_owner", "_sector_name"];
-
+	params ["_sector", "_new_owner", "_sector_name", "_previous_faction"];
+	
 	_old_owner = _sector getVariable owned_by;
 	_sector setVariable [owned_by, _new_owner, true];
 	_sector call draw_sector;
@@ -58,11 +58,11 @@ change_sector_ownership = {
 	};
 
 	if(!(_new_owner isEqualTo civilian)) then {
-		[_sector] call add_respawn_position;		
+		[_sector, _new_owner] call add_respawn_position;		
 		[_new_owner, _sector] call add_sector;
 	};
 
-	[_new_owner, _old_owner, _sector, _sector_name] call reset_sector_manpower;
+	[_new_owner, _previous_faction, _sector, _sector_name] call reset_sector_manpower;
 };
 
 reinforcements_cool_down = {
@@ -86,6 +86,8 @@ initialize_sector_control = {
 	private _current_faction = _sector getVariable owned_by;
 	_sector setVariable ["reinforements_available", false];
 	private _sector_name = [_sector getVariable sector_name] call replace_underscore;
+	private _report_attack = true;
+	private _old_owner = civilian;
 
 	while {true} do {	
 		private _owner = _sector getVariable owned_by;
@@ -103,11 +105,10 @@ initialize_sector_control = {
 			if(!([_faction, _pos] call any_friendlies_in_sector_center)) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // no units in sector center, no change
 
 			if(_current_faction isEqualTo _faction) then {
-
 				if(_counter == arwa_capture_time) then {					
-					[_sector, _current_faction, _sector_name] call capture_sector;
+					[_sector, _current_faction, _sector_name, _old_owner] call capture_sector;
 				} else {
-					_counter = [_counter, _sector, _current_faction] call increment_counter; 
+					_counter = [_counter, _sector, _current_faction] call increment_counter;
 				}
 
 			} else {
@@ -128,21 +129,28 @@ initialize_sector_control = {
 					if(_success) then {
 						[_sector] spawn reinforcements_cool_down;				 
 					};
+
+					if(_report_attack && _counter == arwa_capture_time) then {
+						_report_attack = false;
+						[_owner, "HQ"] sideChat format[localize "SECTOR_IS_UNDER_ATTACK", _sector_name];
+					};
 				};
 			};
 
 			if(!_being_overtaken) exitWith { 
 				if(!_under_attack) exitWith {
 					_counter = [_counter, _sector, _owner] call increment_counter; 
+
+					if(_counter == arwa_capture_time) then {
+						_report_attack = true;
+					};
 				};
 			};
 		
 			if(_counter == 0) then {
+				_old_owner = _current_faction;
 				[_sector, _current_faction, _sector_name] call lose_sector;
-			} else {
-				if(_counter == arwa_capture_time) then {
-					[_owner, "HQ"] sideChat format[localize "SECTOR_IS_UNDER_ATTACK", _name];
-				};
+			} else {						
 				_counter = [_counter, _sector, _owner] call decrement_counter; 
 			};
 

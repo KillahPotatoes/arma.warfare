@@ -24,12 +24,13 @@ reset_sector_manpower = {
       if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian)) then {
             private _ammo_box = _sector getVariable box;
             private _manpower = _ammo_box getVariable [manpower, 0];
-
+            systemChat format["_old_owner: %1, _manpower: %2, _new_owner: %3", _old_owner, _manpower, _new_owner];
             if(_old_owner countSide allPlayers > 0 && _manpower > 0) then {
-                  private _faction_name = _side call get_faction_names;
+                  private _faction_name = _new_owner call get_faction_names;
 
-                  [_old_owner, _manpower] spawn buy_manpower_server;
-                  [_old_owner, "HQ"] sideChat format[localize "MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name];
+                  [_new_owner, _manpower] spawn buy_manpower_server;
+                  private _msg = format[localize "MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name];
+                  _msg remoteExec ["HQ_report_client_all"];
             };
 
             _ammo_box setVariable [manpower, 0, true];

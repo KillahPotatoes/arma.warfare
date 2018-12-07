@@ -28,6 +28,9 @@
         <Key ID="TAKE_MANPOWER">
             <Original>Take manpower</Original>
         </Key>
+         <Key ID="CANCELING_TRANSPORT_MISSION">
+            <Original>Transport mission cancelled</Original>
+        </Key>
         <Key ID="GIVE_MANPOWER">
             <Original>Give manpower</Original>
         </Key>
@@ -61,8 +64,11 @@
         <Key ID="UPDATE_TRANSPORT_ORDERS">
             <Original>Update transport orders</Original>
         </Key>
-        <Key ID="CANCEL_TRANSPORT_ORDERS">
-            <Original>Cancel transport orders</Original>
+        <Key ID="SEND_TRANSPORT_TO_HQ">
+            <Original>Send to HQ</Original>
+        </Key>
+         <Key ID="HEAD_TO_HQ">
+            <Original>Heading back to HQ</Original>
         </Key>
         <Key ID="TRANSPORT_RECEIVED_NEW_ORDERS">
             <Original>Receivering new orders. On its way!</Original>

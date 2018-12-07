@@ -34,13 +34,14 @@ show_cancel_transport_action = {
 
 	_veh setVariable ["taxi", true];
 
-	cancel_transport_id = player addAction [[localize "CANCEL_TRANSPORT_ORDERS", 0] call addActionText, {	
+	cancel_transport_id = player addAction [[localize "SEND_TRANSPORT_TO_HQ", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _veh = _arguments select 0;
 		private _group = group driver _veh;
 
-		[_veh, _group, "Heading back to HQ"] call interrupt_transport_misson;
+		[_veh, _group, localize "HEAD_TO_HQ"] call interrupt_transport_misson;
     }, [_veh], arwa_active_transport_actions, true, false, "",
     '!([] call in_transport)'];
 };
+

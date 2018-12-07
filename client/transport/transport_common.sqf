@@ -91,6 +91,7 @@ order_transport = {
 	private _group = _arr select 2;
 	private _name = (typeOf _veh) call get_vehicle_display_name;	
 	
+	[_veh, _group] spawn cancel_on_player_death;
 	[_veh] spawn show_active_transport_menu;
 	[_veh] spawn check_status;
 	[_veh] spawn toggle_control;
@@ -189,14 +190,23 @@ check_status = {
 	transport_timer = time;
 };
 
+cancel_on_player_death = {
+	params ["_veh", "_group"];
+	waituntil {!(alive _veh) || !(alive player)};
+
+	if (!(alive player)) exitWith {		
+		[_veh, _group, localize "CANCELING_TRANSPORT_MISSION", true] call interrupt_transport_misson;
+	};
+};
+
 on_transport_idle_wait = {
 	params ["_wait_period", "_veh", "_group"];
-
+	
 	new_orders = false;
 
 	private _timer = time + _wait_period;
-	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders || !(alive player)};
-
+	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders};
+	
 	if (!(player in _veh) && (alive _veh) && !new_orders) exitWith {
 		[_veh, _group, localize "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call interrupt_transport_misson;
 	};

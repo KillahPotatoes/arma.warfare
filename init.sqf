@@ -22,6 +22,7 @@
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\create_briefing.sqf";
 
 player setVariable [manpower, 0];
 player setVariable ["rank", 0, true];
@@ -34,6 +35,7 @@ player setVariable ["kills", 0];
 [] spawn show_ui;
 [] spawn calculate_rank_and_skill;
 [] spawn initialize_ammo_boxes;
+[] spawn create_briefing;
 
 loaded_event = addMissionEventHandler ["Loaded",{ [] spawn show_ui; }];
-
+show_diary_hint = true;

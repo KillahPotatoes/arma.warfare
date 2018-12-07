@@ -35,6 +35,8 @@ If a faction without players captures a sector from a faction with players that 
 
 If a faction with players captures a sector the manpower will remain in the sector and have to be brought back to HQ manually.
 
+A sector with players close to center will produce manpower faster.
+
 ### HQ
 
 Your startbase consists of an ammobox, ammo container, repair container and a medical container, spawn point for a heli and for a vehicle.
@@ -52,9 +54,9 @@ TIP: You can put manpower and (wounded) squad members in the transport and send 
 
 ### RANK
 
-You will get a rank based on number of kills since last death, this rank will make your teammates have a higher skill:
+You will get a rank based on number of kills since last death, this rank will make your teammates have a higher skill and players with higher rank will increase manpower generation a bit more per level of rank if near sector center.
 
-SECTORS
+### SECTORS
 
 Sectors can be captured when a faction is holding the center of a sector and no enemies are within the sector area.
 
@@ -66,7 +68,7 @@ Defense will spawn in a sector once it is captured.
 
 Win Condition
 
-You win when all enemy sides have 0 in manpower and  no players alive.
+You win when all enemy sides have 0 in manpower and no players alive.
 
 Lose condition
 

@@ -31,3 +31,8 @@ reset_player_stats = {
 
 [player] call reset_player_stats;
 [player] call remove_squad_mates_on_death;
+
+if(show_diary_hint) then {
+	show_diary_hint = false;
+	"HOW TO PLAY" hintC "Look in map briefing for how to play";
+};

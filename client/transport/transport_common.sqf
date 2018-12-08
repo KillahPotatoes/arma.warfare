@@ -3,7 +3,6 @@ transport_wait_period_on_crash = 900;
 transport_will_wait_time = 300;
 
 transport_active = false;	
-transport_timer = time;
 transport_arrived_at_HQ = false;
 new_orders = false;
 
@@ -36,7 +35,7 @@ transport_available = {
 	params ["_type"];
 
 	private _wait_period = (missionNameSpace getVariable format["%1_transport_wait_period", _type]);
-	private _time = transport_timer + _wait_period;
+	private _time = (missionNameSpace getVariable format["%1_transport_timer", _type]) + _wait_period;
 
 	if(_time > time) exitWith {
 		private _time_left = _time - time;
@@ -187,7 +186,13 @@ check_status = {
 
 	transport_active = false;
 	[] call remove_active_transport_menu;
-	transport_timer = time;
+
+	if(_class_name isKindOf "Air") then {
+		missionNameSpace setVariable [format["%1_transport_timer", helicopter], time];
+	} else {
+		missionNameSpace setVariable [format["%1_transport_timer", vehicle1], time];
+	};
+	
 };
 
 cancel_on_player_death = {

@@ -1,4 +1,5 @@
 helicopter_transport_wait_period = 0;
+helicopter_transport_timer = time;
 
 spawn_helicopter = {
 	params ["_side", "_helicopter"];

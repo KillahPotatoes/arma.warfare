@@ -1,4 +1,6 @@
 vehicle_transport_wait_period = 0;
+vehicle_transport_timer = time;
+
 
 send_vehicle_transport = {
 	params ["_group", "_veh", "_pos"];

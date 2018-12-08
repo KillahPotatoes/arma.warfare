@@ -2,11 +2,12 @@ add_take_manpower = {
   player addAction [[localize "TAKE_MANPOWER", 0] call addActionText, {
 		  params ["_target", "_caller"];
 
-      private _manpower = floor(_caller getVariable [manpower, 0]) + (cursorTarget getVariable [manpower, 0]);
+      private _new_manpower = (cursorTarget getVariable [manpower, 0]);
+      private _manpower = floor(_caller getVariable [manpower, 0]) + _new_manpower;
     
       _caller setVariable [manpower, _manpower, true];
       cursorTarget setVariable [manpower, 0, true];
-      systemChat format[localize "YOU_TOOK_MANPOWER", _manpower];
+      systemChat format[localize "YOU_TOOK_MANPOWER", _new_manpower];
     }, nil, arwa_manpower_actions, true, true, "", '[cursorTarget] call can_take_manpower'];
 }; 
 

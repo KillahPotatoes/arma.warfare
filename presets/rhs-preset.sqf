@@ -49,9 +49,9 @@ guer_infantry_tier_0 = [
 
 // ARTILLERY
 
-west_static = ["RHS_M119_WD", "B_Mortar_01_F"];
-guer_static = ["I_Mortar_01_F", "rhsgref_nat_d30"];
-east_static = ["O_Mortar_01_F", "rhs_D30_msv"];
+west_static_artillery = ["RHS_M119_WD", "B_Mortar_01_F"];
+guer_static_artillery = ["I_Mortar_01_F", "rhsgref_nat_d30"];
+east_static_artillery = ["O_Mortar_01_F", "rhs_D30_msv"];
 
 // WEST VEHICLES
 

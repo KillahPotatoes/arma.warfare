@@ -2,7 +2,7 @@ spawn_static = {
 	params ["_pos", "_side"];
 
 	private _orientation = random 360;	
-	private _type = selectRandom (missionNamespace getVariable format["%1_static", _side]);
+	private _type = selectRandom (missionNamespace getVariable format["%1_static_artillery", _side]);
 	private _static_pos = [_pos, 5, 25, 7, 0.25, 0, 0,[_pos, _pos]] call BIS_fnc_findSafePos;
 				
 	if(!(_static_pos isEqualTo _pos)) exitWith {

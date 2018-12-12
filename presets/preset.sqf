@@ -66,9 +66,9 @@ guer_infantry_tier_2 = [
 
 // BASE Static
 
-west_static = ["B_Mortar_01_F"];
-guer_static = ["I_Mortar_01_F"];
-east_static = ["O_Mortar_01_F"];
+west_static_artillery = ["B_Mortar_01_F"];
+guer_static_artillery = ["I_Mortar_01_F"];
+east_static_artillery = ["O_Mortar_01_F"];
 
 // WEST VEHICLES
 

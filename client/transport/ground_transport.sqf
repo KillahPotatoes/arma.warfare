@@ -40,7 +40,7 @@ send_to_HQ = {
 	
 	if (alive _veh) exitWith
 	{
-		private _manpower = _veh getVariable [manpower, 0];
+		private _manpower = _veh call get_manpower;
 
 		if(_manpower > 0) then {
 			[side player, _manpower] remoteExec ["buy_manpower_server", 2];

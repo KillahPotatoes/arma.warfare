@@ -83,7 +83,6 @@ west_vehicle_tier_2 = [
 	["B_T_MBT_01_cannon_F", 30], 
 	["B_T_AFV_Wheeled_01_up_cannon_F", 30], 
 	["B_T_AFV_Wheeled_01_cannon_F", 30] 
-
 ];
 
 west_vehicle_tier_1 = [

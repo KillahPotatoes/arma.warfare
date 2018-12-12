@@ -30,7 +30,11 @@ addActionText = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
+get_manpower = {
+    params ["_obj"];
 
+    floor(_obj getVariable [manpower, 0]);
+};
 
 get_units_based_on_tier = {
 	params ["_side", "_type"];

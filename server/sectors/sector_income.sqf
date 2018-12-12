@@ -23,7 +23,7 @@ reset_sector_manpower = {
 
       if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian)) then {
             private _ammo_box = _sector getVariable box;
-            private _manpower = _ammo_box getVariable [manpower, 0];
+            private _manpower = _ammo_box call get_manpower
 
             if(_old_owner countSide allPlayers > 0 && _manpower > 0) then {
                   private _faction_name = _new_owner call get_faction_names;

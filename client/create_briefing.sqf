@@ -1,7 +1,7 @@
 create_briefing = {
 	player createDiaryRecord ["Diary", [
-			"TIPS & TRICKS", 
-			"TIP 1: You can store manpower in the transport your ordered and send it back to HQ. The manpower will be added to the faction manpower when the transport despawns.<br /><br />
+			"TIPS & TRICKS",
+			"TIP 1: You can store manpower in the transport your ordered and send it back to HQ. The manpower will be added to the faction manpower when the transport despawns<br /><br />
 TIP 2: Keep the manpower in frontline sectors low. The only way AI factions can increase their manpower is by taking over a player held sector with manpower in it<br /><br />
 TIP 3: If you carry manpower on you, you can store it in a sector. Maybe you didn't have time to go back to HQ and just want to move some manpower points to a safer sector<br /><br />
 TIP 4: Sector defenders does not have night vision (Budget cuts, duh), so when trying to take over a sector or trying to do a manpower raid (next tip) night might favor you<br /><br />
@@ -10,9 +10,9 @@ TIP 6: If a player acquired vehicle is destroyed a manpower penalty is enforced.
 TIP 7: A player respawn carries a big manpower penalty. Always have your battle buddy nearby so you can revive each other<br /><br />
 TIP 8: If putting squad members in the ordered transport and sending it back to HQ the squad members will despawn without any penalty<br /><br />
 TIP 9: The AI commander (for both player and AI factions) often use helicopter to quickly bring reinforcements to attacked sectors. If you are quick you might be able to grab the manpower from the ammo box and store it in the helicopter before it takes off again. (Make sure there are no enemy gunships nearby)<br /><br />
-TIP 10: Try getting behind enemy lines and put some mines on important roads. Infantry spawns in the sectors, but vehicles always spawns in HQ.<br /><br />"
-			]
-		];
+TIP 10: Try getting behind enemy lines and put some mines on important roads. Infantry spawns in the sectors, but vehicles always spawns in HQ<br /><br />"
+		]
+	];
 
 	player createDiaryRecord ["Diary", [
 		"END GAME", 
@@ -56,7 +56,7 @@ Manpower can be submitted to the faction manpower at the HQ ammobox<br /><br />"
 	player createDiaryRecord ["Diary", [
 		"TRANSPORT", 
 		"Players can order vehicle or helicopter transport from anywhere on the map. <br /><br />
-There is a small time penalty between each time a transport can be ordered. This will be longer if the transport is destroyed and cannot return to HQ.<br /><br />
+There is a small time penalty between each time a transport can be ordered. This will be longer if the transport is destroyed and cannot return to HQ.<br /><br />"
 		]
 	];
 

@@ -85,7 +85,8 @@ take_off_and_despawn = {
 		if ((alive _heli_vehicle) && ((_pos distance2D (getPos _heli_vehicle)) < 200)) exitWith	{
 			[_heli_vehicle] call remove_soldiers; 
 
-			private _manpower = _heli_vehicle getVariable [manpower, 0];
+			private _manpower = _heli_vehicle call get_manpower;
+			_heli_vehicle setVariable [manpower, 0];
 
 			if(_manpower > 0) then {
 				[side player, _manpower] remoteExec ["buy_manpower_server", 2];

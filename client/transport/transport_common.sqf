@@ -5,6 +5,7 @@ transport_will_wait_time = 300;
 transport_active = false;	
 transport_arrived_at_HQ = false;
 new_orders = false;
+despawning = false;
 
 in_transport = {	
 	(vehicle player) getVariable ["transport", false];
@@ -233,10 +234,16 @@ interrupt_transport_misson = {
 
 	sleep 3;
 
-	if(_veh isKindOf "Air") then {
-		transport_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
-	} else {
-		transport_arrived_at_HQ = [_group, _veh] call send_to_HQ;
+	if(!despawning) exitWith {
+		despawning = true;
+	
+		if(_veh isKindOf "Air") then {
+			transport_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
+		} else {
+			transport_arrived_at_HQ = [_group, _veh] call send_to_HQ;
+		};
+
+		despawning = false;
 	};
 };
 

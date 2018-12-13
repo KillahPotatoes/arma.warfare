@@ -1,4 +1,4 @@
-enableSaving [false, false];
+enableSaving [!isDedicated, false];
 
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";

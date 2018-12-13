@@ -234,6 +234,13 @@ class Params
         values[] = {1,0};
         default = 0;
     };
+    class TimeAcceleration
+    {
+        title = "Time acceleration (min per hour)";
+        texts[] = {"1","5","10","20","30","60"};
+        values[] = {60,12,6,3,2,1};
+        default = 6;
+    };
 
     // BI Revive via mission parameters
     class ReviveMode

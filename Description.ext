@@ -227,6 +227,13 @@ class Params
         values[] = {200,300,400,500,750,1000};
         default = 300;
     };
+    class Fatigue
+    {
+        title = "Fatigue";
+        texts[] = {"On","Off"};
+        values[] = {1,0};
+        default = 0;
+    };
 
     // BI Revive via mission parameters
     class ReviveMode

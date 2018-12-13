@@ -1,4 +1,10 @@
-player enableStamina false;
+private _fatigue = ["Fatigue", 0] call BIS_fnc_getParamValue;
+
+if(_fatigue == 0) then {
+	player enableStamina false;
+} else {
+	player enableStamina true;
+};
 
 [] spawn create_join_menu;
 [] spawn leave_squad;

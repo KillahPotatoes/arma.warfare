@@ -188,4 +188,180 @@
             <Original>%1 gained %2 manpower when capturing %3</Original>
         </Key>
     </Package>
+    <Package name="KPPLM">
+        <Key ID="STR_KPPLM_ACTION">
+            <English>-- KP Player Menu --</English>
+            <Chinese>-- KP 玩家選單 --</Chinese>
+            <German>-- KP Spielermenü --</German>
+        </Key>
+        <Key ID="STR_KPPLM_APPLY">
+            <English>Apply</English>
+            <Chinese>使用</Chinese>
+            <German>Anwenden</German>
+        </Key>
+        <Key ID="STR_KPPLM_CREATE">
+            <English>Create</English>
+            <German>Erstellen</German>
+        </Key>
+        <Key ID="STR_KPPLM_DISABLED">
+            <English>Disabled</English>
+            <Chinese>關閉</Chinese>
+            <German>Deaktiviert</German>
+        </Key>
+        <Key ID="STR_KPPLM_JOIN">
+            <English>Join</English>
+            <Chinese>加入</Chinese>
+            <German>Beitreten</German>
+        </Key>
+        <Key ID="STR_KPPLM_RENAME">
+            <English>Rename</English>
+            <Chinese>重新命名</Chinese>
+            <German>Umbenennen</German>
+        </Key>
+        <Key ID="STR_KPPLM_TITLE">
+            <English>KP Player Menu</English>
+            <Chinese>KP 玩家選單</Chinese>
+            <German>KP Spielermenü</German>
+        </Key>
+        <Key ID="STR_KPPLM_LABELPLAYER">
+            <English>Player Information</English>
+            <Chinese>玩家資訊</Chinese>
+            <German>Spielerinformationen</German>
+        </Key>
+        <Key ID="STR_KPPLM_RANK">
+            <English>Rank:</English>
+            <Chinese>階級</Chinese>
+            <German>Dienstgrad:</German>
+        </Key>
+        <Key ID="STR_KPPLM_SCORE">
+            <English>Score:</English>
+            <Chinese>得分</Chinese>
+            <German>Punkte:</German>
+        </Key>
+        <Key ID="STR_KPPLM_PLAYTIME">
+            <English>Playtime:</English>
+            <Chinese>遊戲時間</Chinese>
+            <German>Spielzeit:</German>
+        </Key>
+        <Key ID="STR_KPPLM_NORANKS">
+            <English>KP Ranks mod not loaded</English>
+            <Chinese>KP Rank 模組未裝載</Chinese>
+            <German>KP Ranks Mod nicht geladen</German>
+        </Key>
+        <Key ID="STR_KPPLM_LABELGROUPS">
+            <English>Group Management</English>
+            <Chinese>團隊管理</Chinese>
+            <German>Gruppenverwaltung</German>
+        </Key>
+        <Key ID="STR_KPPLM_LABELVIEW">
+            <English>View Distance Settings</English>
+            <Chinese>視距設定</Chinese>
+            <German>Sichtweiteneinstellungen</German>
+        </Key>
+        <Key ID="STR_KPPLM_VIEWFOOT">
+            <English>m on foot</English>
+            <Chinese>m 步兵視野</Chinese>
+            <German>m zu Fuß</German>
+        </Key>
+        <Key ID="STR_KPPLM_VIEWVEHICLE">
+            <English>m in ground vehicles</English>
+            <Chinese>m 地面載具視野</Chinese>
+            <German>m in Bodenfahrzeugen</German>
+        </Key>
+        <Key ID="STR_KPPLM_VIEWAIR">
+            <English>m in air vehicles</English>
+            <Chinese>m 空中載具視野</Chinese>
+            <German>m in Luftfahrzeugen</German>
+        </Key>
+        <Key ID="STR_KPPLM_LABELMISC">
+            <English>Misc Settings</English>
+            <Chinese>細項設定</Chinese>
+            <German>Sonstige Einstellungen</German>
+        </Key>
+        <Key ID="STR_KPPLM_TEXTTERRAIN">
+            <English>Terrain detail:</English>
+            <Chinese>地形細節</Chinese>
+            <German>Terraindetail:</German>
+        </Key>
+        <Key ID="STR_KPPLM_TERRAINLOW">
+            <English>Low</English>
+            <Chinese>低</Chinese>
+            <German>Niedrig</German>
+        </Key>
+        <Key ID="STR_KPPLM_TERRAINSTANDARD">
+            <English>Standard</English>
+            <Chinese>標準</Chinese>
+            <German>Standard</German>
+        </Key>
+        <Key ID="STR_KPPLM_TERRAINHIGH">
+            <English>High</English>
+            <Chinese>高</Chinese>
+            <German>Hoch</German>
+        </Key>
+        <Key ID="STR_KPPLM_TERRAINVHIGH">
+            <English>Very High</English>
+            <Chinese>非常高</Chinese>
+            <German>Sehr Hoch</German>
+        </Key>
+        <Key ID="STR_KPPLM_TERRAINULTRA">
+            <English>Ultra</English>
+            <Chinese>極高</Chinese>
+            <German>Ultra</German>
+        </Key>
+        <Key ID="STR_KPPLM_TEXTTPV">
+            <English>Auto 3rd person view:</English>
+            <Chinese>自動第三人稱視角</Chinese>
+            <German>Auto 3rd-Person-Sicht:</German>
+        </Key>
+        <Key ID="STR_KPPLM_TPVAIR">
+            <English>Air vehicles</English>
+            <Chinese>空中載具</Chinese>
+            <German>Luftfahrzeuge</German>
+        </Key>
+        <Key ID="STR_KPPLM_TPVLAND">
+            <English>Ground vehicles</English>
+            <Chinese>地面載具</Chinese>
+            <German>Bodenfahrzeuge</German>
+        </Key>
+        <Key ID="STR_KPPLM_TPVALL">
+            <English>All vehicles</English>
+            <Chinese>所有載具</Chinese>
+            <German>Alle Fahrzeuge</German>
+        </Key>
+        <Key ID="STR_KPPLM_TEXTRADIO">
+            <English>Disable radio chatter:</English>
+            <Chinese>關閉文字聊天：</Chinese>
+            <German>KI Funk deaktivieren:</German>
+        </Key>
+        <Key ID="STR_KPPLM_RADIOVOICE">
+            <English>Only voice</English>
+            <Chinese>只有語音通訊</Chinese>
+            <German>Nur Stimme</German>
+        </Key>
+        <Key ID="STR_KPPLM_RADIOALL">
+            <English>Voice + Chat</English>
+            <Chinese>語音+文字通訊</Chinese>
+            <German>Stimme + Chat</German>
+        </Key>
+        <Key ID="STR_KPPLM_TEXTSOUND">
+            <English>In vehicle volume:</English>
+            <Chinese>載具內音量：</Chinese>
+            <German>Lautstärke im Fahrzeug:</German>
+        </Key>
+        <Key ID="STR_KPPLM_SOUND_TT">
+            <English>The sound adjustment is overwritten by ACE, if you should use it.</English>
+            <Chinese>如果你有使用ACE模組，聲音設定將會被ACE的覆蓋</Chinese>
+            <German>Die Lautstärkeanpassung wird durch ACE überschrieben, wenn du es nutzen solltest.</German>
+        </Key>
+        <Key ID="STR_KPPLM_NOTLEADER_NOTE">
+            <English>You're not the leader of this group.</English>
+            <Chinese>你不是這個團隊的隊長</Chinese>
+            <German>Du bist nicht der Anführer dieser Gruppe.</German>
+        </Key>
+        <Key ID="STR_KPPLM_NOLVLSYSTEM">
+            <English>Leveling system disabled</English>
+            <Chinese>陞階系統關閉</Chinese>
+            <German>Levelsystem deaktiviert</German>
+        </Key>
+    </Package>
 </Project>

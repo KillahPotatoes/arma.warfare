@@ -425,3 +425,10 @@ class Params
         function = "bis_fnc_paramReviveForceRespawnDuration";
     };
 };
+
+#include "KPGUI\KPGUI_defines.hpp"
+#include "KPPLM\ui\KPPLM_dialog.hpp"
+
+class CfgFunctions {
+    #include "KPPLM\KPPLM_functions.hpp"
+};

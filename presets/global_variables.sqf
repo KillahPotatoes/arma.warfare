@@ -50,7 +50,6 @@ tier_2_gunship_respawn_time = 300;
 arwa_air_vehicle_menu = 150;
 arwa_ground_vehicle_menu = 140;
 arwa_infantry_menu = 130;
-arwa_open_arsenal = 160;
 arwa_return_vehicle = 90;
 arwa_ground_transport_actions = 70;
 arwa_air_transport_actions = 80;

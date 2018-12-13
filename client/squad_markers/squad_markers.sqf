@@ -50,13 +50,19 @@ get_unit_marker_text = {
 	private _veh = vehicle leader _group;
 	private _is_veh = (_veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank");
 
+	_split_string = [groupId _group, 0] call split_string;
+	_first_string = _split_string select 0;
+	_second_string = _split_string select 1;
+
+	_alive_count = {alive _x} count units _group;
+
 	if (_is_veh) exitWith {
 		private _class_name = typeOf _veh;
 		private _veh_name = _class_name call get_vehicle_display_name;
-		format["%1 - %2", _group, _veh_name];
+		format["%1 %2 - %3", _alive_count, _second_string, _veh_name];
 	};
 
-	format["%1", _group];
+	format["%1 %2", _alive_count, _second_string];
 };
 
 any_alive = {
@@ -78,7 +84,7 @@ show_friendly_markers = {
 		_markers_array = [];
 
 		{			
-			if (show_all 
+			if (arwa_show_all 
 				|| (_x call any_alive) 
 				&& ((side _x) isEqualTo playerSide) 
 				&& (!(_x getVariable [defense, false])) 

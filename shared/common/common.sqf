@@ -1,16 +1,21 @@
 [] call compileFinal preprocessFileLineNumbers "shared\common\string.sqf";
 
-any_units_to_close = {
+any_units_too_close = {
 	params ["_pos"];
 
 	count (nearestObjects[_pos, ["Tank", "Car", "Air", "Man"], 10]) > 0;
 };
 
-check_if_player_already_in_hq = {
+player_already_in_hq = {
   params ["_player"];
 
   private _pos = getMarkerPos ([side _player, respawn_ground] call get_prefixed_name);
   (getPos _player) distance _pos > 25; 
+};
+
+not_in_vehicle = {
+	params ["_unit"];
+	_unit isEqualTo (vehicle _unit);
 };
 
 addActionText = {

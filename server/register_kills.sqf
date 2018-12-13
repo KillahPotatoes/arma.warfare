@@ -48,7 +48,7 @@ induce_lost_vehicle_penalty = {
 
 		private _veh_name = (typeOf _victim) call get_vehicle_display_name;
 
-		private _msg = format["We lost %1 manpower points due to the loss of %2", _penalty_size, _veh_name];
+		private _msg = format[localize "PLAYER_VEHICLE_LOST", _penalty_size, _veh_name];
 		
 		[_side, _msg] call HQ_report;
 	};
@@ -68,9 +68,9 @@ report_lost_vehicle = {
 
 		private _msg = if (_distance > 200) then {
 			private _direction = [_sector_pos, _pos] call get_direction;
-			format["We lost a %1 %2m %3 of %4", _veh_name, _distance, _direction, _location];	
+			format[localize "VEHICLE_LOST", _veh_name, _distance, _direction, _location];	
 		} else {
-			format["We lost a %1 in %2", _veh_name, _location];			
+			format[localize "VEHICLE_LOST_IN_SECTOR", _veh_name, _location];			
 		};				
 		
 		[_side, _msg] call HQ_report;
@@ -97,7 +97,7 @@ register_kill = {
 		private _killer_side = side group _killer;
 		private _victim_side = side group _victim;    
 
-		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in factions}) then {
+		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in arwa_all_sides}) then {
 			_kill_point = _killer_side call calculate_kill_points;	
 			[_killer_side, _kill_point] call increment_kill_counter;
 		};
@@ -106,7 +106,7 @@ register_kill = {
 			[] remoteExec ["increment_player_kill_counter", _killer];
 		};
 
-		if (_victim_side in factions) then {
+		if (_victim_side in arwa_all_sides) then {
 			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
 			_faction_strength = _victim_side call get_strength;

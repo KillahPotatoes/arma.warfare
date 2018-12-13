@@ -1,15 +1,15 @@
 sector_manpower_generation = {
       while {true} do {
-            sleep 60;
+            sleep arwa_manpower_generation_time;
             {
                   private _sector = _x;
                   private _side = _sector getVariable owned_by;
 
-                  if(_side in factions) then {
+                  if(_side in arwa_all_sides) then {
                         private _ammo_box = _sector getVariable box;
                         private _manpower = _ammo_box getVariable manpower;
 
-                        private _generated = manpower_per_minute + (_sector call get_additional_income_based_on_stationed_players);
+                        private _generated = 1 + (_sector call get_additional_income_based_on_stationed_players);
 
                         _ammo_box setVariable [manpower, (_manpower + _generated), true];
                   };
@@ -19,10 +19,20 @@ sector_manpower_generation = {
 };
 
 reset_sector_manpower = {
-      params ["_new_owner", "_sector"];
+      params ["_new_owner", "_old_owner", "_sector", "_sector_name"];
 
       if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian)) then {
-            _ammo_box = _sector getVariable box;
+            private _ammo_box = _sector getVariable box;
+            private _manpower = _ammo_box getVariable [manpower, 0];
+
+            if(_old_owner countSide allPlayers > 0 && _manpower > 0) then {
+                  private _faction_name = _new_owner call get_faction_names;
+
+                  [_new_owner, _manpower] spawn buy_manpower_server;
+                  private _msg = format[localize "MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name];
+                  _msg remoteExec ["HQ_report_client_all"];
+            };
+
             _ammo_box setVariable [manpower, 0, true];
       };
 };
@@ -34,7 +44,7 @@ get_additional_income_based_on_stationed_players = {
       private _total_factor = 0;
 
       { 
-            if(alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < sector_size) exitWith {
+            if(alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < arwa_sector_size) exitWith {
                   private _rank = _x getVariable ["rank", 0];
                   _total_factor = _total_factor + 1 + (_rank * 0.2);
                   true;
@@ -43,5 +53,5 @@ get_additional_income_based_on_stationed_players = {
             false;
       } count allPlayers;
 
-      manpower_per_minute * _total_factor;
+      _total_factor;
 };

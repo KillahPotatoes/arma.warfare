@@ -30,6 +30,8 @@ add_battle_group = {
     _group deleteGroupWhenEmpty true;
 
 	((side _group) call get_battlegroups) pushBackUnique _group;
+
+	_group call initialize_battlegroup_ai;
 };
 
 get_all_battle_groups = {
@@ -54,35 +56,16 @@ count_battlegroup_units = {
 	_sum;
 };
 
-check_if_group_nearby = {
+group_nearby = {
 	params ["_group", "_pos", "_distance"];
 
 	((getPos leader _group) distance _pos) < _distance;
 };
 
-check_if_in_vehicle = {
+in_vehicle = {
 	params ["_group"];
 	private _veh = vehicle leader _group;
 	(_veh isKindOf "Car" || _veh isKindOf "Tank" || _veh isKindOf "Air");
 };
 
-get_smallest_group = {
-	params ["_groups"];
-
-	_current_group = _groups select 0;
-	_smallest_count = 999999;
-
-	{
-		private _g = _x;
-		_count = { alive _x } count units _g;
-
-		if (_smallest_count > _count && _count != 0 && !(isPlayer leader _g)) then {
-			_smallest_count = _count;
-			_current_group = _g;
-		};
-
-	} forEach _groups;
-
-	_current_group;
-};
 

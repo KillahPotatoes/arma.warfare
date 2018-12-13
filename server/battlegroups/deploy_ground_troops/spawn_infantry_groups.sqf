@@ -15,7 +15,7 @@ spawn_random_infantry_group = {
 get_infantry_spawn_position = {
 	params ["_pos", "_side"];
 
-	private _safe_sectors = [_side, (sector_size * 2)] call get_safe_sectors;
+	private _safe_sectors = [_side, (arwa_sector_size * 2)] call get_safe_sectors;
 
 	private _safe_pos = [_pos];
 
@@ -28,7 +28,8 @@ get_infantry_spawn_position = {
 	
 	if(_target_sectors isEqualTo []) exitWith {};
 
-	private _preferred_target = [_target_sectors, _pos] call find_closest_sector;
+	private _preferred_targets = [_target_sectors, _pos] call find_potential_target_sectors;
+	private _preferred_target = (selectRandom _preferred_targets) select 1;
 
 	_safe_pos = _safe_pos apply { [_x distance (_preferred_target getVariable pos), _x] };
 	_safe_pos sort true;
@@ -38,21 +39,22 @@ get_infantry_spawn_position = {
 	[_best_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;	
 };
 
+find_potential_target_sectors = {
+	params ["_sectors", "_pos"];
+
+	private _sorted_sectors = _sectors apply { [_pos distance (_x getVariable pos), _x] };
+	_sorted_sectors sort true;
+
+	private _closest_sector = _sorted_sectors select 0;
+	private _shortest_distance = _closest_sector select 0;
+
+	_sorted_sectors select { (_x select 0) < (_shortest_distance + 1000) };
+};
+
 spawn_squad = {
 	params ["_pos", "_side", "_can_spawn"];
 	
 	_pos = [_pos, _side] call get_infantry_spawn_position;
-	_soldier_count = (squad_cap call calc_number_of_soldiers) min _can_spawn;
+	_soldier_count = (arwa_squad_cap call calc_number_of_soldiers) min _can_spawn;
     [_pos, _side, _soldier_count, false] call spawn_infantry;	
-};
-
-spawn_infantry_groups = {
-	params ["_side"];
-	private _unit_count = _side call count_battlegroup_units;	
-	private _strength = _side call get_strength;
-	private _can_spawn = (unit_cap - _unit_count) min (_side call get_unused_strength); 
-
-	if (_can_spawn > (squad_cap / 2) || (_strength == _can_spawn)) exitWith {
-		[_side, _can_spawn] call spawn_random_infantry_group;		
-	};	
 };

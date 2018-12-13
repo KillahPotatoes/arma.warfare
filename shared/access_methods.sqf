@@ -5,7 +5,7 @@ get_prefixed_name = {
 
 get_tier_bound = {
 	params ["_num"];
-	_num * (starting_strength / 10);
+	_num * (arwa_starting_strength / 10);
 };
 
 set_tier_progress = {
@@ -40,22 +40,12 @@ set_kill_count = {
 
 set_strength = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_strength", _side], _value, true];
+	missionNamespace setVariable [format ["%1_strength", _side], 0 max _value, true];
 }; 
 
 get_strength = {
 	params ["_side"];
 	missionNamespace getVariable format ["%1_strength",  _side];
-};
-
-set_income = {
-	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_income", _side], _value, true];
-}; 
-
-get_income = {
-	params ["_side"];
-	missionNamespace getVariable format ["%1_income", _side];
 };
 
 get_faction_names = {

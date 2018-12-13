@@ -6,11 +6,11 @@ remove_vehicle_action = {
 
 		if(0 == count crew _target) exitWith {
 			deleteVehicle _target;
-			systemChat "Vehicle returned";
+			systemChat localize "VEHICLE_RETURNED";
 		};
 		
-		systemChat "Vehicle is not empty";
-  	}, nil, 70, false, true, "",
+		systemChat localize "VEHICLE_NOT_EMPTY";
+  	}, nil, arwa_return_vehicle, false, true, "",
   	'[_this] call is_player_in_hq && [_target, _this] call is_same_side && [_this] call not_in_vehicle', 10
   	];
 };

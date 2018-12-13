@@ -1,26 +1,17 @@
 active_factions = [east, west, independent];
 
-check_if_lost = {
+lost = {
 	params ["_side"];
 	private _lost = false;
+	private _players = _side countSide (allPlayers select { alive _x });
 
-	if(_side call get_strength <= 0 && _side call get_income == 0) then {
-
-		_players = _side countSide allPlayers;
-
-		if (_players == 0) then {
-			
-			_lost = true;
-		};
-	};
-
-	_lost;
+	_side call get_strength <= 0 && _players == 0;
 };
 
 check_end_game_state = {
 	params ["_side"];
 	
-	if(_side call check_if_lost) exitWith {
+	if(_side call lost) exitWith {
 		active_factions = active_factions - [_side];
 	};
 

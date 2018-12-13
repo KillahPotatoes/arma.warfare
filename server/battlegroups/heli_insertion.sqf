@@ -5,14 +5,13 @@ add_soldiers_to_helicopter_cargo = {
 	private _crew_count = count (_veh_array select 1);
 	private _side = side (_veh_array select 2);
 	private _cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
-	private _cargo = (_cargoCapacity min _can_spawn) min squad_cap;
+	private _cargo = (_cargoCapacity min _can_spawn) min arwa_squad_cap;
 	private _group = [[0,0,0], _side, _cargo, false] call spawn_infantry;	
+	[_group, false] call add_battle_group;
 
 	{
 		_x moveInCargo _vehicle;    
 	} forEach units _group;
-
-	[_group, false] call add_battle_group;
 
 	_group;
 };
@@ -20,27 +19,23 @@ add_soldiers_to_helicopter_cargo = {
 pick_sector = {
 	params ["_side"];
 
-	private _sectors = [_side] call get_unsafe_sectors;
-	
-	if(!(_sectors isEqualTo [])) exitWith { [selectRandom _sectors, true]; };
-
 	_sectors = [] call get_unowned_sectors;	
 
-	if(!(_sectors isEqualTo [])) exitWith { [selectRandom _sectors, true]; };
+	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 
 	_sectors = [_side] call find_enemy_sectors;
-	
-	[selectRandom _sectors, false];
+
+	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 };
 
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 	
-	private _target = [_side] call pick_sector;
-	private _sector = _target select 0;
-	private _safe = _target select 1;
+	private _sector = [_side] call pick_sector;
 
 	if (isNil "_sector") exitWith {};
+
+	private _safe = !([_side, _sector getVariable pos] call any_enemies_in_sector);
 
 	private _spawn_pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 	private _sector_pos = _sector getVariable pos;
@@ -90,3 +85,15 @@ move_to_sector_outskirt = {
 	};
 };
 
+try_spawn_heli_reinforcements = {
+	params ["_side", "_sector"];
+	private _unit_count = _side call count_battlegroup_units;	
+	private _can_spawn = arwa_unit_cap - _unit_count; 
+
+	if (_can_spawn > (arwa_squad_cap / 2)) exitWith {
+		private _pos = _sector getVariable pos;
+		[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
+		true;
+	};	
+	false;
+};

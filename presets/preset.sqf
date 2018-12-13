@@ -1,4 +1,11 @@
-// Presets
+ammo_box = "B_CargoNet_01_ammo_F";
+
+anti_vehicle_mines = ["SLAMDirectionalMine", "ATMine"];		
+anti_personel_mines = ["APERSBoundingMine", "APERSMine", "APERSTripMine"];
+
+nvgoogles_guer = "NVGoggles_INDEP";
+nvgoogles_west = "NVGoggles";
+nvgoogles_east = "NVGoggles_OPFOR";
 
 west_infantry_tier_0 = [
 	["B_soldier_F", 0],
@@ -8,8 +15,14 @@ west_infantry_tier_0 = [
 	["B_soldier_exp_F", 0],
 	["B_medic_F", 0],
 	["B_Sharpshooter_F", 0],
-	["B_engineer_F", 0],
-	["B_Soldier_AT_F", 0],
+	["B_engineer_F", 0]
+];
+
+west_infantry_tier_1 = [
+	["B_Soldier_AT_F", 0]
+];
+
+west_infantry_tier_2 = [
 	["B_Soldier_AA_F", 0]
 ];
 
@@ -21,8 +34,14 @@ east_infantry_tier_0 = [
 	["O_soldier_exp_F", 0],
 	["O_medic_F", 0],
 	["O_Sharpshooter_F", 0],
-	["O_engineer_F", 0],
-	["O_Soldier_AT_F", 0],
+	["O_engineer_F", 0]
+];
+
+east_infantry_tier_1 = [
+	["O_Soldier_AT_F", 0]
+];
+
+east_infantry_tier_2 = [
 	["O_Soldier_AA_F", 0]
 ];
 
@@ -34,8 +53,14 @@ guer_infantry_tier_0 = [
 	["I_soldier_exp_F", 0],
 	["I_medic_F", 0],
 	["I_Sharpshooter_F", 0],
-	["I_engineer_F", 0],
-	["I_Soldier_AT_F", 0],
+	["I_engineer_F", 0]
+];
+
+guer_infantry_tier_1 = [	
+	["I_Soldier_AT_F", 0]
+];
+
+guer_infantry_tier_2 = [
 	["I_Soldier_AA_F", 0]
 ];
 
@@ -57,11 +82,9 @@ west_vehicle_tier_2 = [
 	["B_APC_Tracked_01_AA_F", 30],
 	["B_APC_Wheeled_01_cannon_F", 30],
 	["B_MBT_01_TUSK_F", 30], 
-	["B_APC_Wheeled_03_cannon_F", 30], 
 	["B_MBT_01_cannon_F", 30], 
 	["B_AFV_Wheeled_01_up_cannon_F", 30], 
 	["B_AFV_Wheeled_01_cannon_F", 30] 
-
 ];
 
 west_vehicle_tier_1 = [
@@ -111,7 +134,7 @@ east_vehicle_transport = [
 ];
 
 east_vehicle_tier_2 = [
-	["O_MBT_02_command_F", 40], 
+	["O_MBT_04_command_F", 40], // TODO
 	["O_MBT_04_cannon_F", 30], 
 	["O_MBT_02_cannon_F", 30], 
 	["O_APC_Tracked_02_cannon_F", 30], 

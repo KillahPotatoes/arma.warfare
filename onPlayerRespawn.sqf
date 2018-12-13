@@ -1,12 +1,12 @@
 player enableStamina false;
 
-[] spawn join_squad;
+[] spawn create_join_menu;
 [] spawn leave_squad;
-[] spawn add_give_manpower_to_player_action;
-[] spawn add_take_manpower_from_player_action;
+[] spawn add_take_manpower;
+[] spawn add_store_manpower;
 
-["Request helicopter pick-up", helicopter, 95] spawn show_order_taxi;
-["Request vehicle pick-up", vehicle1, 93] spawn show_order_taxi;
+[localize "REQUEST_AIR_TRANSPORT", helicopter, arwa_air_transport_actions] spawn show_order_transport;
+[localize "REQUEST_VEHICLE_TRANSPORT", vehicle1, arwa_ground_transport_actions] spawn show_order_transport;
 
 remove_squad_mates_on_death = {
 	params ["_player"];
@@ -31,3 +31,8 @@ reset_player_stats = {
 
 [player] call reset_player_stats;
 [player] call remove_squad_mates_on_death;
+
+if(show_diary_hint) then {
+	show_diary_hint = false;
+	"HOW TO PLAY" hintC "Look in map briefing for how to play";
+};

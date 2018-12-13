@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="Warfare">
+    <Package name="Warfare">
+        <Key ID="MAXIMUM_AMOUNT_OF_UNITS">
+            <Original>You have the maximum allowed amount of units</Original>
+        </Key>
+        <Key ID="OBSTRUCTING_THE_RESPAWN_AREA">
+            <Original>Something is obstructing the %1 respawn area</Original>
+        </Key>
+        <Key ID="CANNOT_SPAWN_UNITS_ENEMIES_NEARBY">
+            <Original>Cannot spawn units when enemies nearby</Original>
+        </Key>
+        <Key ID="YOU_TOOK_MANPOWER">
+            <Original>You took %1 MP</Original>
+        </Key>
+        <Key ID="YOU_GAVE_MANPOWER">
+            <Original>You gave %1 MP</Original>
+        </Key>
+        <Key ID="YOU_STORED_MANPOWER">
+            <Original>You stored %1 MP</Original>
+        </Key>
+        <Key ID="YOU_ADDED_MANPOWER">
+            <Original>You added %1 manpower points</Original>
+        </Key>
+         <Key ID="NOT_ENOUGH_MANPOWER">
+            <Original>Not enough manpower</Original>
+        </Key>
+        <Key ID="TAKE_MANPOWER">
+            <Original>Take manpower</Original>
+        </Key>
+         <Key ID="CANCELING_TRANSPORT_MISSION">
+            <Original>Transport mission cancelled</Original>
+        </Key>
+        <Key ID="GIVE_MANPOWER">
+            <Original>Give manpower</Original>
+        </Key>
+         <Key ID="TRANSPORT_ARRIVED_IN_HQ">
+            <Original>Transport arrived safely back in HQ</Original>
+        </Key>
+        <Key ID="ADD_MANPOWER">
+            <Original>Add manpower</Original>
+        </Key>
+        <Key ID="STORE_MANPOWER">
+            <Original>Store manpower</Original>
+        </Key>
+        <Key ID="GET_INFANTRY">
+            <Original>Get infantry</Original>
+        </Key>
+        <Key ID="GET_VEHICLES">
+            <Original>Get vehicle</Original>
+        </Key>
+        <Key ID="GET_HELICOPTERS">
+            <Original>Get helicopter</Original>
+        </Key>
+        <Key ID="OPEN_ARSENAL">
+            <Original>Open arsenal</Original>
+        </Key>
+        <Key ID="JOIN_SQUAD">
+            <Original>Join squad</Original>
+        </Key>
+        <Key ID="LEAVE_SQUAD">
+            <Original>Leave squad</Original>
+        </Key>
+        <Key ID="UPDATE_TRANSPORT_ORDERS">
+            <Original>Update transport orders</Original>
+        </Key>
+        <Key ID="SEND_TRANSPORT_TO_HQ">
+            <Original>Send to HQ</Original>
+        </Key>
+         <Key ID="HEAD_TO_HQ">
+            <Original>Heading back to HQ</Original>
+        </Key>
+        <Key ID="TRANSPORT_RECEIVED_NEW_ORDERS">
+            <Original>Receivering new orders. On its way!</Original>
+        </Key>
+        <Key ID="TRANSPORT_UNAVAILABLE">
+            <Original>Transport is not available yet! Try again in %1 minutes</Original>
+        </Key>
+        <Key ID="TRANSPORT_ON_ITS_WAY">
+            <Original>Transport is on its way to given pick up destination!</Original>
+        </Key>
+        <Key ID="TRANSPORT_HAS_ARRIVED">
+            <Original>Transport has arrived. Waiting for squad to pick up!</Original>
+        </Key>
+         <Key ID="TRANSPORT_DOWN">
+            <Original>Transport vehicle is down! You are on your own!</Original>
+        </Key>
+        <Key ID="TRANSPORT_CANT_WAIT_ANY_LONGER">
+            <Original>We can't wait any longer! Transport is heading back to HQ!</Original>
+        </Key>
+        <Key ID="ONE_CASUALITY_IN_SECTOR_VAR1">
+            <Original>We lost a soldier at %1</Original>
+        </Key>
+         <Key ID="ONE_CASUALITY_IN_SECTOR_VAR2">
+            <Original>We have one down at %1</Original>
+        </Key>
+         <Key ID="ONE_CASUALITY_IN_SECTOR_VAR3">
+            <Original>We are one less at %1</Original>
+        </Key>
+         <Key ID="ONE_CASUALITY_IN_SECTOR_VAR4">
+            <Original>We lost one at %1</Original>
+        </Key>
+         <Key ID="MULTIPLE_CASUALITIES_IN_SECTOR_VAR1">
+            <Original>We are taking casualties. %1 down at %2</Original>
+        </Key>
+        <Key ID="MULTIPLE_CASUALITIES_IN_SECTOR_VAR2">
+            <Original>We just lost %1 soldiers at %2</Original>
+        </Key>
+        <Key ID="MULTIPLE_CASUALITIES_IN_SECTOR_VAR3">
+            <Original>We lost %1 guys at %2</Original>
+        </Key>
+        <Key ID="HEAVY_CASUALITIES_IN_SECTOR_VAR1">
+            <Original>We need backup! Just lost %1 at %2</Original>
+        </Key>
+        <Key ID="HEAVY_CASUALITIES_IN_SECTOR_VAR2">
+            <Original>We are taking heavy casualties at %2</Original>
+        </Key>
+        <Key ID="HEAVY_CASUALITIES_IN_SECTOR_VAR3">
+            <Original>Send backup. %1 just got killed at %2</Original>
+        </Key>
+        <Key ID="ONE_CASUALITY_VAR1">
+            <Original>We lost a soldier %1m %2 of %3</Original>
+        </Key>
+         <Key ID="ONE_CASUALITY_VAR2">
+            <Original>We have one down %1m %2 of %3</Original>
+        </Key>
+         <Key ID="ONE_CASUALITY_VAR3">
+            <Original>We are one less at %1m %2 of %3</Original>
+        </Key>
+         <Key ID="ONE_CASUALITY_VAR4">
+            <Original>We lost one %1m %2 of %3</Original>
+        </Key>
+         <Key ID="MULTIPLE_CASUALITIES_VAR1">
+            <Original>We are taking casualties. %1 down %2m %3 of %4</Original>
+        </Key>
+        <Key ID="MULTIPLE_CASUALITIES_VAR2">
+            <Original>We just lost %1 soldiers %2m %3 of %4</Original>
+        </Key>
+        <Key ID="MULTIPLE_CASUALITIES_VAR3">
+            <Original>We lost %1 guys %2m %3 of %4</Original>
+        </Key>
+        <Key ID="HEAVY_CASUALITIES_VAR1">
+            <Original>We need backup! Just lost %1 soldiers %2m %3 of %4</Original>
+        </Key>
+        <Key ID="HEAVY_CASUALITIES_VAR2">
+            <Original>We are taking heavy casualties %2m %3 of %4. %1 guys down!</Original>
+        </Key>
+        <Key ID="HEAVY_CASUALITIES_VAR3">
+            <Original>Send backup. %1 just got killed %2m %3 of %4</Original>
+        </Key>
+         <Key ID="VEHICLE_RETURNED">
+            <Original>Vehicle returned</Original>
+        </Key>
+         <Key ID="VEHICLE_NOT_EMPTY">
+            <Original>Vehicle is not empty</Original>
+        </Key>
+        <Key ID="VEHICLE_MOVING_TO">
+            <Original>"%1 is moving towards %2"</Original>
+        </Key>
+        <Key ID="SQUAD_MOVING_TO">
+            <Original>Squad of %1 moving towards %2</Original>
+        </Key>
+        <Key ID="PLAYER_VEHICLE_LOST">
+            <Original>We lost %1 manpower points due to the loss of %2</Original>
+        </Key>
+        <Key ID="VEHICLE_LOST_IN_SECTOR">
+            <Original>We lost a %1 in %2</Original>
+        </Key>
+        <Key ID="VEHICLE_LOST">
+            <Original>We lost a %1 %2m %3 of %4</Original>
+        </Key>
+        <Key ID="REQUEST_AIR_TRANSPORT">
+            <Original>Request helicopter pick-up</Original>
+        </Key>
+        <Key ID="REQUEST_VEHICLE_TRANSPORT">
+            <Original>Request vehicle pick-up</Original>
+        </Key>
+        <Key ID="HAS_LOST_SECTOR">
+            <Original>%1 has lost %2</Original>
+        </Key>
+        <Key ID="HAS_CAPTURED_SECTOR">
+            <Original>%1 has captured %2</Original>
+        </Key>
+         <Key ID="SECTOR_IS_UNDER_ATTACK">
+            <Original>%1 is under attack!</Original>
+        </Key>
+        <Key ID="MANPOWER_IS_LOST">
+            <Original>%1 gained %2 manpower when capturing %3</Original>
+        </Key>
+    </Package>
+</Project>

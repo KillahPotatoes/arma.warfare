@@ -1,7 +1,7 @@
 spawn_defensive_squad = {
 	params ["_pos", "_side"];
 
-	private _number_of_soldiers = defender_cap call calc_number_of_soldiers;
+	private _number_of_soldiers = arwa_defender_cap call calc_number_of_soldiers;
     private _group = [[_pos select 0, _pos select 1, 3000], _side, _number_of_soldiers, true] call spawn_infantry;
 	
 	[_group, _pos] call place_defensive_soldiers;
@@ -39,7 +39,7 @@ place_defensive_soldiers = {
 get_positions_to_populate = {
 	params ["_pos"];
 	
-	private _houses = _pos nearObjects ["house", sector_size / 2];
+	private _houses = _pos nearObjects ["house", arwa_sector_size / 2];
 
 	private _positions = [];
 
@@ -61,7 +61,7 @@ spawn_reinforcments = {
 	private _side = side _group;
     private _group_count = {alive _x} count units _group;
 
-	private _new_soldiers = 0 max ((defender_cap call calc_number_of_soldiers) - _group_count);
+	private _new_soldiers = 0 max ((arwa_defender_cap call calc_number_of_soldiers) - _group_count);
 
 	if(_new_soldiers < 1) exitWith {};
 

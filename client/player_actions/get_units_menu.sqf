@@ -19,21 +19,21 @@ get_infantry = {
 	params ["_class_name"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
-	_numberOfSoldiers = squad_size - _group_count;
+	_numberOfSoldiers = arwa_squad_cap - _group_count;
 
 	if (_numberOfSoldiers > 0) exitWith {
 		[_group, _class_name] call create_soldier;			
 		[_group] remoteExec ["add_battle_group", 2];
 	};
 
-	systemChat "You have the maximum allowed amount of people";		
+	systemChat localize "MAXIMUM_AMOUNT_OF_UNITS";		
 };
 
 get_vehicle = {
 	params ["_base_marker", "_class_name", "_penalty"];
 
 	private _pos = getPos _base_marker;
-	private _isEmpty = !([_pos] call any_units_to_close);
+	private _isEmpty = !([_pos] call any_units_too_close);
 
 	if (_isEmpty) exitWith {
 		private _veh = _class_name createVehicle _pos;
@@ -43,7 +43,7 @@ get_vehicle = {
 		[_veh] call remove_vehicle_action;
 	}; 
 	
-	systemChat format["Something is obstructing the %1 respawn area", _type];
+	systemChat format[localize "OBSTRUCTING_THE_RESPAWN_AREA", _type];
 };
 
 list_options = {
@@ -74,7 +74,11 @@ list_options = {
 			private _type = _params select 2;
 			private _box = _params select 3;
 
-			[_box] call remove_all_options;
+			[_box] call remove_all_options;	
+
+			if(([side player] call get_strength) <= 0) exitWith { 
+				systemChat localize "NOT_ENOUGH_MANPOWER"; 
+			};	
 
 			if(_type isEqualTo infantry) then {
 				[_class_name] call get_infantry;
@@ -84,6 +88,7 @@ list_options = {
 
 				[_base_marker, _class_name, _penalty] call get_vehicle;
 			};
+			
 		}, [_class_name, _penalty, _type, _box], (_priority - 1), false, true, "", '', 10]);
 
 	} forEach _options;
@@ -106,10 +111,14 @@ create_menu = {
 		private _disable_on_enemies_nearby = _arguments select 4;
 
 		if(_disable_on_enemies_nearby && {[side player, getPos _box] call any_enemies_in_sector}) exitWith { 
-			systemChat "Cannot spawn units when enemies nearby";
+			systemChat localize "CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
 		};			
 
 		[_box] call remove_all_options;
+
+		if(([side player] call get_strength) <= 0) exitWith { 
+			systemChat localize "NOT_ENOUGH_MANPOWER"; 
+		};
 
 		private _open = _box getVariable format["Menu_%1", _title];	
 		

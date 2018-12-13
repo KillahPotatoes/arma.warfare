@@ -37,7 +37,7 @@ try_find_unoccupied_nearby_road = {
 			_attempt_counter = _attempt_counter + 1;
 			
 			_road_pos = getPos (selectRandom _road);
-			_is_safe = !([_road_pos] call any_units_to_close);
+			_is_safe = !([_road_pos] call any_units_too_close);
 			if (_is_safe) then {
 				_pos = _road_pos;
 			};
@@ -94,14 +94,3 @@ spawn_random_vehicle_group = {
 	private _group = [_pos, _side, 0, _can_spawn] call spawn_vehicle_group;
 	[_group] call add_battle_group;	
 };
-
-spawn_vehicle_groups = {
-	params ["_side"];
-	private _unit_count = _side call count_battlegroup_units;	
-	private _strength = _side call get_strength;
-	private _can_spawn = (unit_cap - _unit_count) min (_side call get_unused_strength); 
-
-	if (_can_spawn > (squad_cap / 2) || (_strength == _can_spawn)) exitWith {
-		[_side, _can_spawn] call spawn_random_vehicle_group;		
-	};	
-}

@@ -25,7 +25,7 @@ spawn_sector_defense = {
 						};					
 						_sector_defense = [_pos, _current_faction] call spawn_defensive_squad;						
 					} else {
-						if({alive _x} count units _sector_defense < (defender_cap / 2)) then {
+						if({alive _x} count units _sector_defense < (arwa_defender_cap / 2)) then {
 							[_pos, _sector_defense] call spawn_reinforcments;
 						};		
 					};

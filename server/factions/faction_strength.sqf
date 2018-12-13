@@ -10,16 +10,9 @@ initialize_faction = {
 	params ["_side", "_manpower", "_tier"];
 
 	[_side, _manpower] call set_strength;
-	[_side, 0] call set_income;
 	[_side, _tier call get_tier_bound] call set_kill_count;
 	[_side, _tier] call set_tier;
 	[_side, 0] call set_tier_progress;	
-};
-
-get_unused_strength = {
-	params ["_side"];
-
-	(_side call get_strength) - (_side call count_battlegroup_units);
 };
 
 calculate_tier_progress = {
@@ -40,7 +33,7 @@ increment_kill_counter = {
 	params ["_side", "_kill_point"];
 	private _tier =  _side call get_tier;
 
-	if(_tier < 3) exitWith {
+	if(_tier < arwa_max_tier) exitWith {
 		private _new_kill_count = ([_side] call get_kill_count) + _kill_point;		
 
 		[_side, _new_kill_count] call increment_tier;

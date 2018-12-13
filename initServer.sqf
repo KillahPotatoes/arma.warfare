@@ -1,3 +1,5 @@
+enableSaving [false, false];
+
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\hide_respawn_markers.sqf";
@@ -41,7 +43,10 @@
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_infantry_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_vehicle_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_ai.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_air_ai.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_vehicle_ai.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_infantry_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
@@ -51,7 +56,7 @@
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
 private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
-private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
+arwa_starting_strength = ["Manpower", arwa_starting_strength] call BIS_fnc_getParamValue;
 
 // Game setup
 [] call initialize_sectors;
@@ -60,7 +65,7 @@ private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 [] call hide_respawn_markers;
 [] call initialize_mine_fields;
 [] call setup_faction_relations;
-[_manpower, _startingTier] call initialize_faction_stats;
+[arwa_starting_strength, _startingTier] call initialize_faction_stats;
 [] call initialize_bases;
 [] call initialize_base_respawns;
 [] call initialize_battle_groups;
@@ -73,7 +78,6 @@ private _manpower = ["Manpower", 500] call BIS_fnc_getParamValue;
 [] spawn clean_up;
 [] spawn initialize_spawn_battle_groups;
 [] spawn spawn_gunship_groups;
-[] spawn group_ai;
 [] spawn sector_manpower_generation;
 [] spawn populate_random_houses;
 

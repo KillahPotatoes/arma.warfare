@@ -41,9 +41,10 @@ send_to_HQ = {
 	if (alive _veh) exitWith
 	{
 		private _manpower = _veh call get_manpower;
+		_veh setVariable [manpower, 0];
 
 		if(_manpower > 0) then {
-			[side player, _manpower] remoteExec ["buy_manpower_server", 2];
+			[playerSide, _manpower] remoteExec ["buy_manpower_server", 2];
 			systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];     
 		};
 

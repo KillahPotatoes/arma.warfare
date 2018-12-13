@@ -67,8 +67,8 @@ get_squad_name = {
 list_join_options = {
 	params ["_priority"];
 
-	private _side = side player;
-	private _squads = [getPos player, side player] call get_friendly_squads_in_area;
+	private _side = playerSide;
+	private _squads = [getPos player, playerSide] call get_friendly_squads_in_area;
 
 	{
 		private _name = [_x] call get_squad_name;
@@ -95,5 +95,5 @@ create_join_menu = {
 		} else {
 			join_menu_open = false;
 		}
-	}, [], arwa_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, side player] call any_friendly_squads_in_area}', 10]	
+	}, [], arwa_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, playerSide] call any_friendly_squads_in_area}', 10]	
 };

@@ -49,7 +49,7 @@ get_vehicle = {
 list_options = {
 	params ["_type", "_priority", "_box"];
 
-	private _side = side player;
+	private _side = playerSide;
 	private _options = [_side, _type] call get_units_based_on_tier;
 
 	if(_type isEqualTo helicopter) then {
@@ -76,14 +76,14 @@ list_options = {
 
 			[_box] call remove_all_options;	
 
-			if(([side player] call get_strength) <= 0) exitWith { 
+			if(([playerSide] call get_strength) <= 0) exitWith { 
 				systemChat localize "NOT_ENOUGH_MANPOWER"; 
 			};	
 
 			if(_type isEqualTo infantry) then {
 				[_class_name] call get_infantry;
 			} else {
-				private _base_marker_name = [side player, _type] call get_prefixed_name;
+				private _base_marker_name = [playerSide, _type] call get_prefixed_name;
 				private _base_marker = missionNamespace getVariable _base_marker_name;
 
 				[_base_marker, _class_name, _penalty] call get_vehicle;
@@ -110,13 +110,13 @@ create_menu = {
 		private _box = _arguments select 3;
 		private _disable_on_enemies_nearby = _arguments select 4;
 
-		if(_disable_on_enemies_nearby && {[side player, getPos _box] call any_enemies_in_sector}) exitWith { 
+		if(_disable_on_enemies_nearby && {[playerSide, getPos _box] call any_enemies_in_sector}) exitWith { 
 			systemChat localize "CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
 		};			
 
 		[_box] call remove_all_options;
 
-		if(([side player] call get_strength) <= 0) exitWith { 
+		if(([playerSide] call get_strength) <= 0) exitWith { 
 			systemChat localize "NOT_ENOUGH_MANPOWER"; 
 		};
 

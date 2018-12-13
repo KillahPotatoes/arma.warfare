@@ -86,7 +86,7 @@ request_transport = {
 order_transport = {
 	params ["_pos", "_class_name", "_penalty"];
 
-	private _arr = [side player, _class_name, _penalty] call spawn_transport;
+	private _arr = [playerSide, _class_name, _penalty] call spawn_transport;
 	private _veh = _arr select 0;
 	private _group = _arr select 2;
 	private _name = (typeOf _veh) call get_vehicle_display_name;	
@@ -223,20 +223,19 @@ interrupt_transport_misson = {
 		
 	[] call remove_active_transport_menu;
 
-	_veh lock true;
-	[_group, _msg] spawn group_report_client;
-	
-	if(_empty_vehicle) then {
-		_veh call empty_vehicle_cargo;
-	} else {
-		_veh call throw_out_players;
-	};
-
-	sleep 3;
-
 	if(!despawning) exitWith {
 		despawning = true;
-	
+		_veh lock true;
+		[_group, _msg] spawn group_report_client;
+		
+		if(_empty_vehicle) then {
+			_veh call empty_vehicle_cargo;
+		} else {
+			_veh call throw_out_players;
+		};
+
+		sleep 3;
+
 		if(_veh isKindOf "Air") then {
 			transport_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
 		} else {

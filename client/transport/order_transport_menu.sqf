@@ -39,7 +39,7 @@ show_order_transport = {
 show_transport_options = {
 	params ["_type", "_priority"];
 
-	private _side = side player;
+	private _side = playerSide;
 	private _options = missionNamespace getVariable format["%1_%2_transport", _side, _type];
 
 	{

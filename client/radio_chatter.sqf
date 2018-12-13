@@ -33,7 +33,7 @@ HQ_report_client = {
 
 HQ_report_client_all = {
 	params ["_msg"];	
-	[side player, "HQ"] sideChat _msg;
+	[playerSide, "HQ"] sideChat _msg;
 };
 
 

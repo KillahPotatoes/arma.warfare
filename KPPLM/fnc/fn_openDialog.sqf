@@ -18,7 +18,7 @@
 */
 
 // Create player options dialog
-createDialog "KP_playerMenu";
+createDialog "KPPLM_dialog";
 disableSerialization;
 
 // Dialog controls
@@ -41,7 +41,7 @@ private _ctrlValueSound = _dialog displayCtrl 7580316;
 private _ctrlSliderSound = _dialog displayCtrl 7580317;
 
 // Display KP Ranks data or hide the player menu entries for the data
-if (KPPLM_kpr_enabled) then {
+if (KPPLM_KPR) then {
     [] call KPPLM_fnc_showRankData;
 } else {
     {
@@ -72,13 +72,13 @@ _ctrlTerrain lbAdd localize "STR_KPPLM_TERRAINVHIGH"; // 6.25
 _ctrlTerrain lbAdd localize "STR_KPPLM_TERRAINULTRA"; // 3.125
 _ctrlTerrain lbSetCurSel KPPLM_terrain;
 
-_ctrlTpv lbAdd localize "STR_KPPLM_DISABLED";
+_ctrlTpv lbAdd localize "STR_KPPLM_TPDISABLED";
 _ctrlTpv lbAdd localize "STR_KPPLM_TPVAIR";
 _ctrlTpv lbAdd localize "STR_KPPLM_TPVLAND";
 _ctrlTpv lbAdd localize "STR_KPPLM_TPVALL";
 _ctrlTpv lbSetCurSel KPPLM_tpv;
 
-_ctrlRadio lbAdd localize "STR_KPPLM_NO";
+_ctrlRadio lbAdd localize "STR_KPPLM_RADIONO";
 _ctrlRadio lbAdd localize "STR_KPPLM_RADIOVOICE";
 _ctrlRadio lbAdd localize "STR_KPPLM_RADIOALL";
 _ctrlRadio lbSetCurSel KPPLM_radio;

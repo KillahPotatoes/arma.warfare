@@ -1,14 +1,14 @@
 /*
-    KP PLAYER MENU MODULE FUNCTIONS
+    KP PLAYER MENU FUNCTIONS
 
-    File: functions.hpp
+    File: KPPLM_functions.hpp
     Author: Wyqer - https://github.com/KillahPotatoes
     Date: 2018-06-02
     Last Update: 2018-11-10
     License: GNU General Public License v3.0 - https://www.gnu.org/licenses/gpl-3.0.html
 
     Description:
-        Defines for all functions, which are brought by this module.
+        Defines for all functions for the KP Player Menu.
 */
 
 class KPPLM {

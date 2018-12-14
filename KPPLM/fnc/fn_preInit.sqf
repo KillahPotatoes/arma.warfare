@@ -20,7 +20,7 @@
 if (isServer) then {diag_log format ["[KP PLAYER MENU] [%1] [PRE] Initializing...", diag_tickTime];};
 
 // Check if KP Ranks is running
-KPPLM_kpr_enabled = isClass (configFile >> "CfgPatches" >> "KP_Ranks");
+KPPLM_KPR = isClass (configFile >> "CfgPatches" >> "KP_Ranks");
 
 // View distance on foot
 KPPLM_viewFoot = viewDistance;

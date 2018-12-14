@@ -23,7 +23,7 @@ if (isServer) then {diag_log format ["[KP PLAYER MENU] [%1] [POST] Initializing.
 // Player section
 if (hasInterface) then {
     // Load settings, if available
-    private _settings = profileNamespace getVariable ["KP_PLM_Settings", []];
+    private _settings = profileNamespace getVariable ["KPPLM_Settings", []];
     if !(_settings isEqualTo []) then {
         KPPLM_viewFoot = _settings select 0;
         KPPLM_viewVeh = _settings select 1;
@@ -40,7 +40,7 @@ if (hasInterface) then {
 
     // Action to open the dialog
     private _actionArray = [
-        "<t color='#FF8000'>" + localize "STR_KPPLM_ACTION" + "</t>",
+        "<t color='#FF8000'>" + localize "STR_KPPLM_ACTIONOPEN" + "</t>",
         {[] call KPPLM_fnc_openDialog;},
         nil,
         -803,

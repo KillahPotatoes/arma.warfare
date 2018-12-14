@@ -1,7 +1,7 @@
 /*
     KP player menu dialog
 
-    File: KP_playerMenu.hpp
+    File: KPPLM_dialog.hpp
     Author: Wyqer - https://github.com/KillahPotatoes
     Date: 2018-08-03
     Last Update: 2018-11-10
@@ -11,7 +11,7 @@
         Provides various functionalities for the players like group management, view distances, etc.
 */
 
-class KP_playerMenu {
+class KPPLM_dialog {
     idd = 75803;
     movingEnable = 0;
     // Fetch all player groups when opened and free the variable when closed
@@ -123,6 +123,10 @@ class KP_playerMenu {
 
     class controls {
 
+        class KPPLM_Version: KPGUI_PRE_DialogVersionIconC {
+            tooltip = "$STR_KPPLM_VERSION";
+        };
+
         class KP_PlayerRank: KPGUI_PRE_Text {
             idc = 758032;
             style = 2;
@@ -232,7 +236,7 @@ class KP_playerMenu {
             y = KP_GETCY(KP_Y_VAL_C,KP_HEIGHT_VAL_C,23,24);
             w = KP_GETW(KP_WIDTH_VAL_C,1);
             h = KP_GETH(KP_HEIGHT_VAL_C,24);
-            tooltip = "$STR_KPPLM_SOUND_TT";
+            tooltip = "$STR_KPPLM_TTSOUND";
             onSliderPosChanged = "ctrlSetText [7580316, format ['%1%2', round (_this select 1), '%']]";
         };
 

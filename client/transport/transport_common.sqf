@@ -110,7 +110,7 @@ move_transport_to_pick_up = {
 		[_group, _veh, _pos] call send_vehicle_transport;			
 	};	
 
-	if (canMove _veh) exitWith {
+	if (canMove _veh && !despawning) exitWith {
 		[_group, localize "TRANSPORT_HAS_ARRIVED"] spawn group_report_client;
 		[transport_will_wait_time, _veh, _group] spawn on_transport_idle_wait;
 	};
@@ -200,7 +200,7 @@ cancel_on_player_death = {
 	params ["_veh", "_group"];
 	waituntil {!(alive _veh) || !(alive player)};
 
-	if (!(alive player)) exitWith {		
+	if (!(alive player) && !despawning) exitWith {		
 		[_veh, _group, localize "CANCELING_TRANSPORT_MISSION", true] call interrupt_transport_misson;
 	};
 };

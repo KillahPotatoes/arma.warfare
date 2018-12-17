@@ -8,18 +8,18 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1123;
+		nextID=1124;
 	};
 	class LayerIndexProvider
 	{
-		nextID=190;
+		nextID=191;
 	};
 	class Camera
 	{
-		pos[]={3510.5918,403.84372,4695.479};
-		dir[]={-0.06305939,-0.44570872,0.89295721};
-		up[]={-0.031397104,0.89517766,0.44460267};
-		aside[]={0.99751961,6.8015652e-008,0.070442565};
+		pos[]={3492.9644,473.36526,4611.895};
+		dir[]={-0.49786589,-0.84653193,0.18846586};
+		up[]={-0.79170483,0.53233874,0.29969791};
+		aside[]={0.35403249,2.6926864e-007,0.93523771};
 	};
 };
 binarizationWanted=0;
@@ -40,13 +40,13 @@ addons[]=
 	"A3_Structures_F_EPA_Mil_Scrapyard",
 	"A3_Structures_F_Civ_Garbage",
 	"A3_Structures_F_Civ_Constructions",
-	"A3_Modules_F_Curator_Curator"
+	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=8;
+		items=9;
 		class Item0
 		{
 			className="A3_Structures_F";
@@ -102,6 +102,13 @@ class AddonsMetaData
 			name="Arma 3 Survive Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
+		};
+		class Item8
+		{
+			className="cba_main";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
+			url="https://www.github.com/CBATeam/CBA_A3";
 		};
 	};
 };
@@ -3036,104 +3043,23 @@ class Mission
 		};
 		class Item59
 		{
-			dataType="Logic";
-			class PositionInfo
-			{
-				position[]={6178.25,-0.025169373,2611.2161};
-			};
-			name="test";
-			id=1119;
-			type="ModuleCurator_F";
-			atlOffset=97.160004;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ModuleCurator_F_Owner";
-					expression="_this setVariable ['Owner',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="sondre";
-						};
-					};
-				};
-				class Attribute1
-				{
-					property="ModuleCurator_F_Forced";
-					expression="_this setVariable ['Forced',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute2
-				{
-					property="ModuleCurator_F_Name";
-					expression="_this setVariable ['Name',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="";
-						};
-					};
-				};
-				class Attribute3
-				{
-					property="ModuleCurator_F_Addons";
-					expression="_this setVariable ['Addons',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=2;
-						};
-					};
-				};
-				nAttributes=4;
-			};
-		};
-		class Item60
-		{
 			dataType="Marker";
 			position[]={3534.3159,197.867,4915.8418};
 			name="sector_Mountain_Outpost";
 			type="hd_objective";
 			id=1122;
 			atlOffset=-3.2677307;
+		};
+		class Item60
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={3336.1433,107.47398,4739.3311};
+			};
+			id=1123;
+			type="CBA_main_require";
+			atlOffset=7.6293945e-005;
 		};
 	};
 };

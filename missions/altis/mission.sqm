@@ -8,18 +8,18 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=613;
+		nextID=614;
 	};
 	class LayerIndexProvider
 	{
-		nextID=10;
+		nextID=64;
 	};
 	class Camera
 	{
 		pos[]={-12.037306,9.5290546,-19.757071};
-		dir[]={0.81962353,-0.16883971,-0.54748416};
-		up[]={0.1404034,0.98564178,-0.093785189};
-		aside[]={-0.55545759,-2.7287751e-007,-0.83155739};
+		dir[]={0.62997741,-0.56776631,-0.52990389};
+		up[]={0.43449458,0.82318997,-0.36547393};
+		aside[]={-0.64371413,4.1653402e-007,-0.76527935};
 	};
 };
 binarizationWanted=0;
@@ -41,13 +41,14 @@ addons[]=
 	"A3_Structures_F_Mil_Cargo",
 	"A3_Structures_F_Civ_Constructions",
 	"A3_Structures_F_EPA_Mil_Scrapyard",
-	"A3_Structures_F_EPB_Items_Vessels"
+	"A3_Structures_F_EPB_Items_Vessels",
+	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=10;
+		items=11;
 		class Item0
 		{
 			className="A3_Structures_F";
@@ -118,6 +119,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
+		class Item10
+		{
+			className="cba_main";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
+			url="https://www.github.com/CBATeam/CBA_A3";
+		};
 	};
 };
 randomSeed=11396745;
@@ -147,7 +155,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=56;
+		items=57;
 		class Item0
 		{
 			dataType="Layer";
@@ -316,7 +324,7 @@ class Mission
 			};
 			id=140;
 			type="B_Slingload_01_Ammo_F";
-			atlOffset=-0.0078582764;
+			atlOffset=-0.0079193115;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -434,7 +442,7 @@ class Mission
 			};
 			id=142;
 			type="B_Slingload_01_Fuel_F";
-			atlOffset=-0.009311676;
+			atlOffset=-0.0093126297;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -731,7 +739,7 @@ class Mission
 			};
 			id=148;
 			type="B_Slingload_01_Repair_F";
-			atlOffset=-0.015731812;
+			atlOffset=-0.015732765;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1038,7 +1046,7 @@ class Mission
 			type="respawn_air";
 			colorName="ColorRed";
 			id=159;
-			atlOffset=75.745163;
+			atlOffset=75.745171;
 		};
 		class Item27
 		{
@@ -2739,7 +2747,7 @@ class Mission
 					class PositionInfo
 					{
 						position[]={16645.609,5.7304101,20453.08};
-						angles[]={-0,3.9927201,0.031988446};
+						angles[]={0,3.9927201,0.031988446};
 					};
 					side="Empty";
 					flags=4;
@@ -3053,6 +3061,17 @@ class Mission
 			};
 			id=612;
 			atlOffset=0.064594746;
+		};
+		class Item56
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={7278.041,0.14080876,3743.5913};
+			};
+			id=613;
+			type="CBA_main_require";
+			atlOffset=186.11081;
 		};
 	};
 };

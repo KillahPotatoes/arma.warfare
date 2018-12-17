@@ -8,14 +8,14 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=62;
+		nextID=63;
 	};
 	class Camera
 	{
-		pos[]={2202.9224,79.483414,1543.8871};
-		dir[]={0.78684181,-0.40704298,-0.4639174};
-		up[]={0.35064387,0.91340643,-0.20673735};
-		aside[]={-0.50789618,-1.6018748e-007,-0.86143118};
+		pos[]={2200.9688,17.821825,1409.4976};
+		dir[]={0.08275605,-0.050656438,-0.99529594};
+		up[]={0.0041988832,0.99871665,-0.050496906};
+		aside[]={-0.99657452,-5.059992e-007,-0.08286161};
 	};
 };
 binarizationWanted=0;
@@ -27,13 +27,14 @@ addons[]=
 	"A3_Modules_F_Curator_Environment",
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
-	"A3_Characters_F"
+	"A3_Characters_F",
+	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=7;
+		items=8;
 		class Item0
 		{
 			className="A3_Structures_F";
@@ -83,6 +84,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
+		class Item7
+		{
+			className="cba_main";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
+			url="https://www.github.com/CBATeam/CBA_A3";
+		};
 	};
 };
 randomSeed=15392581;
@@ -111,7 +119,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=49;
+		items=50;
 		class Item0
 		{
 			dataType="Object";
@@ -1955,6 +1963,17 @@ class Mission
 			type="hd_objective";
 			id=61;
 			atlOffset=-2.8791885;
+		};
+		class Item49
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={2280.364,12.856749,1471.301};
+			};
+			id=62;
+			type="CBA_main_require";
+			atlOffset=0.000207901;
 		};
 	};
 };

@@ -8,15 +8,15 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1186;
+		nextID=1188;
 	};
 	class LayerIndexProvider
 	{
-		nextID=191;
+		nextID=196;
 	};
 	class Camera
 	{
-		pos[]={10743.85,291.29114,7992.3115};
+		pos[]={10842.084,596.62207,7851.6963};
 		dir[]={-0.54750669,-0.72766751,0.41321585};
 		up[]={-0.58081889,0.6859228,0.43835756};
 		aside[]={0.60241306,2.0462903e-007,0.79819274};
@@ -31,13 +31,14 @@ addons[]=
 	"A3_Modules_F_Curator_Environment",
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
-	"A3_Characters_F"
+	"A3_Characters_F",
+	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=7;
+		items=8;
 		class Item0
 		{
 			className="A3_Structures_F";
@@ -86,6 +87,13 @@ class AddonsMetaData
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
+		};
+		class Item7
+		{
+			className="cba_main";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
+			url="https://www.github.com/CBATeam/CBA_A3";
 		};
 	};
 };
@@ -145,7 +153,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=50;
+		items=51;
 		class Item0
 		{
 			dataType="Layer";
@@ -245,7 +253,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={4485.4346,340.2692,10058.594};
-				angles[]={-0,2.6241488,0};
+				angles[]={0,2.6241488,0};
 			};
 			side="Empty";
 			flags=4;
@@ -422,7 +430,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={4480.6572,340.27786,10067.147};
-				angles[]={-0,2.6155992,0};
+				angles[]={0,2.6155992,0};
 			};
 			side="Empty";
 			flags=4;
@@ -599,7 +607,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={4469.0244,340.31812,10087.165};
-				angles[]={-0,2.613939,0};
+				angles[]={0,2.613939,0};
 			};
 			side="Empty";
 			flags=4;
@@ -719,7 +727,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={4475.1523,340.27933,10076.778};
-				angles[]={-0,2.628757,0};
+				angles[]={0,2.628757,0};
 			};
 			side="Empty";
 			flags=4;
@@ -2012,6 +2020,16 @@ class Mission
 			type="hd_objective";
 			id=1185;
 			atlOffset=-0.00037431717;
+		};
+		class Item50
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={9261.2109,271.06799,4165.4087};
+			};
+			id=1187;
+			type="CBA_main_require";
 		};
 	};
 };

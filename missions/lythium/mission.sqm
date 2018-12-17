@@ -8,11 +8,11 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1185;
+		nextID=1186;
 	};
 	class LayerIndexProvider
 	{
-		nextID=192;
+		nextID=196;
 	};
 	class Camera
 	{
@@ -31,13 +31,14 @@ addons[]=
 	"A3_Modules_F_Curator_Environment",
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
-	"A3_Characters_F"
+	"A3_Characters_F",
+	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=7;
+		items=8;
 		class Item0
 		{
 			className="A3_Structures_F";
@@ -86,6 +87,13 @@ class AddonsMetaData
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
+		};
+		class Item7
+		{
+			className="cba_main";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
+			url="https://www.github.com/CBATeam/CBA_A3";
 		};
 	};
 };
@@ -145,7 +153,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=49;
+		items=50;
 		class Item0
 		{
 			dataType="Layer";
@@ -1999,6 +2007,16 @@ class Mission
 			type="hd_objective";
 			id=1184;
 			atlOffset=-0.00037765503;
+		};
+		class Item49
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={13.19781,140.69,-2.0917752};
+			};
+			id=1185;
+			type="CBA_main_require";
 		};
 	};
 };

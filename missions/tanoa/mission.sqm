@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=78;
+		nextID=90;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={7186.4272,5.9277387,7309.8818};
-		dir[]={-0.61770737,-0.37485144,0.69132084};
-		up[]={-0.24975987,0.92708498,0.27952421};
-		aside[]={0.74569285,0,0.66628981};
+		pos[]={4155.772,35.261681,3123.8093};
+		dir[]={-0.95595515,-0.29131559,0.036100216};
+		up[]={-0.29111394,0.95662546,0.010993399};
+		aside[]={0.037735984,2.7984242e-007,0.99929875};
 	};
 };
 binarizationWanted=0;
@@ -31,13 +31,14 @@ addons[]=
 	"A3_Modules_F_Curator_Environment",
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
-	"A3_Characters_F"
+	"A3_Characters_F",
+	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=7;
+		items=8;
 		class Item0
 		{
 			className="A3_Structures_F";
@@ -87,6 +88,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
+		class Item7
+		{
+			className="cba_main";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
+			url="https://www.github.com/CBATeam/CBA_A3";
+		};
 	};
 };
 randomSeed=14361695;
@@ -118,14 +126,14 @@ class Mission
 	};
 	class Entities
 	{
-		items=53;
+		items=54;
 		class Item0
 		{
 			dataType="Object";
 			class PositionInfo
 			{
 				position[]={5250.9043,2.6700001,8740.2568};
-				angles[]={-0,4.7535191,0};
+				angles[]={0,4.7535191,0};
 			};
 			side="Empty";
 			flags=4;
@@ -176,7 +184,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={5251.5576,2.6700001,8762.9941};
-				angles[]={-0,4.739542,0};
+				angles[]={0,4.739542,0};
 			};
 			side="Empty";
 			flags=4;
@@ -203,6 +211,7 @@ class Mission
 			};
 			id=4;
 			type="Land_HelipadSquare_F";
+			atlOffset=7.6293945e-006;
 		};
 		class Item5
 		{
@@ -269,7 +278,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={5264.5142,4.0163422,8757.1191};
-				angles[]={-0,3.166698,0};
+				angles[]={0,3.166698,0};
 			};
 			side="Empty";
 			flags=4;
@@ -446,7 +455,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={5264.9019,4.025795,8737.8125};
-				angles[]={-0,3.166698,0};
+				angles[]={0,3.166698,0};
 			};
 			side="Empty";
 			flags=4;
@@ -514,7 +523,7 @@ class Mission
 			};
 			id=10;
 			type="B_Slingload_01_Fuel_F";
-			atlOffset=-0.38360596;
+			atlOffset=-0.38368988;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -604,7 +613,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={5265.2222,4.022646,8767.0566};
-				angles[]={-0,0.03808248,0};
+				angles[]={0,0.03808248,0};
 			};
 			side="Empty";
 			flags=4;
@@ -644,7 +653,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={13018.919,120.34199,10195.709};
-				angles[]={-0,3.5945685,6.2618566};
+				angles[]={0,3.5945685,6.2618566};
 			};
 			side="Empty";
 			flags=4;
@@ -724,7 +733,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={5264.6704,4.0299892,8747.75};
-				angles[]={-0,3.166698,0};
+				angles[]={0,3.166698,0};
 			};
 			side="Empty";
 			flags=4;
@@ -1015,17 +1024,19 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={75.417847,-1.1668656,114.60089};
+						position[]={75.417999,-1.1669228,114.60101};
 					};
 					side="West";
 					flags=3;
 					class Attributes
 					{
 						name="sondre";
+						isPlayer=1;
+						isPlayable=1;
 					};
 					id=27;
 					type="B_engineer_F";
-					atlOffset=60.55806;
+					atlOffset=60.557999;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -1074,7 +1085,7 @@ class Mission
 			{
 			};
 			id=26;
-			atlOffset=60.55806;
+			atlOffset=60.557999;
 		};
 		class Item27
 		{
@@ -2015,6 +2026,17 @@ class Mission
 			a=0;
 			b=0;
 			id=64;
+		};
+		class Item53
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={4110.5474,22.51354,3136.1694};
+			};
+			id=89;
+			type="CBA_main_require";
+			atlOffset=-1.1444092e-005;
 		};
 	};
 };

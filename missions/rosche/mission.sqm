@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=66;
+		nextID=67;
 	};
 	class Camera
 	{
@@ -27,13 +27,14 @@ addons[]=
 	"A3_Modules_F_Curator_Environment",
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
-	"A3_Characters_F"
+	"A3_Characters_F",
+	"cba_main"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=7;
+		items=8;
 		class Item0
 		{
 			className="A3_Structures_F";
@@ -83,6 +84,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
+		class Item7
+		{
+			className="cba_main";
+			name="Community Base Addons - Main Component";
+			author="CBA Team";
+			url="https://www.github.com/CBATeam/CBA_A3";
+		};
 	};
 };
 randomSeed=96219;
@@ -112,7 +120,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=51;
+		items=52;
 		class Item0
 		{
 			dataType="Object";
@@ -1989,6 +1997,16 @@ class Mission
 			name="sector_Hanstedt";
 			type="hd_objective";
 			id=64;
+		};
+		class Item51
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={-11.742386,6.5227494,-73.35537};
+			};
+			id=66;
+			type="CBA_main_require";
 		};
 	};
 };

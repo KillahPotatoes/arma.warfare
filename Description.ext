@@ -258,7 +258,7 @@ class Params
             $STR_A3_Disabled,
             $STR_A3_EnabledForAllPlayers
         };
-        default = -100;
+        default = 1;
         function = "bis_fnc_paramReviveMode";
     };
 
@@ -289,7 +289,7 @@ class Params
             25,
             30
         };
-        default = -100;
+        default = 30;
         function = "bis_fnc_paramReviveDuration";
     };
 
@@ -308,7 +308,7 @@ class Params
             $STR_A3_None,
             $STR_A3_Medic
         };
-        default = -100;
+        default = 0;
         function = "bis_fnc_paramReviveRequiredTrait";
     };
 
@@ -333,7 +333,7 @@ class Params
             "2.5x",
             "3x"
         };
-        default = -100;
+        default = 2;
         function = "bis_fnc_paramReviveMedicSpeedMultiplier";
     };
 
@@ -354,7 +354,7 @@ class Params
             $STR_A3_Medikit,
             $STR_A3_FirstAidKitOrMedikit
         };
-        default = -100;
+        default = 2;
         function = "bis_fnc_paramReviveRequiredItems";
     };
 
@@ -373,7 +373,7 @@ class Params
             $STR_A3_Basic,
             $STR_A3_Advanced
         };
-        default = -100;
+        default = 0;
         function = "bis_fnc_paramReviveUnconsciousStateMode";
     };
 
@@ -404,7 +404,7 @@ class Params
             90,
             180
         };
-        default = -100;
+        default = 180;
         function = "bis_fnc_paramReviveBleedOutDuration";
     };
 
@@ -435,7 +435,14 @@ class Params
             9,
             10
         };
-        default = -100;
+        default = 10;
         function = "bis_fnc_paramReviveForceRespawnDuration";
     };
+};
+
+#include "KPGUI\KPGUI_defines.hpp"
+#include "KPPLM\ui\KPPLM_dialog.hpp"
+
+class CfgFunctions {
+    #include "KPPLM\KPPLM_functions.hpp"
 };

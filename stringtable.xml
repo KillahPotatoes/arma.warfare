@@ -249,6 +249,12 @@
             <English>%1 gained %2 manpower when capturing %3</English>
             <German>%1 erhielt %2 MP für die Eroberung von %3</German>
         </Key>
+         <Key ID="INSERTING_SQUAD">
+            <English>%1 inserting squad of %2 near %3</English>            
+        </Key>
+         <Key ID="SENDING_VEHICLE_YOUR_WAY">
+            <English>Sending a %1 your way. ETA 2 minutes!</English>            
+        </Key>
     </Package>
     <Package name="KPPLM">
         <Key ID="STR_KPPLM_ACTIONOPEN">
@@ -472,3 +478,5 @@
         </Key>
     </Package>
 </Project>
+
+

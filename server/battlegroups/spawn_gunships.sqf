@@ -39,7 +39,7 @@ spawn_gunship_group = {
 	private _gunship = (selectRandom _options) select 0; 
 	private _gunship_name = _gunship call get_vehicle_display_name;
 
-	[_side, format["Sending a %1 your way. ETA 2 minutes!", _gunship_name]] call HQ_report;
+	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["HQ_report_client"];
 	sleep 120;
 
 	[_side, _gunship] call spawn_helicopter;

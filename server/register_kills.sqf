@@ -48,9 +48,7 @@ induce_lost_vehicle_penalty = {
 
 		private _veh_name = (typeOf _victim) call get_vehicle_display_name;
 
-		private _msg = format[localize "PLAYER_VEHICLE_LOST", _penalty_size, _veh_name];
-		
-		[_side, _msg] call HQ_report;
+		[_side, ["PLAYER_VEHICLE_LOST", _penalty_size, _veh_name]] call remoteExec ["HQ_report_client"];
 	};
 };
 
@@ -66,14 +64,14 @@ report_lost_vehicle = {
 		private _location = [_closest_sector getVariable sector_name] call replace_underscore;
 		private _side = side ((crew _victim) select 0);
 
-		private _msg = if (_distance > 200) then {
+		private _values = if (_distance > 200) then {
 			private _direction = [_sector_pos, _pos] call get_direction;
-			format[localize "VEHICLE_LOST", _veh_name, _distance, _direction, _location];	
+			["VEHICLE_LOST", _veh_name, _distance, _direction, _location];	
 		} else {
-			format[localize "VEHICLE_LOST_IN_SECTOR", _veh_name, _location];			
+			["VEHICLE_LOST_IN_SECTOR", _veh_name, _location];			
 		};				
 		
-		[_side, _msg] call HQ_report;
+		[_side, _values] remoteExec ["HQ_report_client"];
 	};
 };
 

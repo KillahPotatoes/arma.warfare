@@ -20,22 +20,37 @@ report_casualities = {
 };
 
 group_report_client = {
-	params ["_group", "_msg"];
-	sleep random 5;
+	params ["_group", "_values"];
+	sleep random 3;
+
+	private _msg = [_values] call localize_and_format;
 	(leader _group) sideChat _msg;
 };
 
 HQ_report_client = {
-	params ["_side", "_msg"];
-	sleep random 5;
+	params ["_side", "_values"];
+	sleep random 3;
+
+	private _msg = [_values] call localize_and_format;
 	[_side, "HQ"] sideChat _msg;
 };
 
 HQ_report_client_all = {
-	params ["_msg"];	
+	params ["_side", "_values"];
+	sleep random 3;
+
+	private _msg = [_values] call localize_and_format;
 	[playerSide, "HQ"] sideChat _msg;
 };
 
+localize_and_format = {
+	params ["_values"];
+
+	private _localized_str = localize (_values select 0);
+	_values set [0,_localized_str];
+
+	format _values;
+};
 
 oneCasualty = [
 	"ONE_CASUALITY_VAR1", 

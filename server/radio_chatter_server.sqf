@@ -37,20 +37,17 @@ report_next_waypoint = {
 		private _is_veh = (_veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank") && ((group driver _veh) isEqualTo _group);
 		private _sector_name = [_target getVariable sector_name] call replace_underscore;
 
-		private _msg = if (_is_veh) then {
+		private _values = if (_is_veh) then {
 			private _class_name = typeOf _veh;
 			private _veh_name = _class_name call get_vehicle_display_name;
-			format[localize "VEHICLE_MOVING_TO", _veh_name, _sector_name];
+			["VEHICLE_MOVING_TO", _veh_name, _sector_name];
 		} else {
 			private _count = { alive _x } count units _group;
-			format[localize "SQUAD_MOVING_TO", _count, _sector_name];
-		};	
+			["SQUAD_MOVING_TO", _count, _sector_name];
+		};
 
-		[_group, _msg] remoteExec ["group_report_client"];
+		[_group, _values] remoteExec ["group_report_client"];
 	};
 };
 
-HQ_report = {
-	params ["_side", "_msg"];
-	[_side, _msg] remoteExec ["HQ_report_client"];
-};
+

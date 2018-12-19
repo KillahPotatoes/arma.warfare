@@ -24,7 +24,7 @@ update_transport_orders = {
 
 		new_orders = true;
 		
-		[_group, _veh, _pos, localize "TRANSPORT_RECEIVED_NEW_ORDERS"] spawn move_transport_to_pick_up;
+		[_group, _veh, _pos, "TRANSPORT_RECEIVED_NEW_ORDERS"] spawn move_transport_to_pick_up;
 	};
 	waitUntil {
 		!visibleMap;
@@ -96,13 +96,13 @@ order_transport = {
 	[_veh] spawn check_status;
 	[_veh] spawn toggle_control;
 
-	[_group, _veh, _pos, localize "TRANSPORT_ON_ITS_WAY"] spawn move_transport_to_pick_up;
+	[_group, _veh, _pos, "TRANSPORT_ON_ITS_WAY"] spawn move_transport_to_pick_up;
 };
 
 move_transport_to_pick_up = {
 	params ["_group", "_veh", "_pos", "_msg"];
 
-	[_group, _msg] spawn group_report_client;
+	[_group, [_msg]] spawn group_report_client;
 
 	if(_veh isKindOf "Air") then {
 		[_group, _veh, "GET IN", _pos] call land_helicopter; 
@@ -111,7 +111,7 @@ move_transport_to_pick_up = {
 	};	
 
 	if (canMove _veh && !despawning) exitWith {
-		[_group, localize "TRANSPORT_HAS_ARRIVED"] spawn group_report_client;
+		[_group, ["TRANSPORT_HAS_ARRIVED"]] spawn group_report_client;
 		[transport_will_wait_time, _veh, _group] spawn on_transport_idle_wait;
 	};
 };
@@ -176,13 +176,13 @@ check_status = {
 	sleep 3; // to make sure heli_active is updated
 	if (!transport_arrived_at_HQ) then {
 		if(!(player in _veh)) then {			
-			[playerSide, localize "TRANSPORT_DOWN"] spawn HQ_report_client; // TODO make classname specific
+			[playerSide, ["TRANSPORT_DOWN"]] spawn HQ_report_client; // TODO make classname specific
 		};
 
 		[_class_name, transport_wait_period_on_crash] call set_wait_time;
 	} else {
 		[_class_name, transport_wait_period_on_despawn] call set_wait_time;
-		[playerSide, localize "TRANSPORT_ARRIVED_IN_HQ"] spawn HQ_report_client;
+		[playerSide, ["TRANSPORT_ARRIVED_IN_HQ"]] spawn HQ_report_client;
 	};
 
 	transport_active = false;
@@ -201,7 +201,7 @@ cancel_on_player_death = {
 	waituntil {!(alive _veh) || !(alive player)};
 
 	if (!(alive player) && !despawning) exitWith {		
-		[_veh, _group, localize "CANCELING_TRANSPORT_MISSION", true] call interrupt_transport_misson;
+		[_veh, _group, "CANCELING_TRANSPORT_MISSION", true] call interrupt_transport_misson;
 	};
 };
 
@@ -214,7 +214,7 @@ on_transport_idle_wait = {
 	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders};
 	
 	if (!(player in _veh) && (alive _veh) && !new_orders) exitWith {
-		[_veh, _group, localize "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call interrupt_transport_misson;
+		[_veh, _group, "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call interrupt_transport_misson;
 	};
 };
 
@@ -226,7 +226,7 @@ interrupt_transport_misson = {
 	if(!despawning) exitWith {
 		despawning = true;
 		_veh lock true;
-		[_group, _msg] spawn group_report_client;
+		[_group, [_msg]] spawn group_report_client;
 		
 		if(_empty_vehicle) then {
 			_veh call empty_vehicle_cargo;

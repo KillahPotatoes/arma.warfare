@@ -12,11 +12,11 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=191;
+		nextID=193;
 	};
 	class Camera
 	{
-		pos[]={3492.9644,473.36526,4611.895};
+		pos[]={3495.7908,488.37668,4593.834};
 		dir[]={-0.49786589,-0.84653193,0.18846586};
 		up[]={-0.79170483,0.53233874,0.29969791};
 		aside[]={0.35403249,2.6926864e-007,0.93523771};
@@ -32,6 +32,7 @@ addons[]=
 	"A3_Modules_F_Events",
 	"A3_Ui_F",
 	"A3_Characters_F",
+	"asr_ai3_skills",
 	"A3_Structures_F_EPA_Civ_Constructions",
 	"A3_Structures_F_Civ_Camping",
 	"A3_Structures_F_Mil_Cargo",

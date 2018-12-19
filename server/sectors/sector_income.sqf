@@ -28,9 +28,8 @@ reset_sector_manpower = {
             if(_old_owner countSide allPlayers > 0 && _manpower > 0) then {
                   private _faction_name = _new_owner call get_faction_names;
 
-                  [_new_owner, _manpower] spawn buy_manpower_server;
-                  private _msg = format[localize "MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name];
-                  _msg remoteExec ["HQ_report_client_all"];
+                  [_new_owner, _manpower] spawn buy_manpower_server;                  
+                  [["MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name]] remoteExec ["HQ_report_client_all"];
             };
 
             _ammo_box setVariable [manpower, 0, true];

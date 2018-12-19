@@ -1,4 +1,11 @@
-// Presets
+ammo_box = "B_CargoNet_01_ammo_F";
+
+anti_vehicle_mines = ["SLAMDirectionalMine", "ATMine"];		
+anti_personel_mines = ["APERSBoundingMine", "APERSMine", "APERSTripMine"];
+
+nvgoogles_guer = "NVGoggles_INDEP";
+nvgoogles_west = "NVGoggles";
+nvgoogles_east = "NVGoggles_OPFOR";
 
 west_infantry_tier_0 = [
 	["B_soldier_F", 0], 

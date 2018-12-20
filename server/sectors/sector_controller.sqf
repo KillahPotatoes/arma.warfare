@@ -132,7 +132,7 @@ initialize_sector_control = {
 
 					if(_report_attack && _counter == arwa_capture_time) then {
 						_report_attack = false;
-						[_owner, "HQ"] sideChat format[localize "SECTOR_IS_UNDER_ATTACK", _sector_name];
+						[_owner, ["SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["HQ_report_client"];
 					};
 				};
 			};

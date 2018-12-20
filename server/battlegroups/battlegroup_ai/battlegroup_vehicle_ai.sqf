@@ -3,6 +3,7 @@ vehicle_create_waypoint = {
 	params ["_target", "_group"];
 	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 
+	// TODO if in sector, its not safe. Change to waypoint type SAD 
 	_group call delete_all_waypoints; 
 	_w = _group addWaypoint [_pos, 20];
 	_w setWaypointStatements ["true","[group this] call delete_all_waypoints"];

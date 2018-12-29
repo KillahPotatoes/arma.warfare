@@ -16,6 +16,23 @@ add_soldiers_to_helicopter_cargo = {
 	_group;
 };
 
+pick_most_valued_sector = {
+	params ["_side"];	
+
+	_sectors = [_side] call find_enemy_sectors;
+
+	if(_sectors isEqualTo []) exitWith {};
+
+	_sectors = _sectors select { (_x getVariable owned_by) countSide allPlayers > 0 };
+
+	if(_sectors isEqualTo []) exitWith {};
+
+	_sectors = _sectors apply { [([_x] call get_sector_manpower), _x] };
+	_sectors sort false;
+
+	(_sectors select 0) select 1;
+};
+
 pick_sector = {
 	params ["_side"];
 
@@ -30,8 +47,15 @@ pick_sector = {
 
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
+
+	private _most_valuable_sector = [_side] call pick_most_valued_sector;
+	private _special_forces_mission = !(isNil "_most_valuable_sector") && {((random 100) > 50) && ([_most_valuable_sector] call get_manpower) > 20};
 	
-	private _sector = [_side] call pick_sector;
+	private _sector = if(_special_forces_mission) then {
+		_most_valuable_sector;
+	} else {
+		[_side] call pick_sector;
+	};
 
 	if (isNil "_sector") exitWith {};
 
@@ -44,15 +68,19 @@ helicopter_insertion = {
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 
-	[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
+	[_side, _can_spawn, _pos, _sector getVariable sector_name, _special_forces_mission] spawn do_helicopter_insertion;
 };
 
 do_helicopter_insertion = {
-	params ["_side", "_can_spawn", "_pos", "_sector_name"];
+	params ["_side", "_can_spawn", "_pos", "_sector_name", ["_special_forces_mission", false]];
 
 	private _heli = [_side] call spawn_transport_heli;
 	private _group = [_heli, _can_spawn] call add_soldiers_to_helicopter_cargo;
 	private _name = (typeOf (_heli select 0)) call get_vehicle_display_name;
+
+	if(_special_forces_mission) then {
+		[1, _group] spawn adjust_skill;
+	};
 
 	[_side, ["INSERTING_SQUAD", _name, count units _group, [_sector_name] call replace_underscore]] remoteExec ["HQ_report_client"];
 	[_heli select 2, _heli select 0, _pos] call move_to_sector_outskirt; 

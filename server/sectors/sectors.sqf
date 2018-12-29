@@ -119,6 +119,12 @@ find_closest_sector = {
 	_current_sector;
 };
 
+get_sector_manpower = {
+	params ["_sector"];
+
+	(_sector getVariable box) getVariable manpower;
+};
+
 find_closest_friendly_sector = {
 	params ["_side", "_pos"];
 	

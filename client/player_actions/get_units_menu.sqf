@@ -47,7 +47,7 @@ get_vehicle = {
 };
 
 list_options = {
-	params ["_type", "_priority", "_box"];
+	params ["_type", "_priority", "_box", "_title"];
 
 	private _side = playerSide;
 	private _options = [_side, _type] call get_units_based_on_tier;
@@ -73,6 +73,9 @@ list_options = {
 			private _penalty = _params select 1;
 			private _type = _params select 2;
 			private _box = _params select 3;
+			private _title = _params select 4;
+
+			_box setVariable [format["Menu_%1", _title], false];
 
 			[_box] call remove_all_options;	
 
@@ -89,7 +92,7 @@ list_options = {
 				[_base_marker, _class_name, _penalty] call get_vehicle;
 			};
 			
-		}, [_class_name, _penalty, _type, _box], (_priority - 1), false, true, "", '', 10]);
+		}, [_class_name, _penalty, _type, _box, _title], (_priority - 1), false, true, "", '', 10]);
 
 	} forEach _options;
 
@@ -123,7 +126,7 @@ create_menu = {
 		private _open = _box getVariable format["Menu_%1", _title];	
 		
 		if(!_open) then {
-			[_type, _priority, _box] call list_options;
+			[_type, _priority, _box, _title] call list_options;
 			_box setVariable [format["Menu_%1", _title], true];	
 		} else {
 			_box setVariable [format["Menu_%1", _title], false];	

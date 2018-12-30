@@ -48,7 +48,7 @@ induce_lost_vehicle_penalty = {
 
 		private _veh_name = (typeOf _victim) call get_vehicle_display_name;
 
-		[_side, ["PLAYER_VEHICLE_LOST", _penalty_size, _veh_name]] call remoteExec ["HQ_report_client"];
+		[_side, ["PLAYER_VEHICLE_LOST", _penalty_size, _veh_name]] remoteExec ["HQ_report_client"];
 	};
 };
 

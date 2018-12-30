@@ -49,8 +49,15 @@ helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 
 	private _most_valuable_sector = [_side] call pick_most_valued_sector;
-	private _special_forces_mission = !(isNil "_most_valuable_sector") && {((random 100) > 50) && ([_most_valuable_sector] call get_manpower) > 20};
-	
+
+	private _special_forces_mission = if(!(isNil "_most_valuable_sector")) then 
+	{
+		private _manpower = [_most_valuable_sector] call get_manpower;
+		(random 100) > (100 - _manpower);		
+	} else { 
+		false; 
+	};
+
 	private _sector = if(_special_forces_mission) then {
 		_most_valuable_sector;
 	} else {

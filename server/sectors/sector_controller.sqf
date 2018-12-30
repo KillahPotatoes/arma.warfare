@@ -123,17 +123,17 @@ initialize_sector_control = {
 			private _being_overtaken = ([_owner, _pos] call any_enemies_in_sector_center);
 
 			if(_under_attack) then {
+					if(_report_attack && _counter == arwa_capture_time) then {
+						_report_attack = false;
+						[_owner, ["SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["HQ_report_client"];
+					};
+
 					if(_sector getVariable "reinforements_available") then {
 					private _success = [_owner, _sector] call try_spawn_heli_reinforcements;
 
 					if(_success) then {
 						[_sector] spawn reinforcements_cool_down;				 
-					};
-
-					if(_report_attack && _counter == arwa_capture_time) then {
-						_report_attack = false;
-						[_owner, ["SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["HQ_report_client"];
-					};
+					};					
 				};
 			};
 

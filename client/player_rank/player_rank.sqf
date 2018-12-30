@@ -39,9 +39,6 @@ calculate_rank_and_skill = {
 	};
 };
 
-increment_player_kill_counter = {	
-	private _kills = player getVariable ["kills", 0];
-	player setVariable ["kills", _kills + 1];			
-};
+
 
 	

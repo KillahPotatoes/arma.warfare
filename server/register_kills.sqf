@@ -101,7 +101,8 @@ register_kill = {
 		};
 
 		if ((isPlayer _killer)) then {
-			[] remoteExec ["increment_player_kill_counter", _killer];
+			private _kills = _killer getVariable ["kills", 0];
+			_killer setVariable ["kills", _kills + 1, true];
 		};
 
 		if (_victim_side in arwa_all_sides) then {

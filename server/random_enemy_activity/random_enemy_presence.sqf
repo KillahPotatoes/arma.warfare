@@ -48,7 +48,7 @@ populate_house = {
 
 	if(_random_number_of_soldiers < 1) exitWith {};
 
-	private _group = [[0,0,0], _side, _random_number_of_soldiers, true] call spawn_infantry;
+	private _group = [[0,0,0], _side, _random_number_of_soldiers, true] call spawn_sympathizers;
 	_group setBehaviour "SAFE";
 
 	private _positions = [];

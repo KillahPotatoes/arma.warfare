@@ -7,6 +7,43 @@ nvgoogles_guer = "NVGoggles_INDEP";
 nvgoogles_west = "NVGoggles";
 nvgoogles_east = "NVGoggles_OPFOR";
 
+west_sympathizers = [
+	["B_G_Soldier_TL_F", 0],
+	["B_G_Soldier_M_F", 0],
+	["B_G_Soldier_AR_F", 0],
+	["B_G_Soldier_A_F", 0],
+	["B_G_Soldier_SL_F", 0],
+	["B_G_Soldier_F", 0],
+	["B_G_engineer_F", 0],
+	["B_G_medic_F", 0],
+	["B_G_Sharpshooter_F", 0]
+	
+];
+
+east_sympathizers = [
+	["O_G_Soldier_TL_F", 0],
+	["O_G_Soldier_M_F", 0],
+	["O_G_Soldier_AR_F", 0],
+	["O_G_Soldier_A_F", 0],
+	["O_G_Soldier_SL_F", 0],
+	["O_G_Soldier_F", 0],
+	["O_G_engineer_F", 0],
+	["O_G_medic_F", 0],
+	["O_G_Sharpshooter_F", 0]
+];
+
+guer_sympathizers = [
+	["I_G_Soldier_TL_F", 0],
+	["I_G_Soldier_M_F", 0],
+	["I_G_Soldier_AR_F", 0],
+	["I_G_Soldier_A_F", 0],
+	["I_G_Soldier_SL_F", 0],
+	["I_G_Soldier_F", 0],
+	["I_G_engineer_F", 0],
+	["I_G_medic_F", 0],
+	["I_G_Sharpshooter_F", 0]
+];
+
 west_infantry_tier_0 = [
 	["B_soldier_F", 0],
 	["B_soldier_AR_F", 0],

@@ -101,7 +101,15 @@ infantry_group_ai = {
 	params ["_group", "_side"];
 
 	private _pos = getPosWorld (leader _group);
-	private _target = [_side, _pos] call get_ground_target;
+
+	private _priority_target = _group getVariable priority_target;
+
+	private _target = if(isNil "_priority_target" || {(_priority_target getVariable owned_by) isEqualTo _side}) then {
+		 _group setVariable [priority_target, nil];
+		 [_side, _pos] call get_ground_target;
+	} else {		
+		_priority_target;		
+	};	
 	
 	[_target, _group] spawn infantry_move_to_sector;
 	[_group] spawn report_casualities_over_radio;

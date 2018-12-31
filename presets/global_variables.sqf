@@ -16,6 +16,7 @@ defense = "defense";
 vehicle1 = "vehicle";
 helicopter = "helicopter";
 infantry = "infantry";
+priority_target = "priority_target";
 
 guer_faction_name = "The resistance";
 west_faction_name = "Nato";

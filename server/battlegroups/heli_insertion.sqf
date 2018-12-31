@@ -16,7 +16,7 @@ add_soldiers_to_helicopter_cargo = {
 	_group;
 };
 
-pick_most_valued_sector = {
+pick_most_valued_player_owned_sector = {
 	params ["_side"];	
 
 	_sectors = [_side] call find_enemy_sectors;
@@ -48,11 +48,11 @@ pick_sector = {
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 
-	private _most_valuable_sector = [_side] call pick_most_valued_sector;
+	private _most_valuable_sector = [_side] call pick_most_valued_player_owned_sector;
 
 	private _special_forces_mission = if(!(isNil "_most_valuable_sector")) then 
 	{
-		private _manpower = [_most_valuable_sector] call get_manpower;
+		private _manpower = [_most_valuable_sector] call get_sector_manpower;
 		(random 100) > (100 - _manpower);		
 	} else { 
 		false; 
@@ -75,18 +75,20 @@ helicopter_insertion = {
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 
-	[_side, _can_spawn, _pos, _sector getVariable sector_name, _special_forces_mission] spawn do_helicopter_insertion;
+	[_side, _can_spawn, _pos, _sector, _special_forces_mission] spawn do_helicopter_insertion;
 };
 
 do_helicopter_insertion = {
-	params ["_side", "_can_spawn", "_pos", "_sector_name", ["_special_forces_mission", false]];
+	params ["_side", "_can_spawn", "_pos", "_sector", ["_special_forces_mission", false]];
 
 	private _heli = [_side] call spawn_transport_heli;
 	private _group = [_heli, _can_spawn] call add_soldiers_to_helicopter_cargo;
 	private _name = (typeOf (_heli select 0)) call get_vehicle_display_name;
+	private _sector_name = _sector getVariable sector_name;
 
 	if(_special_forces_mission) then {
 		[1, _group] spawn adjust_skill;
+		_group setVariable [priority_target, _sector];
 	};
 
 	[_side, ["INSERTING_SQUAD", _name, count units _group, [_sector_name] call replace_underscore]] remoteExec ["HQ_report_client"];
@@ -128,7 +130,7 @@ try_spawn_heli_reinforcements = {
 
 	if (_can_spawn > (arwa_squad_cap / 2) && (_rnd > 95)) exitWith {
 		private _pos = _sector getVariable pos;
-		[_side, _can_spawn, _pos, _sector getVariable sector_name] spawn do_helicopter_insertion;
+		[_side, _can_spawn, _pos, _sector] spawn do_helicopter_insertion;
 		true;
 	};	
 	false;

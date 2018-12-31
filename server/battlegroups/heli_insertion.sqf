@@ -16,7 +16,7 @@ add_soldiers_to_helicopter_cargo = {
 	_group;
 };
 
-pick_most_valued_sector = {
+pick_most_valued_player_owned_sector = {
 	params ["_side"];	
 
 	_sectors = [_side] call find_enemy_sectors;
@@ -48,7 +48,7 @@ pick_sector = {
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 
-	private _most_valuable_sector = [_side] call pick_most_valued_sector;
+	private _most_valuable_sector = [_side] call pick_most_valued_player_owned_sector;
 
 	private _special_forces_mission = if(!(isNil "_most_valuable_sector")) then 
 	{

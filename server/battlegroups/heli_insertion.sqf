@@ -128,7 +128,7 @@ try_spawn_heli_reinforcements = {
 	private _can_spawn = arwa_unit_cap - _unit_count; 
 	private _rnd = random 100;
 
-	if (_can_spawn > (arwa_squad_cap / 2) && (_rnd > 95)) exitWith {
+	if (_can_spawn > (arwa_squad_cap / 2) && (_rnd > 95) && (_side in active_factions)) exitWith {
 		private _pos = _sector getVariable pos;
 		[_side, _can_spawn, _pos, _sector] spawn do_helicopter_insertion;
 		true;

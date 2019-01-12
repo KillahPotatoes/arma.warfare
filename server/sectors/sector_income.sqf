@@ -21,18 +21,18 @@ sector_manpower_generation = {
 reset_sector_manpower = {
       params ["_new_owner", "_old_owner", "_sector", "_sector_name"];
 
-      if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian)) then {
+      if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian) && _old_owner countSide allPlayers > 0) exitWith {
             private _ammo_box = _sector getVariable box;
             private _manpower = _ammo_box call get_manpower;
 
-            if(_old_owner countSide allPlayers > 0 && _manpower > 0) then {
+            if(_manpower > 0) exitWith {
                   private _faction_name = _new_owner call get_faction_names;
 
                   [_new_owner, _manpower] spawn buy_manpower_server;                  
                   [["MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name]] remoteExec ["HQ_report_client_all"];
-            };
 
-            _ammo_box setVariable [manpower, 0, true];
+                  _ammo_box setVariable [manpower, 0, true];
+            };            
       };
 };
 

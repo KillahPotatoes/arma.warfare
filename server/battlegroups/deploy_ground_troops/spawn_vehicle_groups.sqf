@@ -84,11 +84,13 @@ spawn_random_vehicle_group = {
 	if (_tier >= 2 && {_rnd < (100 / 3)}) exitWith {
 		private _group = [_pos, _side, 2, _can_spawn] call spawn_vehicle_group;
 		[_group] call add_battle_group;		
+		_group;
 	}; 
 
 	if (_tier >= 1 && {_rnd < (100 / 1.5)}) exitWith {
 		private _group = [_pos, _side, 1, _can_spawn] call spawn_vehicle_group;
 		[_group] call add_battle_group;
+		_group;
 	};
 	
 	private _group = [_pos, _side, 0, _can_spawn] call spawn_vehicle_group;

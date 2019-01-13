@@ -36,10 +36,9 @@ get_closest_infantry_spawn_pos = {
 
 find_preferred_targets = {
 	params["_side"];
-
 	private _hq_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);		
 	private _target_sectors = [_side] call get_other_sectors;	
-
+	
 	_target_sectors append ([_side] call get_unsafe_sectors);
 	
 	if(_target_sectors isEqualTo []) exitWith {};
@@ -50,7 +49,7 @@ find_preferred_targets = {
 get_infantry_spawn_position = {
 	params ["_side"];
 
-	private _preferred_targets = ["_side"] call find_preferred_targets;
+	private _preferred_targets = [_side] call find_preferred_targets;
 
 	if(isNil "_preferred_targets") exitWith {};
 

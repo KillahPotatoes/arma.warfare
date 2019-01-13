@@ -1,29 +1,35 @@
+arwa_infantry_reinforcement_distance = 2000;
+arwa_vehicle_reinforcement_distance = 5000;
+
 calculate_infantry_weight = {
 	params ["_side", "_sector"];
 
 	private _pos = _sector getVariable pos;
-	private _safe_sectors = [_side, arwa_sector_size] call get_safe_sectors;
+	private _spawn_pos = [_side, _sector] call get_closest_infantry_spawn_pos;
 
-	if((_safe_sectors isEqualTo [])) exitWith { 0; }
+	private _distance_closest_safe_sector = _spawn_pos distance _pos;
 
-	private _closest_safe_sectors = [_safe_sectors, _pos] call find_closest_sector;
-	private _distance_closest_safe_sector = (_closest_safe_sector getVariable pos) distance _pos;
-
-	((3000 - _distance_closest_safe_sector) / 3000) max 0;
+	((arwa_infantry_reinforcement_distance - _distance_closest_safe_sector) / arwa_infantry_reinforcement_distance) max 0;
 };
 
 calcuate_vehicle_weight = {
 	params ["_side", "_sector"];
 
 	private _pos = _sector getVariable pos;
-	private _frontline_sectors = ["_side"] call find_preferred_targets;
-
-	if(!(_sector in _frontline_sectors)) exitWith { 0; }
-
 	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
 	private _pos_hq = getMarkerPos _respawn_marker;
 
-	((10000 - (_pos distance _pos_hq)) / 10000) max 0;
+	((arwa_vehicle_reinforcement_distance - (_pos distance _pos_hq)) / arwa_vehicle_reinforcement_distance) max 0.1;
+};
+
+calcuate_heli_weight = {
+	params ["_side", "_sector"];
+
+	private _pos = _sector getVariable pos;
+	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
+	private _pos_hq = getMarkerPos _respawn_marker;
+
+	1 - (((arwa_vehicle_reinforcement_distance - (_pos distance _pos_hq)) / arwa_vehicle_reinforcement_distance) max 0) min 0.5;
 };
 
 try_spawn_reinforcements = {
@@ -37,11 +43,11 @@ try_spawn_reinforcements = {
 
 		private _reinforcement_type = selectRandomWeighted [
 			infantry,
-			([_side, _sector] call calculate_infantry_weight),
+			[_side, _sector] call calculate_infantry_weight,
 			vehicle1,
-			([_side, _sector] call calcuate_vehicle_weight),
+			[_side, _sector] call calcuate_vehicle_weight,
 			helicopter,
-			0.5
+			[_side, _sector] call calcuate_heli_weight
 		];
 
 		if(_reinforcement_type isEqualTo infantry) exitWith {
@@ -50,7 +56,8 @@ try_spawn_reinforcements = {
 		};
 
 		if(_reinforcement_type isEqualTo helicopter) exitWith {
-			[_side, _can_spawn, _pos, _sector, [false, true]] spawn do_helicopter_insertion;			
+			[_side, _can_spawn, _pos, _sector, [false, true]] spawn do_helicopter_insertion;		
+
 			true;
 		};
 

@@ -53,11 +53,11 @@ list_options = {
 	private _options = [_side, _type] call get_units_based_on_tier;
 
 	if(_type isEqualTo helicopter) then {
-		_options = _options + (missionNamespace getVariable format["%1_%2_transport", _side, helicopter]);
+		_options append (missionNamespace getVariable format["%1_%2_transport", _side, helicopter]);
 	};
 
 	if(_type isEqualTo vehicle1) then {
-		_options = _options + (missionNamespace getVariable format["%1_%2_transport", _side, vehicle1]);
+		_options append (missionNamespace getVariable format["%1_%2_transport", _side, vehicle1]);
 	};
 
 	private _sub_options = [];

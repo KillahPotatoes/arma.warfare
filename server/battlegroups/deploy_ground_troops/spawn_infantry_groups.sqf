@@ -34,8 +34,8 @@ get_closest_infantry_spawn_pos = {
 	[_best_pos, 10, 50, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 };
 
-get_infantry_spawn_position = {
-	params ["_side"];
+find_preferred_targets = {
+	params["_side"];
 
 	private _hq_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);		
 	private _target_sectors = [_side] call get_other_sectors;	
@@ -44,7 +44,16 @@ get_infantry_spawn_position = {
 	
 	if(_target_sectors isEqualTo []) exitWith {};
 
-	private _preferred_targets = [_target_sectors, _hq_pos] call find_potential_target_sectors;
+	[_target_sectors, _hq_pos] call find_potential_target_sectors;
+};
+
+get_infantry_spawn_position = {
+	params ["_side"];
+
+	private _preferred_targets = ["_side"] call find_preferred_targets;
+
+	if(isNil "_preferred_targets") exitWith {};
+
 	private _preferred_target = (selectRandom _preferred_targets) select 1;
 
 	[_side, _preferred_target] call get_closest_infantry_spawn_pos;
@@ -82,7 +91,7 @@ spawn_reinforcement_squad = {
 
 	_soldier_count = (arwa_squad_cap call calc_number_of_soldiers) min _can_spawn;
     private _group = [_pos, _side, _soldier_count, false] call spawn_infantry;	
-	
+
 	_group setVariable [priority_target, _sector];
 	[_group] call add_battle_group;
 };

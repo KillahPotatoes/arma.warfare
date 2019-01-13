@@ -135,13 +135,8 @@ find_closest_friendly_sector = {
 find_enemy_sectors = {
 	params ["_side"];
 
-	private _enemy = arwa_all_sides - [_side];
-
-	private _sectors = [];
-	_sectors = _sectors + ([_enemy select 0] call get_owned_sectors);
-	_sectors = _sectors + ([_enemy select 1] call get_owned_sectors);
-	
-	_sectors;
+	private _enemy = arwa_all_sides - [_side];	
+	([_enemy select 0] call get_owned_sectors) + ([_enemy select 1] call get_owned_sectors);
 };
 
 count_enemy_sectors = {

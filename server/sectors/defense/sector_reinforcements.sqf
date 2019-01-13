@@ -1,6 +1,7 @@
 calculate_infantry_weight = {
-	params ["_side", "_pos"];
+	params ["_side", "_sector"];
 
+	private _pos = _sector getVariable pos;
 	private _safe_sectors = [_side, arwa_sector_size] call get_safe_sectors;
 
 	if((_safe_sectors isEqualTo [])) exitWith { 0; }
@@ -12,7 +13,12 @@ calculate_infantry_weight = {
 };
 
 calcuate_vehicle_weight = {
-	params ["_side", "_pos"];
+	params ["_side", "_sector"];
+
+	private _pos = _sector getVariable pos;
+	private _frontline_sectors = ["_side"] call find_preferred_targets;
+
+	if(!(_sector in _frontline_sectors)) exitWith { 0; }
 
 	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
 	private _pos_hq = getMarkerPos _respawn_marker;
@@ -31,9 +37,9 @@ try_spawn_reinforcements = {
 
 		private _reinforcement_type = selectRandomWeighted [
 			infantry,
-			([_side, _pos] call calculate_infantry_weight),
+			([_side, _sector] call calculate_infantry_weight),
 			vehicle1,
-			([_side, _pos] call calcuate_vehicle_weight),
+			([_side, _sector] call calcuate_vehicle_weight),
 			helicopter,
 			0.5
 		];

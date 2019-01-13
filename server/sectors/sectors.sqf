@@ -42,20 +42,18 @@ initialize_sectors = {
 	missionNamespace setVariable ["guer_sectors", []];
 };
 
+is_sector_safe = {
+	params ["_side", "_sector", "_distance"];
+
+	private _pos = _sector getVariable pos;
+
+	!([_pos, _side, _distance] call any_enemies_in_area);
+};
+
 get_safe_sectors = {
 	params ["_side", "_distance"];
-	
-	private _safe_sectors = [];
 
-	{	
-		private _pos = _x getVariable pos;
-
-		if(!([_pos, _side, _distance] call any_enemies_in_area)) then {
-			_safe_sectors pushBack _x;
-		};
-	} forEach (_side call get_owned_sectors);
-
-	_safe_sectors;
+	(_side call get_owned_sectors) select { [_side, _x, _distance] call is_sector_safe; };
 };
 
 get_unsafe_sectors = {

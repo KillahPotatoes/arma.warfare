@@ -31,6 +31,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_vehicle_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_squad_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_static_defense.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_reinforcements.sqf";
 
 // Faction
 [] call compileFinal preprocessFileLineNumbers "server\factions\faction_strength.sqf";

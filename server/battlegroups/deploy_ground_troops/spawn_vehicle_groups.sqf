@@ -93,4 +93,13 @@ spawn_random_vehicle_group = {
 	
 	private _group = [_pos, _side, 0, _can_spawn] call spawn_vehicle_group;
 	[_group] call add_battle_group;	
+
+	_group;
+};
+
+spawn_reinforcement_vehicle_group = {
+	params ["_side", "_can_spawn", "_sector"];	
+
+	private _group = [_side, _can_spawn] call spawn_random_vehicle_group;
+	_group setVariable [priority_target, _sector];
 };

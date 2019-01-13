@@ -22,6 +22,21 @@ remove_null = {
 	_new_arr;
 };
 
+set_special_mission_attr = {
+	params ["_mission_attr", "_group", "_sector"];
+
+	private _special_forces = _mission_attr select 0;
+	private _priority_target = _mission_attr select 1;
+
+	if(_special_forces) then {
+		[1, _group] spawn adjust_skill;		
+	};
+
+	if(_priority_target) then {		
+		_group setVariable [priority_target, _sector];
+	};
+};
+
 add_battle_group = {	
 	params ["_group", ["_active", true]];	
 	_group setVariable ["active", _active];

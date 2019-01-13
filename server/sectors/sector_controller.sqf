@@ -129,7 +129,7 @@ initialize_sector_control = {
 					};
 
 					if(_sector getVariable "reinforements_available") then {
-					private _success = [_owner, _sector] call try_spawn_heli_reinforcements;
+					private _success = [_owner, _sector] call try_spawn_reinforcements;
 
 					if(_success) then {
 						[_sector] spawn reinforcements_cool_down;				 

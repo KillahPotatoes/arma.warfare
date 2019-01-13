@@ -75,21 +75,18 @@ helicopter_insertion = {
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 
-	[_side, _can_spawn, _pos, _sector, _special_forces_mission] spawn do_helicopter_insertion;
+	[_side, _can_spawn, _pos, _sector, [_special_forces_mission, _special_forces_mission]] spawn do_helicopter_insertion;
 };
 
 do_helicopter_insertion = {
-	params ["_side", "_can_spawn", "_pos", "_sector", ["_special_forces_mission", false]];
+	params ["_side", "_can_spawn", "_pos", "_sector", ["_mission_attr", [false, false]]];
 
 	private _heli = [_side] call spawn_transport_heli;
 	private _group = [_heli, _can_spawn] call add_soldiers_to_helicopter_cargo;
 	private _name = (typeOf (_heli select 0)) call get_vehicle_display_name;
 	private _sector_name = _sector getVariable sector_name;
 
-	if(_special_forces_mission) then {
-		[1, _group] spawn adjust_skill;
-		_group setVariable [priority_target, _sector];
-	};
+	[_mission_attr, _group, _sector] call set_special_mission_attr;
 
 	[_side, ["INSERTING_SQUAD", _name, count units _group, [_sector_name] call replace_underscore]] remoteExec ["HQ_report_client"];
 	[_heli select 2, _heli select 0, _pos] call move_to_sector_outskirt; 
@@ -120,18 +117,4 @@ move_to_sector_outskirt = {
 	waitUntil {
 		alive _heli_vehicle && unitReady _heli_vehicle
 	};
-};
-
-try_spawn_heli_reinforcements = {
-	params ["_side", "_sector"];
-	private _unit_count = _side call count_battlegroup_units;	
-	private _can_spawn = arwa_unit_cap - _unit_count; 
-	private _rnd = random 100;
-
-	if (_can_spawn > (arwa_squad_cap / 2) && (_rnd > 95) && (_side in active_factions)) exitWith {
-		private _pos = _sector getVariable pos;
-		[_side, _can_spawn, _pos, _sector] spawn do_helicopter_insertion;
-		true;
-	};	
-	false;
 };

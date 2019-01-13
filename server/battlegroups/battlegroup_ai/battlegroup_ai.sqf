@@ -60,6 +60,19 @@ get_ground_target = {
 	[sectors, _pos] call find_closest_sector;		
 };
 
+check_if_has_priority_target = {
+	params ["_group", "_side"];
+
+	private _priority_target = _group getVariable priority_target;
+
+	if(isNil "_priority_target") exitWith { false; };
+
+	private _is_safe = [_side, _priority_target, arwa_sector_size] call is_sector_safe; 
+	private _is_captured = (_priority_target getVariable owned_by) isEqualTo _side;
+
+	_is_safe && _is_captured;
+};
+
 initialize_battlegroup_ai = {
 	params ["_group"];
 

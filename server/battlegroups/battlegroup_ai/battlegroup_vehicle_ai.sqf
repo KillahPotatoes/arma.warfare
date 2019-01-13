@@ -54,7 +54,13 @@ vehicle_group_ai = {
 	params ["_group", "_side"];
 
 	private _pos = getPosWorld (leader _group);
-	private _target = [_side, _pos] call get_ground_target;
+
+	private _target = if([_group, _side] call check_if_has_priority_target) then {
+		_group getVariable priority_target;
+	} else {		
+		_group setVariable [priority_target, nil];
+		[_side, _pos] call get_ground_target;			
+	};
 	
 	[_target, _group] spawn vehicle_move_to_sector;
 	[_group] spawn report_casualities_over_radio;

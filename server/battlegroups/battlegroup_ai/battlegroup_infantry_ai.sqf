@@ -102,13 +102,11 @@ infantry_group_ai = {
 
 	private _pos = getPosWorld (leader _group);
 
-	private _priority_target = _group getVariable priority_target;
-
-	private _target = if(isNil "_priority_target" || {(_priority_target getVariable owned_by) isEqualTo _side}) then {
-		 _group setVariable [priority_target, nil];
-		 [_side, _pos] call get_ground_target;
+	private _target = if([_group, _side] call check_if_has_priority_target) then {
+		_group getVariable priority_target;
 	} else {		
-		_priority_target;		
+		_group setVariable [priority_target, nil];
+		[_side, _pos] call get_ground_target;			
 	};	
 	
 	[_target, _group] spawn infantry_move_to_sector;

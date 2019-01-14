@@ -72,6 +72,7 @@ setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 [] call initialize_base_respawns;
 [] call initialize_battle_groups;
 [] call initialize_sector_defense;
+ [] call calculate_mission_size;
 
 // Game threads
 [] spawn end_game_conditions_check;

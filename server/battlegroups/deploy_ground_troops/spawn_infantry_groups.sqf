@@ -1,10 +1,7 @@
 spawn_random_infantry_group = {
 	params ["_side", "_can_spawn"];	
-		
-	
-	private _rnd = random 100;
 
-	if (_rnd > 80) exitWith {
+	if ((random 100) > 80) exitWith {
 		[_side, _can_spawn] call helicopter_insertion;
 	};
 

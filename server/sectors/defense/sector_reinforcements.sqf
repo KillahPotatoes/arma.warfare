@@ -37,10 +37,9 @@ calcuate_heli_weight = {
 try_spawn_reinforcements = {
 	params ["_side", "_sector"];
 	private _unit_count = _side call count_battlegroup_units;	
-	private _can_spawn = arwa_unit_cap - _unit_count; 
-	private _rnd = random 100;
+	private _can_spawn = arwa_unit_cap - _unit_count; 	
 
-	if (_can_spawn > (arwa_squad_cap / 2) && (_rnd > 95) && (_side in active_factions)) exitWith {
+	if (_can_spawn > (arwa_squad_cap / 2) && (_side in active_factions)) exitWith {
 		private _pos = _sector getVariable pos;
 
 		private _reinforcement_type = selectRandomWeighted [

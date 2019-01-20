@@ -15,7 +15,7 @@ spawn_battle_groups = {
 
 	sleep 10;		
 
-	while {_side in active_factions} do {
+	while {_side call has_manpower} do {
 		private _unit_count = _side call count_battlegroup_units;	
 		private _can_spawn = arwa_unit_cap - _unit_count; 
 

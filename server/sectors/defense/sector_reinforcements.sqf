@@ -39,7 +39,7 @@ try_spawn_reinforcements = {
 	private _unit_count = _side call count_battlegroup_units;	
 	private _can_spawn = arwa_unit_cap - _unit_count; 	
 
-	if (_can_spawn > (arwa_squad_cap / 2) && (_side in active_factions)) exitWith {
+	if (_can_spawn > (arwa_squad_cap / 2) && (_side call has_manpower)) exitWith {
 		private _pos = _sector getVariable pos;
 
 		private _reinforcement_types = [

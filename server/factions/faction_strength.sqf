@@ -64,5 +64,11 @@ increment_tier = {
 	};
 };
 
+has_manpower = {
+	params ["_side"];
+
+	floor(_side call get_strength) > 0;
+};
+
 
 

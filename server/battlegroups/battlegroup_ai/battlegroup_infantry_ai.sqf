@@ -53,6 +53,7 @@ join_nearby_group = {
 				[_x] joinSilent _smallest_group;		
 			} forEach units _group;
 
+			diag_log format ["%4:%1 of %2 joins %3", _group, _group_count, _smallest_group, side _group];
 			deleteGroup _group;
 			
 			private _new_count = { alive _x } count units _smallest_group;

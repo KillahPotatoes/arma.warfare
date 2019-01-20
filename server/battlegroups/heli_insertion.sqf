@@ -88,6 +88,9 @@ do_helicopter_insertion = {
 
 	[_mission_attr, _group, _sector] call set_special_mission_attr;
 
+	diag_log format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), [_sector_name] call replace_underscore, _mission_attr select 0, _mission_attr select 1, _side];
+	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
+	
 	[_side, ["INSERTING_SQUAD", _name, count units _group, [_sector_name] call replace_underscore]] remoteExec ["HQ_report_client"];
 	[_heli select 2, _heli select 0, _pos] call move_to_sector_outskirt; 
 	

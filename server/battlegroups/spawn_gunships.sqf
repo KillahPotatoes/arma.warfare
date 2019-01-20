@@ -39,6 +39,9 @@ spawn_gunship_group = {
 	private _gunship = (selectRandom _options) select 0; 
 	private _gunship_name = _gunship call get_vehicle_display_name;
 
+	diag_log format ["%1: Spawn gunship: %2", _side, _gunship_name];
+	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
+
 	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["HQ_report_client"];
 	sleep 120;
 

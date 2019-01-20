@@ -26,6 +26,7 @@ capture_sector = {
 
 	_sector setVariable ["reinforements_available", true];
 
+	diag_log format["%1 has captured %2", _new_owner, _sector_name];
 	_msg = format[localize "HAS_CAPTURED_SECTOR", _new_owner call get_faction_names, _sector_name];
 	_msg remoteExec ["hint"]; 
 
@@ -37,7 +38,9 @@ lose_sector = {
 
 	_sector setVariable ["reinforements_available", false];
 	_msg = format[localize "HAS_LOST_SECTOR", _old_owner call get_faction_names, _sector_name];
-	_msg remoteExec ["hint"]; 
+	_msg remoteExec ["hint"];
+
+	diag_log format["%1 has lost %2", _old_owner, _sector_name];
 
 	[_sector, civilian, _sector_name, _old_owner] call change_sector_ownership;
 };
@@ -126,6 +129,7 @@ initialize_sector_control = {
 					if(_report_attack && _counter == arwa_capture_time) then {
 						_report_attack = false;
 						[_owner, ["SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["HQ_report_client"];
+						diag_log format["%1 sector %2 is under attack", _owner, _sector_name];
 					};
 
 					if(_sector getVariable "reinforements_available") then {

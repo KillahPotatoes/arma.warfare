@@ -42,7 +42,7 @@ try_spawn_reinforcements = {
 	if (_can_spawn > (arwa_squad_cap / 2) && (_side in active_factions)) exitWith {
 		private _pos = _sector getVariable pos;
 
-		private _reinforcement_type = selectRandomWeighted [
+		private _reinforcement_types = [
 			infantry,
 			[_side, _sector] call calculate_infantry_weight,
 			vehicle1,
@@ -50,6 +50,11 @@ try_spawn_reinforcements = {
 			helicopter,
 			[_side, _sector] call calcuate_heli_weight
 		];
+
+		diag_log format["%2: Checking reinforcements: %1", _reinforcement_types, _side];
+
+		private _reinforcement_type = selectRandomWeighted _reinforcement_types;
+		diag_log format["%2: Reinforcing: %1", _reinforcement_type, _side];
 
 		if(_reinforcement_type isEqualTo infantry) exitWith {
 			[_side, _can_spawn, _sector] spawn spawn_reinforcement_squad;

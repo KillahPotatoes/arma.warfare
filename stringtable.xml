@@ -179,7 +179,7 @@
         </Key>
         <Key ID="MULTIPLE_CASUALITIES_VAR2">
             <English>We just lost %1 soldiers %2m %3 of %4</English>
-            <German>Wir haben %1 Soldaten %2m %3 von %4 verloren<</German>
+            <German>Wir haben %1 Soldaten %2m %3 von %4 verloren</German>
         </Key>
         <Key ID="MULTIPLE_CASUALITIES_VAR3">
             <English>We lost %1 guys %2m %3 of %4</English>

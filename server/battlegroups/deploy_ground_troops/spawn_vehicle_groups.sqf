@@ -67,6 +67,11 @@ spawn_vehicle_group = {
 
 	_can_spawn = _can_spawn - (count units _group); 
 
+	private _veh_name = _vehicle_type call get_vehicle_display_name;
+
+	diag_log format ["%1: Spawn vehicle: %2", _side, _veh_name];
+	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
+
 	if(_can_spawn > 0) then {
     	[_veh_array, _can_spawn] call add_soldiers_to_cargo;		
 	};

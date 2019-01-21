@@ -65,6 +65,8 @@ spawn_vehicle_group = {
 	private _veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
 	private _group = _veh_array select 2;
 
+	_group deleteGroupWhenEmpty true;
+
 	_can_spawn = _can_spawn - (count units _group); 
 
 	private _veh_name = _vehicle_type call get_vehicle_display_name;

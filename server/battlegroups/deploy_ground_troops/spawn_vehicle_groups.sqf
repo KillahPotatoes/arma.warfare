@@ -83,30 +83,28 @@ spawn_random_vehicle_group = {
 	params ["_side", "_can_spawn"];	
 		
 	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
-	private _tier = [_side] call get_tier;
-	private _rnd = random 100;
+	private _tier =  floor(random (([_side] call get_tier) + 1));
+	private _vehicle_max_count = floor(random 2) + 1;
+	private _groups = [];
 
-	if (_tier >= 2 && {_rnd < (100 / 3)}) exitWith {
-		private _group = [_pos, _side, 2, _can_spawn] call spawn_vehicle_group;
-		[_group] call add_battle_group;		
-		_group;
-	}; 
+	while{(count _groups) <= _vehicle_max_count && _can_spawn > (arwa_squad_cap / 2)} do {		
+		private _group = [_pos, _side, _tier, _can_spawn] call spawn_vehicle_group;
+		
+		_groups append [_group];		
+		[_group] call add_battle_group;			
 
-	if (_tier >= 1 && {_rnd < (100 / 1.5)}) exitWith {
-		private _group = [_pos, _side, 1, _can_spawn] call spawn_vehicle_group;
-		[_group] call add_battle_group;
-		_group;
+		private _unit_count = _side call count_battlegroup_units;	
+		private _can_spawn = arwa_unit_cap - _unit_count; 
 	};
-	
-	private _group = [_pos, _side, 0, _can_spawn] call spawn_vehicle_group;
-	[_group] call add_battle_group;	
 
-	_group;
+	diag_log format["%1: Spawned %2 tier %3 vehicles", _side, count _groups, _tier];
+
+	_groups;
 };
 
 spawn_reinforcement_vehicle_group = {
 	params ["_side", "_can_spawn", "_sector"];	
 
-	private _group = [_side, _can_spawn] call spawn_random_vehicle_group;
-	_group setVariable [priority_target, _sector];
+	private _groups = [_side, _can_spawn] call spawn_random_vehicle_group;
+	{ _x setVariable [priority_target, _sector]; } count _groups;
 };

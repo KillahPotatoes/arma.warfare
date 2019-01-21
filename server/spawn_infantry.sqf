@@ -45,8 +45,8 @@ spawn_infantry = {
 };
 
 spawn_sympathizers = {
-	params ["_pos", "_side", "_number", "_dynamicSimulation"];
+	params ["_pos", "_side", "_number"];
 
 	private _squad = [_side, _number] call pick_sympathizers;
-	[_pos, _side, _squad, _dynamicSimulation] call create_group;
+	[_pos, _side, _squad, true] call create_group;
 };

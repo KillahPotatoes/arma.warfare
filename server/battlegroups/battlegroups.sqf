@@ -46,15 +46,11 @@ add_battle_group = {
 
 	((side _group) call get_battlegroups) pushBackUnique _group;
 
-	_group call initialize_battlegroup_ai;
-};
-
-get_all_battle_groups = {
 	EAST_groups = [EAST_groups] call remove_null;
 	WEST_groups = [WEST_groups] call remove_null;
 	GUER_groups = [GUER_groups] call remove_null;
 
-	EAST_groups + WEST_groups + GUER_groups;
+	_group call initialize_battlegroup_ai;
 };
 
 count_battlegroup_units = {

@@ -45,24 +45,25 @@ pick_sector = {
 	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 };
 
+special_forces_insertion = {
+	params ["_side", "_can_spawn", "_sector"];
+
+	private _safe = !([_side, _sector getVariable pos] call any_enemies_in_sector);
+
+	private _spawn_pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
+	private _sector_pos = _sector getVariable pos;
+	private _dir = _sector_pos getDir _spawn_pos;
+	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
+
+	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
+
+	[_side, _can_spawn, _pos, _sector, [true, true]] spawn do_helicopter_insertion;
+};
+
 helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 
-	private _most_valuable_sector = [_side] call pick_most_valued_player_owned_sector;
-
-	private _special_forces_mission = if(!(isNil "_most_valuable_sector")) then 
-	{
-		private _manpower = [_most_valuable_sector] call get_sector_manpower;
-		(random 100) > (100 - _manpower);		
-	} else { 
-		false; 
-	};
-
-	private _sector = if(_special_forces_mission) then {
-		_most_valuable_sector;
-	} else {
-		[_side] call pick_sector;
-	};
+	private _sector = [_side] call pick_sector;
 
 	if (isNil "_sector") exitWith {};
 
@@ -75,7 +76,7 @@ helicopter_insertion = {
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 
-	[_side, _can_spawn, _pos, _sector, [_special_forces_mission, _special_forces_mission]] spawn do_helicopter_insertion;
+	[_side, _can_spawn, _pos, _sector] spawn do_helicopter_insertion;
 };
 
 do_helicopter_insertion = {

@@ -1,14 +1,19 @@
 spawn_random_infantry_group = {
 	params ["_side", "_can_spawn"];	
 
+	private _most_valuable_sector = [_side] call pick_most_valued_player_owned_sector;
+	
+	if(!(isNil "_most_valuable_sector") && {(random 100) > (100 - ([_most_valuable_sector] call get_sector_manpower))}) exitWith 
+	{
+		[_side, _can_spawn, _most_valuable_sector] call special_forces_insertion;			
+	}; 
+
 	if ((random 100) > 80) exitWith {
 		[_side, _can_spawn] call helicopter_insertion;
 	};
 
 	private _group = [_side, _can_spawn] call spawn_squad;
-
 	if(isNil "_group") exitWith {};
-
 	[_group] call add_battle_group;
 };
 

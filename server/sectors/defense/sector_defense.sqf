@@ -21,7 +21,7 @@ spawn_sector_defense = {
 				} else {
 					if(!(side _sector_defense isEqualTo _current_faction)) then {
 						if({alive _x} count units _sector_defense > 0) then {			
-							_sector_defense call add_battle_group;
+							[_sector_defense] call add_battle_group;
 						};					
 						_sector_defense = [_pos, _current_faction] call spawn_defensive_squad;						
 					} else {

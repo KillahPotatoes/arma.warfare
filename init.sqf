@@ -27,6 +27,8 @@ player setVariable [manpower, 0];
 player setVariable ["rank", 0, true];
 player setVariable ["kills", 0];
 
+[group player] remoteExec ["add_battle_group", 2];
+
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
 
 [] spawn show_friendly_markers;

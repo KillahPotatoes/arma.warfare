@@ -31,7 +31,7 @@ leave_squad = {
   	player addAction [[localize "LEAVE_SQUAD", 0] call addActionText, {
 		private _current_group = group player;
 		[player] join grpNull;
-
+		[group player] remoteExec ["add_battle_group", 2];
 		private _new_count = { alive _x } count units _current_group;
 		_current_group setVariable [soldier_count, _new_count];	
     }, nil, arwa_squad_actions, true, true, "",

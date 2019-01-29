@@ -22,8 +22,7 @@ get_infantry = {
 	_numberOfSoldiers = arwa_squad_cap - _group_count;
 
 	if (_numberOfSoldiers > 0) exitWith {
-		[_group, _class_name] call create_soldier;			
-		[_group] remoteExec ["add_battle_group", 2];
+		[_group, _class_name] call create_soldier;
 	};
 
 	systemChat localize "MAXIMUM_AMOUNT_OF_UNITS";		

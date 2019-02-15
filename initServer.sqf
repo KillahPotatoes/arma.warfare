@@ -58,6 +58,7 @@ enableSaving [!isDedicated, false];
 
 private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
 arwa_starting_strength = ["Manpower", arwa_starting_strength] call BIS_fnc_getParamValue;
+arwa_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 
 // Game setup

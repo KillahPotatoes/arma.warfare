@@ -29,14 +29,37 @@ on_vehicle_kill = {
 			params ["_victim", "_killer"];
 			[_victim, _killer] spawn report_lost_vehicle;
 			[_victim] spawn induce_lost_vehicle_penalty;
+			[_victim, _killer] spawn induce_vehicle_kill_bonus;
 		}
 	];
+};
+
+induce_vehicle_kill_bonus = {
+	params ["_victim", "_killer"];
+	if(arwa_vehicleKillBonus > 0 && ) then {
+		if (!(isNil "_victim" || isNil "_killer")) then {
+			private _killer_side = side group _killer;
+			private _victim_side = side group _victim;    
+
+			if (!(_victim_side isEqualTo _killer_side) && {isPlayer _killer}) then {
+				private _kill_bonus = _victim getVariable arwa_kill_bonus;
+				private _adjusted_kill_bonus = if(arwa_vehicleKillBonus == 1) then { _kill_bonus/2; } else { _kill_bonus; };
+
+				_faction_strength = _killer_side call get_strength;
+				_new_faction_strength = _faction_strength + _adjusted_kill_bonus;
+				[_killer_side, _new_faction_strength] call set_strength;
+
+				private _veh_name = (typeOf _victim) call get_vehicle_display_name;
+				private _values = ["VEHICLE_KILL_BONUS", _adjusted_kill_bonus, _veh_name];	
+				[_killer_side, _values] remoteExec ["HQ_report_client"];
+			};		
+	};
 };
 
 induce_lost_vehicle_penalty = {
 	params ["_victim"];
 
-	private _penalty = _victim getVariable "penalty";
+	private _penalty = _victim getVariable arwa_penalty;
 
 	if(!(isNil "_penalty")) exitWith {
 		private _side = _penalty select 0;

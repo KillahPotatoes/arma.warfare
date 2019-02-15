@@ -13,7 +13,7 @@ send_vehicle_transport = {
 };
 
 spawn_vehicle = {
-	params ["_side", "_penalty"];
+	params ["_side", "_class_name"];
 
 	private _base_marker_name = [_side, vehicle1] call get_prefixed_name;
 	private _base_marker = missionNamespace getVariable _base_marker_name;
@@ -22,10 +22,11 @@ spawn_vehicle = {
 
 	waitUntil { !([_pos] call any_units_too_close); };
 
-	private _veh = [_pos, getDir _base_marker, _class_name, _side] call BIS_fnc_spawnVehicle;
+	private _veh_arr = [_pos, getDir _base_marker, _class_name, _side] call BIS_fnc_spawnVehicle;
+	private _veh = _veh_arr select 0;
 
-	(_veh select 0) lockDriver true;
-	_veh;	
+	_veh lockDriver true;
+	_veh_arr;	
 };
 
 send_to_HQ = {

@@ -57,13 +57,18 @@ find_direction_towards_closest_sector = {
 
 spawn_vehicle_group = {
 	params ["_pos", "_side", "_tier", "_can_spawn"];
-	private _vehicle_type = selectRandom (missionNamespace getVariable format["%1_vehicle_tier_%2", _side, _tier]) select 0;
+	private _vehicle_type_arr = selectRandom (missionNamespace getVariable format["%1_vehicle_tier_%2", _side, _tier]);
+	private _vehicle_type = _vehicle_type_arr select 0;
+	private _kill_bonus = _vehicle_type_arr select 1;
 
 	_pos = [_pos] call try_find_unoccupied_nearby_road;
 
 	private _dir = [_pos] call find_direction_towards_closest_sector;
 	private _veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
 	private _group = _veh_array select 2;
+	private _veh =  _veh_array select 0;
+
+	_veh setVariable [arwa_kill_bonus, [_side, _kill_bonus], true];	
 
 	_group deleteGroupWhenEmpty true;
 

@@ -28,8 +28,11 @@ spawn_transport_heli = {
 	params ["_side"];
 
 	private _arr = selectRandom (_side call get_transport_heli_type);	
-	private _class_name = _arr select 0;		
+	private _class_name = _arr select 0;	
+	private _kill_bonus = _arr select 1;	
     private _veh = [_side, _class_name] call spawn_helicopter;
+	
+	_veh setVariable [arwa_kill_bonus, [_side, _kill_bonus], true];
 
 	private _group = _veh select 2;
 	

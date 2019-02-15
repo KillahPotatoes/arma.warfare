@@ -43,7 +43,8 @@ tier_0_gunship_respawn_time = 900;
 tier_1_gunship_respawn_time = 600;
 tier_2_gunship_respawn_time = 300;
 
-
+arwa_penalty = "penalty";
+arwa_kill_bonus = "kill_bonus";
 
 
 // Action priority

@@ -37,7 +37,9 @@ get_vehicle = {
 	if (_isEmpty) exitWith {
 		private _veh = _class_name createVehicle _pos;
 		_veh setDir (getDir _base_marker);
-		_veh setVariable ["penalty", [playerSide, _penalty], true];
+
+		_veh setVariable [arwa_penalty, [playerSide, _penalty], true];
+		_veh setVariable [arwa_kill_bonus, [playerSide, _penalty], true];	
 
 		[_veh] call remove_vehicle_action;
 	}; 

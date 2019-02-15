@@ -212,6 +212,14 @@ taskManagement_drawDist = 5000;
 
 class Params
 {
+    class VehicleKillBonus
+    {
+        title = "Vehicle kill bonus"; // Param name visible in the list
+        values[] = {0,1,2}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Off ( 0% )","Limited ( 50% )","Full ( 100% )"}; // Description of each selectable item
+        default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
     class StartingTier
     {
         title = "Starting tier"; // Param name visible in the list

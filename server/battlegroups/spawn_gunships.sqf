@@ -41,7 +41,7 @@ spawn_gunship_group = {
 	private _kill_bonus = _random_selection select 1;
 	private _gunship_name = _gunship call get_vehicle_display_name;
 
-	_gunship setVariable [arwa_kill_bonus, [_side, _kill_bonus], true];
+	_gunship setVariable [arwa_kill_bonus, _kill_bonus, true];
 
 	diag_log format ["%1: Spawn gunship: %2", _side, _gunship_name];
 	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];

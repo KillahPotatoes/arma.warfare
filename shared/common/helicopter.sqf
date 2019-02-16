@@ -30,15 +30,16 @@ spawn_transport_heli = {
 	private _arr = selectRandom (_side call get_transport_heli_type);	
 	private _class_name = _arr select 0;	
 	private _kill_bonus = _arr select 1;	
-    private _veh = [_side, _class_name] call spawn_helicopter;
-	
-	_veh setVariable [arwa_kill_bonus, [_side, _kill_bonus], true];
+    private _veh_arr = [_side, _class_name] call spawn_helicopter;
+	private _veh = _veh_arr select 0;
 
-	private _group = _veh select 2;
+	_veh setVariable [arwa_kill_bonus, _kill_bonus, true];
+
+	private _group = _veh_arr select 2;
 	
 	_group setBehaviour "AWARE";
 	_group deleteGroupWhenEmpty true;
-	_veh;
+	_veh_arr;
 };
 
 land_helicopter = {

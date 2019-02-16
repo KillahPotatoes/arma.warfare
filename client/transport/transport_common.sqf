@@ -129,7 +129,7 @@ spawn_transport = {
 	private _veh = _arr select 0;
 
 	_veh setVariable [arwa_penalty, [_side, _penalty], true];
-	_veh setVariable [arwa_kill_bonus, [_side, _penalty], true];
+	_veh setVariable [arwa_kill_bonus, _penalty, true];
 
 	_group setBehaviour "CARELESS";
 	_group deleteGroupWhenEmpty true;

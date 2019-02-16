@@ -68,7 +68,7 @@ spawn_vehicle_group = {
 	private _group = _veh_array select 2;
 	private _veh =  _veh_array select 0;
 
-	_veh setVariable [arwa_kill_bonus, [_side, _kill_bonus], true];	
+	_veh setVariable [arwa_kill_bonus, _kill_bonus, true];	
 
 	_group deleteGroupWhenEmpty true;
 

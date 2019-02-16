@@ -41,5 +41,5 @@ reset_player_stats = {
 
 if(show_diary_hint) then {
 	show_diary_hint = false;
-	"HOW TO PLAY" hintC "Look in map briefing for how to play";
+	"HOW TO PLAY" hintC "Look in map briefing for how to play\n\nGo to discord";
 };

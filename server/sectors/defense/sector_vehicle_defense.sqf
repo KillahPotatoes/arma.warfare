@@ -18,7 +18,7 @@ spawn_defense_vehicle = {
 			private _veh_array = [_safe_pos, random 360, _class_name, _side] call BIS_fnc_spawnVehicle;
 
 			private _veh = _veh_array select 0;
-			_veh setVariable [arwa_kill_bonus, [_side, _kill_bonus], true];	
+			_veh setVariable [arwa_kill_bonus, _kill_bonus, true];	
 
 			private _tmp_group = _veh_array select 2;
 			[_tmp_group] call remove_nvg_and_add_flash_light;

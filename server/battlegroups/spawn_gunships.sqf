@@ -40,14 +40,16 @@ spawn_gunship_group = {
 	private _gunship = _random_selection select 0;
 	private _kill_bonus = _random_selection select 1;
 	private _gunship_name = _gunship call get_vehicle_display_name;
-
-	_gunship setVariable [arwa_kill_bonus, _kill_bonus, true];
-
+	
 	diag_log format ["%1: Spawn gunship: %2", _side, _gunship_name];
 	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
 
 	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["HQ_report_client"];
 	sleep 120;
 
-	[_side, _gunship] call spawn_helicopter;
+	private _veh_arr = [_side, _gunship] call spawn_helicopter;
+
+	private _veh = _veh_arr select 0;
+	_veh setVariable [arwa_kill_bonus, _kill_bonus, true];
+	_veh_arr;
 };

@@ -34,7 +34,7 @@ leave_squad = {
 		[group player] remoteExec ["add_battle_group", 2];
 		private _new_count = { alive _x } count units _current_group;
 		_current_group setVariable [soldier_count, _new_count];	
-    }, nil, arwa_squad_actions, true, true, "",
+    }, nil, arwa_squad_actions, false, true, "",
     '!(player call empty_squad)'
     ];
 };
@@ -55,7 +55,14 @@ get_friendly_squads_in_area = {
 
 any_friendly_squads_in_area = {
 	params ["_pos", "_side", ["_distance", 50]];
-	allGroups findIf { [_x, _side, _distance] call find_friendly_squads; } != -1;
+	private _any_nearby = allGroups findIf { [_x, _side, _distance] call find_friendly_squads; } != -1;
+
+	if(!_any_nearby) then {
+		   [] call remove_all_join_options;
+			 join_menu_open = false;
+	};
+
+	_any_nearby;
 };
 
 get_squad_name = {
@@ -78,6 +85,7 @@ list_join_options = {
 
 			[_group] call join_squad;
 			[] call remove_all_join_options;
+			[] call remove_all_transport_options;
 		}, [_x], (_priority - 1), false, true, "", 'player call empty_squad', 10]);
 
 	} forEach _squads;
@@ -96,4 +104,15 @@ create_join_menu = {
 			join_menu_open = false;
 		}
 	}, [], arwa_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, playerSide] call any_friendly_squads_in_area}', 10]	
+};
+
+can_take_lead = {
+	 	private _leader = leader (group player);
+		!(_leader isEqualTo player) && !(isPlayer _leader); 
+};
+
+take_lead_menu = {
+	player addAction [[localize "TAKE_LEAD", 0] call addActionText, {
+	(group player) selectLeader player;
+	}, [], arwa_squad_actions, false, true, "", '[] call can_take_lead', 10]	
 };

@@ -121,13 +121,13 @@ west_vehicle_tier_2 = [
 	["B_MBT_01_TUSK_F", 30], 
 	["B_MBT_01_cannon_F", 30], 
 	["B_AFV_Wheeled_01_up_cannon_F", 30], 
-	["B_AFV_Wheeled_01_cannon_F", 30] 
+	["B_AFV_Wheeled_01_cannon_F", 30],
+	["B_APC_Tracked_01_rcws_F", 20] 
 ];
 
 west_vehicle_tier_1 = [
 	["B_MRAP_01_gmg_F", 20], 
-	["B_MRAP_01_hmg_F", 20], 
-	["B_APC_Tracked_01_rcws_F", 20] 
+	["B_MRAP_01_hmg_F", 20]
 ];
 
 west_vehicle_tier_0 = [
@@ -175,11 +175,11 @@ east_vehicle_tier_2 = [
 	["O_MBT_04_cannon_F", 30], 
 	["O_MBT_02_cannon_F", 30], 
 	["O_APC_Tracked_02_cannon_F", 30], 
-	["O_APC_Tracked_02_AA_F", 30] 
+	["O_APC_Tracked_02_AA_F", 30], 
+	["O_APC_Wheeled_02_rcws_v2_F", 20]
 ];
 
 east_vehicle_tier_1 = [
-	["O_APC_Wheeled_02_rcws_v2_F", 20], 
 	["O_MRAP_02_gmg_F", 20], 
 	["O_MRAP_02_hmg_F", 20] 
 ];

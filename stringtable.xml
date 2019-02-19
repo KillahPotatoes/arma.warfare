@@ -258,6 +258,9 @@
          <Key ID="VEHICLE_KILL_BONUS">
             <English>%1 manpower points gained from destroying %2</English>            
         </Key>
+        <Key ID="TAKE_LEAD">
+            <English>Take lead</English>            
+        </Key>        
     </Package>
     <Package name="KPPLM">
         <Key ID="STR_KPPLM_ACTIONOPEN">

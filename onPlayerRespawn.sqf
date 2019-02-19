@@ -7,6 +7,7 @@ if(_fatigue == 0) then {
 };
 
 [] spawn create_join_menu;
+[] spawn take_lead_menu;
 [] spawn leave_squad;
 [] spawn add_take_manpower;
 [] spawn add_store_manpower;

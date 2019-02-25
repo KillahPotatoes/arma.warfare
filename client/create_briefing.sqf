@@ -1,5 +1,11 @@
 create_briefing = {
 	player createDiaryRecord ["Diary", [
+		"DISCORD", 
+		"Join the discussion at Discord<br /><br />https://discord.gg/bpPUU48"
+		]
+	];
+
+	player createDiaryRecord ["Diary", [
 			"TIPS & TRICKS",
 			"TIP 1: You can store manpower in the transport your ordered and send it back to HQ. The manpower will be added to the faction manpower when the transport despawns<br /><br />
 TIP 2: Keep the manpower in frontline sectors low. The only way AI factions can increase their manpower is by taking over a player held sector with manpower in it<br /><br />

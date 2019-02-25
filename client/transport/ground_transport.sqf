@@ -35,7 +35,7 @@ send_to_HQ = {
 	private _side = side _group;
 	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
 
-	_group addWaypoint [_pos, 100];
+	_group addWaypoint [_pos, 20];
 	
 	waitUntil { !(alive _veh) || ((_pos distance2D (getPos _veh)) < 100) };
 	

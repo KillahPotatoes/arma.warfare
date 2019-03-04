@@ -1,5 +1,5 @@
-cancel_transport_id = nil;
-update_orders_id = nil;
+arwa_cancel_transport_id = nil;
+arwa_update_orders_id = nil;
 
 show_active_transport_menu = {
 	params ["_veh"];
@@ -11,14 +11,14 @@ show_active_transport_menu = {
 };
 
 remove_active_transport_menu = {
-	player removeAction cancel_transport_id;
-	player removeAction update_orders_id;
+	player removeAction arwa_cancel_transport_id;
+	player removeAction arwa_update_orders_id;
 };
 
 show_update_orders = {
 	params ["_veh"];
 
-	update_orders_id = player addAction [[localize "UPDATE_TRANSPORT_ORDERS", 0] call addActionText, {	
+	arwa_update_orders_id = player addAction [[localize "UPDATE_TRANSPORT_ORDERS", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _veh = _arguments select 0;
@@ -34,7 +34,7 @@ show_cancel_transport_action = {
 
 	_veh setVariable ["taxi", true];
 
-	cancel_transport_id = player addAction [[localize "SEND_TRANSPORT_TO_HQ", 0] call addActionText, {	
+	arwa_cancel_transport_id = player addAction [[localize "SEND_TRANSPORT_TO_HQ", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _veh = _arguments select 0;

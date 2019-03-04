@@ -6,6 +6,12 @@ clean_up =  {
 		[] spawn clean_up_dead;
 		[] call status;
 
+		//if(count allPlayers == 0) then {
+		//	arwa_cease_fire = true;
+		//} else {
+		//	arwa_cease_fire = false;
+		//};
+
 		//[_t5, "clean_up"] spawn report_time;		
 		
 		sleep 300;

@@ -26,11 +26,25 @@ capture_sector = {
 
 	_sector setVariable ["reinforements_available", true];
 
+	private _pos = _sector getVariable pos;
+	if([_pos, _new_owner] call players_nearby_captured_sector) then {
+
+		private _ammo_box = _sector getVariable box;
+		private _manpower = _ammo_box call get_manpower;
+		_ammo_box setVariable [manpower, (_manpower + arwa_capture_sector_bonus), true];
+	};
+
 	diag_log format["%1 has captured %2", _new_owner, _sector_name];
 	_msg = format[localize "HAS_CAPTURED_SECTOR", _new_owner call get_faction_names, _sector_name];
 	_msg remoteExec ["hint"]; 
 
 	[_sector, _new_owner, _sector_name, _old_owner] call change_sector_ownership;
+};
+
+players_nearby_captured_sector = {
+	params ["_pos", "_side"];
+
+	({ alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < arwa_sector_size; } count allPlayers) > 0;
 };
 
 lose_sector = {

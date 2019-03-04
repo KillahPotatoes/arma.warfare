@@ -1,11 +1,10 @@
-transport_wait_period_on_despawn = 300;
-transport_wait_period_on_crash = 900;
-transport_will_wait_time = 300;
 
-transport_active = false;	
-transport_arrived_at_HQ = false;
-new_orders = false;
-despawning = false;
+arwa_transport_will_wait_time = 300;
+
+arwa_transport_active = false;	
+arwa_transport_arrived_at_HQ = false;
+arwa_new_orders = false;
+arwa_despawning = false;
 
 in_transport = {	
 	(vehicle player) getVariable ["transport", false];
@@ -22,7 +21,7 @@ update_transport_orders = {
 		private _group = _this select 0;
 		private _veh = _this select 1;
 
-		new_orders = true;
+		arwa_new_orders = true;
 		
 		[_group, _veh, _pos, "TRANSPORT_RECEIVED_NEW_ORDERS"] spawn move_transport_to_pick_up;
 	};
@@ -30,21 +29,6 @@ update_transport_orders = {
 		!visibleMap;
 	};
 	onMapSingleClick {}; // Remove the code in map click even if you didnt trigger onMapSingleClick
-};
-
-transport_available = {
-	params ["_type"];
-
-	private _wait_period = (missionNameSpace getVariable format["%1_transport_wait_period", _type]);
-	private _time = (missionNameSpace getVariable format["%1_transport_timer", _type]) + _wait_period;
-
-	if(_time > time) exitWith {
-		private _time_left = _time - time;
-		private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;	
-		systemChat format[localize "TRANSPORT_UNAVAILABLE", _wait_minutes];
-		false;
-	};
-	true;
 };
 
 toggle_control = {
@@ -73,8 +57,8 @@ request_transport = {
 		private _class_name = _this select 0;
 		private _penalty = _this select 1;
 
-		transport_active = true;
-		transport_arrived_at_HQ = false;
+		arwa_transport_active = true;
+		arwa_transport_arrived_at_HQ = false;
 		[_pos, _class_name, _penalty] spawn order_transport;	
 	};
 	waitUntil {
@@ -110,9 +94,9 @@ move_transport_to_pick_up = {
 		[_group, _veh, _pos] call send_vehicle_transport;			
 	};	
 
-	if (canMove _veh && !despawning) exitWith {
+	if (canMove _veh && !arwa_despawning) exitWith {
 		[_group, ["TRANSPORT_HAS_ARRIVED"]] spawn group_report_client;
-		[transport_will_wait_time, _veh, _group] spawn on_transport_idle_wait;
+		[_veh, _group] spawn on_transport_idle_wait;
 	};
 };
 
@@ -145,7 +129,7 @@ replace_player_with_driver = {
 	_veh lockDriver true;
 	_veh engineOn true;
 
-	[transport_will_wait_time, _veh, _group] spawn on_transport_idle_wait;
+	[_veh, _group] spawn on_transport_idle_wait;
 };
 
 put_player_in_position = {
@@ -156,16 +140,6 @@ put_player_in_position = {
 	_veh lockDriver false;
 	moveOut player;
 	player moveInDriver _veh;
-};
-
-set_wait_time = {
-	params ["_class_name", "_duration"];
-
-	if(_class_name isKindOf "Air") exitWith {
-		missionNamespace setVariable [format["%1_transport_wait_period", helicopter], _duration];
-	};
-
-	missionNamespace setVariable [format["%1_transport_wait_period", vehicle1], _duration];
 };
 
 check_status = {
@@ -179,10 +153,7 @@ check_status = {
 		if(!(player in _veh)) then {			
 			[playerSide, ["TRANSPORT_DOWN"]] spawn HQ_report_client; // TODO make classname specific
 		};
-
-		[_class_name, transport_wait_period_on_crash] call set_wait_time;
 	} else {
-		[_class_name, transport_wait_period_on_despawn] call set_wait_time;
 		[playerSide, ["TRANSPORT_ARRIVED_IN_HQ"]] spawn HQ_report_client;
 	};
 
@@ -201,20 +172,20 @@ cancel_on_player_death = {
 	params ["_veh", "_group"];
 	waituntil {!(alive _veh) || !(alive player)};
 
-	if (!(alive player) && !despawning) exitWith {		
+	if (!(alive player) && !arwa_despawning) exitWith {		
 		[_veh, _group, "CANCELING_TRANSPORT_MISSION", true] call interrupt_transport_misson;
 	};
 };
 
 on_transport_idle_wait = {
-	params ["_wait_period", "_veh", "_group"];
+	params ["_veh", "_group"];
 	
-	new_orders = false;
+	arwa_new_orders = false;
 
-	private _timer = time + _wait_period;
-	waituntil {(player in _veh) || time > _timer || !(alive _veh) || new_orders};
+	private _timer = time + arwa_transport_will_wait_time;
+	waituntil {(player in _veh) || time > _timer || !(alive _veh) || arwa_new_orders};
 	
-	if (!(player in _veh) && (alive _veh) && !new_orders) exitWith {
+	if (!(player in _veh) && (alive _veh) && !arwa_new_orders) exitWith {
 		[_veh, _group, "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call interrupt_transport_misson;
 	};
 };
@@ -224,8 +195,8 @@ interrupt_transport_misson = {
 		
 	[] call remove_active_transport_menu;
 
-	if(!despawning) exitWith {
-		despawning = true;
+	if(!arwa_despawning) exitWith {
+		arwa_despawning = true;
 		_veh lock true;
 		[_group, [_msg]] spawn group_report_client;
 		
@@ -238,12 +209,12 @@ interrupt_transport_misson = {
 		sleep 3;
 
 		if(_veh isKindOf "Air") then {
-			transport_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
+			arwa_transport_arrived_at_HQ = [_group, _veh] call take_off_and_despawn;
 		} else {
-			transport_arrived_at_HQ = [_group, _veh] call send_to_HQ;
+			arwa_transport_arrived_at_HQ = [_group, _veh] call send_to_HQ;
 		};
 
-		despawning = false;
+		arwa_despawning = false;
 	};
 };
 

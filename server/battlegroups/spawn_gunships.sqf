@@ -13,19 +13,23 @@ find_target_sectors = {
 spawn_gunships = {
 	params ["_side"];
 	
-	while {_side call has_manpower} do {
+	while {true} do {
+
 		private _tier = [_side] call get_tier;
 		private _wait_time = tier_base_gunship_respawn_time + (random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]));
 		
 		sleep _wait_time;
 
-		private _sectors = [_side] call find_target_sectors;
+		if(_side call has_manpower && !arwa_cease_fire) then {
+			private _sectors = [_side] call find_target_sectors;
 
-		if ((count _sectors) == 0) exitWith {};
+			if ((count _sectors) == 0) exitWith {};
 
-		private _gunship = [_side] call spawn_gunship_group;
-		if (isNil "_gunship") exitWith {};
-		[_gunship select 2] spawn add_battle_group;							
+			private _gunship = [_side] call spawn_gunship_group;
+			if (isNil "_gunship") exitWith {};
+			[_gunship select 2] spawn add_battle_group;		
+		};
+						
 	};
 };
 

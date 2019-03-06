@@ -94,7 +94,7 @@
             <German>Unterwegs zum HQ</German>
         </Key>
         <Key ID="TRANSPORT_RECEIVED_NEW_ORDERS">
-            <English>Receivering new orders. On its way!</English>
+            <English>Receiving new orders. On its way!</English>
             <German>Neu Befehle empfangen. Unterwegs!</German>
         </Key>
         <Key ID="TRANSPORT_UNAVAILABLE">

@@ -1,9 +1,11 @@
 [] call compileFinal preprocessFileLineNumbers "client\transport\active_transport_menu.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\transport\air_transport.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\transport\ground_transport.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\transport\transport_common.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\transport\transport_controller.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\transport\driver_controller.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\transport\request_transport.sqf";
 
 arwa_transport_options = [];
+arwa_transport_active = false;
 
 remove_all_transport_options = {
 	{
@@ -32,7 +34,7 @@ show_order_transport = {
 			missionNameSpace setVariable [format["transport_%1_menu", _type], false];	
 		};	
 		}, [_type, _priority], _priority, false, false, "",
-		'!arwa_transport_active && [player] call is_leader'
+		'[player] call is_leader && !arwa_transport_active'
 	];
 };
 

@@ -50,7 +50,7 @@ check_status = {
 	private _cancel_transport_id = _veh getVariable ["_cancel_transport_id", nil];
 	private _update_orders_id = _veh getVariable ["_update_orders_id", nil];
 
-	waitUntil {!(alive _veh && canMove _veh)};
+	waitUntil {!(alive _veh && canMove _veh) || {!((alive driver _veh) || (_veh getVariable ["toggle_driver", false]))}};
 
 	player removeAction _cancel_transport_id;
 	player removeAction _update_orders_id;

@@ -7,9 +7,16 @@ toggle_control = {
 
 	while {canMove _veh && alive _veh} do {
 		waituntil {player in _veh};
+		
+		_veh setVariable ["toggle_driver", true];
 		[_group, _veh] call put_player_in_position;
+		_veh setVariable ["toggle_driver", false];
+		
 		waitUntil {!(player in _veh)};
-		[_driver_type, _group, _veh] call replace_player_with_driver;		
+
+		_veh setVariable ["toggle_driver", true];
+		[_driver_type, _group, _veh] call replace_player_with_driver;
+		_veh setVariable ["toggle_driver", false];
 	};
 };
 

@@ -26,7 +26,7 @@ add_soldiers_to_cargo = {
 try_find_unoccupied_nearby_road = {
 	params ["_pos"];
 
-	private _road = _pos nearRoads 25;
+	private _road = _pos nearRoads 50;
 	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
 
 	if (!(_road isEqualTo [])) then {
@@ -37,7 +37,7 @@ try_find_unoccupied_nearby_road = {
 			_attempt_counter = _attempt_counter + 1;
 			
 			_road_pos = getPos (selectRandom _road);
-			_is_safe = !([_road_pos] call any_units_too_close);
+			_is_safe = !([_road_pos] call any_units_too_close) && count (_road_pos nearObjects 10) == 0;
 			if (_is_safe) then {
 				_pos = _road_pos;
 			};

@@ -3,8 +3,8 @@ show_active_transport_menu = {
 
 	_veh setVariable ["transport", true];
 
-	[_veh] spawn show_cancel_transport_action;
-	[_veh] spawn show_update_orders;
+	[_veh] call show_cancel_transport_action;
+	[_veh] call show_update_orders;
 };
 
 show_update_orders = {

@@ -44,20 +44,27 @@ move_transport_to_pick_up = {
 	};
 };
 
+check_if_transport_dead = {
+	params ["_veh"];
+
+	!([_veh] call check_if_transport_alive);
+};
+
 check_status = {
 	params ["_veh"];
 
 	private _cancel_transport_id = _veh getVariable ["_cancel_transport_id", nil];
 	private _update_orders_id = _veh getVariable ["_update_orders_id", nil];
 
-	waitUntil {!(alive _veh && canMove _veh) || {!((alive driver _veh) || (_veh getVariable ["toggle_driver", false]))}};
-
+	waitUntil {[_veh] call check_if_transport_dead};
+	
 	player removeAction _cancel_transport_id;
 	player removeAction _update_orders_id;
 
 	arwa_transport_active = false;
 		
-	if(!(player in _veh) && !isNull _veh) then {			
+	if(!(player in _veh) && !isNull _veh) then {
+		_veh lockDriver false;			
 		[playerSide, ["TRANSPORT_DOWN"]] spawn HQ_report_client; // TODO make classname specific
 	};	
 };
@@ -66,7 +73,7 @@ cancel_on_player_death = {
 	params ["_veh", "_group"];
 	waituntil {!(alive _veh) || !(alive player)};
 
-	if (!(alive player)) exitWith {		
+	if (!(alive player) && [_veh] call check_if_transport_alive) exitWith {		
 		[_veh, _group, "CANCELING_TRANSPORT_MISSION", true] call interrupt_transport_misson;
 	};
 };
@@ -79,7 +86,7 @@ on_transport_idle_wait = {
 	private _timer = time + arwa_transport_will_wait_time;
 	waituntil {(player in _veh) || time > _timer || !(alive _veh) || _veh getVariable ["active", false]};
 	
-	if (!(player in _veh) && (alive _veh) && !(_veh getVariable ["active", false])) exitWith {
+	if (!(player in _veh) && [_veh] call check_if_transport_alive && !(_veh getVariable ["active", false])) exitWith {
 		[_veh, _group, "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call interrupt_transport_misson;
 	};
 };

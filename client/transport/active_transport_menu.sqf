@@ -26,8 +26,6 @@ show_update_orders = {
 show_cancel_transport_action = {
 	params ["_veh"];
 
-	_veh setVariable ["taxi", true];
-
 	private _cancel_transport_id = player addAction [[localize "SEND_TRANSPORT_TO_HQ", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 

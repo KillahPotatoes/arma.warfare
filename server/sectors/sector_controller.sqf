@@ -27,7 +27,7 @@ capture_sector = {
 	_sector setVariable ["reinforements_available", true];
 
 	private _pos = _sector getVariable pos;
-	if([_pos, _new_owner] call players_nearby_captured_sector && !(_old_owner isEqualTo civilian)) then {
+	if([_pos, _new_owner] call players_nearby_captured_sector && {!(_old_owner isEqualTo civilian) &&  !(_old_owner isEqualTo _new_owner)}) then {
 
 		private _ammo_box = _sector getVariable box;
 		private _manpower = _ammo_box call get_manpower;

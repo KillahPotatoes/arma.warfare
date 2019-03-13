@@ -5,28 +5,25 @@ toggle_control = {
 	private _group = group _driver; 
 	private _driver_type = typeOf _driver;
 
-	while {[_veh] call check_if_transport_alive} do {
+	while {!([_veh] call is_transport_active)} do {
 
 		waituntil {player in _veh};		
-		if([_veh] call check_if_transport_dead) exitWith {};
+		if(!([_veh] call is_transport_active)) exitWith {};
 
 		_veh setVariable ["player_driver", true];
+		
 		[_group, _veh] call put_player_in_position;
 
 		waitUntil {!(player in _veh)};
-		if([_veh] call check_if_transport_dead) exitWith {};
+		
+		if(!([_veh] call is_transport_active)) exitWith {};
 
 		[_driver_type, _group, _veh] call replace_player_with_driver;
 		_veh setVariable ["player_driver", false];
+
+		if(!([_veh] call is_transport_active)) exitWith {};
 	};
 };
-
-check_if_transport_alive = {
-	params ["_veh"];
-
-	!(isNull _veh) &&  {(alive _veh && canMove _veh)} && {(alive driver _veh) || (_veh getVariable ["player_driver", false])};
-};
-
 
 replace_player_with_driver = {
 	params ["_driver_type", "_group", "_veh"];

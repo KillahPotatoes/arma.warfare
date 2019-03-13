@@ -5,7 +5,7 @@ send_vehicle_transport = {
 
 	sleep 3;
 
-	waitUntil { !(alive _veh) || (unitReady _veh) };
+	waitUntil {!([_veh] call is_transport_active) || (unitReady _veh) };
 };
 
 spawn_vehicle = {
@@ -31,9 +31,9 @@ send_to_HQ = {
 	private _side = side _group;
 	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
 
-	_group addWaypoint [_pos, 20];
+	_group addWaypoint [_pos, 0];
 	
-	waitUntil { !(alive _veh) || ((_pos distance2D (getPos _veh)) < 100) };
+	waitUntil {([_veh] call is_transport_dead) || ((_pos distance2D (getPos _veh)) < 100) };
 	
 	if (alive _veh) exitWith
 	{

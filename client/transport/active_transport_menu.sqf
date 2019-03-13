@@ -1,7 +1,5 @@
 show_active_transport_menu = {
-	params ["_veh"];
-
-	_veh setVariable ["transport", true];
+	params ["_veh"];	
 
 	[_veh] call show_cancel_transport_action;
 	[_veh] call show_update_orders;
@@ -20,7 +18,7 @@ show_update_orders = {
     }, [_veh], arwa_active_transport_actions, true, false, "",
     '!([] call in_transport)'];
 
-		_veh setVariable ["_update_orders_id", _update_orders_id];
+	_veh setVariable ["_update_orders_id", _update_orders_id];
 };
 
 show_cancel_transport_action = {
@@ -36,6 +34,6 @@ show_cancel_transport_action = {
     }, [_veh], arwa_active_transport_actions, true, false, "",
     '!([] call in_transport)'];
 
-		_veh setVariable ["_cancel_transport_id", _cancel_transport_id];
+	_veh setVariable ["_cancel_transport_id", _cancel_transport_id];
 };
 

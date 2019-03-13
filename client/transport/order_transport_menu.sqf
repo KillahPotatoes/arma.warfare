@@ -56,6 +56,8 @@ show_transport_options = {
 
 			[player] call remove_all_transport_options;
 			[_class_name, _penalty] call request_transport;
-		}, [_class_name, _penalty], (_priority - 1), false, true]);
+		}, [_class_name, _penalty], (_priority - 1), false, true, "", 
+		'[player] call is_leader && !arwa_transport_active'
+		]);
 	} forEach _options;
 };

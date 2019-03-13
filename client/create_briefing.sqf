@@ -62,7 +62,8 @@ Manpower can be submitted to the faction manpower at the HQ ammobox<br /><br />"
 	player createDiaryRecord ["Diary", [
 		"TRANSPORT", 
 		"Players can order vehicle or helicopter transport from anywhere on the map. <br /><br />
-There is a small time penalty between each time a transport can be ordered. This will be longer if the transport is destroyed and cannot return to HQ.<br /><br />"
+		Transports can be loaded with manpower and sent to HQ to have manpower added to faction strength. <br /><br />
+		Squadmembers can be loaded in transport and sent to HQ in order to dispose of squadmembers without getting any penalty. <br /><br />"
 		]
 	];
 

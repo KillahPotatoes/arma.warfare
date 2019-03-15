@@ -7,14 +7,14 @@ toggle_control = {
 
 	while {!([_veh] call is_transport_active)} do {
 
-		waituntil {player in _veh};		
+		waituntil {player in _veh || !([_veh] call is_transport_active)};		
 		if(!([_veh] call is_transport_active)) exitWith {};
 
 		_veh setVariable ["player_driver", true];
 		
 		[_group, _veh] call put_player_in_position;
 
-		waitUntil {!(player in _veh)};
+		waitUntil {!(player in _veh) || !([_veh] call is_transport_active)};
 		
 		if(!([_veh] call is_transport_active)) exitWith {};
 

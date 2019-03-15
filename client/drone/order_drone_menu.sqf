@@ -1,6 +1,6 @@
-
-arwa_drone_options = [];
-arwa_drone_active = false;
+arwa_uav_options = [];
+arwa_active_uav = nil;
+arwa_cancel_uav_id = nil;
 
 remove_all_drone_options = {
 	{
@@ -29,7 +29,7 @@ show_order_drone = {
 		[player] call remove_all_drone_options;
 		if(!_open) then {	
 			missionNameSpace setVariable ["drone_menu", true];
-			[_type, _priority] call show_drone_options;
+			[_priority] call show_drone_options;
 		} else {
 			missionNameSpace setVariable ["drone_menu", false];	
 		};	
@@ -55,33 +55,14 @@ show_drone_options = {
 			private _penalty = _params select 1;
 
 			[player] call remove_all_drone_options;
-			[_class_name, _penalty] call request_drone;
+			[_class_name, _penalty] call order_drone;
 		}, [_class_name, _penalty], (_priority - 1), false, true, "", 
 		'[player] call is_leader && !arwa_drone_active && [] call has_uav_terminal']);
 	} forEach _options;
 };
 
-request_drone = {
-	params ["_class_name", "_penalty"];
-
-	openMap true;
-	[_class_name, _penalty] onMapSingleClick {
-		onMapSingleClick {}; // To remove the code triggered on map click so you cannot click twice 				        
-		openMap false;
-
-		private _class_name = _this select 0;
-		private _penalty = _this select 1;
-
-		[_pos, _class_name, _penalty] spawn order_drone;	
-	};
-	waitUntil {
-		!visibleMap;
-	};
-	onMapSingleClick {}; // Remove the code in map click even if you didnt trigger onMapSingleClick
-};
-
 order_drone = {
-	params ["_pos", "_class_name", "_penalty"];
+	params ["_class_name", "_penalty"];
 
 	private _arr = [playerSide, _class_name, _penalty] call spawn_drone;
 	private _uav = _arr select 0;
@@ -92,55 +73,56 @@ order_drone = {
 	[_uav] call show_cancel_drone_action;
 	[_uav] spawn check_drone_status;
 
-	[_group, _uav, _pos, "DRONE_ON_ITS_WAY"] spawn move_drone_to_player;
+	[_group, _uav, "DRONE_ON_ITS_WAY"] spawn move_drone_to_player;
 };
 
 move_drone_to_player = {
-	params ["_group", "_uav", "_pos", "_msg"];
+	params ["_group", "_uav", "_msg"];
 
 	if(!([_uav] call is_drone_active)) exitWith {};
 	
 	[_group, [_msg]] spawn group_report_client;	
 	
-	_group move _pos;
-
-	sleep 3;
-
-	if(!([_uav] call is_drone_active)) exitWith {};
-
-	private _is_done = _uav getVariable ["is_done", false];
 	
-	if (!_is_done) exitWith {
-		[_group, ["drone_HAS_ARRIVED"]] spawn group_report_client;
-	};
+	_w = _group addWaypoint [getPos player, 5];
+	
+	_w setWaypointType "LOITER";
+	_w setWaypointLoiterType "CIRCLE";
+	_w setWaypointLoiterRadius 200;
 };
 
 is_drone_dead = {
 	params ["_uav"];
 
-	(isNull _uav) ||  {!alive _uav} || {!canMove _uav};
+	private _is_dead = (isNull _uav) ||  {!alive _uav} || {!canMove _uav};
+
+	if(_is_dead) then {
+		player removeAction arwa_cancel_drone_id;
+		arwa_drone_active = false;
+	};
+
+	_is_dead;
 };
 
 is_drone_active = {
 	params ["_uav"];
 
-	!([_uav] call is_drone_dead) && {!(_uav getVariable ["is_done", false])};
+	private _is_active = !([_uav] call is_drone_dead) && {!(_uav getVariable ["is_done", false])};
+
+	if(_is_active) then {
+		player removeAction arwa_cancel_drone_id;		
+	};
+
+	_is_active;
 };
 
 check_drone_status = {
 	params ["_uav"];
 
-	private _cancel_drone_id = _uav getVariable ["_cancel_drone_id", nil];
-	private _update_orders_id = _uav getVariable ["_update_orders_id", nil];
-
 	waitUntil {
 		([_uav] call is_drone_dead);
 	};
-	
-	player removeAction _cancel_drone_id;
 
-	arwa_drone_active = false;
-		
 	if(isNull _uav) exitWith {};
 	
 	[playerSide, ["DRONE_DOWN"]] spawn HQ_report_client; // TODO make classname specific
@@ -156,11 +138,10 @@ cancel_drone_on_player_death = {
 	[_uav, _group, "CANCELING_DRONE_MISSION", true] call interrupt_drone_misson;
 };
 
-
 show_cancel_drone_action = {
 	params ["_uav"];
 
-	private _cancel_drone_id = player addAction [[localize "SEND_DRONE_TO_HQ", 0] call addActionText, {	
+	arwa_cancel_drone_id = player addAction [[localize "SEND_DRONE_TO_HQ", 0] call addActionText, {	
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _uav = _arguments select 0;
@@ -169,8 +150,6 @@ show_cancel_drone_action = {
 		[_uav, _group, "HEAD_TO_HQ"] call interrupt_drone_misson;
     }, [_uav], arwa_active_drone_actions, true, false, "",
     ''];
-
-	_uav setVariable ["_cancel_drone_id", _cancel_drone_id];
 };
 
 spawn_drone = {

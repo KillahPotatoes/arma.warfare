@@ -52,41 +52,48 @@ move_transport_to_pick_up = {
 is_driver_dead = {
 	params ["_veh"];
 
-	!((alive driver _veh) || (_veh getVariable ["player_driver", false]));
+	private _is_dead = !((alive driver _veh) || (_veh getVariable ["player_driver", false]));
+
+	if(_is_dead) then {
+		_veh lockDriver false;
+	};
+
+	_is_dead;
 };
 
 is_transport_dead = {
 	params ["_veh"];
 
-	(isNull _veh) ||  {!alive _veh} || {!canMove _veh} || {[_veh] call is_driver_dead};
+	private _is_dead = (isNull _veh) ||  {!alive _veh} || {!canMove _veh} || {[_veh] call is_driver_dead};
+
+	if(_is_dead) then {
+		arwa_transport_active = false;
+	};
+
+	_is_dead;
 };
 
 is_transport_active = {
 	params ["_veh"];
 
-	!([_veh] call is_transport_dead) && {!(_veh getVariable ["is_done", false])};
+	private _is_active = !([_veh] call is_transport_dead) && {!(_veh getVariable ["is_done", false])};
+
+	if(!_is_active) then {
+		player removeAction arwa_cancel_transport_id;
+		player removeAction arwa_update_orders_id;	
+	};
 };
 
 check_status = {
 	params ["_veh"];
 
-	private _cancel_transport_id = _veh getVariable ["_cancel_transport_id", nil];
-	private _update_orders_id = _veh getVariable ["_update_orders_id", nil];
-
 	waitUntil {
 		([_veh] call is_transport_dead);
 	};
 	
-	player removeAction _cancel_transport_id;
-	player removeAction _update_orders_id;
-
-	arwa_transport_active = false;
-		
 	if(isNull _veh) exitWith {};
-	
-	_veh lockDriver false;			
+				
 	[playerSide, ["TRANSPORT_DOWN"]] spawn HQ_report_client; // TODO make classname specific
-	
 };
 
 cancel_on_player_death = {
@@ -120,9 +127,6 @@ interrupt_transport_misson = {
 	if(!([_veh] call is_transport_active)) exitWith {};
 
 	_veh setVariable ["is_done", true];	
-
-	player removeAction (_veh getVariable ["_cancel_transport_id", nil]);
-	player removeAction (_veh getVariable ["_update_orders_id", nil]);
 
 	_veh lock true;
 	[_group, [_msg]] spawn group_report_client;

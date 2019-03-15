@@ -58,6 +58,7 @@ arwa_return_vehicle = 90;
 arwa_ground_transport_actions = 70;
 arwa_air_transport_actions = 80;
 arwa_active_transport_actions = 80;
+arwa_active_drone_actions = 75;
 arwa_manpower_actions = 60;
 arwa_squad_actions = 50;
 

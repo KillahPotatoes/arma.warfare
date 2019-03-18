@@ -16,7 +16,7 @@ spawn_helicopter = {
 
 is_air_space_clear = {
 	params ["_pos"];
-	(count (_pos nearEntities [ ["Air"], 100]) == 0); 
+	(count (_pos nearEntities [ ["Air"], 100]) == 0);
 };
 
 get_transport_heli_type = {
@@ -27,16 +27,16 @@ get_transport_heli_type = {
 spawn_transport_heli = {
 	params ["_side"];
 
-	private _arr = selectRandom (_side call get_transport_heli_type);	
-	private _class_name = _arr select 0;	
-	private _kill_bonus = _arr select 1;	
+	private _arr = selectRandom (_side call get_transport_heli_type);
+	private _class_name = _arr select 0;
+	private _kill_bonus = _arr select 1;
     private _veh_arr = [_side, _class_name] call spawn_helicopter;
 	private _veh = _veh_arr select 0;
 
 	_veh setVariable [arwa_kill_bonus, _kill_bonus, true];
 
 	private _group = _veh_arr select 2;
-	
+
 	_group setBehaviour "AWARE";
 	_group deleteGroupWhenEmpty true;
 	_veh_arr;
@@ -52,7 +52,7 @@ land_helicopter = {
 	waitUntil { !(alive _heli_vehicle) || (unitReady _heli_vehicle) };
 
 	if (alive _heli_vehicle) then
-	{	
+	{
 		[_heli_vehicle] spawn toggle_damage_while_landing;
 		_heli_vehicle land _mode;
 	};
@@ -74,7 +74,7 @@ toggle_damage_while_landing = {
 
 take_off_and_despawn = {
 	params ["_heli_group", "_heli_vehicle"];
-	
+
 	private _side = side _heli_group;
 	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 
@@ -83,18 +83,18 @@ take_off_and_despawn = {
 		_heli_group setCombatMode "BLUE";
 
 		sleep 3;
-		
+
 		waitUntil { !(alive _heli_vehicle) || ((_pos distance2D (getPos _heli_vehicle)) < 200) || (unitReady _heli_vehicle) };
-		
+
 		if ((alive _heli_vehicle) && ((_pos distance2D (getPos _heli_vehicle)) < 200)) exitWith	{
-			[_heli_vehicle] call remove_soldiers; 
+			[_heli_vehicle] call remove_soldiers;
 
 			private _manpower = _heli_vehicle call get_manpower;
 			_heli_vehicle setVariable [manpower, 0];
 
 			if(_manpower > 0) then {
 				[playerSide, _manpower] remoteExec ["buy_manpower_server", 2];
-				systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];     
+				systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];
 			};
 
 			deleteVehicle _heli_vehicle;
@@ -108,6 +108,6 @@ take_off_and_despawn = {
 remove_soldiers = {
 	params ["_veh"];
 	{
-		deleteVehicle _x 
-	} forEach (crew _veh); 
+		deleteVehicle _x
+	} forEach (crew _veh);
 };

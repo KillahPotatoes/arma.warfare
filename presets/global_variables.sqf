@@ -34,6 +34,7 @@ arwa_all_sides = [west, east, independent];
 arwa_show_all = false;
 arwa_max_tier = 2;
 arwa_capture_time = 60;
+arwa_uav_flight_height = 1000;
 
 arwa_capture_sector_bonus = 20;
 

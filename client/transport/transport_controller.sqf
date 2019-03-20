@@ -90,7 +90,11 @@ check_status = {
 		([_veh] call is_transport_dead);
 	};
 
-	if(isNull _veh) exitWith {};
+	if(isNull _veh) exitWith {
+		systemChat "veh is null";
+	};
+
+	systemChat "veh is null";
 
 	[playerSide, ["TRANSPORT_DOWN"]] spawn HQ_report_client; // TODO make classname specific
 };

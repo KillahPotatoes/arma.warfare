@@ -261,6 +261,24 @@
         <Key ID="TAKE_LEAD">
             <English>Take lead</English>            
         </Key>        
+        <Key ID="REQUEST_DRONE">
+            <English>Request drone</English>            
+        </Key>   
+        <Key ID="DRONE_ON_ITS_WAY">
+            <English>Drone on its way</English>            
+        </Key>   
+        <Key ID="DRONE_DOWN">
+            <English>Drone is down!</English>            
+        </Key>   
+        <Key ID="CANCELING_DRONE_MISSION">
+            <English>Cancelling drone mission</English>             
+        </Key>   
+        <Key ID="DRONE_ARRIVED_IN_HQ">
+            <English>Drone arrived in HQ</English>
+        </Key>   
+        <Key ID="SEND_DRONE_TO_HQ">
+            <English>Send drone to HQ</English>
+        </Key>   
     </Package>
     <Package name="KPPLM">
         <Key ID="STR_KPPLM_ACTIONOPEN">

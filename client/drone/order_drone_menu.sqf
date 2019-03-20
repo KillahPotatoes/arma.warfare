@@ -5,9 +5,9 @@ arwa_drone_active = false;
 remove_all_drone_options = {
 	{
 		player removeAction _x;
-	} forEach arwa_drone_options;
+	} forEach arwa_uav_options;
 
-	arwa_drone_options = [];
+	arwa_uav_options = [];
 };
 
 has_uav_terminal = {
@@ -16,31 +16,27 @@ has_uav_terminal = {
 	_uav_terminal_class_name in assignedItems player;
 };
 
-show_order_drone = {
-	params ["_title", "_priority"];
+show_order_drone = {	
 	missionNameSpace setVariable ["drone_menu", false];
 
-	player addAction [[_title, 0] call addActionText, {
+	player addAction [[localize "REQUEST_DRONE", 0] call addActionText, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
-
-		private _priority = _arguments select 0;
+	
 		private _open = missionNameSpace getVariable ["drone_menu", false];
 
 		[player] call remove_all_drone_options;
 		if(!_open) then {
 			missionNameSpace setVariable ["drone_menu", true];
-			[_priority] call show_drone_options;
+			[] call show_drone_options;
 		} else {
 			missionNameSpace setVariable ["drone_menu", false];
 		};
-		}, [_priority], _priority, false, false, "",
+		}, [], arwa_active_drone_actions, false, false, "",
 		'[player] call is_leader && !arwa_drone_active && [] call has_uav_terminal'
 	];
 };
 
 show_drone_options = {
-	params ["_priority"];
-
 	private _side = playerSide;
 	private _options = missionNamespace getVariable format["%1_uavs", _side];
 
@@ -49,14 +45,14 @@ show_drone_options = {
 		private _penalty = _x select 1;
 		private _name = _class_name call get_vehicle_display_name;
 
-		arwa_drone_options pushBack (player addAction [[_name, 2] call addActionText, {
+		arwa_uav_options pushBack (player addAction [[_name, 2] call addActionText, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
 
 			[player] call remove_all_drone_options;
 			[_class_name, _penalty] call order_drone;
-		}, [_class_name, _penalty], (_priority - 1), false, true, "",
+		}, [_class_name, _penalty], (arwa_active_drone_actions - 1), false, true, "",
 		'[player] call is_leader && !arwa_drone_active && [] call has_uav_terminal']);
 	} forEach _options;
 };
@@ -83,12 +79,13 @@ move_drone_to_player = {
 
 	[_group, [_msg]] spawn group_report_client;
 
-
 	_w = _group addWaypoint [getPos player, 5];
 
 	_w setWaypointType "LOITER";
 	_w setWaypointLoiterType "CIRCLE";
 	_w setWaypointLoiterRadius 200;
+
+	_uav flyInHeight arwa_uav_flight_height;
 };
 
 is_drone_dead = {
@@ -157,22 +154,21 @@ spawn_drone = {
 	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 	private _base_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
 	private _dir = _pos getDir _base_pos;
-	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 1000];
+	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + arwa_uav_flight_height];
 
 	waitUntil { [_pos] call is_air_space_clear; };
 
     private _drone = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;
 
-	player connectTerminalToUAV _drone;
-
 	arwa_drone_active = true;
 
 	private _uav = _drone select 0;
+	player connectTerminalToUAV _uav;
 
 	_uav setVariable [arwa_penalty, [_side, _penalty], true];
 	_uav setVariable [arwa_kill_bonus, _penalty, true];
 
-	_uav;
+	_drone;
 };
 
 interrupt_drone_misson = {

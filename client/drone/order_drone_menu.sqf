@@ -106,7 +106,7 @@ is_drone_active = {
 
 	private _is_active = !([_uav] call is_drone_dead) && {!(_uav getVariable ["is_done", false])};
 
-	if(_is_active) then {
+	if(!_is_active) then {
 		player removeAction arwa_cancel_drone_id;
 	};
 
@@ -137,6 +137,8 @@ cancel_drone_on_player_death = {
 show_cancel_drone_action = {
 	params ["_uav"];
 
+	systemChat "Drone active menu";
+
 	arwa_cancel_drone_id = player addAction [[localize "SEND_DRONE_TO_HQ", 0] call addActionText, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
@@ -145,7 +147,7 @@ show_cancel_drone_action = {
 
 		[_uav, _group, "HEAD_TO_HQ"] call interrupt_drone_misson;
     }, [_uav], arwa_active_drone_actions, true, false, "",
-    ''];
+    'true'];
 };
 
 spawn_drone = {
@@ -176,7 +178,7 @@ interrupt_drone_misson = {
 
 	player connectTerminalToUAV objNull;
 	player disableUAVConnectability [_uav, true];
-	player removeAction (_uav getVariable ["_cancel_drone_id", nil]);
+	player removeAction arwa_cancel_uav_id;
 
 	[_group, [_msg]] spawn group_report_client;
 

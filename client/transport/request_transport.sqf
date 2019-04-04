@@ -46,6 +46,7 @@ spawn_transport = {
 	private _veh = _arr select 0;
 	arwa_transport_present = true;
 
+	_veh setVariable ["transport", true];
 	_veh setVariable [arwa_penalty, [_side, _penalty], true];
 	_veh setVariable [arwa_kill_bonus, _penalty, true];
 

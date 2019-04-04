@@ -1,9 +1,5 @@
 arwa_transport_will_wait_time = 300;
 
-in_transport = {
-	(vehicle player) getVariable ["transport", false];
-};
-
 update_transport_orders = {
 	params ["_group", "_veh"];
 

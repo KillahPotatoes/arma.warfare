@@ -36,3 +36,6 @@ show_cancel_transport_action = {
     '!([] call in_transport)'];
 };
 
+in_transport = {
+	(vehicle player) getVariable ["transport", false];
+};

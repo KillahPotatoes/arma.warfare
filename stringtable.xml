@@ -96,10 +96,10 @@
         <Key ID="TRANSPORT_RECEIVED_NEW_ORDERS">
             <English>Receiving new orders. On its way!</English>
             <German>Neu Befehle empfangen. Unterwegs!</German>
-        </Key>
-        <Key ID="TRANSPORT_UNAVAILABLE">
-            <English>Transport is not available yet! Try again in %1 minutes</English>
-            <German>Transport nicht verfügbar! Versuche es in %1 Minuten erneut</German>
+        </Key>       
+        <Key ID="DRONE_UNAVAILABLE">
+            <English>UAV is not available yet! Try again in %1 minutes</English>
+            <German>UAV nicht verfügbar! Versuche es in %1 Minuten erneut</German>
         </Key>
         <Key ID="TRANSPORT_ON_ITS_WAY">
             <English>Transport is on its way to given pick up destination!</English>
@@ -261,6 +261,24 @@
         <Key ID="TAKE_LEAD">
             <English>Take lead</English>            
         </Key>        
+        <Key ID="REQUEST_DRONE">
+            <English>Request drone</English>            
+        </Key>   
+        <Key ID="DRONE_ON_ITS_WAY">
+            <English>Drone on its way</English>            
+        </Key>   
+        <Key ID="DRONE_DOWN">
+            <English>Drone is down!</English>            
+        </Key>   
+        <Key ID="CANCELING_DRONE_MISSION">
+            <English>Cancelling drone mission</English>             
+        </Key>   
+        <Key ID="DRONE_ARRIVED_IN_HQ">
+            <English>Drone arrived in HQ</English>
+        </Key>   
+        <Key ID="SEND_DRONE_TO_HQ">
+            <English>Send drone to HQ</English>
+        </Key>   
     </Package>
     <Package name="KPPLM">
         <Key ID="STR_KPPLM_ACTIONOPEN">

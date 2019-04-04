@@ -5,16 +5,17 @@ toggle_control = {
 	private _group = group _driver; 
 	private _driver_type = typeOf _driver;
 
-	while {!([_veh] call is_transport_active)} do {
+	while {([_veh] call is_transport_active)} do {
 
-		waituntil {player in _veh};		
+		waituntil {player in _veh || !([_veh] call is_transport_active)};		
 		if(!([_veh] call is_transport_active)) exitWith {};
-
+		systemChat "player in _veh";
 		_veh setVariable ["player_driver", true];
 		
 		[_group, _veh] call put_player_in_position;
 
-		waitUntil {!(player in _veh)};
+		waitUntil {!(player in _veh) || !([_veh] call is_transport_active)};
+		systemChat "player not in _veh";
 		
 		if(!([_veh] call is_transport_active)) exitWith {};
 

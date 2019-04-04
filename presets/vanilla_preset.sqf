@@ -7,6 +7,27 @@ nvgoogles_guer = "NVGoggles_INDEP";
 nvgoogles_west = "NVGoggles";
 nvgoogles_east = "NVGoggles_OPFOR";
 
+west_uav_terminal_class_name = "B_UavTerminal";
+east_uav_terminal_class_name = "O_UavTerminal";
+guer_uav_terminal_class_name = "I_UavTerminal";
+
+west_uavs = [
+	["B_UAV_02_F", 30],
+	["B_UAV_02_CAS_F", 30],
+	["B_UAV_05_F", 30]
+];
+
+east_uavs = [
+	["O_UAV_02_F", 30],
+	["O_UAV_02_CAS_F", 30],
+	["O_T_UAV_04_CAS_F", 30]
+];
+
+guer_uavs = [
+	["I_UAV_02_F", 30],
+	["I_UAV_02_CAS_F", 30]
+];
+
 west_sympathizers = [
 	["B_G_Soldier_TL_F", 0],
 	["B_G_Soldier_M_F", 0],

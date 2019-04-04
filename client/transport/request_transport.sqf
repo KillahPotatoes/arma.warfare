@@ -3,13 +3,13 @@ request_transport = {
 
 	openMap true;
 	[_class_name, _penalty] onMapSingleClick {
-		onMapSingleClick {}; // To remove the code triggered on map click so you cannot click twice 				        
+		onMapSingleClick {}; // To remove the code triggered on map click so you cannot click twice
 		openMap false;
 
 		private _class_name = _this select 0;
 		private _penalty = _this select 1;
 
-		[_pos, _class_name, _penalty] spawn order_transport;	
+		[_pos, _class_name, _penalty] spawn order_transport;
 	};
 	waitUntil {
 		!visibleMap;
@@ -23,10 +23,10 @@ order_transport = {
 	private _arr = [playerSide, _class_name, _penalty] call spawn_transport;
 	private _veh = _arr select 0;
 	private _group = _arr select 2;
-	private _name = (typeOf _veh) call get_vehicle_display_name;	
-	
+	private _name = (typeOf _veh) call get_vehicle_display_name;
+
 	[_veh, _group] spawn cancel_on_player_death;
-	[_veh] call show_active_transport_menu;
+	[_veh] spawn show_active_transport_menu;
 	[_veh] spawn check_status;
 	[_veh] spawn toggle_control;
 
@@ -42,10 +42,11 @@ spawn_transport = {
 		[_side, _class_name] call spawn_vehicle;
 	};
 
-	arwa_transport_active = true;
 	private _group = _arr select 2;
 	private _veh = _arr select 0;
+	arwa_transport_present = true;
 
+	_veh setVariable ["transport", true];
 	_veh setVariable [arwa_penalty, [_side, _penalty], true];
 	_veh setVariable [arwa_kill_bonus, _penalty, true];
 

@@ -34,11 +34,14 @@ arwa_all_sides = [west, east, independent];
 arwa_show_all = false;
 arwa_max_tier = 2;
 arwa_capture_time = 60;
+arwa_uav_flight_height = 1000;
 
 arwa_capture_sector_bonus = 20;
 
 arwa_spawn_forces_interval = 120;
 arwa_spawn_forces_interval_variation = 60;
+
+arwa_uav_recharge_time = 3600;
 
 tier_base_gunship_respawn_time = 900;
 tier_0_gunship_respawn_time = 900;
@@ -58,6 +61,7 @@ arwa_return_vehicle = 90;
 arwa_ground_transport_actions = 70;
 arwa_air_transport_actions = 80;
 arwa_active_transport_actions = 80;
+arwa_active_uav_actions = 75;
 arwa_manpower_actions = 60;
 arwa_squad_actions = 50;
 

@@ -96,10 +96,10 @@
         <Key ID="TRANSPORT_RECEIVED_NEW_ORDERS">
             <English>Receiving new orders. On its way!</English>
             <German>Neu Befehle empfangen. Unterwegs!</German>
-        </Key>
-        <Key ID="TRANSPORT_UNAVAILABLE">
-            <English>Transport is not available yet! Try again in %1 minutes</English>
-            <German>Transport nicht verfügbar! Versuche es in %1 Minuten erneut</German>
+        </Key>       
+        <Key ID="DRONE_UNAVAILABLE">
+            <English>UAV is not available yet! Try again in %1 minutes</English>
+            <German>UAV nicht verfügbar! Versuche es in %1 Minuten erneut</German>
         </Key>
         <Key ID="TRANSPORT_ON_ITS_WAY">
             <English>Transport is on its way to given pick up destination!</English>

@@ -71,9 +71,13 @@ is_transport_active = {
 	private _is_active = !([_veh] call is_transport_dead) && {!(_veh getVariable ["is_done", false])};
 
 	if(!_is_active) then {
-		_veh lock true;
+		
 		player removeAction arwa_cancel_transport_id;
 		player removeAction arwa_update_orders_id;
+
+		if([_veh] call is_transport_dead) exitWith {};
+
+		_veh lock true;
 	};
 
 	_is_active;

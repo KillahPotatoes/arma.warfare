@@ -161,8 +161,6 @@ cancel_uav_on_player_death = {
 show_cancel_uav_action = {
 	params ["_uav"];
 
-	systemChat "Drone active menu";
-
 	arwa_cancel_uav_id = player addAction [[localize "SEND_DRONE_TO_HQ", 0] call addActionText, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 

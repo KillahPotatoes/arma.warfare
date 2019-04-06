@@ -1,3 +1,6 @@
+[] call compileFinal preprocessFileLineNumbers "server\manpower_box.sqf";
+
+
 add_kill_ticker_to_all_units = {
 	while {true} do {
 		sleep 2;
@@ -30,6 +33,7 @@ on_vehicle_kill = {
 			[_victim, _killer] spawn report_lost_vehicle;
 			[_victim] spawn induce_lost_vehicle_penalty;
 			[_victim, _killer] spawn induce_vehicle_kill_bonus;
+			[_victim] spawn create_manpower_box;
 		}
 	];
 };
@@ -101,7 +105,12 @@ report_lost_vehicle = {
 kill_ticker = {
 	_this addMPEventHandler ['MPKilled',{
 			params ["_victim", "_killer"];
-			[_victim, _killer] spawn register_kill;
+
+			private _victim_side = side group _victim;
+			private _faction_strength = _victim_side call get_strength;
+
+			[_victim, _killer, _faction_strength] spawn register_kill;
+			[_victim, _faction_strength] spawn create_manpower_box;
 		}
 	];
 };
@@ -111,8 +120,13 @@ calculate_kill_points = {
 	1 / (((_killer_side countSide allPlayers) + 1) min 2);
 };
 
+calculate_player_death_penalty = {
+	params ["_faction_strength"];
+	floor (5 max (_faction_strength / 10));
+};
+
 register_kill = {
-	params ["_victim", "_killer"];
+	params ["_victim", "_killer", "_faction_strength"];
 
 	if (!(isNil "_victim" || isNil "_killer")) then {
 		private _killer_side = side group _killer;
@@ -125,14 +139,15 @@ register_kill = {
 
 		if ((isPlayer _killer)) then {
 			private _kills = _killer getVariable ["kills", 0];
-			_killer setVariable ["kills", _kills + 1, true];
+			private _new_kills = if(_killer_side isEqualTo _victim_side) then { _kills - 1; } else { _kills + 1; };
+
+			_killer setVariable ["kills", _new_kills, true];
 		};
 
 		if (_victim_side in arwa_all_sides) then {
 			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
-
-			_faction_strength = _victim_side call get_strength;
-			_new_faction_strength = if(isPlayer _victim) then { _faction_strength - (5 max (_faction_strength / 10)); } else { _faction_strength - _death_penalty };		
+			
+			private _new_faction_strength = if(isPlayer _victim) then { _faction_strength - ([_faction_strength] call calculate_player_death_penalty); } else { _faction_strength - _death_penalty };		
 			[_victim_side, _new_faction_strength] call set_strength;
 		};
 	};	

@@ -58,6 +58,8 @@ enableSaving [!isDedicated, false];
 
 private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
 arwa_starting_strength = ["Manpower", arwa_starting_strength] call BIS_fnc_getParamValue;
+arwa_mine_fields = (["Mines", 1] call BIS_fnc_getParamValue) == 1;
+arwa_sector_artillery = (["SectorArtillery", 1] call BIS_fnc_getParamValue) == 1;
 arwa_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 
@@ -66,7 +68,11 @@ setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 [] call draw_all_sectors;
 [] call assign_prefixes;
 [] call hide_respawn_markers;
-[] call initialize_mine_fields;
+
+if(arwa_mine_fields) then {
+	[] call initialize_mine_fields;
+};
+
 [] call setup_faction_relations;
 [arwa_starting_strength, _startingTier] call initialize_faction_stats;
 [] call initialize_bases;

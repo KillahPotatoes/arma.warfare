@@ -41,8 +41,6 @@ arwa_capture_sector_bonus = 20;
 arwa_spawn_forces_interval = 120;
 arwa_spawn_forces_interval_variation = 60;
 
-arwa_uav_recharge_time = 3600;
-
 tier_base_gunship_respawn_time = 900;
 tier_0_gunship_respawn_time = 900;
 tier_1_gunship_respawn_time = 600;

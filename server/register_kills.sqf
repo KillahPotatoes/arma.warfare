@@ -30,10 +30,11 @@ add_kill_ticker_to_all_vehicles = {
 on_vehicle_kill = {
 	_this addMPEventHandler ['MPKilled',{
 			params ["_victim", "_killer"];
+	
 			[_victim, _killer] spawn report_lost_vehicle;
 			[_victim] spawn induce_lost_vehicle_penalty;
 			[_victim, _killer] spawn induce_vehicle_kill_bonus;
-			[_victim] spawn create_manpower_box;
+			[_victim] spawn create_manpower_box_vehicle;
 		}
 	];
 };
@@ -110,7 +111,7 @@ kill_ticker = {
 			private _faction_strength = _victim_side call get_strength;
 
 			[_victim, _killer, _faction_strength] spawn register_kill;
-			[_victim, _faction_strength] spawn create_manpower_box;
+			[_victim, _victim_side, _faction_strength] spawn create_manpower_box_unit;
 		}
 	];
 };

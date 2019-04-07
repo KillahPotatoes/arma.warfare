@@ -64,11 +64,9 @@ spawn_vehicle_group = {
 	_pos = [_pos] call try_find_unoccupied_nearby_road;
 
 	private _dir = [_pos] call find_direction_towards_closest_sector;
-	private _veh_array = [_pos, _dir, _vehicle_type, _side] call BIS_fnc_spawnVehicle;
+	private _veh_array = [_pos, _dir, _vehicle_type, _side, _kill_bonus] call spawn_vehicle;
 	private _group = _veh_array select 2;
 	private _veh =  _veh_array select 0;
-
-	_veh setVariable [arwa_kill_bonus, _kill_bonus, true];	
 
 	_group deleteGroupWhenEmpty true;
 

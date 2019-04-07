@@ -183,15 +183,15 @@ spawn_uav = {
 
 	waitUntil { [_pos] call is_air_space_clear; };
 
-    private _uav_arr = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;
+    private _uav_arr = [_pos, _dir, _class_name, _side, _penalty] call spawn_vehicle;
+
 
 	arwa_uav_active = true;
 
 	private _uav = _uav_arr select 0;
 	player connectTerminalToUAV _uav;
 
-	_uav setVariable [arwa_penalty, [_side, _penalty], true];
-	_uav setVariable [arwa_kill_bonus, _penalty, true];
+	_uav setVariable [arwa_penalty, _penalty, true];	
 
 	_uav_arr;
 };

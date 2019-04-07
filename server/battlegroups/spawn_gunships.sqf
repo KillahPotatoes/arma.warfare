@@ -51,9 +51,8 @@ spawn_gunship_group = {
 	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["HQ_report_client"];
 	sleep 120;
 
-	private _veh_arr = [_side, _gunship] call spawn_helicopter;
+	private _veh_arr = [_side, _gunship, _kill_bonus] call spawn_helicopter;
 
 	private _veh = _veh_arr select 0;
-	_veh setVariable [arwa_kill_bonus, _kill_bonus, true];
 	_veh_arr;
 };

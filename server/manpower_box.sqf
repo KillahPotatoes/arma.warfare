@@ -25,7 +25,7 @@ create_manpower_box_vehicle = {
 	
 	if(_manpower > 0) then {
 		_victim setVariable [manpower, 0];	
-		private _side = side ((crew _victim) select 0);	
+		private _side = _victim getVariable owned_by;
 
 		if(!(isTouchingGround _victim)) then {
 			sleep 30;

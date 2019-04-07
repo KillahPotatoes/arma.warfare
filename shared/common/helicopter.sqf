@@ -1,5 +1,5 @@
 spawn_helicopter = {
-	params ["_side", "_helicopter"];
+	params ["_side", "_helicopter", "_kill_bonus"];
 
 	private _pos = getMarkerPos ([_side, respawn_air] call get_prefixed_name);
 	private _base_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
@@ -8,7 +8,7 @@ spawn_helicopter = {
 
 	waitUntil { [_pos] call is_air_space_clear; };
 
-    private _heli = [_pos, _dir, _helicopter, _side] call BIS_fnc_spawnVehicle;
+    private _heli = [_pos, _dir, _helicopter, _side, _kill_bonus] call spawn_vehicle; // TODO add kill bonus
 
 	(_heli select 0) lockDriver true;
 	_heli;
@@ -30,10 +30,8 @@ spawn_transport_heli = {
 	private _arr = selectRandom (_side call get_transport_heli_type);
 	private _class_name = _arr select 0;
 	private _kill_bonus = _arr select 1;
-    private _veh_arr = [_side, _class_name] call spawn_helicopter;
+    private _veh_arr = [_side, _class_name, _kill_bonus] call spawn_helicopter;
 	private _veh = _veh_arr select 0;
-
-	_veh setVariable [arwa_kill_bonus, _kill_bonus, true];
 
 	private _group = _veh_arr select 2;
 

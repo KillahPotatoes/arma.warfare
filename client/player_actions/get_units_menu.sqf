@@ -38,8 +38,9 @@ get_vehicle = {
 		private _veh = _class_name createVehicle _pos;
 		_veh setDir (getDir _base_marker);
 
-		_veh setVariable [arwa_penalty, [playerSide, _penalty], true];
+		_veh setVariable [arwa_penalty, _penalty, true];
 		_veh setVariable [arwa_kill_bonus, _penalty, true];	
+		_veh setVariable [owned_by, playerSide, true];
 
 		[_veh] call remove_vehicle_action;
 	}; 

@@ -37,9 +37,9 @@ spawn_transport = {
 	params ["_side", "_class_name", "_penalty"];
 
 	private _arr = if(_class_name isKindOf "Air") then {
-	    [_side, _class_name] call spawn_helicopter;
+	    [_side, _class_name, _penalty] call spawn_helicopter;
 	} else {
-		[_side, _class_name] call spawn_vehicle;
+		[_side, _class_name, _penalty] call spawn_transport_vehicle;
 	};
 
 	private _group = _arr select 2;
@@ -47,8 +47,7 @@ spawn_transport = {
 	arwa_transport_present = true;
 
 	_veh setVariable ["transport", true];
-	_veh setVariable [arwa_penalty, [_side, _penalty], true];
-	_veh setVariable [arwa_kill_bonus, _penalty, true];
+	_veh setVariable [arwa_penalty, _penalty, true];
 
 	_group setBehaviour "CARELESS";
 	_group deleteGroupWhenEmpty true;

@@ -30,6 +30,16 @@ addActionText = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
+spawn_vehicle = {
+  params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus",]];
+   private _veh_arr = [_pos, _dir, _class_name, _side] call spawn_vehicle;
+   private _veh = _veh_arr select 0;
+   _veh setVariable [owned_by, _side, true];
+   _veh setVariable [arwa_kill_bonus, _kill_bonus, true];	
+
+   _veh_arr;
+};
+
 get_manpower = {
     params ["_obj"];
 

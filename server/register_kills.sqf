@@ -135,11 +135,23 @@ register_kill = {
 			[_killer_side, _kill_point] call increment_kill_counter;
 		};
 
-		if ((isPlayer _killer)) then {
-			private _kills = _killer getVariable ["kills", 0];
+		private _isKillLeader = isPlayer (leader group _killer);
+
+		if ((isPlayer _killer) || _isKillLeader) then {
+			private _player = if(_isKillLeader) then { leader group _killer; } else { _killer; };			
+
+			private _kills = _player getVariable ["kills", 0];
 			private _new_kills = if(_killer_side isEqualTo _victim_side) then { _kills - 1; } else { _kills + 1; };
 
-			_killer setVariable ["kills", _new_kills, true];
+			_player setVariable ["kills", _new_kills, true];
+		};
+
+		private _isVictimLeader = isPlayer (leader group _victim);
+
+		if (_isVictimLeader) then {
+			private _player = leader group _victim;
+			private _kills = _player getVariable ["kills", 0];
+			_player setVariable ["kills", _kills - 2, true];
 		};
 
 		if (_victim_side in arwa_all_sides) then {

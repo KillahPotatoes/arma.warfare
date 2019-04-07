@@ -2,6 +2,9 @@
 show_ui = {
 	
 	with uiNamespace do {
+		arwa_max_rank = missionNamespace getVariable "arwa_max_rank";
+		arwa_kills_per_rank = missionNamespace getVariable "arwa_kills_per_rank";
+
 		get_tier_progress = {
 			params ["_side"];
 			missionNamespace getVariable format ["%1_tier_prog",  _side];
@@ -11,7 +14,6 @@ show_ui = {
 			params ["_side"];
 			missionNamespace getVariable format ["%1_tier",  _side];
 		};
-
 
 		get_strength = {
 			params ["_side"];
@@ -50,8 +52,16 @@ show_ui = {
 
 		print_rank = {
 			private _ranks = ["Private", "Sergant", "Lieutenant", "Captain", "Major", "Elite"];
-			private _rank = player getVariable "rank";
-			format["<t color='#000000' align='right' size='1'>%1</t>", _ranks select _rank];
+			private _rank = (player getVariable "rank") max 0;
+			
+			
+			if(_rank < arwa_max_rank) then {
+				private _kills = (player getVariable "kills") max 0;
+				private _percentage = floor(((_kills mod arwa_kills_per_rank) / arwa_kills_per_rank) * 100);
+				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", _ranks select _rank, _percentage, "%"];
+			} else {
+				format["<t color='#000000' align='right' size='1'>%1</t>", _ranks select _rank];
+			};			
 		};
 
 		print_manpower = {

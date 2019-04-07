@@ -31,7 +31,7 @@ addActionText = {
 };
 
 spawn_vehicle = {
-  params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus",]];
+  params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus", 0]];
    private _veh_arr = [_pos, _dir, _class_name, _side] call spawn_vehicle;
    private _veh = _veh_arr select 0;
    _veh setVariable [owned_by, _side, true];

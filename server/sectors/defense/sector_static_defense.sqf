@@ -13,6 +13,11 @@ spawn_static = {
 		_group setVariable [defense, true];
 		[_group] call remove_nvg_and_add_flash_light;
 
+		{
+			_x setSkill ["spotDistance", 0];
+			_x setSkill ["spotTime", 0];				
+		} forEach units _group;		
+
 		private _name = _static select 0;
 		_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
 

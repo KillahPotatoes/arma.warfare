@@ -1,3 +1,5 @@
+// KEYS
+
 owned_by = "owned_by";
 sector_prefix = "sector_";
 pos = "pos";
@@ -13,6 +15,9 @@ manpower = "manpower";
 soldier_count = "s_count";
 defense = "defense";
 
+arwa_penalty = "penalty";
+arwa_kill_bonus = "kill_bonus";
+
 vehicle1 = "vehicle";
 helicopter = "helicopter";
 infantry = "infantry";
@@ -22,9 +27,9 @@ guer_faction_name = "The resistance";
 west_faction_name = "Nato";
 east_faction_name = "China";
 
-// Global vars
+// CONSTANT VARS
 arwa_respawn_cooldown = 900;
-arwa_sector_size = 200; 
+arwa_sector_size = 200;
 arwa_starting_strength  = 500;
 arwa_unit_cap = 30;
 arwa_defender_cap = 10;
@@ -36,6 +41,10 @@ arwa_max_tier = 2;
 arwa_capture_time = 60;
 arwa_uav_flight_height = 1000;
 
+arwa_squad_mate_death_penalty = 3;
+arwa_kills_per_rank = 15;
+arwa_max_rank = 5;
+
 arwa_capture_sector_bonus = 20;
 
 arwa_spawn_forces_interval = 120;
@@ -46,8 +55,7 @@ tier_0_gunship_respawn_time = 900;
 tier_1_gunship_respawn_time = 600;
 tier_2_gunship_respawn_time = 300;
 
-arwa_penalty = "penalty";
-arwa_kill_bonus = "kill_bonus";
+
 arwa_cease_fire = false;
 
 // Action priority
@@ -62,4 +70,3 @@ arwa_active_transport_actions = 80;
 arwa_active_uav_actions = 75;
 arwa_manpower_actions = 60;
 arwa_squad_actions = 50;
-

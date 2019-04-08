@@ -1,5 +1,4 @@
-arwa_kills_per_rank = 15;
-arwa_max_rank = 5;
+
 
 get_rank_skill = {
 	private _rank = [] call calculate_rank;
@@ -38,7 +37,3 @@ calculate_rank_and_skill = {
 		sleep 2;
 	};
 };
-
-
-
-	

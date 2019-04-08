@@ -41,6 +41,9 @@
             <English>Transport mission cancelled</English>
             <German>Transporteinsatz abgebrochen</German>
         </Key>
+        <Key ID="CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY">
+            <English>Cannot leave team while enemies nearby!</English>
+        </Key>
         <Key ID="GIVE_MANPOWER">
             <English>Give manpower</English>
             <German>MP abgeben</German>

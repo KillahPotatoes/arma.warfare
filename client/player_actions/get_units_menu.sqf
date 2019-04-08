@@ -19,7 +19,7 @@ get_infantry = {
 	params ["_class_name"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
-	private _rank = player getVariable ["rank", 0, true];
+	private _rank = player getVariable ["rank", 0];
 	private _squad_cap_based_off_rank = (_rank * 2) + 4;
 
 	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count;

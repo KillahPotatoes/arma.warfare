@@ -275,7 +275,6 @@ class Params
             $STR_A3_EnabledForAllPlayers
         };
         default = 1;
-        function = "bis_fnc_paramReviveMode";
     };
 
     class ReviveDuration
@@ -306,7 +305,6 @@ class Params
             30
         };
         default = 30;
-        function = "bis_fnc_paramReviveDuration";
     };
 
     class ReviveRequiredTrait
@@ -325,7 +323,6 @@ class Params
             $STR_A3_Medic
         };
         default = 0;
-        function = "bis_fnc_paramReviveRequiredTrait";
     };
 
     class ReviveMedicSpeedMultiplier
@@ -350,7 +347,6 @@ class Params
             "3x"
         };
         default = 2;
-        function = "bis_fnc_paramReviveMedicSpeedMultiplier";
     };
 
     class ReviveRequiredItems
@@ -371,7 +367,6 @@ class Params
             $STR_A3_FirstAidKitOrMedikit
         };
         default = 2;
-        function = "bis_fnc_paramReviveRequiredItems";
     };
 
     class UnconsciousStateMode
@@ -390,7 +385,6 @@ class Params
             $STR_A3_Advanced
         };
         default = 0;
-        function = "bis_fnc_paramReviveUnconsciousStateMode";
     };
 
     class ReviveBleedOutDuration
@@ -421,7 +415,6 @@ class Params
             180
         };
         default = 180;
-        function = "bis_fnc_paramReviveBleedOutDuration";
     };
 
     class ReviveForceRespawnDuration
@@ -452,7 +445,6 @@ class Params
             10
         };
         default = 10;
-        function = "bis_fnc_paramReviveForceRespawnDuration";
     };
 };
 

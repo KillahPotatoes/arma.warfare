@@ -1,3 +1,24 @@
+// Deactivate BI Revive when ACE Medical is running
+if (isClass (configfile >> "CfgPatches" >> "ace_medical")) then {
+    bis_reviveParam_mode = 0;
+    if (isServer) then {diag_log "[arma.warfare] ACE Medical detected. Deactivating BI Revive System.";};
+} else {
+    bis_reviveParam_mode = ["ReviveMode", 1] call BIS_fnc_getParamValue;
+};
+
+bis_reviveParam_duration = ["ReviveDuration", 6] call BIS_fnc_getParamValue;
+bis_reviveParam_requiredTrait = ["ReviveRequiredTrait", 1] call BIS_fnc_getParamValue;
+bis_reviveParam_medicSpeedMultiplier = ["ReviveMedicSpeedMultiplier", 1] call BIS_fnc_getParamValue;
+bis_reviveParam_requiredItems = ["ReviveRequiredItems", 1] call BIS_fnc_getParamValue;
+bis_reviveParam_unconsciousStateMode = ["UnconsciousStateMode", 0] call BIS_fnc_getParamValue;
+bis_reviveParam_bleedOutDuration = ["ReviveBleedOutDuration", 180] call BIS_fnc_getParamValue;
+bis_reviveParam_forceRespawnDuration = ["ReviveForceRespawnDuration", 10] call BIS_fnc_getParamValue;
+
+// Execute fnc_reviveInit again (by default it executes in postInit)
+if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(bis_reviveParam_mode == 0)) then {
+    [] call bis_fnc_reviveInit;
+};
+
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";

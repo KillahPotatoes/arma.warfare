@@ -10,6 +10,8 @@
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\player_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\squad_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\transport\order_transport_menu.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\drone\order_drone_menu.sqf";
+
 
 [] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_area.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_sector.sqf";

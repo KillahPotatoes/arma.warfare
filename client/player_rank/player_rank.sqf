@@ -1,5 +1,4 @@
-kills_per_rank = 5;
-max_rank = 5;
+
 
 get_rank_skill = {
 	private _rank = [] call calculate_rank;
@@ -8,12 +7,12 @@ get_rank_skill = {
 
 calculate_rank = {
 	private _current_kill_count = player getvariable ["kills", 0];
-	((_current_kill_count - (_current_kill_count mod kills_per_rank)) / kills_per_rank) min max_rank;	
+	((_current_kill_count - (_current_kill_count mod arwa_kills_per_rank)) / arwa_kills_per_rank) min arwa_max_rank;	
 };
 
 get_skill_based_on_rank = {
 	params ["_rank"];
-	(_rank / (max_rank * 2)) + 0.5;
+	(_rank / (arwa_max_rank * 2)) + 0.5;
 };
 
 calculate_rank_and_skill = {
@@ -38,7 +37,3 @@ calculate_rank_and_skill = {
 		sleep 2;
 	};
 };
-
-
-
-	

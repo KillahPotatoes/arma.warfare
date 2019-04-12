@@ -31,7 +31,7 @@ spawn_sector_defense = {
 					};
 				};
 
-				if(isNil "_static_defense" || {!([_static_defense] call static_alive)}) then {
+				if(arwa_sector_artillery && isNil "_static_defense" || {!([_static_defense] call static_alive)}) then {
 					_static_defense = [_pos, _current_faction] call spawn_static;					
 				};				
 

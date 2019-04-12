@@ -6,12 +6,17 @@ spawn_static = {
 	private _static_pos = [_pos, 5, 25, 7, 0.25, 0, 0,[_pos, _pos]] call BIS_fnc_findSafePos;
 				
 	if(!(_static_pos isEqualTo _pos)) exitWith {
-		private _static = [_static_pos, _orientation, _type, _side] call BIS_fnc_spawnVehicle;
+		private _static = [_static_pos, _orientation, _type, _side] call spawn_vehicle;
 		private _group = _static select 2;
 		_group deleteGroupWhenEmpty true;
 		_group enableDynamicSimulation false; 
 		_group setVariable [defense, true];
 		[_group] call remove_nvg_and_add_flash_light;
+
+		{
+			_x setSkill ["spotDistance", 0];
+			_x setSkill ["spotTime", 0];				
+		} forEach units _group;		
 
 		private _name = _static select 0;
 		_name addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];

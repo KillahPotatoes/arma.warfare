@@ -258,6 +258,30 @@ class Params
         default = 6;
     };
 
+    class Mines
+    {
+        title = "Mines";
+        texts[] = {"On","Off"};
+        values[] = {1,0};
+        default = 1;
+    };
+
+    class SectorArtillery
+    {
+        title = "Sector Artillery";
+       texts[] = {"On","Off"};
+        values[] = {1,0};
+        default = 1;
+    };
+
+    class DroneRechargeTime
+    {
+        title = "Drone recharge time (minutes)";
+        texts[] = {"15","30","45","60","90"};
+        values[] = {15,30,45,60,90};
+        default = 30;
+    };
+
     // BI Revive via mission parameters
     class ReviveMode
     {

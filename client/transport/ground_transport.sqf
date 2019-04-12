@@ -5,11 +5,11 @@ send_vehicle_transport = {
 
 	sleep 3;
 
-	waitUntil { !(alive _veh) || (unitReady _veh) };
+	waitUntil {!([_veh] call is_transport_active) || (unitReady _veh) };
 };
 
-spawn_vehicle = {
-	params ["_side", "_class_name"];
+spawn_transport_vehicle = {
+	params ["_side", "_class_name", "_kill_bonus"];
 
 	private _base_marker_name = [_side, vehicle1] call get_prefixed_name;
 	private _base_marker = missionNamespace getVariable _base_marker_name;
@@ -18,8 +18,9 @@ spawn_vehicle = {
 
 	waitUntil { !([_pos] call any_units_too_close); };
 
-	private _veh_arr = [_pos, getDir _base_marker, _class_name, _side] call BIS_fnc_spawnVehicle;
+	private _veh_arr = [_pos, getDir _base_marker, _class_name, _side, _kill_bonus] call spawn_vehicle;
 	private _veh = _veh_arr select 0;
+	_veh setVariable [owned_by, playerSide];
 
 	_veh lockDriver true;
 	_veh_arr;	
@@ -31,9 +32,9 @@ send_to_HQ = {
 	private _side = side _group;
 	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
 
-	_group addWaypoint [_pos, 20];
+	_group addWaypoint [_pos, 0];
 	
-	waitUntil { !(alive _veh) || ((_pos distance2D (getPos _veh)) < 100) };
+	waitUntil {([_veh] call is_transport_dead) || ((_pos distance2D (getPos _veh)) < 100) };
 	
 	if (alive _veh) exitWith
 	{

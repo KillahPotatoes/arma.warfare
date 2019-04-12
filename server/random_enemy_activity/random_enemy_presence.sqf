@@ -27,8 +27,9 @@ check_houses_to_populate = {
 			private _house = _x;
 			private _sector = [sectors, getPos _house] call find_closest_sector;
 			private _side = _sector getVariable owned_by;
+			private _player_pos = getPos _player;
 
-			if([_house, _player, _sector, _side] call house_can_be_populated) then {							
+			if([_house, _player_pos, _sector, _side] call house_can_be_populated) then {							
 				[_side, _house] spawn populate_house;			
 			};
 
@@ -69,13 +70,12 @@ populate_house = {
 };
 
 house_can_be_populated = {
-	params ["_building", "_player", "_sector", "_side"];
+	params ["_building", "_player_pos", "_sector", "_side"];
 
 	private _sector_pos = _sector getVariable pos;
-	private _pos = getPos _building;	
-	private _player_pos = getPos _player;
+	private _pos = getPos _building;		
 
-	(_side in arwa_all_sides) && !((side _player) isEqualTo _side)
+	(_side in arwa_all_sides) && !(playerSide isEqualTo _side)
 	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
 	&& {(_sector_pos distance2D _pos) > arwa_sector_size}
 	&& {!(_building getVariable ["occupied", false])}	

@@ -1,8 +1,10 @@
 add_sector_box = {
 	params ["_sector"];
 
-	_pos = _sector getVariable pos;	 
-	_ammo_box = ammo_box createVehicle (_pos);	
+	private _pos = _sector getVariable pos;	 
+	private _ammo_box = ammo_box createVehicle (_pos);	
+	
+	_ammo_box enableRopeAttach false;
 	_sector setVariable [box, _ammo_box];
 	_ammo_box setVariable [owned_by, civilian, true];	
 	_ammo_box setVariable [manpower, 0, true];

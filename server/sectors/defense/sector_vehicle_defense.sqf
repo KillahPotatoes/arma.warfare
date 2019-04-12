@@ -15,10 +15,9 @@ spawn_defense_vehicle = {
 		_safe_pos = [_pos, 10, 50, 15, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
 
 		if(!(_safe_pos isEqualTo _pos)) then {
-			private _veh_array = [_safe_pos, random 360, _class_name, _side] call BIS_fnc_spawnVehicle;
+			private _veh_array = [_safe_pos, random 360, _class_name, _side, _kill_bonus] call spawn_vehicle;
 
-			private _veh = _veh_array select 0;
-			_veh setVariable [arwa_kill_bonus, _kill_bonus, true];	
+			private _veh = _veh_array select 0;			
 
 			private _tmp_group = _veh_array select 2;
 			[_tmp_group] call remove_nvg_and_add_flash_light;

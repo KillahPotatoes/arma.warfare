@@ -266,19 +266,27 @@ class Params
         default = 1;
     };
 
-    class SectorArtillery
+    class SectorArtilleryReloadTime
     {
-        title = "Sector Artillery";
-       texts[] = {"On","Off"};
-        values[] = {1,0};
-        default = 1;
+        title = "Sector Artillery Reload Time";
+        texts[] = {"No Artillery","60", "180", "300", "600", "900", "1500"};
+        values[] = {0, 60, 180, 300, 600, 900, 1500};
+        default = 900;
+    };
+
+    class DroppedManpowerDeteriorationTime
+    {
+        title = "Time it takes in seconds before dropped manpower start to decrease";
+        texts[] = {"60","120","180","300","600","900"};
+        values[] = {60,120,180,300,600,900};
+        default = 180;
     };
 
     class DroneRechargeTime
     {
         title = "Drone recharge time (minutes)";
-        texts[] = {"15","30","45","60","90"};
-        values[] = {15,30,45,60,90};
+        texts[] = {"Off","15","30","45","60","90"};
+        values[] = {0,30,45,60,90};
         default = 30;
     };
 

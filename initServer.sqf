@@ -59,7 +59,10 @@ enableSaving [!isDedicated, false];
 private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
 arwa_starting_strength = ["Manpower", arwa_starting_strength] call BIS_fnc_getParamValue;
 arwa_mine_fields = (["Mines", 1] call BIS_fnc_getParamValue) == 1;
-arwa_sector_artillery = (["SectorArtillery", 1] call BIS_fnc_getParamValue) == 1;
+arwa_sector_artillery = (["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue) > 0;
+arwa_sector_artillery_reload_time = ["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue;
+arwa_dropped_manpower_deterioration_time = ["DroppedManpowerDeteriorationTime", 180] call BIS_fnc_getParamValue;
+
 arwa_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 

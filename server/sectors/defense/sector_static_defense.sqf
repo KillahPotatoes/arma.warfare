@@ -40,11 +40,11 @@ rearm_delay = {
 
 	private _fired_barrage = _veh getVariable ["fired_barrage", false];
 	if(!_fired_barrage) then {
-		systemChat format["%1 fired barrage", _this select 0];
+		diag_log format["%1 fired barrage", _this select 0];
 		_veh setVariable["fired_barrage", true];
-		sleep 900;
+		sleep arwa_sector_artillery_reload_time;
 		(_this select 0) setvehicleammo 1;
-		systemChat format["%1 reloaded", _this select 0];
+		diag_log format["%1 reloaded", _this select 0];
 
 		_veh setVariable["fired_barrage", false];
 	};	

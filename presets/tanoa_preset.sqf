@@ -1,4 +1,5 @@
 ammo_box = "B_CargoNet_01_ammo_F";
+manpower_box = "Land_Ammobox_rounds_F";
 
 anti_vehicle_mines = ["SLAMDirectionalMine", "ATMine"];		
 anti_personel_mines = ["APERSBoundingMine", "APERSMine", "APERSTripMine"];

@@ -54,25 +54,37 @@ create_manpower_box = {
 	_marker_name setMarkerText format["%1 MP", _manpower];
 
 	[_marker_name, _manpower_box] spawn manpower_deterioration;
+	[_marker_name, _manpower_box] spawn manpower_marker_update;
 };
 
-manpower_deterioration = {
+manpower_marker_update = {
 	params ["_marker_name", "_manpower_box"];
-
-	sleep 180;
 
 	private _manpower = _manpower_box getVariable [manpower, 0]; 
 
 	while {_manpower > 0} do {
 		_marker_name setMarkerText format["%1 MP", _manpower];
 		
-		sleep 10;
-		_manpower = (_manpower_box getVariable [manpower, 0]) - 1;
-		_manpower_box setVariable [manpower, _manpower];
+		sleep 1;
+		_manpower = _manpower_box getVariable [manpower, 0]; 
 	};
 	
 	deleteMarker _marker_name;
 
 	sleep 60;
 	deleteVehicle _manpower_box;
+};
+
+manpower_deterioration = {
+	params ["_marker_name", "_manpower_box"];
+
+	sleep arwa_dropped_manpower_deterioration_time;
+
+	private _manpower = _manpower_box getVariable [manpower, 0]; 
+
+	while {_manpower > 0} do {		
+		sleep 10;
+		_manpower = (_manpower_box getVariable [manpower, 0]) - 1;
+		_manpower_box setVariable [manpower, _manpower];
+	};
 };

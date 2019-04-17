@@ -38,7 +38,7 @@ send_to_HQ = {
 	
 	if (alive _veh) exitWith
 	{
-		private _manpower = _veh call get_manpower;
+		private _manpower = (_veh call get_manpower) + (_veh call remove_soldiers);
 		_veh setVariable [manpower, 0];
 
 		if(_manpower > 0) then {
@@ -46,7 +46,6 @@ send_to_HQ = {
 			systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];     
 		};
 
-		[_veh] call remove_soldiers; 
 		deleteVehicle _veh;
 		true;
 	};

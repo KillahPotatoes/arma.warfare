@@ -85,9 +85,8 @@ take_off_and_despawn = {
 		waitUntil { !(alive _heli_vehicle) || ((_pos distance2D (getPos _heli_vehicle)) < 200) || (unitReady _heli_vehicle) };
 
 		if ((alive _heli_vehicle) && ((_pos distance2D (getPos _heli_vehicle)) < 200)) exitWith	{
-			[_heli_vehicle] call remove_soldiers;
-
-			private _manpower = _heli_vehicle call get_manpower;
+			private _manpower = (_heli_vehicle call remove_soldiers) + (_heli_vehicle call get_manpower);
+			
 			_heli_vehicle setVariable [manpower, 0];
 
 			if(_manpower > 0) then {
@@ -105,7 +104,13 @@ take_off_and_despawn = {
 
 remove_soldiers = {
 	params ["_veh"];
+
+	private _manpower = 0;
+
 	{
+		_manpower = _manpower + (_x call get_manpower);
 		deleteVehicle _x
 	} forEach (crew _veh);
+
+	_manpower;
 };

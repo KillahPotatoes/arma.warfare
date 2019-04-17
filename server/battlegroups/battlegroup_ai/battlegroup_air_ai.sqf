@@ -54,13 +54,14 @@ find_air_target = {
 	params ["_group", "_side"];
 
 	private _pos = getPosWorld (leader _group);
-
-	private _enemy_sectors = [_side] call find_enemy_sectors;
+	
 	private _unsafe_sectors = [_side] call get_unsafe_sectors;
 
 	if ((count _unsafe_sectors) > 0) exitWith {
 		[_unsafe_sectors, _pos] call find_closest_sector;
 	}; 
+
+	private _enemy_sectors = [_side] call find_enemy_sectors;
 
 	if((count _enemy_sectors) > 0) exitWith { 
 		[_enemy_sectors, _pos] call find_closest_sector;

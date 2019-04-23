@@ -16,7 +16,7 @@ group_is_alive = {
 group_should_be_commanded = {
 	params ["_group"];
 
-	!(isPlayer leader _group) && (side _group) in arwa_all_sides && _group getVariable "active";
+	!(isPlayer leader _group) && ((side _group) in arwa_all_sides) && (_group getVariable ["active", true]);
 };
 
 should_change_target = {

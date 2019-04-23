@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1054;
+		nextID=1055;
 	};
 	class MarkerIDProvider
 	{
@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=37;
+		nextID=39;
 	};
 	class Camera
 	{
@@ -51,7 +51,9 @@ addons[]=
 	"A3_Structures_F_Civ_Accessories",
 	"A3_Structures_F_Mil_BagBunker",
 	"A3_Structures_F_Mil_Shelters",
-	"A3_Characters_F"
+	"A3_Characters_F",
+	"asr_ai3_skills",
+	"A3_Modules_F_Curator_Curator"
 };
 class AddonsMetaData
 {
@@ -171,7 +173,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=129;
+		items=130;
 		class Item0
 		{
 			dataType="Marker";
@@ -3648,7 +3650,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={-33.317043,0.0014388561,16446.816};
+						position[]={-33.317001,0.0014388561,16446.816};
 					};
 					side="West";
 					flags=3;
@@ -6269,6 +6271,97 @@ class Mission
 			};
 			id=1052;
 			atlOffset=185.43527;
+		};
+		class Item129
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={28.250999,-0.18200684,16412.035};
+			};
+			id=1054;
+			type="ModuleCurator_F";
+			atlOffset=185.78799;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ModuleCurator_F_Owner";
+					expression="_this setVariable ['Owner',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="sondre_1";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="ModuleCurator_F_Forced";
+					expression="_this setVariable ['Forced',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute2
+				{
+					property="ModuleCurator_F_Name";
+					expression="_this setVariable ['Name',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="ModuleCurator_F_Addons";
+					expression="_this setVariable ['Addons',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=2;
+						};
+					};
+				};
+				nAttributes=4;
+			};
 		};
 	};
 };

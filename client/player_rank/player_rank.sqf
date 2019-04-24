@@ -1,5 +1,3 @@
-
-
 get_rank_skill = {
 	private _rank = [] call calculate_rank;
 	_rank call get_skill_based_on_rank;
@@ -7,7 +5,7 @@ get_rank_skill = {
 
 calculate_rank = {
 	private _current_kill_count = player getvariable ["kills", 0];
-	((_current_kill_count - (_current_kill_count mod arwa_kills_per_rank)) / arwa_kills_per_rank) min arwa_max_rank;	
+	((_current_kill_count - (_current_kill_count mod arwa_kills_per_rank)) / arwa_kills_per_rank) min arwa_max_rank;
 };
 
 get_skill_based_on_rank = {
@@ -29,7 +27,7 @@ calculate_rank_and_skill = {
 
 				private _new_skill = [_new_rank] call get_skill_based_on_rank;
 				if(player isEqualTo (leader group player)) then {
-					[_new_skill, group player] spawn adjust_skill;	
+					[_new_skill, group player] spawn adjust_skill;
 				};
 			};
 		};

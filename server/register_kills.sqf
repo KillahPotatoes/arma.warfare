@@ -123,6 +123,11 @@ calculate_player_death_penalty = {
 	floor (5 max (_faction_strength / 10));
 };
 
+set_kills = {
+	params ["_player", "_kills"];
+	_player setVariable ["kills", 0 max _kills, true];
+};
+
 register_kill = {
 	params ["_victim", "_killer", "_faction_strength"];
 
@@ -143,7 +148,7 @@ register_kill = {
 			private _kills = _player getVariable ["kills", 0];
 			private _new_kills = if(_killer_side isEqualTo _victim_side) then { _kills - 1; } else { _kills + 1; };
 
-			_player setVariable ["kills", _new_kills, true];
+			[_player, _new_kills] call set_kills;
 		};
 
 		private _isVictimLeader = isPlayer (leader group _victim);
@@ -151,7 +156,8 @@ register_kill = {
 		if (_isVictimLeader) then {
 			private _player = leader group _victim;
 			private _kills = _player getVariable ["kills", 0];
-			_player setVariable ["kills", _kills - arwa_squad_mate_death_penalty, true];
+			private _new_kill_score = _kills - arwa_squad_mate_death_penalty;
+			[_player, _new_kill_score] call set_kills;
 		};
 
 		if (_victim_side in arwa_all_sides) then {

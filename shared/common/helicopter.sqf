@@ -9,8 +9,9 @@ spawn_helicopter = {
 	waitUntil { [_pos] call is_air_space_clear; };
 
     private _heli = [_pos, _dir, _helicopter, _side, _kill_bonus] call spawn_vehicle; // TODO add kill bonus
-
-	(_heli select 0) lockDriver true;
+	private _veh = _heli select 0;
+	(driver _veh) disableAI "LIGHTS";
+	_veh lockDriver true;
 	_heli;
 };
 
@@ -86,7 +87,7 @@ take_off_and_despawn = {
 
 		if ((alive _heli_vehicle) && ((_pos distance2D (getPos _heli_vehicle)) < 200)) exitWith	{
 			private _manpower = (_heli_vehicle call remove_soldiers) + (_heli_vehicle call get_manpower);
-			
+
 			_heli_vehicle setVariable [manpower, 0];
 
 			if(_manpower > 0) then {

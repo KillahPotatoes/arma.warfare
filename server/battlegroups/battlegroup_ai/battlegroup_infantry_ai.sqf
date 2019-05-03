@@ -74,7 +74,7 @@ infantry_move_to_sector = {
 
 	if ([_group] call needs_new_waypoint) then {
 		private _target = _group getVariable "target";
-		[_target, _group] call infantry_create_waypoint;	
+		[_new_target, _group] call infantry_create_waypoint;	
 	};
 
 	if ([_group] call approaching_target) then {

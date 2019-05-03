@@ -23,7 +23,7 @@ remove_squad_mates_on_death = {
 
 	if(count units _group > 1) then {
 		private _new_group = createGroup [side _player, true];
-		[player] joinSilent _new_group;		
+		[player] joinSilent _new_group;
 		[_new_group] remoteExec ["add_battle_group", 2];
 	};
 
@@ -33,9 +33,9 @@ remove_squad_mates_on_death = {
 reset_player_stats = {
 	params ["_player"];
 
-	_player setVariable ["kills", 0];
+	_player setVariable ["kills", 0, true];
 	_player setVariable ["rank", 0, true];
-	_player setVariable [manpower, 0];
+	_player setVariable [manpower, 0, true];
 };
 
 [player] call reset_player_stats;

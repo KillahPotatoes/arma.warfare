@@ -1,6 +1,6 @@
 
 show_ui = {
-	
+
 	with uiNamespace do {
 		arwa_max_rank = missionNamespace getVariable "arwa_max_rank";
 		arwa_kills_per_rank = missionNamespace getVariable "arwa_kills_per_rank";
@@ -23,12 +23,12 @@ show_ui = {
 		print_percentage = {
 			params ["_side"];
 
-			_tier = _side call get_tier; 
+			_tier = _side call get_tier;
 			_percentage = _side call get_tier_progress;
 
 			if (_tier == 2) exitWith {
 				"";
-			}; 
+			};
 
 			format[" %1%2", _percentage, "%"];
 		};
@@ -53,15 +53,14 @@ show_ui = {
 		print_rank = {
 			private _ranks = ["Private", "Sergant", "Lieutenant", "Captain", "Major", "Elite"];
 			private _rank = (player getVariable "rank") max 0;
-			
-			
+
 			if(_rank < arwa_max_rank) then {
-				private _kills = (player getVariable "kills") max 0;
+				private _kills = (player getVariable ["kills", 0]) max 0;
 				private _percentage = floor(((_kills mod arwa_kills_per_rank) / arwa_kills_per_rank) * 100);
 				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", _ranks select _rank, _percentage, "%"];
 			} else {
 				format["<t color='#000000' align='right' size='1'>%1</t>", _ranks select _rank];
-			};			
+			};
 		};
 
 		print_manpower = {
@@ -76,8 +75,8 @@ show_ui = {
 			_ctrl ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH * 0.5, safeZoneW, safeZoneH * 0.15];
 			_ctrl ctrlCommit 0;
 
-			while {true} do {			
-				
+			while {true} do {
+
 				_ctrl ctrlSetStructuredText parseText format[
 					"%1<br />%2<br />%3<br />%4<br />%5",
 					[] call print_rank,
@@ -91,6 +90,5 @@ show_ui = {
 		};
 
 	};
-	
-};
 
+};

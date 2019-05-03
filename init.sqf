@@ -52,7 +52,7 @@ if(arwa_drone_feature) then {
 
 player setVariable [manpower, 0];
 player setVariable ["rank", 0, true];
-player setVariable ["kills", 0];
+player setVariable ["kills", 0, true];
 
 [group player] remoteExec ["add_battle_group", 2];
 

@@ -48,16 +48,13 @@ if (isNil ("RydFFE_FOClass")) then {RydFFE_FOClass =
 	"b_uav_02_f"
 	]};
 
-if (isNil "RydFFE_Add_SPMortar") then {RydFFE_Add_SPMortar = []};
-if (isNil "RydFFE_Add_Mortar") then {RydFFE_Add_Mortar = []};
-if (isNil "RydFFE_Add_Rocket") then {RydFFE_Add_Rocket = []};
-if (isNil "RydFFE_Add_Other") then {RydFFE_Add_Other = []};
+
 if (isNil "RydFFE_IowaMode") then {RydFFE_IowaMode = false};
 
-RydFFE_SPMortar = [] + RydFFE_Add_SPMortar;
-RydFFE_Mortar = [] + RydFFE_Add_Mortar + west_static_artillery + guer_static_artillery + east_static_artillery;
-RydFFE_Rocket = [] + RydFFE_Add_Rocket;
-RydFFE_Other = [] + RydFFE_Add_Other;
+RydFFE_SPMortar = east_artillery + guer_artillery + west_artillery;
+RydFFE_Mortar =  east_mortar + guer_mortar + west_mortar;
+RydFFE_Rocket = east_rockets + west_rockets + guer_rockets;
+RydFFE_Other = [];
 
 _allArty = RydFFE_SPMortar + RydFFE_Mortar + RydFFE_Rocket;
 

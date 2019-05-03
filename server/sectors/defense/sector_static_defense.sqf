@@ -2,7 +2,12 @@ spawn_static = {
 	params ["_pos", "_side"];
 
 	private _orientation = random 360;
-	private _type = selectRandom (missionNamespace getVariable format["%1_static_artillery", _side]);
+
+	private _available_art = [_side, "static_artillery"] call get_units_based_on_tier;
+
+	if(_available_art isEqualTo []) exitWith {};
+
+	private _type = selectRandom (_available_art);
 	private _static_pos = [_pos, 5, 25, 7, 0.25, 0, 0,[_pos, _pos]] call BIS_fnc_findSafePos;
 
 	if(!(_static_pos isEqualTo _pos)) exitWith {

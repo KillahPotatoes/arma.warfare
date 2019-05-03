@@ -47,7 +47,7 @@ rearm_delay = {
 		diag_log format["%1 reloaded", _this select 0];
 
 		_veh setVariable["fired_barrage", false];
-	};	
+	};
 };
 
 remove_static = {

@@ -1,12 +1,12 @@
 add_sector_box = {
 	params ["_sector"];
 
-	private _pos = _sector getVariable pos;	 
-	private _ammo_box = ammo_box createVehicle (_pos);	
-	
+	private _pos = _sector getVariable pos;
+	private _ammo_box = ammo_box createVehicle (_pos);
+
 	_ammo_box enableRopeAttach false;
 	_sector setVariable [box, _ammo_box];
-	_ammo_box setVariable [owned_by, civilian, true];	
+	_ammo_box setVariable [owned_by, civilian, true];
 	_ammo_box setVariable [manpower, 0, true];
 	_ammo_box setVariable ["sector", true, true];
 };
@@ -19,8 +19,8 @@ initialize_sectors = {
 		if (_type isEqualTo "hd_objective") then {
 			_split_string = [_x, 7] call split_string;
 			_first_string = _split_string select 0;
-			_second_string = _split_string select 1;					
-			
+			_second_string = _split_string select 1;
+
 			_sector = createGroup sideLogic;
 			_sector setVariable [pos, getMarkerPos _x];
 			_sector setVariable [marker, _x];
@@ -28,9 +28,9 @@ initialize_sectors = {
 			_sector setVariable [sector_name, _second_string];
 
 			[_sector] call draw_sector;
-			_sectors pushback _sector;	
-			
-			_ammo_box = [_sector] call add_sector_box;	
+			_sectors pushback _sector;
+
+			_ammo_box = [_sector] call add_sector_box;
 
 			[_sector] spawn initialize_sector_control;
 
@@ -60,9 +60,9 @@ get_safe_sectors = {
 
 get_unsafe_sectors = {
 	params ["_side"];
-	
+
 	private _safe_sectors = [_side, arwa_sector_size] call get_safe_sectors;
-	
+
 	(_side call get_owned_sectors) - _safe_sectors;
 };
 
@@ -75,13 +75,13 @@ add_sector = {
 remove_sector = {
 	params ["_side", "_sector"];
 	private _sectors = missionNamespace getVariable format["%1_sectors", _side];
-	private _index = _sectors find (_sector); 
-	_sectors deleteAt (_index);		
+	private _index = _sectors find (_sector);
+	_sectors deleteAt (_index);
 };
 
 get_unowned_sectors = {
 	private _sectors = sectors;
-	
+
 	{
 		_sectors = _sectors - (missionNamespace getVariable format["%1_sectors", _x]);
 	} foreach arwa_all_sides;
@@ -127,15 +127,15 @@ get_sector_manpower = {
 
 find_closest_friendly_sector = {
 	params ["_side", "_pos"];
-	
-	private _sectors = [_side] call get_owned_sectors;	
+
+	private _sectors = [_side] call get_owned_sectors;
 	[_sectors, _pos] call find_closest_sector;
 };
 
 find_enemy_sectors = {
 	params ["_side"];
 
-	private _enemy = arwa_all_sides - [_side];	
+	private _enemy = arwa_all_sides - [_side];
 	([_enemy select 0] call get_owned_sectors) + ([_enemy select 1] call get_owned_sectors);
 };
 

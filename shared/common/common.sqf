@@ -10,7 +10,7 @@ player_already_in_hq = {
   params ["_player"];
 
   private _pos = getMarkerPos ([side _player, respawn_ground] call get_prefixed_name);
-  (getPos _player) distance _pos > 25; 
+  (getPos _player) distance _pos > 25;
 };
 
 not_in_vehicle = {
@@ -35,7 +35,7 @@ spawn_vehicle = {
    private _veh_arr = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;
    private _veh = _veh_arr select 0;
    _veh setVariable [owned_by, _side, true];
-   _veh setVariable [arwa_kill_bonus, _kill_bonus, true];	
+   _veh setVariable [arwa_kill_bonus, _kill_bonus, true];
 
    _veh_arr;
 };
@@ -74,8 +74,8 @@ remove_nvg_and_add_flash_light_unit = {
     private _side = side _unit;
 
     private _nvgoogles = missionNamespace getVariable format["nvgoogles_%1", _side];
-    
-  	_unit unassignItem _nvgoogles; 
+
+  	_unit unassignItem _nvgoogles;
 		_unit removeItem _nvgoogles;
 		_unit addPrimaryWeaponItem "acc_flashlight";
 		//_unit enableGunLights "forceon";
@@ -100,7 +100,7 @@ get_direction = {
     case ([_dir, 191, 260] call is_between): { "south west"; };
     case ([_dir, 261, 280] call is_between): { "west"; };
     case ([_dir, 281, 350] call is_between): { "north west"; };
-    case ([_dir, 351, 360] call is_between): { "north"; };       
+    case ([_dir, 351, 360] call is_between): { "north"; };
   };
 };
 
@@ -121,18 +121,18 @@ get_vehicle_display_name = {
     params ["_class_name"];
 
     private _cfg  = (configFile >>  "CfgVehicles" >>  _class_name);
-	
+
     private _name = if (isText(_cfg >> "displayName")) exitWith {
         getText(_cfg >> "displayName")
     };
-    
+
 	_class_name;
 };
 
 adjust_skill = {
 	params ["_skill", "_squad"];
 
-	{		
+	{
 		_x setSkill _skill;
-	} forEach (units _squad);	
+	} forEach (units _squad);
 };

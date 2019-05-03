@@ -39,7 +39,7 @@ west_sympathizers = [
 	["B_G_engineer_F", 0],
 	["B_G_medic_F", 0],
 	["B_G_Sharpshooter_F", 0]
-	
+
 ];
 
 east_sympathizers = [
@@ -115,7 +115,7 @@ guer_infantry_tier_0 = [
 	["I_engineer_F", 0]
 ];
 
-guer_infantry_tier_1 = [	
+guer_infantry_tier_1 = [
 	["I_Soldier_AT_F", 0]
 ];
 

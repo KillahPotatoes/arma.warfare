@@ -6,18 +6,18 @@ spawn_gunship_groups = {
 
 find_target_sectors = {
 	params ["_side"];
-	
+
 	([_side] call find_enemy_sectors) + ([_side] call get_unsafe_sectors);
 };
 
 spawn_gunships = {
 	params ["_side"];
-	
+
 	while {true} do {
 
 		private _tier = [_side] call get_tier;
 		private _wait_time = tier_base_gunship_respawn_time + (random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]));
-		
+
 		sleep _wait_time;
 
 		if(_side call has_manpower && !arwa_cease_fire) then {
@@ -27,9 +27,9 @@ spawn_gunships = {
 
 			private _gunship = [_side] call spawn_gunship_group;
 			if (isNil "_gunship") exitWith {};
-			[_gunship select 2] spawn add_battle_group;		
+			[_gunship select 2] spawn add_battle_group;
 		};
-						
+
 	};
 };
 
@@ -44,7 +44,7 @@ spawn_gunship_group = {
 	private _gunship = _random_selection select 0;
 	private _kill_bonus = _random_selection select 1;
 	private _gunship_name = _gunship call get_vehicle_display_name;
-	
+
 	diag_log format ["%1: Spawn gunship: %2", _side, _gunship_name];
 	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
 

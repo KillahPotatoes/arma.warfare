@@ -19,8 +19,16 @@ spawn_static = {
 		[_group] call remove_nvg_and_add_flash_light;
 
 		{
-			_x setSkill ["spotDistance", 0];
-			_x setSkill ["spotTime", 0];
+			_x disableAI "TARGET";
+			_x disableAI "AUTOTARGET";
+			_x disableAI "MOVE";
+			_x disableAI "AIMINGERROR";
+			_x disableAI "SUPPRESSION";
+			_x disableAI "CHECKVISIBLE";
+			_x disableAI "COVER";
+			_x disableAI "AUTOCOMBAT";
+			_x disableAI "PATH";
+			_x disableAI "MINEDETECTION";
 		} forEach units _group;
 
 		private _veh = _static select 0;

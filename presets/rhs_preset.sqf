@@ -1,12 +1,29 @@
 ammo_box = "B_CargoNet_01_ammo_F";
 manpower_box = "Land_Ammobox_rounds_F";
 
-anti_vehicle_mines = ["SLAMDirectionalMine", "ATMine"];		
+anti_vehicle_mines = ["SLAMDirectionalMine", "ATMine"];
 anti_personel_mines = ["APERSBoundingMine", "APERSMine", "APERSTripMine"];
 
 nvgoogles_guer = "NVGoggles_INDEP";
 nvgoogles_west = "NVGoggles";
 nvgoogles_east = "NVGoggles_OPFOR";
+
+west_uavs = [
+	["B_UAV_02_F", 30],
+	["B_UAV_02_CAS_F", 30],
+	["B_UAV_05_F", 30]
+];
+
+east_uavs = [
+	["O_UAV_02_F", 30],
+	["O_UAV_02_CAS_F", 30],
+	["O_T_UAV_04_CAS_F", 30]
+];
+
+guer_uavs = [
+	["I_UAV_02_F", 30],
+	["I_UAV_02_CAS_F", 30]
+];
 
 west_sympathizers = [
 	["B_G_Soldier_TL_F", 0],
@@ -18,7 +35,7 @@ west_sympathizers = [
 	["B_G_engineer_F", 0],
 	["B_G_medic_F", 0],
 	["B_G_Sharpshooter_F", 0]
-	
+
 ];
 
 east_sympathizers = [
@@ -46,7 +63,7 @@ guer_sympathizers = [
 ];
 
 west_infantry_tier_0 = [
-	["B_soldier_F", 0], 
+	["B_soldier_F", 0],
 	["B_soldier_AR_F", 0],
 	["B_HeavyGunner_F", 0],
 	["B_Soldier_GL_F", 0],
@@ -63,7 +80,7 @@ east_infantry_tier_0 = [
 	["rhs_vdv_mflora_sergeant", 0],
 	["rhs_vdv_mflora_machinegunner", 0],
 	["rhs_vdv_mflora_grenadier", 0],
-	["rhs_vdv_mflora_efreitor", 0],	
+	["rhs_vdv_mflora_efreitor", 0],
 	["rhs_vdv_mflora_grenadier_rpg", 0],
 	["rhs_vdv_mflora_strelok_rpg_assist", 0],
 	["rhs_vdv_mflora_junior_sergeant", 0],
@@ -94,9 +111,29 @@ guer_infantry_tier_0 = [
 
 // ARTILLERY
 
-west_static_artillery = ["RHS_M119_WD", "B_Mortar_01_F"];
-guer_static_artillery = ["I_Mortar_01_F", "rhsgref_nat_d30"];
-east_static_artillery = ["O_Mortar_01_F", "rhs_D30_msv"];
+west_mortar = ["B_Mortar_01_F"];
+west_artillery = ["B_MBT_01_arty_F", "RHS_M119_WD"];
+west_rockets = ["B_MBT_01_mlrs_F"];
+
+west_static_artillery_tier_0 = west_mortar;
+west_static_artillery_tier_1 = west_artillery;
+west_static_artillery_tier_2 = west_rockets;
+
+guer_mortar = ["I_Mortar_01_F"];
+guer_artillery = ["rhsgref_nat_d30"];
+guer_rockets = ["I_Truck_02_MRL_F"];
+
+guer_static_artillery_tier_0 = guer_mortar;
+guer_static_artillery_tier_1 = guer_artillery;
+guer_static_artillery_tier_2 = guer_rockets;
+
+east_mortar = ["O_Mortar_01_F"];
+east_artillery = ["O_MBT_02_arty_F", "rhs_D30_msv"];
+east_rockets = [];
+
+east_static_artillery_tier_0 = east_mortar;
+east_static_artillery_tier_1 = east_artillery;
+east_static_artillery_tier_2 = east_rockets;
 
 // WEST VEHICLES
 
@@ -247,7 +284,7 @@ west_helicopter_tier_2 = [
 	["B_Heli_Attack_01_F", 40], // AH-99 Blackfoot
 	["RHS_AH64D_wd", 50], // AH64D
 	["RHS_AH64D_wd_CS", 50], // AH64D CS
-	["RHS_AH64D_wd_AA", 50] // AH64D AA	
+	["RHS_AH64D_wd_AA", 50] // AH64D AA
 ];
 
 west_helicopter_tier_1 = [

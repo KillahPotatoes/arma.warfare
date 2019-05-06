@@ -39,7 +39,7 @@ briefingName = "SC 12 arma.warfare";
 
 // Path to image which will be displayed when the mission is highlighted on the mission selection screen.
 // Image should be .paa format and in 2:1 aspect ratio – ideally 1024x512 (Arma 3).
-overviewPicture = "";
+overviewPicture = "assets\arma.warfare_co.paa";
 
 // Text to be displayed below the overviewPicture on the mission selection screen
 overviewText = "This is a sector control mission for Arma 3 with emphasize on easy setup for new missions, combined arms gameplay and automatic difficulty scaling.";
@@ -55,10 +55,10 @@ onLoadName = "SC 12 arma.warfare";
 
 // You can define a picture to be shown while the mission is loaded.
 // The path is relative to the mission folder.
-loadScreen = "";
+loadScreen = "assets\arma.warfare_co.paa";
 
 // Displays a message while the mission is loading below the loadScreen picture.
-onLoadMission = "3 teams are fighting for the island...";
+onLoadMission = "3 teams are fighting for control...";
 
 
 /*

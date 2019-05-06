@@ -8,7 +8,13 @@ spawn_static = {
 	if(_available_art isEqualTo []) exitWith {};
 
 	private _type = selectRandom (_available_art);
-	private _static_pos = [_pos, 5, 75, 15, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
+	private _static_pos = _pos;
+	private _maxDist = 25;
+
+	while{_static_pos isEqualTo _pos && _maxDist < arwa_sector_size} do {
+		_static_pos = [_pos, 5, _maxDist, 10, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
+		_maxDist = _maxDist + 25;
+	};
 
 	if(!(_static_pos isEqualTo _pos)) exitWith {
 		private _static = [_static_pos, _orientation, _type, _side] call spawn_vehicle;

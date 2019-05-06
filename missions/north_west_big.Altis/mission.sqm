@@ -52,7 +52,6 @@ addons[]=
 	"A3_Structures_F_Mil_BagBunker",
 	"A3_Structures_F_Mil_Shelters",
 	"A3_Characters_F",
-	"asr_ai3_skills",
 	"A3_Modules_F_Curator_Curator"
 };
 class AddonsMetaData

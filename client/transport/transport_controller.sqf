@@ -30,7 +30,7 @@ move_transport_to_pick_up = {
 	[_group, [_msg]] spawn group_report_client;
 
 	if(_veh isKindOf "Air") then {
-		[_group, _veh, "GET IN", _pos] call land_helicopter;
+		[_group, _veh, "GET IN", _pos] call ARWA_land_helicopter;
 	} else {
 		[_group, _veh, _pos] call send_vehicle_transport;
 	};
@@ -140,7 +140,7 @@ interrupt_transport_misson = {
 	sleep 3;
 
 	private _success = if(_veh isKindOf "Air") then {
-		[_group, _veh] call take_off_and_despawn;
+		[_group, _veh] call ARWA_take_off_and_despawn;
 	} else {
 		[_group, _veh] call send_to_HQ;
 	};

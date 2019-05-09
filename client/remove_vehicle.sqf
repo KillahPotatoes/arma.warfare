@@ -1,7 +1,7 @@
 remove_vehicle_action = {
 	params["_veh"];
 
-  	_veh addAction [["Return vehicle", 0] call addActionText, {
+  	_veh addAction [["Return vehicle", 0] call ARWA_add_action_text, {
     	params ["_target", "_caller"];
 
 		if(0 == count crew _target) exitWith {
@@ -11,7 +11,7 @@ remove_vehicle_action = {
 		
 		systemChat localize "VEHICLE_NOT_EMPTY";
   	}, nil, ARWA_return_vehicle, false, true, "",
-  	'[_this] call is_player_in_hq && [_target, _this] call is_same_side && [_this] call not_in_vehicle', 10
+  	'[_this] call is_player_in_hq && [_target, _this] call is_same_side && [_this] call ARWA_not_in_vehicle', 10
   	];
 };
 

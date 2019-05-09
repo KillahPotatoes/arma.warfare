@@ -21,7 +21,7 @@ has_uav_terminal = {
 show_order_uav = {	
 	missionNameSpace setVariable ["uav_menu", false];
 
-	player addAction [[localize "REQUEST_DRONE", 0] call addActionText, {
+	player addAction [[localize "REQUEST_DRONE", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		if(ARWA_uav_timer > time) exitWith { 
@@ -52,9 +52,9 @@ show_uav_options = {
 	{
 		private _class_name = _x select 0;
 		private _penalty = _x select 1;
-		private _name = _class_name call get_vehicle_display_name;
+		private _name = _class_name call ARWA_get_vehicle_display_name;
 
-		ARWA_uav_options pushBack (player addAction [[_name, 2] call addActionText, {
+		ARWA_uav_options pushBack (player addAction [[_name, 2] call ARWA_add_action_text, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
@@ -72,7 +72,7 @@ order_uav = {
 	private _arr = [playerSide, _class_name, _penalty] call spawn_uav;
 	private _uav = _arr select 0;
 	private _group = _arr select 2;
-	private _name = (typeOf _uav) call get_vehicle_display_name;
+	private _name = (typeOf _uav) call ARWA_get_vehicle_display_name;
 
 	[_uav, _group] spawn cancel_uav_on_player_death;
 	[_uav] call show_cancel_uav_action;
@@ -162,7 +162,7 @@ cancel_uav_on_player_death = {
 show_cancel_uav_action = {
 	params ["_uav"];
 
-	ARWA_cancel_uav_id = player addAction [[localize "SEND_DRONE_TO_HQ", 0] call addActionText, {
+	ARWA_cancel_uav_id = player addAction [[localize "SEND_DRONE_TO_HQ", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _uav = _arguments select 0;
@@ -181,9 +181,9 @@ spawn_uav = {
 	private _dir = _pos getDir _base_pos;
 	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + ARWA_uav_flight_height];
 
-	waitUntil { [_pos] call is_air_space_clear; };
+	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
-    private _uav_arr = [_pos, _dir, _class_name, _side, _penalty] call spawn_vehicle;
+    private _uav_arr = [_pos, _dir, _class_name, _side, _penalty] call ARWA_spawn_vehicle;
 
 
 	ARWA_uav_active = true;

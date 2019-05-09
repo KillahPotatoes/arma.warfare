@@ -48,7 +48,7 @@ pick_sector = {
 special_forces_insertion = {
 	params ["_side", "_can_spawn", "_sector"];
 
-	private _safe = !([_side, _sector getVariable pos] call any_enemies_in_sector);
+	private _safe = !([_side, _sector getVariable pos] call ARWA_any_enemies_in_sector);
 
 	private _spawn_pos = getMarkerPos ([_side, respawn_air] call ARWA_get_prefixed_name);
 	private _sector_pos = _sector getVariable pos;
@@ -67,7 +67,7 @@ helicopter_insertion = {
 
 	if (isNil "_sector") exitWith {};
 
-	private _safe = !([_side, _sector getVariable pos] call any_enemies_in_sector);
+	private _safe = !([_side, _sector getVariable pos] call ARWA_any_enemies_in_sector);
 
 	private _spawn_pos = getMarkerPos ([_side, respawn_air] call ARWA_get_prefixed_name);
 	private _sector_pos = _sector getVariable pos;
@@ -82,27 +82,27 @@ helicopter_insertion = {
 do_helicopter_insertion = {
 	params ["_side", "_can_spawn", "_pos", "_sector", ["_mission_attr", [false, false]]];
 
-	private _heli = [_side] call spawn_transport_heli;
+	private _heli = [_side] call ARWA_spawn_transport_heli;
 	private _group = [_heli, _can_spawn] call add_soldiers_to_helicopter_cargo;
-	private _name = (typeOf (_heli select 0)) call get_vehicle_display_name;
+	private _name = (typeOf (_heli select 0)) call ARWA_get_vehicle_display_name;
 	private _sector_name = _sector getVariable sector_name;
 
 	[_mission_attr, _group, _sector] call set_special_mission_attr;
 
-	diag_log format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), [_sector_name] call replace_underscore, _mission_attr select 0, _mission_attr select 1, _side];
+	diag_log format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), [_sector_name] call ARWA_replace_underscore, _mission_attr select 0, _mission_attr select 1, _side];
 	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
 	
-	[_side, ["INSERTING_SQUAD", _name, count units _group, [_sector_name] call replace_underscore]] remoteExec ["HQ_report_client"];
+	[_side, ["INSERTING_SQUAD", _name, count units _group, [_sector_name] call ARWA_replace_underscore]] remoteExec ["HQ_report_client"];
 	[_heli select 2, _heli select 0, _pos] call move_to_sector_outskirt; 
 	
 	[_group, _heli select 0] call dispatch_heli_battlegroup;	
-	[_heli select 2, _heli select 0] spawn take_off_and_despawn; 	
+	[_heli select 2, _heli select 0] spawn ARWA_take_off_and_despawn; 	
 };
 
 dispatch_heli_battlegroup = {
 	params ["_grp", "_heli_vehicle"];
 
-	[_heli_vehicle] spawn toggle_damage_while_landing;
+	[_heli_vehicle] spawn ARWA_toggle_damage_while_landing;
 
 	{
 		unassignVehicle _x;

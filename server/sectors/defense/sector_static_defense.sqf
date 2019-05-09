@@ -3,7 +3,7 @@ spawn_static = {
 
 	private _orientation = random 360;
 
-	private _available_art = [_side, "static_artillery"] call get_units_based_on_tier;
+	private _available_art = [_side, "static_artillery"] call ARWA_get_units_based_on_tier;
 
 	if(_available_art isEqualTo []) exitWith {};
 
@@ -17,12 +17,12 @@ spawn_static = {
 	};
 
 	if(!(_static_pos isEqualTo _pos)) exitWith {
-		private _static = [_static_pos, _orientation, _type, _side] call spawn_vehicle;
+		private _static = [_static_pos, _orientation, _type, _side] call ARWA_spawn_vehicle;
 		private _group = _static select 2;
 		_group deleteGroupWhenEmpty true;
 		_group enableDynamicSimulation false;
 		_group setVariable [defense, true];
-		[_group] call remove_nvg_and_add_flash_light;
+		[_group] call ARWA_remove_nvg_and_add_flash_light;
 
 		{
 			_x disableAI "TARGET";

@@ -27,7 +27,7 @@ calculate_rank_and_skill = {
 
 				private _new_skill = [_new_rank] call get_skill_based_on_rank;
 				if(player isEqualTo (leader group player)) then {
-					[_new_skill, group player] spawn adjust_skill;
+					[_new_skill, group player] spawn ARWA_adjust_skill;
 				};
 			};
 		};

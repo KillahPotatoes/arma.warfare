@@ -28,9 +28,9 @@ join_squad = {
 };
 
 leave_squad = {  
-  	player addAction [[localize "LEAVE_SQUAD", 0] call addActionText, {
+  	player addAction [[localize "LEAVE_SQUAD", 0] call ARWA_add_action_text, {
 
-			private _enemies_nearby = [getPos player, playerSide, ARWA_sector_size] call any_enemies_in_area;
+			private _enemies_nearby = [getPos player, playerSide, ARWA_sector_size] call ARWA_any_enemies_in_area;
 			
 			if(_enemies_nearby) exitWith {
 				systemChat localize "CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY";
@@ -51,7 +51,7 @@ find_friendly_squads = {
 		
 	!(group player isEqualTo _group)
 	&& (side _group isEqualTo _side) 
-	&& [(leader _group)] call not_in_vehicle 
+	&& [(leader _group)] call ARWA_not_in_vehicle 
 	&& (_pos distance (leader _group)) < _distance;
 };
 
@@ -74,7 +74,7 @@ any_friendly_squads_in_area = {
 
 get_squad_name = {
 	params ["_group"];
-	_split_string = [groupId _group, 0] call split_string;
+	_split_string = [groupId _group, 0] call ARWA_split_string;
 	_split_string select 1;
 };
 
@@ -86,7 +86,7 @@ list_join_options = {
 
 	{
 		private _name = [_x] call get_squad_name;
-		join_options pushBack (player addAction [[_name, 2] call addActionText, {
+		join_options pushBack (player addAction [[_name, 2] call ARWA_add_action_text, {
 			private _params = _this select 3;
 			private _group = _params select 0;
 
@@ -99,7 +99,7 @@ list_join_options = {
 };
 
 create_join_menu = {
-	player addAction [[localize "JOIN_SQUAD", 0] call addActionText, {
+	player addAction [[localize "JOIN_SQUAD", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		[] call remove_all_join_options;
@@ -119,7 +119,7 @@ can_take_lead = {
 };
 
 take_lead_menu = {
-	player addAction [[localize "TAKE_LEAD", 0] call addActionText, {
+	player addAction [[localize "TAKE_LEAD", 0] call ARWA_add_action_text, {
 	(group player) selectLeader player;
 	}, [], ARWA_squad_actions, false, true, "", '[] call can_take_lead', 10]	
 };

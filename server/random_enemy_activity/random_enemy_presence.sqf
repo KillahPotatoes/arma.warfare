@@ -64,7 +64,7 @@ populate_house = {
 		random_enemies pushBack _x;
 	} forEach units _group;
 
-	[_group] call remove_nvg_and_add_flash_light;
+	[_group] call ARWA_remove_nvg_and_add_flash_light;
 
 	[_group, _building] spawn remove_when_no_player_closeby;
 };
@@ -79,7 +79,7 @@ house_can_be_populated = {
 	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
 	&& {(_sector_pos distance2D _pos) > ARWA_sector_size}
 	&& {!(_building getVariable ["occupied", false])}	
-	&& {!([_pos, _side, 400] call any_enemies_in_area)}
+	&& {!([_pos, _side, 400] call ARWA_any_enemies_in_area)}
 };
 
 remove_when_no_player_closeby = {

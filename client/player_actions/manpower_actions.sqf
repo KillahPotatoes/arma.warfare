@@ -1,9 +1,9 @@
 add_take_manpower = {  
-  player addAction [[localize "TAKE_MANPOWER", 0] call addActionText, {
+  player addAction [[localize "TAKE_MANPOWER", 0] call ARWA_add_action_text, {
 		  params ["_target", "_caller"];
 
-      private _new_manpower = cursorTarget call get_manpower;
-      private _manpower = (_caller call get_manpower) + _new_manpower;
+      private _new_manpower = cursorTarget call ARWA_get_manpower;
+      private _manpower = (_caller call ARWA_get_manpower) + _new_manpower;
     
       _caller setVariable [manpower, _manpower, true];
       cursorTarget setVariable [manpower, 0, true];
@@ -12,10 +12,10 @@ add_take_manpower = {
 }; 
 
 add_store_manpower = {  
-  player addAction [[localize "STORE_MANPOWER", 0] call addActionText, {
+  player addAction [[localize "STORE_MANPOWER", 0] call ARWA_add_action_text, {
 		  params ["_target", "_caller"];
       
-      private _manpower = (_caller call get_manpower) + (cursorTarget call get_manpower);
+      private _manpower = (_caller call ARWA_get_manpower) + (cursorTarget call ARWA_get_manpower);
     
       _caller setVariable [manpower, 0, true];
       cursorTarget setVariable [manpower, _manpower, true];
@@ -27,23 +27,23 @@ can_take_manpower = {
   params ["_target"];  
   
   (player distance _target < 3)
-  && {(_target call get_manpower) > 0}
+  && {(_target call ARWA_get_manpower) > 0}
 };
 
 can_store_manpower = {
   params ["_target"]; 
     
   player distance _target < 3
-  && {(player call get_manpower) > 0};
+  && {(player call ARWA_get_manpower) > 0};
 };
 
 add_manpower_action = {
 	params ["_box"];
 
-	_box addAction [[localize "ADD_MANPOWER", 0] call addActionText, {	
+	_box addAction [[localize "ADD_MANPOWER", 0] call ARWA_add_action_text, {	
 		params ["_target", "_caller"];
 
-		private _manpower = _caller call get_manpower;
+		private _manpower = _caller call ARWA_get_manpower;
 	
 		_caller setVariable [manpower, 0];
 

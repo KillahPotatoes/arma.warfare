@@ -17,7 +17,7 @@ initialize_sectors = {
 		_type = getMarkerType _x;
 
 		if (_type isEqualTo "hd_objective") then {
-			_split_string = [_x, 7] call split_string;
+			_split_string = [_x, 7] call ARWA_split_string;
 			_first_string = _split_string select 0;
 			_second_string = _split_string select 1;
 
@@ -49,7 +49,7 @@ is_sector_safe = {
 
 	private _pos = _sector getVariable pos;
 
-	!([_pos, _side, _distance] call any_enemies_in_area);
+	!([_pos, _side, _distance] call ARWA_any_enemies_in_area);
 };
 
 get_safe_sectors = {

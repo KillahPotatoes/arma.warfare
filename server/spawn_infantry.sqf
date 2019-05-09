@@ -16,7 +16,7 @@ create_squad = {
 pick_soldiers = {
 	params ["_side", "_number"];
 
-	private _preset = [_side, infantry] call get_units_based_on_tier;
+	private _preset = [_side, infantry] call ARWA_get_units_based_on_tier;
 	[_preset, _number] call create_squad;
 };
 

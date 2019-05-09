@@ -1,4 +1,4 @@
-split_string = {
+ARWA_split_string = {
   params ["_marker", "_charNumber"];
   
   _sub_string_1 = toArray _marker;   
@@ -12,7 +12,7 @@ split_string = {
   [_sub_string_1, _sub_string_2];
 };
 
-replace_underscore = {
+ARWA_replace_underscore = {
   params ["_str"];
 
   private _str = _str splitString "_";

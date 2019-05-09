@@ -10,7 +10,7 @@ spawn_sector_defense = {
 	while {true} do {
 		private _faction = _sector getVariable owned_by;
 
-		if(!(_faction isEqualTo civilian) && {!([_faction, _pos] call any_enemies_in_sector)}) then {
+		if(!(_faction isEqualTo civilian) && {!([_faction, _pos] call ARWA_any_enemies_in_sector)}) then {
 
 			if(_current_faction isEqualTo _faction) then {
 

@@ -38,7 +38,7 @@ initialize_air_group_ai = {
 	while{[_group] call group_is_alive} do {
 
 		if(!(someAmmo _veh)) exitWith {
-			[_group, _veh] spawn take_off_and_despawn;
+			[_group, _veh] spawn ARWA_take_off_and_despawn;
 		};
 
 		if([_group] call group_should_be_commanded) then {

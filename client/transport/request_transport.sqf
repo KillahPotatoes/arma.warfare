@@ -23,7 +23,7 @@ order_transport = {
 	private _arr = [playerSide, _class_name, _penalty] call spawn_transport;
 	private _veh = _arr select 0;
 	private _group = _arr select 2;
-	private _name = (typeOf _veh) call get_vehicle_display_name;
+	private _name = (typeOf _veh) call ARWA_get_vehicle_display_name;
 
 	[_veh, _group] spawn cancel_on_player_death;
 	[_veh] spawn show_active_transport_menu;
@@ -37,7 +37,7 @@ spawn_transport = {
 	params ["_side", "_class_name", "_penalty"];
 
 	private _arr = if(_class_name isKindOf "Air") then {
-	    [_side, _class_name, _penalty] call spawn_helicopter;
+	    [_side, _class_name, _penalty] call ARWA_spawn_helicopter;
 	} else {
 		[_side, _class_name, _penalty] call spawn_transport_vehicle;
 	};

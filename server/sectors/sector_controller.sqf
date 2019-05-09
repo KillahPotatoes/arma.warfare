@@ -30,7 +30,7 @@ capture_sector = {
 	if([_pos, _new_owner] call players_nearby_captured_sector && {!(_old_owner isEqualTo civilian) &&  !(_old_owner isEqualTo _new_owner)}) then {
 
 		private _ammo_box = _sector getVariable box;
-		private _manpower = _ammo_box call get_manpower;
+		private _manpower = _ammo_box call ARWA_get_manpower;
 		_ammo_box setVariable [manpower, (_manpower + ARWA_capture_sector_bonus), true];
 	};
 
@@ -102,7 +102,7 @@ initialize_sector_control = {
 	private _counter = 0;
 	private _current_faction = _sector getVariable owned_by;
 	_sector setVariable ["reinforements_available", false];
-	private _sector_name = [_sector getVariable sector_name] call replace_underscore;
+	private _sector_name = [_sector getVariable sector_name] call ARWA_replace_underscore;
 	private _report_attack = true;
 	private _old_owner = civilian;
 
@@ -110,7 +110,7 @@ initialize_sector_control = {
 		private _owner = _sector getVariable owned_by;
 
 		if (_owner isEqualTo civilian) then {
-			private _units = [_sector] call get_all_units_in_sector;
+			private _units = [_sector] call ARWA_get_all_units_in_sector;
 
 			if(count _units == 0) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if no units, no change
 
@@ -119,7 +119,7 @@ initialize_sector_control = {
 
 			// Get the only faction in sector
 			private _faction = _factions select 0;
-			if(!([_faction, _pos] call any_friendlies_in_sector_center)) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // no units in sector center, no change
+			if(!([_faction, _pos] call ARWA_any_friendlies_in_sector_center)) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // no units in sector center, no change
 
 			if(_current_faction isEqualTo _faction) then {
 				if(_counter == ARWA_capture_time) then {					
@@ -136,8 +136,8 @@ initialize_sector_control = {
 				};
 			};
 		} else {
-			private _under_attack = ([_owner, _pos] call any_enemies_in_sector);
-			private _being_overtaken = ([_owner, _pos] call any_enemies_in_sector_center);
+			private _under_attack = ([_owner, _pos] call ARWA_any_enemies_in_sector);
+			private _being_overtaken = ([_owner, _pos] call ARWA_any_enemies_in_sector_center);
 
 			if(_under_attack) then {
 					if(_report_attack && _counter == ARWA_capture_time) then {

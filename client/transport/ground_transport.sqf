@@ -16,9 +16,9 @@ spawn_transport_vehicle = {
 
 	private _pos = getPos _base_marker;
 
-	waitUntil { !([_pos] call any_units_too_close); };
+	waitUntil { !([_pos] call ARWA_any_units_too_close); };
 
-	private _veh_arr = [_pos, getDir _base_marker, _class_name, _side, _kill_bonus] call spawn_vehicle;
+	private _veh_arr = [_pos, getDir _base_marker, _class_name, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _veh = _veh_arr select 0;
 	_veh setVariable [owned_by, playerSide];
 
@@ -38,7 +38,7 @@ send_to_HQ = {
 	
 	if (alive _veh) exitWith
 	{
-		private _manpower = (_veh call get_manpower) + (_veh call remove_soldiers);
+		private _manpower = (_veh call ARWA_get_manpower) + (_veh call ARWA_remove_soldiers);
 		_veh setVariable [manpower, 0];
 
 		if(_manpower > 0) then {

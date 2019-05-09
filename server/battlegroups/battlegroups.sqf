@@ -29,7 +29,7 @@ set_special_mission_attr = {
 	private _priority_target = _mission_attr select 1;
 
 	if(_special_forces) then {
-		[1, _group] spawn adjust_skill;		
+		[1, _group] spawn ARWA_adjust_skill;		
 	};
 
 	if(_priority_target) then {		

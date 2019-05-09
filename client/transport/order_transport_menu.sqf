@@ -19,7 +19,7 @@ show_order_transport = {
 	params ["_title", "_type", "_priority"];
 	missionNameSpace setVariable [format["transport_%1_menu", _type], false];
 
-	player addAction [[_title, 0] call addActionText, {
+	player addAction [[_title, 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _type = _arguments select 0;
@@ -47,9 +47,9 @@ show_transport_options = {
 	{
 		private _class_name = _x select 0;
 		private _penalty = _x select 1;
-		private _name = _class_name call get_vehicle_display_name;
+		private _name = _class_name call ARWA_get_vehicle_display_name;
 
-		ARWA_transport_options pushBack (player addAction [[_name, 2] call addActionText, {
+		ARWA_transport_options pushBack (player addAction [[_name, 2] call ARWA_add_action_text, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;

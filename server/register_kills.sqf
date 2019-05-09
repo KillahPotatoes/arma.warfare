@@ -53,7 +53,7 @@ induce_vehicle_kill_bonus = {
 				private _new_faction_strength = _faction_strength + _adjusted_kill_bonus;
 				[_killer_side, _new_faction_strength] call ARWA_set_strength;
 
-				private _veh_name = (typeOf _victim) call get_vehicle_display_name;
+				private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
 				private _values = ["VEHICLE_KILL_BONUS", _adjusted_kill_bonus, _veh_name];
 				[_killer_side, _values] remoteExec ["HQ_report_client"];
 			};
@@ -73,7 +73,7 @@ induce_lost_vehicle_penalty = {
 		private _new_faction_strength = _faction_strength - _penalty;
 		[_side, _new_faction_strength] call ARWA_set_strength;
 
-		private _veh_name = (typeOf _victim) call get_vehicle_display_name;
+		private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
 
 		[_side, ["PLAYER_VEHICLE_LOST", _penalty, _veh_name]] remoteExec ["HQ_report_client"];
 	};
@@ -82,16 +82,16 @@ induce_lost_vehicle_penalty = {
 report_lost_vehicle = {
 	params ["_victim", "_killer"];
 
-	private _veh_name = (typeOf _victim) call get_vehicle_display_name;
+	private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
 	private _pos = getPosWorld _victim;
 	private _closest_sector = [sectors, _pos] call find_closest_sector;
 	private _sector_pos = _closest_sector getVariable pos;
 	private _distance = floor(_sector_pos distance2D _pos);
-	private _location = [_closest_sector getVariable sector_name] call replace_underscore;
+	private _location = [_closest_sector getVariable sector_name] call ARWA_replace_underscore;
 	private _side = _victim getVariable owned_by;
 
 	private _values = if (_distance > 200) then {
-		private _direction = [_sector_pos, _pos] call get_direction;
+		private _direction = [_sector_pos, _pos] call ARWA_get_direction;
 		["VEHICLE_LOST", _veh_name, _distance, _direction, _location];
 	} else {
 		["VEHICLE_LOST_IN_SECTOR", _veh_name, _location];

@@ -50,7 +50,7 @@ get_unit_marker_text = {
 	private _veh = vehicle leader _group;
 	private _is_veh = (_veh isKindOf "Car" || _veh isKindOf "Air" || _veh isKindOf "Tank");
 
-	_split_string = [groupId _group, 0] call split_string;
+	_split_string = [groupId _group, 0] call ARWA_split_string;
 	_first_string = _split_string select 0;
 	_second_string = _split_string select 1;
 
@@ -58,7 +58,7 @@ get_unit_marker_text = {
 
 	if (_is_veh) exitWith {
 		private _class_name = typeOf _veh;
-		private _veh_name = _class_name call get_vehicle_display_name;
+		private _veh_name = _class_name call ARWA_get_vehicle_display_name;
 		format["%1 %2 - %3", _alive_count, _second_string, _veh_name];
 	};
 

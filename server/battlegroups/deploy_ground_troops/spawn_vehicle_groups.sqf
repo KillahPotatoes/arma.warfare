@@ -37,7 +37,7 @@ try_find_unoccupied_nearby_road = {
 			_attempt_counter = _attempt_counter + 1;
 			
 			_road_pos = getPos (selectRandom _road);
-			_is_safe = !([_road_pos] call any_units_too_close) && count (_road_pos nearObjects 10) == 0;
+			_is_safe = !([_road_pos] call ARWA_any_units_too_close) && count (_road_pos nearObjects 10) == 0;
 			if (_is_safe) then {
 				_pos = _road_pos;
 			};
@@ -55,7 +55,7 @@ find_direction_towards_closest_sector = {
 	_pos getDir _sector_pos;
 };
 
-spawn_vehicle_group = {
+ARWA_spawn_vehicle_group = {
 	params ["_pos", "_side", "_tier", "_can_spawn"];
 	private _vehicle_type_arr = selectRandom (missionNamespace getVariable format["%1_vehicle_tier_%2", _side, _tier]);
 	private _vehicle_type = _vehicle_type_arr select 0;
@@ -64,7 +64,7 @@ spawn_vehicle_group = {
 	_pos = [_pos] call try_find_unoccupied_nearby_road;
 
 	private _dir = [_pos] call find_direction_towards_closest_sector;
-	private _veh_array = [_pos, _dir, _vehicle_type, _side, _kill_bonus] call spawn_vehicle;
+	private _veh_array = [_pos, _dir, _vehicle_type, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _group = _veh_array select 2;
 	private _veh =  _veh_array select 0;
 
@@ -72,7 +72,7 @@ spawn_vehicle_group = {
 
 	_can_spawn = _can_spawn - (count units _group); 
 
-	private _veh_name = _vehicle_type call get_vehicle_display_name;
+	private _veh_name = _vehicle_type call ARWA_get_vehicle_display_name;
 
 	diag_log format ["%1: Spawn vehicle: %2", _side, _veh_name];
 	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];

@@ -35,7 +35,7 @@ get_vehicle = {
 	params ["_base_marker", "_class_name", "_penalty"];
 
 	private _pos = getPos _base_marker;
-	private _isEmpty = !([_pos] call any_units_too_close);
+	private _isEmpty = !([_pos] call ARWA_any_units_too_close);
 
 	if (_isEmpty) exitWith {
 		private _veh = _class_name createVehicle _pos;
@@ -55,7 +55,7 @@ list_options = {
 	params ["_type", "_priority", "_box", "_title"];
 
 	private _side = playerSide;
-	private _options = [_side, _type] call get_units_based_on_tier;
+	private _options = [_side, _type] call ARWA_get_units_based_on_tier;
 
 	if(_type isEqualTo helicopter) then {
 		_options append (missionNamespace getVariable format["%1_%2_transport", _side, helicopter]);
@@ -70,9 +70,9 @@ list_options = {
 	{
 		private _class_name = _x select 0;
 		private _penalty = _x select 1;
-		private _name = _class_name call get_vehicle_display_name;
+		private _name = _class_name call ARWA_get_vehicle_display_name;
 
-		_sub_options pushBack (_box addAction [[_name, 2] call addActionText, {
+		_sub_options pushBack (_box addAction [[_name, 2] call ARWA_add_action_text, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
@@ -109,7 +109,7 @@ create_menu = {
 
 	_box setVariable [format["Menu_%1", _title], false];
 
-	_box addAction [[_title, 0] call addActionText, {
+	_box addAction [[_title, 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _type = _arguments select 0;
@@ -118,7 +118,7 @@ create_menu = {
 		private _box = _arguments select 3;
 		private _disable_on_enemies_nearby = _arguments select 4;
 
-		if(_disable_on_enemies_nearby && {[playerSide, getPos _box] call any_enemies_in_sector}) exitWith {
+		if(_disable_on_enemies_nearby && {[playerSide, getPos _box] call ARWA_any_enemies_in_sector}) exitWith {
 			systemChat localize "CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
 		};
 

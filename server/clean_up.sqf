@@ -12,7 +12,7 @@ clean_up =  {
 		//	ARWA_cease_fire = false;
 		//};
 
-		//[_t5, "clean_up"] spawn report_time;		
+		//[_t5, "clean_up"] spawn ARWA_report_time;		
 		
 		sleep 300;
 	};

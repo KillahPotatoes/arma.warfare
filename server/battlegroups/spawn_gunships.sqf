@@ -36,14 +36,14 @@ spawn_gunships = {
 spawn_gunship_group = {
 	params ["_side"];
 
-	private _options = [_side, helicopter] call get_units_based_on_tier;
+	private _options = [_side, helicopter] call ARWA_get_units_based_on_tier;
 
 	if((_options isEqualTo [])) exitWith {};
 
 	private _random_selection = selectRandom _options;
 	private _gunship = _random_selection select 0;
 	private _kill_bonus = _random_selection select 1;
-	private _gunship_name = _gunship call get_vehicle_display_name;
+	private _gunship_name = _gunship call ARWA_get_vehicle_display_name;
 
 	diag_log format ["%1: Spawn gunship: %2", _side, _gunship_name];
 	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
@@ -51,7 +51,7 @@ spawn_gunship_group = {
 	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["HQ_report_client"];
 	sleep 120;
 
-	private _veh_arr = [_side, _gunship, _kill_bonus] call spawn_helicopter;
+	private _veh_arr = [_side, _gunship, _kill_bonus] call ARWA_spawn_helicopter;
 
 	private _veh = _veh_arr select 0;
 	_veh_arr;

@@ -27,7 +27,7 @@ remove_squad_mates_on_death = {
 		[_new_group] remoteExec ["add_battle_group", 2];
 	};
 
-	[0.5, _group] spawn adjust_skill;
+	[0.5, _group] spawn ARWA_adjust_skill;
 };
 
 reset_player_stats = {

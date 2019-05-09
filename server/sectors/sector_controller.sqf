@@ -35,7 +35,7 @@ capture_sector = {
 	};
 
 	diag_log format["%1 has captured %2", _new_owner, _sector_name];
-	_msg = format[localize "HAS_CAPTURED_SECTOR", _new_owner call get_faction_names, _sector_name];
+	_msg = format[localize "HAS_CAPTURED_SECTOR", _new_owner call ARWA_get_faction_names, _sector_name];
 	_msg remoteExec ["hint"]; 
 
 	[_sector, _new_owner, _sector_name, _old_owner] call change_sector_ownership;
@@ -51,7 +51,7 @@ lose_sector = {
 	params ["_sector", "_old_owner", "_sector_name"];
 
 	_sector setVariable ["reinforements_available", false];
-	_msg = format[localize "HAS_LOST_SECTOR", _old_owner call get_faction_names, _sector_name];
+	_msg = format[localize "HAS_LOST_SECTOR", _old_owner call ARWA_get_faction_names, _sector_name];
 	_msg remoteExec ["hint"];
 
 	diag_log format["%1 has lost %2", _old_owner, _sector_name];

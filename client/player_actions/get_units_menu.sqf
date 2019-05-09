@@ -84,14 +84,14 @@ list_options = {
 
 			[_box] call remove_all_options;
 
-			if(([playerSide] call get_strength) <= 0) exitWith {
+			if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
 				systemChat localize "NOT_ENOUGH_MANPOWER";
 			};
 
 			if(_type isEqualTo infantry) then {
 				[_class_name] call get_infantry;
 			} else {
-				private _base_marker_name = [playerSide, _type] call get_prefixed_name;
+				private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;
 				private _base_marker = missionNamespace getVariable _base_marker_name;
 
 				[_base_marker, _class_name, _penalty] call get_vehicle;
@@ -124,7 +124,7 @@ create_menu = {
 
 		[_box] call remove_all_options;
 
-		if(([playerSide] call get_strength) <= 0) exitWith {
+		if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
 			systemChat localize "NOT_ENOUGH_MANPOWER";
 		};
 

@@ -2,7 +2,7 @@
 spawn_base_ammobox = {
 	params ["_side"];
 
-	private _marker = [_side, respawn_ground] call get_prefixed_name;
+	private _marker = [_side, respawn_ground] call ARWA_get_prefixed_name;
 	private _pos = (getMarkerPos _marker) getPos [5, random 360];
 	private _ammo_box = ammo_box createVehicle (_pos);
 	_ammo_box enableRopeAttach false;

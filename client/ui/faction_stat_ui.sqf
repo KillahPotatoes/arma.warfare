@@ -5,17 +5,17 @@ show_ui = {
 		ARWA_max_rank = missionNamespace getVariable "ARWA_max_rank";
 		ARWA_kills_per_rank = missionNamespace getVariable "ARWA_kills_per_rank";
 
-		get_tier_progress = {
+		ARWA_get_tier_progress = {
 			params ["_side"];
 			missionNamespace getVariable format ["%1_tier_prog",  _side];
 		};
 
-		get_tier = {
+		ARWA_get_tier = {
 			params ["_side"];
 			missionNamespace getVariable format ["%1_tier",  _side];
 		};
 
-		get_strength = {
+		ARWA_get_strength = {
 			params ["_side"];
 			missionNamespace getVariable format ["%1_strength",  _side];
 		};
@@ -23,8 +23,8 @@ show_ui = {
 		print_percentage = {
 			params ["_side"];
 
-			_tier = _side call get_tier;
-			_percentage = _side call get_tier_progress;
+			_tier = _side call ARWA_get_tier;
+			_percentage = _side call ARWA_get_tier_progress;
 
 			if (_tier == 2) exitWith {
 				"";
@@ -39,7 +39,7 @@ show_ui = {
 			format[
 				"<t color='%1' align='right' size='1'>T%2%3 %4</t>",
 				_color,
-				[_side] call get_tier,
+				[_side] call ARWA_get_tier,
 				[_side] call print_percentage,
 				[_side] call print_strength
 				];
@@ -47,7 +47,7 @@ show_ui = {
 
 		print_strength = {
 			params ["_side"];
-			0 max (ceil ([_side] call get_strength));
+			0 max (ceil ([_side] call ARWA_get_strength));
 		};
 
 		print_rank = {

@@ -49,9 +49,9 @@ induce_vehicle_kill_bonus = {
 			if (!(_victim_side isEqualTo _killer_side) && {isPlayer _killer}) then {
 				private _kill_bonus = _victim getVariable ARWA_kill_bonus;
 				private _adjusted_kill_bonus = if(ARWA_vehicleKillBonus == 1) then { _kill_bonus/2; } else { _kill_bonus; };
-				private _faction_strength = _killer_side call get_strength;
+				private _faction_strength = _killer_side call ARWA_get_strength;
 				private _new_faction_strength = _faction_strength + _adjusted_kill_bonus;
-				[_killer_side, _new_faction_strength] call set_strength;
+				[_killer_side, _new_faction_strength] call ARWA_set_strength;
 
 				private _veh_name = (typeOf _victim) call get_vehicle_display_name;
 				private _values = ["VEHICLE_KILL_BONUS", _adjusted_kill_bonus, _veh_name];
@@ -69,9 +69,9 @@ induce_lost_vehicle_penalty = {
 	if(_penalty > 0) exitWith {
 		private _side = _victim getVariable owned_by;
 
-		private _faction_strength = _side call get_strength;
+		private _faction_strength = _side call ARWA_get_strength;
 		private _new_faction_strength = _faction_strength - _penalty;
-		[_side, _new_faction_strength] call set_strength;
+		[_side, _new_faction_strength] call ARWA_set_strength;
 
 		private _veh_name = (typeOf _victim) call get_vehicle_display_name;
 
@@ -105,7 +105,7 @@ kill_ticker = {
 			params ["_victim", "_killer"];
 
 			private _victim_side = side group _victim;
-			private _faction_strength = _victim_side call get_strength;
+			private _faction_strength = _victim_side call ARWA_get_strength;
 
 			[_victim, _killer, _faction_strength] spawn register_kill;
 			[_victim, _victim_side, _faction_strength] spawn create_manpower_box_unit;
@@ -164,7 +164,7 @@ register_kill = {
 			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
 			private _new_faction_strength = if(isPlayer _victim) then { _faction_strength - ([_faction_strength] call calculate_player_death_penalty); } else { _faction_strength - _death_penalty };
-			[_victim_side, _new_faction_strength] call set_strength;
+			[_victim_side, _new_faction_strength] call ARWA_set_strength;
 		};
 	};
 };

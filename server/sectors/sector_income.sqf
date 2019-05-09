@@ -26,7 +26,7 @@ reset_sector_manpower = {
             private _manpower = _ammo_box call get_manpower;
 
             if(_manpower > 0) exitWith {
-                  private _faction_name = _new_owner call get_faction_names;
+                  private _faction_name = _new_owner call ARWA_get_faction_names;
 
                   [_new_owner, _manpower] spawn buy_manpower_server;                  
                   [["MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name]] remoteExec ["HQ_report_client_all"];

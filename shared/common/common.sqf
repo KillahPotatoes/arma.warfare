@@ -9,7 +9,7 @@ any_units_too_close = {
 player_already_in_hq = {
   params ["_player"];
 
-  private _pos = getMarkerPos ([side _player, respawn_ground] call get_prefixed_name);
+  private _pos = getMarkerPos ([side _player, respawn_ground] call ARWA_get_prefixed_name);
   (getPos _player) distance _pos > 25;
 };
 
@@ -50,7 +50,7 @@ get_units_based_on_tier = {
 	params ["_side", "_type"];
 
 	private _options = [];
-	private _tier = (_side call get_tier);
+	private _tier = (_side call ARWA_get_tier);
 
 	for "_x" from 0 to _tier step 1 do {
 		_options append (missionNamespace getVariable [format["%1_%2_tier_%3", _side, _type, _x], []]);

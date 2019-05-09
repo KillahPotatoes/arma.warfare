@@ -11,7 +11,7 @@ send_vehicle_transport = {
 spawn_transport_vehicle = {
 	params ["_side", "_class_name", "_kill_bonus"];
 
-	private _base_marker_name = [_side, vehicle1] call get_prefixed_name;
+	private _base_marker_name = [_side, vehicle1] call ARWA_get_prefixed_name;
 	private _base_marker = missionNamespace getVariable _base_marker_name;
 
 	private _pos = getPos _base_marker;
@@ -30,7 +30,7 @@ send_to_HQ = {
 	params ["_group", "_veh"];
 	
 	private _side = side _group;
-	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
+	private _pos = getMarkerPos ([_side, respawn_ground] call ARWA_get_prefixed_name);
 
 	_group addWaypoint [_pos, 0];
 	

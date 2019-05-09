@@ -75,7 +75,7 @@ spawn_vehicle_group = {
 	private _veh_name = _vehicle_type call get_vehicle_display_name;
 
 	diag_log format ["%1: Spawn vehicle: %2", _side, _veh_name];
-	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
+	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
 
 	if(_can_spawn > 0) then {
     	[_veh_array, _can_spawn] call add_soldiers_to_cargo;		
@@ -87,8 +87,8 @@ spawn_vehicle_group = {
 spawn_random_vehicle_group = {
 	params ["_side", "_can_spawn"];	
 		
-	private _pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
-	private _tier =  floor(random (([_side] call get_tier) + 1));
+	private _pos = getMarkerPos ([_side, respawn_ground] call ARWA_get_prefixed_name);
+	private _tier =  floor(random (([_side] call ARWA_get_tier) + 1));
 	private _vehicle_max_count = floor(random 2) + 1;
 	private _groups = [];
 

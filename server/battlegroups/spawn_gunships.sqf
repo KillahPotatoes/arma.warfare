@@ -15,7 +15,7 @@ spawn_gunships = {
 
 	while {true} do {
 
-		private _tier = [_side] call get_tier;
+		private _tier = [_side] call ARWA_get_tier;
 		private _wait_time = tier_base_gunship_respawn_time + (random (missionNamespace getVariable format["tier_%1_gunship_respawn_time", _tier]));
 
 		sleep _wait_time;
@@ -46,7 +46,7 @@ spawn_gunship_group = {
 	private _gunship_name = _gunship call get_vehicle_display_name;
 
 	diag_log format ["%1: Spawn gunship: %2", _side, _gunship_name];
-	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
+	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
 
 	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["HQ_report_client"];
 	sleep 120;

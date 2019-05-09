@@ -22,7 +22,7 @@ remove_respawn_position = {
 add_initial_respawn_positions = {
 	params ["_side"];
 
-	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
+	private _respawn_marker = [_side, respawn_ground] call ARWA_get_prefixed_name;
 	private _pos = getMarkerPos _respawn_marker;
 	
 	[_side, _pos] call BIS_fnc_addRespawnPosition;	

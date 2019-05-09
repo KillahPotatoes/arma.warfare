@@ -4,7 +4,7 @@ lost = {
 	params ["_side"];
 	private _players = _side countSide (allPlayers select { alive _x });
 
-	_side call get_strength <= 0 && _players == 0;
+	_side call ARWA_get_strength <= 0 && _players == 0;
 };
 
 check_end_game_state = {

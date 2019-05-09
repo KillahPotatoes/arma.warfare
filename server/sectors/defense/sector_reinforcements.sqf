@@ -1,9 +1,9 @@
 ARWA_infantry_reinforcement_distance = 2000;
 
 calculate_mission_size = {
-	private _west_respawn_pos = getMarkerPos ([West, respawn_ground] call get_prefixed_name);
-	private _east_respawn_pos = getMarkerPos ([East, respawn_ground] call get_prefixed_name);
-	private _guer_respawn_pos = getMarkerPos ([Independent, respawn_ground] call get_prefixed_name);
+	private _west_respawn_pos = getMarkerPos ([West, respawn_ground] call ARWA_get_prefixed_name);
+	private _east_respawn_pos = getMarkerPos ([East, respawn_ground] call ARWA_get_prefixed_name);
+	private _guer_respawn_pos = getMarkerPos ([Independent, respawn_ground] call ARWA_get_prefixed_name);
 
 	ARWA_vehicle_reinforcement_distance = ((_west_respawn_pos distance2D _east_respawn_pos) + (_west_respawn_pos distance2D _guer_respawn_pos) + (_east_respawn_pos distance2D _guer_respawn_pos)) / 3;
 };
@@ -22,7 +22,7 @@ calcuate_vehicle_weight = {
 	params ["_side", "_sector"];
 
 	private _pos = _sector getVariable pos;
-	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
+	private _respawn_marker = [_side, respawn_ground] call ARWA_get_prefixed_name;
 	private _pos_hq = getMarkerPos _respawn_marker;
 
 	((ARWA_vehicle_reinforcement_distance - (_pos distance _pos_hq)) / ARWA_vehicle_reinforcement_distance) max 0.1;

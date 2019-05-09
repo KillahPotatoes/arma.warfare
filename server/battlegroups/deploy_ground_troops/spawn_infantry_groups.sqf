@@ -21,7 +21,7 @@ get_closest_infantry_spawn_pos = {
 	params ["_side", "_target"];
 
 	private _hq_pos = getMarkerPos ([_side, respawn_ground] call get_prefixed_name);
-	private _safe_sectors = [_side, (arwa_sector_size * 2)] call get_safe_sectors;
+	private _safe_sectors = [_side, (ARWA_sector_size * 2)] call get_safe_sectors;
 	private _safe_pos = [_hq_pos];
 
 	{
@@ -79,7 +79,7 @@ spawn_squad = {
 
 	if(isNil "_pos") exitWith {};
 
-	_soldier_count = (arwa_squad_cap call calc_number_of_soldiers) min _can_spawn;
+	_soldier_count = (ARWA_squad_cap call calc_number_of_soldiers) min _can_spawn;
     [_pos, _side, _soldier_count, false] call spawn_infantry;	
 };
 
@@ -90,7 +90,7 @@ spawn_reinforcement_squad = {
 
 	if(isNil "_pos") exitWith {};
 
-	_soldier_count = (arwa_squad_cap call calc_number_of_soldiers) min _can_spawn;
+	_soldier_count = (ARWA_squad_cap call calc_number_of_soldiers) min _can_spawn;
 	diag_log format["%1: Spawn infantry squad (%2)", _side, _soldier_count];
 	diag_log format["%1 manpower: %2", _side, [_side] call get_strength];
 

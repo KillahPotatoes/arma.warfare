@@ -1,11 +1,11 @@
-arwa_infantry_reinforcement_distance = 2000;
+ARWA_infantry_reinforcement_distance = 2000;
 
 calculate_mission_size = {
 	private _west_respawn_pos = getMarkerPos ([West, respawn_ground] call get_prefixed_name);
 	private _east_respawn_pos = getMarkerPos ([East, respawn_ground] call get_prefixed_name);
 	private _guer_respawn_pos = getMarkerPos ([Independent, respawn_ground] call get_prefixed_name);
 
-	arwa_vehicle_reinforcement_distance = ((_west_respawn_pos distance2D _east_respawn_pos) + (_west_respawn_pos distance2D _guer_respawn_pos) + (_east_respawn_pos distance2D _guer_respawn_pos)) / 3;
+	ARWA_vehicle_reinforcement_distance = ((_west_respawn_pos distance2D _east_respawn_pos) + (_west_respawn_pos distance2D _guer_respawn_pos) + (_east_respawn_pos distance2D _guer_respawn_pos)) / 3;
 };
 
 calculate_infantry_weight = {
@@ -15,7 +15,7 @@ calculate_infantry_weight = {
 	private _spawn_pos = [_side, _sector] call get_closest_infantry_spawn_pos;
 	private _distance_closest_safe_sector = _spawn_pos distance _pos;
 
-	((arwa_infantry_reinforcement_distance - _distance_closest_safe_sector) / arwa_infantry_reinforcement_distance) max 0;
+	((ARWA_infantry_reinforcement_distance - _distance_closest_safe_sector) / ARWA_infantry_reinforcement_distance) max 0;
 };
 
 calcuate_vehicle_weight = {
@@ -25,7 +25,7 @@ calcuate_vehicle_weight = {
 	private _respawn_marker = [_side, respawn_ground] call get_prefixed_name;
 	private _pos_hq = getMarkerPos _respawn_marker;
 
-	((arwa_vehicle_reinforcement_distance - (_pos distance _pos_hq)) / arwa_vehicle_reinforcement_distance) max 0.1;
+	((ARWA_vehicle_reinforcement_distance - (_pos distance _pos_hq)) / ARWA_vehicle_reinforcement_distance) max 0.1;
 };
 
 calcuate_heli_weight = {
@@ -37,9 +37,9 @@ calcuate_heli_weight = {
 try_spawn_reinforcements = {
 	params ["_side", "_sector"];
 	private _unit_count = _side call count_battlegroup_units;	
-	private _can_spawn = arwa_unit_cap - _unit_count; 	
+	private _can_spawn = ARWA_unit_cap - _unit_count; 	
 
-	if (_can_spawn > (arwa_squad_cap / 2) && (_side call has_manpower)) exitWith {
+	if (_can_spawn > (ARWA_squad_cap / 2) && (_side call has_manpower)) exitWith {
 		private _pos = _sector getVariable pos;
 
 		private _reinforcement_types = [

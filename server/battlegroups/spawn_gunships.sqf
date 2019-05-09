@@ -20,7 +20,7 @@ spawn_gunships = {
 
 		sleep _wait_time;
 
-		if(_side call has_manpower && !arwa_cease_fire) then {
+		if(_side call has_manpower && !ARWA_cease_fire) then {
 			private _sectors = [_side] call find_target_sectors;
 
 			if ((count _sectors) == 0) exitWith {};

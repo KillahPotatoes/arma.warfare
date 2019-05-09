@@ -32,7 +32,7 @@ get_all_units_in_area = {
 any_enemies_in_list = {
 	params ["_units", "_side"];
 
-	private _enemyFactions = arwa_all_sides - [_side];
+	private _enemyFactions = ARWA_all_sides - [_side];
 
 	_units findIf {(side _x) in _enemyFactions} != -1
 };

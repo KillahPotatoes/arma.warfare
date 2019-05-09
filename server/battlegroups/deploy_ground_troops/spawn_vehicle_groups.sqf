@@ -92,14 +92,14 @@ spawn_random_vehicle_group = {
 	private _vehicle_max_count = floor(random 2) + 1;
 	private _groups = [];
 
-	while{(count _groups) <= _vehicle_max_count && _can_spawn > (arwa_squad_cap / 2)} do {		
+	while{(count _groups) <= _vehicle_max_count && _can_spawn > (ARWA_squad_cap / 2)} do {		
 		private _group = [_pos, _side, _tier, _can_spawn] call spawn_vehicle_group;
 		
 		_groups append [_group];		
 		[_group] call add_battle_group;			
 
 		private _unit_count = _side call count_battlegroup_units;	
-		private _can_spawn = arwa_unit_cap - _unit_count; 
+		private _can_spawn = ARWA_unit_cap - _unit_count; 
 	};
 
 	diag_log format["%1: Spawned %2 tier %3 vehicles", _side, count _groups, _tier];

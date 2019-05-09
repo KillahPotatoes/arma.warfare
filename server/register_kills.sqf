@@ -41,14 +41,14 @@ on_vehicle_kill = {
 
 induce_vehicle_kill_bonus = {
 	params ["_victim", "_killer"];
-	if(arwa_vehicleKillBonus > 0) then {
+	if(ARWA_vehicleKillBonus > 0) then {
 		if (!(isNil "_victim" || isNil "_killer")) then {
 			private _killer_side = side group _killer;
 			private _victim_side = _victim getVariable owned_by;
 
 			if (!(_victim_side isEqualTo _killer_side) && {isPlayer _killer}) then {
-				private _kill_bonus = _victim getVariable arwa_kill_bonus;
-				private _adjusted_kill_bonus = if(arwa_vehicleKillBonus == 1) then { _kill_bonus/2; } else { _kill_bonus; };
+				private _kill_bonus = _victim getVariable ARWA_kill_bonus;
+				private _adjusted_kill_bonus = if(ARWA_vehicleKillBonus == 1) then { _kill_bonus/2; } else { _kill_bonus; };
 				private _faction_strength = _killer_side call get_strength;
 				private _new_faction_strength = _faction_strength + _adjusted_kill_bonus;
 				[_killer_side, _new_faction_strength] call set_strength;
@@ -64,7 +64,7 @@ induce_vehicle_kill_bonus = {
 induce_lost_vehicle_penalty = {
 	params ["_victim"];
 
-	private _penalty = _victim getVariable [arwa_penalty, 0];
+	private _penalty = _victim getVariable [ARWA_penalty, 0];
 
 	if(_penalty > 0) exitWith {
 		private _side = _victim getVariable owned_by;
@@ -135,7 +135,7 @@ register_kill = {
 		private _killer_side = side group _killer;
 		private _victim_side = side group _victim;
 
-		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in arwa_all_sides}) then {
+		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides}) then {
 			_kill_point = _killer_side call calculate_kill_points;
 			[_killer_side, _kill_point] call increment_kill_counter;
 		};
@@ -156,11 +156,11 @@ register_kill = {
 		if (_isVictimLeader) then {
 			private _player = leader group _victim;
 			private _kills = _player getVariable ["kills", 0];
-			private _new_kill_score = _kills - arwa_squad_mate_death_penalty;
+			private _new_kill_score = _kills - ARWA_squad_mate_death_penalty;
 			[_player, _new_kill_score] call set_kills;
 		};
 
-		if (_victim_side in arwa_all_sides) then {
+		if (_victim_side in ARWA_all_sides) then {
 			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
 			private _new_faction_strength = if(isPlayer _victim) then { _faction_strength - ([_faction_strength] call calculate_player_death_penalty); } else { _faction_strength - _death_penalty };

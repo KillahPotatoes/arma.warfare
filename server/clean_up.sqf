@@ -7,9 +7,9 @@ clean_up =  {
 		[] call status;
 
 		//if(count allPlayers == 0) then {
-		//	arwa_cease_fire = true;
+		//	ARWA_cease_fire = true;
 		//} else {
-		//	arwa_cease_fire = false;
+		//	ARWA_cease_fire = false;
 		//};
 
 		//[_t5, "clean_up"] spawn report_time;		

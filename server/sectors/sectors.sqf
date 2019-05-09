@@ -61,7 +61,7 @@ get_safe_sectors = {
 get_unsafe_sectors = {
 	params ["_side"];
 
-	private _safe_sectors = [_side, arwa_sector_size] call get_safe_sectors;
+	private _safe_sectors = [_side, ARWA_sector_size] call get_safe_sectors;
 
 	(_side call get_owned_sectors) - _safe_sectors;
 };
@@ -84,7 +84,7 @@ get_unowned_sectors = {
 
 	{
 		_sectors = _sectors - (missionNamespace getVariable format["%1_sectors", _x]);
-	} foreach arwa_all_sides;
+	} foreach ARWA_all_sides;
 
 	_sectors;
 };
@@ -135,7 +135,7 @@ find_closest_friendly_sector = {
 find_enemy_sectors = {
 	params ["_side"];
 
-	private _enemy = arwa_all_sides - [_side];
+	private _enemy = ARWA_all_sides - [_side];
 	([_enemy select 0] call get_owned_sectors) + ([_enemy select 1] call get_owned_sectors);
 };
 

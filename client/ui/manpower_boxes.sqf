@@ -16,7 +16,7 @@ update_manpower_markers = {
 		private _side = _x getVariable owned_by;
 		private _marker_name = format["%1-%2", "manpower-box", _forEachIndex];
 
-		if (_side isEqualTo playerSide || arwa_show_all) then {
+		if (_side isEqualTo playerSide || ARWA_show_all) then {
 			
 			private _color = [_side, true] call BIS_fnc_sideColor;
 					

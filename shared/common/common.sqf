@@ -35,7 +35,7 @@ spawn_vehicle = {
    private _veh_arr = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;
    private _veh = _veh_arr select 0;
    _veh setVariable [owned_by, _side, true];
-   _veh setVariable [arwa_kill_bonus, _kill_bonus, true];
+   _veh setVariable [ARWA_kill_bonus, _kill_bonus, true];
 
    _veh_arr;
 };

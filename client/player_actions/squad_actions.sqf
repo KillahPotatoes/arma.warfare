@@ -30,7 +30,7 @@ join_squad = {
 leave_squad = {  
   	player addAction [[localize "LEAVE_SQUAD", 0] call addActionText, {
 
-			private _enemies_nearby = [getPos player, playerSide, arwa_sector_size] call any_enemies_in_area;
+			private _enemies_nearby = [getPos player, playerSide, ARWA_sector_size] call any_enemies_in_area;
 			
 			if(_enemies_nearby) exitWith {
 				systemChat localize "CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY";
@@ -41,7 +41,7 @@ leave_squad = {
 			[group player] remoteExec ["add_battle_group", 2];
 			private _new_count = { alive _x } count units _current_group;
 			_current_group setVariable [soldier_count, _new_count];	
-			}, nil, arwa_squad_actions, false, true, "",
+			}, nil, ARWA_squad_actions, false, true, "",
     '!(player call empty_squad)'
     ];
 };
@@ -105,12 +105,12 @@ create_join_menu = {
 		[] call remove_all_join_options;
 
 		if(!join_menu_open) then {
-			[arwa_squad_actions] call list_join_options;
+			[ARWA_squad_actions] call list_join_options;
 			join_menu_open = true;
 		} else {
 			join_menu_open = false;
 		}
-	}, [], arwa_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, playerSide] call any_friendly_squads_in_area}', 10]	
+	}, [], ARWA_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, playerSide] call any_friendly_squads_in_area}', 10]	
 };
 
 can_take_lead = {
@@ -121,5 +121,5 @@ can_take_lead = {
 take_lead_menu = {
 	player addAction [[localize "TAKE_LEAD", 0] call addActionText, {
 	(group player) selectLeader player;
-	}, [], arwa_squad_actions, false, true, "", '[] call can_take_lead', 10]	
+	}, [], ARWA_squad_actions, false, true, "", '[] call can_take_lead', 10]	
 };

@@ -33,7 +33,7 @@ increment_kill_counter = {
 	params ["_side", "_kill_point"];
 	private _tier =  _side call get_tier;
 
-	if(_tier < arwa_max_tier) exitWith {
+	if(_tier < ARWA_max_tier) exitWith {
 		private _new_kill_count = ([_side] call get_kill_count) + _kill_point;		
 
 		[_side, _new_kill_count] call increment_tier;

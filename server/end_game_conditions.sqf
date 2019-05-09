@@ -1,4 +1,4 @@
-arwa_active_factions = [east, west, independent];
+ARWA_active_factions = [east, west, independent];
 
 lost = {
 	params ["_side"];
@@ -11,19 +11,19 @@ check_end_game_state = {
 	params ["_side"];
 	
 	if(_side call lost) exitWith {
-		arwa_active_factions = arwa_active_factions - [_side];
+		ARWA_active_factions = ARWA_active_factions - [_side];
 	};
 
-	arwa_active_factions pushBackUnique _side;
+	ARWA_active_factions pushBackUnique _side;
 };
 
 end_game_conditions_check = {
-	while {count arwa_active_factions > 1} do {
+	while {count ARWA_active_factions > 1} do {
 		[east] call check_end_game_state; 
 		[west] call check_end_game_state; 
 		[independent] call check_end_game_state; 		
 		
 		sleep 10;
 	};
-	[arwa_active_factions] remoteExec ["end_mission"];
+	[ARWA_active_factions] remoteExec ["end_mission"];
 };

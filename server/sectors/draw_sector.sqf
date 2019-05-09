@@ -15,7 +15,7 @@ draw_sector = {
  _marker_outline setMarkerColor _color; 
  _marker_outline setMarkerShape "ELLIPSE"; 
  _marker_outline setMarkerBrush "SolidBorder"; 
- _marker_outline setMarkerSize [arwa_sector_size,arwa_sector_size]; 
+ _marker_outline setMarkerSize [ARWA_sector_size,ARWA_sector_size]; 
 };
 
 draw_all_sectors = {
@@ -38,7 +38,7 @@ update_progress_bar = {
     _marker = _sector getVariable marker; 
     _markerPos = _sector getVariable pos; 
 
-    _progress = arwa_sector_size * (_counter/arwa_capture_time);
+    _progress = ARWA_sector_size * (_counter/ARWA_capture_time);
     
     _markerPos = [(_markerPos select 0), (_markerPos select 1) + 250, _markerPos select 2];
     

@@ -8,7 +8,7 @@ add_take_manpower = {
       _caller setVariable [manpower, _manpower, true];
       cursorTarget setVariable [manpower, 0, true];
       systemChat format[localize "YOU_TOOK_MANPOWER", _new_manpower];
-    }, nil, arwa_manpower_actions, true, true, "", '[cursorTarget] call can_take_manpower'];
+    }, nil, ARWA_manpower_actions, true, true, "", '[cursorTarget] call can_take_manpower'];
 }; 
 
 add_store_manpower = {  
@@ -20,7 +20,7 @@ add_store_manpower = {
       _caller setVariable [manpower, 0, true];
       cursorTarget setVariable [manpower, _manpower, true];
       systemChat format[localize "YOU_STORED_MANPOWER", _manpower]
-    }, nil, arwa_manpower_actions, true, true, "", '[cursorTarget] call can_store_manpower'];
+    }, nil, ARWA_manpower_actions, true, true, "", '[cursorTarget] call can_store_manpower'];
 };
 
 can_take_manpower = {
@@ -50,7 +50,7 @@ add_manpower_action = {
 		[side _caller, _manpower] remoteExec ["buy_manpower_server", 2];
 		systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];     
 
-	}, nil, arwa_manpower_actions, false, false, "", 
+	}, nil, ARWA_manpower_actions, false, false, "", 
   '[_target, _this] call owned_box && [_this] call player_has_manpower', 10
   ];	
 };

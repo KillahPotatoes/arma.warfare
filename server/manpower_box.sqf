@@ -78,7 +78,7 @@ manpower_marker_update = {
 manpower_deterioration = {
 	params ["_marker_name", "_manpower_box"];
 
-	sleep arwa_dropped_manpower_deterioration_time;
+	sleep ARWA_dropped_manpower_deterioration_time;
 
 	private _manpower = _manpower_box getVariable [manpower, 0];
 

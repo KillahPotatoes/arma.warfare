@@ -11,7 +11,7 @@ spawn_static = {
 	private _static_pos = _pos;
 	private _maxDist = 25;
 
-	while{_static_pos isEqualTo _pos && _maxDist < arwa_sector_size} do {
+	while{_static_pos isEqualTo _pos && _maxDist < ARWA_sector_size} do {
 		_static_pos = [_pos, 5, _maxDist, 10, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
 		_maxDist = _maxDist + 25;
 	};
@@ -61,7 +61,7 @@ rearm_delay = {
 	if(!_fired_barrage) then {
 		diag_log format["%1 fired barrage", _this select 0];
 		_veh setVariable["fired_barrage", true];
-		sleep arwa_sector_artillery_reload_time;
+		sleep ARWA_sector_artillery_reload_time;
 		(_this select 0) setvehicleammo 1;
 		diag_log format["%1 reloaded", _this select 0];
 

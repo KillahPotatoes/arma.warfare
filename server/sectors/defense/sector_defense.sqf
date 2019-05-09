@@ -25,13 +25,13 @@ spawn_sector_defense = {
 						};
 						_sector_defense = [_pos, _current_faction] call spawn_defensive_squad;
 					} else {
-						if({alive _x} count units _sector_defense < (arwa_defender_cap / 2) && (_faction call has_manpower)) then {
+						if({alive _x} count units _sector_defense < (ARWA_defender_cap / 2) && (_faction call has_manpower)) then {
 							[_pos, _sector_defense] call spawn_reinforcments;
 						};
 					};
 				};
 
-				if(arwa_sector_artillery && isNil "_static_defense" || {!([_static_defense] call static_alive)}) then {
+				if(ARWA_sector_artillery && isNil "_static_defense" || {!([_static_defense] call static_alive)}) then {
 					_static_defense = [_pos, _current_faction] call spawn_static;
 				};
 

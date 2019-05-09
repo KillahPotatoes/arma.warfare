@@ -1,4 +1,4 @@
-arwa_transport_will_wait_time = 300;
+ARWA_transport_will_wait_time = 300;
 
 update_transport_orders = {
 	params ["_group", "_veh"];
@@ -59,7 +59,7 @@ is_transport_dead = {
 	private _is_dead = (isNull _veh) ||  {!alive _veh} || {!canMove _veh} || {[_veh] call is_driver_dead};
 
 	if(_is_dead) then {
-		arwa_transport_present = false;
+		ARWA_transport_present = false;
 	};
 
 	_is_dead;
@@ -72,8 +72,8 @@ is_transport_active = {
 
 	if(!_is_active) then {
 		
-		player removeAction arwa_cancel_transport_id;
-		player removeAction arwa_update_orders_id;
+		player removeAction ARWA_cancel_transport_id;
+		player removeAction ARWA_update_orders_id;
 
 		if([_veh] call is_transport_dead) exitWith {};
 
@@ -111,7 +111,7 @@ on_transport_idle_wait = {
 
 	_veh setVariable ["active", false];
 
-	private _timer = time + arwa_transport_will_wait_time;
+	private _timer = time + ARWA_transport_will_wait_time;
 
 	waituntil {
 		!([_veh] call is_transport_active) || {(player in _veh) || time > _timer || _veh getVariable ["active", false]}

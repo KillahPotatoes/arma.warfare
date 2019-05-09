@@ -44,10 +44,10 @@ spawn_transport = {
 
 	private _group = _arr select 2;
 	private _veh = _arr select 0;
-	arwa_transport_present = true;
+	ARWA_transport_present = true;
 
 	_veh setVariable ["transport", true];
-	_veh setVariable [arwa_penalty, _penalty, true];
+	_veh setVariable [ARWA_penalty, _penalty, true];
 
 	_group setBehaviour "CARELESS";
 	_group deleteGroupWhenEmpty true;

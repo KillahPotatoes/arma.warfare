@@ -4,15 +4,15 @@
 [] call compileFinal preprocessFileLineNumbers "client\transport\driver_controller.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\transport\request_transport.sqf";
 
-arwa_transport_options = [];
-arwa_transport_present = false;
+ARWA_transport_options = [];
+ARWA_transport_present = false;
 
 remove_all_transport_options = {
 	{
 		player removeAction _x;
-	} forEach arwa_transport_options;
+	} forEach ARWA_transport_options;
 
-	arwa_transport_options = [];
+	ARWA_transport_options = [];
 };
 
 show_order_transport = {
@@ -34,7 +34,7 @@ show_order_transport = {
 			missionNameSpace setVariable [format["transport_%1_menu", _type], false];
 		};
 		}, [_type, _priority], _priority, false, false, "",
-		'[player] call is_leader && !arwa_transport_present'
+		'[player] call is_leader && !ARWA_transport_present'
 	];
 };
 
@@ -49,7 +49,7 @@ show_transport_options = {
 		private _penalty = _x select 1;
 		private _name = _class_name call get_vehicle_display_name;
 
-		arwa_transport_options pushBack (player addAction [[_name, 2] call addActionText, {
+		ARWA_transport_options pushBack (player addAction [[_name, 2] call addActionText, {
 			private _params = _this select 3;
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
@@ -57,7 +57,7 @@ show_transport_options = {
 			[player] call remove_all_transport_options;
 			[_class_name, _penalty] call request_transport;
 		}, [_class_name, _penalty], (_priority - 1), false, true, "",
-		'[player] call is_leader && !arwa_transport_present'
+		'[player] call is_leader && !ARWA_transport_present'
 		]);
 	} forEach _options;
 };

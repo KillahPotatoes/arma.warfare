@@ -15,8 +15,8 @@ manpower = "manpower";
 soldier_count = "s_count";
 defense = "defense";
 
-arwa_penalty = "penalty";
-arwa_kill_bonus = "kill_bonus";
+ARWA_penalty = "penalty";
+ARWA_kill_bonus = "kill_bonus";
 
 vehicle1 = "vehicle";
 helicopter = "helicopter";
@@ -28,27 +28,27 @@ west_faction_name = "Nato";
 east_faction_name = "China";
 
 // CONSTANT VARS
-arwa_respawn_cooldown = 900;
-arwa_sector_size = 200;
-arwa_starting_strength  = 500;
-arwa_unit_cap = 30;
-arwa_defender_cap = 10;
-arwa_squad_cap = 12;
-arwa_manpower_generation_time = 60;
-arwa_all_sides = [west, east, independent];
-arwa_show_all = false;
-arwa_max_tier = 2;
-arwa_capture_time = 60;
-arwa_uav_flight_height = 1000;
+ARWA_respawn_cooldown = 900;
+ARWA_sector_size = 200;
+ARWA_starting_strength  = 500;
+ARWA_unit_cap = 30;
+ARWA_defender_cap = 10;
+ARWA_squad_cap = 12;
+ARWA_manpower_generation_time = 60;
+ARWA_all_sides = [west, east, independent];
+ARWA_show_all = false;
+ARWA_max_tier = 2;
+ARWA_capture_time = 60;
+ARWA_uav_flight_height = 1000;
 
-arwa_squad_mate_death_penalty = 3;
-arwa_kills_per_rank = 15;
-arwa_max_rank = 5;
+ARWA_squad_mate_death_penalty = 3;
+ARWA_kills_per_rank = 15;
+ARWA_max_rank = 5;
 
-arwa_capture_sector_bonus = 20;
+ARWA_capture_sector_bonus = 20;
 
-arwa_spawn_forces_interval = 120;
-arwa_spawn_forces_interval_variation = 60;
+ARWA_spawn_forces_interval = 120;
+ARWA_spawn_forces_interval_variation = 60;
 
 tier_base_gunship_respawn_time = 900;
 tier_0_gunship_respawn_time = 900;
@@ -56,17 +56,17 @@ tier_1_gunship_respawn_time = 600;
 tier_2_gunship_respawn_time = 300;
 
 
-arwa_cease_fire = false;
+ARWA_cease_fire = false;
 
 // Action priority
 
-arwa_air_vehicle_menu = 150;
-arwa_ground_vehicle_menu = 140;
-arwa_infantry_menu = 130;
-arwa_return_vehicle = 90;
-arwa_ground_transport_actions = 70;
-arwa_air_transport_actions = 80;
-arwa_active_transport_actions = 80;
-arwa_active_uav_actions = 75;
-arwa_manpower_actions = 60;
-arwa_squad_actions = 50;
+ARWA_air_vehicle_menu = 150;
+ARWA_ground_vehicle_menu = 140;
+ARWA_infantry_menu = 130;
+ARWA_return_vehicle = 90;
+ARWA_ground_transport_actions = 70;
+ARWA_air_transport_actions = 80;
+ARWA_active_transport_actions = 80;
+ARWA_active_uav_actions = 75;
+ARWA_manpower_actions = 60;
+ARWA_squad_actions = 50;

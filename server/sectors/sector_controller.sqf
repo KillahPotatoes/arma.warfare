@@ -14,7 +14,7 @@ decrement_counter = {
 increment_counter = {
 	params ["_counter", "_sector", "_side"];
 
-	if(_counter < arwa_capture_time) exitWith {		
+	if(_counter < ARWA_capture_time) exitWith {		
 		[_counter + 1, _sector, _side] spawn update_progress_bar;
 		_counter + 1;
 	};
@@ -31,7 +31,7 @@ capture_sector = {
 
 		private _ammo_box = _sector getVariable box;
 		private _manpower = _ammo_box call get_manpower;
-		_ammo_box setVariable [manpower, (_manpower + arwa_capture_sector_bonus), true];
+		_ammo_box setVariable [manpower, (_manpower + ARWA_capture_sector_bonus), true];
 	};
 
 	diag_log format["%1 has captured %2", _new_owner, _sector_name];
@@ -44,7 +44,7 @@ capture_sector = {
 players_nearby_captured_sector = {
 	params ["_pos", "_side"];
 
-	({ alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < arwa_sector_size; } count allPlayers) > 0;
+	({ alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < ARWA_sector_size; } count allPlayers) > 0;
 };
 
 lose_sector = {
@@ -88,7 +88,7 @@ reinforcements_cool_down = {
 	_sector setVariable ["reinforements_available", false];
 	private _current_owner = _sector getVariable owned_by;
 
-	sleep arwa_respawn_cooldown;
+	sleep ARWA_respawn_cooldown;
 
 	if((_sector getVariable owned_by) isEqualTo _current_owner) exitWith {
 		_sector setVariable ["reinforements_available", true];
@@ -114,7 +114,7 @@ initialize_sector_control = {
 
 			if(count _units == 0) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if no units, no change
 
-			private _factions = arwa_all_sides select {_x countSide _units > 0};
+			private _factions = ARWA_all_sides select {_x countSide _units > 0};
 			if(count _factions > 1) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // if more than one faction present, no change
 
 			// Get the only faction in sector
@@ -122,7 +122,7 @@ initialize_sector_control = {
 			if(!([_faction, _pos] call any_friendlies_in_sector_center)) exitWith { _counter = [_counter, _sector, _current_faction] call decrement_counter; }; // no units in sector center, no change
 
 			if(_current_faction isEqualTo _faction) then {
-				if(_counter == arwa_capture_time) then {					
+				if(_counter == ARWA_capture_time) then {					
 					[_sector, _current_faction, _sector_name, _old_owner] call capture_sector;
 				} else {
 					_counter = [_counter, _sector, _current_faction] call increment_counter;
@@ -140,7 +140,7 @@ initialize_sector_control = {
 			private _being_overtaken = ([_owner, _pos] call any_enemies_in_sector_center);
 
 			if(_under_attack) then {
-					if(_report_attack && _counter == arwa_capture_time) then {
+					if(_report_attack && _counter == ARWA_capture_time) then {
 						_report_attack = false;
 						[_owner, ["SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["HQ_report_client"];
 						diag_log format["%1 sector %2 is under attack", _owner, _sector_name];
@@ -159,7 +159,7 @@ initialize_sector_control = {
 				if(!_under_attack) exitWith {
 					_counter = [_counter, _sector, _owner] call increment_counter; 
 
-					if(_counter == arwa_capture_time) then {
+					if(_counter == ARWA_capture_time) then {
 						_report_attack = true;
 					};
 				};

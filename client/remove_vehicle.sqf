@@ -10,7 +10,7 @@ remove_vehicle_action = {
 		};
 		
 		systemChat localize "VEHICLE_NOT_EMPTY";
-  	}, nil, arwa_return_vehicle, false, true, "",
+  	}, nil, ARWA_return_vehicle, false, true, "",
   	'[_this] call is_player_in_hq && [_target, _this] call is_same_side && [_this] call not_in_vehicle', 10
   	];
 };

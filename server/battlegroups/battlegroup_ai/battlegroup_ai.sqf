@@ -16,7 +16,7 @@ group_is_alive = {
 group_should_be_commanded = {
 	params ["_group"];
 
-	!(isPlayer leader _group) && ((side _group) in arwa_all_sides) && (_group getVariable ["active", true]);
+	!(isPlayer leader _group) && ((side _group) in ARWA_all_sides) && (_group getVariable ["active", true]);
 };
 
 should_change_target = {
@@ -43,7 +43,7 @@ approaching_target = {
 	private _target = _group getVariable "target";
 
 	if(isNil "_target") exitWith { false; };
-	(_target getVariable pos) distance2D (getPosWorld leader _group) < arwa_sector_size;
+	(_target getVariable pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
 };
 
 get_ground_target = {
@@ -67,7 +67,7 @@ check_if_has_priority_target = {
 
 	if(isNil "_priority_target") exitWith { false; };
 
-	private _is_safe = [_side, _priority_target, arwa_sector_size] call is_sector_safe; 
+	private _is_safe = [_side, _priority_target, ARWA_sector_size] call is_sector_safe; 
 	private _is_captured = (_priority_target getVariable owned_by) isEqualTo _side;
 
 	_is_safe && _is_captured;

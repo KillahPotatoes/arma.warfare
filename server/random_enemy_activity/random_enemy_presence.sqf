@@ -75,9 +75,9 @@ house_can_be_populated = {
 	private _sector_pos = _sector getVariable pos;
 	private _pos = getPos _building;		
 
-	(_side in arwa_all_sides) && !(playerSide isEqualTo _side)
+	(_side in ARWA_all_sides) && !(playerSide isEqualTo _side)
 	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
-	&& {(_sector_pos distance2D _pos) > arwa_sector_size}
+	&& {(_sector_pos distance2D _pos) > ARWA_sector_size}
 	&& {!(_building getVariable ["occupied", false])}	
 	&& {!([_pos, _side, 400] call any_enemies_in_area)}
 };

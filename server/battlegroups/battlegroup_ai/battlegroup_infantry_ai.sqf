@@ -111,5 +111,5 @@ infantry_group_ai = {
 	};	
 	
 	[_target, _group] spawn infantry_move_to_sector;
-	[_group] spawn report_casualities_over_radio;
+	[_group] spawn ARWA_report_casualities_over_radio;
 };

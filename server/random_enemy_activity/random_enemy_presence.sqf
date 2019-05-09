@@ -49,7 +49,7 @@ populate_house = {
 
 	if(_random_number_of_soldiers < 1) exitWith {};
 
-	private _group = [[0,0,0], _side, _random_number_of_soldiers] call spawn_sympathizers;
+	private _group = [[0,0,0], _side, _random_number_of_soldiers] call ARWA_spawn_sympathizers;
 	_group setBehaviour "SAFE";
 
 	private _positions = [];

@@ -11,7 +11,7 @@ add_soldiers_to_cargo = {
 
 	if(_cargo > 0) then {
 
-		_soldiers = [[0,0,0], _side, _cargo, false] call spawn_infantry;	
+		_soldiers = [[0,0,0], _side, _cargo, false] call ARWA_spawn_infantry;	
 
 		{
 			_x moveInCargo _vehicle;

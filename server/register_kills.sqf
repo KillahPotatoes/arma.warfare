@@ -1,25 +1,25 @@
 [] call compileFinal preprocessFileLineNumbers "server\manpower_box.sqf";
 
 
-add_kill_ticker_to_all_units = {
+ARWA_add_kill_ticker_to_all_units = {
 	while {true} do {
 		sleep 2;
 		{
 			if !(_x getVariable ["killTickerEventAdded",false]) then {
-				_x spawn kill_ticker;
+				_x spawn ARWA_kill_ticker;
 				_x setVariable ["killTickerEventAdded",true]
 			};
 		} count allUnits;
 	};
 };
 
-add_kill_ticker_to_all_vehicles = {
+ARWA_add_kill_ticker_to_all_vehicles = {
 	while {true} do {
 		sleep 2;
 		{
 			if( _x isKindOf "Car" || _x isKindOf "Tank" || _x isKindOf "Air") then {
 				if !(_x getVariable ["killTickerEventAdded",false]) then {
-					_x spawn on_vehicle_kill;
+					_x spawn ARWA_on_vehicle_kill;
 					_x setVariable ["killTickerEventAdded",true]
 				};
 			};
@@ -27,19 +27,19 @@ add_kill_ticker_to_all_vehicles = {
 	};
 };
 
-on_vehicle_kill = {
+ARWA_on_vehicle_kill = {
 	_this addMPEventHandler ['MPKilled',{
 			params ["_victim", "_killer"];
 
-			[_victim, _killer] spawn report_lost_vehicle;
-			[_victim] spawn induce_lost_vehicle_penalty;
-			[_victim, _killer] spawn induce_vehicle_kill_bonus;
+			[_victim, _killer] spawn ARWA_report_lost_vehicle;
+			[_victim] spawn ARWA_induce_lost_vehicle_penalty;
+			[_victim, _killer] spawn ARWA_induce_vehicle_kill_bonus;
 			[_victim] spawn create_manpower_box_vehicle;
 		}
 	];
 };
 
-induce_vehicle_kill_bonus = {
+ARWA_induce_vehicle_kill_bonus = {
 	params ["_victim", "_killer"];
 	if(ARWA_vehicleKillBonus > 0) then {
 		if (!(isNil "_victim" || isNil "_killer")) then {
@@ -61,7 +61,7 @@ induce_vehicle_kill_bonus = {
 	};
 };
 
-induce_lost_vehicle_penalty = {
+ARWA_induce_lost_vehicle_penalty = {
 	params ["_victim"];
 
 	private _penalty = _victim getVariable [ARWA_penalty, 0];
@@ -79,7 +79,7 @@ induce_lost_vehicle_penalty = {
 	};
 };
 
-report_lost_vehicle = {
+ARWA_report_lost_vehicle = {
 	params ["_victim", "_killer"];
 
 	private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
@@ -100,35 +100,35 @@ report_lost_vehicle = {
 	[_side, _values] remoteExec ["HQ_report_client"];
 };
 
-kill_ticker = {
+ARWA_kill_ticker = {
 	_this addMPEventHandler ['MPKilled',{
 			params ["_victim", "_killer"];
 
 			private _victim_side = side group _victim;
 			private _faction_strength = _victim_side call ARWA_get_strength;
 
-			[_victim, _killer, _faction_strength] spawn register_kill;
+			[_victim, _killer, _faction_strength] spawn ARWA_register_kill;
 			[_victim, _victim_side, _faction_strength] spawn create_manpower_box_unit;
 		}
 	];
 };
 
-calculate_kill_points = {
+ARWA_calculate_kill_points = {
 	params ["_killer_side"];
 	1 / (((_killer_side countSide allPlayers) + 1) min 2);
 };
 
-calculate_player_death_penalty = {
+ARWA_calculate_player_death_penalty = {
 	params ["_faction_strength"];
 	floor (5 max (_faction_strength / 10));
 };
 
-set_kills = {
+ARWA_set_kills = {
 	params ["_player", "_kills"];
 	_player setVariable ["kills", 0 max _kills, true];
 };
 
-register_kill = {
+ARWA_register_kill = {
 	params ["_victim", "_killer", "_faction_strength"];
 
 	if (!(isNil "_victim" || isNil "_killer")) then {
@@ -136,7 +136,7 @@ register_kill = {
 		private _victim_side = side group _victim;
 
 		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides}) then {
-			_kill_point = _killer_side call calculate_kill_points;
+			_kill_point = _killer_side call ARWA_calculate_kill_points;
 			[_killer_side, _kill_point] call increment_kill_counter;
 		};
 
@@ -148,7 +148,7 @@ register_kill = {
 			private _kills = _player getVariable ["kills", 0];
 			private _new_kills = if(_killer_side isEqualTo _victim_side) then { _kills - 1; } else { _kills + 1; };
 
-			[_player, _new_kills] call set_kills;
+			[_player, _new_kills] call ARWA_set_kills;
 		};
 
 		private _isVictimLeader = isPlayer (leader group _victim);
@@ -157,13 +157,13 @@ register_kill = {
 			private _player = leader group _victim;
 			private _kills = _player getVariable ["kills", 0];
 			private _new_kill_score = _kills - ARWA_squad_mate_death_penalty;
-			[_player, _new_kill_score] call set_kills;
+			[_player, _new_kill_score] call ARWA_set_kills;
 		};
 
 		if (_victim_side in ARWA_all_sides) then {
 			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
 
-			private _new_faction_strength = if(isPlayer _victim) then { _faction_strength - ([_faction_strength] call calculate_player_death_penalty); } else { _faction_strength - _death_penalty };
+			private _new_faction_strength = if(isPlayer _victim) then { _faction_strength - ([_faction_strength] call ARWA_calculate_player_death_penalty); } else { _faction_strength - _death_penalty };
 			[_victim_side, _new_faction_strength] call ARWA_set_strength;
 		};
 	};

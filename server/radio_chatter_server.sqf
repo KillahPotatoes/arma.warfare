@@ -1,4 +1,4 @@
-calculate_deaths = {
+ARWA_calculate_deaths = {
 	params ["_group"];
 
 	private _curr_count = {alive _x} count units _group;		
@@ -8,9 +8,9 @@ calculate_deaths = {
 	_prev_count - _curr_count;
 };
 
-report_casualities_over_radio = {
+ARWA_report_casualities_over_radio = {
 	params ["_group"];
-	private _deaths = [_group] call calculate_deaths;
+	private _deaths = [_group] call ARWA_calculate_deaths;
 
 	if (_deaths > 0) exitWith {
 		private _pos = getPosWorld (leader _group);

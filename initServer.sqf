@@ -69,11 +69,11 @@ setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 // Game setup
 [] call initialize_sectors;
 [] call draw_all_sectors;
-[] call assign_prefixes;
+[] call ARWA_assign_prefixes;
 [] call hide_respawn_markers;
 
 if(ARWA_mine_fields) then {
-	[] call initialize_mine_fields;
+	[] call ARWA_initialize_mine_fields;
 };
 
 [] call setup_faction_relations;
@@ -86,8 +86,8 @@ if(ARWA_mine_fields) then {
 
 // Game threads
 [] spawn end_game_conditions_check;
-[] spawn add_kill_ticker_to_all_units;
-[] spawn add_kill_ticker_to_all_vehicles;
+[] spawn ARWA_add_kill_ticker_to_all_units;
+[] spawn ARWA_add_kill_ticker_to_all_vehicles;
 [] spawn clean_up;
 [] spawn initialize_spawn_battle_groups;
 [] spawn spawn_gunship_groups;

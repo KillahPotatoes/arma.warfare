@@ -5,7 +5,7 @@ create_manpower_box_unit = {
 	if(_manpower > 0 || isPlayer _victim) then {
 		_victim setVariable [manpower, 0, true];
 		private _manpower_box_value = if(isPlayer _victim) then {
-			private _player_penalty = [_faction_strength] call calculate_player_death_penalty;
+			private _player_penalty = [_faction_strength] call ARWA_calculate_player_death_penalty;
 			_player_penalty + _manpower;
 		} else {
 			_manpower;

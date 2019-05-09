@@ -1,5 +1,5 @@
 
-generate_mines = {
+ARWA_generate_mines = {
 	params ["_field_center", "_field_radius", "_number_mines", "_debugs_mines", "_name"];
 
 	_nm =0;
@@ -30,11 +30,11 @@ generate_mines = {
 	};
 };
 
-initialize_mine_fields = {
+ARWA_initialize_mine_fields = {
 	{
 	  _pos = _x getVariable pos;
 	  _name = _x getVariable sector_name;
-      [_pos,300,random [0, 25, 50],false, _name] call generate_mines;
+      [_pos,300,random [0, 25, 50],false, _name] call ARWA_generate_mines;
 
 	} count sectors;
 };

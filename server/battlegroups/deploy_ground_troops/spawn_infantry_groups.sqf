@@ -80,7 +80,7 @@ spawn_squad = {
 	if(isNil "_pos") exitWith {};
 
 	_soldier_count = (ARWA_squad_cap call ARWA_calc_number_of_soldiers) min _can_spawn;
-    [_pos, _side, _soldier_count, false] call spawn_infantry;	
+    [_pos, _side, _soldier_count, false] call ARWA_spawn_infantry;	
 };
 
 spawn_reinforcement_squad = {
@@ -94,7 +94,7 @@ spawn_reinforcement_squad = {
 	diag_log format["%1: Spawn infantry squad (%2)", _side, _soldier_count];
 	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
 
-    private _group = [_pos, _side, _soldier_count, false] call spawn_infantry;	
+    private _group = [_pos, _side, _soldier_count, false] call ARWA_spawn_infantry;	
 
 	_group setVariable [priority_target, _sector];
 	[_group] call add_battle_group;

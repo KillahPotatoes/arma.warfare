@@ -1,5 +1,5 @@
 
-show_ui = {
+ARWA_show_ui = {
 
 	with uiNamespace do {
 		ARWA_max_rank = missionNamespace getVariable "ARWA_max_rank";
@@ -20,7 +20,7 @@ show_ui = {
 			missionNamespace getVariable format ["%1_strength",  _side];
 		};
 
-		print_percentage = {
+		ARWA_print_percentage = {
 			params ["_side"];
 
 			_tier = _side call ARWA_get_tier;
@@ -33,24 +33,24 @@ show_ui = {
 			format[" %1%2", _percentage, "%"];
 		};
 
-		print_faction_stats = {
+		ARWA_print_faction_stats = {
 			params ["_side", "_color"];
 
 			format[
 				"<t color='%1' align='right' size='1'>T%2%3 %4</t>",
 				_color,
 				[_side] call ARWA_get_tier,
-				[_side] call print_percentage,
-				[_side] call print_strength
+				[_side] call ARWA_print_percentage,
+				[_side] call ARWA_print_strength
 				];
 		};
 
-		print_strength = {
+		ARWA_print_strength = {
 			params ["_side"];
 			0 max (ceil ([_side] call ARWA_get_strength));
 		};
 
-		print_rank = {
+		ARWA_print_rank = {
 			private _ranks = ["Private", "Sergant", "Lieutenant", "Captain", "Major", "Elite"];
 			private _rank = (player getVariable "rank") max 0;
 
@@ -63,7 +63,7 @@ show_ui = {
 			};
 		};
 
-		print_manpower = {
+		ARWA_print_manpower = {
 			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable "manpower"];
 		};
 
@@ -79,11 +79,11 @@ show_ui = {
 
 				_ctrl ctrlSetStructuredText parseText format[
 					"%1<br />%2<br />%3<br />%4<br />%5",
-					[] call print_rank,
-					[] call print_manpower,
-					[west, '#000f72'] call print_faction_stats,
-					[east, '#720000'] call print_faction_stats,
-					[independent, '#097200'] call print_faction_stats
+					[] call ARWA_print_rank,
+					[] call ARWA_print_manpower,
+					[west, '#000f72'] call ARWA_print_faction_stats,
+					[east, '#720000'] call ARWA_print_faction_stats,
+					[independent, '#097200'] call ARWA_print_faction_stats
 					];
 			sleep 2;
 			};

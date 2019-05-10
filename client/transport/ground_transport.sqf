@@ -1,14 +1,14 @@
-send_vehicle_transport = {
+ARWA_send_vehicle_transport = {
 	params ["_group", "_veh", "_pos"];
 
 	_group move _pos;
 
 	sleep 3;
 
-	waitUntil {!([_veh] call is_transport_active) || (unitReady _veh) };
+	waitUntil {!([_veh] call ARWA_is_transport_active) || (unitReady _veh) };
 };
 
-spawn_transport_vehicle = {
+ARWA_spawn_transport_vehicle = {
 	params ["_side", "_class_name", "_kill_bonus"];
 
 	private _base_marker_name = [_side, vehicle1] call ARWA_get_prefixed_name;
@@ -26,7 +26,7 @@ spawn_transport_vehicle = {
 	_veh_arr;
 };
 
-send_to_HQ = {
+ARWA_send_to_HQ = {
 	params ["_group", "_veh"];
 
 	private _side = side _group;
@@ -34,7 +34,7 @@ send_to_HQ = {
 
 	_group addWaypoint [_pos, 0];
 
-	waitUntil {([_veh] call is_transport_dead) || ((_pos distance2D (getPos _veh)) < 100) };
+	waitUntil {([_veh] call ARWA_is_transport_dead) || ((_pos distance2D (getPos _veh)) < 100) };
 
 	if (alive _veh) exitWith
 	{

@@ -25,5 +25,5 @@ ARWA_end_game_conditions_check = {
 
 		sleep 10;
 	};
-	[ARWA_active_factions] remoteExec ["end_mission"];
+	[ARWA_active_factions] remoteExec ["ARWA_end_mission"];
 };

@@ -55,7 +55,7 @@ ARWA_induce_vehicle_kill_bonus = {
 
 				private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
 				private _values = ["VEHICLE_KILL_BONUS", _adjusted_kill_bonus, _veh_name];
-				[_killer_side, _values] remoteExec ["HQ_report_client"];
+				[_killer_side, _values] remoteExec ["ARWA_HQ_report_client"];
 			};
 		};
 	};
@@ -75,7 +75,7 @@ ARWA_induce_lost_vehicle_penalty = {
 
 		private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
 
-		[_side, ["PLAYER_VEHICLE_LOST", _penalty, _veh_name]] remoteExec ["HQ_report_client"];
+		[_side, ["PLAYER_VEHICLE_LOST", _penalty, _veh_name]] remoteExec ["ARWA_HQ_report_client"];
 	};
 };
 
@@ -97,7 +97,7 @@ ARWA_report_lost_vehicle = {
 		["VEHICLE_LOST_IN_SECTOR", _veh_name, _location];
 	};
 
-	[_side, _values] remoteExec ["HQ_report_client"];
+	[_side, _values] remoteExec ["ARWA_HQ_report_client"];
 };
 
 ARWA_kill_ticker = {

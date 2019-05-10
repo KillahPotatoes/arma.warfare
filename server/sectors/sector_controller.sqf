@@ -142,7 +142,7 @@ ARWA_initialize_sector_control = {
 			if(_under_attack) then {
 					if(_report_attack && _counter == ARWA_capture_time) then {
 						_report_attack = false;
-						[_owner, ["SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["HQ_report_client"];
+						[_owner, ["SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["ARWA_HQ_report_client"];
 						diag_log format["%1 sector %2 is under attack", _owner, _sector_name];
 					};
 

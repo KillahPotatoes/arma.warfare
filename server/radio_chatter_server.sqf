@@ -21,9 +21,9 @@ ARWA_report_casualities_over_radio = {
 
 		if (_distance > 200) exitWith {
 			private _direction = [_sector_pos, _pos] call ARWA_get_direction;
-			[_group, _deaths, _distance, _direction, _location] remoteExec ["report_casualities"];
+			[_group, _deaths, _distance, _direction, _location] remoteExec ["ARWA_report_casualities"];
 		};
 
-		[_group, _deaths, _location] remoteExec ["report_casualities_in_sector"];
+		[_group, _deaths, _location] remoteExec ["ARWA_report_casualities_in_sector"];
 	};
 };

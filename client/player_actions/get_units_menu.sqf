@@ -1,4 +1,4 @@
-remove_all_options = {
+ARWA_interrupt_uav_misson = {
 	params ["_box"];
 
 	private _options = _box getVariable ["menu", []];
@@ -10,12 +10,12 @@ remove_all_options = {
 	_box setVariable ["menu", []];
 };
 
-create_soldier = {
+ARWA_create_soldier = {
 	params ["_group", "_class_name"];
-	_class_name createUnit[getPos player, _group, "", ([] call get_rank_skill)];
+	_class_name createUnit[getPos player, _group, "", ([] call ARWA_get_rank_skill)];
 };
 
-get_infantry = {
+ARWA_get_infantry = {
 	params ["_class_name"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
@@ -25,13 +25,13 @@ get_infantry = {
 	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count;
 
 	if (_numberOfSoldiers > 0) exitWith {
-		[_group, _class_name] call create_soldier;
+		[_group, _class_name] call ARWA_create_soldier;
 	};
 
 	systemChat localize "MAXIMUM_AMOUNT_OF_UNITS";
 };
 
-get_vehicle = {
+ARWA_get_vehicle = {
 	params ["_base_marker", "_class_name", "_penalty"];
 
 	private _pos = getPos _base_marker;
@@ -45,13 +45,13 @@ get_vehicle = {
 		_veh setVariable [ARWA_kill_bonus, _penalty, true];
 		_veh setVariable [owned_by, playerSide, true];
 
-		[_veh] call remove_vehicle_action;
+		[_veh] call ARWA_remove_vehicle_action;
 	};
 
 	systemChat format[localize "OBSTRUCTING_THE_RESPAWN_AREA", _type];
 };
 
-list_options = {
+ARWA_list_options = {
 	params ["_type", "_priority", "_box", "_title"];
 
 	private _side = playerSide;
@@ -82,19 +82,19 @@ list_options = {
 
 			_box setVariable [format["Menu_%1", _title], false];
 
-			[_box] call remove_all_options;
+			[_box] call ARWA_interrupt_uav_misson;
 
 			if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
 				systemChat localize "NOT_ENOUGH_MANPOWER";
 			};
 
 			if(_type isEqualTo infantry) then {
-				[_class_name] call get_infantry;
+				[_class_name] call ARWA_get_infantry;
 			} else {
 				private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;
 				private _base_marker = missionNamespace getVariable _base_marker_name;
 
-				[_base_marker, _class_name, _penalty] call get_vehicle;
+				[_base_marker, _class_name, _penalty] call ARWA_get_vehicle;
 			};
 
 		}, [_class_name, _penalty, _type, _box, _title], (_priority - 1), false, true, "", '', 10]);
@@ -104,7 +104,7 @@ list_options = {
 	_box setVariable ["menu", _sub_options];
 };
 
-create_menu = {
+ARWA_create_menu = {
 	params ["_box", "_title", "_type", "_priority", "_disable_on_enemies_nearby"];
 
 	_box setVariable [format["Menu_%1", _title], false];
@@ -122,7 +122,7 @@ create_menu = {
 			systemChat localize "CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
 		};
 
-		[_box] call remove_all_options;
+		[_box] call ARWA_interrupt_uav_misson;
 
 		if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
 			systemChat localize "NOT_ENOUGH_MANPOWER";
@@ -131,10 +131,10 @@ create_menu = {
 		private _open = _box getVariable format["Menu_%1", _title];
 
 		if(!_open) then {
-			[_type, _priority, _box, _title] call list_options;
+			[_type, _priority, _box, _title] call ARWA_list_options;
 			_box setVariable [format["Menu_%1", _title], true];
 		} else {
 			_box setVariable [format["Menu_%1", _title], false];
 		}
-	}, [_type, _priority, _title, _box, _disable_on_enemies_nearby], _priority, false, false, "", '[_target, _this] call owned_box', 10]
+	}, [_type, _priority, _title, _box, _disable_on_enemies_nearby], _priority, false, false, "", '[_target, _this] call ARWA_owned_box', 10]
 };

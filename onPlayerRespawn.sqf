@@ -6,15 +6,15 @@ if(_fatigue == 0) then {
 	player enableStamina true;
 };
 
-[] spawn create_join_menu;
-[] spawn take_lead_menu;
-[] spawn leave_squad;
-[] spawn add_take_manpower;
-[] spawn add_store_manpower;
+[] spawn ARWA_create_join_menu;
+[] spawn ARWA_take_lead_menu;
+[] spawn ARWA_leave_squad;
+[] spawn ARWA_add_take_manpower;
+[] spawn ARWA_add_store_manpower;
 
-[localize "REQUEST_AIR_TRANSPORT", helicopter, ARWA_air_transport_actions] spawn show_order_transport;
-[localize "REQUEST_VEHICLE_TRANSPORT", vehicle1, ARWA_ground_transport_actions] spawn show_order_transport;
-[] spawn show_order_uav;
+[localize "REQUEST_AIR_TRANSPORT", helicopter, ARWA_air_transport_actions] spawn ARWA_show_order_transport;
+[localize "REQUEST_VEHICLE_TRANSPORT", vehicle1, ARWA_ground_transport_actions] spawn ARWA_show_order_transport;
+[] spawn ARWA_show_order_uav;
 
 remove_squad_mates_on_death = {
 	params ["_player"];

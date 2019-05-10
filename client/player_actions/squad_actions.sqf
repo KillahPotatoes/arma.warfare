@@ -1,21 +1,21 @@
-join_menu_open = false;
-join_options = [];
+ARWA_join_menu_open = false;
+ARWA_join_options = [];
 
-remove_all_join_options = {
+ARWA_remove_all_join_options = {
 	{
 		player removeAction _x;
-	} forEach join_options;
+	} forEach ARWA_join_options;
 
-	join_options = [];
+	ARWA_join_options = [];
 };
 
-empty_squad = {
+ARWA_empty_squad = {
 	params ["_player"];
 
 	{ alive _x } count units (group _player) == 1;
 };
 
-join_squad = {
+ARWA_join_squad = {
   	params ["_group"];
 
 	private _player_group = group player;
@@ -27,7 +27,7 @@ join_squad = {
 	deleteGroup _player_group;
 };
 
-leave_squad = {
+ARWA_leave_squad = {
   	player addAction [[localize "LEAVE_SQUAD", 0] call ARWA_add_action_text, {
 
 			private _enemies_nearby = [getPos player, playerSide, ARWA_sector_size] call ARWA_any_enemies_in_area;
@@ -42,12 +42,12 @@ leave_squad = {
 			private _new_count = { alive _x } count units _current_group;
 			_current_group setVariable [soldier_count, _new_count];
 			}, nil, ARWA_squad_actions, false, true, "",
-    '!(player call empty_squad)'
+    '!(player call ARWA_empty_squad)'
     ];
 };
 
-find_friendly_squads = {
-	params ["_group", "_side", "_distance"];
+ARWA_find_friendly_squads = {
+	params ["_pos", "_group", "_side", "_distance"];
 
 	!(group player isEqualTo _group)
 	&& (side _group isEqualTo _side)
@@ -55,71 +55,71 @@ find_friendly_squads = {
 	&& (_pos distance (leader _group)) < _distance;
 };
 
-get_friendly_squads_in_area = {
+ARWA_get_friendly_squads_in_area = {
 	params ["_pos", "_side", ["_distance", 50]];
-	allGroups select { [_x, _side, _distance] call find_friendly_squads; };
+	allGroups select { [_pos, _x, _side, _distance] call ARWA_find_friendly_squads; };
 };
 
-any_friendly_squads_in_area = {
+ARWA_any_friendly_squads_in_area = {
 	params ["_pos", "_side", ["_distance", 50]];
-	private _any_nearby = allGroups findIf { [_x, _side, _distance] call find_friendly_squads; } != -1;
+	private _any_nearby = allGroups findIf { [_pos, _x, _side, _distance] call ARWA_find_friendly_squads; } != -1;
 
 	if(!_any_nearby) then {
-		   [] call remove_all_join_options;
-			 join_menu_open = false;
+		   [] call ARWA_remove_all_join_options;
+			 ARWA_join_menu_open = false;
 	};
 
 	_any_nearby;
 };
 
-get_squad_name = {
+ARWA_get_squad_name = {
 	params ["_group"];
 	_split_string = [groupId _group, 0] call ARWA_split_string;
 	_split_string select 1;
 };
 
-list_join_options = {
+ARWA_list_join_options = {
 	params ["_priority"];
 
 	private _side = playerSide;
-	private _squads = [getPos player, playerSide] call get_friendly_squads_in_area;
+	private _squads = [getPos player, playerSide] call ARWA_get_friendly_squads_in_area;
 
 	{
-		private _name = [_x] call get_squad_name;
-		join_options pushBack (player addAction [[_name, 2] call ARWA_add_action_text, {
+		private _name = [_x] call ARWA_get_squad_name;
+		ARWA_join_options pushBack (player addAction [[_name, 2] call ARWA_add_action_text, {
 			private _params = _this select 3;
 			private _group = _params select 0;
 
-			[_group] call join_squad;
-			[] call remove_all_join_options;
-			[] call remove_all_transport_options;
-		}, [_x], (_priority - 1), false, true, "", 'player call empty_squad', 10]);
+			[_group] call ARWA_join_squad;
+			[] call ARWA_remove_all_join_options;
+			[] call ARWA_remove_all_transport_options;
+		}, [_x], (_priority - 1), false, true, "", 'player call ARWA_empty_squad', 10]);
 
 	} forEach _squads;
 };
 
-create_join_menu = {
+ARWA_create_join_menu = {
 	player addAction [[localize "JOIN_SQUAD", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
-		[] call remove_all_join_options;
+		[] call ARWA_remove_all_join_options;
 
-		if(!join_menu_open) then {
-			[ARWA_squad_actions] call list_join_options;
-			join_menu_open = true;
+		if(!ARWA_join_menu_open) then {
+			[ARWA_squad_actions] call ARWA_list_join_options;
+			ARWA_join_menu_open = true;
 		} else {
-			join_menu_open = false;
+			ARWA_join_menu_open = false;
 		}
-	}, [], ARWA_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, playerSide] call any_friendly_squads_in_area}', 10]
+	}, [], ARWA_squad_actions, false, false, "", 'player call ARWA_empty_squad && {[getPos player, playerSide] call ARWA_any_friendly_squads_in_area}', 10]
 };
 
-can_take_lead = {
+ARWA_can_take_lead = {
 	 	private _leader = leader (group player);
 		!(_leader isEqualTo player) && !(isPlayer _leader);
 };
 
-take_lead_menu = {
+ARWA_take_lead_menu = {
 	player addAction [[localize "TAKE_LEAD", 0] call ARWA_add_action_text, {
 	(group player) selectLeader player;
-	}, [], ARWA_squad_actions, false, true, "", '[] call can_take_lead', 10]
+	}, [], ARWA_squad_actions, false, true, "", '[] call ARWA_can_take_lead', 10]
 };

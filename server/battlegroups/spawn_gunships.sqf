@@ -48,7 +48,7 @@ ARWA_spawn_gunship_group = {
 	diag_log format ["%1: Spawn gunship: %2", _side, _gunship_name];
 	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
 
-	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["HQ_report_client"];
+	[_side, ["SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["ARWA_HQ_report_client"];
 	sleep 120;
 
 	private _veh_arr = [_side, _gunship, _kill_bonus] call ARWA_spawn_helicopter;

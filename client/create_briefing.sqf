@@ -1,4 +1,4 @@
-create_briefing = {
+ARWA_create_briefing = {
 	player createDiaryRecord ["Diary", [
 		"DISCORD",
 		"Join the discussion at Discord<br /><br />https://discord.gg/bpPUU48"

@@ -7,7 +7,7 @@
 ARWA_transport_options = [];
 ARWA_transport_present = false;
 
-remove_all_transport_options = {
+ARWA_remove_all_transport_options = {
 	{
 		player removeAction _x;
 	} forEach ARWA_transport_options;
@@ -15,7 +15,7 @@ remove_all_transport_options = {
 	ARWA_transport_options = [];
 };
 
-show_order_transport = {
+ARWA_show_order_transport = {
 	params ["_title", "_type", "_priority"];
 	missionNameSpace setVariable [format["transport_%1_menu", _type], false];
 
@@ -26,19 +26,19 @@ show_order_transport = {
 		private _priority = _arguments select 1;
 		private _open = missionNameSpace getVariable [format["transport_%1_menu", _type], false];
 
-		[player] call remove_all_transport_options;
+		[player] call ARWA_remove_all_transport_options;
 		if(!_open) then {
 			missionNameSpace setVariable [format["transport_%1_menu", _type], true];
-			[_type, _priority] call show_transport_options;
+			[_type, _priority] call ARWA_show_transport_options;
 		} else {
 			missionNameSpace setVariable [format["transport_%1_menu", _type], false];
 		};
 		}, [_type, _priority], _priority, false, false, "",
-		'[player] call is_leader && !ARWA_transport_present'
+		'[player] call ARWA_is_leader && !ARWA_transport_present'
 	];
 };
 
-show_transport_options = {
+ARWA_show_transport_options = {
 	params ["_type", "_priority"];
 
 	private _side = playerSide;
@@ -54,10 +54,10 @@ show_transport_options = {
 			private _class_name = _params select 0;
 			private _penalty = _params select 1;
 
-			[player] call remove_all_transport_options;
-			[_class_name, _penalty] call request_transport;
+			[player] call ARWA_remove_all_transport_options;
+			[_class_name, _penalty] call ARWA_request_transport;
 		}, [_class_name, _penalty], (_priority - 1), false, true, "",
-		'[player] call is_leader && !ARWA_transport_present'
+		'[player] call ARWA_is_leader && !ARWA_transport_present'
 		]);
 	} forEach _options;
 };

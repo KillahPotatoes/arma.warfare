@@ -1,4 +1,4 @@
-close_to_any_owned_sectors = {
+ARWA_close_to_any_owned_sectors = {
 	params ["_pos", "_sector_boxes"];
 
 	_is_close = 999999;
@@ -13,38 +13,38 @@ close_to_any_owned_sectors = {
 	_is_close;
 };
 
-create_unit_marker = {
+ARWA_create_unit_marker = {
 	params ["_group", "_alpha", "_marker_name", "_markers_pos"];
 
 	_markers_name = format["_marker_%1_%2_%3", _marker_name, _markers_pos select 0, _markers_pos select 1];
 	_markers_color = format["Color%1", side _group];
-	
+
 	createMarkerLocal[_markers_name, _markers_pos];
-	_markers_name setMarkerBrushLocal "SolidBorder"; 
+	_markers_name setMarkerBrushLocal "SolidBorder";
 	_markers_name setMarkerShapeLocal "ELLIPSE";
 	_markers_name setMarkerSizeLocal [15,15];
 	_markers_name setMarkerAlphaLocal _alpha;
 	_markers_name setMarkerColorLocal _markers_color;
-	
+
 	_markers_name;
 };
 
-create_named_unit_marker = {
+ARWA_create_named_unit_marker = {
 	params ["_group", "_alpha", "_marker_name", "_markers_pos"];
 
 	_markers_name = format["_named_marker_%1_%2_%3", _marker_name, _markers_pos select 0, _markers_pos select 1];
 	_markers_color = format["Color%1", side _group];
-	
+
 	createMarkerLocal[_markers_name, [(_markers_pos select 0) + 15, _markers_pos select 1, (_markers_pos select 2)  + 15]];
 	_markers_name setMarkerTypeLocal "mil_box";
 	_markers_name setMarkerSizeLocal [0,0];
 	_markers_name setMarkerColorLocal _markers_color;
-	_markers_name setMarkerTextLocal ([_group] call get_unit_marker_text);
-	
+	_markers_name setMarkerTextLocal ([_group] call ARWA_get_unit_marker_text);
+
 	_markers_name;
 };
 
-get_unit_marker_text = {
+ARWA_get_unit_marker_text = {
 	params ["_group"];
 
 	private _veh = vehicle leader _group;
@@ -65,42 +65,41 @@ get_unit_marker_text = {
 	format["%1 %2", _alive_count, _second_string];
 };
 
-any_alive = {
+ARWA_any_alive = {
 	params ["_group"];
 
 	({ alive _x; }count units _group) > 0;
 };
 
-show_friendly_markers = {
+ARWA_show_friendly_markers = {
 	_markers_array = [];
 	_sector_boxes = allMissionObjects ammo_box;
 	_marker_name = "friendly";
-		
+
 	while {true} do {
 		{
 			deleteMarkerLocal _x;
 		} count _markers_array;
-		
+
 		_markers_array = [];
 
-		{			
-			if (ARWA_show_all 
-				|| (_x call any_alive) 
-				&& ((side _x) isEqualTo playerSide) 
-				&& (!(_x getVariable [defense, false])) 
+		{
+			if (ARWA_show_all
+				|| (_x call ARWA_any_alive)
+				&& ((side _x) isEqualTo playerSide)
+				&& (!(_x getVariable [defense, false]))
 				&& (((leader _x) distance2D [0,0]) > 100)) then {
-			
+
 				_markers_pos = getPosWorld (leader _x);
 
-				_distance = [_markers_pos, _sector_boxes] call close_to_any_owned_sectors;				
+				_distance = [_markers_pos, _sector_boxes] call ARWA_close_to_any_owned_sectors;
 				_alpha = 1 min (_distance / 200);
 
-				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call create_unit_marker);					
-				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call create_named_unit_marker);					
-				
+				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call ARWA_create_unit_marker);
+				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call ARWA_create_named_unit_marker);
+
 			};
 		} forEach allGroups;
 		uiSleep (0.1);
-	};	
+	};
 };
-

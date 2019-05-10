@@ -13,7 +13,7 @@ ARWA_update_transport_orders = {
 
 		if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
-		[_group, _veh, _pos, "TRANSPORT_RECEIVED_NEW_ORDERS"] spawn ARWA_move_transport_to_pick_up;
+		[_group, _veh, _pos, "ARWA_STR_TRANSPORT_RECEIVED_NEW_ORDERS"] spawn ARWA_move_transport_to_pick_up;
 	};
 	waitUntil {
 		!visibleMap;
@@ -37,14 +37,14 @@ ARWA_move_transport_to_pick_up = {
 
 	if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
-	[_group, ["TRANSPORT_HAS_ARRIVED"]] spawn ARWA_group_report_client;
+	[_group, ["ARWA_STR_TRANSPORT_HAS_ARRIVED"]] spawn ARWA_group_report_client;
 	[_veh, _group] spawn ARWA_on_transport_idle_wait;
 };
 
 ARWA_is_driver_dead = {
 	params ["_veh"];
 
-	private _is_dead = !((alive driver _veh) || (_veh getVariable ["player_driver", false]));
+	private _is_dead = !((alive driver _veh) || (_veh getVariable [ARWA_KEY_player_driver, false]));
 
 	if(_is_dead) then {
 		_veh lockDriver false;
@@ -94,7 +94,7 @@ ARWA_check_status = {
 
 	if(isNull _veh) exitWith {};
 
-	[playerSide, ["TRANSPORT_DOWN"]] spawn ARWA_HQ_report_client; // TODO make classname specific
+	[playerSide, ["ARWA_STR_TRANSPORT_DOWN"]] spawn ARWA_HQ_report_client; // TODO make classname specific
 };
 
 ARWA_cancel_on_player_death = {
@@ -103,7 +103,7 @@ ARWA_cancel_on_player_death = {
 
 	if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
-	[_veh, _group, "CANCELING_TRANSPORT_MISSION", true] call ARWA_interrupt_transport_misson;
+	[_veh, _group, "ARWA_STR_CANCELING_TRANSPORT_MISSION", true] call ARWA_interrupt_transport_misson;
 };
 
 ARWA_on_transport_idle_wait = {
@@ -119,7 +119,7 @@ ARWA_on_transport_idle_wait = {
 
 	if(!([_veh] call ARWA_is_transport_active) || {player in _veh || _veh getVariable [ARWA_KEY_active, false]}) exitWith {};
 
-	[_veh, _group, "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call ARWA_interrupt_transport_misson;
+	[_veh, _group, "ARWA_STR_TRANSPORT_CANT_WAIT_ANY_LONGER", true] call ARWA_interrupt_transport_misson;
 };
 
 ARWA_interrupt_transport_misson = {
@@ -146,7 +146,7 @@ ARWA_interrupt_transport_misson = {
 	};
 
 	if(_success) then {
-		[playerSide, ["TRANSPORT_ARRIVED_IN_HQ"]] spawn ARWA_HQ_report_client;
+		[playerSide, ["ARWA_STR_TRANSPORT_ARRIVED_IN_HQ"]] spawn ARWA_HQ_report_client;
 	};
 };
 

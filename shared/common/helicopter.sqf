@@ -92,7 +92,7 @@ ARWA_take_off_and_despawn = {
 
 			if(_manpower > 0) then {
 				[playerSide, _manpower] remoteExec ["ARWA_buy_manpower_server", 2];
-				systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];
+				systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
 			};
 
 			deleteVehicle _heli_vehicle;

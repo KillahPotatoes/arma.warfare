@@ -47,7 +47,7 @@ ARWA_spawn_static = {
 ARWA_add_rearm_delay_event = {
 	params ["_veh"];
 
-	_veh setVariable["fired_barrage", false];
+	_veh setVariable[ARWA_KEY_fired_barrage, false];
 	_veh addeventhandler ["fired", {
 		private _veh = _this select 0;
 		[_veh] spawn ARWA_rearm_delay;
@@ -57,15 +57,15 @@ ARWA_add_rearm_delay_event = {
 ARWA_rearm_delay = {
 	params ["_veh"];
 
-	private _fired_barrage = _veh getVariable ["fired_barrage", false];
+	private _fired_barrage = _veh getVariable [ARWA_KEY_fired_barrage, false];
 	if(!_fired_barrage) then {
 		diag_log format["%1 fired barrage", _this select 0];
-		_veh setVariable["fired_barrage", true];
+		_veh setVariable[ARWA_KEY_fired_barrage, true];
 		sleep ARWA_sector_artillery_reload_time;
 		(_this select 0) setvehicleammo 1;
 		diag_log format["%1 reloaded", _this select 0];
 
-		_veh setVariable["fired_barrage", false];
+		_veh setVariable[ARWA_KEY_fired_barrage, false];
 	};
 };
 

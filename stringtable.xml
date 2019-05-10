@@ -1,287 +1,290 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project name="Warfare">
     <Package name="Warfare">
-        <Key ID="MAXIMUM_AMOUNT_OF_UNITS">
+        <Key ID="ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS">
             <English>You have the maximum allowed amount of units</English>
             <German>Maximale Anzahl an Einheiten erreicht.</German>
         </Key>
-        <Key ID="OBSTRUCTING_THE_RESPAWN_AREA">
+        <Key ID="ARWA_STR_OBSTRUCTING_THE_RESPAWN_AREA">
             <English>Something is obstructing the %1 respawn area</English>
             <German>Etwas blockiert die %1 Respawn Zone.</German>
         </Key>
-        <Key ID="CANNOT_SPAWN_UNITS_ENEMIES_NEARBY">
+        <Key ID="ARWA_STR_CANNOT_SPAWN_UNITS_ENEMIES_NEARBY">
             <English>Cannot spawn units when enemies nearby</English>
             <German>Einheiten können nicht gespawnt werden, wenn feindliche Kräfte in der Nähe sind.</German>
         </Key>
-        <Key ID="YOU_TOOK_MANPOWER">
+        <Key ID="ARWA_STR_YOU_TOOK_MANPOWER">
             <English>You took %1 MP</English>
             <German>%1 MP aufgenommen</German>
         </Key>
-        <Key ID="YOU_GAVE_MANPOWER">
+        <Key ID="ARWA_STR_YOU_GAVE_MANPOWER">
             <English>You gave %1 MP</English>
             <German>%1 MP abgegeben</German>
         </Key>
-        <Key ID="YOU_STORED_MANPOWER">
+        <Key ID="ARWA_STR_YOU_STORED_MANPOWER">
             <English>You stored %1 MP</English>
             <German>%1 MP eingelagert</German>
         </Key>
-        <Key ID="YOU_ADDED_MANPOWER">
+        <Key ID="ARWA_STR_YOU_ADDED_MANPOWER">
             <English>You added %1 manpower points</English>
             <German>%1 MP hinzugefügt</German>
         </Key>
-         <Key ID="NOT_ENOUGH_MANPOWER">
+         <Key ID="ARWA_STR_NOT_ENOUGH_MANPOWER">
             <English>Not enough manpower</English>
             <German>Nicht genügend MP</German>
         </Key>
-        <Key ID="TAKE_MANPOWER">
+        <Key ID="ARWA_STR_TAKE_MANPOWER">
             <English>Take manpower</English>
             <German>MP aufnehmen</German>
         </Key>
-         <Key ID="CANCELING_TRANSPORT_MISSION">
+         <Key ID="ARWA_STR_CANCELING_TRANSPORT_MISSION">
             <English>Transport mission cancelled</English>
             <German>Transporteinsatz abgebrochen</German>
         </Key>
-        <Key ID="CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY">
+        <Key ID="ARWA_STR_CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY">
             <English>Cannot leave team while enemies nearby!</English>
         </Key>
-        <Key ID="GIVE_MANPOWER">
+        <Key ID="ARWA_STR_GIVE_MANPOWER">
             <English>Give manpower</English>
             <German>MP abgeben</German>
         </Key>
-         <Key ID="TRANSPORT_ARRIVED_IN_HQ">
+         <Key ID="ARWA_STR_TRANSPORT_ARRIVED_IN_HQ">
             <English>Transport arrived safely back in HQ</English>
             <German>Transport ist sicher im HQ angekommen.</German>
         </Key>
-        <Key ID="ADD_MANPOWER">
+        <Key ID="ARWA_STR_ADD_MANPOWER">
             <English>Add manpower</English>
             <German>MP hinzufügen</German>
         </Key>
-        <Key ID="STORE_MANPOWER">
+        <Key ID="ARWA_STR_STORE_MANPOWER">
             <English>Store manpower</English>
             <German>MP einlagern</German>
         </Key>
-        <Key ID="GET_INFANTRY">
+        <Key ID="ARWA_STR_GET_INFANTRY">
             <English>Get infantry</English>
             <German>Infantrie anfordern</German>
         </Key>
-        <Key ID="GET_VEHICLES">
+        <Key ID="ARWA_STR_GET_VEHICLES">
             <English>Get vehicle</English>
             <German>Fahrzeug anfordern</German>
         </Key>
-        <Key ID="GET_HELICOPTERS">
+        <Key ID="ARWA_STR_GET_HELICOPTERS">
             <English>Get helicopter</English>
             <German>Helikopter anfordern</German>
         </Key>
-        <Key ID="OPEN_ARSENAL">
+        <Key ID="ARWA_STR_OPEN_ARSENAL">
             <English>Open arsenal</English>
             <German>Arsenal öffnen</German>
         </Key>
-        <Key ID="JOIN_SQUAD">
+        <Key ID="ARWA_STR_JOIN_SQUAD">
             <English>Join squad</English>
             <German>Trupp beitreten</German>
         </Key>
-        <Key ID="LEAVE_SQUAD">
+        <Key ID="ARWA_STR_LEAVE_SQUAD">
             <English>Leave squad</English>
             <German>Trupp verlassen</German>
         </Key>
-        <Key ID="UPDATE_TRANSPORT_ORDERS">
+        <Key ID="ARWA_STR_UPDATE_TRANSPORT_ORDERS">
             <English>Update transport orders</English>
             <German>Transportbefehle aktualisieren</German>
         </Key>
-        <Key ID="SEND_TRANSPORT_TO_HQ">
+        <Key ID="ARWA_STR_SEND_TRANSPORT_TO_HQ">
             <English>Send to HQ</English>
             <German>Zum HQ schicken</German>
         </Key>
-         <Key ID="HEAD_TO_HQ">
+         <Key ID="ARWA_STR_HEAD_TO_HQ">
             <English>Heading back to HQ</English>
             <German>Unterwegs zum HQ</German>
         </Key>
-        <Key ID="TRANSPORT_RECEIVED_NEW_ORDERS">
+        <Key ID="ARWA_STR_TRANSPORT_RECEIVED_NEW_ORDERS">
             <English>Receiving new orders. On its way!</English>
             <German>Neu Befehle empfangen. Unterwegs!</German>
-        </Key>       
-        <Key ID="DRONE_UNAVAILABLE">
+        </Key>
+        <Key ID="ARWA_STR_DRONE_UNAVAILABLE">
             <English>UAV is not available yet! Try again in %1 minutes</English>
             <German>UAV nicht verfügbar! Versuche es in %1 Minuten erneut</German>
         </Key>
-        <Key ID="TRANSPORT_ON_ITS_WAY">
+        <Key ID="ARWA_STR_TRANSPORT_ON_ITS_WAY">
             <English>Transport is on its way to given pick up destination!</English>
             <German>Transport ist unterwegs zur angegebenen Position!</German>
         </Key>
-        <Key ID="TRANSPORT_HAS_ARRIVED">
+        <Key ID="ARWA_STR_TRANSPORT_HAS_ARRIVED">
             <English>Transport has arrived. Waiting for squad to pick up!</English>
             <German>Transport ist angekommen. Erwarte Trupp zur Aufnahme!</German>
         </Key>
-         <Key ID="TRANSPORT_DOWN">
+         <Key ID="ARWA_STR_TRANSPORT_DOWN">
             <English>Transport vehicle is down! You are on your own!</English>
             <German>Transportfahrzeug ist zerstört! Du bist auf dich allein gestellt!</German>
         </Key>
-        <Key ID="TRANSPORT_CANT_WAIT_ANY_LONGER">
+        <Key ID="ARWA_STR_TRANSPORT_CANT_WAIT_ANY_LONGER">
             <English>We can't wait any longer! Transport is heading back to HQ!</English>
             <German>Wir können nicht länger warten! Transport wieder dem Weg zurück zum HQ!</German>
         </Key>
-        <Key ID="ONE_CASUALITY_IN_SECTOR_VAR1">
+        <Key ID="ARWA_STR_ONE_CASUALITY_IN_SECTOR_VAR1">
             <English>We lost a soldier at %1</English>
             <German>Wir haben bei %1 einen Soldaten verloren</German>
         </Key>
-         <Key ID="ONE_CASUALITY_IN_SECTOR_VAR2">
+         <Key ID="ARWA_STR_ONE_CASUALITY_IN_SECTOR_VAR2">
             <English>We have one down at %1</English>
             <German>Wir haben einen Verlust bei %1</German>
         </Key>
-         <Key ID="ONE_CASUALITY_IN_SECTOR_VAR3">
+         <Key ID="ARWA_STR_ONE_CASUALITY_IN_SECTOR_VAR3">
             <English>We are one less at %1</English>
             <German>Wir sind einer weniger bei %1</German>
         </Key>
-         <Key ID="ONE_CASUALITY_IN_SECTOR_VAR4">
+         <Key ID="ARWA_STR_ONE_CASUALITY_IN_SECTOR_VAR4">
             <English>We lost one at %1</English>
             <German>Wir haben jemanden bei %1 verloren</German>
         </Key>
-         <Key ID="MULTIPLE_CASUALITIES_IN_SECTOR_VAR1">
+         <Key ID="ARWA_STR_MULTIPLE_CASUALITIES_IN_SECTOR_VAR1">
             <English>We are taking casualties. %1 down at %2</English>
             <German>Wir haben Verluste. %1 Gefallene bei %2</German>
         </Key>
-        <Key ID="MULTIPLE_CASUALITIES_IN_SECTOR_VAR2">
+        <Key ID="ARWA_STR_MULTIPLE_CASUALITIES_IN_SECTOR_VAR2">
             <English>We just lost %1 soldiers at %2</English>
             <German>Wir haben %1 Soldaten bei %2 verloren</German>
         </Key>
-        <Key ID="MULTIPLE_CASUALITIES_IN_SECTOR_VAR3">
+        <Key ID="ARWA_STR_MULTIPLE_CASUALITIES_IN_SECTOR_VAR3">
             <English>We lost %1 guys at %2</English>
             <German>Wir haben %1 Gefallene bei %2</German>
         </Key>
-        <Key ID="HEAVY_CASUALITIES_IN_SECTOR_VAR1">
+        <Key ID="ARWA_STR_HEAVY_CASUALITIES_IN_SECTOR_VAR1">
             <English>We need backup! Just lost %1 at %2</English>
             <German>Wir brauchen Verstärkung! Bereits %1 Verluste bei %2</German>
         </Key>
-        <Key ID="HEAVY_CASUALITIES_IN_SECTOR_VAR2">
+        <Key ID="ARWA_STR_HEAVY_CASUALITIES_IN_SECTOR_VAR2">
             <English>We are taking heavy casualties at %2</English>
             <German>Wir haben sehr schwere Verluste bei %2</German>
         </Key>
-        <Key ID="HEAVY_CASUALITIES_IN_SECTOR_VAR3">
+        <Key ID="ARWA_STR_HEAVY_CASUALITIES_IN_SECTOR_VAR3">
             <English>Send backup. %1 just got killed at %2</English>
             <German>Schickt Verstärkung. %1 wurden bei %2 bereits getötet</German>
         </Key>
-        <Key ID="ONE_CASUALITY_VAR1">
+        <Key ID="ARWA_STR_ONE_CASUALITY_VAR1">
             <English>We lost a soldier %1m %2 of %3</English>
             <German>Wir haben einen gefallenen Soldaten %1 %2 von %3</German>
         </Key>
-         <Key ID="ONE_CASUALITY_VAR2">
+         <Key ID="ARWA_STR_ONE_CASUALITY_VAR2">
             <English>We have one down %1m %2 of %3</English>
             <German>Wir haben jemanden %1m %2 von %3 verloren</German>
         </Key>
-         <Key ID="ONE_CASUALITY_VAR3">
+         <Key ID="ARWA_STR_ONE_CASUALITY_VAR3">
             <English>We are one less at %1m %2 of %3</English>
             <German>Ein Verlust %1m %2 von %3</German>
         </Key>
-         <Key ID="ONE_CASUALITY_VAR4">
+         <Key ID="ARWA_STR_ONE_CASUALITY_VAR4">
             <English>We lost one %1m %2 of %3</English>
             <German>Einheit %1m %2 von %3 gefallen</German>
         </Key>
-         <Key ID="MULTIPLE_CASUALITIES_VAR1">
+         <Key ID="ARWA_STR_MULTIPLE_CASUALITIES_VAR1">
             <English>We are taking casualties. %1 down %2m %3 of %4</English>
             <German>Wir haben Verluste. %1 Gefallene %2m %3 von %4</German>
         </Key>
-        <Key ID="MULTIPLE_CASUALITIES_VAR2">
+        <Key ID="ARWA_STR_MULTIPLE_CASUALITIES_VAR2">
             <English>We just lost %1 soldiers %2m %3 of %4</English>
             <German>Wir haben %1 Soldaten %2m %3 von %4 verloren</German>
         </Key>
-        <Key ID="MULTIPLE_CASUALITIES_VAR3">
+        <Key ID="ARWA_STR_MULTIPLE_CASUALITIES_VAR3">
             <English>We lost %1 guys %2m %3 of %4</English>
             <German>Wir haben %1 Gefallene %2m %3 von %4</German>
         </Key>
-        <Key ID="HEAVY_CASUALITIES_VAR1">
+        <Key ID="ARWA_STR_HEAVY_CASUALITIES_VAR1">
             <English>We need backup! Just lost %1 soldiers %2m %3 of %4</English>
             <German>Wir brauchen Verstärkung! Bereits %1 Verluste %2m %3 von %4</German>
         </Key>
-        <Key ID="HEAVY_CASUALITIES_VAR2">
+        <Key ID="ARWA_STR_HEAVY_CASUALITIES_VAR2">
             <English>We are taking heavy casualties %2m %3 of %4. %1 guys down!</English>
             <German>Wir haben sehr schwere Verluste %2m %3 von %4. %1 Männer gefallen!</German>
         </Key>
-        <Key ID="HEAVY_CASUALITIES_VAR3">
+        <Key ID="ARWA_STR_HEAVY_CASUALITIES_VAR3">
             <English>Send backup. %1 just got killed %2m %3 of %4</English>
             <German>Schickt Verstärkung. %1 wurden %2m %3 von %4 bereits getötet</German>
         </Key>
-         <Key ID="VEHICLE_RETURNED">
+         <Key ID="ARWA_STR_VEHICLE_RETURNED">
             <English>Vehicle returned</English>
             <German>Fahrzeug zurückgekehrt</German>
         </Key>
-         <Key ID="VEHICLE_NOT_EMPTY">
+         <Key ID="ARWA_STR_RETURN_VEHICLE">
+            <English>Return vehicle</English>
+        </Key>
+         <Key ID="ARWA_STR_VEHICLE_NOT_EMPTY">
             <English>Vehicle is not empty</English>
             <German>Fahrzeug ist nicht leer</German>
         </Key>
-        <Key ID="VEHICLE_MOVING_TO">
+        <Key ID="ARWA_STR_VEHICLE_MOVING_TO">
             <English>"%1 is moving towards %2"</English>
             <German>%1 unterwegs zu %2</German>
         </Key>
-        <Key ID="SQUAD_MOVING_TO">
+        <Key ID="ARWA_STR_SQUAD_MOVING_TO">
             <English>Squad of %1 moving towards %2</English>
             <German>Trupp von %1 Mann unterwegs zu %2</German>
         </Key>
-        <Key ID="PLAYER_VEHICLE_LOST">
+        <Key ID="ARWA_STR_PLAYER_VEHICLE_LOST">
             <English>We lost %1 manpower points due to the loss of %2</English>
             <German>Wir haben %1 MP durch den Verlust von %2 verloren</German>
         </Key>
-        <Key ID="VEHICLE_LOST_IN_SECTOR">
+        <Key ID="ARWA_STR_VEHICLE_LOST_IN_SECTOR">
             <English>We lost a %1 in %2</English>
             <German>Wir haben %1 bei %2 verloren</German>
         </Key>
-        <Key ID="VEHICLE_LOST">
+        <Key ID="ARWA_STR_VEHICLE_LOST">
             <English>We lost a %1 %2m %3 of %4</English>
             <German>%1 %2m %3 von %4 verloren</German>
         </Key>
-        <Key ID="REQUEST_AIR_TRANSPORT">
+        <Key ID="ARWA_STR_REQUEST_AIR_TRANSPORT">
             <English>Request helicopter pick-up</English>
             <German>Abholung per Helikopter anfordern</German>
         </Key>
-        <Key ID="REQUEST_VEHICLE_TRANSPORT">
+        <Key ID="ARWA_STR_REQUEST_VEHICLE_TRANSPORT">
             <English>Request vehicle pick-up</English>
             <German>Abholung per Fahrzeug anfordern</German>
         </Key>
-        <Key ID="HAS_LOST_SECTOR">
+        <Key ID="ARWA_STR_HAS_LOST_SECTOR">
             <English>%1 has lost %2</English>
             <German>%1 hat %2 verloren</German>
         </Key>
-        <Key ID="HAS_CAPTURED_SECTOR">
+        <Key ID="ARWA_STR_HAS_CAPTURED_SECTOR">
             <English>%1 has captured %2</English>
             <German>%1 hat %2 eingenommen</German>
         </Key>
-         <Key ID="SECTOR_IS_UNDER_ATTACK">
+         <Key ID="ARWA_STR_SECTOR_IS_UNDER_ATTACK">
             <English>%1 is under attack!</English>
             <German>%1 wird angegriffen!</German>
         </Key>
-        <Key ID="MANPOWER_IS_LOST">
+        <Key ID="ARWA_STR_MANPOWER_IS_LOST">
             <English>%1 gained %2 manpower when capturing %3</English>
             <German>%1 erhielt %2 MP für die Eroberung von %3</German>
         </Key>
-         <Key ID="INSERTING_SQUAD">
-            <English>%1 inserting squad of %2 near %3</English>            
+         <Key ID="ARWA_STR_INSERTING_SQUAD">
+            <English>%1 inserting squad of %2 near %3</English>
         </Key>
-         <Key ID="SENDING_VEHICLE_YOUR_WAY">
-            <English>Sending a %1 your way. ETA 2 minutes!</English>            
+         <Key ID="ARWA_STR_SENDING_VEHICLE_YOUR_WAY">
+            <English>Sending a %1 your way. ETA 2 minutes!</English>
         </Key>
-         <Key ID="VEHICLE_KILL_BONUS">
-            <English>%1 manpower points gained from destroying %2</English>            
+         <Key ID="ARWA_STR_VEHICLE_KILL_BONUS">
+            <English>%1 manpower points gained from destroying %2</English>
         </Key>
-        <Key ID="TAKE_LEAD">
-            <English>Take lead</English>            
-        </Key>        
-        <Key ID="REQUEST_DRONE">
-            <English>Request drone</English>            
-        </Key>   
-        <Key ID="DRONE_ON_ITS_WAY">
-            <English>Drone on its way</English>            
-        </Key>   
-        <Key ID="DRONE_DOWN">
-            <English>Drone is down!</English>            
-        </Key>   
-        <Key ID="CANCELING_DRONE_MISSION">
-            <English>Cancelling drone mission</English>             
-        </Key>   
-        <Key ID="DRONE_ARRIVED_IN_HQ">
+        <Key ID="ARWA_STR_TAKE_LEAD">
+            <English>Take lead</English>
+        </Key>
+        <Key ID="ARWA_STR_REQUEST_DRONE">
+            <English>Request drone</English>
+        </Key>
+        <Key ID="ARWA_STR_DRONE_ON_ITS_WAY">
+            <English>Drone on its way</English>
+        </Key>
+        <Key ID="ARWA_STR_DRONE_DOWN">
+            <English>Drone is down!</English>
+        </Key>
+        <Key ID="ARWA_STR_CANCELING_DRONE_MISSION">
+            <English>Cancelling drone mission</English>
+        </Key>
+        <Key ID="ARWA_STR_DRONE_ARRIVED_IN_HQ">
             <English>Drone arrived in HQ</English>
-        </Key>   
-        <Key ID="SEND_DRONE_TO_HQ">
+        </Key>
+        <Key ID="ARWA_STR_SEND_DRONE_TO_HQ">
             <English>Send drone to HQ</English>
-        </Key>   
+        </Key>
     </Package>
     <Package name="KPPLM">
         <Key ID="STR_KPPLM_ACTIONOPEN">
@@ -505,5 +508,3 @@
         </Key>
     </Package>
 </Project>
-
-

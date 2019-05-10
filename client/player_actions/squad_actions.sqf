@@ -28,12 +28,12 @@ ARWA_join_squad = {
 };
 
 ARWA_leave_squad = {
-  	player addAction [[localize "LEAVE_SQUAD", 0] call ARWA_add_action_text, {
+  	player addAction [[localize "ARWA_STR_LEAVE_SQUAD", 0] call ARWA_add_action_text, {
 
 			private _enemies_nearby = [getPos player, playerSide, ARWA_sector_size] call ARWA_any_enemies_in_area;
 
 			if(_enemies_nearby) exitWith {
-				systemChat localize "CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY";
+				systemChat localize "ARWA_STR_CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY";
 			};
 
 			private _current_group = group player;
@@ -99,7 +99,7 @@ ARWA_list_join_options = {
 };
 
 ARWA_create_join_menu = {
-	player addAction [[localize "JOIN_SQUAD", 0] call ARWA_add_action_text, {
+	player addAction [[localize "ARWA_STR_JOIN_SQUAD", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		[] call ARWA_remove_all_join_options;
@@ -119,7 +119,7 @@ ARWA_can_take_lead = {
 };
 
 ARWA_take_lead_menu = {
-	player addAction [[localize "TAKE_LEAD", 0] call ARWA_add_action_text, {
+	player addAction [[localize "ARWA_STR_TAKE_LEAD", 0] call ARWA_add_action_text, {
 	(group player) selectLeader player;
 	}, [], ARWA_squad_actions, false, true, "", '[] call ARWA_can_take_lead', 10]
 };

@@ -11,6 +11,8 @@ ARWA_KEY_transport = "transport";
 ARWA_KEY_manpower = "manpower";
 
 ARWA_KEY_menu = "menu";
+ARWA_KEY_fired_barrage = "fired_barrage";
+ARWA_KEY_player_driver = "player_driver";
 ARWA_KEY_pos = "position";
 ARWA_KEY_marker = "marker";
 ARWA_KEY_static_artillery = "static_artillery";
@@ -20,6 +22,7 @@ ARWA_KEY_respawn_ground = "respawn_ground";
 ARWA_KEY_respawn_air = "respawn_air";
 ARWA_KEY_sector_name = "name";
 ARWA_KEY_box = "box";
+ARWA_KEY_HQ = "HQ";
 ARWA_KEY_manpower = "manpower";
 ARWA_KEY_manpower_box = "manpower-box";
 ARWA_KEY_soldier_count = "s_count";

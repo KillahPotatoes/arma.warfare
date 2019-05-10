@@ -1,3 +1,8 @@
+ARWA_sectors = [];
+ARWA_west_sectors = [];
+ARWA_east_sectors = [];
+ARWA_guer_sectors = [];
+
 ARWA_add_sector_box = {
 	params ["_sector"];
 
@@ -8,7 +13,7 @@ ARWA_add_sector_box = {
 	_sector setVariable [ARWA_KEY_box, _ammo_box];
 	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
 	_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
-	_ammo_box setVariable [ARWA_KEY_sector, true, true]; // Add key
+	_ammo_box setVariable [ARWA_KEY_sector, true, true];
 };
 
 ARWA_initialize_sectors = {
@@ -16,7 +21,7 @@ ARWA_initialize_sectors = {
 	{
 		_type = getMarkerType _x;
 
-		if (_type isEqualTo "hd_objective") then { // add key
+		if (_type isEqualTo "hd_objective") then {
 			_split_string = [_x, 7] call ARWA_split_string;
 			_first_string = _split_string select 0;
 			_second_string = _split_string select 1;
@@ -38,10 +43,7 @@ ARWA_initialize_sectors = {
 		};
 	} count allMapMarkers;
 
-	missionNamespace setVariable ["ARWA_sectors", _sectors];
-	missionNamespace setVariable ["ARWA_west_sectors", []];
-	missionNamespace setVariable ["ARWA_east_sectors", []];
-	missionNamespace setVariable ["ARWA_guer_sectors", []];
+	ARWA_sectors = _sectors;
 };
 
 ARWA_is_sector_safe = {

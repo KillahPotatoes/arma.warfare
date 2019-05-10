@@ -21,14 +21,14 @@ ARWA_has_uav_terminal = {
 ARWA_show_order_uav = {
 	missionNameSpace setVariable ["ARWA_uav_menu", false];
 
-	player addAction [[localize "REQUEST_DRONE", 0] call ARWA_add_action_text, {
+	player addAction [[localize "ARWA_STR_REQUEST_DRONE", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		if(ARWA_uav_timer > time) exitWith {
 
 			private _time_left = ARWA_uav_timer - time;
 			private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;
-			systemChat format[localize "DRONE_UNAVAILABLE", _wait_minutes];
+			systemChat format[localize "ARWA_STR_DRONE_UNAVAILABLE", _wait_minutes];
 		};
 
 		private _open = missionNameSpace getVariable ["ARWA_uav_menu", false];
@@ -162,7 +162,7 @@ ARWA_cancel_uav_on_player_death = {
 ARWA_show_cancel_uav_action = {
 	params ["_uav"];
 
-	ARWA_cancel_uav_id = player addAction [[localize "SEND_DRONE_TO_HQ", 0] call ARWA_add_action_text, {
+	ARWA_cancel_uav_id = player addAction [[localize "ARWA_STR_SEND_DRONE_TO_HQ", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _uav = _arguments select 0;

@@ -1,15 +1,15 @@
 ARWA_remove_vehicle_action = {
 	params["_veh"];
 
-  	_veh addAction [[localize "RETURN_VEHICLE", 0] call ARWA_add_action_text, { // TODO Add localize
+  	_veh addAction [[localize "ARWA_STR_RETURN_VEHICLE", 0] call ARWA_add_action_text, { // TODO Add localize
     	params ["_target", "_caller"];
 
 		if(0 == count crew _target) exitWith {
 			deleteVehicle _target;
-			systemChat localize "VEHICLE_RETURNED";
+			systemChat localize "ARWA_STR_VEHICLE_RETURNED";
 		};
 
-		systemChat localize "VEHICLE_NOT_EMPTY";
+		systemChat localize "ARWA_STR_VEHICLE_NOT_EMPTY";
   	}, nil, ARWA_return_vehicle, false, true, "",
   	'[_this] call ARWA_is_player_in_hq && [_target, _this] call ARWA_is_same_side && [_this] call ARWA_not_in_vehicle', 10
   	];

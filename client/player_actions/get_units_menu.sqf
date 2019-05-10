@@ -28,7 +28,7 @@ ARWA_get_infantry = {
 		[_group, _class_name] call ARWA_create_soldier;
 	};
 
-	systemChat localize "MAXIMUM_AMOUNT_OF_UNITS";
+	systemChat localize "ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS";
 };
 
 ARWA_get_vehicle = {
@@ -48,7 +48,7 @@ ARWA_get_vehicle = {
 		[_veh] call ARWA_remove_vehicle_action;
 	};
 
-	systemChat format[localize "OBSTRUCTING_THE_RESPAWN_AREA", _type];
+	systemChat format[localize "ARWA_STR_OBSTRUCTING_THE_RESPAWN_AREA", _type];
 };
 
 ARWA_list_options = {
@@ -85,7 +85,7 @@ ARWA_list_options = {
 			[_box] call ARWA_interrupt_uav_misson;
 
 			if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
-				systemChat localize "NOT_ENOUGH_MANPOWER";
+				systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
 			};
 
 			if(_type isEqualTo ARWA_KEY_infantry) then {
@@ -119,13 +119,13 @@ ARWA_create_menu = {
 		private _disable_on_enemies_nearby = _arguments select 4;
 
 		if(_disable_on_enemies_nearby && {[playerSide, getPos _box] call ARWA_any_enemies_in_sector}) exitWith {
-			systemChat localize "CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
+			systemChat localize "ARWA_STR_CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
 		};
 
 		[_box] call ARWA_interrupt_uav_misson;
 
 		if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
-			systemChat localize "NOT_ENOUGH_MANPOWER";
+			systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
 		};
 
 		private _open = _box getVariable format["Menu_%1", _title];

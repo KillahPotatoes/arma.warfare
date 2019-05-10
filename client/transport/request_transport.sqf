@@ -30,7 +30,7 @@ ARWA_order_transport = {
 	[_veh] spawn ARWA_check_status;
 	[_veh] spawn ARWA_toggle_control;
 
-	[_group, _veh, _pos, "TRANSPORT_ON_ITS_WAY"] spawn ARWA_move_transport_to_pick_up;
+	[_group, _veh, _pos, "ARWA_STR_TRANSPORT_ON_ITS_WAY"] spawn ARWA_move_transport_to_pick_up;
 };
 
 ARWA_spawn_transport = {

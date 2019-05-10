@@ -54,7 +54,7 @@ ARWA_induce_vehicle_kill_bonus = {
 				[_killer_side, _new_faction_strength] call ARWA_set_strength;
 
 				private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
-				private _values = ["VEHICLE_KILL_BONUS", _adjusted_kill_bonus, _veh_name];
+				private _values = ["ARWA_STR_VEHICLE_KILL_BONUS", _adjusted_kill_bonus, _veh_name];
 				[_killer_side, _values] remoteExec ["ARWA_HQ_report_client"];
 			};
 		};
@@ -75,7 +75,7 @@ ARWA_induce_lost_vehicle_penalty = {
 
 		private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
 
-		[_side, ["PLAYER_VEHICLE_LOST", _penalty, _veh_name]] remoteExec ["ARWA_HQ_report_client"];
+		[_side, ["ARWA_STR_PLAYER_VEHICLE_LOST", _penalty, _veh_name]] remoteExec ["ARWA_HQ_report_client"];
 	};
 };
 
@@ -92,9 +92,9 @@ ARWA_report_lost_vehicle = {
 
 	private _values = if (_distance > 200) then {
 		private _direction = [_sector_pos, _pos] call ARWA_get_direction;
-		["VEHICLE_LOST", _veh_name, _distance, _direction, _location];
+		["ARWA_STR_VEHICLE_LOST", _veh_name, _distance, _direction, _location];
 	} else {
-		["VEHICLE_LOST_IN_SECTOR", _veh_name, _location];
+		["ARWA_STR_VEHICLE_LOST_IN_SECTOR", _veh_name, _location];
 	};
 
 	[_side, _values] remoteExec ["ARWA_HQ_report_client"];

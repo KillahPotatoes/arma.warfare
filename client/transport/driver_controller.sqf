@@ -9,7 +9,7 @@ ARWA_toggle_control = {
 
 		waituntil {player in _veh || !([_veh] call ARWA_is_transport_active)};
 		if(!([_veh] call ARWA_is_transport_active)) exitWith {};
-		_veh setVariable ["player_driver", true];
+		_veh setVariable [ARWA_KEY_player_driver, true];
 
 		[_group, _veh] call ARWA_put_player_in_position;
 
@@ -18,7 +18,7 @@ ARWA_toggle_control = {
 		if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
 		[_driver_type, _group, _veh] call ARWA_replace_player_with_driver;
-		_veh setVariable ["player_driver", false];
+		_veh setVariable [ARWA_KEY_player_driver, false];
 
 		if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 	};

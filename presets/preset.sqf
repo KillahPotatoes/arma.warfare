@@ -1,4 +1,4 @@
-choose_preset = {
+ARWA_choose_preset = {
 	private _preset = ["Preset", 0] call BIS_fnc_getParamValue;
 
 	if(_preset == 0) exitWith {
@@ -14,5 +14,4 @@ choose_preset = {
 	};
 };
 
-[] call choose_preset;
-
+[] call ARWA_choose_preset;

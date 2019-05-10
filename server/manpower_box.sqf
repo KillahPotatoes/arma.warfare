@@ -25,7 +25,7 @@ ARWA_create_manpower_box_vehicle = {
 
 	if(_manpower > 0) then {
 		_victim setVariable [manpower, 0, true];
-		private _side = _victim getVariable owned_by;
+		private _side = _victim getVariable ARWA_KEY_owned_by;
 
 		if(!(isTouchingGround _victim)) then {
 			sleep 30;

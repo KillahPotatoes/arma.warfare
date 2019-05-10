@@ -23,7 +23,7 @@ ARWA_pick_most_valued_player_owned_sector = {
 
 	if(_sectors isEqualTo []) exitWith {};
 
-	_sectors = _sectors select { (_x getVariable owned_by) countSide allPlayers > 0 };
+	_sectors = _sectors select { (_x getVariable ARWA_KEY_owned_by) countSide allPlayers > 0 };
 
 	if(_sectors isEqualTo []) exitWith {};
 
@@ -108,7 +108,7 @@ ARWA_dispatch_heli_battlegroup = {
 		unassignVehicle _x;
 	} forEach units _grp;
 
-	_grp setVariable ["active", true];
+	_grp setVariable [ARWA_KEY_active, true];
 };
 
 ARWA_move_to_sector_outskirt = {

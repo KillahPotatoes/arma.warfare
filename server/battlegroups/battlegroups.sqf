@@ -39,7 +39,7 @@ ARWA_set_special_mission_attr = {
 
 ARWA_add_battle_group = {
 	params ["_group", ["_active", true]];
-	_group setVariable ["active", _active];
+	_group setVariable [ARWA_KEY_active, _active];
 	_curr_count = {alive _x} count (units _group);
 	_group setVariable [soldier_count, _curr_count];
     _group deleteGroupWhenEmpty true;

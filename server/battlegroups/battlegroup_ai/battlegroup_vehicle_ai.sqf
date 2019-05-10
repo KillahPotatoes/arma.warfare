@@ -13,7 +13,7 @@ ARWA_vehicle_create_waypoint = {
 
 	_group setSpeedMode "NORMAL";
 	_group setCombatMode "YELLOW";
-	_group setVariable ["target", _target];
+	_group setVariable [ARWA_KEY_target, _target];
 };
 
 ARWA_initialize_vehicle_group_ai = {
@@ -39,7 +39,7 @@ ARWA_vehicle_move_to_sector = {
 	};
 
 	if ([_group] call ARWA_needs_new_waypoint) then {
-		private _target = _group getVariable "target";
+		private _target = _group getVariable ARWA_KEY_target;
 		[_target, _group] call ARWA_vehicle_create_waypoint;
 	};
 

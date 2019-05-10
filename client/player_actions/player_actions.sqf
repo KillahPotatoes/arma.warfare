@@ -12,7 +12,7 @@ ARWA_initialize_ammo_boxes = {
 			[_x] spawn ARWA_add_HQ_actions;
 		};
 
-		if(_x getVariable ["sector", false]) then {
+		if(_x getVariable [ARWA_KEY_sector, false]) then {
 			[_x] spawn ARWA_add_sector_actions;
 		};
 	} forEach entities ammo_box;
@@ -20,7 +20,7 @@ ARWA_initialize_ammo_boxes = {
 
 ARWA_owned_box = {
     params ["_box", "_player"];
-    (_box getVariable owned_by) isEqualTo (side _player);
+    (_box getVariable ARWA_KEY_owned_by) isEqualTo (side _player);
 };
 
 ARWA_add_sector_actions = {

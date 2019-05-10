@@ -7,17 +7,17 @@ ARWA_show_ui = {
 
 		ARWA_get_tier_progress = {
 			params ["_side"];
-			missionNamespace getVariable format ["%1_tier_prog",  _side];
+			missionNamespace getVariable format ["%1_tier_prog",  _side]; // TODO add key
 		};
 
 		ARWA_get_tier = {
 			params ["_side"];
-			missionNamespace getVariable format ["%1_tier",  _side];
+			missionNamespace getVariable format ["%1_tier",  _side]; // TODO add key
 		};
 
 		ARWA_get_strength = {
 			params ["_side"];
-			missionNamespace getVariable format ["%1_strength",  _side];
+			missionNamespace getVariable format ["%1_strength",  _side]; // TODO add key
 		};
 
 		ARWA_print_percentage = {
@@ -51,20 +51,20 @@ ARWA_show_ui = {
 		};
 
 		ARWA_print_rank = {
-			private _ranks = ["Private", "Sergant", "Lieutenant", "Captain", "Major", "Elite"];
-			private _rank = (player getVariable "rank") max 0;
+
+			private _rank = (player getVariable ARWA_KEY_rank) max 0;
 
 			if(_rank < ARWA_max_rank) then {
-				private _kills = (player getVariable ["kills", 0]) max 0;
+				private _kills = (player getVariable [ARWA_KEY_kills, 0]) max 0;
 				private _percentage = floor(((_kills mod ARWA_kills_per_rank) / ARWA_kills_per_rank) * 100);
-				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", _ranks select _rank, _percentage, "%"];
+				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", ARWA_ranks select _rank, _percentage, "%"];
 			} else {
-				format["<t color='#000000' align='right' size='1'>%1</t>", _ranks select _rank];
+				format["<t color='#000000' align='right' size='1'>%1</t>", ARWA_ranks select _rank];
 			};
 		};
 
 		ARWA_print_manpower = {
-			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable "manpower"];
+			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable ARWA_KEY_manpower];
 		};
 
 		[] spawn {

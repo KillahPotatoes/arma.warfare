@@ -20,7 +20,7 @@ ARWA_spawn_transport_vehicle = {
 
 	private _veh_arr = [_pos, getDir _base_marker, _class_name, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _veh = _veh_arr select 0;
-	_veh setVariable [owned_by, playerSide];
+	_veh setVariable [ARWA_KEY_owned_by, playerSide];
 
 	_veh lockDriver true;
 	_veh_arr;

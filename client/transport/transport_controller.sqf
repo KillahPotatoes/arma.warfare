@@ -26,7 +26,7 @@ ARWA_move_transport_to_pick_up = {
 
 	if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
-	_veh setVariable ["active", true];
+	_veh setVariable [ARWA_KEY_active, true];
 	[_group, [_msg]] spawn ARWA_group_report_client;
 
 	if(_veh isKindOf "Air") then {
@@ -109,15 +109,15 @@ ARWA_cancel_on_player_death = {
 ARWA_on_transport_idle_wait = {
 	params ["_veh", "_group"];
 
-	_veh setVariable ["active", false];
+	_veh setVariable [ARWA_KEY_active, false];
 
 	private _timer = time + ARWA_transport_will_wait_time;
 
 	waituntil {
-		!([_veh] call ARWA_is_transport_active) || {(player in _veh) || time > _timer || _veh getVariable ["active", false]}
+		!([_veh] call ARWA_is_transport_active) || {(player in _veh) || time > _timer || _veh getVariable [ARWA_KEY_active, false]}
 	};
 
-	if(!([_veh] call ARWA_is_transport_active) || {player in _veh || _veh getVariable ["active", false]}) exitWith {};
+	if(!([_veh] call ARWA_is_transport_active) || {player in _veh || _veh getVariable [ARWA_KEY_active, false]}) exitWith {};
 
 	[_veh, _group, "TRANSPORT_CANT_WAIT_ANY_LONGER", true] call ARWA_interrupt_transport_misson;
 };

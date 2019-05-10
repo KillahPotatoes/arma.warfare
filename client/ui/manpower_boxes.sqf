@@ -13,7 +13,7 @@ ARWA_update_manpower_markers = {
 	params ["_boxes"];
 
 	{
-		private _side = _x getVariable owned_by;
+		private _side = _x getVariable ARWA_KEY_owned_by;
 		private _marker_name = format["%1-%2", "manpower-box", _forEachIndex];
 
 		if (_side isEqualTo playerSide || ARWA_show_all) then {

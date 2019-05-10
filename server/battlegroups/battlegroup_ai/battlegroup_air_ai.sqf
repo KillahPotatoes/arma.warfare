@@ -10,7 +10,7 @@ ARWA_air_create_waypoint = {
 	_group setBehaviour "AWARE";
 
 	_group setCombatMode "YELLOW";
-	_group setVariable ["target", _target];
+	_group setVariable [ARWA_KEY_target, _target];
 };
 
 ARWA_air_move_to_sector = {
@@ -21,7 +21,7 @@ ARWA_air_move_to_sector = {
 	};
 
 	if ([_group] call ARWA_needs_new_waypoint) then {
-		private _target = _group getVariable "target";
+		private _target = _group getVariable ARWA_KEY_target;
 		[_target, _group] call ARWA_vehicle_create_waypoint;
 	};
 

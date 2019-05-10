@@ -1,13 +1,13 @@
 ARWA_interrupt_uav_misson = {
 	params ["_box"];
 
-	private _options = _box getVariable ["menu", []];
+	private _options = _box getVariable [ARWA_KEY_menu, []];
 
 	{
 		_box removeAction _x;
 	} forEach _options;
 
-	_box setVariable ["menu", []];
+	_box setVariable [ARWA_KEY_menu, []];
 };
 
 ARWA_create_soldier = {
@@ -19,7 +19,7 @@ ARWA_get_infantry = {
 	params ["_class_name"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
-	private _rank = player getVariable ["rank", 0];
+	private _rank = player getVariable [ARWA_KEY_rank, 0];
 	private _squad_cap_based_off_rank = (_rank * 2) + 4;
 
 	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count;
@@ -43,7 +43,7 @@ ARWA_get_vehicle = {
 
 		_veh setVariable [ARWA_penalty, _penalty, true];
 		_veh setVariable [ARWA_kill_bonus, _penalty, true];
-		_veh setVariable [owned_by, playerSide, true];
+		_veh setVariable [ARWA_KEY_owned_by, playerSide, true];
 
 		[_veh] call ARWA_remove_vehicle_action;
 	};
@@ -101,7 +101,7 @@ ARWA_list_options = {
 
 	} forEach _options;
 
-	_box setVariable ["menu", _sub_options];
+	_box setVariable [ARWA_KEY_menu, _sub_options];
 };
 
 ARWA_create_menu = {

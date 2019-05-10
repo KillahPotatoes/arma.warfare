@@ -2,13 +2,13 @@ ARWA_spawn_sector_defense = {
 	params ["_sector"];
 
 	private _pos = _sector getVariable pos;
-	private _current_faction = _sector getVariable owned_by;
+	private _current_faction = _sector getVariable ARWA_KEY_owned_by;
 	private _sector_defense = nil;
 	private _static_defense = nil;
 	private _sleep = 1;
 
 	while {true} do {
-		private _faction = _sector getVariable owned_by;
+		private _faction = _sector getVariable ARWA_KEY_owned_by;
 
 		if(!(_faction isEqualTo civilian) && {!([_faction, _pos] call ARWA_any_enemies_in_sector)}) then {
 

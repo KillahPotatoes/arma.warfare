@@ -44,7 +44,7 @@ ARWA_induce_vehicle_kill_bonus = {
 	if(ARWA_vehicleKillBonus > 0) then {
 		if (!(isNil "_victim" || isNil "_killer")) then {
 			private _killer_side = side group _killer;
-			private _victim_side = _victim getVariable owned_by;
+			private _victim_side = _victim getVariable ARWA_KEY_owned_by;
 
 			if (!(_victim_side isEqualTo _killer_side) && {isPlayer _killer}) then {
 				private _kill_bonus = _victim getVariable ARWA_kill_bonus;
@@ -67,7 +67,7 @@ ARWA_induce_lost_vehicle_penalty = {
 	private _penalty = _victim getVariable [ARWA_penalty, 0];
 
 	if(_penalty > 0) exitWith {
-		private _side = _victim getVariable owned_by;
+		private _side = _victim getVariable ARWA_KEY_owned_by;
 
 		private _faction_strength = _side call ARWA_get_strength;
 		private _new_faction_strength = _faction_strength - _penalty;
@@ -88,7 +88,7 @@ ARWA_report_lost_vehicle = {
 	private _sector_pos = _closest_sector getVariable pos;
 	private _distance = floor(_sector_pos distance2D _pos);
 	private _location = [_closest_sector getVariable sector_name] call ARWA_replace_underscore;
-	private _side = _victim getVariable owned_by;
+	private _side = _victim getVariable ARWA_KEY_owned_by;
 
 	private _values = if (_distance > 200) then {
 		private _direction = [_sector_pos, _pos] call ARWA_get_direction;
@@ -125,7 +125,7 @@ ARWA_calculate_player_death_penalty = {
 
 ARWA_set_kills = {
 	params ["_player", "_kills"];
-	_player setVariable ["kills", 0 max _kills, true];
+	_player setVariable [ARWA_KEY_kills, 0 max _kills, true];
 };
 
 ARWA_register_kill = {
@@ -145,7 +145,7 @@ ARWA_register_kill = {
 		if ((isPlayer _killer) || _isKillLeader) then {
 			private _player = if(_isKillLeader) then { leader group _killer; } else { _killer; };
 
-			private _kills = _player getVariable ["kills", 0];
+			private _kills = _player getVariable [ARWA_KEY_kills, 0];
 			private _new_kills = if(_killer_side isEqualTo _victim_side) then { _kills - 1; } else { _kills + 1; };
 
 			[_player, _new_kills] call ARWA_set_kills;
@@ -155,7 +155,7 @@ ARWA_register_kill = {
 
 		if (_isVictimLeader) then {
 			private _player = leader group _victim;
-			private _kills = _player getVariable ["kills", 0];
+			private _kills = _player getVariable [ARWA_KEY_kills, 0];
 			private _new_kill_score = _kills - ARWA_squad_mate_death_penalty;
 			[_player, _new_kill_score] call ARWA_set_kills;
 		};

@@ -46,7 +46,7 @@ ARWA_spawn_transport = {
 	private _veh = _arr select 0;
 	ARWA_transport_present = true;
 
-	_veh setVariable ["transport", true];
+	_veh setVariable [ARWA_KEY_transport, true];
 	_veh setVariable [ARWA_penalty, _penalty, true];
 
 	_group setBehaviour "CARELESS";

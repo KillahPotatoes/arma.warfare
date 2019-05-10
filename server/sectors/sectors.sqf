@@ -6,9 +6,9 @@ ARWA_add_sector_box = {
 
 	_ammo_box enableRopeAttach false;
 	_sector setVariable [box, _ammo_box];
-	_ammo_box setVariable [owned_by, civilian, true];
+	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
 	_ammo_box setVariable [manpower, 0, true];
-	_ammo_box setVariable ["sector", true, true];
+	_ammo_box setVariable [ARWA_KEY_sector, true, true]; // Add key
 };
 
 ARWA_initialize_sectors = {
@@ -16,7 +16,7 @@ ARWA_initialize_sectors = {
 	{
 		_type = getMarkerType _x;
 
-		if (_type isEqualTo "hd_objective") then {
+		if (_type isEqualTo "hd_objective") then { // add key
 			_split_string = [_x, 7] call ARWA_split_string;
 			_first_string = _split_string select 0;
 			_second_string = _split_string select 1;
@@ -24,7 +24,7 @@ ARWA_initialize_sectors = {
 			_sector = createGroup sideLogic;
 			_sector setVariable [pos, getMarkerPos _x];
 			_sector setVariable [marker, _x];
-			_sector setVariable [owned_by, civilian];
+			_sector setVariable [ARWA_KEY_owned_by, civilian];
 			_sector setVariable [sector_name, _second_string];
 
 			[_sector] call ARWA_draw_sector;

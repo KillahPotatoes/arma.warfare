@@ -24,10 +24,10 @@ ARWA_add_action_text = {
 };
 
 ARWA_spawn_vehicle = {
-  params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus", 0]];
+  params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus", 0]]; // TODO add key
    private _veh_arr = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;
    private _veh = _veh_arr select 0;
-   _veh setVariable [owned_by, _side, true];
+   _veh setVariable [ARWA_KEY_owned_by, _side, true];
    _veh setVariable [ARWA_kill_bonus, _kill_bonus, true];
 
    _veh_arr;
@@ -46,7 +46,7 @@ ARWA_get_units_based_on_tier = {
 	private _tier = (_side call ARWA_get_tier);
 
 	for "_x" from 0 to _tier step 1 do {
-		_options append (missionNamespace getVariable [format["%1_%2_tier_%3", _side, _type, _x], []]);
+		_options append (missionNamespace getVariable [format["%1_%2_tier_%3", _side, _type, _x], []]); // TODO add prefix
 	};
 
 	_options;

@@ -9,7 +9,7 @@ ARWA_spawn_base_ammobox = {
 
 	_ammo_box setVariable ["HQ", true, true];
 
-	_ammo_box setVariable [owned_by, _side, true];
+	_ammo_box setVariable [ARWA_KEY_owned_by, _side, true];
 };
 
 ARWA_initialize_bases = {

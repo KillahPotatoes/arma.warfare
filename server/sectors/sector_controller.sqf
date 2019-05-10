@@ -62,12 +62,12 @@ ARWA_lose_sector = {
 ARWA_change_sector_ownership = {
 	params ["_sector", "_new_owner", "_sector_name", "_previous_faction"];
 
-	_old_owner = _sector getVariable owned_by;
-	_sector setVariable [owned_by, _new_owner, true];
+	_old_owner = _sector getVariable ARWA_KEY_owned_by;
+	_sector setVariable [ARWA_KEY_owned_by, _new_owner, true];
 	_sector call ARWA_draw_sector;
 
 	_ammo_box = _sector getVariable box;
-	_ammo_box setVariable [owned_by, _new_owner, true];
+	_ammo_box setVariable [ARWA_KEY_owned_by, _new_owner, true];
 
 	if (!(_old_owner isEqualTo civilian)) then {
 		_sector call ARWA_remove_respawn_position;
@@ -86,11 +86,11 @@ ARWA_reinforcements_cool_down = {
 	params ["_sector"];
 
 	_sector setVariable ["reinforements_available", false];
-	private _current_owner = _sector getVariable owned_by;
+	private _current_owner = _sector getVariable ARWA_KEY_owned_by;
 
 	sleep ARWA_respawn_cooldown;
 
-	if((_sector getVariable owned_by) isEqualTo _current_owner) exitWith {
+	if((_sector getVariable ARWA_KEY_owned_by) isEqualTo _current_owner) exitWith {
 		_sector setVariable ["reinforements_available", true];
 	};
 };
@@ -100,14 +100,14 @@ ARWA_initialize_sector_control = {
 
 	private _pos = _sector getVariable pos;
 	private _counter = 0;
-	private _current_faction = _sector getVariable owned_by;
+	private _current_faction = _sector getVariable ARWA_KEY_owned_by;
 	_sector setVariable ["reinforements_available", false];
 	private _sector_name = [_sector getVariable sector_name] call ARWA_replace_underscore;
 	private _report_attack = true;
 	private _old_owner = civilian;
 
 	while {true} do {
-		private _owner = _sector getVariable owned_by;
+		private _owner = _sector getVariable ARWA_KEY_owned_by;
 
 		if (_owner isEqualTo civilian) then {
 			private _units = [_sector] call ARWA_get_all_units_in_sector;

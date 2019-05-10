@@ -3,7 +3,7 @@ ARWA_sector_manpower_generation = {
             sleep ARWA_manpower_generation_time;
             {
                   private _sector = _x;
-                  private _side = _sector getVariable owned_by;
+                  private _side = _sector getVariable ARWA_KEY_owned_by;
 
                   if(_side in ARWA_all_sides) then {
                         private _ammo_box = _sector getVariable box;
@@ -40,12 +40,12 @@ ARWA_reset_sector_manpower = {
 ARWA_get_additional_income_based_on_stationed_players = {
       params ["_sector"];
       private _pos = _sector getVariable pos;
-      private _side = _sector getVariable owned_by;
+      private _side = _sector getVariable ARWA_KEY_owned_by;
       private _total_factor = 0;
 
       {
             if(alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < ARWA_sector_size) exitWith {
-                  private _rank = _x getVariable ["rank", 0];
+                  private _rank = _x getVariable [ARWA_KEY_rank, 0];
                   _total_factor = _total_factor + 1 + (_rank * 0.2);
                   true;
             };

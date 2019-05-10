@@ -37,5 +37,5 @@ ARWA_show_cancel_transport_action = {
 };
 
 ARWA_in_transport = {
-	(vehicle player) getVariable ["transport", false];
+	(vehicle player) getVariable [ARWA_KEY_transport, false];
 };

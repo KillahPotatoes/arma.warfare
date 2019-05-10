@@ -1,7 +1,57 @@
 // KEYS
 
-owned_by = "owned_by";
-sector_prefix = "sector_";
+ARWA_KEY_owned_by = "owned_by";
+ARWA_KEY_rank = "rank";
+ARWA_KEY_kills = "kills";
+ARWA_KEY_active = "active";
+ARWA_KEY_target = "target";
+ARWA_KEY_occupied = "occupied";
+ARWA_KEY_sector = "sector";
+ARWA_KEY_transport = "transport";
+ARWA_KEY_manpower = "manpower";
+
+
+ARWA_KEY_menu = "menu";
+ARWA_KEY_pos = "pos";
+ARWA_KEY_marker = "marker";
+ARWA_KEY_artillery = "artillery";
+ARWA_KEY_static = "static";
+ARWA_KEY_respawn_pos = "respawn_pos";
+ARWA_KEY_respawn_ground = "respawn_ground";
+ARWA_KEY_respawn_air = "respawn_air";
+ARWA_KEY_sector_name = "name";
+ARWA_KEY_box = "box";
+ARWA_KEY_manpower = "manpower";
+ARWA_KEY_soldier_count = "s_count";
+ARWA_KEY_defense = "defense";
+ARWA_KEY_penalty = "penalty";
+ARWA_KEY_kill_bonus = "kill_bonus";
+ARWA_KEY_vehicle = "vehicle";
+ARWA_KEY_helicopter = "helicopter";
+ARWA_KEY_infantry = "infantry";
+ARWA_KEY_priority_target = "priority_target";
+ARWA_KEY_guer_faction_name = "The resistance";
+ARWA_KEY_west_faction_name = "Nato";
+ARWA_KEY_east_faction_name = "China";
+
+ARWA_KEY_rank1 = "Private";
+ARWA_KEY_rank2 = "Sergant";
+ARWA_KEY_rank3 = "Lieutenant";
+ARWA_KEY_rank4 = "Captain";
+ARWA_KEY_rank5 = "Major";
+ARWA_KEY_rank6 = "Elite";
+
+ARWA_ranks = [
+	ARWA_KEY_rank1,
+	ARWA_KEY_rank2,
+	ARWA_KEY_rank3,
+	ARWA_KEY_rank4,
+	ARWA_KEY_rank5,
+	ARWA_KEY_rank6
+];
+
+// OLD KEYS
+
 pos = "pos";
 marker = "marker";
 artillery = "artillery";
@@ -40,16 +90,12 @@ ARWA_show_all = false;
 ARWA_max_tier = 2;
 ARWA_capture_time = 60;
 ARWA_uav_flight_height = 1000;
-
 ARWA_squad_mate_death_penalty = 3;
 ARWA_kills_per_rank = 15;
 ARWA_max_rank = 5;
-
 ARWA_capture_sector_bonus = 20;
-
 ARWA_spawn_forces_interval = 120;
 ARWA_spawn_forces_interval_variation = 60;
-
 tier_base_gunship_respawn_time = 900;
 tier_0_gunship_respawn_time = 900;
 tier_1_gunship_respawn_time = 600;

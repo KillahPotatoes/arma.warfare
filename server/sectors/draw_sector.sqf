@@ -1,6 +1,6 @@
 ARWA_draw_sector = {
  params ["_sector"];
- _side = (_sector getVariable owned_by);
+ _side = (_sector getVariable ARWA_KEY_owned_by);
  _color = "ColorGrey";
 
  if (!(_side isEqualTo civilian)) then {

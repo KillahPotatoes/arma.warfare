@@ -67,8 +67,8 @@ ARWA_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 
 // Game setup
-[] call initialize_sectors;
-[] call draw_all_sectors;
+[] call ARWA_initialize_sectors;
+[] call ARWA_draw_all_sectors;
 [] call ARWA_assign_prefixes;
 [] call ARWA_hide_respawn_markers;
 
@@ -77,19 +77,19 @@ if(ARWA_mine_fields) then {
 };
 
 [] call ARWA_setup_faction_relations;
-[ARWA_starting_strength, _startingTier] call initialize_faction_stats;
-[] call initialize_bases;
-[] call initialize_base_respawns;
-[] call initialize_battle_groups;
-[] call initialize_sector_defense;
- [] call calculate_mission_size;
+[ARWA_starting_strength, _startingTier] call ARWA_initialize_faction_stats;
+[] call ARWA_initialize_bases;
+[] call ARWA_initialize_base_respawns;
+[] call ARWA_initialize_battle_groups;
+[] call ARWA_initialize_sector_defense;
+ [] call ARWA_calculate_mission_size;
 
 // Game threads
 [] spawn ARWA_end_game_conditions_check;
 [] spawn ARWA_add_kill_ticker_to_all_units;
 [] spawn ARWA_add_kill_ticker_to_all_vehicles;
 [] spawn ARWA_clean_up;
-[] spawn initialize_spawn_battle_groups;
-[] spawn spawn_gunship_groups;
-[] spawn sector_manpower_generation;
-[] spawn populate_random_houses;
+[] spawn ARWA_initialize_spawn_battle_groups;
+[] spawn ARWA_spawn_gunship_groups;
+[] spawn ARWA_sector_manpower_generation;
+[] spawn ARWA_populate_random_houses;

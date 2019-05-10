@@ -1,4 +1,4 @@
-spawn_defense_vehicle = {
+ARWA_spawn_defense_vehicle = {
 	params ["_group"];
 
 	private _rnd = random 100;

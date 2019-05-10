@@ -23,27 +23,27 @@ spawn_transport_vehicle = {
 	_veh setVariable [owned_by, playerSide];
 
 	_veh lockDriver true;
-	_veh_arr;	
+	_veh_arr;
 };
 
 send_to_HQ = {
 	params ["_group", "_veh"];
-	
+
 	private _side = side _group;
 	private _pos = getMarkerPos ([_side, respawn_ground] call ARWA_get_prefixed_name);
 
 	_group addWaypoint [_pos, 0];
-	
+
 	waitUntil {([_veh] call is_transport_dead) || ((_pos distance2D (getPos _veh)) < 100) };
-	
+
 	if (alive _veh) exitWith
 	{
 		private _manpower = (_veh call ARWA_get_manpower) + (_veh call ARWA_remove_soldiers);
 		_veh setVariable [manpower, 0];
 
 		if(_manpower > 0) then {
-			[playerSide, _manpower] remoteExec ["buy_manpower_server", 2];
-			systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];     
+			[playerSide, _manpower] remoteExec ["ARWA_buy_manpower_server", 2];
+			systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];
 		};
 
 		deleteVehicle _veh;

@@ -18,18 +18,18 @@ has_uav_terminal = {
 	_uav_terminal_class_name in assignedItems player;
 };
 
-show_order_uav = {	
+show_order_uav = {
 	missionNameSpace setVariable ["uav_menu", false];
 
 	player addAction [[localize "REQUEST_DRONE", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
-		if(ARWA_uav_timer > time) exitWith { 
-			
+		if(ARWA_uav_timer > time) exitWith {
+
 			private _time_left = ARWA_uav_timer - time;
-			private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;	
-			systemChat format[localize "DRONE_UNAVAILABLE", _wait_minutes];			
-		}; 
+			private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;
+			systemChat format[localize "DRONE_UNAVAILABLE", _wait_minutes];
+		};
 
 		private _open = missionNameSpace getVariable ["uav_menu", false];
 
@@ -105,7 +105,7 @@ is_uav_dead = {
 	private _is_dead = (isNull _uav) ||  {!alive _uav} || {!canMove _uav};
 
 	if(_is_dead) then {
-		[_uav] call set_uav_to_inactive;		
+		[_uav] call set_uav_to_inactive;
 	};
 
 	_is_dead;
@@ -117,9 +117,9 @@ set_uav_to_inactive = {
 	ARWA_uav_active = false;
 	player removeAction ARWA_cancel_uav_id;
 	ARWA_uav_timer = time + ARWA_uav_recharge_time;
-	
+
 	if(isNull _uav) exitWith {};
-	
+
 	player connectTerminalToUAV objNull;
 	player disableUAVConnectability [_uav, true];
 };
@@ -130,7 +130,7 @@ is_uav_active = {
 	private _is_active = !([_uav] call is_uav_dead) && {ARWA_uav_active};
 
 	if(!_is_active) then {
-		[_uav] call set_uav_to_inactive;	
+		[_uav] call set_uav_to_inactive;
 	};
 
 	_is_active;
@@ -191,7 +191,7 @@ spawn_uav = {
 	private _uav = _uav_arr select 0;
 	player connectTerminalToUAV _uav;
 
-	_uav setVariable [ARWA_penalty, _penalty, true];	
+	_uav setVariable [ARWA_penalty, _penalty, true];
 
 	_uav_arr;
 };
@@ -199,21 +199,21 @@ spawn_uav = {
 interrupt_uav_misson = {
 	params ["_uav", "_group", "_msg"];
 
-	[_uav] call set_uav_to_inactive;	
+	[_uav] call set_uav_to_inactive;
 
 	[_group, [_msg]] spawn group_report_client;
 
-	[_group] call delete_all_waypoints;
+	[_group] call ARWA_delete_all_waypoints;
 
 	private _pos = getMarkerPos ([playerSide, respawn_air] call ARWA_get_prefixed_name);
 
-	_w = _group addWaypoint [_pos, 0];	
+	_w = _group addWaypoint [_pos, 0];
 	_w setWaypointType "MOVE";
 
 	waitUntil { [_uav] call is_uav_dead || ((_pos distance2D (getPos _uav)) < 200) };
 
 	if (!([_uav] call is_uav_dead) && ((_pos distance2D (getPos _uav)) < 200)) exitWith {
-		deleteVehicle _uav;		
+		deleteVehicle _uav;
 		[playerSide, ["DRONE_ARRIVED_IN_HQ"]] spawn HQ_report_client;
 	};
 };

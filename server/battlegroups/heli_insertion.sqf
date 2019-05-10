@@ -1,4 +1,4 @@
-add_soldiers_to_helicopter_cargo = {
+ARWA_add_soldiers_to_helicopter_cargo = {
 	params ["_veh_array", "_can_spawn"];
 
 	private _vehicle = _veh_array select 0;
@@ -6,20 +6,20 @@ add_soldiers_to_helicopter_cargo = {
 	private _side = side (_veh_array select 2);
 	private _cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
 	private _cargo = (_cargoCapacity min _can_spawn) min ARWA_squad_cap;
-	private _group = [[0,0,0], _side, _cargo, false] call ARWA_spawn_infantry;	
-	[_group, false] call add_battle_group;
+	private _group = [[0,0,0], _side, _cargo, false] call ARWA_spawn_infantry;
+	[_group, false] call ARWA_add_battle_group;
 
 	{
-		_x moveInCargo _vehicle;    
+		_x moveInCargo _vehicle;
 	} forEach units _group;
 
 	_group;
 };
 
-pick_most_valued_player_owned_sector = {
-	params ["_side"];	
+ARWA_pick_most_valued_player_owned_sector = {
+	params ["_side"];
 
-	_sectors = [_side] call find_enemy_sectors;
+	_sectors = [_side] call ARWA_find_enemy_sectors;
 
 	if(_sectors isEqualTo []) exitWith {};
 
@@ -27,25 +27,25 @@ pick_most_valued_player_owned_sector = {
 
 	if(_sectors isEqualTo []) exitWith {};
 
-	_sectors = _sectors apply { [([_x] call get_sector_manpower), _x] };
+	_sectors = _sectors apply { [([_x] call ARWA_get_sector_manpower), _x] };
 	_sectors sort false;
 
 	(_sectors select 0) select 1;
 };
 
-pick_sector = {
+ARWA_pick_sector = {
 	params ["_side"];
 
-	_sectors = [] call get_unowned_sectors;	
+	_sectors = [] call ARWA_get_unowned_sectors;
 
 	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 
-	_sectors = [_side] call find_enemy_sectors;
+	_sectors = [_side] call ARWA_find_enemy_sectors;
 
 	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 };
 
-special_forces_insertion = {
+ARWA_special_forces_insertion = {
 	params ["_side", "_can_spawn", "_sector"];
 
 	private _safe = !([_side, _sector getVariable pos] call ARWA_any_enemies_in_sector);
@@ -57,13 +57,13 @@ special_forces_insertion = {
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 
-	[_side, _can_spawn, _pos, _sector, [true, true]] spawn do_helicopter_insertion;
+	[_side, _can_spawn, _pos, _sector, [true, true]] spawn ARWA_do_helicopter_insertion;
 };
 
-helicopter_insertion = {
+ARWA_helicopter_insertion = {
 	params ["_side", "_can_spawn"];
 
-	private _sector = [_side] call pick_sector;
+	private _sector = [_side] call ARWA_pick_sector;
 
 	if (isNil "_sector") exitWith {};
 
@@ -76,30 +76,30 @@ helicopter_insertion = {
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 
-	[_side, _can_spawn, _pos, _sector] spawn do_helicopter_insertion;
+	[_side, _can_spawn, _pos, _sector] spawn ARWA_do_helicopter_insertion;
 };
 
-do_helicopter_insertion = {
+ARWA_do_helicopter_insertion = {
 	params ["_side", "_can_spawn", "_pos", "_sector", ["_mission_attr", [false, false]]];
 
 	private _heli = [_side] call ARWA_spawn_transport_heli;
-	private _group = [_heli, _can_spawn] call add_soldiers_to_helicopter_cargo;
+	private _group = [_heli, _can_spawn] call ARWA_add_soldiers_to_helicopter_cargo;
 	private _name = (typeOf (_heli select 0)) call ARWA_get_vehicle_display_name;
 	private _sector_name = _sector getVariable sector_name;
 
-	[_mission_attr, _group, _sector] call set_special_mission_attr;
+	[_mission_attr, _group, _sector] call ARWA_set_special_mission_attr;
 
 	diag_log format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), [_sector_name] call ARWA_replace_underscore, _mission_attr select 0, _mission_attr select 1, _side];
 	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
-	
+
 	[_side, ["INSERTING_SQUAD", _name, count units _group, [_sector_name] call ARWA_replace_underscore]] remoteExec ["HQ_report_client"];
-	[_heli select 2, _heli select 0, _pos] call move_to_sector_outskirt; 
-	
-	[_group, _heli select 0] call dispatch_heli_battlegroup;	
-	[_heli select 2, _heli select 0] spawn ARWA_take_off_and_despawn; 	
+	[_heli select 2, _heli select 0, _pos] call ARWA_move_to_sector_outskirt;
+
+	[_group, _heli select 0] call ARWA_dispatch_heli_battlegroup;
+	[_heli select 2, _heli select 0] spawn ARWA_take_off_and_despawn;
 };
 
-dispatch_heli_battlegroup = {
+ARWA_dispatch_heli_battlegroup = {
 	params ["_grp", "_heli_vehicle"];
 
 	[_heli_vehicle] spawn ARWA_toggle_damage_while_landing;
@@ -108,10 +108,10 @@ dispatch_heli_battlegroup = {
 		unassignVehicle _x;
 	} forEach units _grp;
 
-	_grp setVariable ["active", true];	
+	_grp setVariable ["active", true];
 };
 
-move_to_sector_outskirt = {
+ARWA_move_to_sector_outskirt = {
 	params ["_heli_group", "_heli_vehicle", "_pos"];
 
 	_heli_group move _pos;

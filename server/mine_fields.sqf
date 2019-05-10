@@ -7,7 +7,7 @@ ARWA_generate_mines = {
 		private _pos_mine= [_field_center,random [_field_radius / 2, _field_radius, _field_radius * 2], random 360] call BIS_fnc_relPos;
 
 		private _mines = if (isOnRoad _pos_mine) then {
-			anti_vehicle_mines;			
+			anti_vehicle_mines;
 		} else {
 			anti_personel_mines;
 		};
@@ -24,7 +24,7 @@ ARWA_generate_mines = {
 				_markerstr setMarkerColor "ColorRed";
 			};
 		};
-		
+
 
 		_nm=_nm+1;
 	};
@@ -36,6 +36,5 @@ ARWA_initialize_mine_fields = {
 	  _name = _x getVariable sector_name;
       [_pos,300,random [0, 25, 50],false, _name] call ARWA_generate_mines;
 
-	} count sectors;
+	} count ARWA_sectors;
 };
-

@@ -54,7 +54,7 @@ player setVariable [manpower, 0];
 player setVariable ["rank", 0, true];
 player setVariable ["kills", 0, true];
 
-[group player] remoteExec ["add_battle_group", 2];
+[group player] remoteExec ["ARWA_add_battle_group", 2];
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
 

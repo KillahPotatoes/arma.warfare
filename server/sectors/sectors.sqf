@@ -1,4 +1,4 @@
-add_sector_box = {
+ARWA_add_sector_box = {
 	params ["_sector"];
 
 	private _pos = _sector getVariable pos;
@@ -11,7 +11,7 @@ add_sector_box = {
 	_ammo_box setVariable ["sector", true, true];
 };
 
-initialize_sectors = {
+ARWA_initialize_sectors = {
 	private _sectors = [];
 	{
 		_type = getMarkerType _x;
@@ -27,24 +27,24 @@ initialize_sectors = {
 			_sector setVariable [owned_by, civilian];
 			_sector setVariable [sector_name, _second_string];
 
-			[_sector] call draw_sector;
+			[_sector] call ARWA_draw_sector;
 			_sectors pushback _sector;
 
-			_ammo_box = [_sector] call add_sector_box;
+			_ammo_box = [_sector] call ARWA_add_sector_box;
 
-			[_sector] spawn initialize_sector_control;
+			[_sector] spawn ARWA_initialize_sector_control;
 
 			true;
 		};
 	} count allMapMarkers;
 
-	missionNamespace setVariable ["sectors", _sectors];
-	missionNamespace setVariable ["west_sectors", []];
-	missionNamespace setVariable ["east_sectors", []];
-	missionNamespace setVariable ["guer_sectors", []];
+	missionNamespace setVariable ["ARWA_sectors", _sectors];
+	missionNamespace setVariable ["ARWA_west_sectors", []];
+	missionNamespace setVariable ["ARWA_east_sectors", []];
+	missionNamespace setVariable ["ARWA_guer_sectors", []];
 };
 
-is_sector_safe = {
+ARWA_is_sector_safe = {
 	params ["_side", "_sector", "_distance"];
 
 	private _pos = _sector getVariable pos;
@@ -52,54 +52,54 @@ is_sector_safe = {
 	!([_pos, _side, _distance] call ARWA_any_enemies_in_area);
 };
 
-get_safe_sectors = {
+ARWA_get_safe_sectors = {
 	params ["_side", "_distance"];
 
-	(_side call get_owned_sectors) select { [_side, _x, _distance] call is_sector_safe; };
+	(_side call ARWA_get_owned_sectors) select { [_side, _x, _distance] call ARWA_is_sector_safe; };
 };
 
-get_unsafe_sectors = {
+ARWA_get_unsafe_sectors = {
 	params ["_side"];
 
-	private _safe_sectors = [_side, ARWA_sector_size] call get_safe_sectors;
+	private _safe_sectors = [_side, ARWA_sector_size] call ARWA_get_safe_sectors;
 
-	(_side call get_owned_sectors) - _safe_sectors;
+	(_side call ARWA_get_owned_sectors) - _safe_sectors;
 };
 
-add_sector = {
+ARWA_add_sector = {
 	params ["_side", "_sector"];
-	private _sectors = missionNamespace getVariable format["%1_sectors", _side];
+	private _sectors = missionNamespace getVariable format["ARWA_%1_sectors", _side];
 	_sectors pushBack _sector;
 };
 
-remove_sector = {
+ARWA_remove_sector = {
 	params ["_side", "_sector"];
-	private _sectors = missionNamespace getVariable format["%1_sectors", _side];
+	private _sectors = missionNamespace getVariable format["ARWA_%1_sectors", _side];
 	private _index = _sectors find (_sector);
 	_sectors deleteAt (_index);
 };
 
-get_unowned_sectors = {
-	private _sectors = sectors;
+ARWA_get_unowned_sectors = {
+	private _sectors = ARWA_sectors;
 
 	{
-		_sectors = _sectors - (missionNamespace getVariable format["%1_sectors", _x]);
+		_sectors = _sectors - (missionNamespace getVariable format["ARWA_%1_sectors", _x]);
 	} foreach ARWA_all_sides;
 
 	_sectors;
 };
 
-get_owned_sectors = {
+ARWA_get_owned_sectors = {
 	params ["_side"];
-	missionNamespace getVariable format["%1_sectors", _side];
+	missionNamespace getVariable format["ARWA_%1_sectors", _side];
 };
 
-get_other_sectors = {
+ARWA_get_other_sectors = {
 	params ["_side"];
-	sectors - (_side call get_owned_sectors);
+	ARWA_sectors - (_side call ARWA_get_owned_sectors);
 };
 
-find_closest_sector = {
+ARWA_find_closest_sector = {
 	params ["_sectors", "_pos"];
 
 	_current_sector = _sectors select 0;
@@ -119,28 +119,28 @@ find_closest_sector = {
 	_current_sector;
 };
 
-get_sector_manpower = {
+ARWA_get_sector_manpower = {
 	params ["_sector"];
 
 	(_sector getVariable box) getVariable manpower;
 };
 
-find_closest_friendly_sector = {
+ARWA_find_closest_friendly_sector = { // TODO dead code?
 	params ["_side", "_pos"];
 
-	private _sectors = [_side] call get_owned_sectors;
-	[_sectors, _pos] call find_closest_sector;
+	private _sectors = [_side] call ARWA_get_owned_sectors;
+	[_sectors, _pos] call ARWA_find_closest_sector;
 };
 
-find_enemy_sectors = {
+ARWA_find_enemy_sectors = {
 	params ["_side"];
 
 	private _enemy = ARWA_all_sides - [_side];
-	([_enemy select 0] call get_owned_sectors) + ([_enemy select 1] call get_owned_sectors);
+	([_enemy select 0] call ARWA_get_owned_sectors) + ([_enemy select 1] call ARWA_get_owned_sectors);
 };
 
-count_enemy_sectors = {
+ARWA_count_enemy_sectors = { // TODO dead code?
 	params ["_side"];
 
-	count ([_side] call find_enemy_sectors);
+	count ([_side] call ARWA_find_enemy_sectors);
 };

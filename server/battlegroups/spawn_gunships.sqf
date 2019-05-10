@@ -1,16 +1,16 @@
-spawn_gunship_groups = {
-	[West] spawn spawn_gunships;
-	[East] spawn spawn_gunships;
-	[independent] spawn spawn_gunships;
+ARWA_spawn_gunship_groups = {
+	[West] spawn ARWA_spawn_gunships;
+	[East] spawn ARWA_spawn_gunships;
+	[independent] spawn ARWA_spawn_gunships;
 };
 
-find_target_sectors = {
+ARWA_find_target_sectors = {
 	params ["_side"];
 
-	([_side] call find_enemy_sectors) + ([_side] call get_unsafe_sectors);
+	([_side] call ARWA_find_enemy_sectors) + ([_side] call ARWA_get_unsafe_sectors);
 };
 
-spawn_gunships = {
+ARWA_spawn_gunships = {
 	params ["_side"];
 
 	while {true} do {
@@ -20,20 +20,20 @@ spawn_gunships = {
 
 		sleep _wait_time;
 
-		if(_side call has_manpower && !ARWA_cease_fire) then {
-			private _sectors = [_side] call find_target_sectors;
+		if(_side call ARWA_has_manpower && !ARWA_cease_fire) then {
+			private _sectors = [_side] call ARWA_find_target_sectors;
 
 			if ((count _sectors) == 0) exitWith {};
 
-			private _gunship = [_side] call spawn_gunship_group;
+			private _gunship = [_side] call ARWA_spawn_gunship_group;
 			if (isNil "_gunship") exitWith {};
-			[_gunship select 2] spawn add_battle_group;
+			[_gunship select 2] spawn ARWA_add_battle_group;
 		};
 
 	};
 };
 
-spawn_gunship_group = {
+ARWA_spawn_gunship_group = {
 	params ["_side"];
 
 	private _options = [_side, helicopter] call ARWA_get_units_based_on_tier;

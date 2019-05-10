@@ -91,7 +91,7 @@ ARWA_take_off_and_despawn = {
 			_heli_vehicle setVariable [manpower, 0];
 
 			if(_manpower > 0) then {
-				[playerSide, _manpower] remoteExec ["buy_manpower_server", 2];
+				[playerSide, _manpower] remoteExec ["ARWA_buy_manpower_server", 2];
 				systemChat format[localize "YOU_ADDED_MANPOWER", _manpower];
 			};
 

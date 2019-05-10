@@ -84,7 +84,7 @@ ARWA_report_lost_vehicle = {
 
 	private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
 	private _pos = getPosWorld _victim;
-	private _closest_sector = [sectors, _pos] call find_closest_sector;
+	private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
 	private _sector_pos = _closest_sector getVariable pos;
 	private _distance = floor(_sector_pos distance2D _pos);
 	private _location = [_closest_sector getVariable sector_name] call ARWA_replace_underscore;
@@ -137,7 +137,7 @@ ARWA_register_kill = {
 
 		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides}) then {
 			_kill_point = _killer_side call ARWA_calculate_kill_points;
-			[_killer_side, _kill_point] call increment_kill_counter;
+			[_killer_side, _kill_point] call ARWA_increment_kill_counter;
 		};
 
 		private _isKillLeader = isPlayer (leader group _killer);

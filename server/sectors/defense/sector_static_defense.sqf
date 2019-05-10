@@ -1,4 +1,4 @@
-spawn_static = {
+ARWA_spawn_static = {
 	params ["_pos", "_side"];
 
 	private _orientation = random 360;
@@ -38,23 +38,23 @@ spawn_static = {
 		} forEach units _group;
 
 		private _veh = _static select 0;
-		[_veh] spawn add_rearm_delay_event;
+		[_veh] spawn ARWA_add_rearm_delay_event;
 
 		_static;
 	};
 };
 
-add_rearm_delay_event = {
+ARWA_add_rearm_delay_event = {
 	params ["_veh"];
 
 	_veh setVariable["fired_barrage", false];
 	_veh addeventhandler ["fired", {
 		private _veh = _this select 0;
-		[_veh] spawn rearm_delay;
+		[_veh] spawn ARWA_rearm_delay;
 	}];
 };
 
-rearm_delay = {
+ARWA_rearm_delay = {
 	params ["_veh"];
 
 	private _fired_barrage = _veh getVariable ["fired_barrage", false];
@@ -69,7 +69,7 @@ rearm_delay = {
 	};
 };
 
-remove_static = {
+ARWA_remove_static = {
 	params ["_static"];
 	private _group = _static select 2;
 
@@ -80,7 +80,7 @@ remove_static = {
 	deleteVehicle (_static select 0);
 };
 
-static_alive = {
+ARWA_static_alive = {
 	params ["_static"];
 
 	private _group = _static select 2;

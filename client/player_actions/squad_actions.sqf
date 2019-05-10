@@ -15,32 +15,32 @@ empty_squad = {
 	{ alive _x } count units (group _player) == 1;
 };
 
-join_squad = {  
+join_squad = {
   	params ["_group"];
 
-	private _player_group = group player;	
+	private _player_group = group player;
 	[player] join _group;
 
 	private _new_count = { alive _x } count units _group;
-	_group setVariable [soldier_count, _new_count];		
+	_group setVariable [soldier_count, _new_count];
 
 	deleteGroup _player_group;
 };
 
-leave_squad = {  
+leave_squad = {
   	player addAction [[localize "LEAVE_SQUAD", 0] call ARWA_add_action_text, {
 
 			private _enemies_nearby = [getPos player, playerSide, ARWA_sector_size] call ARWA_any_enemies_in_area;
-			
+
 			if(_enemies_nearby) exitWith {
 				systemChat localize "CANNOT_LEAVE_TEAM_WHILE_ENEMIES_NEARBY";
 			};
-				
+
 			private _current_group = group player;
 			[player] join grpNull;
-			[group player] remoteExec ["add_battle_group", 2];
+			[group player] remoteExec ["ARWA_add_battle_group", 2];
 			private _new_count = { alive _x } count units _current_group;
-			_current_group setVariable [soldier_count, _new_count];	
+			_current_group setVariable [soldier_count, _new_count];
 			}, nil, ARWA_squad_actions, false, true, "",
     '!(player call empty_squad)'
     ];
@@ -48,10 +48,10 @@ leave_squad = {
 
 find_friendly_squads = {
 	params ["_group", "_side", "_distance"];
-		
+
 	!(group player isEqualTo _group)
-	&& (side _group isEqualTo _side) 
-	&& [(leader _group)] call ARWA_not_in_vehicle 
+	&& (side _group isEqualTo _side)
+	&& [(leader _group)] call ARWA_not_in_vehicle
 	&& (_pos distance (leader _group)) < _distance;
 };
 
@@ -110,16 +110,16 @@ create_join_menu = {
 		} else {
 			join_menu_open = false;
 		}
-	}, [], ARWA_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, playerSide] call any_friendly_squads_in_area}', 10]	
+	}, [], ARWA_squad_actions, false, false, "", 'player call empty_squad && {[getPos player, playerSide] call any_friendly_squads_in_area}', 10]
 };
 
 can_take_lead = {
 	 	private _leader = leader (group player);
-		!(_leader isEqualTo player) && !(isPlayer _leader); 
+		!(_leader isEqualTo player) && !(isPlayer _leader);
 };
 
 take_lead_menu = {
 	player addAction [[localize "TAKE_LEAD", 0] call ARWA_add_action_text, {
 	(group player) selectLeader player;
-	}, [], ARWA_squad_actions, false, true, "", '[] call can_take_lead', 10]	
+	}, [], ARWA_squad_actions, false, true, "", '[] call can_take_lead', 10]
 };

@@ -34,7 +34,7 @@ ARWA_on_vehicle_kill = {
 			[_victim, _killer] spawn ARWA_report_lost_vehicle;
 			[_victim] spawn ARWA_induce_lost_vehicle_penalty;
 			[_victim, _killer] spawn ARWA_induce_vehicle_kill_bonus;
-			[_victim] spawn create_manpower_box_vehicle;
+			[_victim] spawn ARWA_create_manpower_box_vehicle;
 		}
 	];
 };
@@ -108,7 +108,7 @@ ARWA_kill_ticker = {
 			private _faction_strength = _victim_side call ARWA_get_strength;
 
 			[_victim, _killer, _faction_strength] spawn ARWA_register_kill;
-			[_victim, _victim_side, _faction_strength] spawn create_manpower_box_unit;
+			[_victim, _victim_side, _faction_strength] spawn ARWA_create_manpower_box_unit;
 		}
 	];
 };

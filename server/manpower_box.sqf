@@ -1,4 +1,4 @@
-create_manpower_box_unit = {
+ARWA_create_manpower_box_unit = {
 	params ["_victim", "_side", ["_faction_strength", 0]];
 	private _manpower = _victim getVariable [manpower, 0];
 
@@ -15,11 +15,11 @@ create_manpower_box_unit = {
 			sleep 30;
 		};
 
-		[_manpower_box_value, _victim, _side] spawn create_manpower_box;
+		[_manpower_box_value, _victim, _side] spawn ARWA_create_manpower_box;
 	};
 };
 
-create_manpower_box_vehicle = {
+ARWA_create_manpower_box_vehicle = {
 	params ["_victim"];
 	private _manpower = _victim getVariable [manpower, 0];
 
@@ -31,11 +31,11 @@ create_manpower_box_vehicle = {
 			sleep 30;
 		};
 
-		[_manpower, _victim, _side] spawn create_manpower_box;
+		[_manpower, _victim, _side] spawn ARWA_create_manpower_box;
 	};
 };
 
-create_manpower_box = {
+ARWA_create_manpower_box = {
 	params ["_manpower", "_victim", "_victim_side"];
 
 	private _pos = getPos _victim;
@@ -53,11 +53,11 @@ create_manpower_box = {
 
 	_marker_name setMarkerText format["%1 MP", _manpower];
 
-	[_marker_name, _manpower_box] spawn manpower_deterioration;
-	[_marker_name, _manpower_box] spawn manpower_marker_update;
+	[_marker_name, _manpower_box] spawn ARWA_manpower_deterioration;
+	[_marker_name, _manpower_box] spawn ARWA_manpower_marker_update;
 };
 
-manpower_marker_update = {
+ARWA_manpower_marker_update = {
 	params ["_marker_name", "_manpower_box"];
 
 	private _manpower = _manpower_box getVariable [manpower, 0];
@@ -75,7 +75,7 @@ manpower_marker_update = {
 	deleteVehicle _manpower_box;
 };
 
-manpower_deterioration = {
+ARWA_manpower_deterioration = {
 	params ["_marker_name", "_manpower_box"];
 
 	sleep ARWA_dropped_manpower_deterioration_time;

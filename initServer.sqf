@@ -7,7 +7,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\clean_up.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\ARWA_clean_up.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_area.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_sector.sqf";
@@ -70,13 +70,13 @@ setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 [] call initialize_sectors;
 [] call draw_all_sectors;
 [] call ARWA_assign_prefixes;
-[] call hide_respawn_markers;
+[] call ARWA_hide_respawn_markers;
 
 if(ARWA_mine_fields) then {
 	[] call ARWA_initialize_mine_fields;
 };
 
-[] call setup_faction_relations;
+[] call ARWA_setup_faction_relations;
 [ARWA_starting_strength, _startingTier] call initialize_faction_stats;
 [] call initialize_bases;
 [] call initialize_base_respawns;
@@ -85,14 +85,11 @@ if(ARWA_mine_fields) then {
  [] call calculate_mission_size;
 
 // Game threads
-[] spawn end_game_conditions_check;
+[] spawn ARWA_end_game_conditions_check;
 [] spawn ARWA_add_kill_ticker_to_all_units;
 [] spawn ARWA_add_kill_ticker_to_all_vehicles;
-[] spawn clean_up;
+[] spawn ARWA_clean_up;
 [] spawn initialize_spawn_battle_groups;
 [] spawn spawn_gunship_groups;
 [] spawn sector_manpower_generation;
 [] spawn populate_random_houses;
-
-
-

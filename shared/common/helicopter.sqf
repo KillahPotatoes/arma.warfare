@@ -88,7 +88,7 @@ ARWA_take_off_and_despawn = {
 		if ((alive _heli_vehicle) && ((_pos distance2D (getPos _heli_vehicle)) < 200)) exitWith	{
 			private _manpower = (_heli_vehicle call ARWA_remove_soldiers) + (_heli_vehicle call ARWA_get_manpower);
 
-			_heli_vehicle setVariable [manpower, 0];
+			_heli_vehicle setVariable [ARWA_KEY_manpower, 0];
 
 			if(_manpower > 0) then {
 				[playerSide, _manpower] remoteExec ["ARWA_buy_manpower_server", 2];

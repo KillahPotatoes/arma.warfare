@@ -7,7 +7,7 @@ ARWA_draw_sector = {
      _color = [_side, true] call BIS_fnc_sideColor;
  };
 
- _marker = _sector getVariable marker;
+ _marker = _sector getVariable ARWA_KEY_marker;
  _markerPos = _sector getVariable ARWA_KEY_pos;
  _marker_outline = toString toArray _marker;
 
@@ -35,7 +35,7 @@ ARWA_update_progress_bar = {
         _opacity = 0.8;
     };
 
-    _marker = _sector getVariable marker;
+    _marker = _sector getVariable ARWA_KEY_marker;
     _markerPos = _sector getVariable ARWA_KEY_pos;
 
     _progress = ARWA_sector_size * (_counter/ARWA_capture_time);

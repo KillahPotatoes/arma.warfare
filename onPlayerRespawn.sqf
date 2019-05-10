@@ -11,10 +11,10 @@ if(_fatigue == 0) then {
 [] spawn ARWA_leave_squad;
 [] spawn ARWA_add_take_manpower;
 [] spawn ARWA_add_store_manpower;
+[] spawn ARWA_show_order_uav;
 
 [localize "ARWA_STR_REQUEST_AIR_TRANSPORT", ARWA_KEY_helicopter, ARWA_air_transport_actions] spawn ARWA_show_order_transport;
 [localize "ARWA_STR_REQUEST_VEHICLE_TRANSPORT", ARWA_KEY_vehicle, ARWA_ground_transport_actions] spawn ARWA_show_order_transport;
-[] spawn ARWA_show_order_uav;
 
 remove_squad_mates_on_death = {
 	params ["_player"];

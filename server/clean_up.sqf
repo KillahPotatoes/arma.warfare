@@ -35,7 +35,7 @@ ARWA_kill_vehicle = {
 	params ["_veh"];
 
 	sleep random 60;
-	_veh setDammage 1;
+	_veh setDamage 1;
 };
 
 ARWA_status = {

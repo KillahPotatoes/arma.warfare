@@ -65,7 +65,6 @@ ARWA_spawn_reinforcments = {
 
 	if(_new_soldiers < 1) exitWith {};
 
-    private _pos = _sector getVariable ARWA_KEY_pos;
     private _tmp_group = [[_pos select 0, _pos select 1, 3000], _side, _new_soldiers, true] call ARWA_spawn_infantry;
 
 	[_tmp_group, _pos] call ARWA_place_defensive_soldiers;

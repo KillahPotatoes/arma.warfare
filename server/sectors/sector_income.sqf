@@ -13,7 +13,6 @@ ARWA_sector_manpower_generation = {
 
                         _ammo_box setVariable [ARWA_KEY_manpower, (_manpower + _generated), true];
                   };
-
             } forEach ARWA_sectors;
       };
 };

@@ -26,6 +26,8 @@ if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(b
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\radio_chatter.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\end_mission.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_area.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_sector.sqf";
 
 // Player actions
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\player_actions.sqf";
@@ -36,10 +38,6 @@ ARWA_drone_feature = (["DroneRechargeTime", 30] call BIS_fnc_getParamValue) > 0;
 if(ARWA_drone_feature) then {
     [] call compileFinal preprocessFileLineNumbers "client\drone\order_drone_menu.sqf";
 };
-
-
-[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_area.sqf";
-[] call compileFinal preprocessFileLineNumbers "shared\common\find_units_in_sector.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";

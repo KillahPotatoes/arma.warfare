@@ -1,5 +1,3 @@
-
-
 ARWA_is_leader = {
 	params ["_player"];
 

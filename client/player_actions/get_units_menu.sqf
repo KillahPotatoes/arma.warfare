@@ -47,7 +47,7 @@ ARWA_get_vehicle = {
 
 		[_veh] call ARWA_remove_vehicle_action;
 	};
-
+	private _type = _class_name call ARWA_get_vehicle_display_name;
 	systemChat format[localize "ARWA_STR_OBSTRUCTING_THE_RESPAWN_AREA", _type];
 };
 

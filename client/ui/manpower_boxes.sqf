@@ -2,7 +2,7 @@ ARWA_create_manpower_markers = {
 	params ["_boxes"];
 
 	{
-		private _marker_name = format["%1-%2", "manpower-box", _forEachIndex];
+		private _marker_name = format["%1-%2", ARWA_KEY_manpower_box, _forEachIndex];
 		createMarkerLocal [_marker_name, getPosWorld _x];
 		_marker_name setMarkerTypeLocal "mil_box";
 		_marker_name setMarkerAlphaLocal 0;
@@ -14,7 +14,7 @@ ARWA_update_manpower_markers = {
 
 	{
 		private _side = _x getVariable ARWA_KEY_owned_by;
-		private _marker_name = format["%1-%2", "manpower-box", _forEachIndex];
+		private _marker_name = format["%1-%2", ARWA_KEY_manpower_box, _forEachIndex];
 
 		if (_side isEqualTo playerSide || ARWA_show_all) then {
 
@@ -37,7 +37,7 @@ ARWA_update_manpower_markers = {
 };
 
 ARWA_show_manpower_markers = {
-	_manpower_storage_boxes = allMissionObjects ammo_box;
+	_manpower_storage_boxes = allMissionObjects ARWA_ammo_box;
 	[_manpower_storage_boxes] call ARWA_create_manpower_markers;
 	_side = playerSide;
 

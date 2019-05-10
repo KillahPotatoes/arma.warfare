@@ -73,7 +73,7 @@ ARWA_any_alive = {
 
 ARWA_show_friendly_markers = {
 	_markers_array = [];
-	_sector_boxes = allMissionObjects ammo_box;
+	_sector_boxes = allMissionObjects ARWA_ammo_box;
 	_marker_name = "friendly";
 
 	while {true} do {

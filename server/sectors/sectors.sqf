@@ -2,10 +2,10 @@ ARWA_add_sector_box = {
 	params ["_sector"];
 
 	private _pos = _sector getVariable ARWA_KEY_pos;
-	private _ammo_box = ammo_box createVehicle (_pos);
+	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
 
 	_ammo_box enableRopeAttach false;
-	_sector setVariable [box, _ammo_box];
+	_sector setVariable [ARWA_KEY_box, _ammo_box];
 	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
 	_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
 	_ammo_box setVariable [ARWA_KEY_sector, true, true]; // Add key

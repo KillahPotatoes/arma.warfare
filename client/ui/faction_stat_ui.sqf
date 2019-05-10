@@ -7,17 +7,17 @@ ARWA_show_ui = {
 
 		ARWA_get_tier_progress = {
 			params ["_side"];
-			missionNamespace getVariable format ["%1_tier_prog",  _side]; // TODO add key
+			missionNamespace getVariable format ["ARWA_%1_tier_prog",  _side]; // TODO add key
 		};
 
 		ARWA_get_tier = {
 			params ["_side"];
-			missionNamespace getVariable format ["%1_tier",  _side]; // TODO add key
+			missionNamespace getVariable format ["ARWA_%1_tier",  _side]; // TODO add key
 		};
 
 		ARWA_get_strength = {
 			params ["_side"];
-			missionNamespace getVariable format ["%1_strength",  _side]; // TODO add key
+			missionNamespace getVariable format ["ARWA_%1_strength",  _side]; // TODO add key
 		};
 
 		ARWA_print_percentage = {

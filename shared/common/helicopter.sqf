@@ -22,7 +22,7 @@ ARWA_is_air_space_clear = {
 
 ARWA_get_transport_heli_type = {
 	params ["_side"];
-	missionNamespace getVariable format["%1_helicopter_transport", _side];
+	missionNamespace getVariable format["ARWA_%1_helicopter_transport", _side];
 };
 
 ARWA_spawn_transport_heli = {

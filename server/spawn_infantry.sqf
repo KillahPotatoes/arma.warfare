@@ -23,7 +23,7 @@ ARWA_pick_soldiers = {
 ARWA_pick_sympathizers = {
 	params ["_side", "_number"];
 
-	private _preset = missionNamespace getVariable format["%1_sympathizers", _side];
+	private _preset = missionNamespace getVariable format["ARWA_%1_sympathizers", _side];
 	[_preset, _number] call ARWA_create_squad;
 };
 

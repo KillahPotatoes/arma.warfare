@@ -57,7 +57,7 @@ ARWA_increment_tier = {
 	private _tier_bound = _next_tier call ARWA_get_tier_bound;
 
 	if(_kill_count > _tier_bound) exitWith {
-		private _msg = format["%1 advanced to tier %2", _side call ARWA_get_faction_names, _next_tier];
+		private _msg = format["%1 advanced to tier %2", _side call ARWA_get_faction_names, _next_tier]; // TODO add localization
 		_msg remoteExec ["hint"];
 
 		[_side, _next_tier] call ARWA_set_tier;

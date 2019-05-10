@@ -17,21 +17,21 @@ ARWA_remove_all_transport_options = {
 
 ARWA_show_order_transport = {
 	params ["_title", "_type", "_priority"];
-	missionNameSpace setVariable [format["transport_%1_menu", _type], false];
+	missionNameSpace setVariable [format["ARWA_transport_%1_menu", _type], false];
 
 	player addAction [[_title, 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		private _type = _arguments select 0;
 		private _priority = _arguments select 1;
-		private _open = missionNameSpace getVariable [format["transport_%1_menu", _type], false];
+		private _open = missionNameSpace getVariable [format["ARWA_transport_%1_menu", _type], false];
 
 		[player] call ARWA_remove_all_transport_options;
 		if(!_open) then {
-			missionNameSpace setVariable [format["transport_%1_menu", _type], true];
+			missionNameSpace setVariable [format["ARWA_transport_%1_menu", _type], true];
 			[_type, _priority] call ARWA_show_transport_options;
 		} else {
-			missionNameSpace setVariable [format["transport_%1_menu", _type], false];
+			missionNameSpace setVariable [format["ARWA_transport_%1_menu", _type], false];
 		};
 		}, [_type, _priority], _priority, false, false, "",
 		'[player] call ARWA_is_leader && !ARWA_transport_present'
@@ -42,7 +42,7 @@ ARWA_show_transport_options = {
 	params ["_type", "_priority"];
 
 	private _side = playerSide;
-	private _options = missionNamespace getVariable format["%1_%2_transport", _side, _type];
+	private _options = missionNamespace getVariable format["ARWA_%1_%2_transport", _side, _type];
 
 	{
 		private _class_name = _x select 0;

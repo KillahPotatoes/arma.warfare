@@ -13,13 +13,13 @@ ARWA_remove_all_uav_options = {
 };
 
 ARWA_has_uav_terminal = {
-	private _uav_terminal_class_name = missionNameSpace getVariable format["%1_uav_terminal_class_name", playerSide];
+	private _uav_terminal_class_name = missionNameSpace getVariable format["ARWA_%1_uav_terminal_class_name", playerSide];
 
 	_uav_terminal_class_name in assignedItems player;
 };
 
 ARWA_show_order_uav = {
-	missionNameSpace setVariable ["uav_menu", false];
+	missionNameSpace setVariable ["ARWA_uav_menu", false];
 
 	player addAction [[localize "REQUEST_DRONE", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
@@ -31,14 +31,14 @@ ARWA_show_order_uav = {
 			systemChat format[localize "DRONE_UNAVAILABLE", _wait_minutes];
 		};
 
-		private _open = missionNameSpace getVariable ["uav_menu", false];
+		private _open = missionNameSpace getVariable ["ARWA_uav_menu", false];
 
 		[player] call ARWA_remove_all_uav_options;
 		if(!_open) then {
-			missionNameSpace setVariable ["uav_menu", true];
+			missionNameSpace setVariable ["ARWA_uav_menu", true];
 			[] call ARWA_show_uav_options;
 		} else {
-			missionNameSpace setVariable ["uav_menu", false];
+			missionNameSpace setVariable ["ARWA_uav_menu", false];
 		};
 		}, [], ARWA_active_uav_actions, false, false, "",
 		'[player] call ARWA_is_leader && !ARWA_uav_active && [] call ARWA_has_uav_terminal'
@@ -47,7 +47,7 @@ ARWA_show_order_uav = {
 
 ARWA_show_uav_options = {
 	private _side = playerSide;
-	private _options = missionNamespace getVariable format["%1_uavs", _side];
+	private _options = missionNamespace getVariable format["ARWA_%1_uavs", _side];
 
 	{
 		private _class_name = _x select 0;

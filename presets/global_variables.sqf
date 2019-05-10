@@ -21,6 +21,7 @@ ARWA_KEY_respawn_air = "respawn_air";
 ARWA_KEY_sector_name = "name";
 ARWA_KEY_box = "box";
 ARWA_KEY_manpower = "manpower";
+ARWA_KEY_manpower_box = "manpower-box";
 ARWA_KEY_soldier_count = "s_count";
 ARWA_KEY_defense = "defense";
 ARWA_KEY_penalty = "penalty";
@@ -49,14 +50,14 @@ ARWA_ranks = [
 	ARWA_KEY_rank6
 ];
 
-// OLD KEYS
-
-
+ARWA_ARRAY_KEY_prefixes = [
+	"alpha",
+	"bravo",
+	"charlie"
+];
 
 ARWA_penalty = "penalty";
 ARWA_kill_bonus = "kill_bonus";
-
-
 
 // CONSTANT VARS
 ARWA_respawn_cooldown = 900;
@@ -77,12 +78,10 @@ ARWA_max_rank = 5;
 ARWA_capture_sector_bonus = 20;
 ARWA_spawn_forces_interval = 120;
 ARWA_spawn_forces_interval_variation = 60;
-tier_base_gunship_respawn_time = 900;
-tier_0_gunship_respawn_time = 900;
-tier_1_gunship_respawn_time = 600;
-tier_2_gunship_respawn_time = 300;
-
-
+ARWA_tier_base_gunship_respawn_time = 900;
+ARWA_tier_0_gunship_respawn_time = 900;
+ARWA_tier_1_gunship_respawn_time = 600;
+ARWA_tier_2_gunship_respawn_time = 300;
 ARWA_cease_fire = false;
 
 // Action priority

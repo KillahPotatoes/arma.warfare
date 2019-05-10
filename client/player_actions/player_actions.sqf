@@ -15,7 +15,7 @@ ARWA_initialize_ammo_boxes = {
 		if(_x getVariable [ARWA_KEY_sector, false]) then {
 			[_x] spawn ARWA_add_sector_actions;
 		};
-	} forEach entities ammo_box;
+	} forEach entities ARWA_ammo_box;
 };
 
 ARWA_owned_box = {
@@ -27,7 +27,7 @@ ARWA_add_sector_actions = {
 	params ["_ammo_box"];
 
 	["AmmoboxInit", [_ammo_box, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_box && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
-	[_ammo_box, localize "GET_INFANTRY", infantry, ARWA_infantry_menu, true] call ARWA_create_menu;
+	[_ammo_box, localize "GET_INFANTRY", ARWA_KEY_infantry, ARWA_infantry_menu, true] call ARWA_create_menu;
 };
 
 ARWA_add_HQ_actions = {

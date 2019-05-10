@@ -41,7 +41,7 @@ ARWA_add_battle_group = {
 	params ["_group", ["_active", true]];
 	_group setVariable [ARWA_KEY_active, _active];
 	_curr_count = {alive _x} count (units _group);
-	_group setVariable [soldier_count, _curr_count];
+	_group setVariable [ARWA_KEY_soldier_count, _curr_count];
     _group deleteGroupWhenEmpty true;
 
 	((side _group) call ARWA_get_battlegroups) pushBackUnique _group;

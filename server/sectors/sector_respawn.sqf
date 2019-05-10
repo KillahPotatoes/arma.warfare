@@ -1,6 +1,6 @@
 ARWA_get_respawn = {
 	params ["_sector"];
-	_sector getVariable [respawn_pos, [sideUnknown, 0]];
+	_sector getVariable [ARWA_KEY_respawn_pos, [sideUnknown, 0]];
 };
 
 ARWA_add_respawn_position = {

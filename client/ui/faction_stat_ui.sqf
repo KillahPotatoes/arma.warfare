@@ -4,6 +4,10 @@ ARWA_show_ui = {
 	with uiNamespace do {
 		ARWA_max_rank = missionNamespace getVariable "ARWA_max_rank";
 		ARWA_kills_per_rank = missionNamespace getVariable "ARWA_kills_per_rank";
+		ARWA_KEY_rank = missionNamespace getVariable "ARWA_KEY_rank";
+		ARWA_KEY_manpower = missionNamespace getVariable "ARWA_KEY_manpower";
+		ARWA_KEY_kills = missionNamespace getVariable "ARWA_KEY_kills";
+		ARWA_ranks =  missionNamespace getVariable "ARWA_ranks";
 
 		ARWA_get_tier_progress = {
 			params ["_side"];

@@ -57,7 +57,7 @@ ARWA_find_direction_towards_closest_sector = {
 
 ARWA_spawn_vehicle_group = {
 	params ["_pos", "_side", "_tier", "_can_spawn"];
-	private _vehicle_type_arr = selectRandom (missionNamespace getVariable format["%1_vehicle_tier_%2", _side, _tier]);
+	private _vehicle_type_arr = selectRandom (missionNamespace getVariable format["ARWA_%1_vehicle_tier_%2", _side, _tier]);
 	private _vehicle_type = _vehicle_type_arr select 0;
 	private _kill_bonus = _vehicle_type_arr select 1;
 

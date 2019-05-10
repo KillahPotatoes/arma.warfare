@@ -26,12 +26,12 @@ ARWA_capture_sector = {
 
 	_sector setVariable ["reinforements_available", true];
 
-	private _pos = _sector getVariable pos;
+	private _pos = _sector getVariable ARWA_KEY_pos;
 	if([_pos, _new_owner] call ARWA_players_nearby_captured_sector && {!(_old_owner isEqualTo civilian) &&  !(_old_owner isEqualTo _new_owner)}) then {
 
-		private _ammo_box = _sector getVariable box;
+		private _ammo_box = _sector getVariable ARWA_KEY_box;
 		private _manpower = _ammo_box call ARWA_get_manpower;
-		_ammo_box setVariable [manpower, (_manpower + ARWA_capture_sector_bonus), true];
+		_ammo_box setVariable [ARWA_KEY_manpower, (_manpower + ARWA_capture_sector_bonus), true];
 	};
 
 	diag_log format["%1 has captured %2", _new_owner, _sector_name];
@@ -66,7 +66,7 @@ ARWA_change_sector_ownership = {
 	_sector setVariable [ARWA_KEY_owned_by, _new_owner, true];
 	_sector call ARWA_draw_sector;
 
-	_ammo_box = _sector getVariable box;
+	_ammo_box = _sector getVariable ARWA_KEY_box;
 	_ammo_box setVariable [ARWA_KEY_owned_by, _new_owner, true];
 
 	if (!(_old_owner isEqualTo civilian)) then {
@@ -98,7 +98,7 @@ ARWA_reinforcements_cool_down = {
 ARWA_initialize_sector_control = {
 	params ["_sector"];
 
-	private _pos = _sector getVariable pos;
+	private _pos = _sector getVariable ARWA_KEY_pos;
 	private _counter = 0;
 	private _current_faction = _sector getVariable ARWA_KEY_owned_by;
 	_sector setVariable ["reinforements_available", false];

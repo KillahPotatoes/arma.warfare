@@ -35,7 +35,7 @@ ARWA_add_HQ_actions = {
 
 	["AmmoboxInit", [_ammo_box, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_box && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
 	_ammo_box call ARWA_add_manpower_action;
-	[_ammo_box, localize "GET_VEHICLES", vehicle1, ARWA_ground_vehicle_menu, false] call ARWA_create_menu;
-	[_ammo_box, localize "GET_HELICOPTERS", helicopter, ARWA_air_vehicle_menu, false] call ARWA_create_menu;
-	[_ammo_box, localize "GET_INFANTRY", infantry, ARWA_infantry_menu, false] call ARWA_create_menu;
+	[_ammo_box, localize "GET_VEHICLES", ARWA_KEY_vehicle, ARWA_ground_vehicle_menu, false] call ARWA_create_menu;
+	[_ammo_box, localize "GET_HELICOPTERS", ARWA_KEY_helicopter, ARWA_air_vehicle_menu, false] call ARWA_create_menu;
+	[_ammo_box, localize "GET_INFANTRY", ARWA_KEY_infantry, ARWA_infantry_menu, false] call ARWA_create_menu;
 };

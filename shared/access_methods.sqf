@@ -1,6 +1,6 @@
 ARWA_get_prefixed_name = {
 	params ["_side", "_suffix"];
-	format["%1_%2", missionNamespace getVariable format["%1_prefix", _side], _suffix];
+	format["%1_%2", missionNamespace getVariable format["ARWA_%1_prefix", _side], _suffix];
 };
 
 ARWA_get_tier_bound = {
@@ -10,40 +10,40 @@ ARWA_get_tier_bound = {
 
 ARWA_set_tier_progress = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_tier_prog",  _side], _value, true];
+	missionNamespace setVariable [format ["ARWA_%1_tier_prog",  _side], _value, true];
 };
 
 ARWA_get_tier = {
 	params ["_side"];
-	missionNamespace getVariable format ["%1_tier",  _side];
+	missionNamespace getVariable format ["ARWA_%1_tier",  _side];
 };
 
 ARWA_set_tier = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_tier",  _side], _value min 2, true];
+	missionNamespace setVariable [format ["ARWA_%1_tier",  _side], _value min 2, true];
 };
 
 ARWA_get_kill_count = {
 	params ["_side"];
-	missionNamespace getVariable format ["%1_kill_counter",  _side];
+	missionNamespace getVariable format ["ARWA_%1_kill_counter",  _side];
 };
 
 ARWA_set_kill_count = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_kill_counter",  _side], _value];
+	missionNamespace setVariable [format ["ARWA_%1_kill_counter",  _side], _value];
 };
 
 ARWA_set_strength = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["%1_strength", _side], 0 max _value, true];
-}; 
+	missionNamespace setVariable [format ["ARWA_%1_strength", _side], 0 max _value, true];
+};
 
 ARWA_get_strength = {
 	params ["_side"];
-	missionNamespace getVariable format ["%1_strength",  _side];
+	missionNamespace getVariable format ["ARWA_%1_strength",  _side];
 };
 
 ARWA_get_faction_names = {
   params ["_side"];
-  missionNamespace getVariable format["%1_faction_name", _side];
+  missionNamespace getVariable format["ARWA_KEY_%1_faction_name", _side];
 };

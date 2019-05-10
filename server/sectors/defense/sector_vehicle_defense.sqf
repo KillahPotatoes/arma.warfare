@@ -1,12 +1,12 @@
 ARWA_spawn_defense_vehicle = {
-	params ["_group"];
+	params ["_group", "_pos"];
 
 	private _rnd = random 100;
 
 	if(_rnd < 30) then {
 
 		private _side = side _group;
-		private _options = [_side, vehicle1] call ARWA_get_units_based_on_tier;
+		private _options = [_side, ARWA_KEY_vehicle] call ARWA_get_units_based_on_tier;
 
 		private _option = (selectRandom _options);
 		private _class_name = _option select 0;

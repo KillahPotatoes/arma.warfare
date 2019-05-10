@@ -58,6 +58,6 @@ ARWA_add_manpower_action = {
 ARWA_player_has_manpower = {
     params ["_player"];
 
-    _manpower = _player getVariable manpower;
+    _manpower = _player getVariable ARWA_KEY_manpower;
     _manpower > 0;
 };

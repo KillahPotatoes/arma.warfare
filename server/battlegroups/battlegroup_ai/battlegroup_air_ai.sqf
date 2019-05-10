@@ -1,6 +1,6 @@
 ARWA_air_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = _target getVariable pos;
+	private _pos = _target getVariable ARWA_KEY_pos;
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 5];

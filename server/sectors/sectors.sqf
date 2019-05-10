@@ -1,13 +1,13 @@
 ARWA_add_sector_box = {
 	params ["_sector"];
 
-	private _pos = _sector getVariable pos;
+	private _pos = _sector getVariable ARWA_KEY_pos;
 	private _ammo_box = ammo_box createVehicle (_pos);
 
 	_ammo_box enableRopeAttach false;
 	_sector setVariable [box, _ammo_box];
 	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
-	_ammo_box setVariable [manpower, 0, true];
+	_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
 	_ammo_box setVariable [ARWA_KEY_sector, true, true]; // Add key
 };
 
@@ -22,10 +22,10 @@ ARWA_initialize_sectors = {
 			_second_string = _split_string select 1;
 
 			_sector = createGroup sideLogic;
-			_sector setVariable [pos, getMarkerPos _x];
-			_sector setVariable [marker, _x];
+			_sector setVariable [ARWA_KEY_pos, getMarkerPos _x];
+			_sector setVariable [ARWA_KEY_marker, _x];
 			_sector setVariable [ARWA_KEY_owned_by, civilian];
-			_sector setVariable [sector_name, _second_string];
+			_sector setVariable [ARWA_KEY_sector_name, _second_string];
 
 			[_sector] call ARWA_draw_sector;
 			_sectors pushback _sector;
@@ -47,7 +47,7 @@ ARWA_initialize_sectors = {
 ARWA_is_sector_safe = {
 	params ["_side", "_sector", "_distance"];
 
-	private _pos = _sector getVariable pos;
+	private _pos = _sector getVariable ARWA_KEY_pos;
 
 	!([_pos, _side, _distance] call ARWA_any_enemies_in_area);
 };
@@ -106,7 +106,7 @@ ARWA_find_closest_sector = {
 	_shortest_distance = 99999;
 
 	{
-		_sector_pos = _x getVariable pos;
+		_sector_pos = _x getVariable ARWA_KEY_pos;
 		_distance = _pos distance _sector_pos;
 
 		if (_shortest_distance > _distance) then {
@@ -122,7 +122,7 @@ ARWA_find_closest_sector = {
 ARWA_get_sector_manpower = {
 	params ["_sector"];
 
-	(_sector getVariable box) getVariable manpower;
+	(_sector getVariable ARWA_KEY_box) getVariable ARWA_KEY_manpower;
 };
 
 ARWA_find_closest_friendly_sector = { // TODO dead code?

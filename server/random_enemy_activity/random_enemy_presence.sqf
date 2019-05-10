@@ -72,7 +72,7 @@ ARWA_populate_house = {
 ARWA_house_can_be_populated = {
 	params ["_building", "_player_pos", "_sector", "_side"];
 
-	private _sector_pos = _sector getVariable pos;
+	private _sector_pos = _sector getVariable ARWA_KEY_pos;
 	private _pos = getPos _building;
 
 	(_side in ARWA_all_sides) && !(playerSide isEqualTo _side)

@@ -3,7 +3,7 @@ ARWA_spawn_static = {
 
 	private _orientation = random 360;
 
-	private _available_art = [_side, "static_artillery"] call ARWA_get_units_based_on_tier;
+	private _available_art = [_side, ARWA_KEY_static_artillery] call ARWA_get_units_based_on_tier;
 
 	if(_available_art isEqualTo []) exitWith {};
 
@@ -21,7 +21,7 @@ ARWA_spawn_static = {
 		private _group = _static select 2;
 		_group deleteGroupWhenEmpty true;
 		_group enableDynamicSimulation false;
-		_group setVariable [defense, true];
+		_group setVariable [ARWA_KEY_defense, true];
 		[_group] call ARWA_remove_nvg_and_add_flash_light;
 
 		{

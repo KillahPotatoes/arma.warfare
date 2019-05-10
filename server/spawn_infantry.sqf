@@ -7,16 +7,16 @@ ARWA_create_squad = {
 	for "_x" from 1 to _number step 1 do {
 		//private _index = [_count] call get_distribution;
 		private _class_name = (selectRandom _preset) select 0;
-		_squad pushBack (_class_name); 
+		_squad pushBack (_class_name);
 	};
 
-	_squad; 
+	_squad;
 };
 
 ARWA_pick_soldiers = {
 	params ["_side", "_number"];
 
-	private _preset = [_side, infantry] call ARWA_get_units_based_on_tier;
+	private _preset = [_side, ARWA_KEY_infantry] call ARWA_get_units_based_on_tier;
 	[_preset, _number] call ARWA_create_squad;
 };
 
@@ -33,7 +33,7 @@ ARWA_create_group = {
 	private _group = [_pos, _side, _squad] call BIS_fnc_spawnGroup;
     _group enableDynamicSimulation _dynamicSimulation;
 	_group deleteGroupWhenEmpty true;
-	
+
 	_group;
 };
 

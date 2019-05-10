@@ -8,7 +8,7 @@ ARWA_draw_sector = {
  };
 
  _marker = _sector getVariable marker;
- _markerPos = _sector getVariable pos;
+ _markerPos = _sector getVariable ARWA_KEY_pos;
  _marker_outline = toString toArray _marker;
 
   createMarker [_marker_outline, _markerPos];
@@ -36,7 +36,7 @@ ARWA_update_progress_bar = {
     };
 
     _marker = _sector getVariable marker;
-    _markerPos = _sector getVariable pos;
+    _markerPos = _sector getVariable ARWA_KEY_pos;
 
     _progress = ARWA_sector_size * (_counter/ARWA_capture_time);
 

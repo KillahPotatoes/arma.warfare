@@ -23,7 +23,7 @@ ARWA_update_manpower_markers = {
 			_marker_name setMarkerColorLocal _color;
 			_marker_name setMarkerAlphaLocal 1;
 
-			private _manpower = floor (_x getVariable manpower);
+			private _manpower = floor (_x getVariable ARWA_KEY_manpower);
 
 			if(!(isNil "_manpower")) then {
 				_marker_name setMarkerTextLocal format["%1 MP", _manpower];

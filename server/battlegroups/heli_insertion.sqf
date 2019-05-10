@@ -48,10 +48,10 @@ ARWA_pick_sector = {
 ARWA_special_forces_insertion = {
 	params ["_side", "_can_spawn", "_sector"];
 
-	private _safe = !([_side, _sector getVariable pos] call ARWA_any_enemies_in_sector);
+	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
 
-	private _spawn_pos = getMarkerPos ([_side, respawn_air] call ARWA_get_prefixed_name);
-	private _sector_pos = _sector getVariable pos;
+	private _spawn_pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _sector_pos = _sector getVariable ARWA_KEY_pos;
 	private _dir = _sector_pos getDir _spawn_pos;
 	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
 
@@ -67,10 +67,10 @@ ARWA_helicopter_insertion = {
 
 	if (isNil "_sector") exitWith {};
 
-	private _safe = !([_side, _sector getVariable pos] call ARWA_any_enemies_in_sector);
+	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
 
-	private _spawn_pos = getMarkerPos ([_side, respawn_air] call ARWA_get_prefixed_name);
-	private _sector_pos = _sector getVariable pos;
+	private _spawn_pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _sector_pos = _sector getVariable ARWA_KEY_pos;
 	private _dir = _sector_pos getDir _spawn_pos;
 	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
 
@@ -85,7 +85,7 @@ ARWA_do_helicopter_insertion = {
 	private _heli = [_side] call ARWA_spawn_transport_heli;
 	private _group = [_heli, _can_spawn] call ARWA_add_soldiers_to_helicopter_cargo;
 	private _name = (typeOf (_heli select 0)) call ARWA_get_vehicle_display_name;
-	private _sector_name = _sector getVariable sector_name;
+	private _sector_name = _sector getVariable ARWA_KEY_sector_name;
 
 	[_mission_attr, _group, _sector] call ARWA_set_special_mission_attr;
 

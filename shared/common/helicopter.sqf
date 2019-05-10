@@ -1,8 +1,8 @@
 ARWA_spawn_helicopter = {
 	params ["_side", "_helicopter", "_kill_bonus"];
 
-	private _pos = getMarkerPos ([_side, respawn_air] call ARWA_get_prefixed_name);
-	private _base_pos = getMarkerPos ([_side, respawn_ground] call ARWA_get_prefixed_name);
+	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _base_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 	private _dir = _pos getDir _base_pos;
 	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
 
@@ -75,7 +75,7 @@ ARWA_take_off_and_despawn = {
 	params ["_heli_group", "_heli_vehicle"];
 
 	private _side = side _heli_group;
-	private _pos = getMarkerPos ([_side, respawn_air] call ARWA_get_prefixed_name);
+	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
 
 	while {alive _heli_vehicle} do {
 		_heli_group move _pos;

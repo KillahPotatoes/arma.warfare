@@ -6,8 +6,8 @@ ARWA_sector_manpower_generation = {
                   private _side = _sector getVariable ARWA_KEY_owned_by;
 
                   if(_side in ARWA_all_sides) then {
-                        private _ammo_box = _sector getVariable box;
-                        private _manpower = _ammo_box getVariable manpower;
+                        private _ammo_box = _sector getVariable ARWA_KEY_box;
+                        private _manpower = _ammo_box getVariable ARWA_KEY_manpower;
 
                         private _generated = 1 + (_sector call ARWA_get_additional_income_based_on_stationed_players);
 
@@ -22,7 +22,7 @@ ARWA_reset_sector_manpower = {
       params ["_new_owner", "_old_owner", "_sector", "_sector_name"];
 
       if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian) && _old_owner countSide allPlayers > 0) exitWith {
-            private _ammo_box = _sector getVariable box;
+            private _ammo_box = _sector getVariable ARWA_KEY_box;
             private _manpower = _ammo_box call ARWA_get_manpower;
 
             if(_manpower > 0) exitWith {
@@ -39,7 +39,7 @@ ARWA_reset_sector_manpower = {
 
 ARWA_get_additional_income_based_on_stationed_players = {
       params ["_sector"];
-      private _pos = _sector getVariable pos;
+      private _pos = _sector getVariable ARWA_KEY_pos;
       private _side = _sector getVariable ARWA_KEY_owned_by;
       private _total_factor = 0;
 

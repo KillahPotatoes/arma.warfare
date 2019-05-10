@@ -57,12 +57,12 @@ ARWA_list_options = {
 	private _side = playerSide;
 	private _options = [_side, _type] call ARWA_get_units_based_on_tier;
 
-	if(_type isEqualTo helicopter) then {
-		_options append (missionNamespace getVariable format["%1_%2_transport", _side, helicopter]);
+	if(_type isEqualTo ARWA_KEY_helicopter) then {
+		_options append (missionNamespace getVariable format["%1_%2_transport", _side, ARWA_KEY_helicopter]);
 	};
 
-	if(_type isEqualTo vehicle1) then {
-		_options append (missionNamespace getVariable format["%1_%2_transport", _side, vehicle1]);
+	if(_type isEqualTo ARWA_KEY_vehicle) then {
+		_options append (missionNamespace getVariable format["%1_%2_transport", _side, ARWA_KEY_vehicle]);
 	};
 
 	private _sub_options = [];
@@ -88,7 +88,7 @@ ARWA_list_options = {
 				systemChat localize "NOT_ENOUGH_MANPOWER";
 			};
 
-			if(_type isEqualTo infantry) then {
+			if(_type isEqualTo ARWA_KEY_infantry) then {
 				[_class_name] call ARWA_get_infantry;
 			} else {
 				private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;

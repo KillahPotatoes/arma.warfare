@@ -7,10 +7,10 @@ ARWA_spawn_defensive_squad = {
 	[_group, _pos] call ARWA_place_defensive_soldiers;
 	[_group] call ARWA_remove_nvg_and_add_flash_light;
 
-	[_group] call ARWA_spawn_defense_vehicle;
+	[_group, _pos] call ARWA_spawn_defense_vehicle;
 
     _group setBehaviour "SAFE";
-	_group setVariable [defense, true];
+	_group setVariable [ARWA_KEY_defense, true];
 
 	_group;
 };
@@ -65,7 +65,7 @@ ARWA_spawn_reinforcments = {
 
 	if(_new_soldiers < 1) exitWith {};
 
-    private _pos = _sector getVariable pos;
+    private _pos = _sector getVariable ARWA_KEY_pos;
     private _tmp_group = [[_pos select 0, _pos select 1, 3000], _side, _new_soldiers, true] call ARWA_spawn_infantry;
 
 	[_tmp_group, _pos] call ARWA_place_defensive_soldiers;

@@ -1,7 +1,7 @@
 
 ARWA_vehicle_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = [(_target getVariable pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _pos = [(_target getVariable ARWA_KEY_pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 
 	// TODO if in sector, its not safe. Change to waypoint type SAD
 	_group call ARWA_delete_all_waypoints;
@@ -56,9 +56,9 @@ ARWA_vehicle_group_ai = {
 	private _pos = getPosWorld (leader _group);
 
 	private _target = if([_group, _side] call ARWA_check_if_has_priority_target) then {
-		_group getVariable priority_target;
+		_group getVariable ARWA_KEY_priority_target;
 	} else {
-		_group setVariable [priority_target, nil];
+		_group setVariable [ARWA_KEY_priority_target, nil];
 		[_side, _pos] call ARWA_get_ground_target;
 	};
 

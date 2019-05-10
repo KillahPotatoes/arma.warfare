@@ -11,7 +11,7 @@ ARWA_send_vehicle_transport = {
 ARWA_spawn_transport_vehicle = {
 	params ["_side", "_class_name", "_kill_bonus"];
 
-	private _base_marker_name = [_side, vehicle1] call ARWA_get_prefixed_name;
+	private _base_marker_name = [_side, ARWA_KEY_vehicle] call ARWA_get_prefixed_name;
 	private _base_marker = missionNamespace getVariable _base_marker_name;
 
 	private _pos = getPos _base_marker;
@@ -30,7 +30,7 @@ ARWA_send_to_HQ = {
 	params ["_group", "_veh"];
 
 	private _side = side _group;
-	private _pos = getMarkerPos ([_side, respawn_ground] call ARWA_get_prefixed_name);
+	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 
 	_group addWaypoint [_pos, 0];
 
@@ -39,7 +39,7 @@ ARWA_send_to_HQ = {
 	if (alive _veh) exitWith
 	{
 		private _manpower = (_veh call ARWA_get_manpower) + (_veh call ARWA_remove_soldiers);
-		_veh setVariable [manpower, 0];
+		_veh setVariable [ARWA_KEY_manpower, 0];
 
 		if(_manpower > 0) then {
 			[playerSide, _manpower] remoteExec ["ARWA_buy_manpower_server", 2];

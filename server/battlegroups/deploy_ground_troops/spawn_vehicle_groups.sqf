@@ -51,7 +51,7 @@ ARWA_find_direction_towards_closest_sector = {
 	params ["_pos"];
 
 	private _sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
-	private _sector_pos = _sector getVariable pos;
+	private _sector_pos = _sector getVariable ARWA_KEY_pos;
 	_pos getDir _sector_pos;
 };
 
@@ -87,7 +87,7 @@ ARWA_spawn_vehicle_group = {
 ARWA_spawn_random_vehicle_group = {
 	params ["_side", "_can_spawn"];
 
-	private _pos = getMarkerPos ([_side, respawn_ground] call ARWA_get_prefixed_name);
+	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 	private _tier =  floor(random (([_side] call ARWA_get_tier) + 1));
 	private _vehicle_max_count = floor(random 2) + 1;
 	private _groups = [];
@@ -111,5 +111,5 @@ ARWA_spawn_reinforcement_vehicle_group = {
 	params ["_side", "_can_spawn", "_sector"];
 
 	private _groups = [_side, _can_spawn] call ARWA_spawn_random_vehicle_group;
-	{ _x setVariable [priority_target, _sector]; } count _groups;
+	{ _x setVariable [ARWA_KEY_priority_target, _sector]; } count _groups;
 };

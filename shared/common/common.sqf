@@ -36,7 +36,7 @@ ARWA_spawn_vehicle = {
 ARWA_get_manpower = {
     params ["_obj"];
 
-    floor(_obj getVariable [manpower, 0]);
+    floor(_obj getVariable [ARWA_KEY_manpower, 0]);
 };
 
 ARWA_get_units_based_on_tier = {

@@ -22,7 +22,7 @@ ARWA_join_squad = {
 	[player] join _group;
 
 	private _new_count = { alive _x } count units _group;
-	_group setVariable [soldier_count, _new_count];
+	_group setVariable [ARWA_KEY_soldier_count, _new_count];
 
 	deleteGroup _player_group;
 };
@@ -40,7 +40,7 @@ ARWA_leave_squad = {
 			[player] join grpNull;
 			[group player] remoteExec ["ARWA_add_battle_group", 2];
 			private _new_count = { alive _x } count units _current_group;
-			_current_group setVariable [soldier_count, _new_count];
+			_current_group setVariable [ARWA_KEY_soldier_count, _new_count];
 			}, nil, ARWA_squad_actions, false, true, "",
     '!(player call ARWA_empty_squad)'
     ];

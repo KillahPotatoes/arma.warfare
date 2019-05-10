@@ -50,7 +50,7 @@ if(ARWA_drone_feature) then {
 [] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\create_briefing.sqf";
 
-player setVariable [manpower, 0];
+player setVariable [ARWA_KEY_manpower, 0];
 player setVariable ["rank", 0, true];
 player setVariable ["kills", 0, true];
 

@@ -12,8 +12,8 @@ if(_fatigue == 0) then {
 [] spawn ARWA_add_take_manpower;
 [] spawn ARWA_add_store_manpower;
 
-[localize "REQUEST_AIR_TRANSPORT", helicopter, ARWA_air_transport_actions] spawn ARWA_show_order_transport;
-[localize "REQUEST_VEHICLE_TRANSPORT", vehicle1, ARWA_ground_transport_actions] spawn ARWA_show_order_transport;
+[localize "REQUEST_AIR_TRANSPORT", ARWA_KEY_helicopter, ARWA_air_transport_actions] spawn ARWA_show_order_transport;
+[localize "REQUEST_VEHICLE_TRANSPORT", ARWA_KEY_vehicle, ARWA_ground_transport_actions] spawn ARWA_show_order_transport;
 [] spawn ARWA_show_order_uav;
 
 remove_squad_mates_on_death = {
@@ -35,7 +35,7 @@ reset_player_stats = {
 
 	_player setVariable [ARWA_KEY_kills, 0, true];
 	_player setVariable [ARWA_KEY_kills, 0, true];
-	_player setVariable [manpower, 0, true];
+	_player setVariable [ARWA_KEY_manpower, 0, true];
 };
 
 [player] call reset_player_stats;

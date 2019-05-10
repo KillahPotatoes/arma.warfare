@@ -10,11 +10,10 @@ ARWA_KEY_sector = "sector";
 ARWA_KEY_transport = "transport";
 ARWA_KEY_manpower = "manpower";
 
-
 ARWA_KEY_menu = "menu";
-ARWA_KEY_pos = "pos";
+ARWA_KEY_pos = "position";
 ARWA_KEY_marker = "marker";
-ARWA_KEY_artillery = "artillery";
+ARWA_KEY_static_artillery = "static_artillery";
 ARWA_KEY_static = "static";
 ARWA_KEY_respawn_pos = "respawn_pos";
 ARWA_KEY_respawn_ground = "respawn_ground";
@@ -52,30 +51,12 @@ ARWA_ranks = [
 
 // OLD KEYS
 
-pos = "pos";
-marker = "marker";
-artillery = "artillery";
-static = "static";
-respawn_pos = "respawn_pos";
-respawn_ground = "respawn_ground";
-respawn_air = "respawn_air";
-sector_name = "name";
-box = "box";
-manpower = "manpower";
-soldier_count = "s_count";
-defense = "defense";
+
 
 ARWA_penalty = "penalty";
 ARWA_kill_bonus = "kill_bonus";
 
-vehicle1 = "vehicle";
-helicopter = "helicopter";
-infantry = "infantry";
-priority_target = "priority_target";
 
-guer_faction_name = "The resistance";
-west_faction_name = "Nato";
-east_faction_name = "China";
 
 // CONSTANT VARS
 ARWA_respawn_cooldown = 900;

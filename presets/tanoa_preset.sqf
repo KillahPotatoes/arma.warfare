@@ -8,6 +8,10 @@ ARWA_nvgoogles_guer = "NVGoggles_INDEP";
 ARWA_nvgoogles_west = "NVGoggles";
 ARWA_nvgoogles_east = "NVGoggles_OPFOR";
 
+ARWA_west_uav_terminal_class_name = "B_UavTerminal";
+ARWA_east_uav_terminal_class_name = "O_UavTerminal";
+ARWA_guer_uav_terminal_class_name = "I_UavTerminal";
+
 ARWA_west_uavs = [
 	["B_UAV_02_F", 30],
 	["B_UAV_02_CAS_F", 30],

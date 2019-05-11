@@ -47,7 +47,10 @@ ARWA_induce_vehicle_kill_bonus = {
 			private _victim_side = _victim getVariable ARWA_KEY_owned_by;
 
 			if (!(_victim_side isEqualTo _killer_side) && {isPlayer _killer}) then {
-				private _kill_bonus = _victim getVariable ARWA_kill_bonus;
+				private _kill_bonus = _victim getVariable [ARWA_kill_bonus, 0];
+
+				if(_kill_bonus == 0) exitWith {};
+
 				private _adjusted_kill_bonus = if(ARWA_vehicleKillBonus == 1) then { _kill_bonus/2; } else { _kill_bonus; };
 				private _faction_strength = _killer_side call ARWA_get_strength;
 				private _new_faction_strength = _faction_strength + _adjusted_kill_bonus;

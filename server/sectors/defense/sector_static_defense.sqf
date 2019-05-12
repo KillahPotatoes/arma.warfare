@@ -12,7 +12,8 @@ ARWA_spawn_static = {
 	private _maxDist = 25;
 
 	while{_static_pos isEqualTo _pos && _maxDist < ARWA_sector_size} do {
-		_static_pos = [_pos, 5, _maxDist, 10, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
+		private _new_pos = [_pos, 5, _maxDist, 10, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
+		_static_pos = (isOnRoad _new_pos) ? _pos : _new_pos;
 		_maxDist = _maxDist + 25;
 	};
 

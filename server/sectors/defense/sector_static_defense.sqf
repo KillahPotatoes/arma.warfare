@@ -77,8 +77,9 @@ ARWA_remove_static = {
 	{
 		_x setDamage 1;
 	} forEach units _group;
-
-	deleteVehicle (_static select 0);
+    
+	sleep random 60;
+	(_static select 0) setDamage 1
 };
 
 ARWA_static_alive = {

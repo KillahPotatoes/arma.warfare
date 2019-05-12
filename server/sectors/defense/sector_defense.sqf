@@ -31,7 +31,7 @@ ARWA_spawn_sector_defense = {
 					};
 				};
 
-				if(ARWA_sector_artillery && isNil "_static_defense" || {!([_static_defense] call ARWA_static_alive)}) then {
+				if(ARWA_sector_artillery && (isNil "_static_defense" || {!([_static_defense] call ARWA_static_alive)})) then {
 					_static_defense = [_pos, _current_faction] call ARWA_spawn_static;
 				};
 
@@ -44,7 +44,6 @@ ARWA_spawn_sector_defense = {
 				_sleep = 1;
 			};
 		};
-
 
 		sleep _sleep;
 	};

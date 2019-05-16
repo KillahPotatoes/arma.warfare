@@ -1,13 +1,9 @@
 ARWA_spawn_static = {
 	params ["_pos", "_side"];
 
-	private _orientation = random 360;
-
 	private _available_art = [_side, ARWA_KEY_static_artillery] call ARWA_get_units_based_on_tier;
-
 	if(_available_art isEqualTo []) exitWith {};
 
-	private _type = selectRandom (_available_art);
 	private _static_pos = _pos;
 	private _maxDist = 25;
 
@@ -17,32 +13,35 @@ ARWA_spawn_static = {
 		_maxDist = _maxDist + 25;
 	};
 
-	if(!(_static_pos isEqualTo _pos)) exitWith {
-		private _static = [_static_pos, _orientation, _type, _side] call ARWA_spawn_vehicle;
-		private _group = _static select 2;
-		_group deleteGroupWhenEmpty true;
-		_group enableDynamicSimulation false;
-		_group setVariable [ARWA_KEY_defense, true];
-		[_group] call ARWA_remove_nvg_and_add_flash_light;
+	if(_static_pos isEqualTo _pos) exitWith {};
 
-		{
-			_x disableAI "TARGET";
-			_x disableAI "AUTOTARGET";
-			_x disableAI "MOVE";
-			_x disableAI "AIMINGERROR";
-			_x disableAI "SUPPRESSION";
-			_x disableAI "CHECKVISIBLE";
-			_x disableAI "COVER";
-			_x disableAI "AUTOCOMBAT";
-			_x disableAI "PATH";
-			_x disableAI "MINEDETECTION";
-		} forEach units _group;
+	private _type = selectRandom (_available_art);
+	private _orientation = random 360;
+	private _static = [_static_pos, _orientation, _type, _side] call ARWA_spawn_vehicle;
+	private _group = _static select 2;
 
-		private _veh = _static select 0;
-		[_veh] spawn ARWA_add_rearm_delay_event;
+	_group deleteGroupWhenEmpty true;
+	_group enableDynamicSimulation false;
+	_group setVariable [ARWA_KEY_defense, true];
+	[_group] call ARWA_remove_nvg_and_add_flash_light;
 
-		_static;
-	};
+	{
+		_x disableAI "TARGET";
+		_x disableAI "AUTOTARGET";
+		_x disableAI "MOVE";
+		_x disableAI "AIMINGERROR";
+		_x disableAI "SUPPRESSION";
+		_x disableAI "CHECKVISIBLE";
+		_x disableAI "COVER";
+		_x disableAI "AUTOCOMBAT";
+		_x disableAI "PATH";
+		_x disableAI "MINEDETECTION";
+	} forEach units _group;
+
+	private _veh = _static select 0;
+	[_veh] spawn ARWA_add_rearm_delay_event;
+
+	_static;
 };
 
 ARWA_add_rearm_delay_event = {
@@ -77,7 +76,7 @@ ARWA_remove_static = {
 	{
 		_x setDamage 1;
 	} forEach units _group;
-    
+
 	sleep random 60;
 	(_static select 0) setDamage 1
 };

@@ -8,7 +8,12 @@ ARWA_vehicle_create_waypoint = {
 	_w = _group addWaypoint [_pos, 20];
 	_w setWaypointStatements ["true","[group this] call ARWA_delete_all_waypoints"];
 
-	_w setWaypointType "MOVE";
+	if{[_pos, side _group, ARWA_sector_size] call ARWA_any_enemies_in_area} then {
+		_w setWaypointType "SAD";
+	} else {
+		_w setWaypointType "MOVE";
+	};
+
 	_group setBehaviour "SAFE";
 
 	_group setSpeedMode "NORMAL";

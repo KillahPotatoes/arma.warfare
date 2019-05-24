@@ -285,6 +285,30 @@
         <Key ID="ARWA_STR_SEND_DRONE_TO_HQ">
             <English>Send drone to HQ</English>
         </Key>
+         <Key ID="ARWA_STR_REQUEST_BACKUP">
+            <English>Request backup</English>
+        </Key>
+         <Key ID="ARWA_STR_REQUEST_AIR_BACKUP">
+            <English>Request air support</English>
+        </Key>
+        <Key ID="ARWA_STR_REQUEST_BACKUP">
+            <English>Requesting backup at %1</English>
+        </Key>
+        <Key ID="ARWA_STR_NO_BACKUP_AVAILABLE">
+            <English>No backup available at this time!</English>
+        </Key>
+        <Key ID="ARWA_STR_YOU_JUST_CALLED_BACKUP">
+            <English>You just called backup. Try again in %1 minutes</English>
+        </Key>
+        <Key ID="ARWA_STR_REQUEST_AIR_SUPPORT">
+            <English>Requesting air support at %1</English>
+        </Key>
+        <Key ID="ARWA_STR_NO_AIR_SUPPORT_AVAILABLE">
+            <English>No available air support at this time!</English>
+        </Key>
+        <Key ID="ARWA_STR_YOU_JUST_CALLED_AIR_SUPPORT">
+            <English>You just called air support. Try again in %1 minutes</English>
+        </Key>
     </Package>
     <Package name="KPPLM">
         <Key ID="STR_KPPLM_ACTIONOPEN">

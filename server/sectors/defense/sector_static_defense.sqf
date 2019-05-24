@@ -15,9 +15,12 @@ ARWA_spawn_static = {
 
 	if(_static_pos isEqualTo _pos) exitWith {};
 
-	private _type = selectRandom (_available_art);
+	private _static_artillery = selectRandom (_available_art);
+	private _type = _static_artillery select 0;
+	private _kill_bonus = _static_artillery select 1;
+
 	private _orientation = random 360;
-	private _static = [_static_pos, _orientation, _type, _side] call ARWA_spawn_vehicle;
+	private _static = [_static_pos, _orientation, _type, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _group = _static select 2;
 
 	_group deleteGroupWhenEmpty true;

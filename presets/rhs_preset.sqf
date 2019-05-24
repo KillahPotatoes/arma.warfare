@@ -115,24 +115,24 @@ ARWA_guer_infantry_tier_0 = [
 
 // ARTILLERY
 
-ARWA_west_mortar = ["B_Mortar_01_F"];
-ARWA_west_artillery = ["B_MBT_01_arty_F", "RHS_M119_WD"];
-ARWA_west_rockets = ["B_MBT_01_mlrs_F"];
+ARWA_west_mortar = [["B_Mortar_01_F", 0]];
+ARWA_west_artillery = [["B_MBT_01_arty_F", 10], ["RHS_M119_WD", 10]];
+ARWA_west_rockets = [["B_MBT_01_mlrs_F", 20]];
 
 ARWA_west_static_artillery_tier_0 = ARWA_west_mortar;
 ARWA_west_static_artillery_tier_1 = ARWA_west_artillery;
 ARWA_west_static_artillery_tier_2 = ARWA_west_rockets;
 
-ARWA_guer_mortar = ["I_Mortar_01_F"];
-ARWA_guer_artillery = ["rhsgref_nat_d30"];
-ARWA_guer_rockets = ["I_Truck_02_MRL_F"];
+ARWA_guer_mortar = [["I_Mortar_01_F", 0]];
+ARWA_guer_artillery = [["rhsgref_nat_d30", 10]];
+ARWA_guer_rockets = [["I_Truck_02_MRL_F", 20]];
 
 ARWA_guer_static_artillery_tier_0 = ARWA_guer_mortar;
 ARWA_guer_static_artillery_tier_1 = ARWA_guer_artillery;
 ARWA_guer_static_artillery_tier_2 = ARWA_guer_rockets;
 
-ARWA_east_mortar = ["O_Mortar_01_F"];
-ARWA_east_artillery = ["O_MBT_02_arty_F", "rhs_D30_msv"];
+ARWA_east_mortar = [["O_Mortar_01_F", 0]];
+ARWA_east_artillery = [["O_MBT_02_arty_F", 10], ["rhs_D30_msv", 10]];
 ARWA_east_rockets = [];
 
 ARWA_east_static_artillery_tier_0 = ARWA_east_mortar;

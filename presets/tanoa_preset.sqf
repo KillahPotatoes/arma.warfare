@@ -152,6 +152,10 @@ ARWA_east_static_artillery_tier_2 = ARWA_east_rockets;
 ARWA_west_vehicle_transport = [
 	["B_T_MRAP_01_F", 10],
 	["B_T_LSV_01_unarmed_F", 10],
+	["B_T_Truck_01_ammo_F", 10],
+	["B_T_Truck_01_fuel_F", 10],
+	["B_T_Truck_01_repair_F", 10],
+	["B_T_Truck_01_medical_F", 10],
 	["B_T_Truck_01_covered_F", 10]
 ];
 
@@ -180,6 +184,10 @@ ARWA_west_vehicle_tier_0 = [
 ARWA_guer_vehicle_transport = [
 	["I_MRAP_03_F", 10],
 	["I_Truck_02_covered_F", 10],
+	["I_Truck_02_ammo_F", 10],
+	["I_Truck_02_fuel_F", 10],
+	["I_Truck_02_box_F", 10],
+	["I_Truck_02_medical_F", 10],
 	["I_G_Offroad_01_F", 10]
 ];
 
@@ -207,6 +215,10 @@ ARWA_guer_vehicle_tier_0 = [
 ARWA_east_vehicle_transport = [
 	["O_T_MRAP_02_ghex_F", 10],
 	["O_T_LSV_02_unarmed_F", 10],
+	["O_T_Truck_03_ammo_ghex_F", 10],
+	["O_T_Truck_03_fuel_ghex_F", 10],
+	["O_T_Truck_03_repair_ghex_F", 10],
+	["O_T_Truck_03_medical_ghex_F", 10],
 	["O_T_Truck_03_covered_ghex_F", 10]
 ];
 

@@ -32,7 +32,7 @@ ARWA_needs_new_waypoint = {
 
 	private _target = _group getVariable ARWA_KEY_target;
 
-	if(isNil "_target") exitWith { false; };
+	if(isNil "_target") exitWith { true; };
 
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
 };
@@ -70,7 +70,7 @@ ARWA_check_if_has_priority_target = {
 	private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
 	private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
 
-	_is_safe && _is_captured;
+	!(_is_safe && _is_captured);
 };
 
 ARWA_initialize_battlegroup_ai = {

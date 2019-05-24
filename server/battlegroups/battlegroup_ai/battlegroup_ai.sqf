@@ -34,6 +34,12 @@ ARWA_needs_new_waypoint = {
 
 	if(isNil "_target") exitWith { true; };
 
+	private _has_owner = _target getVariable ARWA_KEY_owned_by;
+
+	if(isNil "_has_owner") exitWith { // if priority target is position, not sector
+		(_target) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
+	};
+
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
 };
 
@@ -43,6 +49,13 @@ ARWA_approaching_target = {
 	private _target = _group getVariable ARWA_KEY_target;
 
 	if(isNil "_target") exitWith { false; };
+
+	private _has_owner = _target getVariable ARWA_KEY_owned_by;
+
+	if(isNil "_has_owner") exitWith { // if priority target is position, not sector
+		(_target) distance2D (getPosWorld leader _group) < ARWA_sector_size;
+	};
+
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
 };
 
@@ -66,6 +79,13 @@ ARWA_check_if_has_priority_target = {
 	private _priority_target = _group getVariable ARWA_KEY_priority_target;
 
 	if(isNil "_priority_target") exitWith { false; };
+
+	private _has_owner = _priority_target getVariable ARWA_KEY_owned_by;
+
+	if(isNil "_has_owner") exitWith { // if priority target is position, not sector
+		private _is_safe = [_side, _priority_target, 500] call ARWA_is_sector_safe;
+		!_is_safe;
+	};
 
 	private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
 	private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;

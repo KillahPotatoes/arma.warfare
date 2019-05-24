@@ -1,7 +1,13 @@
 
 ARWA_infantry_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = [(_target getVariable ARWA_KEY_pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+
+	private _has_owner = _target getVariable ARWA_KEY_owned_by;
+	private _pos = if(isNil "_has_owner") then {
+		[(_target), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	} else {
+		[(_target getVariable ARWA_KEY_pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	};
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 5];
@@ -73,7 +79,6 @@ ARWA_infantry_move_to_sector = {
 	};
 
 	if ([_group] call ARWA_needs_new_waypoint) then {
-		private _target = _group getVariable ARWA_KEY_target;
 		[_new_target, _group] call ARWA_infantry_create_waypoint;
 	};
 

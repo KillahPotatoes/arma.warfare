@@ -1,6 +1,12 @@
 ARWA_air_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = _target getVariable ARWA_KEY_pos;
+
+	private _has_owner = _target getVariable ARWA_KEY_owned_by;
+	private _pos = if(isNil "_has_owner") then {
+		_target;
+	} else {
+		_target getVariable ARWA_KEY_pos
+	};
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 5];
@@ -22,7 +28,7 @@ ARWA_air_move_to_sector = {
 
 	if ([_group] call ARWA_needs_new_waypoint) then {
 		private _target = _group getVariable ARWA_KEY_target;
-		[_target, _group] call ARWA_vehicle_create_waypoint;
+		[_target, _group] call ARWA_air_create_waypoint;
 	};
 
 	if ([_group] call ARWA_approaching_target) then {

@@ -25,10 +25,7 @@ ARWA_show_order_uav = {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
 		if(ARWA_uav_timer > time) exitWith {
-
-			private _time_left = ARWA_uav_timer - time;
-			private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;
-			systemChat format[localize "ARWA_STR_DRONE_UNAVAILABLE", _wait_minutes];
+			[ARWA_uav_timer, "ARWA_STR_DRONE_UNAVAILABLE"] call ARWA_wait_x_minutes_before_trying_again;
 		};
 
 		private _open = missionNameSpace getVariable ["ARWA_uav_menu", false];

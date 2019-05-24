@@ -32,6 +32,7 @@ if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(b
 // Player actions
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\player_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\squad_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\request_backup_action.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\transport\order_transport_menu.sqf";
 
 ARWA_drone_feature = (["DroneRechargeTime", 30] call BIS_fnc_getParamValue) > 0;

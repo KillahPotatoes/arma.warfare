@@ -23,7 +23,7 @@ ARWA_remove_null = {
 };
 
 ARWA_set_special_mission_attr = {
-	params ["_mission_attr", "_group", "_sector"];
+	params ["_mission_attr", "_group", "_target"];
 
 	private _special_forces = _mission_attr select 0;
 	private _priority_target = _mission_attr select 1;
@@ -33,7 +33,7 @@ ARWA_set_special_mission_attr = {
 	};
 
 	if(_priority_target) then {
-		_group setVariable [ARWA_KEY_priority_target, _sector];
+		_group setVariable [ARWA_KEY_priority_target, _target];
 	};
 };
 

@@ -80,19 +80,26 @@ ARWA_helicopter_insertion = {
 };
 
 ARWA_do_helicopter_insertion = {
-	params ["_side", "_can_spawn", "_pos", "_sector", ["_mission_attr", [false, false]]];
+	params ["_side", "_can_spawn", "_pos", "_target", ["_mission_attr", [false, false]]];
 
 	private _heli = [_side] call ARWA_spawn_transport_heli;
 	private _group = [_heli, _can_spawn] call ARWA_add_soldiers_to_helicopter_cargo;
 	private _name = (typeOf (_heli select 0)) call ARWA_get_vehicle_display_name;
-	private _sector_name = _sector getVariable ARWA_KEY_sector_name;
 
-	[_mission_attr, _group, _sector] call ARWA_set_special_mission_attr;
+	private _has_owner = _target getVariable ARWA_KEY_owned_by;
 
-	diag_log format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), [_sector_name] call ARWA_replace_underscore, _mission_attr select 0, _mission_attr select 1, _side];
+	private _sector_name = if(isNil "_has_owner") then {
+		_target;
+	} else {
+		[_target getVariable ARWA_KEY_sector_name] call ARWA_replace_underscore;
+	};
+
+	[_mission_attr, _group, _target] call ARWA_set_special_mission_attr;
+
+	diag_log format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), _sector_name, _mission_attr select 0, _mission_attr select 1, _side];
 	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
 
-	[_side, ["ARWA_STR_INSERTING_SQUAD", _name, count units _group, [_sector_name] call ARWA_replace_underscore]] remoteExec ["ARWA_HQ_report_client"];
+	[_side, ["ARWA_STR_INSERTING_SQUAD", _name, count units _group, _sector_name]] remoteExec ["ARWA_HQ_report_client"];
 	[_heli select 2, _heli select 0, _pos] call ARWA_move_to_sector_outskirt;
 
 	[_group, _heli select 0] call ARWA_dispatch_heli_battlegroup;

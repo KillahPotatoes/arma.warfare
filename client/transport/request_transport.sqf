@@ -8,7 +8,7 @@ ARWA_request_transport = {
 
 		private _class_name = _this select 0;
 		private _penalty = _this select 1;
-
+		// TODO DO REQUEST TRANSPORT CALL FOR EVERYONE TO HEAR
 		[_pos, _class_name, _penalty] spawn ARWA_order_transport;
 	};
 	waitUntil {

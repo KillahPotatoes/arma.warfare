@@ -99,3 +99,4 @@ ARWA_active_transport_actions = 80;
 ARWA_active_uav_actions = 75;
 ARWA_manpower_actions = 60;
 ARWA_squad_actions = 50;
+ARWA_request_backup_actions= 45;

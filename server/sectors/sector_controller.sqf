@@ -147,7 +147,7 @@ ARWA_initialize_sector_control = {
 					};
 
 					if(_sector getVariable "reinforements_available") then {
-					private _success = [_owner, _sector] call ARWA_try_spawn_reinforcements;
+					private _success = [_owner, _sector] call ARWA_try_spawn_sector_reinforcements;
 
 					if(_success) then {
 						[_sector] spawn ARWA_reinforcements_cool_down;

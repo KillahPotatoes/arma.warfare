@@ -31,7 +31,6 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_vehicle_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_squad_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_static_defense.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_reinforcements.sqf";
 
 // Faction
 [] call compileFinal preprocessFileLineNumbers "server\factions\faction_strength.sqf";
@@ -51,7 +50,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
-
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\reinforcements.sqf";
 
 // Radio chatter
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";

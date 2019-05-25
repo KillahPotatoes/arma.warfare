@@ -231,8 +231,8 @@ class Params
     class Preset
     {
         title = "Choose preset"; // Param name visible in the list
-        values[] = {0,1,2}; // Values; must be integers; has to have the same number of elements as 'texts'
-        texts[] = {"Vanilla","Tropic","RHS"}; // Description of each selectable item
+        values[] = {0,1,2,3,4}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Vanilla","Tropic","RHS", "Global Mobilization Woodland", "Global Mobilization Winter"}; // Description of each selectable item
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };

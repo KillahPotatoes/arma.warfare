@@ -7,10 +7,16 @@ ARWA_generate_mines = {
 		private _pos_mine= [_field_center,random [_field_radius / 2, _field_radius, _field_radius * 2], random 360] call BIS_fnc_relPos;
 
 		private _mines = if (isOnRoad _pos_mine) then {
+			if(isNil "ARWA_anti_vehicle_mines" || ARWA_anti_vehicle_mines isEqualTo []) exitWith {};
+
 			ARWA_anti_vehicle_mines;
 		} else {
+
+			if(isNil "ARWA_anti_personel_mines" || ARWA_anti_personel_mines isEqualTo []) exitWith {};
 			ARWA_anti_personel_mines;
 		};
+
+		if(isNil "_mines") exitWith {};
 
 		if (!(surfaceIsWater _pos_mine)) then {
 			private _type = selectRandom _mines;

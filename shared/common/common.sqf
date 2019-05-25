@@ -68,6 +68,8 @@ ARWA_remove_nvg_and_add_flash_light_unit = {
 
     private _nvgoogles = missionNamespace getVariable format["ARWA_nvgoogles_%1", _side];
 
+    if(isNil "_nvgoogles") exitWith {};
+
   	_unit unassignItem _nvgoogles;
 		_unit removeItem _nvgoogles;
 		_unit addPrimaryWeaponItem "acc_flashlight";

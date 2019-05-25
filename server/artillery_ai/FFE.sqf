@@ -51,9 +51,21 @@ if (isNil ("RydFFE_FOClass")) then {RydFFE_FOClass =
 
 if (isNil "RydFFE_IowaMode") then {RydFFE_IowaMode = false};
 
-RydFFE_SPMortar = ARWA_east_artillery + ARWA_guer_artillery + ARWA_west_artillery;
-RydFFE_Mortar =  ARWA_east_mortar + ARWA_guer_mortar + ARWA_west_mortar;
-RydFFE_Rocket = ARWA_east_rockets + ARWA_west_rockets + ARWA_guer_rockets;
+_ARWA_east_artillery = missionNamespace getVariable ["ARWA_east_artillery", []];
+_ARWA_guer_artillery = missionNamespace getVariable ["ARWA_guer_artillery", []];
+_ARWA_west_artillery = missionNamespace getVariable ["ARWA_west_artillery", []];
+
+_ARWA_east_mortar = missionNamespace getVariable ["ARWA_east_mortar", []];
+_ARWA_guer_mortar = missionNamespace getVariable ["ARWA_guer_mortar", []];
+_ARWA_west_mortar = missionNamespace getVariable ["ARWA_west_mortar", []];
+
+_ARWA_east_rockets = missionNamespace getVariable ["ARWA_east_rockets", []];
+_ARWA_west_rockets = missionNamespace getVariable ["ARWA_west_rockets", []];
+_ARWA_guer_rockets = missionNamespace getVariable ["ARWA_guer_rockets", []];
+
+RydFFE_SPMortar = _ARWA_east_artillery + _ARWA_guer_artillery + _ARWA_west_artillery;
+RydFFE_Mortar =  _ARWA_east_mortar + _ARWA_guer_mortar + _ARWA_west_mortar;
+RydFFE_Rocket = _ARWA_east_rockets + _ARWA_west_rockets + _ARWA_guer_rockets;
 RydFFE_Other = [];
 
 _allArty = RydFFE_SPMortar + RydFFE_Mortar + RydFFE_Rocket;

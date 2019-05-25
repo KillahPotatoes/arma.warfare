@@ -138,7 +138,14 @@ ARWA_find_enemy_sectors = {
 	params ["_side"];
 
 	private _enemy = ARWA_all_sides - [_side];
-	([_enemy select 0] call ARWA_get_owned_sectors) + ([_enemy select 1] call ARWA_get_owned_sectors);
+
+	private _enemy_sectors = [];
+
+	{
+		_enemy_sectors append ([_x] call ARWA_get_owned_sectors);
+	} foreach _enemy;
+
+	_enemy_sectors;
 };
 
 ARWA_count_enemy_sectors = { // TODO dead code?

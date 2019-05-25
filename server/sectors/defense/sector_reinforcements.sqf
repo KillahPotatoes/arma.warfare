@@ -31,6 +31,10 @@ ARWA_calcuate_vehicle_weight = {
 ARWA_calcuate_heli_weight = {
 	params ["_side", "_sector"];
 
+	private _available_helis = _side call ARWA_get_transport_heli_type;
+
+	if(_available_helis isEqualTo []) exitWith { 0; };
+
 	(1 - ([_side, _sector] call ARWA_calcuate_vehicle_weight)) min 0.5;
 };
 

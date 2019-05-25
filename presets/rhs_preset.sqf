@@ -1,3 +1,10 @@
+ARWA_all_sides = [west, east, independent];
+ARWA_max_tier = 2;
+
+ARWA_KEY_guer_faction_name = "The resistance";
+ARWA_KEY_west_faction_name = "Nato";
+ARWA_KEY_east_faction_name = "Russia";
+
 ARWA_ammo_box = "B_CargoNet_01_ammo_F";
 ARWA_manpower_box = "Land_Ammobox_rounds_F";
 
@@ -30,53 +37,65 @@ ARWA_guer_uavs = [
 ];
 
 ARWA_west_sympathizers = [
-	["B_G_Soldier_TL_F", 0],
-	["B_G_Soldier_M_F", 0],
-	["B_G_Soldier_AR_F", 0],
-	["B_G_Soldier_A_F", 0],
-	["B_G_Soldier_SL_F", 0],
-	["B_G_Soldier_F", 0],
-	["B_G_engineer_F", 0],
-	["B_G_medic_F", 0],
-	["B_G_Sharpshooter_F", 0]
-
+	["rhsgref_cdf_b_para_rifleman", 0],
+	["rhsgref_cdf_b_para_marksman", 0],
+	["rhsgref_cdf_b_para_rifleman_lite", 0],
+	["rhsgref_cdf_b_para_medic", 0],
+	["rhsgref_cdf_b_para_squadleader", 0],
+	["rhsgref_cdf_b_para_machinegunner", 0],
+	["rhsgref_cdf_b_para_autorifleman", 0],
+	["rhsgref_cdf_b_para_specialist_aa", 0],
+	["rhsgref_cdf_b_para_grenadier", 0],
+	["rhsgref_cdf_b_para_grenadier_rpg", 0]
 ];
 
 ARWA_east_sympathizers = [
-	["O_G_Soldier_TL_F", 0],
-	["O_G_Soldier_M_F", 0],
-	["O_G_Soldier_AR_F", 0],
-	["O_G_Soldier_A_F", 0],
-	["O_G_Soldier_SL_F", 0],
-	["O_G_Soldier_F", 0],
-	["O_G_engineer_F", 0],
-	["O_G_medic_F", 0],
-	["O_G_Sharpshooter_F", 0]
+	["rhsgref_ins_medicq", 0],
+	["rhsgref_ins_specialist_aa", 0],
+	["rhsgref_ins_grenadier_rpg", 0],
+	["rhsgref_ins_grenadier", 0],
+	["rhsgref_ins_rifleman_RPG26", 0],
+	["rhsgref_ins_sniper", 0],
+	["rhsgref_ins_militiaman_mosin", 0],
+	["rhsgref_ins_rifleman", 0],
+	["rhsgref_ins_rifleman_akm", 0],
+	["rhsgref_ins_rifleman_aks74", 0],
+	["rhsgref_ins_rifleman_aksu", 0],
+	["rhsgref_ins_saboteur", 0],
+	["rhsgref_ins_machinegunner", 0]
 ];
 
 ARWA_guer_sympathizers = [
-	["I_G_Soldier_TL_F", 0],
-	["I_G_Soldier_M_F", 0],
-	["I_G_Soldier_AR_F", 0],
-	["I_G_Soldier_A_F", 0],
-	["I_G_Soldier_SL_F", 0],
-	["I_G_Soldier_F", 0],
-	["I_G_engineer_F", 0],
-	["I_G_medic_F", 0],
-	["I_G_Sharpshooter_F", 0]
+	["rhsgref_ins_g_medicq", 0],
+	["rhsgref_ins_g_specialist_aa", 0],
+	["rhsgref_ins_g_grenadier_rpg", 0],
+	["rhsgref_ins_g_grenadier", 0],
+	["rhsgref_ins_g_rifleman_RPG26", 0],
+	["rhsgref_ins_g_sniper", 0],
+	["rhsgref_ins_g_militiaman_mosin", 0],
+	["rhsgref_ins_g_rifleman", 0],
+	["rhsgref_ins_g_rifleman_akm", 0],
+	["rhsgref_ins_g_rifleman_aks74", 0],
+	["rhsgref_ins_g_rifleman_aksu", 0],
+	["rhsgref_ins_g_saboteur", 0],
+	["rhsgref_ins_g_machinegunner", 0]
 ];
 
 ARWA_west_infantry_tier_0 = [
-	["B_soldier_F", 0],
-	["B_soldier_AR_F", 0],
-	["B_HeavyGunner_F", 0],
-	["B_Soldier_GL_F", 0],
-	["B_soldier_exp_F", 0],
-	["B_medic_F", 0],
-	["B_Sharpshooter_F", 0],
-	["B_engineer_F", 0],
-	["B_Soldier_AT_F", 0],
-	["B_Soldier_AA_F", 0]
+	["rhsusf_socom_marsoc_teamchief", 0],
+	["rhsusf_socom_marsoc_teamleader", 0],
+	["rhsusf_socom_marsoc_sniper_m107", 0],
+	["rhsusf_socom_marsoc_sniper", 0],
+	["rhsusf_socom_marsoc_sarc", 0],
+	["rhsusf_socom_marsoc_cso_cqb", 0],
+	["rhsusf_socom_marsoc_cso_breacher", 0],
+	["rhsusf_socom_marsoc_cso", 0],
+	["rhsusf_socom_marsoc_cso_grenadier", 0],
+	["rhsusf_socom_marsoc_cso_mechanic", 0],
+	["rhsusf_socom_marsoc_jtac", 0],
+	["rhsusf_socom_marsoc_cso_eod", 0],
+	["rhsusf_socom_marsoc_jfo", 0],
+	["rhsusf_socom_marsoc_elementleader", 0]
 ];
 
 ARWA_east_infantry_tier_0 = [
@@ -115,24 +134,24 @@ ARWA_guer_infantry_tier_0 = [
 
 // ARTILLERY
 
-ARWA_west_mortar = ["B_Mortar_01_F"];
-ARWA_west_artillery = ["B_MBT_01_arty_F", "RHS_M119_WD"];
-ARWA_west_rockets = ["B_MBT_01_mlrs_F"];
+ARWA_west_mortar = [["RHS_M252_D", 0]];
+ARWA_west_artillery = [["rhsusf_m109_usarmy", 10], ["RHS_M119_WD", 10]];
+ARWA_west_rockets = [["rhsusf_M142_usarmy_WD", 20]];
 
 ARWA_west_static_artillery_tier_0 = ARWA_west_mortar;
 ARWA_west_static_artillery_tier_1 = ARWA_west_artillery;
 ARWA_west_static_artillery_tier_2 = ARWA_west_rockets;
 
-ARWA_guer_mortar = ["I_Mortar_01_F"];
-ARWA_guer_artillery = ["rhsgref_nat_d30"];
-ARWA_guer_rockets = ["I_Truck_02_MRL_F"];
+ARWA_guer_mortar = [["rhsgref_cdf_reg_M252", 0]];
+ARWA_guer_artillery = [["rhsgref_nat_d30", 10]];
+ARWA_guer_rockets = [];
 
 ARWA_guer_static_artillery_tier_0 = ARWA_guer_mortar;
 ARWA_guer_static_artillery_tier_1 = ARWA_guer_artillery;
 ARWA_guer_static_artillery_tier_2 = ARWA_guer_rockets;
 
-ARWA_east_mortar = ["O_Mortar_01_F"];
-ARWA_east_artillery = ["O_MBT_02_arty_F", "rhs_D30_msv"];
+ARWA_east_mortar = [["rhs_2b14_82mm_msv", 0]];
+ARWA_east_artillery = [["rhs_2s3_tv", 10], ["rhs_D30_msv", 10]];
 ARWA_east_rockets = [];
 
 ARWA_east_static_artillery_tier_0 = ARWA_east_mortar;
@@ -142,8 +161,13 @@ ARWA_east_static_artillery_tier_2 = ARWA_east_rockets;
 // WEST VEHICLES
 
 ARWA_west_vehicle_transport = [
-	["B_MRAP_01_F", 10], // Hunter
-	["B_LSV_01_unarmed_F", 10] // Prowler
+	["rhsusf_m998_w_4dr", 10], // Hunter
+	["rhsusf_m998_w_4dr_halftop", 10], //
+	["rhsusf_m1043_w", 10], // Hunter
+	["B_Truck_01_fuel_F", 10],
+	["B_Truck_01_repair_F", 10],
+	["B_Truck_01_medical_F", 10],
+	["B_Truck_01_covered_F", 10]
 ];
 
 ARWA_west_vehicle_tier_2 = [
@@ -182,7 +206,12 @@ ARWA_west_vehicle_tier_0 = [
 // GUER VEHICLES
 
 ARWA_guer_vehicle_transport = [
-	["I_MRAP_03_F", 10] // Strider
+	["rhsgref_ins_g_uaz", 10], // Strider
+	["rhsgref_ins_g_uaz_open", 10],
+	["I_Truck_02_fuel_F", 10],
+	["I_Truck_02_box_F", 10],
+	["I_Truck_02_medical_F", 10],
+	["I_G_Offroad_01_F", 10]
 ];
 
 ARWA_guer_vehicle_tier_2 = [
@@ -219,8 +248,13 @@ ARWA_guer_vehicle_tier_0 = [
 // EAST VEHICLES
 
 ARWA_east_vehicle_transport = [
-	["O_MRAP_02_F", 10], // Ifrit
-	["O_LSV_02_unarmed_F", 10] // Qilin
+	["rhs_tigr_vmf", 10], // Ifrit
+	["rhs_tigr_m_vmf", 10], // Ifrit
+	["rhs_tigr_sts_vmf", 10],
+	["O_Truck_03_fuel_F", 10],
+	["O_Truck_03_repair_F", 10],
+	["O_Truck_03_medical_F", 10],
+	["O_Truck_03_covered_F", 10]
 ];
 
 ARWA_east_vehicle_tier_2 = [
@@ -285,7 +319,6 @@ west_helicopter_transport = [
 ];
 
 ARWA_west_helicopter_tier_2 = [
-	["B_Heli_Attack_01_F", 40], // AH-99 Blackfoot
 	["RHS_AH64D_wd", 50], // AH64D
 	["RHS_AH64D_wd_CS", 50], // AH64D CS
 	["RHS_AH64D_wd_AA", 50] // AH64D AA
@@ -302,41 +335,38 @@ ARWA_west_helicopter_tier_0 = [
 // EAST HELICOPTERS
 
 ARWA_east_helicopter_transport = [
-	["O_Heli_Light_02_dynamicLoadout_F", 10], // PO-30 Orca
-	["O_Heli_Transport_04_bench_F", 10] // Mi-290 Taru (Bench)
+	["RHS_Mi8mt_Cargo_vvsc", 10], // PO-30 Orca
+	["rhs_ka60_c", 10] // PO-30 Orca
 ];
 
 ARWA_east_helicopter_tier_2 = [
-	["O_Heli_Attack_02_F", 40], // Mi-48 Kajman with rockets
-	["RHS_Mi8MTV3_heavy_vvs", 40], // Mi-8MTV-3
 	["rhs_mi28n_vvs", 40], // Mi-28N
 	["RHS_Ka52_vvsc", 40] // Ka-52
 ];
 
 ARWA_east_helicopter_tier_1 = [
-	["O_Heli_Attack_02_dynamicLoadout_F", 30] // Mi-48 Kajman with gatling
+	["RHS_Mi8MTV3_heavy_vvsc", 30] // Mi-48 Kajman with gatling
 ];
 
 ARWA_east_helicopter_tier_0 = [
-	["O_Heli_Light_02_F", 20] // PO-30 Orca
+	["RHS_Mi24Vt_vvsc", 20], // PO-30 Orca
+	["RHS_Mi24V_vvsc", 20] // PO-30 Orca
 ];
 
 // GUER HELICOPTERS
 
 ARWA_guer_helicopter_transport = [
-	["I_Heli_Transport_02_F", 10], // CH-49 Mohawk
-	["I_Heli_light_03_unarmed_F", 10] // WY-55 Hellcat (Unarmed)
+	["rhsgref_cdf_reg_Mi8amt", 10] // CH-49 Mohawk
 ];
 
 ARWA_guer_helicopter_tier_2 = [
-	["rhsgref_cdf_Mi24D", 40], // Mi-24D
-	["rhsgref_cdf_reg_Mi17Sh", 40] // Mi-8AMTSh
+	["rhsgref_cdf_Mi24D", 40] // Mi-8AMTSh
 ];
 
 ARWA_guer_helicopter_tier_1 = [
-	["I_Heli_light_03_F", 20] // WY-55 Hellcat with rockets
+	["rhsgref_cdf_Mi35", 20] // WY-55 Hellcat with rockets
 ];
 
 ARWA_guer_helicopter_tier_0 = [
-	["I_Heli_light_03_dynamicLoadout_F", 20] // WY-55 Hellcat with gatling
+	["rhsgref_cdf_reg_Mi17Sh", 20] // WY-55 Hellcat with gatling
 ];

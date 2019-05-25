@@ -19,7 +19,7 @@ ARWA_add_soldiers_to_helicopter_cargo = {
 ARWA_pick_most_valued_player_owned_sector = {
 	params ["_side"];
 
-	_sectors = [_side] call ARWA_find_enemy_sectors;
+	private _sectors = [_side] call ARWA_find_enemy_sectors;
 
 	if(_sectors isEqualTo []) exitWith {};
 

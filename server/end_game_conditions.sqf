@@ -1,4 +1,4 @@
-ARWA_active_factions = [east, west, independent];
+ARWA_active_factions = ARWA_all_sides;
 
 ARWA_lost = {
 	params ["_side"];
@@ -19,11 +19,12 @@ ARWA_check_end_game_state = {
 
 ARWA_end_game_conditions_check = {
 	while {count ARWA_active_factions > 1} do {
-		[east] call ARWA_check_end_game_state;
-		[west] call ARWA_check_end_game_state;
-		[independent] call ARWA_check_end_game_state;
+		{
+			[_x] call ARWA_check_end_game_state;
+		} foreach ARWA_active_factions;
 
 		sleep 10;
 	};
 	[ARWA_active_factions] remoteExec ["ARWA_end_mission"];
 };
+

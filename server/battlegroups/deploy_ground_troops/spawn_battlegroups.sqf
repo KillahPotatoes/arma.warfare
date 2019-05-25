@@ -38,7 +38,7 @@ ARWA_spawn_battle_groups = {
 };
 
 ARWA_initialize_spawn_battle_groups = {
-	[West] spawn ARWA_spawn_battle_groups;
-	[East] spawn ARWA_spawn_battle_groups;
-	[Independent] spawn ARWA_spawn_battle_groups;
+	{
+		[_x] spawn ARWA_spawn_battle_groups;
+	} foreach ARWA_all_sides;
 };

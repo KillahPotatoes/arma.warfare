@@ -15,6 +15,8 @@ ARWA_remove_all_uav_options = {
 ARWA_has_uav_terminal = {
 	private _uav_terminal_class_name = missionNameSpace getVariable format["ARWA_%1_uav_terminal_class_name", playerSide];
 
+	if(isNil "_uav_terminal_class_name") exitWith { false; };
+
 	_uav_terminal_class_name in assignedItems player;
 };
 
@@ -48,6 +50,8 @@ ARWA_show_order_uav = {
 ARWA_show_uav_options = {
 	private _side = playerSide;
 	private _options = missionNamespace getVariable format["ARWA_%1_uavs", _side];
+
+	if(isNil "_options" || _options isEqualTo []) exitWith {};
 
 	{
 		private _class_name = _x select 0;

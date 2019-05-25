@@ -9,15 +9,18 @@ ARWA_spawn_static = {
 
 	while{_static_pos isEqualTo _pos && _maxDist < ARWA_sector_size} do {
 		private _new_pos = [_pos, 5, _maxDist, 10, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
-		_static_pos = (isOnRoad _new_pos) ? _pos : _new_pos;
+		_static_pos = if(isOnRoad _new_pos) then { _pos; } else { _new_pos; };
 		_maxDist = _maxDist + 25;
 	};
 
 	if(_static_pos isEqualTo _pos) exitWith {};
 
-	private _type = selectRandom (_available_art);
+	private _static_artillery = selectRandom (_available_art);
+	private _type = _static_artillery select 0;
+	private _kill_bonus = _static_artillery select 1;
+
 	private _orientation = random 360;
-	private _static = [_static_pos, _orientation, _type, _side] call ARWA_spawn_vehicle;
+	private _static = [_static_pos, _orientation, _type, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _group = _static select 2;
 
 	_group deleteGroupWhenEmpty true;

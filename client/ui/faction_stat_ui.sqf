@@ -8,6 +8,8 @@ ARWA_show_ui = {
 		ARWA_KEY_manpower = missionNamespace getVariable "ARWA_KEY_manpower";
 		ARWA_KEY_kills = missionNamespace getVariable "ARWA_KEY_kills";
 		ARWA_ranks =  missionNamespace getVariable "ARWA_ranks";
+		ARWA_all_sides =  missionNamespace getVariable "ARWA_all_sides";
+		ARWA_max_tier =  missionNamespace getVariable "ARWA_max_tier";
 
 		ARWA_get_tier_progress = {
 			params ["_side"];
@@ -30,7 +32,7 @@ ARWA_show_ui = {
 			_tier = _side call ARWA_get_tier;
 			_percentage = _side call ARWA_get_tier_progress;
 
-			if (_tier == 2) exitWith {
+			if (_tier == ARWA_max_tier) exitWith {
 				"";
 			};
 
@@ -39,6 +41,8 @@ ARWA_show_ui = {
 
 		ARWA_print_faction_stats = {
 			params ["_side", "_color"];
+
+			if(!(_side in ARWA_all_sides)) exitWith { ""; };
 
 			format[
 				"<t color='%1' align='right' size='1'>T%2%3 %4</t>",

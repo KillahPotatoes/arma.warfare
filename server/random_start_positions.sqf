@@ -12,7 +12,7 @@ ARWA_assign_prefix = {
 };
 
 ARWA_assign_prefixes = {
-	[west] call ARWA_assign_prefix;
-	[east] call ARWA_assign_prefix;
-	[independent] call ARWA_assign_prefix;
+	{
+		[_x] call ARWA_assign_prefix;
+	} foreach ARWA_all_sides;
 };

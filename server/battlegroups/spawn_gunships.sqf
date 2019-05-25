@@ -1,7 +1,7 @@
 ARWA_spawn_gunship_groups = {
-	[West] spawn ARWA_spawn_gunships;
-	[East] spawn ARWA_spawn_gunships;
-	[independent] spawn ARWA_spawn_gunships;
+	{
+		[_x] spawn ARWA_spawn_gunships;
+	} foreach ARWA_all_sides;
 };
 
 ARWA_find_target_sectors = {

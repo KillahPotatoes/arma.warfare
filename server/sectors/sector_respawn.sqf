@@ -29,7 +29,7 @@ ARWA_add_initial_respawn_positions = {
 };
 
 ARWA_initialize_base_respawns = {
-	[west] call ARWA_add_initial_respawn_positions;
-	[east] call ARWA_add_initial_respawn_positions;
-	[independent] call ARWA_add_initial_respawn_positions;
+	{
+		[_x] call ARWA_add_initial_respawn_positions;
+	} foreach ARWA_all_sides;
 };

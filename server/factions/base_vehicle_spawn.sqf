@@ -13,7 +13,7 @@ ARWA_spawn_base_ammobox = {
 };
 
 ARWA_initialize_bases = {
-	[WEST] call ARWA_spawn_base_ammobox;
-	[EAST] call ARWA_spawn_base_ammobox;
-	[independent] call ARWA_spawn_base_ammobox;
+	{
+		[_x] call ARWA_spawn_base_ammobox;
+	} foreach ARWA_all_sides;
 };

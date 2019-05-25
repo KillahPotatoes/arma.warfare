@@ -1,5 +1,8 @@
 ARWA_all_sides = [west, east, independent];
 ARWA_max_tier = 2;
+ARWA_KEY_guer_faction_name = "The resistance";
+ARWA_KEY_west_faction_name = "Nato";
+ARWA_KEY_east_faction_name = "China";
 
 ARWA_ammo_box = "B_CargoNet_01_ammo_F";
 ARWA_manpower_box = "Land_Ammobox_rounds_F";

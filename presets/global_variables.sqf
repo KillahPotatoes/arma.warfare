@@ -33,9 +33,6 @@ ARWA_KEY_vehicle = "vehicle";
 ARWA_KEY_helicopter = "helicopter";
 ARWA_KEY_infantry = "infantry";
 ARWA_KEY_priority_target = "priority_target";
-ARWA_KEY_guer_faction_name = "The resistance";
-ARWA_KEY_west_faction_name = "Nato";
-ARWA_KEY_east_faction_name = "China";
 
 ARWA_KEY_rank1 = "Private";
 ARWA_KEY_rank2 = "Sergant";

@@ -20,7 +20,7 @@ ARWA_get_tier = {
 
 ARWA_set_tier = {
 	params ["_side", "_value"];
-	missionNamespace setVariable [format ["ARWA_%1_tier",  _side], _value min 2, true];
+	missionNamespace setVariable [format ["ARWA_%1_tier",  _side], _value min ARWA_max_tier, true];
 };
 
 ARWA_get_kill_count = {

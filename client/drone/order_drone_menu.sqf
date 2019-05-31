@@ -160,7 +160,7 @@ ARWA_cancel_uav_on_player_death = {
 
 	if(!([_uav] call ARWA_is_uav_active)) exitWith {};
 
-	[_uav, _group, "CANCELING_DRONE_MISSION", true] call ARWA_interrupt_uav_misson;
+	[_uav, _group, "ARWA_STR_CANCELING_DRONE_MISSION", true] call ARWA_interrupt_uav_misson;
 };
 
 ARWA_show_cancel_uav_action = {

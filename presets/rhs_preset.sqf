@@ -313,7 +313,7 @@ ARWA_east_vehicle_tier_0 = [
 
 // WEST HELICOPTERS
 
-west_helicopter_transport = [
+ARWA_west_helicopter_transport = [
 	["RHS_UH60M2", 10], // MH-9 Hummingbird
 	["RHS_CH_47F", 10] // CH-67 Huron
 ];

@@ -1,4 +1,4 @@
-ARWA_interrupt_uav_misson = {
+ARWA_remove_all_options = {
 	params ["_box"];
 
 	private _options = _box getVariable [ARWA_KEY_menu, []];
@@ -82,7 +82,7 @@ ARWA_list_options = {
 
 			_box setVariable [format["Menu_%1", _title], false];
 
-			[_box] call ARWA_interrupt_uav_misson;
+			[_box] call ARWA_remove_all_options;
 
 			if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
 				systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
@@ -122,7 +122,7 @@ ARWA_create_menu = {
 			systemChat localize "ARWA_STR_CANNOT_SPAWN_UNITS_ENEMIES_NEARBY";
 		};
 
-		[_box] call ARWA_interrupt_uav_misson;
+		[_box] call ARWA_remove_all_options;
 
 		if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
 			systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";

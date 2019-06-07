@@ -84,7 +84,7 @@ ARWA_order_uav = {
 
 	_uav lockCameraTo [player,[0]];
 
-	[_group, _uav, "DRONE_ON_ITS_WAY"] spawn ARWA_move_uav_to_player;
+	[_group, _uav, "ARWA_STR_DRONE_ON_ITS_WAY"] spawn ARWA_move_uav_to_player;
 };
 
 ARWA_move_uav_to_player = {

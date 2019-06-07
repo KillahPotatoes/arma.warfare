@@ -33,7 +33,7 @@ ARWA_can_take_manpower = {
 ARWA_can_store_manpower = {
   params ["_target"];
 
-  player distance _target < 3
+  player distance _target < 5
   && {(player call ARWA_get_manpower) > 0};
 };
 

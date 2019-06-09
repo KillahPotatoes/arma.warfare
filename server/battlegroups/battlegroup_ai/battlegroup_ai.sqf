@@ -1,12 +1,3 @@
-ARWA_delete_all_waypoints = {
-	params ["_group"];
-
-	while {(count (waypoints _group)) > 0} do
-	{
-		deleteWaypoint [_group, 0];
-	};
-};
-
 ARWA_group_is_alive = {
 	params ["_group"];
 

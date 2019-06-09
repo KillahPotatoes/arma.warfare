@@ -52,6 +52,15 @@ ARWA_get_units_based_on_tier = {
 	_options;
 };
 
+ARWA_delete_all_waypoints = {
+	params ["_group"];
+
+	while {(count (waypoints _group)) > 0} do
+	{
+		deleteWaypoint [_group, 0];
+	};
+};
+
 ARWA_remove_nvg_and_add_flash_light = {
 	params ["_group"];
 

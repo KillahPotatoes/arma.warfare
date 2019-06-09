@@ -27,6 +27,7 @@ remove_squad_mates_on_death = {
 		[_new_group] remoteExec ["ARWA_add_battle_group", 2];
 	};
 
+	[_group] spawn ARWA_delete_all_waypoints;
 	[0.5, _group] spawn ARWA_adjust_skill;
 };
 

@@ -25,6 +25,9 @@
             <English>You stored %1 MP</English>
             <German>%1 MP eingelagert</German>
         </Key>
+         <Key ID="ARWA_STR_STEAL_INTEL">
+            <English>Steal intel</English>
+        </Key>
         <Key ID="ARWA_STR_YOU_ADDED_MANPOWER">
             <English>You added %1 manpower points</English>
             <German>%1 MP hinzugefügt</German>

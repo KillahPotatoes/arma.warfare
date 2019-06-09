@@ -26,6 +26,7 @@ ARWA_add_sector_actions = {
 
 	["AmmoboxInit", [_ammo_box, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_box && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
 	[_ammo_box, localize "ARWA_STR_GET_INFANTRY", ARWA_KEY_infantry, ARWA_infantry_menu, true] call ARWA_create_menu;
+	[_ammo_box] call ARWA_create_intel_menu;
 };
 
 ARWA_add_HQ_actions = {

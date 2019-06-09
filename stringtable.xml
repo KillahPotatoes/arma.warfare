@@ -28,6 +28,9 @@
          <Key ID="ARWA_STR_STEAL_INTEL">
             <English>Steal intel</English>
         </Key>
+         <Key ID="ARWA_STR_STEAL_INTEL_SUCCESS">
+            <English>We managed to steal intel from %1. Their movements and resources will be visible on the map!</English>
+        </Key>
         <Key ID="ARWA_STR_YOU_ADDED_MANPOWER">
             <English>You added %1 manpower points</English>
             <German>%1 MP hinzugefügt</German>

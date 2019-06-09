@@ -48,7 +48,7 @@ If a faction without players captures a sector from a faction with players that 
 If a faction with players captures a sector the manpower will remain in the sector and have to be brought back to HQ manually.<br /><br />
 A sector with players in it will produce manpower faster based on that players rank<br /><br />
 Vehicle penalties does not apply to AI vehicles (player factions or AI faction), so don't worry about your AI commander getting his gunships shot down.<br /><br />
-If a player or vehicle that carries manpower is killed/destroyed there will be spawned a box that contains that manpower. The location and amount of manpower dropped will be visible on the map for everyone. The manpower will deteriorate after 3 minutes.<br /><br />
+If a player or vehicle that carries manpower is killed/destroyed there will be spawned a box that contains that manpower. The location and amount of manpower dropped will be visible on the map for everyone. The manpower will deteriorate after some time until it reaches zero and the box disappears.<br /><br />
 If a player is killed the manpower penalty amount will spawn in a ammobox where he was killed in the same way as if manpower was dropped"
 		]
 	];
@@ -73,14 +73,15 @@ Manpower can be submitted to the faction manpower at the HQ ammobox<br /><br />"
 		"SECTORS",
 		"Sectors can be captured when a faction is holding the center of a sector and no enemies are within the sector area.<br /><br />
 Players can collect manpower from sectors and get infantry at the ammobox located in the center of the sector. <br /><br />
-Defense will spawn in a sector once it is captured."
+If a player manages to get to the ammobox before the enemy has lost the sector he can steal their intel which means that their movements will be visible on the map for 5 minutes.<br /><br />
+Defense and artillery will spawn in a sector once it is captured."
 		]
 	];
 
 	player createDiaryRecord ["Diary", [
 		"RANK",
 "Your rank will be calculated based on your kills and the kills of your squadmates if you are their leader. Loosing teammates when squadleader will affect your rank negatively.<br /><br />
-Higher rank will allow you to have more soldiers in your squad, <br />increase the AI skill of your squad, <br />and increase the manpower generation when in a sector"
+Higher rank will allow you to have more soldiers in your squad, <br />increase the AI skill of your squad, <br />and increase the manpower generation boost while in a sector"
 		]
 	];
 };

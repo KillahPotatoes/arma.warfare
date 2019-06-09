@@ -10,7 +10,7 @@ ARWA_create_intel_menu = {
 		private _owner = (_box getVariable ARWA_KEY_owned_by);
 		[_owner] spawn add_visible_markers;
 
-	}, [_box], _priority, false, true, "", '[_target, _this] call ARWA_enemy_owns_box', 10]
+	}, [_box], ARWA_intel_menu, false, true, "", '[_target, _this] call ARWA_enemy_owns_box', 10]
 };
 
 add_visible_markers = {

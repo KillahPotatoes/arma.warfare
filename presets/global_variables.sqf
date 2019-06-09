@@ -88,6 +88,7 @@ ARWA_air_vehicle_menu = 150;
 ARWA_ground_vehicle_menu = 140;
 ARWA_infantry_menu = 130;
 ARWA_return_vehicle = 90;
+ARWA_intel_menu = 85;
 ARWA_ground_transport_actions = 70;
 ARWA_air_transport_actions = 80;
 ARWA_active_transport_actions = 80;

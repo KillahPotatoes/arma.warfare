@@ -82,20 +82,22 @@ ARWA_guer_sympathizers = [
 ];
 
 ARWA_west_infantry_tier_0 = [
-	["rhsusf_socom_marsoc_teamchief", 0],
-	["rhsusf_socom_marsoc_teamleader", 0],
-	["rhsusf_socom_marsoc_sniper_m107", 0],
-	["rhsusf_socom_marsoc_sniper", 0],
-	["rhsusf_socom_marsoc_sarc", 0],
-	["rhsusf_socom_marsoc_cso_cqb", 0],
-	["rhsusf_socom_marsoc_cso_breacher", 0],
-	["rhsusf_socom_marsoc_cso", 0],
-	["rhsusf_socom_marsoc_cso_grenadier", 0],
-	["rhsusf_socom_marsoc_cso_mechanic", 0],
-	["rhsusf_socom_marsoc_jtac", 0],
-	["rhsusf_socom_marsoc_cso_eod", 0],
-	["rhsusf_socom_marsoc_jfo", 0],
-	["rhsusf_socom_marsoc_elementleader", 0]
+	["rhsusf_usmc_marpat_wd_squadleader", 0],
+	["rhsusf_usmc_marpat_wd_spotter", 0],
+	["rhsusf_usmc_marpat_wd_stinger", 0],
+	["rhsusf_usmc_marpat_wd_machinegunner", 0],
+	["rhsusf_usmc_marpat_wd_grenadier", 0],
+	["rhsusf_usmc_marpat_wd_explosives", 0],
+	["rhsusf_usmc_marpat_wd_smaw", 0],
+	["rhsusf_usmc_marpat_wd_javelin", 0],
+	["rhsusf_usmc_marpat_wd_rifleman", 0],
+	["rhsusf_usmc_marpat_wd_autorifleman_m249", 0],
+	["rhsusf_usmc_marpat_wd_autorifleman", 0],
+	["rhsusf_usmc_marpat_wd_engineer", 0],
+	["rhsusf_usmc_marpat_wd_sniper_m110", 0],
+	["rhsusf_usmc_marpat_wd_sniper", 0],
+	["rhsusf_usmc_marpat_wd_marksman", 0]
+
 ];
 
 ARWA_east_infantry_tier_0 = [
@@ -130,6 +132,7 @@ ARWA_guer_infantry_tier_0 = [
 	["rhsgref_nat_pmil_rifleman", 0],
 	["rhsgref_nat_pmil_rifleman_aksu", 0],
 	["rhsgref_nat_pmil_specialist_aa", 0]
+
 ];
 
 // ARTILLERY

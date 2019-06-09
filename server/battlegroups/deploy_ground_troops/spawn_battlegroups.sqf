@@ -7,6 +7,10 @@ ARWA_get_next_vehicle_cycle = {
 	_curr_cycle + (_min_cycles_between_vehicle_spawn + floor random (_max_cycles_between_vehicle_spawn - _min_cycles_between_vehicle_spawn));
 };
 
+ARWA_get_unit_cap = {
+	ARWA_unit_cap / (count ARWA_active_factions);
+};
+
 ARWA_spawn_battle_groups = {
 	params ["_side"];
 
@@ -19,7 +23,7 @@ ARWA_spawn_battle_groups = {
 
 		if(_side call ARWA_has_manpower && !ARWA_cease_fire) then {
 			private _unit_count = _side call ARWA_count_battlegroup_units;
-			private _can_spawn = ARWA_unit_cap - _unit_count;
+			private _can_spawn = ([] call ARWA_get_unit_cap) - _unit_count;
 
 			if (_can_spawn > ARWA_squad_cap) then {
 				if(_cycle_counter == _next_vehicle_cycle) then {

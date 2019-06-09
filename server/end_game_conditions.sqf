@@ -21,7 +21,7 @@ ARWA_end_game_conditions_check = {
 	while {count ARWA_active_factions > 1} do {
 		{
 			[_x] call ARWA_check_end_game_state;
-		} foreach ARWA_active_factions;
+		} foreach ARWA_all_sides;
 
 		sleep 10;
 	};

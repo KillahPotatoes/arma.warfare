@@ -99,7 +99,7 @@ ARWA_spawn_random_vehicle_group = {
 		[_group] call ARWA_add_battle_group;
 
 		private _unit_count = _side call ARWA_count_battlegroup_units;
-		private _can_spawn = ARWA_unit_cap - _unit_count;
+		private _can_spawn = ([] call ARWA_get_unit_cap) - _unit_count;
 	};
 
 	diag_log format["%1: Spawned %2 tier %3 vehicles", _side, count _groups, _tier];

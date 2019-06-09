@@ -41,7 +41,7 @@ ARWA_calcuate_heli_weight = {
 ARWA_try_spawn_reinforcements = {
 	params ["_side", "_sector"];
 	private _unit_count = _side call ARWA_count_battlegroup_units;
-	private _can_spawn = ARWA_unit_cap - _unit_count;
+	private _can_spawn = ([] call ARWA_get_unit_cap) - _unit_count;
 
 	if (_can_spawn > (ARWA_squad_cap / 2) && (_side call ARWA_has_manpower)) exitWith {
 		private _pos = _sector getVariable ARWA_KEY_pos;

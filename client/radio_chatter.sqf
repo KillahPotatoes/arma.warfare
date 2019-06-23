@@ -31,6 +31,8 @@ ARWA_HQ_report_client = {
 	params ["_side", "_values"];
 	sleep random 3;
 
+	if(isNil "_side") exitWith {};
+
 	private _msg = [_values] call ARWA_localize_and_format;
 	[_side, "HQ"] sideChat _msg;
 };

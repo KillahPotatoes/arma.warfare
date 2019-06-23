@@ -18,11 +18,11 @@ ARWA_choose_preset = {
 		[] call compileFinal preprocessFileLineNumbers "presets\rhs_woodland_preset.sqf";
 	};
 
-	if(_preset == 4) exitWith {
+	/*if(_preset == 4) exitWith {
 		[] call compileFinal preprocessFileLineNumbers "presets\rhs_desert_preset.sqf";
 	};
 
-	/*if(_preset == 3) exitWith {
+	if(_preset == 3) exitWith {
 		[] call compileFinal preprocessFileLineNumbers "presets\gm_woodland_preset.sqf";
 	};
 

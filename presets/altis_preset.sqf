@@ -80,11 +80,13 @@ ARWA_west_infantry_tier_0 = [
 	["B_soldier_exp_F", 0],
 	["B_medic_F", 0],
 	["B_Sharpshooter_F", 0],
+	["B_soldier_LAT2_F", 0],
 	["B_engineer_F", 0]
 ];
 
 ARWA_west_infantry_tier_1 = [
-	["B_Soldier_AT_F", 0]
+	["B_Soldier_AT_F", 0],
+	["B_soldier_LAT_F", 0]
 ];
 
 ARWA_west_infantry_tier_2 = [
@@ -99,11 +101,13 @@ ARWA_east_infantry_tier_0 = [
 	["O_soldier_exp_F", 0],
 	["O_medic_F", 0],
 	["O_Sharpshooter_F", 0],
+	["O_Soldier_LAT_F", 0],
 	["O_engineer_F", 0]
 ];
 
 ARWA_east_infantry_tier_1 = [
-	["O_Soldier_AT_F", 0]
+	["O_Soldier_AT_F", 0],
+	["O_Soldier_HAT_F", 0]
 ];
 
 ARWA_east_infantry_tier_2 = [
@@ -118,11 +122,13 @@ ARWA_guer_infantry_tier_0 = [
 	["I_soldier_exp_F", 0],
 	["I_medic_F", 0],
 	["I_Sharpshooter_F", 0],
+	["I_Soldier_LAT2_F", 0],
 	["I_engineer_F", 0]
 ];
 
 ARWA_guer_infantry_tier_1 = [
-	["I_Soldier_AT_F", 0]
+	["I_Soldier_AT_F", 0],
+	["I_Soldier_LAT_F", 0]
 ];
 
 ARWA_guer_infantry_tier_2 = [

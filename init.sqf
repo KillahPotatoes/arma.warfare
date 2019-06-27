@@ -6,6 +6,8 @@ if (isClass (configfile >> "CfgPatches" >> "ace_medical")) then {
     bis_reviveParam_mode = ["ReviveMode", 1] call BIS_fnc_getParamValue;
 };
 
+[] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
+
 bis_reviveParam_duration = ["ReviveDuration", 6] call BIS_fnc_getParamValue;
 bis_reviveParam_requiredTrait = ["ReviveRequiredTrait", 1] call BIS_fnc_getParamValue;
 bis_reviveParam_medicSpeedMultiplier = ["ReviveMedicSpeedMultiplier", 1] call BIS_fnc_getParamValue;
@@ -19,7 +21,7 @@ if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(b
     [] call bis_fnc_reviveInit;
 };
 
-[] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
+
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";

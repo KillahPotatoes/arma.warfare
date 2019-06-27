@@ -49,9 +49,15 @@ ARWA_vehicle_move_to_sector = {
 	};
 
 	if ([_group] call ARWA_approaching_target) then {
+		private _target = _group getVariable ARWA_KEY_target;
+		private _pos = _target getVariable ARWA_KEY_pos;
+
+		if([_pos, side _group, ARWA_sector_size] call ARWA_any_enemies_in_area) then {
+			_group setBehaviour "AWARE";
+			_group setCombatMode "RED";
+		};
+
 		_group setSpeedMode "LIMITED";
-		_group setBehaviour "AWARE";
-		_group setCombatMode "RED";
 	};
 };
 

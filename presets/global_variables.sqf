@@ -33,6 +33,7 @@ ARWA_KEY_vehicle = "vehicle";
 ARWA_KEY_helicopter = "helicopter";
 ARWA_KEY_infantry = "infantry";
 ARWA_KEY_priority_target = "priority_target";
+ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 
 ARWA_KEY_rank1 = "Private";
 ARWA_KEY_rank2 = "Sergant";
@@ -73,7 +74,6 @@ ARWA_uav_flight_height = 1000;
 ARWA_squad_mate_death_penalty = 3;
 ARWA_kills_per_rank = 5;
 ARWA_max_rank = 5;
-ARWA_capture_sector_bonus = 20;
 ARWA_spawn_forces_interval = 120;
 ARWA_spawn_forces_interval_variation = 60;
 ARWA_tier_base_gunship_respawn_time = 900;

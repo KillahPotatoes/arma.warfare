@@ -3,6 +3,7 @@ ARWA_decrement_counter = {
 
 	if(_counter > 0) exitWith {
 		[_counter - 1, _sector, _side] spawn ARWA_update_progress_bar;
+		[_counter - 1, _sector] spawn ARWA_update_counter;
 		_counter - 1;
 	};
 
@@ -15,10 +16,20 @@ ARWA_increment_counter = {
 	params ["_counter", "_sector", "_side"];
 
 	if(_counter < ARWA_capture_time) exitWith {
+
 		[_counter + 1, _sector, _side] spawn ARWA_update_progress_bar;
+		[_counter + 1, _sector] spawn ARWA_update_counter;
+
 		_counter + 1;
 	};
 	_counter;
+};
+
+ARWA_update_counter = {
+	params ["_counter", "_sector"];
+
+	private _ammo_box = _sector getVariable ARWA_KEY_box;
+	_ammo_box setVariable [ARWA_KEY_sector_capture_progress, _counter, true];
 };
 
 ARWA_capture_sector = {
@@ -31,7 +42,7 @@ ARWA_capture_sector = {
 
 		private _ammo_box = _sector getVariable ARWA_KEY_box;
 		private _manpower = _ammo_box call ARWA_get_manpower;
-		_ammo_box setVariable [ARWA_KEY_manpower, (_manpower + ARWA_capture_sector_bonus), true];
+		_ammo_box setVariable [ARWA_KEY_manpower, (_manpower), true];
 	};
 
 	diag_log format["%1 has captured %2", _new_owner, _sector_name];

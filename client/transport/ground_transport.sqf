@@ -42,7 +42,7 @@ ARWA_send_to_HQ = {
 		_veh setVariable [ARWA_KEY_manpower, 0];
 
 		if(_manpower > 0) then {
-			[playerSide, _manpower] remoteExec ["ARWA_buy_manpower_server", 2];
+			[playerSide, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
 			systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
 		};
 

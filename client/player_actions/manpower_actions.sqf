@@ -47,7 +47,7 @@ ARWA_add_manpower_action = {
 
 		_caller setVariable [ARWA_KEY_manpower, 0];
 
-		[side _caller, _manpower] remoteExec ["ARWA_buy_manpower_server", 2];
+		[side _caller, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
 		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
 
 	}, nil, ARWA_manpower_actions, false, false, "",

@@ -1,5 +1,5 @@
 ARWA_spawn_helicopter = {
-	params ["_side", "_helicopter", "_kill_bonus"];
+	params ["_side", "_helicopter", "_kill_bonus"]; // TODO add different height based on helicopter type
 
 	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
 	private _base_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
@@ -8,7 +8,7 @@ ARWA_spawn_helicopter = {
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
-    private _heli = [_pos, _dir, _helicopter, _side, _kill_bonus] call ARWA_spawn_vehicle; // TODO add kill bonus
+    private _heli = [_pos, _dir, _helicopter, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _veh = _heli select 0;
 	(driver _veh) disableAI "LIGHTS";
 	_veh lockDriver true;

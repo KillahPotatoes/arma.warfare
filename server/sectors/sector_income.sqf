@@ -17,11 +17,13 @@ ARWA_sector_manpower_generation = {
       };
 };
 
-ARWA_reset_sector_manpower = {
+ARWA_reset_sector = {
       params ["_new_owner", "_old_owner", "_sector", "_sector_name"];
 
+      private _ammo_box = _sector getVariable ARWA_KEY_box;
+      _ammo_box setVariable [ARWA_KEY_hacked, false, true];
+
       if(_new_owner countSide allPlayers == 0 && !(_new_owner isEqualTo civilian) && _old_owner countSide allPlayers > 0) exitWith {
-            private _ammo_box = _sector getVariable ARWA_KEY_box;
             private _manpower = _ammo_box call ARWA_get_manpower;
 
             if(_manpower > 0) exitWith {

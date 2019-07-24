@@ -90,7 +90,7 @@ ARWA_change_sector_ownership = {
 		[_new_owner, _sector] call ARWA_add_sector;
 	};
 
-	[_new_owner, _previous_faction, _sector, _sector_name] call ARWA_reset_sector_manpower;
+	[_new_owner, _previous_faction, _sector, _sector_name] call ARWA_reset_sector;
 };
 
 ARWA_reinforcements_cool_down = {

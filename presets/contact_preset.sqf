@@ -73,67 +73,91 @@ ARWA_guer_sympathizers = [
 ];
 
 ARWA_west_infantry_tier_0 = [
-	["B_soldier_F", 0],
-	["B_soldier_AR_F", 0],
-	["B_HeavyGunner_F", 0],
-	["B_Soldier_GL_F", 0],
-	["B_soldier_exp_F", 0],
-	["B_medic_F", 0],
-	["B_Sharpshooter_F", 0],
-	["B_engineer_F", 0]
+	["B_W_Soldier_A_F", 0],
+	["B_W_Soldier_Exp_F", 0],
+	["B_W_Soldier_GL_F", 0],
+	["B_W_Soldier_SL_F", 0],
+	["B_W_Soldier_LAT2_F", 0],
+	["B_W_Engineer_F", 0],
+	["B_W_Medic_F", 0],
+	["B_W_Soldier_LAT_F", 0],
+	["B_W_Soldier_TL_F", 0],
+	["B_W_soldier_M_F", 0],
+	["B_W_Soldier_F", 0],
+	["B_W_Soldier_AR_F", 0]
 ];
 
 ARWA_west_infantry_tier_1 = [
-	["B_Soldier_AT_F", 0]
+	["B_W_Soldier_AT_F", 0]
 ];
 
 ARWA_west_infantry_tier_2 = [
-	["B_Soldier_AA_F", 0]
+	["B_W_Soldier_AA_F", 0]
 ];
 
 ARWA_east_infantry_tier_0 = [
-	["O_soldier_F", 0],
-	["O_soldier_AR_F", 0],
-	["O_HeavyGunner_F", 0],
-	["O_Soldier_GL_F", 0],
-	["O_soldier_exp_F", 0],
-	["O_medic_F", 0],
-	["O_Sharpshooter_F", 0],
-	["O_engineer_F", 0]
+	["O_R_medic_F", 0],
+	["O_R_Soldier_AR_F", 0],
+	["O_R_soldier_exp_F", 0],
+	["O_R_Soldier_GL_F", 0],
+	["O_R_JTAC_F", 0],
+	["O_R_soldier_M_F", 0],
+	["O_R_Soldier_TL_F", 0],
+	["O_R_Patrol_Soldier_A_F", 0],
+	["O_R_Patrol_Soldier_AR2_F", 0],
+	["O_R_Patrol_Soldier_AR_F", 0],
+	["O_R_Patrol_Soldier_Medic", 0],
+	["O_R_Patrol_Soldier_Engineer_F", 0],
+	["O_R_Patrol_Soldier_GL_F", 0],
+	["O_R_Patrol_Soldier_LAT_F", 0],
+	["O_R_Patrol_Soldier_M_F", 0],
+	["O_R_recon_M_F", 0],
+	["O_R_recon_medic_F", 0],
+	["O_R_recon_LAT_F", 0],
+	["O_R_recon_TL_F", 0],
+	["O_R_recon_JTAC_F", 0],
+	["O_R_recon_GL_F", 0],
+	["O_R_recon_exp_F", 0],
+	["O_R_recon_AR_F", 0]
 ];
 
 ARWA_east_infantry_tier_1 = [
-	["O_Soldier_AT_F", 0]
+	["O_R_Soldier_LAT_F", 0]
 ];
 
 ARWA_east_infantry_tier_2 = [
-	["O_Soldier_AA_F", 0]
+	["O_T_Soldier_AA_F", 0]
 ];
 
 ARWA_guer_infantry_tier_0 = [
-	["I_soldier_F", 0],
-	["I_soldier_AR_F", 0],
-	["I_HeavyGunner_F", 0],
-	["I_Soldier_GL_F", 0],
-	["I_soldier_exp_F", 0],
-	["I_medic_F", 0],
-	["I_Sharpshooter_F", 0],
-	["I_engineer_F", 0]
+	["I_E_Soldier_F", 0],
+	["I_E_Soldier_LAT2_F", 0],
+	["I_E_Engineer_F", 0],
+	["I_E_Medic_F", 0],
+	["I_E_Soldier_AR_F", 0],
+	["I_E_Soldier_A_F", 0],
+	["I_E_Soldier_Exp_F", 0],
+	["I_E_Soldier_GL_F", 0],
+	["I_E_soldier_Mine_F", 0],
+	["I_E_soldier_M_F", 0],
+	["I_E_Soldier_SL_F", 0],
+	["I_E_Soldier_TL_F", 0]
 ];
 
 ARWA_guer_infantry_tier_1 = [
-	["I_Soldier_AT_F", 0]
+	["I_E_Soldier_LAT_F", 0],
+	["I_E_Soldier_AT_F", 0]
 ];
 
 ARWA_guer_infantry_tier_2 = [
-	["I_Soldier_AA_F", 0]
+	["I_E_Soldier_AA_F", 0]
 ];
 
 // BASE Static
 
 ARWA_west_mortar = [["B_Mortar_01_F", 0]];
-ARWA_west_artillery = [["B_MBT_01_arty_F", 10]];
-ARWA_west_rockets = [["B_MBT_01_mlrs_F", 20]];
+ARWA_west_artillery = [["B_T_MBT_01_arty_F", 10]];
+ARWA_west_rockets = [["B_T_MBT_01_mlrs_F", 20]];
 
 ARWA_west_static_artillery_tier_0 = ARWA_west_mortar;
 ARWA_west_static_artillery_tier_1 = ARWA_west_artillery;
@@ -148,7 +172,7 @@ ARWA_guer_static_artillery_tier_1 = ARWA_guer_artillery;
 ARWA_guer_static_artillery_tier_2 = ARWA_guer_rockets;
 
 ARWA_east_mortar = [["O_Mortar_01_F", 0]];
-ARWA_east_artillery = [["O_MBT_02_arty_F", 10]];
+ARWA_east_artillery = [["O_T_MBT_02_arty_F", 10]];
 ARWA_east_rockets = [];
 
 ARWA_east_static_artillery_tier_0 = ARWA_east_mortar;
@@ -158,33 +182,33 @@ ARWA_east_static_artillery_tier_2 = ARWA_east_rockets;
 // WEST VEHICLES
 
 ARWA_west_vehicle_transport = [
-	["B_MRAP_01_F", 10],
-	["B_LSV_01_unarmed_F", 10],
-	["B_Truck_01_ammo_F", 10],
-	["B_Truck_01_fuel_F", 10],
-	["B_Truck_01_repair_F", 10],
-	["B_Truck_01_medical_F", 10],
-	["B_Truck_01_covered_F", 10]
+	["B_T_MRAP_01_F", 10],
+	["B_T_LSV_01_unarmed_F", 10],
+	["B_T_Truck_01_ammo_F", 10],
+	["B_T_Truck_01_fuel_F", 10],
+	["B_T_Truck_01_repair_F", 10],
+	["B_T_Truck_01_medical_F", 10],
+	["B_T_Truck_01_covered_F", 10]
 ];
 
 ARWA_west_vehicle_tier_2 = [
-	["B_APC_Tracked_01_AA_F", 30],
-	["B_APC_Wheeled_01_cannon_F", 30],
-	["B_MBT_01_TUSK_F", 30],
-	["B_MBT_01_cannon_F", 30],
-	["B_AFV_Wheeled_01_up_cannon_F", 30],
-	["B_AFV_Wheeled_01_cannon_F", 30],
-	["B_APC_Tracked_01_rcws_F", 20]
+	["B_T_APC_Tracked_01_AA_F", 30],
+	["B_T_APC_Wheeled_01_cannon_F", 30],
+	["B_T_MBT_01_TUSK_F", 30],
+	["B_T_MBT_01_cannon_F", 30],
+	["B_T_AFV_Wheeled_01_up_cannon_F", 30],
+	["B_T_AFV_Wheeled_01_cannon_F", 30]
 ];
 
 ARWA_west_vehicle_tier_1 = [
-	["B_MRAP_01_gmg_F", 20],
-	["B_MRAP_01_hmg_F", 20]
+	["B_T_MRAP_01_gmg_F", 20],
+	["B_T_MRAP_01_hmg_F", 20],
+	["B_T_APC_Tracked_01_rcws_F", 20]
 ];
 
 ARWA_west_vehicle_tier_0 = [
-	["B_LSV_01_AT_F", 10],
-	["B_LSV_01_armed_F", 10]
+	["B_T_LSV_01_AT_F", 10],
+	["B_T_LSV_01_armed_F", 10]
 ];
 
 // GUER VEHICLES
@@ -221,32 +245,32 @@ ARWA_guer_vehicle_tier_0 = [
 // EAST VEHICLES
 
 ARWA_east_vehicle_transport = [
-	["O_MRAP_02_F", 10],
-	["O_LSV_02_unarmed_F", 10],
-	["O_Truck_03_ammo_F", 10],
-	["O_Truck_03_fuel_F", 10],
-	["O_Truck_03_repair_F", 10],
-	["O_Truck_03_medical_F", 10],
-	["O_Truck_03_covered_F", 10]
+	["O_T_MRAP_02_ghex_F", 10],
+	["O_T_LSV_02_unarmed_F", 10],
+	["O_T_Truck_03_ammo_ghex_F", 10],
+	["O_T_Truck_03_fuel_ghex_F", 10],
+	["O_T_Truck_03_repair_ghex_F", 10],
+	["O_T_Truck_03_medical_ghex_F", 10],
+	["O_T_Truck_03_covered_ghex_F", 10]
 ];
 
 ARWA_east_vehicle_tier_2 = [
-	["O_MBT_04_command_F", 40], // TODO
-	["O_MBT_04_cannon_F", 30],
-	["O_MBT_02_cannon_F", 30],
-	["O_APC_Tracked_02_cannon_F", 30],
-	["O_APC_Tracked_02_AA_F", 30],
-	["O_APC_Wheeled_02_rcws_v2_F", 20]
+	["O_T_MBT_04_command_F", 40],
+	["O_T_MBT_04_cannon_F", 30],
+	["O_T_MBT_02_cannon_ghex_F", 30],
+	["O_T_APC_Tracked_02_cannon_ghex_F", 30],
+	["O_T_APC_Tracked_02_AA_ghex_F", 30]
 ];
 
 ARWA_east_vehicle_tier_1 = [
-	["O_MRAP_02_gmg_F", 20],
-	["O_MRAP_02_hmg_F", 20]
+	["O_T_APC_Wheeled_02_rcws_v2_ghex_F", 20],
+	["O_T_MRAP_02_gmg_ghex_F", 20],
+	["O_T_MRAP_02_hmg_ghex_F", 20]
 ];
 
 ARWA_east_vehicle_tier_0 = [
-	["O_LSV_02_armed_F", 10],
-	["O_LSV_02_AT_F", 10]
+	["O_T_LSV_02_armed_F", 10],
+	["O_T_LSV_02_AT_F", 10]
 ];
 
 // WEST HELICOPTERS
@@ -254,7 +278,7 @@ ARWA_east_vehicle_tier_0 = [
 ARWA_west_helicopter_transport = [
 	["B_Heli_Light_01_F", 10],
 	["B_Heli_Transport_03_unarmed_F", 10],
-	["B_Heli_Transport_01_F", 10]
+	["B_CTRG_Heli_Transport_01_tropic_F", 10]
 ];
 
 ARWA_west_helicopter_tier_2 = [

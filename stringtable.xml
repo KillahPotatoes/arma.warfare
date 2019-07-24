@@ -26,10 +26,10 @@
             <German>%1 MP eingelagert</German>
         </Key>
          <Key ID="ARWA_STR_STEAL_INTEL">
-            <English>Steal intel</English>
+            <English>Hack enemy network</English>
         </Key>
          <Key ID="ARWA_STR_STEAL_INTEL_SUCCESS">
-            <English>We managed to steal intel from %1. Their movements and resources will be visible on the map!</English>
+            <English>We managed to access %1s network. Their intel will be visible on our map for %3:%4 minutes and managed to steal %2 of their manpower!</English>
         </Key>
         <Key ID="ARWA_STR_YOU_ADDED_MANPOWER">
             <English>You added %1 manpower points</English>

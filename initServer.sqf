@@ -66,6 +66,8 @@ ARWA_dropped_manpower_deterioration_time = ["DroppedManpowerDeteriorationTime", 
 ARWA_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 
+
+
 // Game setup
 [] call ARWA_initialize_sectors;
 [] call ARWA_draw_all_sectors;

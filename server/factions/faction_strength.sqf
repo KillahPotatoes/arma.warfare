@@ -42,10 +42,17 @@ ARWA_increment_kill_counter = {
 	};
 };
 
-ARWA_buy_manpower_server = {
+ARWA_increase_manpower_server = {
 	params ["_side", "_manpower"];
 
 	private _new_strength = ([_side] call ARWA_get_strength) + _manpower;
+	[_side, _new_strength] call ARWA_set_strength;
+};
+
+ARWA_decrease_manpower_server = {
+	params ["_side", "_manpower"];
+
+	private _new_strength = ([_side] call ARWA_get_strength) - _manpower;
 	[_side, _new_strength] call ARWA_set_strength;
 };
 

@@ -29,8 +29,8 @@ ARWA_show_ui = {
 		ARWA_print_percentage = {
 			params ["_side"];
 
-			_tier = _side call ARWA_get_tier;
-			_percentage = _side call ARWA_get_tier_progress;
+			private _tier = _side call ARWA_get_tier;
+			private _percentage = _side call ARWA_get_tier_progress;
 
 			if (_tier == ARWA_max_tier) exitWith {
 				"";

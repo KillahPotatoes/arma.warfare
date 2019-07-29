@@ -51,7 +51,7 @@ ARWA_spawn_gunship_group = {
 	[_side, ["ARWA_STR_SENDING_VEHICLE_YOUR_WAY", _gunship_name]] remoteExec ["ARWA_HQ_report_client"];
 	sleep 120;
 
-	private _veh_arr = [_side, _gunship, _kill_bonus] call ARWA_spawn_helicopter;
+	private _veh_arr = [_side, _gunship, _kill_bonus, ARWA_gunship_spawn_height] call ARWA_spawn_helicopter;
 
 	private _veh = _veh_arr select 0;
 	_veh_arr;

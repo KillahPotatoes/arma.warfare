@@ -1,10 +1,10 @@
 ARWA_spawn_helicopter = {
-	params ["_side", "_helicopter", "_kill_bonus"]; // TODO add different height based on helicopter type
+	params ["_side", "_helicopter", "_kill_bonus", "_spawn_height"]; // TODO add different height based on helicopter type
 
 	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
 	private _base_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 	private _dir = _pos getDir _base_pos;
-	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + 100];
+	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + _spawn_height];
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
@@ -31,7 +31,7 @@ ARWA_spawn_transport_heli = {
 	private _arr = selectRandom (_side call ARWA_get_transport_heli_type);
 	private _class_name = _arr select 0;
 	private _kill_bonus = _arr select 1;
-    private _veh_arr = [_side, _class_name, _kill_bonus] call ARWA_spawn_helicopter;
+    private _veh_arr = [_side, _class_name, _kill_bonus, ARWA_transport_helicopter_spawn_height] call ARWA_spawn_helicopter;
 	private _veh = _veh_arr select 0;
 
 	private _group = _veh_arr select 2;

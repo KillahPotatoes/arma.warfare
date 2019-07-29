@@ -37,7 +37,7 @@ ARWA_spawn_transport = {
 	params ["_side", "_class_name", "_penalty"];
 
 	private _arr = if(_class_name isKindOf "Air") then {
-	    [_side, _class_name, _penalty] call ARWA_spawn_helicopter;
+	    [_side, _class_name, _penalty, ARWA_transport_helicopter_spawn_height] call ARWA_spawn_helicopter;
 	} else {
 		[_side, _class_name, _penalty] call ARWA_spawn_transport_vehicle;
 	};

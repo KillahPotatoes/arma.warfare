@@ -12,7 +12,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=193;
+		nextID=192;
 	};
 	class Camera
 	{
@@ -40,8 +40,7 @@ addons[]=
 	"A3_Structures_F_Civ_Garbage",
 	"A3_Structures_F_Civ_Constructions",
 	"cba_main",
-	"A3_Characters_F",
-	"asr_ai3_skills"
+	"A3_Characters_F"
 };
 class AddonsMetaData
 {

@@ -21,8 +21,7 @@ ARWA_air_move_to_sector = {
 	};
 
 	if ([_group] call ARWA_needs_new_waypoint) then {
-		private _target = _group getVariable ARWA_KEY_target;
-		[_target, _group] call ARWA_vehicle_create_waypoint;
+		[_new_target, _group] call ARWA_air_create_waypoint;
 	};
 
 	if ([_group] call ARWA_approaching_target) then {

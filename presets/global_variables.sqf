@@ -32,18 +32,17 @@ ARWA_KEY_kill_bonus = "kill_bonus";
 ARWA_KEY_vehicle = "vehicle";
 ARWA_KEY_helicopter = "helicopter";
 ARWA_KEY_infantry = "infantry";
-ARWA_KEY_priority_target = "priority_target";
 ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 ARWA_KEY_hacked = "hacked";
 
-ARWA_KEY_MISSION_Type = "missiontype";
-ARWA_KEY_MISSION_Location = "missiontype";
-ARWA_KEY_MISSION_Data = "missiontype";
+ARWA_KEY_MISSION_priority = "priority_target";
+ARWA_KEY_MISSION_type = "missiontype";
+ARWA_KEY_MISSION_position = "missiontype";
+ARWA_KEY_MISSION_data = "missiontype";
 
-ARWA_KEY_MISSION_CAPTURE = "capturesector";
-ARWA_KEY_MISSION_CAPTURE = "huntplayer";
-ARWA_KEY_MISSION_CAPTURE = "guardmanpower";
-ARWA_KEY_MISSION_CAPTURE = "specialforces";
+ARWA_KEY_MISSION_sector = "capturesector";
+ARWA_KEY_MISSION_player = "huntplayer";
+ARWA_KEY_MISSION_manpower_box = "guardmanpower";
 
 ARWA_KEY_rank1 = "Private";
 ARWA_KEY_rank2 = "Sergant";

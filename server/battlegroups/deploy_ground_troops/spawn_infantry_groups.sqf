@@ -98,6 +98,8 @@ ARWA_spawn_reinforcement_squad = {
 
     private _group = [_pos, _side, _soldier_count, false] call ARWA_spawn_infantry;
 
-	_group setVariable [ARWA_KEY_priority_target, _sector];
+	_group setVariable [ARWA_KEY_priority_target, true];
+	_group setVariable [ARWA_KEY_, _sector];
+
 	[_group] call ARWA_add_battle_group;
 };

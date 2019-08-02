@@ -1,10 +1,9 @@
 
 ARWA_infantry_create_waypoint = {
-	params ["_target", "_group"];
-	private _pos = [(_target getVariable ARWA_KEY_pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	params ["_target_pos", "_group"];
 
 	_group call ARWA_delete_all_waypoints;
-	_w = _group addWaypoint [_pos, 5];
+	_w = _group addWaypoint [_target_pos, 5];
 	_w setWaypointStatements ["true","[group this] call ARWA_delete_all_waypoints"];
 
 	_w setWaypointType "SAD";
@@ -12,7 +11,7 @@ ARWA_infantry_create_waypoint = {
 
 	_group setSpeedMode "NORMAL";
 	_group setCombatMode "YELLOW";
-	_group setVariable [ARWA_KEY_target, _target];
+	_group setVariable [ARWA_KEY_target, _target_pos];
 };
 
 ARWA_get_smallest_group = {
@@ -103,13 +102,14 @@ ARWA_infantry_group_ai = {
 
 	private _pos = getPosWorld (leader _group);
 
-	private _target = if([_group, _side] call ARWA_check_if_has_priority_target) then {
+	// Check if current mission is still valid!
+	private _mission = if([_group, _side] call ARWA_check_if_has_priority_target) then {
 		_group getVariable ARWA_KEY_priority_target;
 	} else {
 		_group setVariable [ARWA_KEY_priority_target, nil];
 		[_side, _pos] call ARWA_get_ground_target;
 	};
 
-	[_target, _group] spawn ARWA_infantry_move_to_sector;
+	[_mission, _group] spawn ARWA_infantry_move_to_sector;
 	[_group] spawn ARWA_report_casualities_over_radio;
 };

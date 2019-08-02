@@ -11,30 +11,30 @@ ARWA_group_should_be_commanded = {
 };
 
 ARWA_should_change_target = {
-	params ["_group", "_new_target"];
+	params ["_group", "_new_target_pos"];
 
-	private _curr_target = _group getVariable ARWA_KEY_target;
+	private _curr_target_pos = _group getVariable ARWA_KEY_target;
 
-	isNil "_curr_target" || {!(_new_target isEqualTo _curr_target)};
+	isNil "_curr_target_pos" || {!(_new_target_pos isEqualTo _curr_target_pos)};
 };
 
 ARWA_needs_new_waypoint = {
 	params ["_group"];
 
-	private _target = _group getVariable ARWA_KEY_target;
+	private _target_pos = _group getVariable ARWA_KEY_target;
 
-	if(isNil "_target") exitWith { true; };
+	if(isNil "_target_pos") exitWith { true; };
 
-	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
+	(_target_pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
 };
 
 ARWA_approaching_target = {
 	params["_group"];
 
-	private _target = _group getVariable ARWA_KEY_target;
+	private _target_pos = _group getVariable ARWA_KEY_target;
 
-	if(isNil "_target") exitWith { false; };
-	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
+	if(isNil "_target_pos") exitWith { false; };
+	(_target_pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
 };
 
 ARWA_get_ground_target = {
@@ -54,14 +54,28 @@ ARWA_get_ground_target = {
 ARWA_check_if_has_priority_target = {
 	params ["_group", "_side"];
 
-	private _priority_target = _group getVariable ARWA_KEY_priority_target;
+	private _priority_target = _group getVariable [ARWA_KEY_MISSION_priority, false];
 
-	if(isNil "_priority_target") exitWith { false; };
+	if(!_priority_target) exitWith { false; };
 
-	private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
-	private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
+	private _mission_type = _group getVariable ARWA_KEY_MISSION_type;
 
-	!(_is_safe && _is_captured);
+	if(_mission_type isEqualTo ARWA_KEY_MISSION_sector) exitWith {
+		private _sector = _group setVariable ARWA_KEY_MISSION_data;
+
+		private _is_safe = [_side, _sector, ARWA_sector_size] call ARWA_is_sector_safe;
+		private _is_captured = (_sector getVariable ARWA_KEY_owned_by) isEqualTo _side;
+
+		!(_is_safe && _is_captured);
+	};
+
+	if(_mission_type isEqualTo ARWA_KEY_MISSION_player) exitWith {
+
+	};
+
+	if(_mission_type isEqualTo ARWA_KEY_MISSION_manpower_box) exitWith {
+
+	};
 };
 
 ARWA_initialize_battlegroup_ai = {

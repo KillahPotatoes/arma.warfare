@@ -33,7 +33,10 @@ ARWA_set_special_mission_attr = {
 	};
 
 	if(_priority_target) then {
-		_group setVariable [ARWA_KEY_priority_target, _sector];
+		_group setVariable [ARWA_KEY_MISSION_priority, true];
+		_group setVariable [ARWA_KEY_MISSION_type, ARWA_KEY_MISSION_sector];
+		_group setVariable [ARWA_KEY_MISSION_data, _sector];
+		_group setVariable [ARWA_KEY_MISSION_position, (_sector getVariable ARWA_KEY_pos)];
 	};
 };
 

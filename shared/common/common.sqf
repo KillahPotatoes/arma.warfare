@@ -26,11 +26,12 @@ ARWA_add_action_text = {
 ARWA_is_behind_enemy_lines = {
     params ["_pos", "_side"];
 
-		private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
-    private _owner = _closest_sector getVariable ARWA_KEY_owned_by;
+		private _enemy_sectors = [_side] call ARWA_find_enemy_sectors;
 
-    if(_side isEqualTo _owner || _owner isEqualTo civilian) exitWith { false; };
+    if(_enemy_sectors isEqualTo []) exitWith { false; };
 
+		private _closest_enemy_sector = [_enemy_sectors, _pos] call ARWA_find_closest_sector;
+    private _owner = _closest_enemy_sector getVariable ARWA_KEY_owned_by;
     private _respawn_marker_enemy = [_owner, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
 	  private _pos_hq_enemy = getMarkerPos _respawn_marker_enemy;
 
@@ -41,7 +42,7 @@ ARWA_is_behind_enemy_lines = {
     private _closest_other_sector = [_other_sectors, _pos_hq_enemy] call ARWA_find_closest_sector;
 
     private _pos_other_sector = _closest_other_sector getVariable ARWA_KEY_pos;
-    private _pos_closest_sector = _closest_sector getVariable ARWA_KEY_pos;
+    private _pos_closest_sector = _closest_enemy_sector getVariable ARWA_KEY_pos;
 
     private _distance_to_enemy_hq = _pos distance2D _pos_hq_enemy;
     private _distance_to_enemy_hq_from_closest_sector = _pos_closest_sector distance2D _pos_hq_enemy;

@@ -23,6 +23,39 @@ ARWA_add_action_text = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
+ARWA_is_behind_enemy_lines = {
+    params ["_pos", "_side"];
+
+		private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
+    private _owner = _closest_sector getVariable ARWA_KEY_owned_by;
+
+    if(_side isEqualTo _owner || _owner isEqualTo civilian) exitWith { false; };
+
+    private _respawn_marker_enemy = [_owner, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
+	  private _pos_hq_enemy = getMarkerPos _respawn_marker_enemy;
+
+    private _other_sectors = _owner call ARWA_get_other_sectors;
+
+    if(_other_sectors isEqualTo []) exitWith { true; };
+
+    private _closest_other_sector = [_other_sectors, _pos_hq_enemy] call ARWA_find_closest_sector;
+
+    private _pos_other_sector = _closest_other_sector getVariable ARWA_KEY_pos;
+    private _pos_closest_sector = _closest_sector getVariable ARWA_KEY_pos;
+
+    private _distance_to_enemy_hq = _pos distance2D _pos_hq_enemy;
+    private _distance_to_enemy_hq_from_closest_sector = _pos_closest_sector distance2D _pos_hq_enemy;
+    private _distance_other_sector_to_enemy_hq = _pos_other_sector distance2D _pos_hq_enemy;
+
+    private _behind_enemy_lines = _distance_to_enemy_hq <= _distance_to_enemy_hq_from_closest_sector && _distance_to_enemy_hq <= _distance_other_sector_to_enemy_hq;
+
+    if(_behind_enemy_lines) then {
+      systemChat format["Behind enemy lines: %1", _owner];
+    };
+
+    _behind_enemy_lines;
+};
+
 ARWA_spawn_vehicle = {
   params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus", 0]]; // TODO add key
    private _veh_arr = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;

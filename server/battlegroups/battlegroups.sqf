@@ -44,13 +44,16 @@ ARWA_add_battle_group = {
 	_group setVariable [ARWA_KEY_soldier_count, _curr_count];
     _group deleteGroupWhenEmpty true;
 
-	((side _group) call ARWA_get_battlegroups) pushBackUnique _group;
-
 	EAST_groups = [EAST_groups] call ARWA_remove_null;
 	WEST_groups = [WEST_groups] call ARWA_remove_null;
 	GUER_groups = [GUER_groups] call ARWA_remove_null;
 
-	_group call ARWA_initialize_battlegroup_ai;
+	private _battlegroups = (side _group) call ARWA_get_battlegroups;
+
+	if(!(_group in _battlegroups)) then {
+		_battlegroups pushBackUnique _group;
+		_group spawn ARWA_initialize_battlegroup_ai;
+	};
 };
 
 ARWA_count_battlegroup_units = {

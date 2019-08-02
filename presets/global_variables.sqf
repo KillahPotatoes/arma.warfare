@@ -37,6 +37,9 @@ ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 ARWA_KEY_hacked = "hacked";
 
 ARWA_KEY_MISSION_Type = "missiontype";
+ARWA_KEY_MISSION_Location = "missiontype";
+ARWA_KEY_MISSION_Data = "missiontype";
+
 ARWA_KEY_MISSION_CAPTURE = "capturesector";
 ARWA_KEY_MISSION_CAPTURE = "huntplayer";
 ARWA_KEY_MISSION_CAPTURE = "guardmanpower";

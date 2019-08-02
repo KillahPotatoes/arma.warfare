@@ -36,6 +36,12 @@ ARWA_KEY_priority_target = "priority_target";
 ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 ARWA_KEY_hacked = "hacked";
 
+ARWA_KEY_MISSION_Type = "missiontype";
+ARWA_KEY_MISSION_CAPTURE = "capturesector";
+ARWA_KEY_MISSION_CAPTURE = "huntplayer";
+ARWA_KEY_MISSION_CAPTURE = "guardmanpower";
+ARWA_KEY_MISSION_CAPTURE = "specialforces";
+
 ARWA_KEY_rank1 = "Private";
 ARWA_KEY_rank2 = "Sergant";
 ARWA_KEY_rank3 = "Lieutenant";

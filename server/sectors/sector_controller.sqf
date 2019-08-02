@@ -137,8 +137,7 @@ ARWA_initialize_sector_control = {
 					[_sector, _current_faction, _sector_name, _old_owner] call ARWA_capture_sector;
 				} else {
 					_counter = [_counter, _sector, _current_faction] call ARWA_increment_counter;
-				}
-
+				};
 			} else {
 				if(_counter == 0) then {
 					_current_faction = _faction;
@@ -147,6 +146,12 @@ ARWA_initialize_sector_control = {
 				};
 			};
 		} else {
+			if(_counter == 0) exitWith {
+				_old_owner = _current_faction;
+				[_sector, _current_faction, _sector_name] call ARWA_lose_sector;
+			};
+
+			private _friendles_in_sector = ([_owner, _pos] call ARWA_any_friendlies_in_sector);
 			private _under_attack = ([_owner, _pos] call ARWA_any_enemies_in_sector);
 			private _being_overtaken = ([_owner, _pos] call ARWA_any_enemies_in_sector_center);
 
@@ -166,23 +171,17 @@ ARWA_initialize_sector_control = {
 				};
 			};
 
-			if(!_being_overtaken) exitWith {
-				if(!_under_attack) exitWith {
-					_counter = [_counter, _sector, _owner] call ARWA_increment_counter;
-
-					if(_counter == ARWA_capture_time) then {
-						_report_attack = true;
-					};
-				};
-			};
-
-			if(_counter == 0) then {
-				_old_owner = _current_faction;
-				[_sector, _current_faction, _sector_name] call ARWA_lose_sector;
-			} else {
+			if(!_friendles_in_sector || _being_overtaken) then {
 				_counter = [_counter, _sector, _owner] call ARWA_decrement_counter;
 			};
 
+			if(!_under_attack && _friendles_in_sector) then {
+				_counter = [_counter, _sector, _owner] call ARWA_increment_counter;
+
+				if(_counter == ARWA_capture_time) then {
+					_report_attack = true;
+				};
+			};
 		};
 
 		sleep 1;

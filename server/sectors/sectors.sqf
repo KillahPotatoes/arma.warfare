@@ -96,6 +96,16 @@ ARWA_get_owned_sectors = {
 	missionNamespace getVariable format["ARWA_%1_sectors", _side];
 };
 
+ARWA_get_all_owned_sectors = {
+	private _enemy_sectors = [];
+
+	{
+		_enemy_sectors append ([_x] call ARWA_get_owned_sectors);
+	} foreach ARWA_all_sides;
+
+	_enemy_sectors;
+};
+
 ARWA_get_other_sectors = {
 	params ["_side"];
 	ARWA_sectors - (_side call ARWA_get_owned_sectors);

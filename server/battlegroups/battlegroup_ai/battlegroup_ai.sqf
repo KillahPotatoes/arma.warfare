@@ -56,12 +56,16 @@ ARWA_check_if_has_priority_target = {
 
 	private _priority_target = _group getVariable ARWA_KEY_priority_target;
 
-	if(isNil "_priority_target") exitWith { false; };
+	if(isNil "_priority_target") exitWith { false; }; // Ammobox is deleted after a while so this should be sufficient
 
-	private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
-	private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
+	private _owner = _priority_target getVariable ARWA_KEY_owned_by;
 
-	!(_is_safe && _is_captured);
+	if(!isNil "_owner") then { // target is sector
+		private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
+		private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
+
+		!(_is_safe && _is_captured);
+	} 
 };
 
 ARWA_initialize_battlegroup_ai = {

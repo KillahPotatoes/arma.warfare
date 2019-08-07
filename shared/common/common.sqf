@@ -24,11 +24,11 @@ ARWA_add_action_text = {
 };
 
 ARWA_is_behind_enemy_lines = {
-    params ["_pos", "_side"];
+    params ["_pos"];
 
-		private _enemy_sectors = [_side] call ARWA_find_enemy_sectors;
+		private _enemy_sectors = [] call ARWA_get_all_owned_sectors;
 
-    if(_enemy_sectors isEqualTo []) exitWith { false; };
+    if(_enemy_sectors isEqualTo []) exitWith {};
 
 		private _closest_enemy_sector = [_enemy_sectors, _pos] call ARWA_find_closest_sector;
     private _owner = _closest_enemy_sector getVariable ARWA_KEY_owned_by;
@@ -37,7 +37,7 @@ ARWA_is_behind_enemy_lines = {
 
     private _other_sectors = _owner call ARWA_get_other_sectors;
 
-    if(_other_sectors isEqualTo []) exitWith { true; };
+    if(_other_sectors isEqualTo []) exitWith { _owner; };
 
     private _closest_other_sector = [_other_sectors, _pos_hq_enemy] call ARWA_find_closest_sector;
 
@@ -50,11 +50,7 @@ ARWA_is_behind_enemy_lines = {
 
     private _behind_enemy_lines = _distance_to_enemy_hq <= _distance_to_enemy_hq_from_closest_sector && _distance_to_enemy_hq <= _distance_other_sector_to_enemy_hq;
 
-    if(_behind_enemy_lines) then {
-      systemChat format["Behind enemy lines: %1", _owner];
-    };
-
-    _behind_enemy_lines;
+    if(_behind_enemy_lines) exitWith { _owner; };
 };
 
 ARWA_spawn_vehicle = {

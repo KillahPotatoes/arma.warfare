@@ -73,7 +73,6 @@ ARWA_infantry_move_to_sector = {
 	};
 
 	if ([_group] call ARWA_needs_new_waypoint) then {
-		private _target = _group getVariable ARWA_KEY_target;
 		[_new_target, _group] call ARWA_infantry_create_waypoint;
 	};
 

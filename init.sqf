@@ -68,13 +68,3 @@ player setVariable ["kills", 0, true];
 
 loaded_event = addMissionEventHandler ["Loaded",{ [] spawn ARWA_show_ui; }];
 show_diary_hint = true;
-
-test = {
-    while{true} do {
-        private _pos = getPos player;
-        private _behind_enemy_lines = [player, playerSide] spawn ARWA_is_behind_enemy_lines;
-        sleep 2;
-    }
-};
-
-[] spawn test;

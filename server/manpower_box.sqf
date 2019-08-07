@@ -57,7 +57,7 @@ ARWA_create_manpower_box = {
 
 	if(!isNil "_behind_enemy_lines") then {
 		_manpower_box setVariable [ARWA_KEY_pos, _safe_pos];
-		[_behind_enemy_lines, _manpower_box] spawn ARWA_try_spawn_reinforcements
+		[_behind_enemy_lines, _manpower_box] spawn ARWA_try_spawn_reinforcements;
 	};
 
 	[_marker_name, _manpower_box] spawn ARWA_manpower_deterioration;

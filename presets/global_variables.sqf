@@ -32,6 +32,7 @@ ARWA_KEY_kill_bonus = "kill_bonus";
 ARWA_KEY_vehicle = "vehicle";
 ARWA_KEY_helicopter = "helicopter";
 ARWA_KEY_infantry = "infantry";
+ARWA_KEY_priority_target = "priority_target";
 ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 ARWA_KEY_hacked = "hacked";
 

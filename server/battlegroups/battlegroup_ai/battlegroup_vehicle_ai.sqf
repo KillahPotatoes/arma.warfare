@@ -1,7 +1,7 @@
 
 ARWA_vehicle_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = [(_target getVariable ARWA_KEY_pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _pos = _target getVariable ARWA_KEY_pos;
 
 	// TODO if in sector, its not safe. Change to waypoint type SAD
 	_group call ARWA_delete_all_waypoints;

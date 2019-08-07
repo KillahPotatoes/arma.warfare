@@ -30,7 +30,7 @@ ARWA_initialize_sectors = {
 			_sector setVariable [ARWA_KEY_pos, getMarkerPos _x];
 			_sector setVariable [ARWA_KEY_marker, _x];
 			_sector setVariable [ARWA_KEY_owned_by, civilian];
-			_sector setVariable [ARWA_KEY_sector_name, _second_string];
+			_sector setVariable [ARWA_KEY_target_name, _second_string];
 
 			[_sector] call ARWA_draw_sector;
 			_sectors pushback _sector;

@@ -113,7 +113,7 @@ ARWA_initialize_sector_control = {
 	private _counter = 0;
 	private _current_faction = _sector getVariable ARWA_KEY_owned_by;
 	_sector setVariable ["reinforements_available", false];
-	private _sector_name = [_sector getVariable ARWA_KEY_sector_name] call ARWA_replace_underscore;
+	private _sector_name = [_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
 	private _report_attack = true;
 	private _old_owner = civilian;
 

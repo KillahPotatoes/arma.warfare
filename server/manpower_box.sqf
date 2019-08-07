@@ -57,6 +57,7 @@ ARWA_create_manpower_box = {
 
 	if(!isNil "_behind_enemy_lines") then {
 		_manpower_box setVariable [ARWA_KEY_pos, _safe_pos];
+		_manpower_box setVariable [ARWA_KEY_target_name, "manpower box"];
 		[_behind_enemy_lines, _manpower_box] spawn ARWA_try_spawn_reinforcements;
 	};
 

@@ -11,7 +11,7 @@ ARWA_calculate_mission_size = {
 ARWA_calculate_infantry_weight = {
 	params ["_side", "_pos"];
 
-	private _spawn_pos = [_side, _sector] call ARWA_get_closest_infantry_spawn_pos;
+	private _spawn_pos = [_side, _pos] call ARWA_get_closest_infantry_spawn_pos;
 	private _distance_closest_safe_sector = _spawn_pos distance _pos;
 
 	((ARWA_infantry_reinforcement_distance - _distance_closest_safe_sector) / ARWA_infantry_reinforcement_distance) max 0;

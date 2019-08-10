@@ -75,9 +75,11 @@ ARWA_house_can_be_populated = {
 	private _sector_pos = _sector getVariable ARWA_KEY_pos;
 	private _pos = getPos _building;
 
-	(_side in ARWA_all_sides) && !(playerSide isEqualTo _side)
-	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)}
-	&& {(_sector_pos distance2D _pos) > ARWA_sector_size}
+	private _area_controlled_by = [_pos] call ARWA_is_in_controlled_area;
+
+	(!isNil "_area_controlled_by") && {!(playerSide isEqualTo _area_controlled_by)} // area is under control, and not by player
+	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)} // The house is between the player and the sector
+	&& {(_sector_pos distance2D _pos) > ARWA_sector_size} // The house is outside the sector
 	&& {!(_building getVariable [ARWA_KEY_occupied, false])}
 	&& {!([_pos, _side, 400] call ARWA_any_enemies_in_area)}
 };

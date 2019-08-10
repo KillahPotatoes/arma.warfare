@@ -26,52 +26,10 @@ ARWA_add_action_text = {
 ARWA_is_in_controlled_area = {
     params ["_pos"];
 
-		private _owned_sectors = [] call ARWA_get_all_owned_sectors;
-
-    if(_owned_sectors isEqualTo []) exitWith {
-      // systemChat "No owned sectors, so no controlled area";
-    };
-
     private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
+    private _owner = _closest_sector getVariable ARWA_KEY_owned_by;
 
-    private _closest_owned_sector = [_owned_sectors, _pos] call ARWA_find_closest_sector;
-    private _owner = _closest_owned_sector getVariable ARWA_KEY_owned_by;
-
-    if(_closest_sector isEqualTo _closest_owned_sector) exitWith {
-      // systemChat format["Closest sector is owned so area is controlled by %1", _owner];
-      _owner;
-    };
-
-    private _other_sectors = _owner call ARWA_get_other_sectors;
-
-    if(_other_sectors isEqualTo []) exitWith {
-      // systemChat format["Whole map is controlled by %1", _owner];
-      _owner;
-    };
-
-    private _respawn_marker = [_owner, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
-	  private _pos_hq = getMarkerPos _respawn_marker;
-
-    private _closest_other_sector = [_other_sectors, _pos_hq] call ARWA_find_closest_sector;
-
-    private _pos_other_sector = _closest_other_sector getVariable ARWA_KEY_pos;
-    private _pos_owned_sector = _closest_owned_sector getVariable ARWA_KEY_pos;
-
-    private _distance_to_hq = _pos distance2D _pos_hq;
-    private _distance_to_hq_from_owned_sector = _pos_owned_sector distance2D _pos_hq;
-    private _distance_to_hq_from_other_sector = _pos_other_sector distance2D _pos_hq;
-
-    private _behind_enemy_lines = _distance_to_hq <= _distance_to_hq_from_owned_sector && _distance_to_hq_from_owned_sector <= _distance_to_hq_from_other_sector;
-    // systemChat format["Distance to %1 HQ: %2", _owner, _distance_to_hq];
-    // systemChat format["Distance to HQ from owned sector: %1", _distance_to_hq_from_owned_sector];
-    // systemChat format["Distance to HQ from other sector: %1", _distance_to_hq_from_other_sector];
-
-    if(_behind_enemy_lines) exitWith {
-      // systemChat format["Area controlled by: %1", _owner];
-      _owner;
-    };
-
-    // systemChat "Area controlled by no one";
+    if(!isNil "_owner" && {_owner in ARWA_all_sides}) exitWith { _owner; }
 };
 
 ARWA_spawn_vehicle = {

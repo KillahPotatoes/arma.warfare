@@ -111,6 +111,29 @@ ARWA_get_other_sectors = {
 	ARWA_sectors - (_side call ARWA_get_owned_sectors);
 };
 
+ARWA_find_closest_sector_connected_by_road = {
+	params ["_sectors", "_pos"];
+
+	_current_sector = _sectors select 0;
+	_shortest_distance = 99999;
+
+	{
+		_sector_pos = _x getVariable ARWA_KEY_pos;
+		_distance = _pos distance _sector_pos;
+
+		private _road_at_target = (_sector_pos nearRoads (ARWA_sector_size / 4));
+		private _any_road = _road_at_target isEqualTo [];
+
+		if (_shortest_distance > _distance && _any_road) then {
+			_shortest_distance = _distance;
+			_current_sector = _x;
+		};
+
+	} forEach _sectors;
+
+	_current_sector;
+};
+
 ARWA_find_closest_sector = {
 	params ["_sectors", "_pos"];
 

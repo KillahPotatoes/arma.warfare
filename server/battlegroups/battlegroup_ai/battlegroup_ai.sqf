@@ -37,20 +37,6 @@ ARWA_approaching_target = {
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
 };
 
-ARWA_get_ground_target = {
-	params ["_side", "_pos"];
-
-	private _sectors = [_side] call ARWA_get_other_sectors;
-	private _unsafe_sectors = [_side] call ARWA_get_unsafe_sectors;
-	private _targets = _sectors + _unsafe_sectors;
-
-	if((count _targets) > 0) exitWith {
-		[_targets, _pos] call ARWA_find_closest_sector;
-	};
-
-	[ARWA_sectors, _pos] call ARWA_find_closest_sector;
-};
-
 ARWA_check_if_has_priority_target = {
 	params ["_group", "_side"];
 

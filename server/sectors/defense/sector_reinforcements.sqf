@@ -17,27 +17,14 @@ ARWA_calculate_infantry_weight = {
 	((ARWA_infantry_reinforcement_distance - _distance_closest_safe_sector) / ARWA_infantry_reinforcement_distance) max 0;
 };
 
-ARWA_is_connected_by_road_to_hq = {
-	params ["_side", "_pos"];
-
-	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
-	private _pos_hq = getMarkerPos _respawn_marker;
-
-	private _road_at_target = (_pos nearRoads 100) select 0;
-	private _road_at_hq = (_pos_hq nearRoads 100) select 0;
-
-	_connectedRoads = roadsConnectedTo _road_at_target;
-
-	_road_at_hq in _connectedRoads;
-};
-
 ARWA_calcuate_vehicle_weight = {
 	params ["_side", "_pos"];
 
+	private _road_at_target = (_pos nearRoads 50);
+	if(_road_at_target isEqualTo []) exitWith { 0; };
+
 	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
 	private _pos_hq = getMarkerPos _respawn_marker;
-
-	private _is_connected = [_side, _pos] call ARWA_is_connected_by_road_to_hq;
 
 	((ARWA_vehicle_reinforcement_distance - (_pos distance _pos_hq)) / ARWA_vehicle_reinforcement_distance) max 0.1;
 };

@@ -97,13 +97,13 @@ ARWA_get_owned_sectors = {
 };
 
 ARWA_get_all_owned_sectors = {
-	private _enemy_sectors = [];
+	private _owned = [];
 
 	{
-		_enemy_sectors append ([_x] call ARWA_get_owned_sectors);
+		_owned append ([_x] call ARWA_get_owned_sectors);
 	} foreach ARWA_all_sides;
 
-	_enemy_sectors;
+	_owned;
 };
 
 ARWA_get_other_sectors = {

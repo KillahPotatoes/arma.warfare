@@ -17,11 +17,27 @@ ARWA_calculate_infantry_weight = {
 	((ARWA_infantry_reinforcement_distance - _distance_closest_safe_sector) / ARWA_infantry_reinforcement_distance) max 0;
 };
 
+ARWA_is_connected_by_road_to_hq = {
+	params ["_side", "_pos"];
+
+	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
+	private _pos_hq = getMarkerPos _respawn_marker;
+
+	private _road_at_target = (_pos nearRoads 100) select 0;
+	private _road_at_hq = (_pos_hq nearRoads 100) select 0;
+
+	_connectedRoads = roadsConnectedTo _road_at_target;
+
+	_road_at_hq in _connectedRoads;
+};
+
 ARWA_calcuate_vehicle_weight = {
 	params ["_side", "_pos"];
 
 	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
 	private _pos_hq = getMarkerPos _respawn_marker;
+
+	private _is_connected = [_side, _pos] call ARWA_is_connected_by_road_to_hq;
 
 	((ARWA_vehicle_reinforcement_distance - (_pos distance _pos_hq)) / ARWA_vehicle_reinforcement_distance) max 0.1;
 };
@@ -40,6 +56,8 @@ ARWA_try_spawn_reinforcements = {
 	params ["_side", "_target"];
 	private _unit_count = _side call ARWA_count_battlegroup_units;
 	private _can_spawn = ([] call ARWA_get_unit_cap) - _unit_count;
+
+	diag_log format["%2: Checking reinforcements: Can spawn %1, required: %3", _can_spawn, _side, ARWA_squad_cap/2];
 
 	if (_can_spawn > (ARWA_squad_cap / 2) && (_side call ARWA_has_manpower)) exitWith {
 		private _pos = _target getVariable ARWA_KEY_pos;

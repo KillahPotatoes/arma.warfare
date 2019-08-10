@@ -53,12 +53,14 @@ ARWA_create_manpower_box = {
 
 	_marker_name setMarkerText format["%1 MP", _manpower];
 
-	private _behind_enemy_lines = [_safe_pos] call ARWA_is_in_controlled_area;
+	private _area_controlled_by = [_safe_pos] call ARWA_is_in_controlled_area;
+	private _isWater = surfaceIsWater _safe_pos;
 
-	if(!isNil "_behind_enemy_lines") then {
+	if(!isNil "_area_controlled_by" && !_isWater) then {
 		_manpower_box setVariable [ARWA_KEY_pos, _safe_pos];
 		_manpower_box setVariable [ARWA_KEY_target_name, "manpower box"];
-		[_behind_enemy_lines, _manpower_box] spawn ARWA_try_spawn_reinforcements;
+		_manpower_box setVariable [ARWA_KEY_owned_by, _victim_side];
+		[_area_controlled_by, _manpower_box] spawn ARWA_try_spawn_reinforcements;
 	};
 
 	[_marker_name, _manpower_box] spawn ARWA_manpower_deterioration;

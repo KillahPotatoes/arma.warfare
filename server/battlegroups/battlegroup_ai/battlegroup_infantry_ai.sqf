@@ -65,7 +65,7 @@ ARWA_join_nearby_group = {
 	_joined_other_group;
 };
 
-ARWA_infantry_move_to_sector = {
+ARWA_infantry_move_to_target = {
 	params ["_new_target", "_group"];
 
 	if ([_group, _new_target] call ARWA_should_change_target && !([_group] call ARWA_join_nearby_group)) then {
@@ -109,6 +109,6 @@ ARWA_infantry_group_ai = {
 		[_side, _pos] call ARWA_get_ground_target;
 	};
 
-	[_target, _group] spawn ARWA_infantry_move_to_sector;
+	[_target, _group] spawn ARWA_infantry_move_to_target;
 	[_group] spawn ARWA_report_casualities_over_radio;
 };

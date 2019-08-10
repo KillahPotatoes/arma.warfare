@@ -65,7 +65,9 @@ ARWA_check_if_has_priority_target = {
 		private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
 
 		!(_is_safe && _is_captured);
-	} 
+	};
+
+	false;
 };
 
 ARWA_initialize_battlegroup_ai = {

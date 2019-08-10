@@ -53,7 +53,7 @@ ARWA_create_manpower_box = {
 
 	_marker_name setMarkerText format["%1 MP", _manpower];
 
-	private _behind_enemy_lines = [] call ARWA_is_behind_enemy_lines;
+	private _behind_enemy_lines = [_safe_pos] call ARWA_is_in_controlled_area;
 
 	if(!isNil "_behind_enemy_lines") then {
 		_manpower_box setVariable [ARWA_KEY_pos, _safe_pos];

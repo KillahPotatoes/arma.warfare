@@ -16,13 +16,13 @@ ARWA_get_crew = {
 };
 
 ARWA_get_all_units_in_area = {
-	params ["_pos", "_distance"];
+	params ["_pos", "_distance", ["_touch_ground", true]];
 
 	private _infantry = _pos nearEntities [["Man"], _distance];
 	private _vehicles = _pos nearEntities [["Car", "Tank", "Static"], _distance];
 
-	_infantry = _infantry select { _x call ARWA_is_alive && isTouchingGround _x };
-	_vehicles = _vehicles select { isTouchingGround _x && ((crew _x) findIf {_x call ARWA_is_alive} != -1)};
+	_infantry = _infantry select { _x call ARWA_is_alive && (isTouchingGround _x || !_touch_ground) };
+	_vehicles = _vehicles select { (isTouchingGround _x || !_touch_ground) && ((crew _x) findIf {_x call ARWA_is_alive} != -1)};
 
 	private _crew = [_vehicles] call ARWA_get_crew;
 
@@ -51,8 +51,8 @@ ARWA_any_enemies_in_area = {
 };
 
 ARWA_any_friendlies_in_area = {
-	params ["_pos", "_side", "_distance"];
-	private _units = [_pos, _distance] call ARWA_get_all_units_in_area;
+	params ["_pos", "_side", "_distance", ["_touch_ground", true]];
+	private _units = [_pos, _distance, _touch_ground] call ARWA_get_all_units_in_area;
 	[_units, _side] call ARWA_any_friendlies_in_list;
 };
 

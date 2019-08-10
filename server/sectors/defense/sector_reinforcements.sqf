@@ -20,7 +20,7 @@ ARWA_calculate_infantry_weight = {
 ARWA_calcuate_vehicle_weight = {
 	params ["_side", "_pos"];
 
-	private _road_at_target = (_pos nearRoads 50);
+	private _road_at_target = (_pos nearRoads ARWA_sector_size);
 	if(_road_at_target isEqualTo []) exitWith { 0; };
 
 	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;

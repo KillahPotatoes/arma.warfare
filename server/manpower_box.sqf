@@ -59,7 +59,6 @@ ARWA_create_manpower_box = {
 	if(!isNil "_area_controlled_by" && !_isWater) then {
 		_manpower_box setVariable [ARWA_KEY_pos, _safe_pos];
 		_manpower_box setVariable [ARWA_KEY_target_name, "manpower box"];
-		_manpower_box setVariable [ARWA_KEY_owned_by, _victim_side];
 		[_area_controlled_by, _manpower_box] spawn ARWA_try_spawn_reinforcements;
 	};
 

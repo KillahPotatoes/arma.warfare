@@ -151,7 +151,7 @@ ARWA_initialize_sector_control = {
 				[_sector, _current_faction, _sector_name] call ARWA_lose_sector;
 			};
 
-			private _friendles_in_sector = ([_owner, _pos] call ARWA_any_friendlies_in_sector);
+			private _friendles_in_sector = ([_owner, _pos, false] call ARWA_any_friendlies_in_sector);
 			private _under_attack = ([_owner, _pos] call ARWA_any_enemies_in_sector);
 			private _being_overtaken = ([_owner, _pos] call ARWA_any_enemies_in_sector_center);
 

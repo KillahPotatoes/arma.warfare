@@ -121,8 +121,8 @@ ARWA_find_closest_sector_connected_by_road = {
 		_sector_pos = _x getVariable ARWA_KEY_pos;
 		_distance = _pos distance _sector_pos;
 
-		private _road_at_target = (_sector_pos nearRoads (ARWA_sector_size / 4));
-		private _any_road = _road_at_target isEqualTo [];
+		private _road_at_target = (_sector_pos nearRoads ARWA_sector_size);
+		private _any_road = !(_road_at_target isEqualTo []);
 
 		if (_shortest_distance > _distance && _any_road) then {
 			_shortest_distance = _distance;

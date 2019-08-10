@@ -53,7 +53,7 @@ ARWA_check_if_has_priority_target = {
 		!(_is_safe && _is_captured);
 	};
 
-	false;
+	true; // Because only manpowerboxes has no owner
 };
 
 ARWA_initialize_battlegroup_ai = {

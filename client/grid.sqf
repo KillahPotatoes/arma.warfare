@@ -1,5 +1,5 @@
 ARWA_draw_controlled_area_grid = {
-	_grid_size = 100;
+	_grid_size = worldSize / 100;
 	for "_markers_posx" from (_grid_size/2) to worldSize step _grid_size do {
 		for "_markers_posy" from  (_grid_size/2) to worldSize step _grid_size do {
 			private _markers_pos = [_markers_posx, _markers_posy, 0];

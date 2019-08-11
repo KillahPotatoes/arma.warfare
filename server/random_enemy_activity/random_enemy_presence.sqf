@@ -87,12 +87,14 @@ ARWA_house_can_be_populated = {
 
 	if(_all_owned_sectors isEqualTo []) exitWith { false; };
 
-    private _closest_sector = [_all_owned_sectors, _pos] call ARWA_find_closest_sector;
-    private _owner = _closest_sector getVariable ARWA_KEY_owned_by;
+    private _closest_owned_sector = [_all_owned_sectors, _pos] call ARWA_find_closest_sector;
+    private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
+    private _closest_sector_pos = _closest_sector getVariable ARWA_KEY_pos;
+    private _owner = _closest_owned_sector getVariable ARWA_KEY_owned_by;
 
 	(!isNil "_owner") && {!(playerSide isEqualTo _owner)} // area is under control, and not by player
 	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)} // The house is between the player and the sector
-	&& {(_sector_pos distance2D _pos) > ARWA_sector_size} // The house is outside the sector
+	&& {(_closest_sector_pos distance2D _pos) > ARWA_sector_size} // The house is outside the sector
 	&& {!(_building getVariable [ARWA_KEY_occupied, false])}
 	&& {!([_pos, _side, 400] call ARWA_any_enemies_in_area)}
 };

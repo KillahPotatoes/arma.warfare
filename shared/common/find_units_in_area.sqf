@@ -21,8 +21,8 @@ ARWA_get_all_units_in_area = {
 	private _infantry = _pos nearEntities [["Man"], _distance];
 	private _vehicles = _pos nearEntities [["Car", "Tank", "Static"], _distance];
 
-	_infantry = _infantry select { _x call ARWA_is_alive && (isTouchingGround _x || !_touch_ground) };
-	_vehicles = _vehicles select { (isTouchingGround _x || !_touch_ground) && ((crew _x) findIf {_x call ARWA_is_alive} != -1)};
+	_infantry = _infantry select { !((side _x) isEqualTo civilian) && _x call ARWA_is_alive && (isTouchingGround _x || !_touch_ground) };
+	_vehicles = _vehicles select { !((side _x) isEqualTo civilian) && (isTouchingGround _x || !_touch_ground) && ((crew _x) findIf {_x call ARWA_is_alive} != -1)};
 
 	private _crew = [_vehicles] call ARWA_get_crew;
 

@@ -54,7 +54,6 @@ ARWA_west_sympathizers = [
 	["B_G_engineer_F", 0],
 	["B_G_medic_F", 0],
 	["B_G_Sharpshooter_F", 0]
-
 ];
 
 ARWA_east_sympathizers = [

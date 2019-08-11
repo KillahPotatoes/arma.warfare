@@ -35,6 +35,9 @@
             <English>You added %1 manpower points</English>
             <German>%1 MP hinzugefügt</German>
         </Key>
+         <Key ID="ARWA_STR_KILLED_CIVILIAN_PENALTY">
+            <English>%1 got a %2 manpower penalty for killing a civilian</English>
+        </Key>ARWA_STR_KILLED_CIVILIAN_PENALTY
          <Key ID="ARWA_STR_NOT_ENOUGH_MANPOWER">
             <English>Not enough manpower</English>
             <German>Nicht genügend MP</German>

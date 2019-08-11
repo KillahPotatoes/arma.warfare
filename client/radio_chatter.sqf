@@ -19,6 +19,15 @@ ARWA_report_casualities = {
 
 };
 
+ARWA_system_chat = {
+	params ["_values"];
+	sleep random 3;
+
+	private _msg = [_values] call ARWA_localize_and_format;
+	systemChat _msg;
+};
+
+
 ARWA_group_report_client = {
 	params ["_group", "_values"];
 	sleep random 3;

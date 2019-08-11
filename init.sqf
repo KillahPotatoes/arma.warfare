@@ -67,7 +67,6 @@ player setVariable ["kills", 0, true];
 [] spawn ARWA_calculate_rank_and_skill;
 [] spawn ARWA_initialize_ammo_boxes;
 [] spawn ARWA_create_briefing;
-// [] spawn ARWA_create_controlled_area_grid;
 
 loaded_event = addMissionEventHandler ["Loaded",{ [] spawn ARWA_show_ui; }];
 show_diary_hint = true;

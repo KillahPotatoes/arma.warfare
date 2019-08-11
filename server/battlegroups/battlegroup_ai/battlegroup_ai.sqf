@@ -15,7 +15,7 @@ ARWA_should_change_target = {
 
 	private _curr_target = _group getVariable ARWA_KEY_target;
 
-	isNil "_curr_target" || {!(_new_target isEqualTo _curr_target)};
+	isNil "_curr_target" || {isNull _curr_target} || {!(_new_target isEqualTo _curr_target)};
 };
 
 ARWA_needs_new_waypoint = {
@@ -23,7 +23,7 @@ ARWA_needs_new_waypoint = {
 
 	private _target = _group getVariable ARWA_KEY_target;
 
-	if(isNil "_target") exitWith { true; };
+	if(isNil "_target" || {isNull _target}) exitWith { true; };
 
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
 };

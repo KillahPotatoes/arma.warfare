@@ -93,7 +93,7 @@ ARWA_show_friendly_markers = {
 				_markers_pos = getPosWorld (leader _x);
 
 				_distance = [_markers_pos, _sector_boxes] call ARWA_close_to_any_owned_sectors;
-				_alpha = 1 min (_distance / 200);
+				_alpha = 1 min (_distance / ARWA_sector_size);
 
 				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call ARWA_create_unit_marker);
 				_markers_array pushBack ([_x, _alpha, _marker_name, _markers_pos] call ARWA_create_named_unit_marker);

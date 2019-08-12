@@ -108,8 +108,8 @@ ARWA_spawn_random_vehicle_group = {
 };
 
 ARWA_spawn_reinforcement_vehicle_group = {
-	params ["_side", "_can_spawn", "_sector"];
+	params ["_side", "_can_spawn", "_target"];
 
 	private _groups = [_side, _can_spawn] call ARWA_spawn_random_vehicle_group;
-	{ _x setVariable [ARWA_KEY_priority_target, _sector]; } count _groups;
+	{ _x setVariable [ARWA_KEY_priority_target, _target]; } count _groups;
 };

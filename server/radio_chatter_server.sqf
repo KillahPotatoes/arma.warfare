@@ -17,7 +17,7 @@ ARWA_report_casualities_over_radio = {
 		private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
 		private _sector_pos = _closest_sector getVariable ARWA_KEY_pos;
 		private _distance = floor(_sector_pos distance2D _pos);
-		private _location = [_closest_sector getVariable ARWA_KEY_sector_name] call ARWA_replace_underscore;
+		private _location = [_closest_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
 
 		if (_distance > 200) exitWith {
 			private _direction = [_sector_pos, _pos] call ARWA_get_direction;

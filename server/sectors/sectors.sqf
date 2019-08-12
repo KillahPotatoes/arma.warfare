@@ -30,7 +30,7 @@ ARWA_initialize_sectors = {
 			_sector setVariable [ARWA_KEY_pos, getMarkerPos _x];
 			_sector setVariable [ARWA_KEY_marker, _x];
 			_sector setVariable [ARWA_KEY_owned_by, civilian];
-			_sector setVariable [ARWA_KEY_sector_name, _second_string];
+			_sector setVariable [ARWA_KEY_target_name, _second_string];
 
 			[_sector] call ARWA_draw_sector;
 			_sectors pushback _sector;
@@ -96,9 +96,42 @@ ARWA_get_owned_sectors = {
 	missionNamespace getVariable format["ARWA_%1_sectors", _side];
 };
 
+ARWA_get_all_owned_sectors = {
+	private _owned = [];
+
+	{
+		_owned append ([_x] call ARWA_get_owned_sectors);
+	} foreach ARWA_all_sides;
+
+	_owned;
+};
+
 ARWA_get_other_sectors = {
 	params ["_side"];
 	ARWA_sectors - (_side call ARWA_get_owned_sectors);
+};
+
+ARWA_find_closest_sector_connected_by_road = {
+	params ["_sectors", "_pos"];
+
+	_current_sector = _sectors select 0;
+	_shortest_distance = 99999;
+
+	{
+		_sector_pos = _x getVariable ARWA_KEY_pos;
+		_distance = _pos distance _sector_pos;
+
+		private _road_at_target = (_sector_pos nearRoads ARWA_sector_size);
+		private _any_road = !(_road_at_target isEqualTo []);
+
+		if (_shortest_distance > _distance && _any_road) then {
+			_shortest_distance = _distance;
+			_current_sector = _x;
+		};
+
+	} forEach _sectors;
+
+	_current_sector;
 };
 
 ARWA_find_closest_sector = {

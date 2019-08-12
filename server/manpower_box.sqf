@@ -40,7 +40,7 @@ ARWA_create_manpower_box = {
 
 	private _pos = getPos _victim;
 	private _safe_pos = [_pos, 0, 5, 1, 1, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
-	private _manpower_box = ARWA_manpower_box createVehicle (_pos);
+	private _manpower_box = ARWA_manpower_box createVehicle (_safe_pos);
 	_manpower_box setVariable [ARWA_KEY_manpower, _manpower, true];
 
 	private _color = [_victim_side, true] call BIS_fnc_sideColor;
@@ -52,6 +52,15 @@ ARWA_create_manpower_box = {
 	_marker_name setMarkerAlpha 1;
 
 	_marker_name setMarkerText format["%1 MP", _manpower];
+
+	private _area_controlled_by = [_safe_pos] call ARWA_is_in_controlled_area;
+	private _isWater = surfaceIsWater _safe_pos;
+
+	if(!isNil "_area_controlled_by" && !_isWater) then {
+		_manpower_box setVariable [ARWA_KEY_pos, _safe_pos];
+		_manpower_box setVariable [ARWA_KEY_target_name, "manpower box"];
+		[_area_controlled_by, _manpower_box] spawn ARWA_try_spawn_reinforcements;
+	};
 
 	[_marker_name, _manpower_box] spawn ARWA_manpower_deterioration;
 	[_marker_name, _manpower_box] spawn ARWA_manpower_marker_update;

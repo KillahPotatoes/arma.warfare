@@ -51,7 +51,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
-
+[] call compileFinal preprocessFileLineNumbers "server\grid.sqf";
 
 // Radio chatter
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
@@ -85,6 +85,7 @@ if(ARWA_mine_fields) then {
 [] call ARWA_initialize_battle_groups;
 [] call ARWA_initialize_sector_defense;
 [] call ARWA_calculate_mission_size;
+[] call ARWA_find_grid_area;
 
 // Game threads
 [] spawn ARWA_end_game_conditions_check;

@@ -1,11 +1,8 @@
 ARWA_create_squad = {
 	params ["_preset", "_number"];
 
-	private _count = count _preset;
-
 	private _squad = [];
 	for "_x" from 1 to _number step 1 do {
-		//private _index = [_count] call get_distribution;
 		private _class_name = (selectRandom _preset) select 0;
 		_squad pushBack (_class_name);
 	};
@@ -49,4 +46,11 @@ ARWA_spawn_sympathizers = {
 
 	private _squad = [_side, _number] call ARWA_pick_sympathizers;
 	[_pos, _side, _squad, true] call ARWA_create_group;
+};
+
+ARWA_spawn_civilians = {
+	params ["_pos", "_number"];
+
+	private _squad = [ARWA_civilians, _number] call ARWA_create_squad;
+	[_pos, civilian, _squad, true] call ARWA_create_group;
 };

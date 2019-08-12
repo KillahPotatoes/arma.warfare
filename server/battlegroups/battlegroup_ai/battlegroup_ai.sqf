@@ -15,7 +15,7 @@ ARWA_should_change_target = {
 
 	private _curr_target = _group getVariable ARWA_KEY_target;
 
-	isNil "_curr_target" || {!(_new_target isEqualTo _curr_target)};
+	isNil "_curr_target" || {isNull _curr_target} || {!(_new_target isEqualTo _curr_target)};
 };
 
 ARWA_needs_new_waypoint = {
@@ -23,7 +23,7 @@ ARWA_needs_new_waypoint = {
 
 	private _target = _group getVariable ARWA_KEY_target;
 
-	if(isNil "_target") exitWith { true; };
+	if(isNil "_target" || {isNull _target}) exitWith { true; };
 
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
 };
@@ -37,31 +37,23 @@ ARWA_approaching_target = {
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
 };
 
-ARWA_get_ground_target = {
-	params ["_side", "_pos"];
-
-	private _sectors = [_side] call ARWA_get_other_sectors;
-	private _unsafe_sectors = [_side] call ARWA_get_unsafe_sectors;
-	private _targets = _sectors + _unsafe_sectors;
-
-	if((count _targets) > 0) exitWith {
-		[_targets, _pos] call ARWA_find_closest_sector;
-	};
-
-	[ARWA_sectors, _pos] call ARWA_find_closest_sector;
-};
-
 ARWA_check_if_has_priority_target = {
 	params ["_group", "_side"];
 
 	private _priority_target = _group getVariable ARWA_KEY_priority_target;
 
-	if(isNil "_priority_target") exitWith { false; };
+	if(isNil "_priority_target") exitWith { false; }; // Ammobox is deleted after a while so this should be sufficient
 
-	private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
-	private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
+	private _owner = _priority_target getVariable ARWA_KEY_owned_by;
 
-	!(_is_safe && _is_captured);
+	if(!isNil "_owner") then { // target is sector
+		private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
+		private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
+
+		!(_is_safe && _is_captured);
+	};
+
+	true; // Because only manpowerboxes has no owner
 };
 
 ARWA_initialize_battlegroup_ai = {

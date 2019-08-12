@@ -23,6 +23,15 @@ ARWA_add_action_text = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
+ARWA_is_in_controlled_area = {
+    params ["_pos"];
+
+    private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
+    private _owner = _closest_sector getVariable ARWA_KEY_owned_by;
+
+    if(!isNil "_owner" && {_owner in ARWA_all_sides}) exitWith { _owner; }
+};
+
 ARWA_spawn_vehicle = {
   params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus", 0]]; // TODO add key
    private _veh_arr = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;

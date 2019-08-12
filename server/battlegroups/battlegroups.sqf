@@ -23,7 +23,7 @@ ARWA_remove_null = {
 };
 
 ARWA_set_special_mission_attr = {
-	params ["_mission_attr", "_group", "_sector"];
+	params ["_mission_attr", "_group", "_target"];
 
 	private _special_forces = _mission_attr select 0;
 	private _priority_target = _mission_attr select 1;
@@ -33,7 +33,7 @@ ARWA_set_special_mission_attr = {
 	};
 
 	if(_priority_target) then {
-		_group setVariable [ARWA_KEY_priority_target, _sector];
+		_group setVariable [ARWA_KEY_priority_target, _target];
 	};
 };
 
@@ -44,13 +44,16 @@ ARWA_add_battle_group = {
 	_group setVariable [ARWA_KEY_soldier_count, _curr_count];
     _group deleteGroupWhenEmpty true;
 
-	((side _group) call ARWA_get_battlegroups) pushBackUnique _group;
-
 	EAST_groups = [EAST_groups] call ARWA_remove_null;
 	WEST_groups = [WEST_groups] call ARWA_remove_null;
 	GUER_groups = [GUER_groups] call ARWA_remove_null;
 
-	_group call ARWA_initialize_battlegroup_ai;
+	private _battlegroups = (side _group) call ARWA_get_battlegroups;
+
+	if(!(_group in _battlegroups)) then {
+		_battlegroups pushBackUnique _group;
+		_group spawn ARWA_initialize_battlegroup_ai;
+	};
 };
 
 ARWA_count_battlegroup_units = {

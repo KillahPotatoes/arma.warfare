@@ -19,6 +19,15 @@ ARWA_west_uav_terminal_class_name = "B_UavTerminal";
 ARWA_east_uav_terminal_class_name = "O_UavTerminal";
 ARWA_guer_uav_terminal_class_name = "I_UavTerminal";
 
+ARWA_civilians = [
+	["C_man_polo_1_F",0],
+	["C_man_polo_2_F",0],
+	["C_man_polo_3_F",0],
+	["C_man_polo_4_F",0],
+	["C_man_polo_5_F",0],
+	["C_man_polo_6_F",0]
+];
+
 ARWA_west_uavs = [
 	["B_UAV_02_F", 30],
 	["B_UAV_02_CAS_F", 30],

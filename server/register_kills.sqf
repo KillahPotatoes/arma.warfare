@@ -90,7 +90,7 @@ ARWA_report_lost_vehicle = {
 	private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
 	private _sector_pos = _closest_sector getVariable ARWA_KEY_pos;
 	private _distance = floor(_sector_pos distance2D _pos);
-	private _location = [_closest_sector getVariable ARWA_KEY_sector_name] call ARWA_replace_underscore;
+	private _location = [_closest_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
 	private _side = _victim getVariable ARWA_KEY_owned_by;
 
 	private _values = if (_distance > 200) then {
@@ -108,8 +108,18 @@ ARWA_kill_ticker = {
 			params ["_victim", "_killer"];
 
 			private _victim_side = side group _victim;
-			private _faction_strength = _victim_side call ARWA_get_strength;
 
+			if(_victim_side isEqualTo civilian && isPlayer _killer) exitWith {
+				private _killer_side = side group _killer;
+				private _killer_faction_strength = _killer_side call ARWA_get_strength;
+
+				private _new_faction_strength = _killer_faction_strength - ARWA_civilian_kill_penalty;
+				private _faction_name = _killer_side call ARWA_get_faction_names;
+				[["ARWA_STR_KILLED_CIVILIAN_PENALTY", _faction_name, ARWA_civilian_kill_penalty]] remoteExec ["ARWA_system_chat", _killer_side];
+				[_killer_side, _new_faction_strength] call ARWA_set_strength;
+			};
+
+			private _faction_strength = _victim_side call ARWA_get_strength;
 			[_victim, _killer, _faction_strength] spawn ARWA_register_kill;
 			[_victim, _victim_side, _faction_strength] spawn ARWA_create_manpower_box_unit;
 		}

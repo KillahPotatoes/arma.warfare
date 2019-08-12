@@ -1,7 +1,7 @@
 
 ARWA_infantry_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = [(_target getVariable ARWA_KEY_pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _pos = _target getVariable ARWA_KEY_pos;
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 5];
@@ -65,7 +65,7 @@ ARWA_join_nearby_group = {
 	_joined_other_group;
 };
 
-ARWA_infantry_move_to_sector = {
+ARWA_infantry_move_to_target = {
 	params ["_new_target", "_group"];
 
 	if ([_group, _new_target] call ARWA_should_change_target && !([_group] call ARWA_join_nearby_group)) then {
@@ -73,7 +73,6 @@ ARWA_infantry_move_to_sector = {
 	};
 
 	if ([_group] call ARWA_needs_new_waypoint) then {
-		private _target = _group getVariable ARWA_KEY_target;
 		[_new_target, _group] call ARWA_infantry_create_waypoint;
 	};
 
@@ -107,9 +106,23 @@ ARWA_infantry_group_ai = {
 		_group getVariable ARWA_KEY_priority_target;
 	} else {
 		_group setVariable [ARWA_KEY_priority_target, nil];
-		[_side, _pos] call ARWA_get_ground_target;
+		[_side, _pos] call ARWA_get_infantry_target;
 	};
 
-	[_target, _group] spawn ARWA_infantry_move_to_sector;
+	[_target, _group] spawn ARWA_infantry_move_to_target;
 	[_group] spawn ARWA_report_casualities_over_radio;
+};
+
+ARWA_get_infantry_target = {
+	params ["_side", "_pos"];
+
+	private _sectors = [_side] call ARWA_get_other_sectors;
+	private _unsafe_sectors = [_side] call ARWA_get_unsafe_sectors;
+	private _targets = _sectors + _unsafe_sectors;
+
+	if((count _targets) > 0) exitWith {
+		[_targets, _pos] call ARWA_find_closest_sector;
+	};
+
+	[ARWA_sectors, _pos] call ARWA_find_closest_sector;
 };

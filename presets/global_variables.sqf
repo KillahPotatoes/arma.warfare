@@ -20,7 +20,7 @@ ARWA_KEY_static = "static";
 ARWA_KEY_respawn_pos = "respawn_pos";
 ARWA_KEY_respawn_ground = "respawn_ground";
 ARWA_KEY_respawn_air = "respawn_air";
-ARWA_KEY_sector_name = "name";
+ARWA_KEY_target_name = "target_name";
 ARWA_KEY_box = "box";
 ARWA_KEY_HQ = "HQ";
 ARWA_KEY_manpower = "manpower";
@@ -62,6 +62,7 @@ ARWA_penalty = "penalty";
 ARWA_kill_bonus = "kill_bonus";
 
 // CONSTANT VARS
+ARWA_civilian_kill_penalty = 10;
 ARWA_respawn_cooldown = 900;
 ARWA_sector_size = 200;
 ARWA_starting_strength  = 500;

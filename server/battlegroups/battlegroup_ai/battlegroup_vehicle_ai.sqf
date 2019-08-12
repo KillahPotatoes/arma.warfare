@@ -1,7 +1,7 @@
 
 ARWA_vehicle_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = [(_target getVariable ARWA_KEY_pos), 0, 25, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _pos = _target getVariable ARWA_KEY_pos;
 
 	// TODO if in sector, its not safe. Change to waypoint type SAD
 	_group call ARWA_delete_all_waypoints;
@@ -70,9 +70,23 @@ ARWA_vehicle_group_ai = {
 		_group getVariable ARWA_KEY_priority_target;
 	} else {
 		_group setVariable [ARWA_KEY_priority_target, nil];
-		[_side, _pos] call ARWA_get_ground_target;
+		[_side, _pos] call ARWA_get_vehicle_target;
 	};
 
 	[_target, _group] spawn ARWA_vehicle_move_to_sector;
 	[_group] spawn ARWA_report_casualities_over_radio;
+};
+
+ARWA_get_vehicle_target = {
+	params ["_side", "_pos"];
+
+	private _sectors = [_side] call ARWA_get_other_sectors;
+	private _unsafe_sectors = [_side] call ARWA_get_unsafe_sectors;
+	private _targets = _sectors + _unsafe_sectors;
+
+	if((count _targets) > 0) exitWith {
+		[_targets, _pos] call ARWA_find_closest_sector_connected_by_road;
+	};
+
+	[ARWA_sectors, _pos] call ARWA_find_closest_sector_connected_by_road;
 };

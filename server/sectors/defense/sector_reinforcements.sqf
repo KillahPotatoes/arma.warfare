@@ -9,19 +9,20 @@ ARWA_calculate_mission_size = {
 };
 
 ARWA_calculate_infantry_weight = {
-	params ["_side", "_sector"];
+	params ["_side", "_pos"];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
-	private _spawn_pos = [_side, _sector] call ARWA_get_closest_infantry_spawn_pos;
+	private _spawn_pos = [_side, _pos] call ARWA_get_closest_infantry_spawn_pos;
 	private _distance_closest_safe_sector = _spawn_pos distance _pos;
 
 	((ARWA_infantry_reinforcement_distance - _distance_closest_safe_sector) / ARWA_infantry_reinforcement_distance) max 0;
 };
 
 ARWA_calcuate_vehicle_weight = {
-	params ["_side", "_sector"];
+	params ["_side", "_pos"];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
+	private _road_at_target = (_pos nearRoads ARWA_sector_size);
+	if(_road_at_target isEqualTo []) exitWith { 0; };
+
 	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
 	private _pos_hq = getMarkerPos _respawn_marker;
 
@@ -29,30 +30,32 @@ ARWA_calcuate_vehicle_weight = {
 };
 
 ARWA_calcuate_heli_weight = {
-	params ["_side", "_sector"];
+	params ["_side", "_pos"];
 
 	private _available_helis = _side call ARWA_get_transport_heli_type;
 
 	if(_available_helis isEqualTo []) exitWith { 0; };
 
-	(1 - ([_side, _sector] call ARWA_calcuate_vehicle_weight)) min 0.5;
+	(1 - ([_side, _pos] call ARWA_calcuate_vehicle_weight)) min 0.5;
 };
 
 ARWA_try_spawn_reinforcements = {
-	params ["_side", "_sector"];
+	params ["_side", "_target"];
 	private _unit_count = _side call ARWA_count_battlegroup_units;
 	private _can_spawn = ([] call ARWA_get_unit_cap) - _unit_count;
 
+	diag_log format["%2: Checking reinforcements: Can spawn %1, required: %3", _can_spawn, _side, ARWA_squad_cap/2];
+
 	if (_can_spawn > (ARWA_squad_cap / 2) && (_side call ARWA_has_manpower)) exitWith {
-		private _pos = _sector getVariable ARWA_KEY_pos;
+		private _pos = _target getVariable ARWA_KEY_pos;
 
 		private _reinforcement_types = [
 			ARWA_KEY_infantry,
-			[_side, _sector] call ARWA_calculate_infantry_weight,
+			[_side, _pos] call ARWA_calculate_infantry_weight,
 			ARWA_KEY_vehicle,
-			[_side, _sector] call ARWA_calcuate_vehicle_weight,
+			[_side, _pos] call ARWA_calcuate_vehicle_weight,
 			ARWA_KEY_helicopter,
-			[_side, _sector] call ARWA_calcuate_heli_weight
+			[_side, _pos] call ARWA_calcuate_heli_weight
 		];
 
 		diag_log format["%2: Checking reinforcements: %1", _reinforcement_types, _side];
@@ -61,18 +64,18 @@ ARWA_try_spawn_reinforcements = {
 		diag_log format["%2: Reinforcing: %1", _reinforcement_type, _side];
 
 		if(_reinforcement_type isEqualTo ARWA_KEY_infantry) exitWith {
-			[_side, _can_spawn, _sector] spawn ARWA_spawn_reinforcement_squad;
+			[_side, _can_spawn, _target] spawn ARWA_spawn_reinforcement_squad;
 			true;
 		};
 
 		if(_reinforcement_type isEqualTo ARWA_KEY_helicopter) exitWith {
-			[_side, _can_spawn, _pos, _sector, [false, true]] spawn ARWA_do_helicopter_insertion;
+			[_side, _can_spawn, _pos, _target, [false, true]] spawn ARWA_do_helicopter_insertion;
 
 			true;
 		};
 
 		if(_reinforcement_type isEqualTo ARWA_KEY_vehicle) exitWith {
-			[_side, _can_spawn, _sector] spawn ARWA_spawn_reinforcement_vehicle_group;
+			[_side, _can_spawn, _target] spawn ARWA_spawn_reinforcement_vehicle_group;
 			true;
 		};
 	};

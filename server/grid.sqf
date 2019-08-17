@@ -97,10 +97,10 @@ ARWA_create_controlled_area_marker = {
 	createMarker[_markers_name, _markers_pos];
 	_markers_name setMarkerShape "RECTANGLE";
 	_markers_name setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
-	_markers_name setMarkerAlpha 0;
+	_markers_name setMarkerAlpha 0.5;
 	// TODO: Remove after testing
-	//_markers_name setMarkerColor ARWA_color;
-	//ARWA_color = if(ARWA_color isEqualTo "ColorRed") then { "ColorPink"; } else { "ColorRed"; };
+	_markers_name setMarkerColor ARWA_color;
+	ARWA_color = if(ARWA_color isEqualTo "ColorRed") then { "ColorPink"; } else { "ColorRed"; };
 
 	_markers_name;
 };

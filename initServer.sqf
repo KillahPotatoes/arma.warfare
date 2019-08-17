@@ -88,6 +88,7 @@ if(ARWA_mine_fields) then {
 [] call ARWA_find_grid_area;
 
 // Game threads
+[] spawn ARWA_assign_markers_to_sectors;
 [] spawn ARWA_end_game_conditions_check;
 [] spawn ARWA_add_kill_ticker_to_all_units;
 [] spawn ARWA_add_kill_ticker_to_all_vehicles;

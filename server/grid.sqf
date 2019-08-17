@@ -61,7 +61,7 @@ ARWA_assign_markers_to_sectors = {
 			_is_water = surfaceIsWater _cell_pos;
 
 			if(!_is_water && _was_water) then {
-				_marker_start = _cell_posy - (ARWA_cell_size/2);
+				_marker_start = _cell_posy;
 			};
 
 			if(!_was_water && _is_water) then {
@@ -86,6 +86,9 @@ ARWA_assign_markers_to_sectors = {
 
 ARWA_create_marker_and_add_to_sector = {
 	params ["_row", "_end", "_start", "_sector"];
+
+	_start = _start - (ARWA_cell_size/2);
+	_end = _end - (ARWA_cell_size/2);
 
 	private _marker_length_y = _end - _start;
 	private _calc_posy = _start + (_marker_length_y/2);

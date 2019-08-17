@@ -66,5 +66,5 @@ player setVariable ["kills", 0, true];
 [] spawn ARWA_initialize_ammo_boxes;
 [] spawn ARWA_create_briefing;
 
-loaded_event = addMissionEventHandler ["Loaded",{ [] spawn ARWA_show_ui; }];
-show_diary_hint = true;
+ARWA_loaded_event = addMissionEventHandler ["Loaded",{ [] spawn ARWA_show_ui; }];
+ARWA_show_diary_hint = true;

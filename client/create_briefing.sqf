@@ -70,6 +70,14 @@ Manpower can be submitted to the faction manpower at the HQ ammobox<br /><br />"
 	];
 
 	player createDiaryRecord ["Diary", [
+		"INTEL & SECTOR RAIDS",
+		"Getting to a sector ammobox before the enemy has lost the sector will give an option to access the enemy network.<br /><br />
+		Depending on how much time there is left before the enemy loses the sector you will be able to see enemy movement on the map for a given time. <br /><br />
+		You will also get additional manpower taken directly from the collected manpower of the faction holding the sector <br /><br />"
+		]
+	];
+
+	player createDiaryRecord ["Diary", [
 		"SECTORS",
 		"Sectors can be captured when a faction is holding the center of a sector and no enemies are within the sector area.<br /><br />
 Players can collect manpower from sectors and get infantry at the ammobox located in the center of the sector. <br /><br />

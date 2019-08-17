@@ -1,8 +1,8 @@
 ARWA_get_next_vehicle_cycle = {
 	params ["_curr_cycle"];
 
-	private _min_cycles_between_vehicle_spawn = 0;
-	private _max_cycles_between_vehicle_spawn = 4;
+	private _min_cycles_between_vehicle_spawn = 2;
+	private _max_cycles_between_vehicle_spawn = 5;
 
 	_curr_cycle + (_min_cycles_between_vehicle_spawn + floor random (_max_cycles_between_vehicle_spawn - _min_cycles_between_vehicle_spawn));
 };

@@ -53,7 +53,6 @@ ARWA_assign_markers_to_sectors = {
 		for "_cell_posy" from (ARWA_grid_start_y + (ARWA_cell_size/2)) to ARWA_grid_end_y step ARWA_cell_size do {
 			private _cell_pos = [_cell_posx, _cell_posy, 0];
 
-
 			private _closest_sector = [ARWA_sectors, _cell_pos] call ARWA_find_closest_sector;
 
 			if(isNil "_current_sector") then {
@@ -98,10 +97,10 @@ ARWA_create_controlled_area_marker = {
 	createMarker[_markers_name, _markers_pos];
 	_markers_name setMarkerShape "RECTANGLE";
 	_markers_name setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
-	_markers_name setMarkerAlpha 0.5;
+	_markers_name setMarkerAlpha 0;
 	// TODO: Remove after testing
-	_markers_name setMarkerColor ARWA_color;
-	ARWA_color = if(ARWA_color isEqualTo "ColorRed") then { "ColorPink"; } else { "ColorRed"; };
+	//_markers_name setMarkerColor ARWA_color;
+	//ARWA_color = if(ARWA_color isEqualTo "ColorRed") then { "ColorPink"; } else { "ColorRed"; };
 
 	_markers_name;
 };
@@ -111,9 +110,16 @@ ARWA_draw_sector_cell = {
 
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
 	private _markers = _sector getVariable [ARWA_KEY_sector_markers, []];
-	private _markers_color = [_owner, true] call BIS_fnc_sideColor;
 
 	{
-		_x setMarkerColor _markers_color;
+		diag_log format["Owner: %1", _owner];
+		if(_owner isEqualTo civilian) then {
+			_x setMarkerAlpha 0;
+		} else {
+			private _markers_color = [_owner, true] call BIS_fnc_sideColor;
+			_x setMarkerAlpha 0.5;
+			_x setMarkerColor _markers_color;
+		};
+
 	} forEach _markers;
 };

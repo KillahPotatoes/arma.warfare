@@ -47,62 +47,60 @@ ARWA_find_grid_area = {
 
 ARWA_assign_markers_to_sectors = {
 	for "_cell_posx" from (ARWA_grid_start_x + (ARWA_cell_size/2)) to ARWA_grid_end_x step ARWA_cell_size do {
-		private _current_sector = nil;
-		private _marker_start = 0;
+		private _marker_start = (ARWA_grid_start_y + (ARWA_cell_size/2));
+
+		private _cell_pos = [_cell_posx, _marker_start];
+		private _current_sector = [ARWA_sectors, _cell_pos] call ARWA_find_closest_sector;
+
+		private _is_water = surfaceIsWater _cell_pos;
+		private _was_water = surfaceIsWater _cell_pos;
 
 		for "_cell_posy" from (ARWA_grid_start_y + (ARWA_cell_size/2)) to ARWA_grid_end_y step ARWA_cell_size do {
-			private _cell_pos = [_cell_posx, _cell_posy, 0];
+			_cell_pos = [_cell_posx, _cell_posy];
+
+			_is_water = surfaceIsWater _cell_pos;
+
+			if(!_is_water && _was_water) then {
+				_marker_start = _cell_posy - (ARWA_cell_size/2);
+			};
+
+			if(!_was_water && _is_water) then {
+				[_cell_posx, _cell_posy, _marker_start, _current_sector] call ARWA_create_marker_and_add_to_sector;
+			};
 
 			private _closest_sector = [ARWA_sectors, _cell_pos] call ARWA_find_closest_sector;
-
-			if(isNil "_current_sector") then {
-				_current_sector = _closest_sector;
+			if(!(_closest_sector isEqualTo _current_sector) && !_is_water) then {
+				[_cell_posx, _cell_posy, _marker_start, _current_sector] call ARWA_create_marker_and_add_to_sector;
 				_marker_start = _cell_posy;
-			} else {
-				if(!(_current_sector isEqualTo _closest_sector)) then {
-
-					private _marker = [_cell_posx, _cell_posy, _marker_start] call ARWA_create_controlled_area_marker;
-					private _markers = _current_sector getVariable [ARWA_KEY_sector_markers, []];
-					_markers pushBack _marker;
-					_current_sector setVariable [ARWA_KEY_sector_markers, _markers];
-
-					_current_sector = _closest_sector;
-					_marker_start = _cell_posy;
-				};
-
 			};
+
+			_current_sector = _closest_sector;
+			_was_water = _is_water;
 		};
 
-		private _marker = [_cell_posx, ARWA_grid_end_y, _marker_start] call ARWA_create_controlled_area_marker;
-		private _markers = _current_sector getVariable [ARWA_KEY_sector_markers, []];
-		_markers pushBack _marker;
-		_current_sector setVariable [ARWA_KEY_sector_markers, _markers];
+		if(!_is_water) then {
+			[_cell_posx, ARWA_grid_end_y, _marker_start, _current_sector] call ARWA_create_marker_and_add_to_sector;
+		}
 	};
 };
 
-ARWA_color = "ColorRed";
+ARWA_create_marker_and_add_to_sector = {
+	params ["_row", "_end", "_start", "_sector"];
 
-ARWA_create_controlled_area_marker = {
-	params ["_posx", "_posy", "_start"];
-
-	diag_log format["_posx: %1, _posy: %2, _start: %1", _posx, _posy, _start];
-
-	private _marker_length_y = _posy - _start;
-	diag_log format["_marker_length_y: %1", _marker_length_y];
-
+	private _marker_length_y = _end - _start;
 	private _calc_posy = _start + (_marker_length_y/2);
-	private _markers_pos = [_posx, _calc_posy, 0];
-	private _markers_name = format["marker_grid_%1_%2", _posx, _posy];
-	diag_log format["%1", _markers_pos];
-	createMarker[_markers_name, _markers_pos];
-	_markers_name setMarkerShape "RECTANGLE";
-	_markers_name setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
-	_markers_name setMarkerAlpha 0.5;
-	// TODO: Remove after testing
-	_markers_name setMarkerColor ARWA_color;
-	ARWA_color = if(ARWA_color isEqualTo "ColorRed") then { "ColorPink"; } else { "ColorRed"; };
+	private _markers_pos = [_row, _calc_posy];
+	private _marker = format["marker_grid_%1_%2", _row, _end];
 
-	_markers_name;
+	createMarker[_marker, _markers_pos];
+	_marker setMarkerShape "RECTANGLE";
+	_marker setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
+	_marker setMarkerAlpha 0;
+	_marker;
+
+	private _markers = _sector getVariable [ARWA_KEY_sector_markers, []];
+	_markers pushBack _marker;
+	_sector setVariable [ARWA_KEY_sector_markers, _markers];
 };
 
 ARWA_draw_sector_cell = {
@@ -112,7 +110,6 @@ ARWA_draw_sector_cell = {
 	private _markers = _sector getVariable [ARWA_KEY_sector_markers, []];
 
 	{
-		diag_log format["Owner: %1", _owner];
 		if(_owner isEqualTo civilian) then {
 			_x setMarkerAlpha 0;
 		} else {

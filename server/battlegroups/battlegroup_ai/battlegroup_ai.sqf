@@ -33,7 +33,7 @@ ARWA_approaching_target = {
 
 	private _target = _group getVariable ARWA_KEY_target;
 
-	if(isNil "_target") exitWith { false; };
+	if(isNil "_target" || {isNull _target}) exitWith { false; };
 	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
 };
 
@@ -42,7 +42,7 @@ ARWA_check_if_has_priority_target = {
 
 	private _priority_target = _group getVariable ARWA_KEY_priority_target;
 
-	if(isNil "_priority_target") exitWith { false; }; // Ammobox is deleted after a while so this should be sufficient
+	if(isNil "_priority_target" || {isNull _priority_target}) exitWith { false; }; // Ammobox is deleted after a while so this should be sufficient
 
 	private _owner = _priority_target getVariable ARWA_KEY_owned_by;
 

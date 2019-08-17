@@ -37,7 +37,7 @@ ARWA_find_grid_area = {
 	} foreach _locations;
 
 	ARWA_grid_size = (ARWA_grid_end_x max ARWA_grid_end_y) - (ARWA_grid_start_x min ARWA_grid_start_y);
-	ARWA_buffer = ARWA_grid_size / 10;
+	ARWA_buffer = (ARWA_grid_size / 10) min 500;
 	ARWA_cell_size = ARWA_grid_size / 100;
 	ARWA_grid_start_x = ARWA_grid_start_x - ARWA_buffer;
 	ARWA_grid_end_x = ARWA_grid_end_x + ARWA_buffer;
@@ -99,7 +99,6 @@ ARWA_create_marker_and_add_to_sector = {
 	_marker setMarkerShape "RECTANGLE";
 	_marker setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
 	_marker setMarkerAlpha 0;
-	_marker;
 
 	private _markers = _sector getVariable [ARWA_KEY_sector_markers, []];
 	_markers pushBack _marker;

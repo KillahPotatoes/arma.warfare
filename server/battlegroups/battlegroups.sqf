@@ -52,7 +52,7 @@ ARWA_add_battle_group = {
 
 	if(!(_group in _battlegroups)) then {
 		_battlegroups pushBackUnique _group;
-		_group spawn ARWA_initialize_battlegroup_ai;
+		_group call ARWA_initialize_battlegroup_ai;
 	};
 };
 

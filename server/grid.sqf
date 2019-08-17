@@ -5,10 +5,19 @@ ARWA_grid_end_y = 0;
 ARWA_grid_size = worldSize;
 
 ARWA_find_grid_area = {
+	private _locations = [];
 	{
-		private _sector_pos = _x getVariable ARWA_KEY_pos;
-		private _posx = _sector_pos select 0;
-		private _posy = _sector_pos select 1;
+		_locations append [(_x getVariable ARWA_KEY_pos)];
+	} foreach ARWA_sectors;
+
+	{
+		private _hq_pos = getMarkerPos ([_x, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		_locations append [_hq_pos];
+	} forEach ARWA_all_sides;
+
+	{
+		private _posx = _x select 0;
+		private _posy = _x select 1;
 
 		if(_posx < ARWA_grid_start_x) then {
 			ARWA_grid_start_x = _posx;
@@ -25,7 +34,7 @@ ARWA_find_grid_area = {
 		if(_posy > ARWA_grid_end_y) then {
 			ARWA_grid_end_y = _posy;
 		};
-	} foreach ARWA_sectors;
+	} foreach _locations;
 
 	ARWA_grid_size = (ARWA_grid_end_x max ARWA_grid_end_y) - (ARWA_grid_start_x min ARWA_grid_start_y);
 	ARWA_buffer = ARWA_grid_size / 10;

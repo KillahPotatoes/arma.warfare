@@ -39,62 +39,72 @@ ARWA_find_grid_area = {
 ARWA_assign_markers_to_sectors = {
 	for "_cell_posx" from (ARWA_grid_start_x + (ARWA_cell_size/2)) to ARWA_grid_end_x step ARWA_cell_size do {
 		private _current_sector = nil;
-		private _marker_start = nil;
+		private _marker_start = 0;
 
 		for "_cell_posy" from (ARWA_grid_start_y + (ARWA_cell_size/2)) to ARWA_grid_end_y step ARWA_cell_size do {
 			private _cell_pos = [_cell_posx, _cell_posy, 0];
 
-			if(!(surfaceIsWater _cell_pos)) then {
-				private _closest_sector = [ARWA_sectors, _cell_pos] call ARWA_find_closest_sector;
 
-				if(isNil "_current_sector") then {
+			private _closest_sector = [ARWA_sectors, _cell_pos] call ARWA_find_closest_sector;
+
+			if(isNil "_current_sector") then {
+				_current_sector = _closest_sector;
+				_marker_start = _cell_posy;
+			} else {
+				if(!(_current_sector isEqualTo _closest_sector)) then {
+
+					private _marker = [_cell_posx, _cell_posy, _marker_start] call ARWA_create_controlled_area_marker;
+					private _markers = _current_sector getVariable [ARWA_KEY_sector_markers, []];
+					_markers pushBack _marker;
+					_current_sector setVariable [ARWA_KEY_sector_markers, _markers];
+
 					_current_sector = _closest_sector;
-					private _marker_start = _cell_posy;
-				} else {
-					if(!(_closest_sector isEqualTo _current_sector)) then {
-
-						private _marker_length_y = _cell_posy - _marker_start;
-						private _markers_pos = [_cell_posx, _marker_start + _marker_length_y/2, 0];
-
-						createMarker[_markers_name, _markers_pos];
-						_markers_name = format["marker_grid_%1_%2", _cell_posx, _cell_posy];
-						_markers_name setMarkerShape "RECTANGLE";
-						_markers_name setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
-						_markers_name setMarkerAlpha 0.5;
-
-						private _markers = _current_sector getVariable ARWA_KEY_sector_markers;
-						_markers pushBack _markers_name;
-
-						_current_sector = _closest_sector;
-						private _marker_start = _cell_posy;
-					};
+					_marker_start = _cell_posy;
 				};
+
 			};
 		};
 
-		private _marker_length_y = ARWA_grid_end_y - _marker_start;
-		private _markers_pos = [_cell_posx, _marker_start + _marker_length_y/2, 0];
-		createMarker[_markers_name, _markers_pos];
-		_markers_name = format["marker_grid_%1_%2", _cell_posx, ARWA_grid_end_y];
-		_markers_name setMarkerShape "RECTANGLE";
-		_markers_name setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
-		_markers_name setMarkerAlpha 0.5;
-
-		private _markers = _current_sector getVariable ARWA_KEY_sector_markers;
-		_markers pushBack _markers_name;
-
+		private _marker = [_cell_posx, ARWA_grid_end_y, _marker_start] call ARWA_create_controlled_area_marker;
+		private _markers = _current_sector getVariable [ARWA_KEY_sector_markers, []];
+		_markers pushBack _marker;
+		_current_sector setVariable [ARWA_KEY_sector_markers, _markers];
 	};
+};
+
+ARWA_color = "ColorRed";
+
+ARWA_create_controlled_area_marker = {
+	params ["_posx", "_posy", "_start"];
+
+	diag_log format["_posx: %1, _posy: %2, _start: %1", _posx, _posy, _start];
+
+	private _marker_length_y = _posy - _start;
+	diag_log format["_marker_length_y: %1", _marker_length_y];
+
+	private _calc_posy = _start + (_marker_length_y/2);
+	private _markers_pos = [_posx, _calc_posy, 0];
+	private _markers_name = format["marker_grid_%1_%2", _posx, _posy];
+	diag_log format["%1", _markers_pos];
+	createMarker[_markers_name, _markers_pos];
+	_markers_name setMarkerShape "RECTANGLE";
+	_markers_name setMarkerSize [(ARWA_cell_size/2), (_marker_length_y/2)];
+	_markers_name setMarkerAlpha 0.5;
+	// TODO: Remove after testing
+	_markers_name setMarkerColor ARWA_color;
+	ARWA_color = if(ARWA_color isEqualTo "ColorRed") then { "ColorPink"; } else { "ColorRed"; };
+
+	_markers_name;
 };
 
 ARWA_draw_sector_cell = {
 	params ["_sector"];
 
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
-	private _markers = _sector getVariable ARWA_KEY_sector_markers;
+	private _markers = _sector getVariable [ARWA_KEY_sector_markers, []];
+	private _markers_color = [_owner, true] call BIS_fnc_sideColor;
 
 	{
-		private _markers_name = _x;
-		private _markers_color = [_owner, true] call BIS_fnc_sideColor;
-		_markers_name setMarkerColor _markers_color;
+		_x setMarkerColor _markers_color;
 	} forEach _markers;
 };

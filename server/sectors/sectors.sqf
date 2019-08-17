@@ -114,8 +114,8 @@ ARWA_get_other_sectors = {
 ARWA_find_closest_sector_connected_by_road = {
 	params ["_sectors", "_pos"];
 
-	_current_sector = _sectors select 0;
-	_shortest_distance = 99999;
+	private _current_sector = _sectors select 0;
+	private _shortest_distance = 99999;
 
 	{
 		_sector_pos = _x getVariable ARWA_KEY_pos;
@@ -137,8 +137,8 @@ ARWA_find_closest_sector_connected_by_road = {
 ARWA_find_closest_sector = {
 	params ["_sectors", "_pos"];
 
-	_current_sector = _sectors select 0;
-	_shortest_distance = 99999;
+	private _current_sector = _sectors select 0;
+	private _shortest_distance = 99999;
 
 	{
 		_sector_pos = _x getVariable ARWA_KEY_pos;

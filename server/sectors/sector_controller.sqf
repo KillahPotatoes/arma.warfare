@@ -91,7 +91,7 @@ ARWA_change_sector_ownership = {
 	};
 
 	[_new_owner, _previous_faction, _sector, _sector_name] call ARWA_reset_sector;
-	[] spawn ARWA_draw_controlled_area_grid;
+	[_sector] spawn ARWA_draw_sector_cell;
 };
 
 ARWA_reinforcements_cool_down = {

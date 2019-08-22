@@ -26,12 +26,6 @@ ARWA_check_houses_to_populate = {
 	private _player_pos = getPos _player;
 
 	_houses = _houses - ARWA_houses_already_checked;
-	_houses = _houses select {
-		private _sector = [_all_owned_sectors, getPos _x] call ARWA_find_closest_sector;
-		private _side = _sector getVariable ARWA_KEY_owned_by;
-		[_x, _player_pos, _sector, _side] call ARWA_house_can_be_populated;
-	};
-
 	_houses = (_houses) call BIS_fnc_arrayShuffle;
 
 	{
@@ -39,13 +33,15 @@ ARWA_check_houses_to_populate = {
 		private _sector = [_all_owned_sectors, getPos _house] call ARWA_find_closest_sector;
 		private _side = _sector getVariable ARWA_KEY_owned_by;
 
-		[_side, _house] call ARWA_populate_house;
+		if([_x, _player_pos, _sector, _side] call ARWA_house_can_be_populated) then {
+			[_side, _house] call ARWA_populate_house;
+		};
 
 		if(ARWA_max_random_enemies <= (count ARWA_random_enemies)) exitWith {};
 
 	} forEach _houses;
 
-	ARWA_houses_already_checked = _houses;
+	ARWA_houses_already_checked append _houses;
 };
 
 ARWA_house_can_be_populated = {
@@ -84,15 +80,10 @@ ARWA_populate_house = {
 
 	_group setBehaviour "SAFE";
 
-	private _positions = [];
-	for "_x" from 0 to (_random_number_of_soldiers - 1) do
-	{
-		_positions pushBack _x;
-	};
-	_positions = _positions call BIS_fnc_arrayShuffle;
+	_allpositions = _allpositions call BIS_fnc_arrayShuffle;
 
 	{
-		_x setPosATL (_allpositions select (_positions select _forEachIndex));
+		_x setPosATL (_allpositions select _forEachIndex);
 		ARWA_random_enemies pushBack _x;
 	} forEach units _group;
 

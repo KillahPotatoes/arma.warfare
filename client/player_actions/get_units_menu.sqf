@@ -20,7 +20,9 @@ ARWA_get_infantry = {
 	_group = group player;
 	_group_count = {alive _x} count units _group;
 	private _rank = rank player;
-	private _squad_cap_based_off_rank = (_rank * 2) + 4;
+	private _rank_index = ARWA_ranks find _rank;
+
+	private _squad_cap_based_off_rank = (_rank_index * 2) + 4;
 
 	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count;
 

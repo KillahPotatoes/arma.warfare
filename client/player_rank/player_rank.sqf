@@ -1,7 +1,8 @@
 ARWA_get_skill_based_on_rank = {
 	private _rank = rank player;
+	private _rank_index = ARWA_ranks find _rank;
 	private _max_rank = (count ARWA_ranks) - 1;
-	(_rank / (_max_rank * 2)) + 0.5;
+	(_rank_index / (_max_rank * 2)) + 0.5;
 };
 
 ARWA_calculate_rank_and_skill = {

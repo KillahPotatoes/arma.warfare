@@ -12,6 +12,12 @@ ARWA_calculate_rank_and_skill = {
 		if(!(_current_rank == _last_rank)) then {
 			private _rank = rank player;
 
+			/*
+			player setCustomAimCoef 1;
+			player setUnitRecoilCoefficient 10;
+			player setStamina 42;
+			*/
+
 			private _new_skill = [_rank] call ARWA_get_skill_based_on_rank;
 			if(player isEqualTo (leader group player)) then {
 				[_new_skill, group player] spawn ARWA_adjust_skill;

@@ -1,8 +1,6 @@
 // KEYS
 
 ARWA_KEY_owned_by = "owned_by";
-ARWA_KEY_rank = "rank";
-ARWA_KEY_kills = "kills";
 ARWA_KEY_active = "active";
 ARWA_KEY_target = "target";
 ARWA_KEY_occupied = "occupied";
@@ -23,7 +21,6 @@ ARWA_KEY_respawn_air = "respawn_air";
 ARWA_KEY_target_name = "target_name";
 ARWA_KEY_box = "box";
 ARWA_KEY_HQ = "HQ";
-ARWA_KEY_manpower = "manpower";
 ARWA_KEY_manpower_box = "manpower-box";
 ARWA_KEY_soldier_count = "s_count";
 ARWA_KEY_defense = "defense";
@@ -78,8 +75,6 @@ ARWA_show_all = false;
 ARWA_capture_time = 60;
 ARWA_uav_flight_height = 1000;
 ARWA_squad_mate_death_penalty = 3;
-ARWA_kills_per_rank = 5;
-ARWA_max_rank = 5;
 ARWA_spawn_forces_interval = 120;
 ARWA_spawn_forces_interval_variation = 60;
 ARWA_tier_base_gunship_respawn_time = 900;

@@ -2,7 +2,7 @@ ARWA_uav_options = [];
 ARWA_cancel_uav_id = nil;
 ARWA_uav_active = false;
 ARWA_uav_recharge_time = (["DroneRechargeTime", 30] call BIS_fnc_getParamValue) * 60;
-ARWA_uav_timer = time + ARWA_uav_recharge_time;
+ARWA_uav_timer = 0;
 
 ARWA_remove_all_uav_options = {
 	{

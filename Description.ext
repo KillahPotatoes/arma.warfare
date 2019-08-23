@@ -220,6 +220,18 @@ class Params
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
+    class requiredDroneRank {
+        title = "Required rank for ordering drone"; // Param name visible in the list
+        values[] = {0,1,2,3,4,5,6}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"PRIVATE", "CORPORAL", "SERGEANT", "LIEUTENANT", "CAPTAIN", "MAJOR", "COLONEL"};
+        default = 4;
+    }
+    class requiredTakeLeadRank {
+        title = "Required rank to take lead of squad"; // Param name visible in the list
+        values[] = {0,1,2,3,4,5,6}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"PRIVATE", "CORPORAL", "SERGEANT", "LIEUTENANT", "CAPTAIN", "MAJOR", "COLONEL"};
+        default = 2;
+    }
     class StartingTier
     {
         title = "Starting tier"; // Param name visible in the list

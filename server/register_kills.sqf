@@ -139,9 +139,31 @@ ARWA_register_kill = {
 		private _killer_side = side group _killer;
 		private _victim_side = side group _victim;
 
-		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides}) then {
+		private _enemy_killed = !(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides};
+
+		if (_enemy_killed) then {
 			_kill_point = _killer_side call ARWA_calculate_kill_points;
 			[_killer_side, _kill_point] call ARWA_increment_kill_counter;
+		};
+
+		private _isKillLeader = isPlayer (leader group _killer) && !(isPlayer _killer);
+
+		if (_isKillLeader && _enemy_killed) then {
+			private _player = leader group _killer;
+
+			_player addRating ARWA_squad_kill_rating;
+		};
+
+		private _isVictimLeader = isPlayer (leader group _victim) && !(isPlayer _victim);
+
+		if (_isVictimLeader) then {
+			private _player = leader group _victim;
+			private _score = rating _player; 
+
+			if(_score > 0) exitWith {
+				private _penalty = -(_score min ARWA_squad_kill_rating);
+				_player addRating _penalty;
+			};
 		};
 
 		if (_victim_side in ARWA_all_sides) then {

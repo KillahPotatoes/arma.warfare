@@ -37,12 +37,13 @@ ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 ARWA_KEY_hacked = "hacked";
 ARWA_KEY_sector_markers = "_sector_markers";
 
-ARWA_KEY_rank1 = "Private";
-ARWA_KEY_rank2 = "Sergant";
-ARWA_KEY_rank3 = "Lieutenant";
-ARWA_KEY_rank4 = "Captain";
-ARWA_KEY_rank5 = "Major";
-ARWA_KEY_rank6 = "Elite";
+ARWA_KEY_rank1 = "PRIVATE";
+ARWA_KEY_rank2 = "CORPORAL";
+ARWA_KEY_rank3 = "SERGEANT";
+ARWA_KEY_rank4 = "LIEUTENANT";
+ARWA_KEY_rank5 = "CAPTAIN";
+ARWA_KEY_rank6 = "MAJOR";
+ARWA_KEY_rank7 = "COLONEL";
 
 ARWA_ranks = [
 	ARWA_KEY_rank1,
@@ -50,7 +51,8 @@ ARWA_ranks = [
 	ARWA_KEY_rank3,
 	ARWA_KEY_rank4,
 	ARWA_KEY_rank5,
-	ARWA_KEY_rank6
+	ARWA_KEY_rank6,
+	ARWA_KEY_rank7
 ];
 
 ARWA_ARRAY_KEY_prefixes = [

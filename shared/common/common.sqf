@@ -33,7 +33,7 @@ ARWA_is_in_controlled_area = {
 };
 
 ARWA_spawn_vehicle = {
-  params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus", 0]]; // TODO add key
+  params ["_pos", "_dir", "_class_name", "_side", ["_kill_bonus", 0]];
    private _veh_arr = [_pos, _dir, _class_name, _side] call BIS_fnc_spawnVehicle;
    private _veh = _veh_arr select 0;
    _veh setVariable [ARWA_KEY_owned_by, _side, true];

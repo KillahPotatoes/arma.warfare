@@ -160,13 +160,6 @@ ARWA_get_sector_manpower = {
 	(_sector getVariable ARWA_KEY_box) getVariable ARWA_KEY_manpower;
 };
 
-ARWA_find_closest_friendly_sector = { // TODO dead code?
-	params ["_side", "_pos"];
-
-	private _sectors = [_side] call ARWA_get_owned_sectors;
-	[_sectors, _pos] call ARWA_find_closest_sector;
-};
-
 ARWA_find_enemy_sectors = {
 	params ["_side"];
 
@@ -179,10 +172,4 @@ ARWA_find_enemy_sectors = {
 	} foreach _enemy;
 
 	_enemy_sectors;
-};
-
-ARWA_count_enemy_sectors = { // TODO dead code?
-	params ["_side"];
-
-	count ([_side] call ARWA_find_enemy_sectors);
 };

@@ -37,14 +37,6 @@ ARWA_capture_sector = {
 
 	_sector setVariable ["reinforements_available", true];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
-	if([_pos, _new_owner] call ARWA_players_nearby_captured_sector && {!(_old_owner isEqualTo civilian) &&  !(_old_owner isEqualTo _new_owner)}) then {
-
-		private _ammo_box = _sector getVariable ARWA_KEY_box;
-		private _manpower = _ammo_box call ARWA_get_manpower;
-		_ammo_box setVariable [ARWA_KEY_manpower, (_manpower), true];
-	};
-
 	diag_log format["%1 has captured %2", _new_owner, _sector_name];
 	_msg = format[localize "ARWA_STR_HAS_CAPTURED_SECTOR", _new_owner call ARWA_get_faction_names, _sector_name];
 	_msg remoteExec ["hint"];

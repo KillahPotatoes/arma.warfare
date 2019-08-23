@@ -1,8 +1,6 @@
 // KEYS
 
 ARWA_KEY_owned_by = "owned_by";
-ARWA_KEY_rank = "rank";
-ARWA_KEY_kills = "kills";
 ARWA_KEY_active = "active";
 ARWA_KEY_target = "target";
 ARWA_KEY_occupied = "occupied";
@@ -23,7 +21,6 @@ ARWA_KEY_respawn_air = "respawn_air";
 ARWA_KEY_target_name = "target_name";
 ARWA_KEY_box = "box";
 ARWA_KEY_HQ = "HQ";
-ARWA_KEY_manpower = "manpower";
 ARWA_KEY_manpower_box = "manpower-box";
 ARWA_KEY_soldier_count = "s_count";
 ARWA_KEY_defense = "defense";
@@ -37,12 +34,13 @@ ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 ARWA_KEY_hacked = "hacked";
 ARWA_KEY_sector_markers = "_sector_markers";
 
-ARWA_KEY_rank1 = "Private";
-ARWA_KEY_rank2 = "Sergant";
-ARWA_KEY_rank3 = "Lieutenant";
-ARWA_KEY_rank4 = "Captain";
-ARWA_KEY_rank5 = "Major";
-ARWA_KEY_rank6 = "Elite";
+ARWA_KEY_rank1 = "PRIVATE";
+ARWA_KEY_rank2 = "CORPORAL";
+ARWA_KEY_rank3 = "SERGEANT";
+ARWA_KEY_rank4 = "LIEUTENANT";
+ARWA_KEY_rank5 = "CAPTAIN";
+ARWA_KEY_rank6 = "MAJOR";
+ARWA_KEY_rank7 = "COLONEL";
 
 ARWA_ranks = [
 	ARWA_KEY_rank1,
@@ -50,7 +48,8 @@ ARWA_ranks = [
 	ARWA_KEY_rank3,
 	ARWA_KEY_rank4,
 	ARWA_KEY_rank5,
-	ARWA_KEY_rank6
+	ARWA_KEY_rank6,
+	ARWA_KEY_rank7
 ];
 
 ARWA_ARRAY_KEY_prefixes = [
@@ -63,9 +62,9 @@ ARWA_penalty = "penalty";
 ARWA_kill_bonus = "kill_bonus";
 
 // CONSTANT VARS
+ARWA_rating_per_rank = 1500;
 ARWA_respawn_cooldown = 900;
 ARWA_sector_size = 200;
-ARWA_starting_strength  = 500;
 ARWA_unit_cap = 90;
 ARWA_defender_cap = 10;
 ARWA_squad_cap = 12;
@@ -75,9 +74,7 @@ ARWA_manpower_generation_time = 60;
 ARWA_show_all = false;
 ARWA_capture_time = 60;
 ARWA_uav_flight_height = 1000;
-ARWA_squad_mate_death_penalty = 3;
-ARWA_kills_per_rank = 5;
-ARWA_max_rank = 5;
+ARWA_squad_kill_rating = 200;
 ARWA_spawn_forces_interval = 120;
 ARWA_spawn_forces_interval_variation = 60;
 ARWA_tier_base_gunship_respawn_time = 900;
@@ -85,6 +82,7 @@ ARWA_tier_0_gunship_respawn_time = 900;
 ARWA_tier_1_gunship_respawn_time = 600;
 ARWA_tier_2_gunship_respawn_time = 300;
 ARWA_cease_fire = false;
+ARWA_infantry_reinforcement_distance = 2000;
 
 // Action priority
 

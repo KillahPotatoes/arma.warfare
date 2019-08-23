@@ -38,8 +38,12 @@ if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(b
 
 ARWA_drone_feature = (["DroneRechargeTime", 30] call BIS_fnc_getParamValue) > 0;
 if(ARWA_drone_feature) then {
+    ARWA_required_drone_rank = ["requiredDroneRank", 4] call BIS_fnc_getParamValue;
+
     [] call compileFinal preprocessFileLineNumbers "client\drone\order_drone_menu.sqf";
 };
+
+ARWA_required_rank_take_lead = ["requiredTakeLeadRank", 2] call BIS_fnc_getParamValue;
 
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";

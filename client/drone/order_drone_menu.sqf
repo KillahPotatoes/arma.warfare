@@ -2,7 +2,7 @@ ARWA_uav_options = [];
 ARWA_cancel_uav_id = nil;
 ARWA_uav_active = false;
 ARWA_uav_recharge_time = (["DroneRechargeTime", 30] call BIS_fnc_getParamValue) * 60;
-ARWA_uav_timer = time + ARWA_uav_recharge_time;
+ARWA_uav_timer = 0;
 
 ARWA_remove_all_uav_options = {
 	{
@@ -26,8 +26,15 @@ ARWA_show_order_uav = {
 	player addAction [[localize "ARWA_STR_REQUEST_DRONE", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
-		if(ARWA_uav_timer > time) exitWith {
+		private _rank = rank player;
+		private _rank_index = ARWA_ranks find _rank;
 
+		if(ARWA_required_drone_rank > _rank_index) exitWith {
+			private _required_rank_name = ARWA_ranks select ARWA_required_drone_rank;
+			systemChat format[localize "ARWA_STR_DRONE_NOT_REQUIRED_RANK", _required_rank_name, _rank];
+		};
+
+		if(ARWA_uav_timer > time) exitWith {
 			private _time_left = ARWA_uav_timer - time;
 			private _wait_minutes = ((_time_left - (_time_left mod 60)) / 60) + 1;
 			systemChat format[localize "ARWA_STR_DRONE_UNAVAILABLE", _wait_minutes];

@@ -8,8 +8,13 @@ ARWA_sector_manpower_generation = {
                   if(_side in ARWA_all_sides) then {
                         private _ammo_box = _sector getVariable ARWA_KEY_box;
                         private _manpower = _ammo_box getVariable ARWA_KEY_manpower;
+                        private _sector_pos = _sector getVariable ARWA_KEY_pos;
 
-                        private _generated = 1 + (_sector call ARWA_get_additional_income_based_on_stationed_players);
+                        private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+                        private _distance_to_HQ = _sector_pos distance2D _hq_pos;
+                        private _manpower_generation_distance_coef = _distance_to_HQ / ARWA_mission_size;
+
+                        private _generated = _manpower_generation_distance_coef * (1 + ([_sector_pos, _side] call ARWA_get_additional_income_based_on_stationed_players));
 
                         _ammo_box setVariable [ARWA_KEY_manpower, (_manpower + _generated), true];
                   };
@@ -39,15 +44,15 @@ ARWA_reset_sector = {
 };
 
 ARWA_get_additional_income_based_on_stationed_players = {
-      params ["_sector"];
-      private _pos = _sector getVariable ARWA_KEY_pos;
-      private _side = _sector getVariable ARWA_KEY_owned_by;
+      params ["_pos", "_side"];
       private _total_factor = 0;
 
       {
             if(alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < ARWA_sector_size) exitWith {
-                  private _rank = _x getVariable [ARWA_KEY_rank, 0];
-                  _total_factor = _total_factor + 1 + (_rank * 0.2);
+                  private _rank = rank _x;
+	            private _rank_index = ARWA_ranks find _rank;
+
+                  _total_factor = _total_factor + 1 + (_rank_index * 0.2);
                   true;
             };
 

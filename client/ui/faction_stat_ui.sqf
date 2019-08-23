@@ -2,28 +2,22 @@
 ARWA_show_ui = {
 
 	with uiNamespace do {
-		ARWA_max_rank = missionNamespace getVariable "ARWA_max_rank";
-		ARWA_kills_per_rank = missionNamespace getVariable "ARWA_kills_per_rank";
-		ARWA_KEY_rank = missionNamespace getVariable "ARWA_KEY_rank";
-		ARWA_KEY_manpower = missionNamespace getVariable "ARWA_KEY_manpower";
-		ARWA_KEY_kills = missionNamespace getVariable "ARWA_KEY_kills";
-		ARWA_ranks =  missionNamespace getVariable "ARWA_ranks";
 		ARWA_all_sides =  missionNamespace getVariable "ARWA_all_sides";
 		ARWA_max_tier =  missionNamespace getVariable "ARWA_max_tier";
 
 		ARWA_get_tier_progress = {
 			params ["_side"];
-			missionNamespace getVariable format ["ARWA_%1_tier_prog",  _side]; // TODO add key
+			missionNamespace getVariable format ["ARWA_%1_tier_prog",  _side];
 		};
 
 		ARWA_get_tier = {
 			params ["_side"];
-			missionNamespace getVariable format ["ARWA_%1_tier",  _side]; // TODO add key
+			missionNamespace getVariable format ["ARWA_%1_tier",  _side];
 		};
 
 		ARWA_get_strength = {
 			params ["_side"];
-			missionNamespace getVariable format ["ARWA_%1_strength",  _side]; // TODO add key
+			missionNamespace getVariable format ["ARWA_%1_strength",  _side];
 		};
 
 		ARWA_print_percentage = {
@@ -59,20 +53,12 @@ ARWA_show_ui = {
 		};
 
 		ARWA_print_rank = {
-
-			private _rank = (player getVariable ARWA_KEY_rank) max 0;
-
-			if(_rank < ARWA_max_rank) then {
-				private _kills = (player getVariable [ARWA_KEY_kills, 0]) max 0;
-				private _percentage = floor(((_kills mod ARWA_kills_per_rank) / ARWA_kills_per_rank) * 100);
-				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", ARWA_ranks select _rank, _percentage, "%"];
-			} else {
-				format["<t color='#000000' align='right' size='1'>%1</t>", ARWA_ranks select _rank];
-			};
+			private _rank = rank player;
+			format["<t color='#000000' align='right' size='1'>%1</t>", _rank];
 		};
 
 		ARWA_print_manpower = {
-			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable ARWA_KEY_manpower];
+			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable "manpower"];
 		};
 
 		[] spawn {

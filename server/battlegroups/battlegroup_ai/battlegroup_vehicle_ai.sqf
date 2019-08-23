@@ -3,7 +3,6 @@ ARWA_vehicle_create_waypoint = {
 	params ["_target", "_group"];
 	private _pos = _target getVariable ARWA_KEY_pos;
 
-	// TODO if in sector, its not safe. Change to waypoint type SAD
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 20];
 	_w setWaypointStatements ["true","[group this] call ARWA_delete_all_waypoints"];

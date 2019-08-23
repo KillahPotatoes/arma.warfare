@@ -28,6 +28,12 @@
          <Key ID="ARWA_STR_STEAL_INTEL">
             <English>Hack enemy network</English>
         </Key>
+         <Key ID="ARWA_STR_DRONE_NOT_REQUIRED_RANK">
+            <English>You do not have the required rank to order a drone. The required rank is %1, and you have the rank of %2</English>
+        </Key>
+         <Key ID="ARWA_STR_LEAD_NOT_REQUIRED_RANK">
+            <English>You do not have the required rank to take lead. The required rank is %1, and you have the rank of %2</English>
+        </Key>
          <Key ID="ARWA_STR_STEAL_INTEL_SUCCESS">
             <English>We managed to access %1s network. Their intel will be visible on our map for %3:%4 minutes and managed to steal %2 of their manpower!</English>
         </Key>

@@ -1,5 +1,5 @@
 ARWA_create_manpower_box_unit = {
-	params ["_victim", "_side", ["_faction_strength", 0]];
+	params ["_victim", "_side"];
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
 
 	if(_manpower > 0 || isPlayer _victim) then {

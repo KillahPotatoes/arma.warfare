@@ -120,6 +120,14 @@ ARWA_can_take_lead = {
 
 ARWA_take_lead_menu = {
 	player addAction [[localize "ARWA_STR_TAKE_LEAD", 0] call ARWA_add_action_text, {
-	(group player) selectLeader player;
+		private _rank = rank player;
+		private _rank_index = ARWA_ranks find _rank;
+
+		if(ARWA_required_rank_take_lead > _rank_index) exitWith {
+			private _required_rank_name = ARWA_ranks select ARWA_required_drone_rank;
+			systemChat format[localize "ARWA_STR_LEAD_NOT_REQUIRED_RANK", _required_rank_name, _rank];
+		};
+
+		(group player) selectLeader player;
 	}, [], ARWA_squad_actions, false, true, "", '[] call ARWA_can_take_lead', 10]
 };

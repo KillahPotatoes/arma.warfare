@@ -245,7 +245,7 @@ ARWA_east_vehicle_transport = [
 ];
 
 ARWA_east_vehicle_tier_2 = [
-	["O_MBT_04_command_F", 40], // TODO
+	["O_MBT_04_command_F", 40],
 	["O_MBT_04_cannon_F", 30],
 	["O_MBT_02_cannon_F", 30],
 	["O_APC_Tracked_02_cannon_F", 30],

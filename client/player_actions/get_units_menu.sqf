@@ -12,15 +12,17 @@ ARWA_remove_all_options = {
 
 ARWA_create_soldier = {
 	params ["_group", "_class_name"];
-	_class_name createUnit[getPos player, _group, "", ([] call ARWA_get_rank_skill)];
+	_class_name createUnit[getPos player, _group, "", ([] call ARWA_get_skill_based_on_rank)];
 };
 
 ARWA_get_infantry = {
 	params ["_class_name"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
-	private _rank = player getVariable [ARWA_KEY_rank, 0];
-	private _squad_cap_based_off_rank = (_rank * 2) + 4;
+	private _rank = rank player;
+	private _rank_index = ARWA_ranks find _rank;
+
+	private _squad_cap_based_off_rank = (_rank_index * 2) + 4;
 
 	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count;
 

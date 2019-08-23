@@ -52,7 +52,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\grid.sqf";
-
+[] call compileFinal preprocessFileLineNumbers "server\calculate_mission_size.sqf";
 // Radio chatter
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 

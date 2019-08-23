@@ -122,7 +122,7 @@ ARWA_kill_ticker = {
 
 			private _faction_strength = _victim_side call ARWA_get_strength;
 			[_victim, _killer, _faction_strength] spawn ARWA_register_kill;
-			[_victim, _victim_side, _faction_strength] spawn ARWA_create_manpower_box_unit;
+			[_victim, _victim_side] spawn ARWA_create_manpower_box_unit;
 		}
 	];
 };
@@ -158,7 +158,7 @@ ARWA_register_kill = {
 
 		if (_isVictimLeader) then {
 			private _player = leader group _victim;
-			private _score = rating _player; 
+			private _score = rating _player;
 
 			if(_score > 0) exitWith {
 				private _penalty = -(_score min ARWA_squad_kill_rating);

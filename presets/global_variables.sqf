@@ -65,7 +65,6 @@ ARWA_kill_bonus = "kill_bonus";
 ARWA_rating_per_rank = 1500;
 ARWA_respawn_cooldown = 900;
 ARWA_sector_size = 200;
-ARWA_starting_strength  = 500;
 ARWA_unit_cap = 90;
 ARWA_defender_cap = 10;
 ARWA_squad_cap = 12;

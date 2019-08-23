@@ -60,7 +60,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
 private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
-ARWA_starting_strength = ["Manpower", ARWA_starting_strength] call BIS_fnc_getParamValue;
+ARWA_starting_strength = ["Manpower", 300] call BIS_fnc_getParamValue;
 ARWA_mine_fields = (["Mines", 1] call BIS_fnc_getParamValue) == 1;
 ARWA_sector_artillery = (["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue) > 0;
 ARWA_sector_artillery_reload_time = ["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue;

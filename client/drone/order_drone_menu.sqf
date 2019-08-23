@@ -29,7 +29,7 @@ ARWA_show_order_uav = {
 		private _rank = rank player;
 		private _rank_index = ARWA_ranks find _rank;
 
-		if(ARWA_required_drone_rank <= _rank_index) exitWith {
+		if(ARWA_required_drone_rank > _rank_index) exitWith {
 			private _required_rank_name = ARWA_ranks select ARWA_required_drone_rank;
 			systemChat format[localize "ARWA_STR_DRONE_NOT_REQUIRED_RANK", _required_rank_name, _rank];
 		};

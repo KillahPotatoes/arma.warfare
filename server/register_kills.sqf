@@ -132,11 +132,6 @@ ARWA_calculate_kill_points = {
 	1 / (((_killer_side countSide allPlayers) + 1) min 2);
 };
 
-ARWA_set_kills = {
-	params ["_player", "_kills"];
-	_player setVariable [ARWA_KEY_kills, 0 max _kills, true];
-};
-
 ARWA_register_kill = {
 	params ["_victim", "_killer", "_faction_strength"];
 
@@ -147,26 +142,6 @@ ARWA_register_kill = {
 		if (!(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides}) then {
 			_kill_point = _killer_side call ARWA_calculate_kill_points;
 			[_killer_side, _kill_point] call ARWA_increment_kill_counter;
-		};
-
-		private _isKillLeader = isPlayer (leader group _killer);
-
-		if ((isPlayer _killer) || _isKillLeader) then {
-			private _player = if(_isKillLeader) then { leader group _killer; } else { _killer; };
-
-			private _kills = _player getVariable [ARWA_KEY_kills, 0];
-			private _new_kills = if(_killer_side isEqualTo _victim_side) then { _kills - 1; } else { _kills + 1; };
-
-			[_player, _new_kills] call ARWA_set_kills;
-		};
-
-		private _isVictimLeader = isPlayer (leader group _victim);
-
-		if (_isVictimLeader) then {
-			private _player = leader group _victim;
-			private _kills = _player getVariable [ARWA_KEY_kills, 0];
-			private _new_kill_score = _kills - ARWA_squad_mate_death_penalty;
-			[_player, _new_kill_score] call ARWA_set_kills;
 		};
 
 		if (_victim_side in ARWA_all_sides) then {

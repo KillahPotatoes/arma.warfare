@@ -46,7 +46,7 @@ ARWA_get_additional_income_based_on_stationed_players = {
 
       {
             if(alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < ARWA_sector_size) exitWith {
-                  private _rank = _x getVariable [ARWA_KEY_rank, 0];
+                  private _rank = rank player;
                   _total_factor = _total_factor + 1 + (_rank * 0.2);
                   true;
             };

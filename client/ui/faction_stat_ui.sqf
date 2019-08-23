@@ -2,7 +2,6 @@
 ARWA_show_ui = {
 
 	with uiNamespace do {
-		ARWA_ranks =  missionNamespace getVariable ARWA_ranks;
 		ARWA_all_sides =  missionNamespace getVariable "ARWA_all_sides";
 		ARWA_max_tier =  missionNamespace getVariable "ARWA_max_tier";
 
@@ -13,7 +12,7 @@ ARWA_show_ui = {
 
 		ARWA_get_tier = {
 			params ["_side"];
-			missionNamespace getVariable format ["ARWA_%1_tier",  _side]; 
+			missionNamespace getVariable format ["ARWA_%1_tier",  _side];
 		};
 
 		ARWA_get_strength = {
@@ -55,7 +54,7 @@ ARWA_show_ui = {
 
 		ARWA_print_rank = {
 			private _rank = rank player;
-			format["<t color='#000000' align='right' size='1'>%1</t>", ARWA_ranks select _rank];
+			format["<t color='#000000' align='right' size='1'>%1</t>", _rank];
 		};
 
 		ARWA_print_manpower = {

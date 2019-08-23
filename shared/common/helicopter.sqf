@@ -1,5 +1,5 @@
 ARWA_spawn_helicopter = {
-	params ["_side", "_helicopter", "_kill_bonus", "_spawn_height"]; // TODO add different height based on helicopter type
+	params ["_side", "_helicopter", "_kill_bonus", "_spawn_height"];
 
 	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
 	private _base_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);

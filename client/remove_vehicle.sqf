@@ -1,7 +1,7 @@
 ARWA_remove_vehicle_action = {
 	params["_veh"];
 
-  	_veh addAction [[localize "ARWA_STR_RETURN_VEHICLE", 0] call ARWA_add_action_text, { // TODO Add localize
+  	_veh addAction [[localize "ARWA_STR_RETURN_VEHICLE", 0] call ARWA_add_action_text, {
     	params ["_target", "_caller"];
 
 		if(0 == count crew _target) exitWith {

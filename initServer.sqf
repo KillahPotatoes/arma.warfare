@@ -38,22 +38,25 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\factions\base_vehicle_spawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\faction_relations.sqf";
 
-// battlegroups
+// spawn battlegroups
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_battlegroups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_infantry_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_vehicle_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
+
+// battlegroups AI
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_air_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_vehicle_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_infantry_ai.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
+
+// Other stuff
 [] call compileFinal preprocessFileLineNumbers "server\grid.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\calculate_mission_size.sqf";
-// Radio chatter
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
 private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
@@ -65,8 +68,6 @@ ARWA_dropped_manpower_deterioration_time = ["DroppedManpowerDeteriorationTime", 
 
 ARWA_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
-
-
 
 // Game setup
 [] call ARWA_initialize_sectors;

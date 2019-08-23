@@ -82,6 +82,7 @@ ARWA_tier_0_gunship_respawn_time = 900;
 ARWA_tier_1_gunship_respawn_time = 600;
 ARWA_tier_2_gunship_respawn_time = 300;
 ARWA_cease_fire = false;
+ARWA_infantry_reinforcement_distance = 2000;
 
 // Action priority
 

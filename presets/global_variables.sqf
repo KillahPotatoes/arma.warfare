@@ -62,6 +62,7 @@ ARWA_penalty = "penalty";
 ARWA_kill_bonus = "kill_bonus";
 
 // CONSTANT VARS
+ARWA_rating_per_rank = 1500;
 ARWA_respawn_cooldown = 900;
 ARWA_sector_size = 200;
 ARWA_starting_strength  = 500;

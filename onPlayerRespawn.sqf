@@ -34,6 +34,7 @@ remove_squad_mates_on_death = {
 reset_player_stats = {
 	params ["_player"];
 
+	_player setUnitRank ARWA_KEY_rank1;
 	_player setVariable [ARWA_KEY_manpower, 0, true];
 };
 

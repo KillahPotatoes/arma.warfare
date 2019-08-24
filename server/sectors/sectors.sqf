@@ -60,7 +60,7 @@ ARWA_get_safe_sectors = {
 ARWA_get_unsafe_sectors = {
 	params ["_side"];
 
-	(_side call ARWA_get_owned_sectors) select { !([_side, _x, _distance] call ARWA_is_sector_safe); };
+	(_side call ARWA_get_owned_sectors) select { !([_side, _x, ARWA_sector_size] call ARWA_is_sector_safe); };
 };
 
 ARWA_get_unowned_sectors = {

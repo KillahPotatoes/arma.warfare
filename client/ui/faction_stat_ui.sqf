@@ -6,6 +6,7 @@ ARWA_show_ui = {
 		ARWA_max_tier =  missionNamespace getVariable "ARWA_max_tier";
 		ARWA_ranks = missionNamespace getVariable "ARWA_ranks";
 		ARWA_rating_per_rank = missionNamespace getVariable "ARWA_rating_per_rank";
+		ARWA_KEY_manpower = missionNamespace getVariable "ARWA_KEY_manpower";
 
 		ARWA_get_tier_progress = {
 			params ["_side"];
@@ -69,7 +70,7 @@ ARWA_show_ui = {
 		};
 
 		ARWA_print_manpower = {
-			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable ["ARWA_KEY_manpower", 0]];
+			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable [ARWA_KEY_manpower, 0]];
 		};
 
 		[] spawn {

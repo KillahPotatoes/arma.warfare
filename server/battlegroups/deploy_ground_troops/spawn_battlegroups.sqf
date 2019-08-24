@@ -27,13 +27,12 @@ ARWA_spawn_battle_groups = {
 
 			if (_can_spawn > ARWA_squad_cap) then {
 				if(_cycle_counter == _next_vehicle_cycle) then {
-					_cycle_counter = _cycle_counter + 1;
 					[_side, _can_spawn] spawn ARWA_spawn_random_vehicle_group;
 					_next_vehicle_cycle = [_cycle_counter] call ARWA_get_next_vehicle_cycle;
 				} else {
-					_cycle_counter = _cycle_counter + 1;
 					[_side, _can_spawn] spawn ARWA_spawn_random_infantry_group;
 				};
+				_cycle_counter = _cycle_counter + 1;
 			};
 		};
 

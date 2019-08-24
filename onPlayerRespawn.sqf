@@ -34,6 +34,10 @@ remove_squad_mates_on_death = {
 reset_player_stats = {
 	params ["_player"];
 
+	_player setCustomAimCoef 1;
+	_player setUnitRecoilCoefficient 1;
+	_player setStamina 60;
+
 	_player setUnitRank ARWA_KEY_rank1;
 	_player setVariable [ARWA_KEY_manpower, 0, true];
 };

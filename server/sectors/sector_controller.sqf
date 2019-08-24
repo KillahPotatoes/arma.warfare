@@ -74,12 +74,10 @@ ARWA_change_sector_ownership = {
 
 	if (!(_old_owner isEqualTo civilian)) then {
 		_sector call ARWA_remove_respawn_position;
-		[_old_owner, _sector] call ARWA_remove_sector;
 	};
 
 	if(!(_new_owner isEqualTo civilian)) then {
 		[_sector, _new_owner] call ARWA_add_respawn_position;
-		[_new_owner, _sector] call ARWA_add_sector;
 	};
 
 	[_new_owner, _previous_faction, _sector, _sector_name] call ARWA_reset_sector;

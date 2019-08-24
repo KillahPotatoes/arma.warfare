@@ -1,7 +1,4 @@
 ARWA_sectors = [];
-ARWA_west_sectors = [];
-ARWA_east_sectors = [];
-ARWA_guer_sectors = [];
 
 ARWA_add_sector_box = {
 	params ["_sector"];
@@ -63,52 +60,25 @@ ARWA_get_safe_sectors = {
 ARWA_get_unsafe_sectors = {
 	params ["_side"];
 
-	private _safe_sectors = [_side, ARWA_sector_size] call ARWA_get_safe_sectors;
-
-	(_side call ARWA_get_owned_sectors) - _safe_sectors;
-};
-
-ARWA_add_sector = {
-	params ["_side", "_sector"];
-	private _sectors = missionNamespace getVariable format["ARWA_%1_sectors", _side];
-	_sectors pushBack _sector;
-};
-
-ARWA_remove_sector = {
-	params ["_side", "_sector"];
-	private _sectors = missionNamespace getVariable format["ARWA_%1_sectors", _side];
-	private _index = _sectors find (_sector);
-	_sectors deleteAt (_index);
+	(_side call ARWA_get_owned_sectors) select { !([_side, _x, _distance] call ARWA_is_sector_safe); };
 };
 
 ARWA_get_unowned_sectors = {
-	private _sectors = ARWA_sectors;
-
-	{
-		_sectors = _sectors - (missionNamespace getVariable format["ARWA_%1_sectors", _x]);
-	} foreach ARWA_all_sides;
-
-	_sectors;
+	ARWA_sectors select { (_x getVariable ARWA_KEY_owner) isEqualTo civilian; };
 };
 
 ARWA_get_owned_sectors = {
 	params ["_side"];
-	missionNamespace getVariable format["ARWA_%1_sectors", _side];
+	ARWA_sectors select { (_x getVariable ARWA_KEY_owner) isEqualTo _side; };
 };
 
 ARWA_get_all_owned_sectors = {
-	private _owned = [];
-
-	{
-		_owned append ([_x] call ARWA_get_owned_sectors);
-	} foreach ARWA_all_sides;
-
-	_owned;
+	ARWA_sectors select { !((_x getVariable ARWA_KEY_owner) isEqualTo civilian); };
 };
 
 ARWA_get_other_sectors = {
 	params ["_side"];
-	ARWA_sectors - (_side call ARWA_get_owned_sectors);
+	ARWA_sectors select { !((_x getVariable ARWA_KEY_owner) isEqualTo _side); };
 };
 
 ARWA_find_closest_sector_connected_by_road = {

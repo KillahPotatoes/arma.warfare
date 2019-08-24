@@ -36,7 +36,7 @@ ARWA_pick_most_valued_player_owned_sector = {
 ARWA_pick_sector = {
 	params ["_side"];
 
-	_sectors = [] call ARWA_get_unowned_sectors;
+	private _sectors = [] call ARWA_get_unowned_sectors;
 
 	if(!(_sectors isEqualTo [])) exitWith { selectRandom _sectors };
 

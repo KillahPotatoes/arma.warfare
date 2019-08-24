@@ -4,6 +4,7 @@ ARWA_show_ui = {
 	with uiNamespace do {
 		ARWA_all_sides =  missionNamespace getVariable "ARWA_all_sides";
 		ARWA_max_tier =  missionNamespace getVariable "ARWA_max_tier";
+		ARWA_ranks = missionNamespace getVariable "ARWA_ranks";
 
 		ARWA_get_tier_progress = {
 			params ["_side"];
@@ -54,8 +55,10 @@ ARWA_show_ui = {
 
 		ARWA_print_rank = {
 			private _rank = rank player;
+			private _max_rank = (count ARWA_ranks) - 1;
+			private _rank_index = ARWA_ranks find _rank;
 
-			if(_rank < ARWA_max_rank) then {
+			if(_rank_index < _max_rank) then {
 				private _rating = (rating player) max 0;
 				private _percentage = floor(((_rating mod ARWA_rating_per_rank) / ARWA_rating_per_rank) * 100);
 				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", _rank, _percentage, "%"];

@@ -23,6 +23,9 @@ ARWA_check_houses_to_populate = {
 	params ["_player", "_all_owned_sectors"];
 
 	private _houses = _player nearObjects ["house", 600];
+	private _houses_to_close = _player nearObjects ["house", 400];
+
+	_houses = _houses - _houses_to_close;
 	private _player_pos = getPos _player;
 
 	_houses = _houses - ARWA_houses_already_checked;
@@ -30,11 +33,22 @@ ARWA_check_houses_to_populate = {
 
 	{
 		private _house = _x;
-		private _sector = [_all_owned_sectors, getPos _house] call ARWA_find_closest_sector;
-		private _side = _sector getVariable ARWA_KEY_owned_by;
+		private _sector = [ARWA_sectors, getPos _house] call ARWA_find_closest_sector;
+		private _owner = _sector getVariable ARWA_KEY_owned_by;
 
-		if([_x, _player_pos, _sector, _side] call ARWA_house_can_be_populated) then {
-			[_side, _house] call ARWA_populate_house;
+		if(!(side _player isEqualTo _owner)) then {
+
+			private _sympathizer_side = if(_owner isEqualTo civilian) then {
+				private _enemies = ARWA_all_sides - [side _player];
+				private _pos = getPos _building;
+				[_enemies, _pos] call ARWA_closest_hq;
+			} else {
+				_owner;
+			};
+
+			if([_house, _player_pos, _player, _sector, _sympathizer_side] call ARWA_house_can_be_populated) then {
+				[_sympathizer_side, _house] call ARWA_populate_house;
+			};
 		};
 
 		if(ARWA_max_random_enemies <= (count ARWA_random_enemies)) exitWith {};
@@ -44,19 +58,36 @@ ARWA_check_houses_to_populate = {
 	ARWA_houses_already_checked append _houses;
 };
 
+ARWA_closest_hq = {
+	params ["_sides", "_pos"];
+
+	private _closest_hq = sides select 0;
+	private _shortest_distance = 99999;
+
+	{
+		private _side = _x;
+		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _distance = _pos distance _hq_pos;
+
+		if (_shortest_distance > _distance) then {
+			_shortest_distance = _distance;
+			_closest_hq = _side;
+		};
+
+	} forEach _sides;
+
+	_closest_hq;
+};
+
 ARWA_house_can_be_populated = {
-	params ["_building", "_player_pos", "_closest_owned_sector", "_owner"];
+	params ["_building", "_player_pos", "_player", "_sector", "_sympathizer_side"];
 
 	private _pos = getPos _building;
-	private _sector_pos = _closest_owned_sector getVariable ARWA_KEY_pos;
-    private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
-    private _closest_sector_pos = _closest_sector getVariable ARWA_KEY_pos;
+	private _sector_pos = _sector getVariable ARWA_KEY_pos;
 
-	(!isNil "_owner") && {!(playerSide isEqualTo _owner)} // area is under control, and not by player
-	&& {(_player_pos distance2D _sector_pos) > (_pos distance2D _sector_pos)} // The house is between the player and the sector
-	&& {(_closest_sector_pos distance2D _pos) > (ARWA_sector_size/2)} // The house is outside the sector center
+	(_sector_pos distance2D _pos) > (ARWA_sector_size/2) // The house is outside the sector center
 	&& {!(_building getVariable [ARWA_KEY_occupied, false])}
-	&& {!([_pos, _owner, 400] call ARWA_any_enemies_in_area)}
+	&& {!([_pos, _sympathizer_side, 400] call ARWA_any_enemies_in_area)}
 };
 
 ARWA_populate_house = {

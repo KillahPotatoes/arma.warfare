@@ -64,21 +64,21 @@ ARWA_get_unsafe_sectors = {
 };
 
 ARWA_get_unowned_sectors = {
-	ARWA_sectors select { (_x getVariable ARWA_KEY_owner) isEqualTo civilian; };
+	ARWA_sectors select { (_x getVariable ARWA_KEY_owned_by) isEqualTo civilian; };
 };
 
 ARWA_get_owned_sectors = {
 	params ["_side"];
-	ARWA_sectors select { (_x getVariable ARWA_KEY_owner) isEqualTo _side; };
+	ARWA_sectors select { (_x getVariable ARWA_KEY_owned_by) isEqualTo _side; };
 };
 
 ARWA_get_all_owned_sectors = {
-	ARWA_sectors select { !((_x getVariable ARWA_KEY_owner) isEqualTo civilian); };
+	ARWA_sectors select { !((_x getVariable ARWA_KEY_owned_by) isEqualTo civilian); };
 };
 
 ARWA_get_other_sectors = {
 	params ["_side"];
-	ARWA_sectors select { !((_x getVariable ARWA_KEY_owner) isEqualTo _side); };
+	ARWA_sectors select { !((_x getVariable ARWA_KEY_owned_by) isEqualTo _side); };
 };
 
 ARWA_find_closest_sector_connected_by_road = {

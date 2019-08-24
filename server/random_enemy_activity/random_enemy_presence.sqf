@@ -1,6 +1,8 @@
 ARWA_random_enemies = [];
 ARWA_max_random_enemies = 10;
 ARWA_houses_already_checked = [];
+ARWA_min_distance_presence = 400;
+ARWA_max_distance_presence = 600;
 
 ARWA_populate_random_houses = {
 	while {true} do {
@@ -21,8 +23,8 @@ ARWA_populate_random_houses = {
 ARWA_check_houses_to_populate = {
 	params ["_player"];
 
-	private _houses = _player nearObjects ["house", 600];
-	private _houses_to_close = _player nearObjects ["house", 400];
+	private _houses = _player nearObjects ["house", ARWA_max_distance_presence];
+	private _houses_to_close = _player nearObjects ["house", ARWA_min_distance_presence];
 
 	_houses = _houses - _houses_to_close;
 	private _player_pos = getPos _player;
@@ -38,7 +40,7 @@ ARWA_check_houses_to_populate = {
 		private _pos = getPos _house;
 		private _distance_to_hq = _hq_pos distance2D _pos;
 
-		if(!(side _player isEqualTo _owner) && _distance_to_hq > 500) then {
+		if(!(side _player isEqualTo _owner) && _distance_to_hq > ARWA_min_distance_presence) then {
 
 			private _sympathizer_side = if(_owner isEqualTo civilian) then {
 				private _enemies = ARWA_all_sides - [side _player];
@@ -88,7 +90,7 @@ ARWA_house_can_be_populated = {
 
 	(_sector_pos distance2D _pos) > (ARWA_sector_size/2) // The house is outside the sector center
 	&& {!(_building getVariable [ARWA_KEY_occupied, false])}
-	&& {!([_pos, _sympathizer_side, 400] call ARWA_any_enemies_in_area)}
+	&& {!([_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
 };
 
 ARWA_populate_house = {

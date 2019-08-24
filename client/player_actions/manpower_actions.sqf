@@ -26,15 +26,15 @@ ARWA_add_store_manpower = {
 ARWA_can_take_manpower = {
   params ["_target"];
 
-  (player distance _target < 3)
-  && {(_target call ARWA_get_manpower) > 0}
+  (player distance _target < 5)
+  && {_target call ARWA_obj_has_manpower};
 };
 
 ARWA_can_store_manpower = {
   params ["_target"];
 
-  player distance _target < 5
-  && {(player call ARWA_get_manpower) > 0};
+  (player distance _target < 5)
+  && {player call ARWA_obj_has_manpower};
 };
 
 ARWA_add_manpower_action = {
@@ -51,13 +51,12 @@ ARWA_add_manpower_action = {
 		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
 
 	}, nil, ARWA_manpower_actions, false, false, "",
-  '[_target, _this] call ARWA_owned_box && [_this] call ARWA_player_has_manpower', 10
+  '[_target, _this] call ARWA_owned_box && [_this] call ARWA_obj_has_manpower', 10
   ];
 };
 
-ARWA_player_has_manpower = {
-    params ["_player"];
+ARWA_obj_has_manpower = {
+    params ["_obj"];
 
-    _manpower = _player getVariable ARWA_KEY_manpower;
-    _manpower > 0;
+    ([_obj] call ARWA_get_manpower) > 0;
 };

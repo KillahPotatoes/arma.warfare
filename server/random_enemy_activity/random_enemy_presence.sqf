@@ -5,11 +5,10 @@ ARWA_houses_already_checked = [];
 ARWA_populate_random_houses = {
 	while {true} do {
 		ARWA_random_enemies = [ARWA_random_enemies] call ARWA_remove_null;
-		private _all_owned_sectors = [] call ARWA_get_all_owned_sectors;
 
-		if(ARWA_max_random_enemies > (count ARWA_random_enemies) && !(_all_owned_sectors isEqualTo [])) then {
+		if(ARWA_max_random_enemies > (count ARWA_random_enemies)) then {
 			{
-				[_x, _all_owned_sectors] call ARWA_check_houses_to_populate;
+				[_x] call ARWA_check_houses_to_populate;
 			} forEach allPlayers;
 
 			ARWA_houses_already_checked = [];
@@ -20,7 +19,7 @@ ARWA_populate_random_houses = {
 };
 
 ARWA_check_houses_to_populate = {
-	params ["_player", "_all_owned_sectors"];
+	params ["_player"];
 
 	private _houses = _player nearObjects ["house", 600];
 	private _houses_to_close = _player nearObjects ["house", 400];
@@ -35,12 +34,14 @@ ARWA_check_houses_to_populate = {
 		private _house = _x;
 		private _sector = [ARWA_sectors, getPos _house] call ARWA_find_closest_sector;
 		private _owner = _sector getVariable ARWA_KEY_owned_by;
+		private _hq_pos = getMarkerPos ([side _player, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _pos = getPos _house;
+		private _distance_to_hq = _hq_pos distance2D _pos;
 
-		if(!(side _player isEqualTo _owner)) then {
+		if(!(side _player isEqualTo _owner) && _distance_to_hq > 500) then {
 
 			private _sympathizer_side = if(_owner isEqualTo civilian) then {
 				private _enemies = ARWA_all_sides - [side _player];
-				private _pos = getPos _building;
 				[_enemies, _pos] call ARWA_closest_hq;
 			} else {
 				_owner;
@@ -61,13 +62,13 @@ ARWA_check_houses_to_populate = {
 ARWA_closest_hq = {
 	params ["_sides", "_pos"];
 
-	private _closest_hq = sides select 0;
+	private _closest_hq = _sides select 0;
 	private _shortest_distance = 99999;
 
 	{
 		private _side = _x;
 		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
-		private _distance = _pos distance _hq_pos;
+		private _distance = _pos distance2D _hq_pos;
 
 		if (_shortest_distance > _distance) then {
 			_shortest_distance = _distance;

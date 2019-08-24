@@ -54,11 +54,18 @@ ARWA_show_ui = {
 
 		ARWA_print_rank = {
 			private _rank = rank player;
-			format["<t color='#000000' align='right' size='1'>%1</t>", _rank];
+
+			if(_rank < ARWA_max_rank) then {
+				private _rating = (rating player) max 0;
+				private _percentage = floor(((_rating mod ARWA_rating_per_rank) / ARWA_rating_per_rank) * 100);
+				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", _rank, _percentage, "%"];
+			} else {
+				format["<t color='#000000' align='right' size='1'>%1</t>", _rank];
+			};
 		};
 
 		ARWA_print_manpower = {
-			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable "manpower"];
+			format["<t color='#8e8a00' align='right' size='1'>Manpower %1</t>", player getVariable ARWA_KEY_manpower];
 		};
 
 		[] spawn {

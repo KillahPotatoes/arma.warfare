@@ -62,9 +62,9 @@ ARWA_show_ui = {
 			if(_rank_index < _max_rank) then {
 				private _rating = (rating player) max 0;
 				private _percentage = floor(((_rating mod ARWA_rating_per_rank) / ARWA_rating_per_rank) * 100);
-				format["<t color='#000000' align='right' size='1'>%1 (%2%3)</t>", _rank, _percentage, "%"];
+				format["<t color='#8e8a00' align='right' size='1'>%1 (%2%3)</t>", _rank, _percentage, "%"];
 			} else {
-				format["<t color='#000000' align='right' size='1'>%1</t>", _rank];
+				format["<t color='#8e8a00' align='right' size='1'>%1</t>", _rank];
 			};
 		};
 

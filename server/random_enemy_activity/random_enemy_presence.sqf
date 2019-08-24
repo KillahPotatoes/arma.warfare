@@ -96,7 +96,7 @@ ARWA_populate_house = {
 
 	private _allpositions = _building buildingPos -1;
 	private _possible_spawns = (count _allpositions) min (ARWA_max_random_enemies - (count ARWA_random_enemies));
-	private _random_number_of_soldiers = random [0, _possible_spawns/2, _possible_spawns];
+	private _random_number_of_soldiers = ceil random [0, _possible_spawns/2, _possible_spawns];
 
 	_building setVariable [ARWA_KEY_occupied, true];
 

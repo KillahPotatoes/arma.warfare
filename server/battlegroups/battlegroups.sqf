@@ -11,15 +11,7 @@ ARWA_get_battlegroups = {
 
 ARWA_remove_null = {
 	params ["_array"];
-	private _new_arr = [];
-
-	{
-      	if (!isNull _x) then {
-        	_new_arr pushBack _x;
-		};
-	} forEach _array;
-
-	_new_arr;
+	_array select { !isNull _x; };
 };
 
 ARWA_set_special_mission_attr = {

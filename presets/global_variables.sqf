@@ -32,7 +32,9 @@ ARWA_KEY_infantry = "infantry";
 ARWA_KEY_priority_target = "priority_target";
 ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
 ARWA_KEY_hacked = "hacked";
-ARWA_KEY_sector_markers = "_sector_markers";
+ARWA_KEY_sector_markers = "sector_markers";
+ARWA_KEY_static_defense = "static_defense";
+ARWA_KEY_sector_defense = "sector_defense";
 
 ARWA_KEY_rank1 = "PRIVATE";
 ARWA_KEY_rank2 = "CORPORAL";
@@ -83,6 +85,8 @@ ARWA_tier_1_gunship_respawn_time = 600;
 ARWA_tier_2_gunship_respawn_time = 300;
 ARWA_cease_fire = false;
 ARWA_infantry_reinforcement_distance = 2000;
+ARWA_static_defense_reinforcement_interval = 900;
+ARWA_sector_defense_reinforcement_interval = 300;
 
 // Action priority
 

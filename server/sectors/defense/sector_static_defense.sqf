@@ -80,7 +80,6 @@ ARWA_remove_static = {
 		_x setDamage 1;
 	} forEach units _group;
 
-	sleep random 60;
 	(_static select 0) setDamage 1
 };
 

@@ -1,9 +1,7 @@
 ARWA_spawn_defense_vehicle = {
 	params ["_group", "_pos"];
 
-	private _rnd = random 100;
-
-	if(_rnd < 30) then {
+	if(selectRandom[true, false]) then {
 
 		private _side = side _group;
 		private _options = [_side, ARWA_KEY_vehicle] call ARWA_get_units_based_on_tier;

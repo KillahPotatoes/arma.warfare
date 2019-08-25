@@ -87,6 +87,9 @@ ARWA_cease_fire = false;
 ARWA_infantry_reinforcement_distance = 2000;
 ARWA_static_defense_reinforcement_interval = 900;
 ARWA_sector_defense_reinforcement_interval = 300;
+ARWA_min_distance_presence = 400;
+ARWA_max_distance_presence = 600;
+ARWA_max_random_enemies = 10;
 
 // Action priority
 

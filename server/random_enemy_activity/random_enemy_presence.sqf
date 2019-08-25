@@ -1,8 +1,5 @@
 ARWA_random_enemies = [];
-ARWA_max_random_enemies = 10;
 ARWA_houses_already_checked = [];
-ARWA_min_distance_presence = 400;
-ARWA_max_distance_presence = 600;
 
 ARWA_populate_random_houses = {
 	while {true} do {
@@ -23,10 +20,7 @@ ARWA_populate_random_houses = {
 ARWA_check_houses_to_populate = {
 	params ["_player"];
 
-	private _houses = _player nearObjects ["house", ARWA_max_distance_presence];
-	private _houses_to_close = _player nearObjects ["house", ARWA_min_distance_presence];
-
-	_houses = _houses - _houses_to_close;
+	private _houses = (_player nearObjects ["house", ARWA_max_distance_presence]) - (_player nearObjects ["house", ARWA_min_distance_presence]);
 	private _player_pos = getPos _player;
 
 	_houses = _houses - ARWA_houses_already_checked;

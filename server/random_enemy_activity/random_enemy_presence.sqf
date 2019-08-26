@@ -6,9 +6,10 @@ ARWA_populate_random_houses = {
 		ARWA_random_enemies = [ARWA_random_enemies] call ARWA_remove_null;
 
 		if(ARWA_max_random_enemies > (count ARWA_random_enemies)) then {
+			private _players = allPlayers call BIS_fnc_arrayShuffle;
 			{
 				[_x] call ARWA_check_houses_to_populate;
-			} forEach allPlayers;
+			} forEach _players;
 
 			ARWA_houses_already_checked = [];
 		};

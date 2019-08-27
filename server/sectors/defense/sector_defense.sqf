@@ -18,7 +18,10 @@ ARWA_spawn_sector_defense = {
 		private _new_sector_defense = [_pos, _owner] call ARWA_spawn_defensive_squad;
 		_sector setVariable [ARWA_KEY_sector_defense, _new_sector_defense];
 
+
 		if(ARWA_sector_artillery) then {
+			sleep 5;
+
 			private _new_static_defense = [_pos, _owner] call ARWA_spawn_static;
 			_sector setVariable [ARWA_KEY_static_defense, _new_static_defense];
 		};

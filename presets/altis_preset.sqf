@@ -27,6 +27,18 @@ ARWA_civilians = [
 	["C_man_polo_6_F",0]
 ];
 
+ARWA_west_interceptors_tier_0 = [
+	["plane", 50]
+];
+
+ARWA_east_interceptors_tier_0 = [
+	["plane", 50]
+];
+
+ARWA_guer_interceptors_tier_0 = [
+	["plane", 50]
+];
+
 ARWA_west_uavs = [
 	["B_UAV_02_F", 30],
 	["B_UAV_02_CAS_F", 30],

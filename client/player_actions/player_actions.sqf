@@ -37,4 +37,5 @@ ARWA_add_HQ_actions = {
 	[_ammo_box, localize "ARWA_STR_GET_VEHICLES", ARWA_KEY_vehicle, ARWA_ground_vehicle_menu, false] call ARWA_create_menu;
 	[_ammo_box, localize "ARWA_STR_GET_HELICOPTERS", ARWA_KEY_helicopter, ARWA_air_vehicle_menu, false] call ARWA_create_menu;
 	[_ammo_box, localize "ARWA_STR_GET_INFANTRY", ARWA_KEY_infantry, ARWA_infantry_menu, false] call ARWA_create_menu;
+	[_ammo_box, localize "ARWA_STR_GET_INTERCEPTORS", ARWA_KEY_interceptors, ARWA_interceptor_menu, false] call ARWA_create_menu;
 };

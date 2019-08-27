@@ -80,6 +80,18 @@ ARWA_get_manpower = {
     floor(_obj getVariable [ARWA_KEY_manpower, 0]);
 };
 
+ARWA_get_all_units = {
+	params ["_side", "_type"];
+
+	private _options = [];
+
+	for "_x" from 0 to ARWA_max_tier step 1 do {
+		_options append (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
+	};
+
+	_options;
+};
+
 ARWA_get_units_based_on_tier = {
 	params ["_side", "_type"];
 

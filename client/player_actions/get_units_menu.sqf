@@ -53,6 +53,15 @@ ARWA_get_vehicle = {
 	systemChat format[localize "ARWA_STR_OBSTRUCTING_THE_RESPAWN_AREA", _type];
 };
 
+ARWA_get_interceptor = {
+	params ["_base_marker", "_class_name", "_penalty"];
+	private _pos = getPos _base_marker;
+
+	private _veh = _class_name createVehicle _pos;
+
+	// TODO set velocity and teleport player into it
+};
+
 ARWA_list_options = {
 	params ["_type", "_priority", "_box", "_title"];
 
@@ -92,6 +101,11 @@ ARWA_list_options = {
 
 			if(_type isEqualTo ARWA_KEY_infantry) then {
 				[_class_name] call ARWA_get_infantry;
+			} else if (_type isEqualTo ARWA_KEY_interceptors) then {
+				private _base_marker_name = [playerSide, "air"] call ARWA_get_prefixed_name;
+				private _base_marker = missionNamespace getVariable _base_marker_name;
+
+				[_base_marker, _class_name, _penalty] call ARWA_get_interceptor;
 			} else {
 				private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;
 				private _base_marker = missionNamespace getVariable _base_marker_name;

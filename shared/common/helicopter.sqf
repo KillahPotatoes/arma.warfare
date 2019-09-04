@@ -4,7 +4,7 @@ ARWA_spawn_helicopter = {
 	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
 	private _base_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 	private _dir = _pos getDir _base_pos;
-	private _pos = [_pos select 0, _pos select 1, (_pos select 2) + _spawn_height];
+	private _pos = [_pos select 0, _pos select 1, _spawn_height];
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 

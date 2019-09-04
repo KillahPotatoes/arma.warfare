@@ -52,6 +52,9 @@
             <English>Take manpower</English>
             <German>MP aufnehmen</German>
         </Key>
+        <Key ID="ARWA_STR_GET_INTERCEPTORS">
+            <English>Get interceptors</English>
+        </Key>
          <Key ID="ARWA_STR_CANCELING_TRANSPORT_MISSION">
             <English>Transport mission cancelled</English>
             <German>Transporteinsatz abgebrochen</German>

@@ -54,13 +54,35 @@ ARWA_get_vehicle = {
 };
 
 ARWA_get_interceptor = {
-	params ["_base_marker", "_class_name", "_penalty"];
-	private _pos = getPos _base_marker;
+	params ["_class_name", "_penalty"];
+	private _pos = getMarkerPos ([playerSide, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _base_pos = getMarkerPos ([playerSide, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+	private _dir = _pos getDir _base_pos;
+	private _pos = [_pos select 0, _pos select 1, 2000];
 
-	private _veh = _class_name createVehicle _pos;
+	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
-	// TODO set velocity and teleport player into it
+	private _veh_arr = [_pos,_dir,_class_name, group player] call BIS_fnc_spawnVehicle;
+	private _veh = _veh_arr select 0;
+
+	_veh setVariable [ARWA_penalty, _penalty, true];
+	_veh setVariable [ARWA_kill_bonus, _penalty, true];
+	_veh setVariable [ARWA_KEY_owned_by, playerSide, true];
+
+	private _vel_veh = velocity _veh;
+	private _dir_veh = direction _veh;
+	private _speed_veh = 300;
+
+	_veh setVelocity [
+		(_vel_veh select 0) + (sin _dir_veh * _speed_veh),
+		(_vel_veh select 1) + (cos _dir_veh * _speed_veh),
+		(_vel_veh select 2)
+	];
+
+	deleteVehicle (driver _veh);
+	player moveInDriver _veh;
 };
+
 
 ARWA_list_options = {
 	params ["_type", "_priority", "_box", "_title"];
@@ -99,19 +121,18 @@ ARWA_list_options = {
 				systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
 			};
 
-			if(_type isEqualTo ARWA_KEY_infantry) then {
+			if(_type isEqualTo ARWA_KEY_infantry) exitWith {
 				[_class_name] call ARWA_get_infantry;
-			} else if (_type isEqualTo ARWA_KEY_interceptors) then {
-				private _base_marker_name = [playerSide, "air"] call ARWA_get_prefixed_name;
-				private _base_marker = missionNamespace getVariable _base_marker_name;
-
-				[_base_marker, _class_name, _penalty] call ARWA_get_interceptor;
-			} else {
-				private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;
-				private _base_marker = missionNamespace getVariable _base_marker_name;
-
-				[_base_marker, _class_name, _penalty] call ARWA_get_vehicle;
 			};
+
+			if (_type isEqualTo ARWA_KEY_interceptors) exitWith {
+				[_class_name, _penalty] call ARWA_get_interceptor;
+			};
+
+			private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;
+			private _base_marker = missionNamespace getVariable _base_marker_name;
+
+			[_base_marker, _class_name, _penalty] call ARWA_get_vehicle;
 
 		}, [_class_name, _penalty, _type, _box, _title], (_priority - 1), false, true, "", '', 10]);
 

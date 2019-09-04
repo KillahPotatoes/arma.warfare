@@ -28,15 +28,18 @@ ARWA_civilians = [
 ];
 
 ARWA_west_interceptors_tier_0 = [
-	["plane", 50]
+	["B_Plane_Fighter_01_F", 50],
+	["B_Plane_CAS_01_dynamicLoadout_F", 50]
 ];
 
 ARWA_east_interceptors_tier_0 = [
-	["plane", 50]
+	["O_Plane_CAS_02_dynamicLoadout_F", 50],
+	["O_Plane_Fighter_02_F", 50]
 ];
 
 ARWA_guer_interceptors_tier_0 = [
-	["plane", 50]
+	["I_Plane_Fighter_04_F", 50],
+	["I_Plane_Fighter_03_dynamicLoadout_F", 50]
 ];
 
 ARWA_west_uavs = [

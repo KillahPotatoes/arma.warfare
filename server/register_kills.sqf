@@ -107,22 +107,8 @@ ARWA_kill_ticker = {
 	_this addMPEventHandler ['MPKilled',{
 			params ["_victim", "_killer"];
 
-			private _victim_side = side group _victim;
-
-			if(_victim_side isEqualTo civilian && isPlayer _killer) exitWith {
-				private _killer_side = side group _killer;
-				private _killer_faction_strength = _killer_side call ARWA_get_strength;
-
-				private _civilian_kill_penalty = ARWA_starting_strength / 10;
-				private _new_faction_strength = _killer_faction_strength - _civilian_kill_penalty;
-				private _faction_name = _killer_side call ARWA_get_faction_names;
-				[["ARWA_STR_KILLED_CIVILIAN_PENALTY", _faction_name, _civilian_kill_penalty]] remoteExec ["ARWA_system_chat", _killer_side];
-				[_killer_side, _new_faction_strength] call ARWA_set_strength;
-			};
-
-			private _faction_strength = _victim_side call ARWA_get_strength;
-			[_victim, _killer, _faction_strength] spawn ARWA_register_kill;
-			[_victim, _victim_side] spawn ARWA_create_manpower_box_unit;
+			[_victim, _killer] spawn ARWA_register_kill;
+			[_victim] spawn ARWA_create_manpower_box_unit;
 		}
 	];
 };
@@ -138,6 +124,15 @@ ARWA_register_kill = {
 	if (!(isNil "_victim" || isNil "_killer")) then {
 		private _killer_side = side group _killer;
 		private _victim_side = side group _victim;
+		private _manpower_penalty = ARWA_starting_strength / 10;
+
+		if(_victim_side isEqualTo civilian && isPlayer _killer) exitWith {
+			private _killer_faction_strength = (_killer_side call ARWA_get_strength) - _manpower_penalty;
+			[_killer_side, _killer_faction_strength] call ARWA_set_strength;
+
+			private _faction_name = _killer_side call ARWA_get_faction_names;
+			[["ARWA_STR_KILLED_CIVILIAN_PENALTY", _faction_name, _manpower_penalty]] remoteExec ["ARWA_system_chat", _killer_side];
+		};
 
 		private _enemy_killed = !(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides};
 
@@ -167,9 +162,15 @@ ARWA_register_kill = {
 		};
 
 		if (_victim_side in ARWA_all_sides) then {
-			_death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
+			private _victim_faction_strength = _victim_side call ARWA_get_strength;
 
-			private _new_faction_strength = if(isPlayer _victim) then { _faction_strength - (ARWA_starting_strength / 10); } else { _faction_strength - _death_penalty };
+			private _new_faction_strength = if(isPlayer _victim) then {
+				_victim_faction_strength - _manpower_penalty;
+			} else {
+				private _death_penalty = ((_victim_side countSide allPlayers) + 1) min 2;
+				_victim_faction_strength - _death_penalty;
+			};
+
 			[_victim_side, _new_faction_strength] call ARWA_set_strength;
 		};
 	};

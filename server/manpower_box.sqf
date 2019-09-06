@@ -1,5 +1,5 @@
 ARWA_create_manpower_box_unit = {
-	params ["_victim", "_side"];
+	params ["_victim"];
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
 
 	if(_manpower > 0 || isPlayer _victim) then {
@@ -16,7 +16,7 @@ ARWA_create_manpower_box_unit = {
 			sleep 30;
 		};
 
-		[_manpower_box_value, _victim, _side] spawn ARWA_create_manpower_box;
+		[_manpower_box_value, _victim] spawn ARWA_create_manpower_box;
 	};
 };
 
@@ -37,13 +37,14 @@ ARWA_create_manpower_box_vehicle = {
 };
 
 ARWA_create_manpower_box = {
-	params ["_manpower", "_victim", "_victim_side"];
+	params ["_manpower", "_victim"];
 
 	private _pos = getPos _victim;
 	private _safe_pos = [_pos, 0, 5, 1, 1, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
 	private _manpower_box = ARWA_manpower_box createVehicle (_safe_pos);
 	_manpower_box setVariable [ARWA_KEY_manpower, _manpower, true];
 
+	private _victim_side = side group _victim;
 	private _color = [_victim_side, true] call BIS_fnc_sideColor;
 	private _marker_name = format["%1-%2", ARWA_KEY_manpower_box, time];
 

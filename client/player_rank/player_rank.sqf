@@ -9,9 +9,11 @@ ARWA_calculate_rank_and_skill = {
 	private _last_rating = rating player;
 	while {true} do {
 		private _current_rating = rating player;
+
 		private _new_rank_index = (_current_rating - (_current_rating % ARWA_rating_per_rank)) / ARWA_rating_per_rank;
 		private _max_rank = (count ARWA_ranks) - 1;
-		private _new_rank = ARWA_ranks select (_new_rank_index min _max_rank);
+		private _new_rank = ARWA_ranks select ((_new_rank_index min _max_rank) max 0);
+		// systemChat format["_new_rank_index: %1, _max_rank: %2, _new_rank: %3", _new_rank_index, _max_rank, _new_rank];
 
 		if(!(_new_rank isEqualTo (rank player))) then {
 			diag_log format["_new_rank: %1", _new_rank];

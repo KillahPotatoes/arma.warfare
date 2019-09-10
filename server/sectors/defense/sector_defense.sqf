@@ -52,7 +52,7 @@ ARWA_reinforce_sector_defense = {
 };
 
 ARWA_reinforce_static_defense = {
-	params ["_sector", "_side", "_pos"];
+	params ["_sector", "_pos"];
 
 	private _static_defense = _sector getVariable ARWA_KEY_static_defense;
 	private _initial_owner = side (_static_defense select 2);

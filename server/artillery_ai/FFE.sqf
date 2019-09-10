@@ -10,8 +10,8 @@ if (isNil "RydFFE_ArtyShells") then {RydFFE_ArtyShells = 1};
 if (isNil "RydFFE_Interval") then {RydFFE_Interval = 10};
 if (isNil "RydFFE_Debug") then {RydFFE_Debug = false};
 if (isNil "RydFFE_FO") then {RydFFE_FO = []};
-if (isNil "RydFFE_2PhWithoutFO") then {RydFFE_2PhWithoutFO = true};
-if (isNil "RydFFE_OnePhase") then {RydFFE_OnePhase = false};
+if (isNil "RydFFE_2PhWithoutFO") then {RydFFE_2PhWithoutFO = false};
+if (isNil "RydFFE_OnePhase") then {RydFFE_OnePhase = true};
 
 if (isNil ("RydFFE_Amount")) then {RydFFE_Amount = 6};
 //if (isNil ("RydFFE_Disp")) then {RydFFE_Disp = 0.4};

@@ -24,6 +24,12 @@ ARWA_pick_sympathizers = {
 	[_preset, _number] call ARWA_create_squad;
 };
 
+ARWA_pick_sympathizers_commander = {
+	params ["_side"];
+
+	selectRandom (missionNamespace getVariable format["ARWA_%1_sympathizers_commander", _side]) select 0; 
+};
+
 ARWA_create_group = {
 	params ["_pos", "_side", "_squad", "_dynamicSimulation"];
 
@@ -42,7 +48,17 @@ ARWA_spawn_infantry = {
 };
 
 ARWA_spawn_sympathizers = {
-	params ["_pos", "_side", "_number"];
+	params ["_pos", "_side", "_number", "_commander"];
+
+	if(_commander) exitWith {
+		private _squad = [_side - 1, _number] call ARWA_pick_sympathizers;
+		private _commander = [_side] call ARWA_pick_sympathizers_commander;
+		private _commander_manpower = random[ARWA_min_commander_manpower, ARWA_min_commander_manpower, ARWA_max_commander_manpower];
+		diag_log format["Spawn %1 sympathizer commander with %2 manpower", _side, _commander_manpower];
+ 		_commander setVariable [ARWA_KEY_manpower, _commander_manpower, true];
+		_squad append [_commander];
+		[_pos, _side, _squad, true] call ARWA_create_group;
+	};
 
 	private _squad = [_side, _number] call ARWA_pick_sympathizers;
 	[_pos, _side, _squad, true] call ARWA_create_group;

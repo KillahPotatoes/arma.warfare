@@ -44,6 +44,10 @@ ARWA_guer_uavs = [
 	["I_UAV_02_CAS_F", 30]
 ];
 
+ARWA_west_sympathizers_commander = [
+	["B_G_Soldier_TL_F", 0]
+];
+
 ARWA_west_sympathizers = [
 	["B_G_Soldier_TL_F", 0],
 	["B_G_Soldier_M_F", 0],
@@ -56,6 +60,10 @@ ARWA_west_sympathizers = [
 	["B_G_Sharpshooter_F", 0]
 ];
 
+ARWA_east_sympathizers_commander = [
+	["B_G_Soldier_TL_F", 0]
+];
+
 ARWA_east_sympathizers = [
 	["O_G_Soldier_TL_F", 0],
 	["O_G_Soldier_M_F", 0],
@@ -66,6 +74,10 @@ ARWA_east_sympathizers = [
 	["O_G_engineer_F", 0],
 	["O_G_medic_F", 0],
 	["O_G_Sharpshooter_F", 0]
+];
+
+ARWA_guer_sympathizers_commander = [
+	["B_G_Soldier_TL_F", 0]
 ];
 
 ARWA_guer_sympathizers = [

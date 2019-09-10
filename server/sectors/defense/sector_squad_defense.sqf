@@ -1,7 +1,14 @@
 ARWA_spawn_defensive_squad = {
 	params ["_pos", "_side"];
 
-	private _number_of_soldiers = ARWA_defender_cap call ARWA_calc_number_of_soldiers;
+	private _has_manpower = _side call ARWA_has_manpower;
+
+	private _number_of_soldiers = if(_has_manpower) then {
+		ARWA_defender_cap call ARWA_calc_number_of_soldiers;
+	} else {
+		1;
+	};
+
     private _group = [[_pos select 0, _pos select 1, 3000], _side, _number_of_soldiers, true] call ARWA_spawn_infantry;
 
 	[_group, _pos] call ARWA_place_defensive_soldiers;

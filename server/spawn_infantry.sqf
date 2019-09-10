@@ -48,8 +48,9 @@ ARWA_spawn_sympathizers = {
 	private _group = [_pos, _side, _squad, true] call ARWA_create_group;
 
 	if(_commander) then {
-		private _commander = selectRandom _group;
-		private _commander_manpower = random[ARWA_min_commander_manpower, ARWA_min_commander_manpower, ARWA_max_commander_manpower];
+		private _commander = selectRandom units _group;
+		private _commander_manpower = floor random[ARWA_min_commander_manpower, ARWA_min_commander_manpower, ARWA_max_commander_manpower];
+
 		diag_log format["Spawn %1 sympathizer commander with %2 manpower", _side, _commander_manpower];
  		_commander setVariable [ARWA_KEY_manpower, _commander_manpower, true];
 		_commander addHeadgear "H_Beret_Colonel";

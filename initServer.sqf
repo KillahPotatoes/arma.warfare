@@ -31,7 +31,6 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_vehicle_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_squad_defense.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_static_defense.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\sectors\defense\sector_reinforcements.sqf";
 
 // Faction
 [] call compileFinal preprocessFileLineNumbers "server\factions\faction_strength.sqf";
@@ -46,6 +45,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_reinforcements.sqf";
 
 // battlegroups AI
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_ai.sqf";

@@ -38,13 +38,8 @@ ARWA_initialize_vehicle_group_ai = {
 ARWA_vehicle_move_to_sector = {
 	params ["_new_target", "_group"];
 
-	if ([_group, _new_target] call ARWA_should_change_target) then {
+	if ([_group, _new_target] call ARWA_should_change_target || [_group] call ARWA_needs_new_waypoint) then {
 		[_new_target, _group] call ARWA_vehicle_create_waypoint;
-	};
-
-	if ([_group] call ARWA_needs_new_waypoint) then {
-		private _target = _group getVariable ARWA_KEY_target;
-		[_target, _group] call ARWA_vehicle_create_waypoint;
 	};
 
 	if ([_group] call ARWA_approaching_target) then {

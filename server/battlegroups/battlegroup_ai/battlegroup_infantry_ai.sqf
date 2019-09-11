@@ -68,11 +68,7 @@ ARWA_join_nearby_group = {
 ARWA_infantry_move_to_target = {
 	params ["_new_target", "_group"];
 
-	if ([_group, _new_target] call ARWA_should_change_target && !([_group] call ARWA_join_nearby_group)) then {
-		[_new_target, _group] call ARWA_infantry_create_waypoint;
-	};
-
-	if ([_group] call ARWA_needs_new_waypoint) then {
+	if (([_group, _new_target] call ARWA_should_change_target && !([_group] call ARWA_join_nearby_group)) || [_group] call ARWA_needs_new_waypoint) then {
 		[_new_target, _group] call ARWA_infantry_create_waypoint;
 	};
 

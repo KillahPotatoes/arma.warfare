@@ -46,7 +46,7 @@ ARWA_check_if_has_priority_target = {
 
 	private _owner = _priority_target getVariable ARWA_KEY_owned_by;
 
-	if(!isNil "_owner") then { // target is sector
+	if(!isNil "_owner") exitWith { // target is sector
 		private _is_safe = [_side, _priority_target, ARWA_sector_size] call ARWA_is_sector_safe;
 		private _is_captured = (_priority_target getVariable ARWA_KEY_owned_by) isEqualTo _side;
 

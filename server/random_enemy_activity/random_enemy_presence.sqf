@@ -99,7 +99,7 @@ ARWA_populate_house = {
 	if(_random_number_of_soldiers == 0) exitWith {};
 
 	private _group = if(selectRandom[true, false]) then {
-		private _commander = _random_number_of_soldiers >  floor (ARWA_max_random_enemies/3) && (selectRandom[true, false, _controlled_by in ARWA_all_sides]);
+		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[true, false, _controlled_by in ARWA_all_sides]);
 		diag_log format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side];
 	 	[[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
 	} else {

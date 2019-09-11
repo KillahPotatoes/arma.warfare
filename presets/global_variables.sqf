@@ -90,8 +90,10 @@ ARWA_sector_defense_reinforcement_interval = 300;
 ARWA_min_distance_presence = 400;
 ARWA_max_distance_presence = 600;
 ARWA_max_random_enemies = 10;
+ARWA_required_sympathizers_for_commander_spawn = 3;
 ARWA_min_commander_manpower = 10;
-ARWA_max_commander_manpower = 50;
+ARWA_max_commander_manpower = 30;
+
 
 // Action priority
 

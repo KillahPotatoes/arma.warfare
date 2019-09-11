@@ -46,6 +46,8 @@ ARWA_induce_vehicle_kill_bonus = {
 			private _killer_side = side group _killer;
 			private _victim_side = _victim getVariable ARWA_KEY_owned_by;
 
+			if(isNil "_victim_side") exitWith {};
+
 			if (!(_victim_side isEqualTo _killer_side) && {isPlayer _killer}) then {
 				private _kill_bonus = _victim getVariable [ARWA_kill_bonus, 0];
 
@@ -72,6 +74,8 @@ ARWA_induce_lost_vehicle_penalty = {
 	if(_penalty > 0) exitWith {
 		private _side = _victim getVariable ARWA_KEY_owned_by;
 
+		if(isNil "_side") exitWith {};
+
 		private _faction_strength = _side call ARWA_get_strength;
 		private _new_faction_strength = _faction_strength - _penalty;
 		[_side, _new_faction_strength] call ARWA_set_strength;
@@ -92,6 +96,8 @@ ARWA_report_lost_vehicle = {
 	private _distance = floor(_sector_pos distance2D _pos);
 	private _location = [_closest_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
 	private _side = _victim getVariable ARWA_KEY_owned_by;
+
+	if(isNil "_side") exitWith {};
 
 	private _values = if (_distance > 200) then {
 		private _direction = [_sector_pos, _pos] call ARWA_get_direction;

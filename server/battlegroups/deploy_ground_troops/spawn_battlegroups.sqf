@@ -23,7 +23,7 @@ ARWA_spawn_battle_groups = {
 
 		if(_side call ARWA_has_manpower && !ARWA_cease_fire) then {
 			private _unit_count = _side call ARWA_count_battlegroup_units;
-			private _can_spawn = ([] call ARWA_get_unit_cap) - _unit_count;
+			private _can_spawn = floor (([] call ARWA_get_unit_cap) * (2/3)) - _unit_count;
 
 			if (_can_spawn > ARWA_squad_cap) then {
 				if(_cycle_counter == _next_vehicle_cycle) then {

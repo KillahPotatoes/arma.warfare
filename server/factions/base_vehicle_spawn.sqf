@@ -8,12 +8,17 @@ ARWA_spawn_base_ammobox = {
 	_ammo_box enableRopeAttach false;
 
 	_ammo_box setVariable [ARWA_KEY_HQ, true, true];
-
 	_ammo_box setVariable [ARWA_KEY_owned_by, _side, true];
+	_ammo_box setVariable [ARWA_KEY_pos, getPos _ammo_box];
+
+	_ammo_box;
 };
 
 ARWA_initialize_bases = {
+	private _hq_bases = [];
 	{
-		[_x] call ARWA_spawn_base_ammobox;
+		_hq_bases pushBack ([_x] call ARWA_spawn_base_ammobox);
 	} foreach ARWA_all_sides;
+
+	_hq_bases;
 };

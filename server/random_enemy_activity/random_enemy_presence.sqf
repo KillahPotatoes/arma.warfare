@@ -26,15 +26,15 @@ ARWA_check_houses_to_populate = {
 	_houses = _houses - ARWA_houses_already_checked;
 	_houses = (_houses) call BIS_fnc_arrayShuffle;
 
+	private _sectors_and_bases = ARWA_sectors + ARWA_hq_ammoboxes;
+
 	{
 		private _house = _x;
-		private _sector = [ARWA_sectors, getPos _house] call ARWA_find_closest_sector;
+		private _sector = [_sectors_and_bases, getPos _house] call ARWA_find_closest_sector;
 		private _owner = _sector getVariable ARWA_KEY_owned_by;
-		private _hq_pos = getMarkerPos ([side _player, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 		private _pos = getPos _house;
-		private _distance_to_hq = _hq_pos distance2D _pos;
 
-		if(!(side _player isEqualTo _owner) && _distance_to_hq > ARWA_min_distance_presence) then {
+		if(!(side _player isEqualTo _owner)) then {
 
 			private _sympathizer_side = if(_owner isEqualTo civilian) then {
 				private _enemies = ARWA_all_sides - [side _player];

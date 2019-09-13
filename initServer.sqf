@@ -81,7 +81,7 @@ if(ARWA_mine_fields) then {
 
 [] call ARWA_setup_faction_relations;
 [ARWA_starting_strength, _startingTier] call ARWA_initialize_faction_stats;
-[] call ARWA_initialize_bases;
+ARWA_hq_ammoboxes = [] call ARWA_initialize_bases;
 [] call ARWA_initialize_base_respawns;
 [] call ARWA_initialize_battle_groups;
 [] call ARWA_calculate_mission_size;

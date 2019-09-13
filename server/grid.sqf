@@ -46,11 +46,13 @@ ARWA_find_grid_area = {
 };
 
 ARWA_assign_markers_to_sectors = {
+	private _sectors_and_bases = ARWA_sectors + ARWA_hq_ammoboxes;
+
 	for "_cell_posx" from (ARWA_grid_start_x + (ARWA_cell_size/2)) to ARWA_grid_end_x step ARWA_cell_size do {
 		private _marker_start = (ARWA_grid_start_y + (ARWA_cell_size/2));
 
 		private _cell_pos = [_cell_posx, _marker_start];
-		private _current_sector = [ARWA_sectors, _cell_pos] call ARWA_find_closest_sector;
+		private _current_sector = [_sectors_and_bases, _cell_pos] call ARWA_find_closest_sector;
 
 		private _is_water = surfaceIsWater _cell_pos;
 		private _was_water = surfaceIsWater _cell_pos;
@@ -68,7 +70,7 @@ ARWA_assign_markers_to_sectors = {
 				[_cell_posx, _cell_posy, _marker_start, _current_sector] call ARWA_create_marker_and_add_to_sector;
 			};
 
-			private _closest_sector = [ARWA_sectors, _cell_pos] call ARWA_find_closest_sector;
+			private _closest_sector = [_sectors_and_bases, _cell_pos] call ARWA_find_closest_sector;
 			if(!(_closest_sector isEqualTo _current_sector) && !_is_water) then {
 				[_cell_posx, _cell_posy, _marker_start, _current_sector] call ARWA_create_marker_and_add_to_sector;
 				_marker_start = _cell_posy;
@@ -82,6 +84,14 @@ ARWA_assign_markers_to_sectors = {
 			[_cell_posx, ARWA_grid_end_y, _marker_start, _current_sector] call ARWA_create_marker_and_add_to_sector;
 		}
 	};
+
+	[] spawn ARWA_draw_hq_area;
+};
+
+ARWA_draw_hq_area = {
+	{
+		[_x] spawn ARWA_draw_sector_cell;
+	} forEach ARWA_hq_ammoboxes;
 };
 
 ARWA_create_marker_and_add_to_sector = {

@@ -82,7 +82,7 @@ ARWA_spawn_squad = {
 
 	if(isNil "_pos") exitWith {};
 
-	private _soldier_count = (ARWA_squad_cap call ARWA_calc_number_of_soldiers) min _can_spawn;
+	private _soldier_count = ARWA_squad_cap min _can_spawn;
     [_pos, _side, _soldier_count, false] call ARWA_spawn_infantry;
 };
 

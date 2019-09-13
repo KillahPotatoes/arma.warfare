@@ -25,7 +25,7 @@ ARWA_spawn_battle_groups = {
 			private _unit_count = _side call ARWA_count_battlegroup_units;
 			private _can_spawn = floor (([] call ARWA_get_unit_cap) * (2/3)) - _unit_count;
 
-			if (_can_spawn > ARWA_squad_cap) then {
+			if (_can_spawn > ARWA_squad_cap / 2) then {
 				if(_cycle_counter == _next_vehicle_cycle) then {
 					[_side, _can_spawn] spawn ARWA_spawn_random_vehicle_group;
 					_next_vehicle_cycle = [_cycle_counter] call ARWA_get_next_vehicle_cycle;

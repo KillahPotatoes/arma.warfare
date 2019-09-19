@@ -16,7 +16,7 @@ ARWA_initialize_ammo_boxes = {
 	} forEach entities ARWA_ammo_box;
 };
 
-ARWA_owned_box = {
+ARWA_owned_by = {
     params ["_box", "_player"];
     (_box getVariable ARWA_KEY_owned_by) isEqualTo (side _player);
 };
@@ -24,7 +24,7 @@ ARWA_owned_box = {
 ARWA_add_sector_actions = {
 	params ["_ammo_box"];
 
-	["AmmoboxInit", [_ammo_box, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_box && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
+	["AmmoboxInit", [_ammo_box, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
 	[_ammo_box, localize "ARWA_STR_GET_INFANTRY", ARWA_KEY_infantry, ARWA_infantry_menu, true] call ARWA_create_menu;
 	[_ammo_box] call ARWA_create_intel_menu;
 };
@@ -32,7 +32,7 @@ ARWA_add_sector_actions = {
 ARWA_add_HQ_actions = {
 	params ["_ammo_box"];
 
-	["AmmoboxInit", [_ammo_box, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_box && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
+	["AmmoboxInit", [_ammo_box, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
 	_ammo_box call ARWA_add_manpower_action;
 	[_ammo_box, localize "ARWA_STR_GET_VEHICLES", ARWA_KEY_vehicle, ARWA_ground_vehicle_menu, false] call ARWA_create_menu;
 	[_ammo_box, localize "ARWA_STR_GET_HELICOPTERS", ARWA_KEY_helicopter, ARWA_air_vehicle_menu, false] call ARWA_create_menu;

@@ -51,7 +51,7 @@ ARWA_add_manpower_action = {
 		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
 
 	}, nil, ARWA_manpower_actions, false, false, "",
-  '[_target, _this] call ARWA_owned_box && [_this] call ARWA_obj_has_manpower', 10
+  '[_target, _this] call ARWA_owned_by && [_this] call ARWA_obj_has_manpower', 10
   ];
 };
 

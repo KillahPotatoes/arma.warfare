@@ -138,5 +138,5 @@ ARWA_create_menu = {
 		} else {
 			_box setVariable [format["Menu_%1", _title], false];
 		}
-	}, [_type, _priority, _title, _box, _disable_on_enemies_nearby], _priority, false, false, "", '[_target, _this] call ARWA_owned_box', 10]
+	}, [_type, _priority, _title, _box, _disable_on_enemies_nearby], _priority, false, false, "", '[_target, _this] call ARWA_owned_by', 10]
 };

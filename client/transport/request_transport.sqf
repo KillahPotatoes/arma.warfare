@@ -44,6 +44,8 @@ ARWA_spawn_transport = {
 
 	private _group = _arr select 2;
 	private _veh = _arr select 0;
+
+	["AmmoboxInit", [_veh, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
 	ARWA_transport_present = true;
 
 	_veh setVariable [ARWA_KEY_transport, true];

@@ -35,6 +35,7 @@ ARWA_KEY_hacked = "hacked";
 ARWA_KEY_sector_markers = "sector_markers";
 ARWA_KEY_static_defense = "static_defense";
 ARWA_KEY_sector_defense = "sector_defense";
+ARWA_KEY_can_rearm = "can_rearm";
 
 ARWA_KEY_rank1 = "PRIVATE";
 ARWA_KEY_rank2 = "CORPORAL";
@@ -108,3 +109,4 @@ ARWA_active_transport_actions = 80;
 ARWA_active_uav_actions = 75;
 ARWA_manpower_actions = 60;
 ARWA_squad_actions = 50;
+ARWA_rearm_arsenal = 40;

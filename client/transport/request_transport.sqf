@@ -33,6 +33,7 @@ ARWA_order_transport = {
 	[_group, _veh, _pos, "ARWA_STR_TRANSPORT_ON_ITS_WAY"] spawn ARWA_move_transport_to_pick_up;
 };
 
+
 ARWA_spawn_transport = {
 	params ["_side", "_class_name", "_penalty"];
 
@@ -45,7 +46,7 @@ ARWA_spawn_transport = {
 	private _group = _arr select 2;
 	private _veh = _arr select 0;
 
-	["AmmoboxInit", [_veh, true, {(_this distance _target) < 10 && [_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle}]] call BIS_fnc_arsenal;
+	_veh call ARWA_add_rearm_arsenal_action;
 	ARWA_transport_present = true;
 
 	_veh setVariable [ARWA_KEY_transport, true];
@@ -54,4 +55,21 @@ ARWA_spawn_transport = {
 	_group setBehaviour "CARELESS";
 	_group deleteGroupWhenEmpty true;
 	_arr;
+};
+
+ARWA_add_rearm_arsenal_action = {
+  params ["_box"];
+
+  _box addAction [[localize "ARWA_STR_REARM_ARSENAL", 0] call ARWA_add_action_text, {
+      ["Open",true] spawn BIS_fnc_arsenal;
+	  _target setVariable [ARWA_KEY_can_rearm, false];
+
+    }, nil, ARWA_rearm_arsenal, true, false, "",
+    '[_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle && [_target] call ARWA_can_rearm', 10];
+};
+
+ARWA_can_rearm = {
+	params ["_target"];
+
+	_target getVariable [ARWA_KEY_can_rearm, true];
 };

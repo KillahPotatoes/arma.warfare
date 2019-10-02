@@ -44,7 +44,7 @@ ARWA_check_houses_to_populate = {
 				_owner;
 			};
 
-			if([_house, _player_pos, _player, _sector, _sympathizer_side] call ARWA_house_can_be_populated) then {
+			if([_house, _player_pos, _player, _sector, _sympathizer_side, _is_safe_area] call ARWA_house_can_be_populated) then {
 				[_sympathizer_side, _house, _owner, _is_safe_area] call ARWA_populate_house;
 			};
 		};
@@ -78,12 +78,13 @@ ARWA_closest_hq = {
 };
 
 ARWA_house_can_be_populated = {
-	params ["_building", "_player_pos", "_player", "_sector", "_sympathizer_side"];
+	params ["_building", "_player_pos", "_player", "_sector", "_sympathizer_side", "_is_safe_area"];
 
 	private _pos = getPos _building;
 	private _sector_pos = _sector getVariable ARWA_KEY_pos;
+	private _distance_from_sector = if(_is_safe_area) then { ARWA_sector_size*2; } else { ARWA_sector_size/2 };
 
-	(_sector_pos distance2D _pos) > (ARWA_sector_size/2) // The house is outside the sector center
+	(_sector_pos distance2D _pos) > _distance_from_sector
 	&& {!(_building getVariable [ARWA_KEY_occupied, false])}
 	&& {!([_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
 };

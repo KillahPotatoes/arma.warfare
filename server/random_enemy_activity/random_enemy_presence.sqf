@@ -33,10 +33,11 @@ ARWA_check_houses_to_populate = {
 		private _hq_pos = getMarkerPos ([side _player, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 		private _pos = getPos _house;
 		private _distance_to_hq = _hq_pos distance2D _pos;
+		private _is_safe_area = side _player isEqualTo _owner;
 
-		if(!(side _player isEqualTo _owner) && _distance_to_hq > ARWA_min_distance_presence) then {
+		if(_distance_to_hq > ARWA_min_distance_presence) then {
 
-			private _sympathizer_side = if(_owner isEqualTo civilian) then {
+			private _sympathizer_side = if(_owner isEqualTo civilian || _is_safe_area) then {
 				private _enemies = ARWA_all_sides - [side _player];
 				[_enemies, _pos] call ARWA_closest_hq;
 			} else {
@@ -44,7 +45,7 @@ ARWA_check_houses_to_populate = {
 			};
 
 			if([_house, _player_pos, _player, _sector, _sympathizer_side] call ARWA_house_can_be_populated) then {
-				[_sympathizer_side, _house, _owner] call ARWA_populate_house;
+				[_sympathizer_side, _house, _owner, _is_safe_area] call ARWA_populate_house;
 			};
 		};
 
@@ -87,8 +88,23 @@ ARWA_house_can_be_populated = {
 	&& {!([_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
 };
 
+ARWA_pick_random_group = {
+	params ["_side", "_random_number_of_soldiers", "_controlled_by", "_is_safe_area"];
+
+	private _spawn_sympathizers = if(_is_safe_area) then { random 100 < ARWA_chance_of_enemy_presence_in_controlled_area; } else { selectRandom[true, false]; };
+
+	if(_spawn_sympathizers) exitWith {
+		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[true, false, _controlled_by in ARWA_all_sides]);
+		diag_log format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side];
+		[[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
+	};
+
+	diag_log format["Spawn %1 civilians", _random_number_of_soldiers];
+	[[0,0,0], _random_number_of_soldiers] call ARWA_spawn_civilians;
+};
+
 ARWA_populate_house = {
-	params ["_side", "_building", "_controlled_by"];
+	params ["_side", "_building", "_controlled_by", "_is_safe_area"];
 
 	private _allpositions = _building buildingPos -1;
 	private _possible_spawns = (count _allpositions) min (ARWA_max_random_enemies - (count ARWA_random_enemies));
@@ -98,14 +114,7 @@ ARWA_populate_house = {
 
 	if(_random_number_of_soldiers == 0) exitWith {};
 
-	private _group = if(selectRandom[true, false]) then {
-		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[true, false, _controlled_by in ARWA_all_sides]);
-		diag_log format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side];
-	 	[[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
-	} else {
-		diag_log format["Spawn %1 civilians", _random_number_of_soldiers];
-		[[0,0,0], _random_number_of_soldiers] call ARWA_spawn_civilians;
-	};
+	private _group = [_side, _random_number_of_soldiers, _controlled_by, _is_safe_area] call ARWA_pick_random_group;
 
 	_group setBehaviour "SAFE";
 

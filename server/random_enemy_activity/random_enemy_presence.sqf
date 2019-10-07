@@ -82,7 +82,7 @@ ARWA_house_can_be_populated = {
 
 	private _pos = getPos _building;
 	private _sector_pos = _sector getVariable ARWA_KEY_pos;
-	private _distance_from_sector = if(_is_safe_area) then { ARWA_sector_size*2; } else { ARWA_sector_size/2 };
+	private _distance_from_sector = if(_is_safe_area) then { ARWA_sector_size * 1.5; } else { ARWA_sector_size/2 };
 
 	(_sector_pos distance2D _pos) > _distance_from_sector
 	&& {!(_building getVariable [ARWA_KEY_occupied, false])}
@@ -135,7 +135,7 @@ ARWA_remove_when_no_player_closeby = {
 
 	private _pos = getPos (leader _group);
 
-	waitUntil {!([_pos, 600] call ARWA_players_nearby)};
+	waitUntil {!([_pos, ARWA_max_distance_presence] call ARWA_players_nearby)};
 
 	{
 		deleteVehicle _x;

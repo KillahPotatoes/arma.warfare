@@ -61,10 +61,13 @@ ARWA_add_rearm_arsenal_action = {
   params ["_box"];
 
   _box addAction [[localize "ARWA_STR_REARM_ARSENAL", 0] call ARWA_add_action_text, {
-      ["Open",true] spawn BIS_fnc_arsenal;
-	  _target setVariable [ARWA_KEY_can_rearm, false];
+	  params ["_target", "_caller", "_actionId", "_arguments"];
 
-    }, nil, ARWA_rearm_arsenal, true, false, "",
+	  private _box = _arguments select 0;
+      ["Open",true] spawn BIS_fnc_arsenal;
+	  _box setVariable [ARWA_KEY_can_rearm, false];
+
+    }, [_box], ARWA_rearm_arsenal, true, false, "",
     '[_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle && [_target] call ARWA_can_rearm', 10];
 };
 

@@ -23,13 +23,45 @@ ARWA_add_action_text = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
-ARWA_is_in_controlled_area = {
-    params ["_pos"];
+ARWA_closest_hq = {
+	params ["_sides", "_pos"];
 
-    private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
-    private _owner = _closest_sector getVariable ARWA_KEY_owned_by;
+	private _closest_hq = _sides select 0;
+	private _shortest_distance = 99999;
 
-    if(!isNil "_owner" && {_owner in ARWA_all_sides}) exitWith { _owner; }
+	{
+		private _side = _x;
+		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _distance = _pos distance2D _hq_pos;
+
+		if (_shortest_distance > _distance) then {
+			_shortest_distance = _distance;
+			_closest_hq = _side;
+		};
+
+	} forEach _sides;
+
+	_closest_hq;
+};
+
+ARWA_closest_hq_distance = {
+	params ["_sides", "_pos"];
+
+	private _closest_hq = _sides select 0;
+	private _shortest_distance = 99999;
+
+	{
+		private _side = _x;
+		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _distance = _pos distance2D _hq_pos;
+
+		if (_shortest_distance > _distance) then {
+			_shortest_distance = _distance;
+		};
+
+	} forEach _sides;
+
+	_shortest_distance;
 };
 
 ARWA_spawn_vehicle = {

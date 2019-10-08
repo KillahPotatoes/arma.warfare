@@ -56,26 +56,7 @@ ARWA_check_houses_to_populate = {
 	ARWA_houses_already_checked append _houses;
 };
 
-ARWA_closest_hq = {
-	params ["_sides", "_pos"];
 
-	private _closest_hq = _sides select 0;
-	private _shortest_distance = 99999;
-
-	{
-		private _side = _x;
-		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
-		private _distance = _pos distance2D _hq_pos;
-
-		if (_shortest_distance > _distance) then {
-			_shortest_distance = _distance;
-			_closest_hq = _side;
-		};
-
-	} forEach _sides;
-
-	_closest_hq;
-};
 
 ARWA_house_can_be_populated = {
 	params ["_building", "_player_pos", "_player", "_sector", "_sympathizer_side", "_is_safe_area"];

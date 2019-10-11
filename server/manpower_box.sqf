@@ -36,30 +36,19 @@ ARWA_create_manpower_box_vehicle = {
 	};
 };
 
-ARWA_pick_other_responder = {
-	params ["_area_controlled_by", "_victim_side", "_safe_pos", "_distance_from_sector"];
+ARWA_pick_responder = {
+	params ["_area_controlled_by", "_victim_side", "_safe_pos"];
+
+	if(_area_controlled_by isEqualTo _victim_side || _victim_side countSide allPlayers == 0) exitWith {
+		_victim_side;
+	};
 
 	if(_area_controlled_by isEqualTo civilian) exitWith {
 		private _enemies = ARWA_all_sides - [_victim_side];
 		[_enemies, _safe_pos] call ARWA_closest_hq;
 	};
 
-	if(_area_controlled_by isEqualTo _victim_side && _distance_from_sector > ARWA_sector_size) exitWith {
-		private _enemies = ARWA_all_sides - [_victim_side];
-		[_enemies, _safe_pos] call ARWA_closest_hq;
-	};
-
-	if(!(_area_controlled_by isEqualTo _victim_side)) exitWith {
-		_area_controlled_by;
-	};
-};
-
-ARWA_pick_first_responder = {
-	params ["_area_controlled_by", "_victim_side"];
-
-	if(_area_controlled_by isEqualTo _victim_side || _victim_side countSide allPlayers == 0) exitWith {
-		_victim_side;
-	};
+	_area_controlled_by;
 };
 
 ARWA_create_manpower_box = {
@@ -93,16 +82,8 @@ ARWA_create_manpower_box = {
 		private _distance_to_hq = [ARWA_all_sides, _safe_pos] call ARWA_closest_hq_distance;
 
 		if(_distance_to_hq > ARWA_min_distance_presence) then {
-
-			private _first_responder = [_area_controlled_by, _victim_side] call ARWA_pick_first_responder;
-			if(!isNil "_first_responder") then {
-				[_first_responder, _manpower_box] spawn ARWA_try_spawn_reinforcements;
-			};
-
-			private _other_responder = [_area_controlled_by, _victim_side, _safe_pos, _distance_from_sector] call ARWA_pick_other_responder;
-			if(!isNil "_other_responder") then {
-				[_other_responder, _manpower_box] spawn ARWA_try_spawn_reinforcements;
-			};
+			private _responder = [_area_controlled_by, _victim_side, _safe_pos] call ARWA_pick_responder;
+			[_responder, _manpower_box] spawn ARWA_try_spawn_reinforcements;
 		};
 	};
 

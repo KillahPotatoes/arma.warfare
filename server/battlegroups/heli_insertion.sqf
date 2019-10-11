@@ -23,7 +23,7 @@ ARWA_pick_most_valued_player_owned_sector = {
 
 	if(_sectors isEqualTo []) exitWith {};
 
-	_sectors = _sectors select { (_x getVariable ARWA_KEY_owned_by) countSide allPlayers > 0 };
+	_sectors = _sectors select { ([_x getVariable ARWA_KEY_owned_by] call ARWA_count_all_players_on_side) > 0 };
 
 	if(_sectors isEqualTo []) exitWith {};
 

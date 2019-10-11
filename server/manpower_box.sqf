@@ -16,7 +16,9 @@ ARWA_create_manpower_box_unit = {
 			sleep 30;
 		};
 
-		[_manpower_box_value, _victim] spawn ARWA_create_manpower_box;
+		private _victim_side = side group _victim;
+
+		[_manpower_box_value, _victim, _victim_side] spawn ARWA_create_manpower_box;
 	};
 };
 
@@ -39,27 +41,32 @@ ARWA_create_manpower_box_vehicle = {
 ARWA_pick_responder = {
 	params ["_area_controlled_by", "_victim_side", "_safe_pos"];
 
-	if(_area_controlled_by isEqualTo _victim_side || _victim_side countSide allPlayers == 0) exitWith {
+	diag_log format["_victim_side: %1, _area_controlled_by: %2, players_on_victim_side", _victim_side, _area_controlled_by];
+
+	if(_area_controlled_by isEqualTo _victim_side || ([_victim_side] call ARWA_count_all_players_on_side) == 0) exitWith {
+		diag_log format["1 Sending %1 to get manpower box", _victim_side];
 		_victim_side;
 	};
 
 	if(_area_controlled_by isEqualTo civilian) exitWith {
 		private _enemies = ARWA_all_sides - [_victim_side];
-		[_enemies, _safe_pos] call ARWA_closest_hq;
+		private _responder = [_enemies, _safe_pos] call ARWA_closest_hq;
+		diag_log format["2 Sending %1 to get manpower box", _responder];
+		_responder;
 	};
 
+	diag_log format["3 Sending %1 to get manpower box", _area_controlled_by];
 	_area_controlled_by;
 };
 
 ARWA_create_manpower_box = {
-	params ["_manpower", "_victim"];
+	params ["_manpower", "_victim", "_victim_side"];
 
 	private _pos = getPos _victim;
 	private _safe_pos = [_pos, 0, 5, 1, 1, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
 	private _manpower_box = ARWA_manpower_box createVehicle (_safe_pos);
 	_manpower_box setVariable [ARWA_KEY_manpower, _manpower, true];
 
-	private _victim_side = side group _victim;
 	private _color = [_victim_side, true] call BIS_fnc_sideColor;
 	private _marker_name = format["%1-%2", ARWA_KEY_manpower_box, time];
 

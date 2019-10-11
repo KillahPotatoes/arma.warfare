@@ -40,6 +40,7 @@ reset_player_stats = {
 
 	_player setUnitRank ARWA_KEY_rank1;
 	_player setVariable [ARWA_KEY_manpower, 0, true];
+	_player setVariable [ARWA_KEY_owned_by, playerSide, true];
 };
 
 [player] call reset_player_stats;

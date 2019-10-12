@@ -5,7 +5,7 @@ ARWA_spawn_random_infantry_group = {
 
 	private _available_helis = !((_side call ARWA_get_transport_heli_type) isEqualTo []);
 
-	if(_available_helis && !(isNil "_most_valuable_sector") && {(random 100) > (100 - ([_most_valuable_sector] call ARWA_get_sector_manpower))}) exitWith
+	if(_available_helis && !(isNil "_most_valuable_sector") && {(random 50) > (50 - ([_most_valuable_sector] call ARWA_get_sector_manpower))}) exitWith
 	{
 		[_side, _can_spawn, _most_valuable_sector] call ARWA_special_forces_insertion;
 	};

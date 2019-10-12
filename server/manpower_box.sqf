@@ -43,7 +43,7 @@ ARWA_pick_responder = {
 
 	diag_log format["_victim_side: %1, _area_controlled_by: %2, players_on_victim_side", _victim_side, _area_controlled_by];
 
-	if(_area_controlled_by isEqualTo _victim_side || ([_victim_side] call ARWA_count_all_players_on_side) == 0) exitWith {
+	if(_area_controlled_by isEqualTo _victim_side || (playersNumber _victim_side) == 0) exitWith {
 		diag_log format["1 Sending %1 to get manpower box", _victim_side];
 		_victim_side;
 	};

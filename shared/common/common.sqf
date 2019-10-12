@@ -23,12 +23,6 @@ ARWA_add_action_text = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
-ARWA_count_all_players_on_side = {
-	params ["_side"];
-
-	{ _side isEqualTo (_x getVariable [ARWA_KEY_owned_by, civilian]); } count allPlayers;
-};
-
 ARWA_closest_hq = {
 	params ["_sides", "_pos"];
 

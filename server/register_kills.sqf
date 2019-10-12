@@ -121,7 +121,7 @@ ARWA_kill_ticker = {
 
 ARWA_calculate_kill_points = {
 	params ["_killer_side"];
-	1 / ((([_killer_side] call ARWA_count_all_players_on_side) + 1) min 2);
+	1 / ((playersNumber _killer_side) + 1);
 };
 
 ARWA_register_kill = {
@@ -173,7 +173,7 @@ ARWA_register_kill = {
 			private _new_faction_strength = if(isPlayer _victim) then {
 				_victim_faction_strength - _manpower_penalty;
 			} else {
-				private _death_penalty = (([_victim_side] call ARWA_count_all_players_on_side) + 1) min 2;
+				private _death_penalty = (playersNumber _victim_side) + 1;
 				_victim_faction_strength - _death_penalty;
 			};
 

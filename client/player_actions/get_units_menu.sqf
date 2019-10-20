@@ -79,6 +79,8 @@ ARWA_get_interceptor = {
 		(_vel_veh select 2)
 	];
 
+	[_veh] spawn ARWA_rearm_interceptor;
+
 	deleteVehicle (driver _veh);
 	player moveInDriver _veh;
 };

@@ -1,8 +1,8 @@
 ARWA_return_interceptor = {
-	player addAction [[localize "ARWA_STR_RETURN_INTERCEPTOR", 0] call ARWA_add_action_text, {
+	player addAction [[localize ARWA_STR_RETURN_INTERCEPTOR, 0] call ARWA_add_action_text, {
 		
 		private _enemies_nearby = [getPos player, playerSide, ARWA_interceptor_safe_distance] call ARWA_any_enemies_in_area;
-		if(_enemies_nearby) exitWith { player sideChat localize ARWA_KEY_STR; };
+		if(_enemies_nearby) exitWith { player sideChat localize ARWA_STR_CANNOT_RETURN_INTERCEPTOR; };
 
 		private _veh = vehicle player;
 		private _base_pos = getMarkerPos ([playerSide, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
@@ -33,10 +33,11 @@ ARWA_rearm_interceptor = {
 	private _pos = getMarkerPos ([playerSide, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 	private _distance = _pos distance2D (getPos _vehicle);
 
-	while(!(isNil "_vehicle")) do {
+	while{!(isNil "_vehicle")} do {
 		if(_distance < ARWA_interceptor_safe_distance) then {
+			private _enemies_nearby = [getPos player, playerSide, ARWA_interceptor_safe_distance] call ARWA_any_enemies_in_area;
+			if(_enemies_nearby) exitWith { player sideChat localize ARWA_STR_CANNOT_REARM_INTERCEPTOR; };
 			_vehicle setVehicleAmmo 1;
-			sleep 60;
 		};
 	};
 };

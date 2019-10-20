@@ -78,6 +78,7 @@ ARWA_gunship_spawn_height = 500;
 ARWA_manpower_generation_time = 60;
 ARWA_show_all = false;
 ARWA_capture_time = 60;
+ARWA_interceptor_safe_distance = 2000;
 ARWA_uav_flight_height = 1000;
 ARWA_squad_kill_rating = 200;
 ARWA_spawn_forces_interval = 120;

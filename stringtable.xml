@@ -17,13 +17,22 @@
             <English>You took %1 MP</English>
             <German>%1 MP aufgenommen</German>
         </Key>
-        <Key ID="ARWA_STR_YOU_GAVE_MANPOWER">
+        <Key ID="ARWA_STR_CANNOT_RETURN_INTERCEPTOR">
+            <English>You cannot return interceptor while enemies are nearby</English>
+        </Key>
+         <Key ID="ARWA_STR_CANNOT_REARM_INTERCEPTOR">
+            <English>You cannot rearm interceptor while enemies are nearby</English>
+        </Key>
+         <Key ID="ARWA_STR_YOU_GAVE_MANPOWER">
             <English>You gave %1 MP</English>
             <German>%1 MP abgegeben</German>
         </Key>
         <Key ID="ARWA_STR_YOU_STORED_MANPOWER">
             <English>You stored %1 MP</English>
             <German>%1 MP eingelagert</German>
+        </Key>
+        <Key ID="ARWA_STR_RETURN_INTERCEPTOR">
+            <English>Return interceptor</English>
         </Key>
          <Key ID="ARWA_STR_STEAL_INTEL">
             <English>Hack enemy network</English>

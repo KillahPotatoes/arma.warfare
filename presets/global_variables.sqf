@@ -36,6 +36,7 @@ ARWA_KEY_sector_markers = "sector_markers";
 ARWA_KEY_static_defense = "static_defense";
 ARWA_KEY_sector_defense = "sector_defense";
 ARWA_KEY_can_rearm = "can_rearm";
+ARWA_KEY_sympathizers = "sympathizers";
 
 ARWA_KEY_rank1 = "PRIVATE";
 ARWA_KEY_rank2 = "CORPORAL";

@@ -47,6 +47,10 @@ ARWA_spawn_sympathizers = {
 	private _squad = [_side, _number] call ARWA_pick_sympathizers;
 	private _group = [_pos, _side, _squad, true] call ARWA_create_group;
 
+	{ 
+		_x setVariable [ARWA_KEY_sympathizers, true, true];
+	} forEach units _group;
+
 	if(_commander) then {
 		private _commander = selectRandom units _group;
 		private _commander_manpower = floor random[ARWA_min_commander_manpower, ARWA_min_commander_manpower, ARWA_max_commander_manpower];

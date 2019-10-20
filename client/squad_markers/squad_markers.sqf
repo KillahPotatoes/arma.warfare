@@ -84,13 +84,17 @@ ARWA_show_friendly_markers = {
 		_markers_array = [];
 
 		{
+			private _leader = leader _x;
+			private _sympathizers = _leader getVariable [ARWA_KEY_sympathizers, false];
+
 			if (ARWA_show_all
 				|| (_x call ARWA_any_alive)
+				&& !_sympathizers
 				&& ((side _x) in ARWA_visible_markers)
 				&& (!(_x getVariable [ARWA_KEY_defense, false]))
-				&& (((leader _x) distance2D [0,0]) > 100)) then {
+				&& ((_leader distance2D [0,0]) > 100)) then {
 
-				_markers_pos = getPosWorld (leader _x);
+				_markers_pos = getPosWorld (_leader);
 
 				_distance = [_markers_pos, _sector_boxes] call ARWA_close_to_any_owned_sectors;
 				_alpha = 1 min (_distance / ARWA_sector_size);

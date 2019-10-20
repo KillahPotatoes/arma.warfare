@@ -97,3 +97,5 @@ if(ARWA_mine_fields) then {
 [] spawn ARWA_spawn_gunship_groups;
 [] spawn ARWA_sector_manpower_generation;
 [] spawn ARWA_populate_random_houses;
+
+setViewDistance 6000;

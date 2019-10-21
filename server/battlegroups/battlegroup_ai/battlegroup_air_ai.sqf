@@ -25,7 +25,7 @@ ARWA_air_move_to_sector = {
 	};
 };
 
-ARWA_initialize_air_group_ai = {
+ARWA_initialize_helicopter_group_ai = {
 	params ["_group", "_veh"];
 
 	private _side = side _group;
@@ -43,6 +43,10 @@ ARWA_initialize_air_group_ai = {
 
 		sleep 10;
 	};
+};
+
+ARWA_initialize_interceptor_group_ai = {
+
 };
 
 ARWA_find_air_target = {

@@ -5,7 +5,7 @@ ARWA_spawn_interceptors = {
 
 		{
 			private _player = _x;
-			private _interceptors = [ARWA_KEY_interceptors, side _player] call ARWA_get_all_units;
+			private _interceptors = [ARWA_KEY_interceptors, side _player] call ARWA_get_all_units_side;
 
 			if(vehicle _player in _interceptors) then {
 				private _enemies = ARWA_all_sides - [side _player];

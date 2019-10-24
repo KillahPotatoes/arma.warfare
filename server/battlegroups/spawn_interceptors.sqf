@@ -7,10 +7,12 @@ ARWA_spawn_interceptors = {
 			private _player = _x;
 			private _interceptors = [ARWA_KEY_interceptors, side _player] call ARWA_get_all_units_side;
 
-			if(vehicle _player in _interceptors) then {
+			if(typeOf (vehicle _player) in _interceptors) then {
 				private _enemies = ARWA_all_sides - [side _player];
 				private _interceptor_side = selectRandom[_enemies];
-				private _interceptor = [_interceptor_side] call ARWA_spawn_interceptor;
+
+				private _enemy_interceptors = [ARWA_KEY_interceptors, _interceptor_side] call ARWA_get_all_units_side;
+				private _interceptor = [_enemy_interceptors, _interceptor_side] call ARWA_spawn_interceptor;
 
 				[_interceptor, _player] spawn ARWA_interceptor_ai;
 			};

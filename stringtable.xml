@@ -91,6 +91,9 @@
             <English>Get infantry</English>
             <German>Infantrie anfordern</German>
         </Key>
+        <Key ID="NO_AVAILABLE_OPTIONS">
+            <English>There is no available options at this tier</English>
+        </Key>
         <Key ID="ARWA_STR_GET_VEHICLES">
             <English>Get vehicle</English>
             <German>Fahrzeug anfordern</German>

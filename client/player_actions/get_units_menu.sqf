@@ -70,17 +70,14 @@ ARWA_get_interceptor = {
 };
 
 ARWA_list_options = {
-	params ["_type", "_priority", "_box", "_title"];
-
-	private _side = playerSide;
-	private _options = [_side, _type] call ARWA_get_units_based_on_tier;
+	params ["_type", "_priority", "_box", "_title", "_options"];
 
 	if(_type isEqualTo ARWA_KEY_helicopter) then {
-		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", _side, ARWA_KEY_helicopter]);
+		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", playerSide, ARWA_KEY_helicopter]);
 	};
 
 	if(_type isEqualTo ARWA_KEY_vehicle) then {
-		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", _side, ARWA_KEY_vehicle]);
+		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", playerSide, ARWA_KEY_vehicle]);
 	};
 
 	private _sub_options = [];
@@ -150,10 +147,16 @@ ARWA_create_menu = {
 			systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
 		};
 
+		private _options = [playerSide, _type] call ARWA_get_units_based_on_tier;
+
+		if(_options isEqualTo []) exitWith {
+			systemChat localize "NO_AVAILABLE_OPTIONS";
+		};
+
 		private _open = _box getVariable format["Menu_%1", _title];
 
 		if(!_open) then {
-			[_type, _priority, _box, _title] call ARWA_list_options;
+			[_type, _priority, _box, _title, _options] call ARWA_list_options;
 			_box setVariable [format["Menu_%1", _title], true];
 		} else {
 			_box setVariable [format["Menu_%1", _title], false];

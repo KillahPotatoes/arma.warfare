@@ -23,14 +23,6 @@ ARWA_add_action_text = {
   format["<t color='#00FF00'>%1%2</t>", _indentation, _text];
 };
 
-ARWA_is_type_of = {
-	params ["_class_name","_type"];
-
-	private _class_names = [_type] call ARWA_get_all_units;
-
-	_class_name in _class_names;
-};
-
 ARWA_closest_hq = {
 	params ["_sides", "_pos"];
 
@@ -88,6 +80,14 @@ ARWA_get_manpower = {
     floor(_obj getVariable [ARWA_KEY_manpower, 0]);
 };
 
+ARWA_is_type_of = {
+	params ["_class_name","_type"];
+
+	private _class_names = [_type] call ARWA_get_all_units;
+
+	_class_name in _class_names;
+};
+
 ARWA_get_all_units = {
 	params ["_type"];
 
@@ -95,7 +95,8 @@ ARWA_get_all_units = {
 	{
 		private _side = _x;
 		for "_x" from 0 to ARWA_max_tier step 1 do {
-			_options append (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
+			private _option = (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
+			_options append (_option select 0);
 		};
 	} forEach ARWA_all_sides;
 
@@ -108,7 +109,8 @@ ARWA_get_all_units_side = {
 	private _options = [];
 
 	for "_x" from 0 to ARWA_max_tier step 1 do {
-		_options append (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
+		private _option = (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
+		_options append (_option select 0);
 	};
 
 	_options;

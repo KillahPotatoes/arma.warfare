@@ -71,31 +71,32 @@ ARWA_toggle_damage_while_landing = {
 	_veh allowDamage true;
 };
 
-ARWA_take_off_and_despawn = {
-	params ["_heli_group", "_heli_vehicle"];
+ARWA_despawn_air = {
+	params ["_group", "_veh"];
 
-	private _side = side _heli_group;
+	private _side = side _group;
 	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
 
-	while {alive _heli_vehicle} do {
-		_heli_group move _pos;
-		_heli_group setCombatMode "BLUE";
+	while {alive _veh} do {
+		_group move _pos;
+		_group setCombatMode "BLUE";
 
 		sleep 3;
 
-		waitUntil { !(alive _heli_vehicle) || ((_pos distance2D (getPos _heli_vehicle)) < 200) || (unitReady _heli_vehicle) };
+		waitUntil { !(alive _veh) || ((_pos distance2D (getPos _veh)) < 200) || (unitReady _veh) };
 
-		if ((alive _heli_vehicle) && ((_pos distance2D (getPos _heli_vehicle)) < 200)) exitWith	{
-			private _manpower = (_heli_vehicle call ARWA_remove_soldiers) + (_heli_vehicle call ARWA_get_manpower);
+		if ((alive _veh) && ((_pos distance2D (getPos _veh)) < 200)) exitWith	{
+			private _manpower = (_veh call ARWA_remove_soldiers) + (_veh call ARWA_get_manpower);
 
-			_heli_vehicle setVariable [ARWA_KEY_manpower, 0];
+			_veh setVariable [ARWA_KEY_manpower, 0];
 
 			if(_manpower > 0) then {
 				[playerSide, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
 				systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
 			};
 
-			deleteVehicle _heli_vehicle;
+			deleteVehicle _veh;
+			diag_log format["Despawn %1 %2", _veh, _side];
 			true;
 		};
 

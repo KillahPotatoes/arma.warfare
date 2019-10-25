@@ -62,10 +62,10 @@ ARWA_initialize_battlegroup_ai = {
 	private _veh = vehicle leader _group;
 
 	if(_veh isKindOf "Air") exitWith {
-		if([_veh] call ARWA_is_type_of) exitWith {
+		if([_veh, ARWA_KEY_helicopter] call ARWA_is_type_of) exitWith {
 			[_group, _veh] spawn ARWA_initialize_helicopter_group_ai;
 		};
-		if([_veh] call ARWA_is_type_of) exitWith {
+		if([_veh, ARWA_KEY_interceptor] call ARWA_is_type_of) exitWith {
 			[_group, _veh] spawn ARWA_initialize_interceptor_group_ai;
 		};
 	};

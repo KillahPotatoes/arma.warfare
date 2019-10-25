@@ -96,7 +96,7 @@ ARWA_do_helicopter_insertion = {
 	[_heli select 2, _heli select 0, _pos] call ARWA_move_to_sector_outskirt;
 
 	[_group, _heli select 0] call ARWA_dispatch_heli_battlegroup;
-	[_heli select 2, _heli select 0] spawn ARWA_take_off_and_despawn;
+	[_heli select 2, _heli select 0] spawn ARWA_despawn_air;
 };
 
 ARWA_dispatch_heli_battlegroup = {

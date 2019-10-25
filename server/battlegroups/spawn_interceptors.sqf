@@ -5,28 +5,31 @@ ARWA_spawn_interceptors = {
 
 		{
 			private _player = _x;
-			private _interceptors = [ARWA_KEY_interceptors, side _player] call ARWA_get_all_units_side;
+			private _class_name = typeOf (vehicle _player);
 
-			if(typeOf (vehicle _player) in _interceptors) then {
+			if([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of) then {
 				private _enemies = ARWA_all_sides - [side _player];
 				private _interceptor_side = selectRandom[_enemies];
 
-				private _enemy_interceptors = [ARWA_KEY_interceptors, _interceptor_side] call ARWA_get_all_units_side;
-				private _interceptor = [_enemy_interceptors, _interceptor_side] call ARWA_spawn_interceptor;
+				private _options = [_interceptor_side, ARWA_KEY_interceptor] call ARWA_get_units_based_on_tier;
 
-				[_interceptor, _player] spawn ARWA_interceptor_ai;
+				if((_options isEqualTo [])) exitWith {};
+
+				private _random_selection = selectRandom _options;
+				private _interceptor = _random_selection select 0;
+				private _kill_bonus = _random_selection select 1;
+				private _interceptor_name = _interceptor call ARWA_get_vehicle_display_name;
+				private _interceptor = [_interceptor, _kill_bonus, _interceptor_side] call ARWA_spawn_interceptor;
+
+				diag_log format ["%1: Spawn interceptor: %2", _side, _interceptor_name];
+				diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
+
+				[_side, ["ARWA_STR_SENDING_VEHICLE_YOUR_WAY", _interceptor_name]] remoteExec ["ARWA_HQ_report_client"];
+
+				[_interceptor] spawn ARWA_add_battle_group;
 			};
 
 		} forEach allPlayers;
 		sleep random[300, 600, 900];
 	};
-};
-
-ARWA_spawn_interceptor = {
-	params ["_side"];
-
-	private _interceptors = [ARWA_KEY_interceptors, _side] call ARWA_get_units_based_on_tier;
-	private _interceptor = selectRandom[_interceptors];
-
-	[_interceptor] call ARWA_spawn_vehicle;
 };

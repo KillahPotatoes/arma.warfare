@@ -21,9 +21,9 @@ if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(b
     [] call bis_fnc_reviveInit;
 };
 
-
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\interceptor.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\radio_chatter.sqf";

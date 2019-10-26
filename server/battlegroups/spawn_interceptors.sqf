@@ -16,7 +16,7 @@ ARWA_spawn_interceptors = {
 			};
 
 		} forEach allPlayers;
-		sleep random (if(_spawned_interceptor) then { 900; } else { 300; });
+		sleep (if(_spawned_interceptor) then { 300 + random 900; } else { random 300; });
 		_spawned_interceptor = false;
 	};
 };

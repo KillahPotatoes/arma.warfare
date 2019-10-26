@@ -34,6 +34,12 @@
             <English>You stored %1 MP</English>
             <German>%1 MP eingelagert</German>
         </Key>
+        <Key ID="ARWA_STR_YOU_REARMED">
+            <English>Interceptor rearmed! Wait 5 minutes until next possible rearm</English>
+        </Key>
+        <Key ID="ARWA_STR_YOU_CAN_REARM">
+            <English>You can now rearm in safe zone</English>
+        </Key>
         <Key ID="ARWA_STR_RETURN_INTERCEPTOR">
             <English>Return interceptor</English>
         </Key>

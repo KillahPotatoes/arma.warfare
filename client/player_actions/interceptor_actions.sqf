@@ -42,19 +42,15 @@ ARWA_interceptor_safe_zone = {
 
 ARWA_rearm_interceptor = {
 	params ["_vehicle"];
-	private _give_warning = true;
 
 	while{!(isNil "_vehicle") && {alive _vehicle}} do {
 		if([_vehicle] call ARWA_within_interceptor_safe_zone) then {
-			private _enemies_nearby = [getPos player, playerSide, ARWA_interceptor_safe_distance] call ARWA_any_enemies_in_area;
-			if(_enemies_nearby) exitWith {
-				if(_give_warning) then {
-					player sideChat localize "ARWA_STR_CANNOT_REARM_INTERCEPTOR";
-				};
-				_gave_warning = false;
-			};
-			_gave_warning = true;
 			_vehicle setVehicleAmmo 1;
+			systemChat localize "ARWA_STR_YOU_REARMED";
+			sleep 300;
+			if(!(isNil "_vehicle") && {alive _vehicle}) then {
+				systemChat localize "ARWA_STR_YOU_CAN_REARM";
+			};
 		};
 	};
 };

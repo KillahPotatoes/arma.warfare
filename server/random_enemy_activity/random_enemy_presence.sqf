@@ -8,7 +8,12 @@ ARWA_populate_random_houses = {
 		if(ARWA_max_random_enemies > (count ARWA_random_enemies)) then {
 			private _players = allPlayers call BIS_fnc_arrayShuffle;
 			{
-				[_x] call ARWA_check_houses_to_populate;
+				private _player = _x;
+				private _class_name = typeOf (vehicle _player);
+
+				if(!([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of)) then {
+					[_player] call ARWA_check_houses_to_populate;
+				};
 			} forEach _players;
 
 			ARWA_houses_already_checked = [];

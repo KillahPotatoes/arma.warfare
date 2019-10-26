@@ -64,7 +64,6 @@ player setVariable ["kills", 0, true];
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
 
-[] spawn ARWA_interceptor_safe_zone;
 [] spawn ARWA_show_friendly_markers;
 [] spawn ARWA_show_manpower_markers;
 [] spawn ARWA_show_ui;

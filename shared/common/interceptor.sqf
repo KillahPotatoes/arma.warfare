@@ -15,10 +15,9 @@ ARWA_find_spawn_pos_and_direction = {
 	params ["_side"];
 
 	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
-	private _center_pos = [worldSize / 2, worldsize / 2, 0];
-	private _dir = _pos getDir _center_pos;
+	private _dir = _pos getDir ARWA_grid_center;
 
-	_pos = _pos getPos [16000, _dir - 180];
+	_pos = ARWA_grid_center getPos [(ARWA_interceptor_safe_distance + (ARWA_grid_size / 2)), _dir - 180];
 	_pos = [_pos select 0, _pos select 1, 2000];
 
 	[_pos, _dir];

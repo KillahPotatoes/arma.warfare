@@ -55,8 +55,9 @@ ARWA_get_vehicle = {
 
 ARWA_get_interceptor = {
 	params ["_class_name", "_penalty", "_side"];
-
-	private _veh = [_class_name, _penalty, playerSide] call ARWA_spawn_interceptor;
+	private _pos = [playerSide] call ARWA_find_spawn_pos_and_direction;
+	private _veh_arr = [_class_name, _penalty, playerSide, _pos] call ARWA_spawn_interceptor;
+	private _veh = _veh_arr select 0;
 
 	_veh setVariable [ARWA_penalty, _penalty, true];
 	[_veh] spawn ARWA_rearm_interceptor;

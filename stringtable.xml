@@ -20,6 +20,9 @@
         <Key ID="ARWA_STR_CANNOT_RETURN_INTERCEPTOR">
             <English>You cannot return interceptor while enemies are nearby</English>
         </Key>
+         <Key ID="ARWA_STR_AERIAL_SAFE_ZONE">
+            <English>Aerial safe zone</English>
+        </Key>
          <Key ID="ARWA_STR_CANNOT_REARM_INTERCEPTOR">
             <English>You cannot rearm interceptor while enemies are nearby</English>
         </Key>

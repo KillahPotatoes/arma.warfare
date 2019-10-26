@@ -44,6 +44,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_infantry_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_vehicle_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_interceptors.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_reinforcements.sqf";
@@ -97,6 +98,7 @@ if(ARWA_mine_fields) then {
 [] spawn ARWA_clean_up;
 [] spawn ARWA_initialize_spawn_battle_groups;
 [] spawn ARWA_spawn_gunship_groups;
+[] spawn ARWA_spawn_interceptors;
 [] spawn ARWA_sector_manpower_generation;
 [] spawn ARWA_populate_random_houses;
 

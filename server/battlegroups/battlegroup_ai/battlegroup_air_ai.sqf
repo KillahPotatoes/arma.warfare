@@ -25,7 +25,7 @@ ARWA_air_move_to_sector = {
 	};
 };
 
-ARWA_initialize_helicopter_group_ai = {
+ARWA_initialize_air_group_ai = {
 	params ["_group", "_veh"];
 
 	private _side = side _group;
@@ -57,39 +57,6 @@ ARWA_players_in_interceptors = {
 	} forEach allPlayers;
 
 	_players_in_planes
-};
-
-ARWA_initialize_interceptor_group_ai = {
-	params ["_group", "_veh"];
-
-	private _side = side _group;
-
-	while{[_group] call ARWA_group_is_alive} do {
-
-		if(!(someAmmo _veh)) exitWith {
-			diag_log format["Out of ammo: Despawn %1 %2", _veh, _side];
-			[_group, _veh] spawn ARWA_despawn_air;
-		};
-
-		if([_group] call ARWA_group_should_be_commanded) then {
-			private _players_in_interceptors = [] call ARWA_players_in_interceptors;
-
-			diag_log format["Players in interceptors: %1", count _players_in_interceptors];
-			diag_log format["Assigned target: %1", assignedTarget _veh];
-
-			if(!(_players_in_interceptors isEqualTo []) && isNull (assignedTarget _veh)) exitWith {
-
-				private _player_veh = vehicle (selectRandom _players_in_interceptors);
-				_group commandTarget _player_veh;
-				diag_log format["%1 targeting %2", _veh, _player_veh];
-			};
-
-			private _target = [_group, _side] call ARWA_find_air_target;
-			[_target, _group] spawn ARWA_air_move_to_sector;
-		};
-
-		sleep 10;
-	};
 };
 
 ARWA_find_air_target = {

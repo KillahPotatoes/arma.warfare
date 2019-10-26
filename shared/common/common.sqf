@@ -84,7 +84,6 @@ ARWA_is_type_of = {
 	params ["_class_name","_type"];
 
 	private _class_names = [_type] call ARWA_get_all_units;
-
 	_class_name in _class_names;
 };
 
@@ -94,10 +93,7 @@ ARWA_get_all_units = {
 	private _options = [];
 	{
 		private _side = _x;
-		for "_x" from 0 to ARWA_max_tier step 1 do {
-			private _option = (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
-			_options append (_option select 0);
-		};
+		_options append ([_side, _type] call ARWA_get_all_units_side);
 	} forEach ARWA_all_sides;
 
 	_options;
@@ -109,11 +105,16 @@ ARWA_get_all_units_side = {
 	private _options = [];
 
 	for "_x" from 0 to ARWA_max_tier step 1 do {
-		private _option = (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
-		_options append (_option select 0);
+		_options append (missionNamespace getVariable [format["ARWA_%1_%2_tier_%3", _side, _type, _x], []]);
 	};
 
-	_options;
+	private _class_names = [];
+
+	{
+		_class_names append [_x select 0];
+	} forEach _options;
+
+	_class_names;
 };
 
 ARWA_get_units_based_on_tier = {

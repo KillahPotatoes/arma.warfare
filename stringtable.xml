@@ -26,6 +26,9 @@
          <Key ID="ARWA_STR_CANNOT_REARM_INTERCEPTOR">
             <English>You cannot rearm interceptor while enemies are nearby</English>
         </Key>
+        <Key ID="ARWA_STR_VEHICLE_REARMED">
+            <English>Vehicle rearmed</English>
+        </Key>
          <Key ID="ARWA_STR_YOU_GAVE_MANPOWER">
             <English>You gave %1 MP</English>
             <German>%1 MP abgegeben</German>

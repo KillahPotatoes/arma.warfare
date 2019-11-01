@@ -36,6 +36,7 @@ ARWA_initialize_sectors = {
 			_ammo_box = [_sector, _first_capture_bonus] call ARWA_add_sector_box;
 
 			[_sector] spawn ARWA_initialize_sector_control;
+			[_sector] spawn ARWA_sector_rearm_player_vehicles;
 
 			true;
 		};
@@ -143,4 +144,23 @@ ARWA_find_enemy_sectors = {
 	} foreach _enemy;
 
 	_enemy_sectors;
+};
+
+ARWA_sector_rearm_player_vehicles = {
+	params ["_sector"];
+	private _sector_pos = _sector getVariable ARWA_KEY_pos;
+
+    while {true} do {
+		private _sector_owner = _sector getVariable ARWA_KEY_owned_by;
+		{
+			private _vehicle = vehicle _x;
+			private _player_side = side _x;
+			private _close_to_sector = (_sector_pos distance2D getPos _x) < (ARWA_sector_size / 4);
+
+			if(_close_to_sector && {_sector_owner isEqualTo _player_side} && {_vehicle isKindOf "Car" || _vehicle isKindOf "Tank"}) then {
+				_vehicle setVehicleAmmo 1;
+			};
+		} forEach allPlayers;
+		sleep 300;
+      };
 };

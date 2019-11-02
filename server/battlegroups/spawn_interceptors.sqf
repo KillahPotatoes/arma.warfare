@@ -1,21 +1,26 @@
 ARWA_spawn_interceptors = {
-	private _spawned_interceptor = false;
 	while {true} do {
+		private _spawned_interceptor = false;
 		{
-			private _player = _x;
-			private _class_name = typeOf (vehicle _player);
+			private _side = _x;
 
-			if([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of) then {
-				private _enemies = ARWA_active_factions - [side group _player];
+			private _number_of_players_in_interceptors = _side countSide (allPlayers select { 
+				private _player = _x;
+				private _class_name = typeOf (vehicle _player);
+				[_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of;
+			});
+
+			if(_number_of_players_in_interceptors > 0) then {
+				private _enemies = ARWA_active_factions - [_side];
 				private _interceptor_side = selectRandom _enemies;
 
-				private _number = ceil(random 3);
+				private _number = ceil(random 3) + _number_of_players_in_interceptors;
 
 				[_interceptor_side, _number] call ARWA_spawn_ai_interceptors;
 				_spawned_interceptor = true;
 			};
+		} forEach ARWA_active_factions;
 
-		} forEach allPlayers;
 		sleep (if(_spawned_interceptor) then { 300 + random 900; } else { random 300; });
 		_spawned_interceptor = false;
 	};

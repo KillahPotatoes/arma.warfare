@@ -32,8 +32,10 @@ ARWA_initialize_sectors = {
 
 			[_sector] call ARWA_draw_sector;
 			_sectors pushback _sector;
-
-			_ammo_box = [_sector, _first_capture_bonus] call ARWA_add_sector_box;
+			
+			if(_first_capture_bonus) then {
+				_ammo_box = [_sector, ARWA_starting_strength / 10] call ARWA_add_sector_box;
+			};
 
 			[_sector] spawn ARWA_initialize_sector_control;
 			[_sector] spawn ARWA_sector_rearm_player_vehicles;

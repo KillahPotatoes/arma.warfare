@@ -243,8 +243,8 @@ class Params
     class FirstCaptureBonus
     {
         title = "Bonus manpower on first capture"; // Param name visible in the list
-        values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
-        texts[] = {"0","10","20","30"}; // Description of each selectable item
+        values[] = {0,1}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"Off","On"}; // Description of each selectable item
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };

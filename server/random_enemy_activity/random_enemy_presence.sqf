@@ -101,14 +101,13 @@ ARWA_pick_random_group = {
 ARWA_commander_state = {
 	params ["_commander"];
 
-	waitUntil { isNil "_commander" || {!alive _commander} };
-
-	sleep 5;
+	waitUntil { isNull _commander || {!alive _commander} };
 
 	if(isNull _commander) exitWith {
+		sleep 60 + (random 60);
 		[playerSide, ["ARWA_STR_ENEMY_COMMANDER_LOST"]] remoteExec ["ARWA_HQ_report_client"];
 	};
-
+	sleep 5 + (random 5);
 	[playerSide, ["ARWA_STR_ENEMY_COMMANDER_KILLED"]] remoteExec ["ARWA_HQ_report_client"];
 };
 

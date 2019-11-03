@@ -28,7 +28,7 @@ ARWA_reset_sector = {
       private _ammo_box = _sector getVariable ARWA_KEY_box;
       _ammo_box setVariable [ARWA_KEY_hacked, false, true];
 
-      if((playersNumber _new_owner) == 0 && !(_new_owner isEqualTo civilian) && (playersNumber _old_owner) > 0) exitWith {
+      if((playersNumber _new_owner) == 0 && !(_new_owner isEqualTo civilian) && ((playersNumber _old_owner) > 0 || _old_owner isEqualTo civilian)) exitWith {
             private _manpower = _ammo_box call ARWA_get_manpower;
 
             if(_manpower > 0) exitWith {

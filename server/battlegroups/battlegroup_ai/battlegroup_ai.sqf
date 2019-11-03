@@ -59,7 +59,7 @@ ARWA_check_if_has_priority_target = {
 ARWA_initialize_battlegroup_ai = {
 	params ["_group"];
 
-	private _veh = vehicle leader _group;
+	private _veh = vehicle (leader _group);
 
 	if(_veh isKindOf "Air") exitWith {
 		[_group, _veh] spawn ARWA_initialize_air_group_ai;

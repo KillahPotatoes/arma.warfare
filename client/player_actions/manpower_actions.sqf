@@ -8,7 +8,7 @@ ARWA_add_take_manpower = {
       _caller setVariable [ARWA_KEY_manpower, _manpower, true];
       cursorTarget setVariable [ARWA_KEY_manpower, 0, true];
       systemChat format[localize "ARWA_STR_YOU_TOOK_MANPOWER", _new_manpower];
-    }, nil, ARWA_manpower_actions, true, true, "", '[cursorTarget] call ARWA_can_take_manpower'];
+    }, nil, ARWA_manpower_actions, false, true, "", '[cursorTarget] call ARWA_can_take_manpower'];
 };
 
 ARWA_add_store_manpower = {
@@ -20,7 +20,7 @@ ARWA_add_store_manpower = {
       _caller setVariable [ARWA_KEY_manpower, 0, true];
       cursorTarget setVariable [ARWA_KEY_manpower, _manpower, true];
       systemChat format[localize "ARWA_STR_YOU_STORED_MANPOWER", _manpower]
-    }, nil, ARWA_manpower_actions, true, true, "", '[cursorTarget] call ARWA_can_store_manpower'];
+    }, nil, ARWA_manpower_actions, false, true, "", '[cursorTarget] call ARWA_can_store_manpower'];
 };
 
 ARWA_can_take_manpower = {
@@ -50,7 +50,7 @@ ARWA_add_manpower_action = {
 		[side _caller, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
 		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
 
-	}, nil, ARWA_manpower_actions, false, false, "",
+	}, nil, ARWA_manpower_actions, false, true, "",
   '[_target, _this] call ARWA_owned_by && [_this] call ARWA_obj_has_manpower', 10
   ];
 };

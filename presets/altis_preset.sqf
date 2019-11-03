@@ -1,6 +1,6 @@
 ARWA_all_sides = [west, east, independent];
 ARWA_max_tier = 2;
-ARWA_KEY_guer_faction_name = "The resistance";
+ARWA_KEY_guer_faction_name = "Chernarus";
 ARWA_KEY_west_faction_name = "Nato";
 ARWA_KEY_east_faction_name = "China";
 
@@ -25,6 +25,21 @@ ARWA_civilians = [
 	["C_man_polo_4_F",0],
 	["C_man_polo_5_F",0],
 	["C_man_polo_6_F",0]
+];
+
+ARWA_west_interceptor_tier_2 = [
+	["B_Plane_Fighter_01_F", 50],
+	["B_Plane_CAS_01_dynamicLoadout_F", 50]
+];
+
+ARWA_east_interceptor_tier_2 = [
+	["O_Plane_CAS_02_dynamicLoadout_F", 50],
+	["O_Plane_Fighter_02_F", 50]
+];
+
+ARWA_guer_interceptor_tier_2 = [
+	["I_Plane_Fighter_04_F", 50],
+	["I_Plane_Fighter_03_dynamicLoadout_F", 50]
 ];
 
 ARWA_west_uavs = [

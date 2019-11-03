@@ -53,18 +53,32 @@ ARWA_get_vehicle = {
 	systemChat format[localize "ARWA_STR_OBSTRUCTING_THE_RESPAWN_AREA", _type];
 };
 
-ARWA_list_options = {
-	params ["_type", "_priority", "_box", "_title"];
+ARWA_get_interceptor = {
+	params ["_class_name", "_penalty", "_side"];
+	private _pos = [playerSide] call ARWA_find_spawn_pos_and_direction;
+	private _veh_arr = [_class_name, _penalty, playerSide, _pos] call ARWA_spawn_interceptor;
+	private _veh = _veh_arr select 0;
 
-	private _side = playerSide;
-	private _options = [_side, _type] call ARWA_get_units_based_on_tier;
+	_veh setVariable [ARWA_penalty, _penalty, true];
+	[_veh] spawn ARWA_rearm_interceptor;
+	[_veh] spawn ARWA_return_interceptor;
+
+	private _pilot = driver _veh;
+	private _pilot_group = group _pilot;
+	deleteVehicle _pilot;
+	deleteGroup _pilot_group;
+	player moveInDriver _veh;
+};
+
+ARWA_list_options = {
+	params ["_type", "_priority", "_box", "_title", "_options"];
 
 	if(_type isEqualTo ARWA_KEY_helicopter) then {
-		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", _side, ARWA_KEY_helicopter]);
+		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", playerSide, ARWA_KEY_helicopter]);
 	};
 
 	if(_type isEqualTo ARWA_KEY_vehicle) then {
-		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", _side, ARWA_KEY_vehicle]);
+		_options append (missionNamespace getVariable format["ARWA_%1_%2_transport", playerSide, ARWA_KEY_vehicle]);
 	};
 
 	private _sub_options = [];
@@ -90,14 +104,18 @@ ARWA_list_options = {
 				systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
 			};
 
-			if(_type isEqualTo ARWA_KEY_infantry) then {
+			if(_type isEqualTo ARWA_KEY_infantry) exitWith {
 				[_class_name] call ARWA_get_infantry;
-			} else {
-				private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;
-				private _base_marker = missionNamespace getVariable _base_marker_name;
-
-				[_base_marker, _class_name, _penalty] call ARWA_get_vehicle;
 			};
+
+			if (_type isEqualTo ARWA_KEY_interceptor) exitWith {
+				[_class_name, _penalty] call ARWA_get_interceptor;
+			};
+
+			private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;
+			private _base_marker = missionNamespace getVariable _base_marker_name;
+
+			[_base_marker, _class_name, _penalty] call ARWA_get_vehicle;
 
 		}, [_class_name, _penalty, _type, _box, _title], (_priority - 1), false, true, "", '', 10]);
 
@@ -130,10 +148,16 @@ ARWA_create_menu = {
 			systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
 		};
 
+		private _options = [playerSide, _type] call ARWA_get_units_based_on_tier;
+
+		if(_options isEqualTo []) exitWith {
+			systemChat localize "NO_AVAILABLE_OPTIONS";
+		};
+
 		private _open = _box getVariable format["Menu_%1", _title];
 
 		if(!_open) then {
-			[_type, _priority, _box, _title] call ARWA_list_options;
+			[_type, _priority, _box, _title, _options] call ARWA_list_options;
 			_box setVariable [format["Menu_%1", _title], true];
 		} else {
 			_box setVariable [format["Menu_%1", _title], false];

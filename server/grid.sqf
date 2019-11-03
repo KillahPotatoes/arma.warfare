@@ -3,6 +3,7 @@ ARWA_grid_end_x = 0;
 ARWA_grid_start_y = worldSize;
 ARWA_grid_end_y = 0;
 ARWA_grid_size = worldSize;
+ARWA_grid_center =  [worldSize / 2, worldsize / 2, 0];
 
 ARWA_find_grid_area = {
 	private _locations = [];
@@ -36,9 +37,17 @@ ARWA_find_grid_area = {
 		};
 	} foreach _locations;
 
-	ARWA_grid_size = (ARWA_grid_end_x max ARWA_grid_end_y) - (ARWA_grid_start_x min ARWA_grid_start_y);
+	private _grid_size = (ARWA_grid_end_x max ARWA_grid_end_y) - (ARWA_grid_start_x min ARWA_grid_start_y);
+	missionNameSpace setVariable ["ARWA_grid_size",_grid_size, true];
+
 	ARWA_buffer = (ARWA_grid_size / 10) min 500;
 	ARWA_cell_size = ARWA_grid_size / 100;
+
+	// find center
+	private _grid_center_x = ARWA_grid_start_x + (ARWA_grid_end_x - ARWA_grid_start_x) / 2;
+	private _grid_center_y = ARWA_grid_start_y + (ARWA_grid_end_y - ARWA_grid_start_y) / 2;
+	missionNameSpace setVariable ["ARWA_grid_center", [_grid_center_x, _grid_center_y, 0], true];
+
 	ARWA_grid_start_x = ARWA_grid_start_x - ARWA_buffer;
 	ARWA_grid_end_x = ARWA_grid_end_x + ARWA_buffer;
 	ARWA_grid_start_y = ARWA_grid_start_y - ARWA_buffer;

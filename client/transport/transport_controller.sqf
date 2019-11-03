@@ -140,7 +140,7 @@ ARWA_interrupt_transport_misson = {
 	sleep 3;
 
 	private _success = if(_veh isKindOf "Air") then {
-		[_group, _veh] call ARWA_take_off_and_despawn;
+		[_group, _veh] call ARWA_despawn_air;
 	} else {
 		[_group, _veh] call ARWA_send_to_HQ;
 	};

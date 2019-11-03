@@ -1,7 +1,7 @@
 ARWA_sectors = [];
 
 ARWA_add_sector_box = {
-	params ["_sector"];
+	params ["_sector", "_first_capture_bonus"];
 
 	private _pos = _sector getVariable ARWA_KEY_pos;
 	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
@@ -9,11 +9,12 @@ ARWA_add_sector_box = {
 	_ammo_box enableRopeAttach false;
 	_sector setVariable [ARWA_KEY_box, _ammo_box];
 	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
-	_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
+	_ammo_box setVariable [ARWA_KEY_manpower, _first_capture_bonus, true];
 	_ammo_box setVariable [ARWA_KEY_sector, true, true];
 };
 
 ARWA_initialize_sectors = {
+	params ["_first_capture_bonus"];
 	private _sectors = [];
 	{
 		_type = getMarkerType _x;
@@ -32,9 +33,12 @@ ARWA_initialize_sectors = {
 			[_sector] call ARWA_draw_sector;
 			_sectors pushback _sector;
 
-			_ammo_box = [_sector] call ARWA_add_sector_box;
+			private _capture_bonus = if(_first_capture_bonus) then {  ARWA_starting_strength / 10; } else { 0; };
+
+			_ammo_box = [_sector, _capture_bonus] call ARWA_add_sector_box;
 
 			[_sector] spawn ARWA_initialize_sector_control;
+			[_sector] spawn ARWA_sector_rearm_player_vehicles;
 
 			true;
 		};
@@ -142,4 +146,24 @@ ARWA_find_enemy_sectors = {
 	} foreach _enemy;
 
 	_enemy_sectors;
+};
+
+ARWA_sector_rearm_player_vehicles = {
+	params ["_sector"];
+	private _sector_pos = _sector getVariable ARWA_KEY_pos;
+
+    while {true} do {
+		private _sector_owner = _sector getVariable ARWA_KEY_owned_by;
+		{
+			private _vehicle = vehicle _x;
+			private _player_side = side _x;
+			private _close_to_sector = (_sector_pos distance2D getPos _x) < (ARWA_sector_size / 4);
+
+			if(_close_to_sector && {_sector_owner isEqualTo _player_side} && {_vehicle isKindOf "Car" || _vehicle isKindOf "Tank"}) then {
+				_vehicle setVehicleAmmo 1;
+				[["ARWA_STR_VEHICLE_REARMED"]] remoteExec ["ARWA_system_chat", group _x];
+			};
+		} forEach allPlayers;
+		sleep 300;
+      };
 };

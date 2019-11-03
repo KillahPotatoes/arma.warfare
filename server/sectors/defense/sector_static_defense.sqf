@@ -65,7 +65,7 @@ ARWA_rearm_delay = {
 		diag_log format["%1 fired barrage", _this select 0];
 		_veh setVariable[ARWA_KEY_fired_barrage, true];
 		sleep ARWA_sector_artillery_reload_time;
-		(_this select 0) setvehicleammo 1;
+		(_this select 0) setVehicleAmmo 1;
 		diag_log format["%1 reloaded", _this select 0];
 
 		_veh setVariable[ARWA_KEY_fired_barrage, false];

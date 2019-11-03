@@ -17,13 +17,43 @@
             <English>You took %1 MP</English>
             <German>%1 MP aufgenommen</German>
         </Key>
-        <Key ID="ARWA_STR_YOU_GAVE_MANPOWER">
+        <Key ID="ARWA_STR_CANNOT_RETURN_INTERCEPTOR">
+            <English>You cannot return interceptor while enemies are nearby</English>
+        </Key>
+          <Key ID="ARWA_STR_ENEMY_COMMANDER_KILLED">
+            <English>The enemy resistance leader has been killed!</English>
+        </Key>
+          <Key ID="ARWA_STR_ENEMY_COMMANDER_LOST">
+            <English>We lost track of the enemy resistance leader</English>
+        </Key>
+          <Key ID="ARWA_STR_ENEMY_COMMANDER_IN_AREA">
+            <English>Intelligence has picked up that a high ranking enemy resistance leader is in the area</English>
+        </Key>
+         <Key ID="ARWA_STR_AERIAL_SAFE_ZONE">
+            <English>Aerial safe zone</English>
+        </Key>
+         <Key ID="ARWA_STR_CANNOT_REARM_INTERCEPTOR">
+            <English>You cannot rearm interceptor while enemies are nearby</English>
+        </Key>
+        <Key ID="ARWA_STR_VEHICLE_REARMED">
+            <English>Vehicle rearmed</English>
+        </Key>
+         <Key ID="ARWA_STR_YOU_GAVE_MANPOWER">
             <English>You gave %1 MP</English>
             <German>%1 MP abgegeben</German>
         </Key>
         <Key ID="ARWA_STR_YOU_STORED_MANPOWER">
             <English>You stored %1 MP</English>
             <German>%1 MP eingelagert</German>
+        </Key>
+        <Key ID="ARWA_STR_YOU_REARMED">
+            <English>Interceptor rearmed! Wait 5 minutes until next possible rearm</English>
+        </Key>
+        <Key ID="ARWA_STR_YOU_CAN_REARM">
+            <English>You can now rearm in safe zone</English>
+        </Key>
+        <Key ID="ARWA_STR_RETURN_INTERCEPTOR">
+            <English>Return interceptor</English>
         </Key>
          <Key ID="ARWA_STR_STEAL_INTEL">
             <English>Hack enemy network</English>
@@ -52,6 +82,9 @@
             <English>Take manpower</English>
             <German>MP aufnehmen</German>
         </Key>
+        <Key ID="ARWA_STR_GET_INTERCEPTORS">
+            <English>Get interceptors</English>
+        </Key>
          <Key ID="ARWA_STR_CANCELING_TRANSPORT_MISSION">
             <English>Transport mission cancelled</English>
             <German>Transporteinsatz abgebrochen</German>
@@ -78,6 +111,9 @@
         <Key ID="ARWA_STR_GET_INFANTRY">
             <English>Get infantry</English>
             <German>Infantrie anfordern</German>
+        </Key>
+        <Key ID="NO_AVAILABLE_OPTIONS">
+            <English>There is no available options at this tier</English>
         </Key>
         <Key ID="ARWA_STR_GET_VEHICLES">
             <English>Get vehicle</English>

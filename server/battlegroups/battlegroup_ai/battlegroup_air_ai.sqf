@@ -33,7 +33,8 @@ ARWA_initialize_air_group_ai = {
 	while{[_group] call ARWA_group_is_alive} do {
 
 		if(!(someAmmo _veh)) exitWith {
-			[_group, _veh] spawn ARWA_take_off_and_despawn;
+			diag_log format["Out of ammo: Despawn %1 %2", _veh, _side];
+			[_group, _veh] spawn ARWA_despawn_air;
 		};
 
 		if([_group] call ARWA_group_should_be_commanded) then {
@@ -43,6 +44,19 @@ ARWA_initialize_air_group_ai = {
 
 		sleep 10;
 	};
+};
+
+ARWA_players_in_interceptors = {
+	private _players_in_planes = [];
+	{
+		private _player = _x;
+		private _class_name = typeOf (vehicle _player);
+		if([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of) then {
+			_players_in_planes append _player;
+		};
+	} forEach allPlayers;
+
+	_players_in_planes
 };
 
 ARWA_find_air_target = {

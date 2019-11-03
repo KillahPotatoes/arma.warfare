@@ -6,6 +6,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\random_start_positions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\interceptor.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\register_kills.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\clean_up.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\end_game_conditions.sqf";
@@ -43,6 +44,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_infantry_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\deploy_ground_troops\spawn_vehicle_groups.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_gunships.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_interceptors.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\heli_insertion.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\spawn_infantry.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\spawn_reinforcements.sqf";
@@ -59,7 +61,8 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\calculate_mission_size.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
-private _startingTier = ["StartingTier", 0] call BIS_fnc_getParamValue;
+private _starting_tier = ["StartingTier", 0] call BIS_fnc_getParamValue;
+private _first_capture_bonus = (["FirstCaptureBonus", 0] call BIS_fnc_getParamValue) > 0;
 ARWA_starting_strength = ["Manpower", 300] call BIS_fnc_getParamValue;
 ARWA_mine_fields = (["Mines", 1] call BIS_fnc_getParamValue) == 1;
 ARWA_sector_artillery = (["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue) > 0;
@@ -70,7 +73,7 @@ ARWA_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 
 // Game setup
-[] call ARWA_initialize_sectors;
+[_first_capture_bonus] call ARWA_initialize_sectors;
 [] call ARWA_draw_all_sectors;
 [] call ARWA_assign_prefixes;
 [] call ARWA_hide_respawn_markers;
@@ -80,7 +83,7 @@ if(ARWA_mine_fields) then {
 };
 
 [] call ARWA_setup_faction_relations;
-[ARWA_starting_strength, _startingTier] call ARWA_initialize_faction_stats;
+[ARWA_starting_strength, _starting_tier] call ARWA_initialize_faction_stats;
 [] call ARWA_initialize_bases;
 [] call ARWA_initialize_base_respawns;
 [] call ARWA_initialize_battle_groups;
@@ -95,5 +98,8 @@ if(ARWA_mine_fields) then {
 [] spawn ARWA_clean_up;
 [] spawn ARWA_initialize_spawn_battle_groups;
 [] spawn ARWA_spawn_gunship_groups;
+[] spawn ARWA_spawn_interceptors;
 [] spawn ARWA_sector_manpower_generation;
 [] spawn ARWA_populate_random_houses;
+
+setViewDistance 6000;

@@ -21,9 +21,9 @@ if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(b
     [] call bis_fnc_reviveInit;
 };
 
-
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\interceptor.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\access_methods.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\radio_chatter.sqf";
@@ -48,6 +48,7 @@ ARWA_required_rank_take_lead = ["requiredTakeLeadRank", 2] call BIS_fnc_getParam
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_intel_action.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\interceptor_actions.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\manpower_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";

@@ -107,7 +107,7 @@ ARWA_initialize_sector_control = {
 	_sector setVariable ["reinforements_available", false];
 	private _sector_name = [_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
 	private _report_attack = true;
-	private _old_owner = civilian;
+	private _old_owner = _sector getVariable ARWA_KEY_owned_by;
 
 	while {true} do {
 		private _owner = _sector getVariable ARWA_KEY_owned_by;
@@ -140,7 +140,7 @@ ARWA_initialize_sector_control = {
 		} else {
 			if(_counter == 0) exitWith {
 				_old_owner = _current_faction;
-				[_sector, _current_faction, _sector_name] call ARWA_lose_sector;
+				[_sector, _old_owner, _sector_name] call ARWA_lose_sector;
 			};
 
 			private _friendles_in_sector = ([_owner, _pos, false] call ARWA_any_friendlies_in_sector);

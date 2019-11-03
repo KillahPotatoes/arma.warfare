@@ -84,11 +84,32 @@ ARWA_pick_random_group = {
 	if(_spawn_sympathizers) exitWith {
 		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[true, false, _controlled_by in ARWA_all_sides]);
 		diag_log format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side];
-		[[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
+		private _group = [[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
+
+		if(_commander) then {
+			[playerSide, ["ARWA_STR_ENEMY_COMMANDER_IN_AREA"]] remoteExec ["ARWA_HQ_report_client"];
+			[leader _group] spawn ARWA_commander_state;
+		};
+
+		_group;
 	};
 
 	diag_log format["Spawn %1 civilians", _random_number_of_soldiers];
 	[[0,0,0], _random_number_of_soldiers] call ARWA_spawn_civilians;
+};
+
+ARWA_commander_state = {
+	params ["_commander"];
+
+	waitUntil { isNil "_commander" || {!alive _commander} };
+
+	sleep 5;
+
+	if(isNull _commander) exitWith {
+		[playerSide, ["ARWA_STR_ENEMY_COMMANDER_LOST"]] remoteExec ["ARWA_HQ_report_client"];
+	};
+
+	[playerSide, ["ARWA_STR_ENEMY_COMMANDER_KILLED"]] remoteExec ["ARWA_HQ_report_client"];
 };
 
 ARWA_populate_house = {

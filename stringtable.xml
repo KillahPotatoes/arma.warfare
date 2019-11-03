@@ -20,6 +20,15 @@
         <Key ID="ARWA_STR_CANNOT_RETURN_INTERCEPTOR">
             <English>You cannot return interceptor while enemies are nearby</English>
         </Key>
+          <Key ID="ARWA_STR_ENEMY_COMMANDER_KILLED">
+            <English>The enemy resistance leader has been killed!</English>
+        </Key>
+          <Key ID="ARWA_STR_ENEMY_COMMANDER_LOST">
+            <English>We lost track of the enemy resistance leader</English>
+        </Key>
+          <Key ID="ARWA_STR_ENEMY_COMMANDER_IN_AREA">
+            <English>Intelligence has picked up that a high ranking enemy resistance leader is in the area</English>
+        </Key>
          <Key ID="ARWA_STR_AERIAL_SAFE_ZONE">
             <English>Aerial safe zone</English>
         </Key>

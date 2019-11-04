@@ -83,7 +83,7 @@ ARWA_pick_random_group = {
 
 	if(_spawn_sympathizers) exitWith {
 		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[true, false, _controlled_by in ARWA_all_sides]);
-		diag_log format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side];
+		format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side] spawn ARWA_debugger;
 		private _group = [[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
 
 		if(_commander) then {
@@ -94,7 +94,7 @@ ARWA_pick_random_group = {
 		_group;
 	};
 
-	diag_log format["Spawn %1 civilians", _random_number_of_soldiers];
+	format["Spawn %1 civilians", _random_number_of_soldiers] spawn ARWA_debugger;
 	[[0,0,0], _random_number_of_soldiers] call ARWA_spawn_civilians;
 };
 

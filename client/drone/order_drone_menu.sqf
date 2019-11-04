@@ -26,6 +26,10 @@ ARWA_show_order_uav = {
 	player addAction [[localize "ARWA_STR_REQUEST_DRONE", 0] call ARWA_add_action_text, {
 		params ["_target", "_caller", "_actionId", "_arguments"];
 
+		if(([playerSide] call ARWA_get_strength) <= 0) exitWith {
+			systemChat localize "ARWA_STR_NOT_ENOUGH_MANPOWER";
+		};
+
 		private _rank = rank player;
 		private _rank_index = ARWA_ranks find _rank;
 
@@ -195,7 +199,6 @@ ARWA_spawn_uav = {
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
     private _uav_arr = [_pos, _dir, _class_name, _side, _penalty] call ARWA_spawn_vehicle;
-
 
 	ARWA_uav_active = true;
 

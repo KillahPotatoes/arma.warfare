@@ -80,6 +80,15 @@ ARWA_get_manpower = {
     floor(_obj getVariable [ARWA_KEY_manpower, 0]);
 };
 
+ARWA_debugger = {
+	params ["_msg"];
+
+	if(ARWA_enable_debugger) then {
+		systemChat _msg;
+		diag_log _msg;
+	};
+};
+
 ARWA_is_type_of = {
 	params ["_class_name","_type"];
 
@@ -189,7 +198,7 @@ ARWA_is_between = {
 
 ARWA_report_time = {
     params ["_time", "_message"];
-    diag_log format["Time: %1: %2", diag_tickTime - _time, _message];
+    format["Time: %1: %2", diag_tickTime - _time, _message] spawn ARWA_debugger;
 };
 
 ARWA_get_vehicle_display_name = {

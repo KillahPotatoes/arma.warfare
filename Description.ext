@@ -498,6 +498,13 @@ class Params
         };
         default = 10;
     };
+    class Debugger
+    {
+        title = "Debug";
+        texts[] = {"Off","On"};
+        values[] = {0,1};
+        default = 0;
+    };
 };
 
 #include "KPGUI\KPGUI_defines.hpp"

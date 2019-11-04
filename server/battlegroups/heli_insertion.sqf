@@ -89,8 +89,8 @@ ARWA_do_helicopter_insertion = {
 
 	[_mission_attr, _group, _target] call ARWA_set_special_mission_attr;
 
-	diag_log format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), [_target_name] call ARWA_replace_underscore, _mission_attr select 0, _mission_attr select 1, _side];
-	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
+	format["%5: Inserting %1 soldiers at %2 (special forces: %3 / priority target: %4)", (count units _group), [_target_name] call ARWA_replace_underscore, _mission_attr select 0, _mission_attr select 1, _side] spawn ARWA_debugger;
+	format["%1 manpower: %2", _side, [_side] call ARWA_get_strength] spawn ARWA_debugger;
 
 	[_side, ["ARWA_STR_INSERTING_SQUAD", _name, count units _group, [_target_name] call ARWA_replace_underscore]] remoteExec ["ARWA_HQ_report_client"];
 	[_heli select 2, _heli select 0, _pos] call ARWA_move_to_sector_outskirt;

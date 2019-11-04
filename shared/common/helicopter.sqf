@@ -96,7 +96,7 @@ ARWA_despawn_air = {
 			};
 
 			deleteVehicle _veh;
-			diag_log format["Despawn %1 %2", _veh, _side];
+			format["Despawn %1 %2", _veh, _side] spawn ARWA_debugger;
 			true;
 		};
 

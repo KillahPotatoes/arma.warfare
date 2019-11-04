@@ -4,7 +4,7 @@ ARWA_lost = {
 	params ["_side"];
 	private _players = _side countSide (allPlayers select { alive _x });
 
-	_side call ARWA_get_strength <= 0 && _players == 0;
+	!(_side call ARWA_has_manpower) && _players == 0;
 };
 
 ARWA_check_end_game_state = {
@@ -27,4 +27,3 @@ ARWA_end_game_conditions_check = {
 	};
 	[ARWA_active_factions] remoteExec ["ARWA_end_mission"];
 };
-

@@ -35,7 +35,7 @@ ARWA_try_spawn_reinforcements = {
 	private _unit_count = _side call ARWA_count_battlegroup_units;
 	private _can_spawn = ([] call ARWA_get_unit_cap) - _unit_count;
 
-	diag_log format["%2: Checking reinforcements: Can spawn %1, required: %3", _can_spawn, _side, ARWA_squad_cap/2];
+	format["%2: Checking reinforcements: Can spawn %1, required: %3", _can_spawn, _side, ARWA_squad_cap/2] spawn ARWA_debugger;
 
 	if (_can_spawn > (ARWA_squad_cap / 2) && (_side call ARWA_has_manpower)) exitWith {
 		private _pos = _target getVariable ARWA_KEY_pos;
@@ -49,10 +49,11 @@ ARWA_try_spawn_reinforcements = {
 			[_side, _pos] call ARWA_calcuate_heli_weight
 		];
 
-		diag_log format["%2: Checking reinforcements: %1", _reinforcement_types, _side];
+		format["%2: Checking reinforcements: %1", _reinforcement_types, _side] spawn ARWA_debugger;
 
 		private _reinforcement_type = selectRandomWeighted _reinforcement_types;
-		diag_log format["%2: Reinforcing: %1", _reinforcement_type, _side];
+		private _target_name = _target getVariable ARWA_KEY_target_name;
+		format["%2: Seing reinforcing: %1 to %3", _reinforcement_type, _side, _target_name] spawn ARWA_debugger;
 
 		if(_reinforcement_type isEqualTo ARWA_KEY_infantry) exitWith {
 			[_side, _can_spawn, _target] spawn ARWA_spawn_reinforcement_squad;

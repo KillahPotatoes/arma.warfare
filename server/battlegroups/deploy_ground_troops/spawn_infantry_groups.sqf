@@ -95,8 +95,8 @@ ARWA_spawn_reinforcement_squad = {
 	if(isNil "_pos") exitWith {};
 
 	private _soldier_count = (ARWA_squad_cap call ARWA_calc_number_of_soldiers) min _can_spawn;
-	diag_log format["%1: Spawn infantry squad (%2)", _side, _soldier_count];
-	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
+	format["%1: Spawn infantry squad (%2)", _side, _soldier_count] spawn ARWA_debugger;
+	format["%1 manpower: %2", _side, [_side] call ARWA_get_strength] spawn ARWA_debugger;
 
     private _group = [_pos, _side, _soldier_count, false] call ARWA_spawn_infantry;
 

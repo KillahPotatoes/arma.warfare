@@ -11,7 +11,9 @@ ARWA_spawn_defense = {
 
 	private _group = [_pos, _side, _number_of_soldiers] call ARWA_spawn_defensive_squad;
 
-	[_group, _pos] call ARWA_spawn_defense_vehicle;
+	if(_side call ARWA_has_manpower) then {
+		[_group, _pos] call ARWA_spawn_defense_vehicle;
+	};
 
     _group setBehaviour "SAFE";
 	_group setVariable [ARWA_KEY_defense, true];
@@ -59,7 +61,7 @@ ARWA_calc_number_of_soldiers = {
 	floor random [_soldier_cap / 2, _soldier_cap / 1.5, _soldier_cap];
 };
 
-ARWA_spawn_reinforcments = {
+ARWA_spawn_reinfore_sector_defense = {
 	params ["_pos", "_group"];
 
 	private _side = side _group;

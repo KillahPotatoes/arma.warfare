@@ -1,6 +1,8 @@
 ARWA_spawn_static = {
 	params ["_pos", "_side"];
 
+	if(!(_side call ARWA_has_manpower)) exitWith {};
+
 	private _available_art = [_side, ARWA_KEY_static_artillery] call ARWA_get_units_based_on_tier;
 	if(_available_art isEqualTo []) exitWith {};
 
@@ -62,11 +64,11 @@ ARWA_rearm_delay = {
 
 	private _fired_barrage = _veh getVariable [ARWA_KEY_fired_barrage, false];
 	if(!_fired_barrage) then {
-		diag_log format["%1 fired barrage", _this select 0];
+		format["%1 fired barrage", _this select 0] spawn ARWA_debugger;
 		_veh setVariable[ARWA_KEY_fired_barrage, true];
 		sleep ARWA_sector_artillery_reload_time;
 		(_this select 0) setVehicleAmmo 1;
-		diag_log format["%1 reloaded", _this select 0];
+		format["%1 reloaded", _this select 0] spawn ARWA_debugger;
 
 		_veh setVariable[ARWA_KEY_fired_barrage, false];
 	};

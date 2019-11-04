@@ -4,13 +4,14 @@ ARWA_spawn_interceptors = {
 		{
 			private _side = _x;
 
-			private _number_of_players_in_interceptors = _side countSide (allPlayers select { 
+			private _number_of_players_in_interceptors = _side countSide (allPlayers select {
 				private _player = _x;
 				private _class_name = typeOf (vehicle _player);
 				[_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of;
 			});
 
 			if(_number_of_players_in_interceptors > 0) then {
+
 				private _enemies = ARWA_active_factions - [_side];
 				private _interceptor_side = selectRandom _enemies;
 
@@ -18,6 +19,7 @@ ARWA_spawn_interceptors = {
 
 				[_interceptor_side, _number] call ARWA_spawn_ai_interceptors;
 				_spawned_interceptor = true;
+				format ["Spawn %1 interceptors for %2", _number, _interceptor_side] spawn ARWA_debugger;
 			};
 		} forEach ARWA_active_factions;
 
@@ -44,11 +46,11 @@ ARWA_spawn_ai_interceptors = {
 
 	for "_x" from 1 to _number step 1 do {
 		private _new_pos = _pos getPos [100 * _x ,_heading - 90];
-		diag_log format ["%1: Spawn interceptor: %2", _side, _interceptor_name];
+		format ["%1: Spawn interceptor: %2", _side, _interceptor_name] spawn ARWA_debugger;
 		private _veh_arr = [_interceptor, _kill_bonus, _side,  [_new_pos, _heading]] call ARWA_spawn_interceptor;
 		private _group = _veh_arr select 2;
 		[_group] spawn ARWA_add_battle_group;
 	};
 
-	[_interceptor_side, ["ARWA_STR_SENDING_VEHICLE_YOUR_WAY", _interceptor_name]] remoteExec ["ARWA_HQ_report_client"];
+	[_side, ["ARWA_STR_SENDING_VEHICLE_YOUR_WAY", _interceptor_name]] remoteExec ["ARWA_HQ_report_client"];
 };

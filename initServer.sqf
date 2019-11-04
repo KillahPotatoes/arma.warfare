@@ -62,6 +62,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
 private _starting_tier = ["StartingTier", 0] call BIS_fnc_getParamValue;
+ARWA_enable_debugger = (["Debugger", 0] call BIS_fnc_getParamValue) > 0;
 private _first_capture_bonus = (["FirstCaptureBonus", 0] call BIS_fnc_getParamValue) > 0;
 ARWA_starting_strength = ["Manpower", 300] call BIS_fnc_getParamValue;
 ARWA_mine_fields = (["Mines", 1] call BIS_fnc_getParamValue) == 1;

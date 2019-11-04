@@ -37,7 +37,7 @@ ARWA_capture_sector = {
 
 	_sector setVariable ["reinforements_available", true];
 
-	diag_log format["%1 has captured %2", _new_owner, _sector_name];
+	format["%1 has captured %2", _new_owner, _sector_name] spawn ARWA_debugger;
 	_msg = format[localize "ARWA_STR_HAS_CAPTURED_SECTOR", _new_owner call ARWA_get_faction_names, _sector_name];
 	_msg remoteExec ["hint"];
 
@@ -57,7 +57,7 @@ ARWA_lose_sector = {
 	_msg = format[localize "ARWA_STR_HAS_LOST_SECTOR", _old_owner call ARWA_get_faction_names, _sector_name];
 	_msg remoteExec ["hint"];
 
-	diag_log format["%1 has lost %2", _old_owner, _sector_name];
+	format["%1 has lost %2", _old_owner, _sector_name] spawn ARWA_debugger;
 
 	[_sector, civilian, _sector_name, _old_owner] call ARWA_change_sector_ownership;
 };
@@ -88,13 +88,13 @@ ARWA_change_sector_ownership = {
 ARWA_reinforcements_cool_down = {
 	params ["_sector"];
 
-	_sector setVariable ["reinforements_available", false];
+	_sector setVariable [ARWA_KEY_reinforements_available, false];
 	private _current_owner = _sector getVariable ARWA_KEY_owned_by;
 
 	sleep ARWA_respawn_cooldown;
 
 	if((_sector getVariable ARWA_KEY_owned_by) isEqualTo _current_owner) exitWith {
-		_sector setVariable ["reinforements_available", true];
+		_sector setVariable [ARWA_KEY_reinforements_available, true];
 	};
 };
 
@@ -104,7 +104,7 @@ ARWA_initialize_sector_control = {
 	private _pos = _sector getVariable ARWA_KEY_pos;
 	private _counter = 0;
 	private _current_faction = _sector getVariable ARWA_KEY_owned_by;
-	_sector setVariable ["reinforements_available", false];
+	_sector setVariable [ARWA_KEY_reinforements_available, false];
 	private _sector_name = [_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
 	private _report_attack = true;
 	private _old_owner = _sector getVariable ARWA_KEY_owned_by;
@@ -151,7 +151,7 @@ ARWA_initialize_sector_control = {
 					if(_report_attack && _counter == ARWA_capture_time) then {
 						_report_attack = false;
 						[_owner, ["ARWA_STR_SECTOR_IS_UNDER_ATTACK", _sector_name]] remoteExec ["ARWA_HQ_report_client"];
-						diag_log format["%1 sector %2 is under attack", _owner, _sector_name];
+						format["%1 sector %2 is under attack", _owner, _sector_name] spawn ARWA_debugger;
 					};
 
 					if(_sector getVariable "reinforements_available") then {

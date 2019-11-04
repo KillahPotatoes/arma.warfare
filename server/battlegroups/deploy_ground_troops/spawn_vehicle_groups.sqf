@@ -74,8 +74,8 @@ ARWA_spawn_vehicle_group = {
 
 	private _veh_name = _vehicle_type call ARWA_get_vehicle_display_name;
 
-	diag_log format ["%1: Spawn vehicle: %2", _side, _veh_name];
-	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
+	format ["%1: Spawn vehicle: %2", _side, _veh_name] spawn ARWA_debugger;
+	format["%1 manpower: %2", _side, [_side] call ARWA_get_strength] spawn ARWA_debugger;
 
 	if(_can_spawn > 0) then {
     	[_veh_array, _can_spawn] call ARWA_add_soldiers_to_cargo;
@@ -102,7 +102,7 @@ ARWA_spawn_random_vehicle_group = {
 		private _can_spawn = floor (([] call ARWA_get_unit_cap) * (2/3)) - _unit_count;
 	};
 
-	diag_log format["%1: Spawned %2 tier %3 vehicles", _side, count _groups, _tier];
+	format["%1: Spawned %2 tier %3 vehicles", _side, count _groups, _tier] spawn ARWA_debugger;
 
 	_groups;
 };

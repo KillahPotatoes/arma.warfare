@@ -41,21 +41,21 @@ ARWA_create_manpower_box_vehicle = {
 ARWA_pick_responder = {
 	params ["_area_controlled_by", "_victim_side", "_safe_pos"];
 
-	diag_log format["_victim_side: %1, _area_controlled_by: %2, players_on_victim_side", _victim_side, _area_controlled_by];
+	format["_victim_side: %1, _area_controlled_by: %2, players_on_victim_side", _victim_side, _area_controlled_by] spawn ARWA_debugger;
 
 	if(_area_controlled_by isEqualTo _victim_side || (playersNumber _victim_side) == 0) exitWith {
-		diag_log format["1 Sending %1 to get manpower box", _victim_side];
+		format["1 Sending %1 to get manpower box", _victim_side] spawn ARWA_debugger;
 		_victim_side;
 	};
 
 	if(_area_controlled_by isEqualTo civilian) exitWith {
 		private _enemies = ARWA_all_sides - [_victim_side];
 		private _responder = [_enemies, _safe_pos] call ARWA_closest_hq;
-		diag_log format["2 Sending %1 to get manpower box", _responder];
+		format["2 Sending %1 to get manpower box", _responder] spawn ARWA_debugger;
 		_responder;
 	};
 
-	diag_log format["3 Sending %1 to get manpower box", _area_controlled_by];
+	format["3 Sending %1 to get manpower box", _area_controlled_by] spawn ARWA_debugger;
 	_area_controlled_by;
 };
 

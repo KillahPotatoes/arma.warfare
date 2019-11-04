@@ -17,10 +17,15 @@ ARWA_air_move_to_sector = {
 	params ["_new_target", "_group"];
 
 	if ([_group, _new_target] call ARWA_should_change_target || [_group] call ARWA_needs_new_waypoint) then {
+		private _target_name = _new_target getVariable ARWA_KEY_target_name;
+		format["Air %2 moving to %1", _group, _target_name] spawn ARWA_debugger;
 		[_new_target, _group] call ARWA_air_create_waypoint;
 	};
 
 	if ([_group] call ARWA_approaching_target) then {
+		private _target = _group getVariable ARWA_KEY_target;
+		private _target_name = _target getVariable ARWA_KEY_target_name;
+		format["Air %2 approaching %1", _group, _target_name] spawn ARWA_debugger;
 		_group setCombatMode "RED";
 	};
 };
@@ -33,7 +38,7 @@ ARWA_initialize_air_group_ai = {
 	while{[_group] call ARWA_group_is_alive} do {
 
 		if(!(someAmmo _veh)) exitWith {
-			diag_log format["Out of ammo: Despawn %1 %2", _veh, _side];
+			format["Out of ammo: Despawn %1 %2", _veh, _side] spawn ARWA_debugger;
 			[_group, _veh] spawn ARWA_despawn_air;
 		};
 
@@ -44,19 +49,6 @@ ARWA_initialize_air_group_ai = {
 
 		sleep 10;
 	};
-};
-
-ARWA_players_in_interceptors = {
-	private _players_in_planes = [];
-	{
-		private _player = _x;
-		private _class_name = typeOf (vehicle _player);
-		if([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of) then {
-			_players_in_planes append _player;
-		};
-	} forEach allPlayers;
-
-	_players_in_planes
 };
 
 ARWA_find_air_target = {

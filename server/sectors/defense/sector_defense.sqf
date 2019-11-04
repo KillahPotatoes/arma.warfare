@@ -22,10 +22,10 @@ ARWA_spawn_sector_defense = {
 
 		private _new_static_defense = [_pos, _owner] call ARWA_spawn_static;
 		_sector setVariable [ARWA_KEY_static_defense, _new_static_defense];
+		[_sector, _pos] spawn ARWA_reinforce_static_defense;
 	};
 
 	[_sector, _pos] spawn ARWA_reinforce_sector_defense;
-	[_sector, _pos] spawn ARWA_reinforce_static_defense;
 };
 
 ARWA_reinforce_sector_defense = {
@@ -33,10 +33,9 @@ ARWA_reinforce_sector_defense = {
 
 	private _sector_defense = _sector getVariable ARWA_KEY_sector_defense;
 	private _initial_owner = side _sector_defense;
-	private _current_owner = side _sector_defense;
+	private _current_owner = _sector getVariable ARWA_KEY_owned_by;
 
 	while {_current_owner isEqualTo side _sector_defense} do {
-		private _current_owner = _sector getVariable ARWA_KEY_owned_by;
 		private _enemies_nearby = [_pos, _current_owner, ARWA_sector_size] call ARWA_any_enemies_in_area;
 
 		if(!_enemies_nearby) then {
@@ -56,13 +55,15 @@ ARWA_reinforce_static_defense = {
 
 	private _static_defense = _sector getVariable ARWA_KEY_static_defense;
 	private _initial_owner = side (_static_defense select 2);
-	private _current_owner = side (_static_defense select 2);
+	private _current_owner = _sector getVariable ARWA_KEY_owned_by;
 
 	while {_current_owner isEqualTo _initial_owner} do {
 		private _enemies_nearby = [_pos, _current_owner, ARWA_sector_size] call ARWA_any_enemies_in_area;
 
-		if(ARWA_sector_artillery && {!([_static_defense] call ARWA_static_alive)}) then {
-			_static_defense = [_pos, _current_owner] call ARWA_spawn_static;
+		if(!_enemies_nearby && {!([_static_defense] call ARWA_static_alive)}) then {
+			[_static_defense] spawn ARWA_remove_static;
+			private _new_static_defense = [_pos, _current_owner] call ARWA_spawn_static;
+			_sector setVariable [ARWA_KEY_static_defense, _new_static_defense];
 		};
 
 		sleep ARWA_static_defense_reinforcement_interval;

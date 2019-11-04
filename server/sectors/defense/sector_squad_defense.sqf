@@ -40,7 +40,7 @@ ARWA_place_defensive_soldiers = {
 
 		_counter = _counter + 1;
 
-	} forEach _units;                        ;
+	} forEach _units;
 };
 
 ARWA_get_positions_to_populate = {
@@ -74,6 +74,7 @@ ARWA_spawn_reinforcments = {
 
     private _tmp_group = [[_pos select 0, _pos select 1, 3000], _side, _new_soldiers, true] call ARWA_spawn_infantry;
 
+	[_tmp_group] call ARWA_remove_nvg_and_add_flash_light;
 	[_tmp_group, _pos] call ARWA_place_defensive_soldiers;
 
     {[_x] joinSilent _group} forEach units _tmp_group;

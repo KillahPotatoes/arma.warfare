@@ -1,4 +1,4 @@
-ARWA_spawn_defensive_squad = {
+ARWA_spawn_defense = {
 	params ["_pos", "_side"];
 
 	private _has_manpower = _side call ARWA_has_manpower;
@@ -9,10 +9,7 @@ ARWA_spawn_defensive_squad = {
 		1;
 	};
 
-    private _group = [[_pos select 0, _pos select 1, 3000], _side, _number_of_soldiers, true] call ARWA_spawn_infantry;
-
-	[_group, _pos] call ARWA_place_defensive_soldiers;
-	[_group] call ARWA_remove_nvg_and_add_flash_light;
+	private _group = [_pos, _side, _number_of_soldiers] call ARWA_spawn_defensive_squad;
 
 	[_group, _pos] call ARWA_spawn_defense_vehicle;
 
@@ -72,11 +69,19 @@ ARWA_spawn_reinforcments = {
 
 	if(_new_soldiers < 1) exitWith {};
 
-    private _tmp_group = [[_pos select 0, _pos select 1, 3000], _side, _new_soldiers, true] call ARWA_spawn_infantry;
-
-	[_tmp_group] call ARWA_remove_nvg_and_add_flash_light;
-	[_tmp_group, _pos] call ARWA_place_defensive_soldiers;
+	private _tmp_group = [_pos, _side, _new_soldiers] call ARWA_spawn_defensive_squad;
 
     {[_x] joinSilent _group} forEach units _tmp_group;
 	deleteGroup _tmp_group;
+};
+
+ARWA_spawn_defensive_squad = {
+	params ["_pos", "_side", "_soldier_count"];
+
+	 private _group = [[_pos select 0, _pos select 1, 3000], _side, _soldier_count, true] call ARWA_spawn_infantry;
+
+	[_group] call ARWA_remove_nvg_and_add_flash_light;
+	[_group, _pos] call ARWA_place_defensive_soldiers;
+
+	_group;
 };

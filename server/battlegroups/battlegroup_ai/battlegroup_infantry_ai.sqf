@@ -70,14 +70,14 @@ ARWA_infantry_move_to_target = {
 
 	if (([_group, _new_target] call ARWA_should_change_target && !([_group] call ARWA_join_nearby_group)) || [_group] call ARWA_needs_new_waypoint) then {
 		private _target_name = _new_target getVariable ARWA_KEY_target_name;
-		format["Squad %2 moving to %1", _group, _target_name] spawn ARWA_debugger;
+		format["Squad %1 moving to %2", _group, _target_name] spawn ARWA_debugger;
 		[_new_target, _group] call ARWA_infantry_create_waypoint;
 	};
 
 	if ([_group] call ARWA_approaching_target) then {
 		private _target = _group getVariable ARWA_KEY_target;
 		private _target_name = _target getVariable ARWA_KEY_target_name;
-		format["Squad %2 approaching %1", _group, _target_name] spawn ARWA_debugger;
+		format["Squad %1 approaching %2", _group, _target_name] spawn ARWA_debugger;
 		_group setBehaviour "AWARE";
 		_group setCombatMode "RED";
 	};

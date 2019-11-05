@@ -28,7 +28,7 @@ ARWA_spawn_static_sector_defense = {
 
 	if(!isNil "_static_defense") then {
 
-		private _static_defense_side = side _static_defense_side;
+		private _static_defense_side = side _static_defense;
 		if(!(_owner isEqualTo _static_defense_side) || {!([_static_defense] call ARWA_static_alive)}) then {
 			format["Remove static at sector %1 for %2", _sector getVariable ARWA_KEY_target_name, _owner] spawn ARWA_debugger;
 			[_static_defense] spawn ARWA_remove_static;

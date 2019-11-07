@@ -214,7 +214,7 @@ class Params
 {
     class Preset
     {
-        title = "Choose preset"; // Param name visible in the list
+        title = "Choose army preset"; // Param name visible in the list
         values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
         texts[] = {"Altis","Apex","Contact","RHS Woodland"}; // Description of each selectable item
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
@@ -223,14 +223,6 @@ class Params
     class CivilianPreset
     {
         title = "Choose civilian preset"; // Param name visible in the list
-        values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
-        texts[] = {"Altis","Apex","Contact","RHS Woodland"}; // Description of each selectable item
-        default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
-        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
-    };
-    class SympathizersPresets
-    {
-        title = "Choose sympathizers preset"; // Param name visible in the list
         values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
         texts[] = {"Altis","Apex","Contact","RHS Woodland"}; // Description of each selectable item
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used

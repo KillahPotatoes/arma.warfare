@@ -18,15 +18,6 @@ ARWA_west_uav_terminal_class_name = "B_UavTerminal";
 ARWA_east_uav_terminal_class_name = "O_UavTerminal";
 ARWA_guer_uav_terminal_class_name = "I_UavTerminal";
 
-ARWA_civilians = [
-	["C_man_polo_1_F",0],
-	["C_man_polo_2_F",0],
-	["C_man_polo_3_F",0],
-	["C_man_polo_4_F",0],
-	["C_man_polo_5_F",0],
-	["C_man_polo_6_F",0]
-];
-
 ARWA_west_uavs = [
 	["B_UAV_02_F", 30],
 	["B_UAV_02_CAS_F", 30],
@@ -44,76 +35,57 @@ ARWA_guer_uavs = [
 	["I_UAV_02_CAS_F", 30]
 ];
 
-ARWA_west_sympathizers = [
-	["B_G_Soldier_TL_F", 0],
-	["B_G_Soldier_M_F", 0],
-	["B_G_Soldier_AR_F", 0],
-	["B_G_Soldier_A_F", 0],
-	["B_G_Soldier_SL_F", 0],
-	["B_G_Soldier_F", 0],
-	["B_G_engineer_F", 0],
-	["B_G_medic_F", 0],
-	["B_G_Sharpshooter_F", 0]
-
-];
-
-ARWA_east_sympathizers = [
-	["O_G_Soldier_TL_F", 0],
-	["O_G_Soldier_M_F", 0],
-	["O_G_Soldier_AR_F", 0],
-	["O_G_Soldier_A_F", 0],
-	["O_G_Soldier_SL_F", 0],
-	["O_G_Soldier_F", 0],
-	["O_G_engineer_F", 0],
-	["O_G_medic_F", 0],
-	["O_G_Sharpshooter_F", 0]
-];
-
-ARWA_guer_sympathizers = [
-	["I_G_Soldier_TL_F", 0],
-	["I_G_Soldier_M_F", 0],
-	["I_G_Soldier_AR_F", 0],
-	["I_G_Soldier_A_F", 0],
-	["I_G_Soldier_SL_F", 0],
-	["I_G_Soldier_F", 0],
-	["I_G_engineer_F", 0],
-	["I_G_medic_F", 0],
-	["I_G_Sharpshooter_F", 0]
-];
-
 ARWA_west_infantry_tier_0 = [
-	["B_T_soldier_F", 0],
-	["B_T_soldier_AR_F", 0],
-	["B_T_Soldier_GL_F", 0],
-	["B_T_soldier_exp_F", 0],
-	["B_T_medic_F", 0],
-	["B_T_soldier_M_F", 0],
-	["B_T_Soldier_LAT2_F", 0],
-	["B_T_engineer_F", 0]
+	["B_W_Soldier_A_F", 0],
+	["B_W_Soldier_Exp_F", 0],
+	["B_W_Soldier_GL_F", 0],
+	["B_W_Soldier_SL_F", 0],
+	["B_W_Soldier_LAT2_F", 0],
+	["B_W_Engineer_F", 0],
+	["B_W_Medic_F", 0],
+	["B_W_Soldier_LAT_F", 0],
+	["B_W_Soldier_TL_F", 0],
+	["B_W_soldier_M_F", 0],
+	["B_W_Soldier_F", 0],
+	["B_W_Soldier_AR_F", 0]
 ];
 
 ARWA_west_infantry_tier_1 = [
-	["B_T_Soldier_AT_F", 0],
-	["B_T_Soldier_LAT_F", 0]
+	["B_W_Soldier_AT_F", 0]
 ];
 
 ARWA_west_infantry_tier_2 = [
-	["B_T_Soldier_AA_F", 0]
+	["B_W_Soldier_AA_F", 0]
 ];
 
 ARWA_east_infantry_tier_0 = [
-	["O_T_soldier_F", 0],
-	["O_T_soldier_AR_F", 0],
-	["O_T_Soldier_GL_F", 0],
-	["O_T_soldier_exp_F", 0],
-	["O_T_medic_F", 0],
-	["O_T_soldier_M_F", 0],
-	["O_T_engineer_F", 0],
-	["O_T_Recon_LAT_F", 0]
+	["O_R_medic_F", 0],
+	["O_R_Soldier_AR_F", 0],
+	["O_R_soldier_exp_F", 0],
+	["O_R_Soldier_GL_F", 0],
+	["O_R_JTAC_F", 0],
+	["O_R_soldier_M_F", 0],
+	["O_R_Soldier_TL_F", 0],
+	["O_R_Patrol_Soldier_A_F", 0],
+	["O_R_Patrol_Soldier_AR2_F", 0],
+	["O_R_Patrol_Soldier_AR_F", 0],
+	["O_R_Patrol_Soldier_Medic", 0],
+	["O_R_Patrol_Soldier_Engineer_F", 0],
+	["O_R_Patrol_Soldier_GL_F", 0],
+	["O_R_Patrol_Soldier_LAT_F", 0],
+	["O_R_Patrol_Soldier_M_F", 0],
+	["O_R_recon_M_F", 0],
+	["O_R_recon_medic_F", 0],
+	["O_R_recon_LAT_F", 0],
+	["O_R_recon_TL_F", 0],
+	["O_R_recon_JTAC_F", 0],
+	["O_R_recon_GL_F", 0],
+	["O_R_recon_exp_F", 0],
+	["O_R_recon_AR_F", 0]
 ];
 
 ARWA_east_infantry_tier_1 = [
-	["O_T_Soldier_AT_F", 0]
+	["O_R_Soldier_LAT_F", 0]
 ];
 
 ARWA_east_infantry_tier_2 = [
@@ -121,23 +93,27 @@ ARWA_east_infantry_tier_2 = [
 ];
 
 ARWA_guer_infantry_tier_0 = [
-	["I_G_soldier_F", 0],
-	["I_G_soldier_AR_F", 0],
-	["I_G_Soldier_GL_F", 0],
-	["I_G_soldier_exp_F", 0],
-	["I_G_medic_F", 0],
-	["I_G_Sharpshooter_F", 0],
-	["I_G_engineer_F", 0],
-	["I_Soldier_LAT2_F", 0]
+	["I_E_Soldier_F", 0],
+	["I_E_Soldier_LAT2_F", 0],
+	["I_E_Engineer_F", 0],
+	["I_E_Medic_F", 0],
+	["I_E_Soldier_AR_F", 0],
+	["I_E_Soldier_A_F", 0],
+	["I_E_Soldier_Exp_F", 0],
+	["I_E_Soldier_GL_F", 0],
+	["I_E_soldier_Mine_F", 0],
+	["I_E_soldier_M_F", 0],
+	["I_E_Soldier_SL_F", 0],
+	["I_E_Soldier_TL_F", 0]
 ];
 
 ARWA_guer_infantry_tier_1 = [
-	["I_Soldier_AT_F", 0],
-	["I_Soldier_LAT_F", 0]
+	["I_E_Soldier_LAT_F", 0],
+	["I_E_Soldier_AT_F", 0]
 ];
 
 ARWA_guer_infantry_tier_2 = [
-	["I_Soldier_AA_F", 0]
+	["I_E_Soldier_AA_F", 0]
 ];
 
 // BASE Static

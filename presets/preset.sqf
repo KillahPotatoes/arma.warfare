@@ -10,26 +10,43 @@ ARWA_pick_army_preset = {
 	params ["_preset"];
 
 	if(_preset == 0) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\altis_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\army_presets\altis_preset.sqf";
 	};
 
 	if(_preset == 1) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\apex_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\army_presets\army_presetsapex_preset.sqf";
 	};
 
 	if(_preset == 2) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\contact_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\army_presets\contact_preset.sqf";
 	};
 
 
 	if(_preset == 3) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\rhs_woodland_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\army_presets\rhs_woodland_preset.sqf";
 	};
 };
 
 
 ARWA_pick_civilian_preset = {
 	params ["_preset"];
+
+	if(_preset == 0) exitWith {
+		[] call compileFinal preprocessFileLineNumbers "presets\civilian\altis_preset.sqf";
+	};
+
+	if(_preset == 1) exitWith {
+		[] call compileFinal preprocessFileLineNumbers "presets\civilian\apex_preset.sqf";
+	};
+
+	if(_preset == 2) exitWith {
+		[] call compileFinal preprocessFileLineNumbers "presets\civilian\contact_preset.sqf";
+	};
+
+
+	if(_preset == 3) exitWith {
+		[] call compileFinal preprocessFileLineNumbers "presets\civilian\rhs_woodland_preset.sqf";
+	};
 
 };
 

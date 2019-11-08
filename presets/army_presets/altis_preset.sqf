@@ -18,15 +18,6 @@ ARWA_west_uav_terminal_class_name = "B_UavTerminal";
 ARWA_east_uav_terminal_class_name = "O_UavTerminal";
 ARWA_guer_uav_terminal_class_name = "I_UavTerminal";
 
-ARWA_civilians = [
-	["C_man_polo_1_F",0],
-	["C_man_polo_2_F",0],
-	["C_man_polo_3_F",0],
-	["C_man_polo_4_F",0],
-	["C_man_polo_5_F",0],
-	["C_man_polo_6_F",0]
-];
-
 ARWA_west_interceptor_tier_2 = [
 	["B_Plane_Fighter_01_F", 50],
 	["B_Plane_CAS_01_dynamicLoadout_F", 50]
@@ -57,42 +48,6 @@ ARWA_east_uavs = [
 ARWA_guer_uavs = [
 	["I_UAV_02_F", 30],
 	["I_UAV_02_CAS_F", 30]
-];
-
-ARWA_west_sympathizers = [
-	["B_G_Soldier_TL_F", 0],
-	["B_G_Soldier_M_F", 0],
-	["B_G_Soldier_AR_F", 0],
-	["B_G_Soldier_A_F", 0],
-	["B_G_Soldier_SL_F", 0],
-	["B_G_Soldier_F", 0],
-	["B_G_engineer_F", 0],
-	["B_G_medic_F", 0],
-	["B_G_Sharpshooter_F", 0]
-];
-
-ARWA_east_sympathizers = [
-	["O_G_Soldier_TL_F", 0],
-	["O_G_Soldier_M_F", 0],
-	["O_G_Soldier_AR_F", 0],
-	["O_G_Soldier_A_F", 0],
-	["O_G_Soldier_SL_F", 0],
-	["O_G_Soldier_F", 0],
-	["O_G_engineer_F", 0],
-	["O_G_medic_F", 0],
-	["O_G_Sharpshooter_F", 0]
-];
-
-ARWA_guer_sympathizers = [
-	["I_G_Soldier_TL_F", 0],
-	["I_G_Soldier_M_F", 0],
-	["I_G_Soldier_AR_F", 0],
-	["I_G_Soldier_A_F", 0],
-	["I_G_Soldier_SL_F", 0],
-	["I_G_Soldier_F", 0],
-	["I_G_engineer_F", 0],
-	["I_G_medic_F", 0],
-	["I_G_Sharpshooter_F", 0]
 ];
 
 ARWA_west_infantry_tier_0 = [

@@ -9,15 +9,6 @@ ARWA_manpower_box = "Land_Ammobox_rounds_F";
 ARWA_anti_vehicle_mines = ["ATMine"];
 ARWA_anti_personel_mines = ["APERSBoundingMine", "APERSMine", "APERSTripMine"];
 
-ARWA_civilians = [
-	["C_man_polo_1_F",0],
-	["C_man_polo_2_F",0],
-	["C_man_polo_3_F",0],
-	["C_man_polo_4_F",0],
-	["C_man_polo_5_F",0],
-	["C_man_polo_6_F",0]
-];
-
 ARWA_west_infantry_tier_0 = [
 	["gm_ge_bgs_squadleader_g3a3_p2a1_80_smp", 0],
 	["gm_ge_bgs_rifleman_g3a3_80_smp", 0],
@@ -46,12 +37,6 @@ ARWA_east_infantry_tier_0 = [
 	["gm_gc_army_antitank_mpiak74n_rpg7_80_str", 0],
 	["gm_gc_army_antitank_mpiak74n_fagot_80_str", 0]
 ];
-
-ARWA_west_sympathizers = ARWA_west_infantry_tier_0;
-
-ARWA_east_sympathizers = ARWA_east_infantry_tier_0;
-
-
 // WEST VEHICLES
 
 ARWA_west_vehicle_transport = [
@@ -137,5 +122,3 @@ ARWA_east_helicopter_transport = [
 ARWA_east_helicopter_tier_0 = [
 	["O_Heli_Light_02_v2_F", 20]
 ];
-
-

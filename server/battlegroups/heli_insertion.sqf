@@ -50,9 +50,10 @@ ARWA_special_forces_insertion = {
 
 	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
 
-	private _spawn_pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _spawn_pos = [_side, ARWA_helicopter_safe_distance] call ARWA_find_spawn_pos_air;
+	private _dir = [_spawn_pos] call ARWA_find_spawn_dir_air;
+
 	private _sector_pos = _sector getVariable ARWA_KEY_pos;
-	private _dir = _sector_pos getDir _spawn_pos;
 	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
@@ -69,9 +70,10 @@ ARWA_helicopter_insertion = {
 
 	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
 
-	private _spawn_pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _spawn_pos = [_side, ARWA_interceptor_safe_distance] call ARWA_find_spawn_pos_air;
+	private _dir = [_spawn_pos] call ARWA_find_spawn_dir_air;
+
 	private _sector_pos = _sector getVariable ARWA_KEY_pos;
-	private _dir = _sector_pos getDir _spawn_pos;
 	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
@@ -96,7 +98,7 @@ ARWA_do_helicopter_insertion = {
 	[_heli select 2, _heli select 0, _pos] call ARWA_move_to_sector_outskirt;
 
 	[_group, _heli select 0] call ARWA_dispatch_heli_battlegroup;
-	[_heli select 2, _heli select 0] spawn ARWA_despawn_air;
+	[_heli select 2, _heli select 0, ARWA_helicopter_safe_distance] spawn ARWA_despawn_air;
 };
 
 ARWA_dispatch_heli_battlegroup = {

@@ -39,18 +39,27 @@ ARWA_spawn_ai_interceptors = {
 	private _interceptor = _random_selection select 0;
 	private _kill_bonus = _random_selection select 1;
 	private _interceptor_name = _interceptor call ARWA_get_vehicle_display_name;
-	private _arr = [_side] call ARWA_find_spawn_pos_and_direction;
 
-	private _pos = _arr select 0;
-	private _heading = _arr select 1;
+	private _pos = [_side, ARWA_interceptor_safe_distance, ARWA_interceptor_flight_height] call ARWA_find_spawn_pos_air;
+	private _dir = [_pos] call ARWA_find_spawn_dir_air;
+
+	private _group = createGroup [_side, true];
 
 	for "_x" from 1 to _number step 1 do {
-		private _new_pos = _pos getPos [100 * _x ,_heading - 90];
+		private _new_pos = _pos getPos [100 * _x ,_dir - 90];
 		format ["%1: Spawn interceptor: %2", _side, _interceptor_name] spawn ARWA_debugger;
-		private _veh_arr = [_interceptor, _kill_bonus, _side,  [_new_pos, _heading]] call ARWA_spawn_interceptor;
-		private _group = _veh_arr select 2;
-		[_group] spawn ARWA_add_battle_group;
+		private _veh_arr = [_interceptor, _kill_bonus, _side, _new_pos, _dir] call ARWA_spawn_interceptor;
+		private _tmp_group = _veh_arr select 2;
+
+		// TODO. See if they handle better if in same group
+		{
+			[_x] joinSilent _group;
+		} forEach units _tmp_group;
+
+		deleteGroup _tmp_group;
 	};
+
+	[_group] spawn ARWA_add_battle_group;
 
 	[_side, ["ARWA_STR_SENDING_VEHICLE_YOUR_WAY", _interceptor_name]] remoteExec ["ARWA_HQ_report_client"];
 };

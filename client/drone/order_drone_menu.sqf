@@ -191,10 +191,8 @@ ARWA_show_cancel_uav_action = {
 ARWA_spawn_uav = {
 	params ["_side", "_class_name", "_penalty"];
 
-	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
-	private _base_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
-	private _dir = _pos getDir _base_pos;
-	private _pos = [_pos select 0, _pos select 1, ARWA_uav_flight_height];
+	private _pos = [_side, ARWA_interceptor_safe_distance, ARWA_uav_flight_height] call ARWA_find_spawn_pos_air;
+	private _dir = [_pos] call ARWA_find_spawn_dir_air;
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
@@ -219,7 +217,7 @@ ARWA_interrupt_uav_misson = {
 
 	[_group] call ARWA_delete_all_waypoints;
 
-	private _pos = getMarkerPos ([playerSide, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _pos = [playerSide, ARWA_interceptor_safe_distance, ARWA_uav_flight_height] call ARWA_find_spawn_pos_air;
 
 	_w = _group addWaypoint [_pos, 0];
 	_w setWaypointType "MOVE";

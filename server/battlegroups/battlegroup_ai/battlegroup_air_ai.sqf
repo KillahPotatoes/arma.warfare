@@ -39,7 +39,13 @@ ARWA_initialize_air_group_ai = {
 
 		if(!(someAmmo _veh)) exitWith {
 			format["Out of ammo: Despawn %1 %2", _veh, _side] spawn ARWA_debugger;
-			[_group, _veh] spawn ARWA_despawn_air;
+
+			private _class_name = typeOf (vehicle _group);
+			if([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of) then {
+				[_group, _veh, ARWA_interceptor_safe_distance] spawn ARWA_despawn_air;
+			} else {
+				[_group, _veh, ARWA_helicopter_safe_distance] spawn ARWA_despawn_air;
+			};
 		};
 
 		if([_group] call ARWA_group_should_be_commanded) then {

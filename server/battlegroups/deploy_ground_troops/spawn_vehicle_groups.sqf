@@ -49,9 +49,8 @@ ARWA_try_find_unoccupied_nearby_road = {
 };
 
 ARWA_find_right_dir = {
-	params ["_road"];
+	params ["_road", "_dir"];
 
-	private _dir = [getPos _road] call ARWA_find_direction_towards_closest_sector;
 	private _roadConnectedTo = roadsConnectedTo _road;
 	private _roadConnectedTo_dir = _roadConnectedTo apply { [[_road, _x] call BIS_fnc_DirTo] };
 
@@ -86,12 +85,11 @@ ARWA_spawn_vehicle_group = {
 
 	private _road = [_pos] call ARWA_try_find_unoccupied_nearby_road;
 
-	private _dir = nil;
+	private _dir = [_pos] call ARWA_find_direction_towards_closest_sector;
 	if(isNil "_road") then {
 		_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
-		_dir = [_pos] call ARWA_find_direction_towards_closest_sector;
 	} else {
-		_dir = [_road] call ARWA_find_right_dir;
+		_dir = [_road, _dir] call ARWA_find_right_dir;
 		_pos = getPos _road;
 	};
 

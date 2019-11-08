@@ -138,7 +138,7 @@ ARWA_populate_house = {
 };
 
 ARWA_remove_when_no_player_closeby = {
-	params ["_group", "_house"];
+	params ["_group", "_house", "_vehicle"];
 
 	private _pos = getPos (leader _group);
 
@@ -147,6 +147,10 @@ ARWA_remove_when_no_player_closeby = {
 	{
 		deleteVehicle _x;
 	} forEach units _group;
+
+	if(!isNil "_vehicle") then {
+		deleteVehicle _vehicle;
+	};
 
 	deleteGroup _group;
 	_house setVariable [ARWA_KEY_occupied, nil];

@@ -15,9 +15,9 @@ ARWA_find_spawn_pos_air = {
 	params ["_side", "_distance", ["_height", 0]];
 
 	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
-	private _dir = _pos getDir ARWA_grid_center;
+	private _dir = ARWA_grid_center getDir _pos;
 
-	_pos = ARWA_grid_center getPos [(_distance + (ARWA_grid_size / 2)), _dir - 180];
+	_pos = ARWA_grid_center getPos [(_distance + (ARWA_grid_size / 2)), _dir];
 	_pos = [_pos select 0, _pos select 1, (_pos select 2) + _height];
 
 	_pos;

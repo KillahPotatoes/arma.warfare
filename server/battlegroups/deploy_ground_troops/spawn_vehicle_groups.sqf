@@ -26,25 +26,48 @@ ARWA_add_soldiers_to_cargo = {
 ARWA_try_find_unoccupied_nearby_road = {
 	params ["_pos"];
 
-	private _road = _pos nearRoads 50;
-	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _roads = _pos nearRoads 50;
 
-	if (!(_road isEqualTo [])) then {
+	if (!(_roads isEqualTo [])) exitWith {
+		private _road = nil;
 
-		private _is_safe = false;
 		private _attempt_counter = 0;
-		while {!_is_safe && _attempt_counter < 10} do {
+		while {_attempt_counter < 10} do {
 			_attempt_counter = _attempt_counter + 1;
 
-			_road_pos = getPos (selectRandom _road);
-			_is_safe = !([_road_pos] call ARWA_any_units_too_close) && count (_road_pos nearObjects 10) == 0;
-			if (_is_safe) then {
-				_pos = _road_pos;
+			private _temp_road = selectRandom _roads;
+			private _road_pos = getPos _temp_road;
+			private _is_safe = !([_road_pos] call ARWA_any_units_too_close) && count (_road_pos nearObjects 10) == 0;
+
+			if (_is_safe) exitWith {
+				_road = _temp_road;
 			};
 		};
-	};
 
-	_pos;
+		_road;
+	};
+};
+
+ARWA_find_right_dir = {
+	params ["_road"];
+
+	private _dir = [getPos _road] call ARWA_find_direction_towards_closest_sector;
+	private _roadConnectedTo = roadsConnectedTo _road;
+	private _roadConnectedTo_dir = _roadConnectedTo apply { [[_road, _x] call BIS_fnc_DirTo] };
+
+	private _current_dir = _roadConnectedTo_dir select 0;
+
+	{
+		_new_dir_diff = abs (_dir - _x);
+		_current_dir_diff = abs (_dir - _current_dir);
+
+		if (_current_dir_diff > _new_dir_diff) then {
+			_current_dir = _x;
+		};
+
+	} forEach _roadConnectedTo_dir;
+
+	_current_dir;
 };
 
 ARWA_find_direction_towards_closest_sector = {
@@ -61,7 +84,16 @@ ARWA_spawn_vehicle_group = {
 	private _vehicle_type = _vehicle_type_arr select 0;
 	private _kill_bonus = _vehicle_type_arr select 1;
 
-	_pos = [_pos] call ARWA_try_find_unoccupied_nearby_road;
+	private _road = [_pos] call ARWA_try_find_unoccupied_nearby_road;
+
+	private _dir = nil;
+	if(isNil "_road") then {
+		_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
+		_dir = [_pos] call ARWA_find_direction_towards_closest_sector;
+	} else {
+		_dir = [_road] call ARWA_find_right_dir;
+		_pos = getPos _road;
+	};
 
 	private _dir = [_pos] call ARWA_find_direction_towards_closest_sector;
 	private _veh_array = [_pos, _dir, _vehicle_type, _side, _kill_bonus] call ARWA_spawn_vehicle;

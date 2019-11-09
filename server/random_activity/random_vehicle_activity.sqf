@@ -8,17 +8,17 @@ ARWA_spawn_random_vehicle = {
 	private _edge_roads = _all_roads select { _x distance2D _player_pos > ARWA_random_vehicle_activity_dist - 100; };
 
 	if(_edge_roads isEqualTo []) exitWith {
-		["No roads found", true]  call ARWA_debugger;
+		["No roads found"]  call ARWA_debugger;
 	};
 
 	private _edge_road = selectRandom _edge_roads;
 	private _road_pos = getPos _edge_road;
 	private _most_distant_edge_road = [_road_pos, _edge_roads] call find_most_distance_edge_road;
 
-	[format["_most_distant_edge_road: %1", _most_distant_edge_road], true]  call ARWA_debugger;
+	[format["_most_distant_edge_road: %1", _most_distant_edge_road]]  call ARWA_debugger;
 
 	if((_most_distant_edge_road select 0) < ARWA_random_vehicle_activity_dist) exitWith {
-		[format["Not enough distance: %1", _most_distant_edge_road select 0], true]  call ARWA_debugger;
+		[format["Not enough distance: %1", _most_distant_edge_road select 0]]  call ARWA_debugger;
 	};
 
 	private _dir = [_edge_road, _player_pos] call ARWA_find_direction_of_road_towards_player;
@@ -37,10 +37,10 @@ ARWA_spawn_random_vehicle = {
 		} else {
 			_owner;
 		};
-		[format["Spawning %1 vehicle", _side], true]  call ARWA_debugger;
+		[format["Spawning %1 vehicle", _side]]  call ARWA_debugger;
 		_preset = missionNamespace getVariable format["ARWA_%1_sympathizers_vehicles", _side];
 	} else {
-		["Spawning civilian vehicle", true]  call ARWA_debugger;
+		["Spawning civilian vehicle"]  call ARWA_debugger;
 		_side = civilian;
 		_preset = missionNamespace getVariable "ARWA_civilian_vehicles";
 	};
@@ -77,7 +77,7 @@ ARWA_remove_vehicle_when_no_player_closeby = {
 		deleteVehicle _vehicle;
 	};
 
-	["Deleted vehicle", true] call ARWA_debugger;
+	["Deleted vehicle"] call ARWA_debugger;
 
 	deleteGroup _group;
 };
@@ -100,7 +100,7 @@ ARWA_create_waypoint = {
 	params ["_vehicle", "_edge_roads"];
 
 	if(isNil "_vehicle") exitWith {
-		["Vehicle does not exits. Not creating new waypoint", true] call ARWA_debugger;
+		["Vehicle does not exits. Not creating new waypoint"] call ARWA_debugger;
 	};
 
 	private _veh_pos = getPos _vehicle;
@@ -111,7 +111,7 @@ ARWA_create_waypoint = {
 	private _w = _group addWaypoint [_pos, 0];
 	_w setWaypointCompletionRadius 100;
 
-	[format["Vehicle moving from %1 to %2. Distance: %3", _veh_pos, _pos, _pos_and_distance select 0], true] call ARWA_debugger;
+	[format["Vehicle moving from %1 to %2. Distance: %3", _veh_pos, _pos, _pos_and_distance select 0]] call ARWA_debugger;
 
 	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
 	_w setWaypointType "MOVE";
@@ -133,7 +133,7 @@ ARWA_free_waypoint = {
 	private _edge_roads = _all_roads select { _x distance2D _pos > ARWA_random_vehicle_activity_dist - 100; };
 
 	if(_edge_roads isEqualTo []) exitWith {
-		["No roads found", true]  call ARWA_debugger;
+		["No roads found"] call ARWA_debugger;
 	};
 
 	private _edge_road = selectRandom _edge_roads;
@@ -142,7 +142,7 @@ ARWA_free_waypoint = {
 	private _w = _group addWaypoint [_road_pos, 0];
 	_w setWaypointCompletionRadius 100;
 
-	[format["Vehicle moving from %1 to %2", _pos, _road_pos], true] call ARWA_debugger;
+	[format["Vehicle moving from %1 to %2", _pos, _road_pos]] call ARWA_debugger;
 
 	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
 	_w setWaypointType "MOVE";

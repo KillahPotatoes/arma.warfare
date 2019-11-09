@@ -1,5 +1,5 @@
 
-ARWA_civilian_vehicles = ["C_Van_01_transport_F"];
+ARWA_civilian_vehicles = ["C_Van_01_transport_F", "C_Truck_02_covered_F", "C_Van_01_box_F", "C_Tractor_01_F", "C_Offroad_01_comms_F", "C_Offroad_02_unarmed_F", "C_Van_01_fuel_F"];
 
 ARWA_civilians = [
 	["C_man_polo_1_F",0],

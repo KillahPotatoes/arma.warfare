@@ -118,9 +118,7 @@ ARWA_populate_house = {
 ARWA_remove_when_no_player_closeby = {
 	params ["_group", "_house", "_vehicle"];
 
-	private _pos = getPos (leader _group);
-
-	waitUntil {!([_pos, ARWA_max_distance_presence] call ARWA_players_nearby)};
+	waitUntil {!([getPos (leader _group), ARWA_max_distance_presence] call ARWA_players_nearby)};
 
 	{
 		deleteVehicle _x;

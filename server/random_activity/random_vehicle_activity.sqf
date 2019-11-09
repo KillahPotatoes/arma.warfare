@@ -25,13 +25,17 @@ ARWA_spawn_random_vehicle = {
 
 	private _sector = [ARWA_sectors, _road_pos] call ARWA_find_closest_sector;
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
-	private _is_safe_area = (side _player) isEqualTo _owner;
+	private _is_safe_area = (side _player) isEqualTo _owner || _owner isEqualTo civilian;
 
 	private _side = nil;
 	private _preset = nil;
 
-	if(selectRandom[!_is_safe_area, false]) then {
-		_side = if(_is_safe_area || _owner isEqualTo civilian) then {
+	if(selectRandom[_is_safe_area, true]) then {
+		["Spawning civilian vehicle"]  call ARWA_debugger;
+		_side = civilian;
+		_preset = missionNamespace getVariable "ARWA_civilian_vehicles";
+	} else {
+		_side = if(_owner isEqualTo civilian) then {
 			private _enemies = ARWA_all_sides - [(side _player)];
 			[_enemies, _player_pos] call ARWA_closest_hq;
 		} else {
@@ -39,10 +43,6 @@ ARWA_spawn_random_vehicle = {
 		};
 		[format["Spawning %1 vehicle", _side]]  call ARWA_debugger;
 		_preset = missionNamespace getVariable format["ARWA_%1_sympathizers_vehicles", _side];
-	} else {
-		["Spawning civilian vehicle"]  call ARWA_debugger;
-		_side = civilian;
-		_preset = missionNamespace getVariable "ARWA_civilian_vehicles";
 	};
 
 	private _vehicle_type = selectRandom _preset;
@@ -65,9 +65,7 @@ ARWA_spawn_random_vehicle = {
 ARWA_remove_vehicle_when_no_player_closeby = {
 	params ["_group", "_vehicle"];
 
-	private _pos = getPos (leader _group);
-
-	waitUntil {!([_pos, ARWA_random_vehicle_activity_dist] call ARWA_players_nearby)};
+	waitUntil {!([getPos (leader _group), ARWA_random_vehicle_activity_dist] call ARWA_players_nearby)};
 
 	{
 		deleteVehicle _x;

@@ -18,7 +18,7 @@ ARWA_initialize_ammo_boxes = {
 
 ARWA_owned_by = {
     params ["_box", "_player"];
-    (_box getVariable ARWA_KEY_owned_by) isEqualTo (side _player);
+    (_box getVariable ARWA_KEY_owned_by) isEqualTo playerSide;
 };
 
 ARWA_add_sector_actions = {

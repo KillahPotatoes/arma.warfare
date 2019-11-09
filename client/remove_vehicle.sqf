@@ -17,14 +17,13 @@ ARWA_remove_vehicle_action = {
 
 ARWA_is_same_side = {
 	params ["_vehicle","_player"];
-	(side _vehicle) isEqualTo civilian || (side _vehicle) isEqualTo (side _player);
+	(side _vehicle) isEqualTo civilian || (side _vehicle) isEqualTo playerSide;
 };
 
 ARWA_is_player_in_hq = {
 	params ["_player"];
 
-  	private _side = side _player;
-  	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
+  	private _respawn_marker = [playerSide, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
 	private _pos = getMarkerPos _respawn_marker;
 
 	(getPos _player) distance _pos < 50;

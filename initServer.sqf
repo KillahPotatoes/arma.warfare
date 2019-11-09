@@ -54,7 +54,9 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_air_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_vehicle_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_infantry_ai.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_activity\random_activity_common.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_activity\random_activity.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_activity\random_vehicle_activity.sqf";
 
 // Other stuff
 [] call compileFinal preprocessFileLineNumbers "server\grid.sqf";
@@ -101,6 +103,6 @@ if(ARWA_mine_fields) then {
 [] spawn ARWA_spawn_gunship_groups;
 [] spawn ARWA_spawn_interceptors;
 [] spawn ARWA_sector_manpower_generation;
-[] spawn ARWA_populate_random_houses;
+[] spawn ARWA_random_activity;
 
 setViewDistance 6000;

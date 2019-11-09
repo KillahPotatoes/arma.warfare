@@ -81,9 +81,9 @@ ARWA_get_manpower = {
 };
 
 ARWA_debugger = {
-	params ["_msg"];
+	params ["_msg", ["_override", false]];
 
-	if(ARWA_enable_debugger) then {
+	if(ARWA_enable_debugger || _override) then {
 		systemChat _msg;
 		diag_log _msg;
 	};

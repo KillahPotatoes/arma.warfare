@@ -3,7 +3,7 @@ ARWA_air_create_waypoint = {
 	private _pos = _target getVariable ARWA_KEY_pos;
 
 	_group call ARWA_delete_all_waypoints;
-	_w = _group addWaypoint [_pos, 5];
+	_w = _group addWaypoint [_pos, 0];
 	_w setWaypointStatements ["true","[group this] call ARWA_delete_all_waypoints"];
 
 	_w setWaypointType "SAD";

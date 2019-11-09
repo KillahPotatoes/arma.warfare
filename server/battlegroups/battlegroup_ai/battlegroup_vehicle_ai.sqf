@@ -4,7 +4,8 @@ ARWA_vehicle_create_waypoint = {
 	private _pos = _target getVariable ARWA_KEY_pos;
 
 	_group call ARWA_delete_all_waypoints;
-	_w = _group addWaypoint [_pos, 20];
+	_w = _group addWaypoint [_pos, 0];
+	_w setWaypointCompletionRadius 10;
 	_w setWaypointStatements ["true","[group this] call ARWA_delete_all_waypoints"];
 
 	if([_pos, side _group, ARWA_sector_size] call ARWA_any_enemies_in_area) then {

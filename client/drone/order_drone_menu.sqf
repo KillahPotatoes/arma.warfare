@@ -105,7 +105,7 @@ ARWA_move_uav_to_player = {
 
 	[_group, [_msg]] spawn ARWA_group_report_client;
 
-	_w = _group addWaypoint [getPos player, 5];
+	_w = _group addWaypoint [getPos player, 0];
 
 	_w setWaypointType "LOITER";
 	_w setWaypointLoiterType "CIRCLE";

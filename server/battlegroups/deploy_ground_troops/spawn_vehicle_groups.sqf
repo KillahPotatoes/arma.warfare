@@ -52,19 +52,30 @@ ARWA_find_right_road_dir = {
 	params ["_road", "_dir"];
 
 	private _roadConnectedTo = roadsConnectedTo _road;
+
+	if(_roadConnectedTo isEqualTo []) exitWith {
+		_dir;
+	};
+
 	private _roadConnectedTo_dir = _roadConnectedTo apply { [_road, _x] call BIS_fnc_DirTo; };
-	private _current_dir = _roadConnectedTo_dir select 0;
+	[_dir, _roadConnectedTo_dir] call ARWA_find_right_dir;
+};
+
+ARWA_find_right_dir = {
+	params ["_dir", "_dir_array"];
+	private _normalized_dir =  if(_dir > 180) then { _dir - 360; } else { _dir; };
+	private _current_dir = _dir_array select 0;
 
 	{
 		private _temp_dir = if(_x > 180) then { _x - 360; } else { _x; };
-		private _new_dir_diff = abs (_dir - _temp_dir);
-		private _current_dir_diff = abs (_dir - _current_dir);
+		private _new_dir_diff = abs (_normalized_dir - _temp_dir);
+		private _current_dir_diff = abs (_normalized_dir - _current_dir);
 
 		if (_current_dir_diff > _new_dir_diff) then {
 			_current_dir = _temp_dir;
 		};
 
-	} forEach _roadConnectedTo_dir;
+	} forEach _dir_array;
 
 	_current_dir;
 };

@@ -48,20 +48,20 @@ ARWA_try_find_unoccupied_nearby_road = {
 	};
 };
 
-ARWA_find_right_dir = {
+ARWA_find_right_road_dir = {
 	params ["_road", "_dir"];
 
 	private _roadConnectedTo = roadsConnectedTo _road;
-	private _roadConnectedTo_dir = _roadConnectedTo apply { [[_road, _x] call BIS_fnc_DirTo] };
-
+	private _roadConnectedTo_dir = _roadConnectedTo apply { [_road, _x] call BIS_fnc_DirTo; };
 	private _current_dir = _roadConnectedTo_dir select 0;
 
 	{
-		_new_dir_diff = abs (_dir - _x);
-		_current_dir_diff = abs (_dir - _current_dir);
+		private _temp_dir = if(_x > 180) then { _x - 360; } else { _x; };
+		private _new_dir_diff = abs (_dir - _temp_dir);
+		private _current_dir_diff = abs (_dir - _current_dir);
 
 		if (_current_dir_diff > _new_dir_diff) then {
-			_current_dir = _x;
+			_current_dir = _temp_dir;
 		};
 
 	} forEach _roadConnectedTo_dir;
@@ -89,11 +89,10 @@ ARWA_spawn_vehicle_group = {
 	if(isNil "_road") then {
 		_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
 	} else {
-		_dir = [_road, _dir] call ARWA_find_right_dir;
+		_dir = [_road, _dir] call ARWA_find_right_road_dir;
 		_pos = getPos _road;
 	};
 
-	private _dir = [_pos] call ARWA_find_direction_towards_closest_sector;
 	private _veh_array = [_pos, _dir, _vehicle_type, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _group = _veh_array select 2;
 	private _veh =  _veh_array select 0;

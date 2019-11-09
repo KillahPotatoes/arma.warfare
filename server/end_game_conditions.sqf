@@ -5,11 +5,11 @@ ARWA_get_active_factions = {
 };
 
 ARWA_get_alive_factions = {
-	ARWA_all_sides select { 
+	ARWA_all_sides select {
 		private _side = _x;
-		_side call ARWA_has_manpower && _side countSide (
+		[_side] call ARWA_has_manpower || (_side countSide (
 			allPlayers select { alive _x }
-		); 
+		)) > 0;
 	};
 };
 

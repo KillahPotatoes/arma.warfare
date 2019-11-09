@@ -17,7 +17,7 @@ ARWA_spawn_battle_groups = {
 	private _cycle_counter = 0;
 	private _next_vehicle_cycle = 0;
 
-	sleep 10;
+	sleep 8;
 
 	while {true} do {
 

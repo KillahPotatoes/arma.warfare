@@ -13,7 +13,7 @@ ARWA_find_direction_of_road_towards_player = {
 	params ["_road"];
 
 	private _dir_towards_player = _road getRelDir player;
-	[_road, _dir_towards_player] call ARWA_find_right_dir;
+	[_road, _dir_towards_player] call ARWA_find_right_road_dir;
 };
 
 ARWA_create_waypoint = {

@@ -26,7 +26,7 @@ ARWA_spawn_static_sector_defense = {
 	private _pos = _sector getVariable ARWA_KEY_pos;
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
 
-	if(!isNil "_static_defense" && !isNull _static_defense) then {
+	if(!isNil "_static_defense") then {
 
 		private _static_defense_side = side (_static_defense select 2);
 		if(!(_owner isEqualTo _static_defense_side) || {!([_static_defense] call ARWA_static_alive)}) then {
@@ -37,7 +37,7 @@ ARWA_spawn_static_sector_defense = {
 		};
 	};
 
-	if(isNil "_static_defense" || isNull _static_defense) then {
+	if(isNil "_static_defense") then {
 		sleep 5;
 		private _new_static_defense = [_pos, _owner] call ARWA_spawn_static;
 		_sector setVariable [ARWA_KEY_static_defense, _new_static_defense];

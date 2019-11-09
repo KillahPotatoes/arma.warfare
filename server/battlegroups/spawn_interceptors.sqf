@@ -15,7 +15,7 @@ ARWA_spawn_interceptors = {
 				private _enemies = ([] call ARWA_get_active_factions) - [_side];
 				private _interceptor_side = selectRandom _enemies;
 
-				private _number = ceil(random 3) + _number_of_players_in_interceptors;
+				private _number = floor(random 3) + _number_of_players_in_interceptors;
 
 				[_interceptor_side, _number] call ARWA_spawn_ai_interceptors;
 				_spawned_interceptor = true;

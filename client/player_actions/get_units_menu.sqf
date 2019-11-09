@@ -112,7 +112,7 @@ ARWA_list_options = {
 			};
 
 			if (_type isEqualTo ARWA_KEY_interceptor) exitWith {
-				[_class_name, _penalty] call ARWA_get_interceptor;
+				[_class_name, _penalty, playerSide] call ARWA_get_interceptor;
 			};
 
 			private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;

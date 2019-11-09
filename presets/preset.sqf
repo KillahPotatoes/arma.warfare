@@ -14,7 +14,7 @@ ARWA_pick_army_preset = {
 	};
 
 	if(_preset == 1) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\army_presets\army_presetsapex_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\army_presets\apex_preset.sqf";
 	};
 
 	if(_preset == 2) exitWith {

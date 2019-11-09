@@ -212,7 +212,7 @@ taskManagement_drawDist = 5000;
 
 class Params
 {
-    class Preset
+    class ArmyPreset
     {
         title = "Choose army preset"; // Param name visible in the list
         values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'

@@ -12,7 +12,7 @@ ARWA_spawn_interceptors = {
 
 			if(_number_of_players_in_interceptors > 0) then {
 
-				private _enemies = ARWA_active_factions - [_side];
+				private _enemies = ([] call ARWA_get_active_factions) - [_side];
 				private _interceptor_side = selectRandom _enemies;
 
 				private _number = ceil(random 3) + _number_of_players_in_interceptors;
@@ -21,7 +21,7 @@ ARWA_spawn_interceptors = {
 				_spawned_interceptor = true;
 				format ["Spawn %1 interceptors for %2", _number, _interceptor_side] spawn ARWA_debugger;
 			};
-		} forEach ARWA_active_factions;
+		} forEach ([] call ARWA_get_active_factions);
 
 		sleep (if(_spawned_interceptor) then { 300 + random 900; } else { random 300; });
 		_spawned_interceptor = false;

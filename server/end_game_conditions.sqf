@@ -1,29 +1,23 @@
-ARWA_active_factions = ARWA_all_sides;
 
-ARWA_lost = {
-	params ["_side"];
-	private _players = _side countSide (allPlayers select { alive _x }); 
 
-	!(_side call ARWA_has_manpower) && _players == 0;
+ARWA_get_active_factions = {
+	ARWA_all_sides select { _x call ARWA_has_manpower; };
 };
 
-ARWA_check_end_game_state = {
-	params ["_side"];
-
-	if(_side call ARWA_lost) exitWith {
-		ARWA_active_factions = ARWA_active_factions - [_side]; // Edit this to just check if has manpower. A should not  be active if no manpower despite having players.
+ARWA_get_alive_factions = {
+	ARWA_all_sides select { 
+		private _side = _x;
+		_side call ARWA_has_manpower && _side countSide (
+			allPlayers select { alive _x }
+		); 
 	};
-
-	ARWA_active_factions pushBackUnique _side;
 };
 
 ARWA_end_game_conditions_check = {
-	while {count ARWA_active_factions > 1} do {
-		{
-			[_x] call ARWA_check_end_game_state;
-		} foreach ARWA_all_sides;
-
+	private _alive_faction = ARWA_all_sides;
+	while {count (_alive_faction) > 1} do {
 		sleep 10;
+		_alive_faction = [] call ARWA_get_alive_factions;
 	};
-	[ARWA_active_factions] remoteExec ["ARWA_end_mission"]; // win by having all sectors and enemies reduced to 0
+	[_alive_faction] remoteExec ["ARWA_end_mission"]; // win by having all sectors and enemies reduced to 0
 };

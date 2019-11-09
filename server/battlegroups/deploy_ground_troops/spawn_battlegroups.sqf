@@ -8,7 +8,7 @@ ARWA_get_next_vehicle_cycle = {
 };
 
 ARWA_get_unit_cap = {
-	ARWA_unit_cap / (count ARWA_active_factions);
+	ARWA_unit_cap / (count ([] call ARWA_get_active_factions));
 };
 
 ARWA_spawn_battle_groups = {

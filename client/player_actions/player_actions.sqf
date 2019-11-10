@@ -44,7 +44,7 @@ ARWA_add_HQ_actions = {
 ARWA_create_get_menu = {
 	params ["_ammo_box", "_type", "_menu_placement_value", "_text_key"];
 
-	if([playerSide, _type] call ARWA_get_all_units_side) then {
+	if(!([playerSide, _type] call ARWA_get_all_units_side isEqualTo [])) then {
 		[_ammo_box, localize _text_key, _type, _menu_placement_value, false] call ARWA_create_menu;
 	};
 };

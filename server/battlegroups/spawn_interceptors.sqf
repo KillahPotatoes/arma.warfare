@@ -23,7 +23,7 @@ ARWA_spawn_interceptors = {
 			};
 		} forEach ([] call ARWA_get_active_factions);
 
-		sleep (if(_spawned_interceptor) then { 300 + random 900; } else { random 300; });
+		sleep (if(_spawned_interceptor) then { 900 + random 900; } else { random 900; });
 		_spawned_interceptor = false;
 	};
 };

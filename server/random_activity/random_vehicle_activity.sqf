@@ -25,7 +25,7 @@ ARWA_spawn_random_vehicle = {
 
 	private _sector = [ARWA_sectors, _road_pos] call ARWA_find_closest_sector;
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
-	private _is_safe_area = (side _player) isEqualTo _owner || _owner isEqualTo civilian;
+	private _is_safe_area = (side group _player) isEqualTo _owner;
 
 	private _side = nil;
 	private _preset = nil;
@@ -36,8 +36,8 @@ ARWA_spawn_random_vehicle = {
 		_preset = missionNamespace getVariable "ARWA_civilian_vehicles";
 	} else {
 		_side = if(_owner isEqualTo civilian) then {
-			private _enemies = ARWA_all_sides - [(side _player)];
-			[_enemies, _player_pos] call ARWA_closest_hq;
+			private _enemies = ARWA_all_sides - [(side group _player)];
+			_side = [_enemies, _player_pos] call ARWA_closest_hq;
 		} else {
 			_owner;
 		};

@@ -1,6 +1,7 @@
 ARWA_create_manpower_box_unit = {
 	params ["_victim"];
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
+	private _victim_side = side group _victim;
 
 	if(_manpower > 0 || isPlayer _victim) then {
 		_victim setVariable [ARWA_KEY_manpower, 0, true];
@@ -12,28 +13,29 @@ ARWA_create_manpower_box_unit = {
 			_manpower;
 		};
 
-		if(!(isTouchingGround _victim)) then {
-			sleep 30;
+		private _vehicle = vehicle _victim;
+
+		if(!(_victim isEqualTo _vehicle)) exitWith {
+			private _vehicle_manpower = _vehicle getVariable [ARWA_KEY_manpower, 0];
+			_vehicle setVariable [ARWA_KEY_manpower, _vehicle_manpower + _manpower_box_value, true];
+			[_vehicle, _victim_side] call ARWA_create_manpower_box_vehicle;
 		};
 
-		private _victim_side = side group _victim;
+		waitUntil { isTouchingGround vehicle _victim; };
 
 		[_manpower_box_value, _victim, _victim_side] spawn ARWA_create_manpower_box;
 	};
 };
 
 ARWA_create_manpower_box_vehicle = {
-	params ["_victim"];
+	params ["_victim", ["_side", nil]];
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
+	
+	_side = if(isNil "_side") then { _victim getVariable ARWA_KEY_owned_by; } else { _side; };
 
 	if(_manpower > 0) then {
 		_victim setVariable [ARWA_KEY_manpower, 0, true];
-		private _side = _victim getVariable ARWA_KEY_owned_by;
-
-		if(!(isTouchingGround _victim)) then {
-			sleep 30;
-		};
-
+		waitUntil { isTouchingGround vehicle _victim; };
 		[_manpower, _victim, _side] spawn ARWA_create_manpower_box;
 	};
 };

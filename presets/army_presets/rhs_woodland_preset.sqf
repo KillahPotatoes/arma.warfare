@@ -19,6 +19,31 @@ ARWA_west_uav_terminal_class_name = "B_UavTerminal";
 ARWA_east_uav_terminal_class_name = "O_UavTerminal";
 ARWA_guer_uav_terminal_class_name = "I_UavTerminal";
 
+ARWA_west_interceptor_tier_2 = [
+	["rhsusf_f22", 50],
+	["RHS_A10", 50],
+	["rhsgref_cdf_b_su25", 50],
+	["rhsgref_cdf_b_mig29s", 50],
+	["rhs_l39_cdf_b_cdf", 50],
+	["rhs_l159_cdf_b_CDF", 50]
+];
+
+ARWA_east_interceptor_tier_2 = [
+	["rhs_mig29sm_vvs", 50],
+	["RHS_T50_vvs_generic_ext", 50],
+	["rhs_mig29s_vvs", 50],
+	["RHS_Su25SM_vvs", 50]
+];
+
+ARWA_guer_interceptor_tier_2 = [
+	["rhssaf_airforce_l_18", 50],
+	["rhs_l159_CDF", 50],
+	["rhs_l39_cdf", 50],
+	["rhsgref_cdf_mig29s", 50],
+	["rhsgref_cdf_su25", 50],
+	["rhssaf_airforce_l_18_101", 50]
+];
+
 ARWA_west_uavs = [
 	["B_UAV_02_F", 30],
 	["B_UAV_02_CAS_F", 30],

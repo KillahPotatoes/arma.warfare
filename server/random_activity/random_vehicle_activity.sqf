@@ -120,8 +120,6 @@ ARWA_create_waypoint = {
 ARWA_free_waypoint = {
 	params ["_group"];
 
-	["Free roam", true] call ARWA_debugger;
-
 	if({ alive _x; } count units _group == 0) exitWith {
 		["Vehicle does not exits. Not creating new waypoint", true] call ARWA_debugger;
 	};

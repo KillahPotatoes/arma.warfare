@@ -26,25 +26,59 @@ ARWA_add_soldiers_to_cargo = {
 ARWA_try_find_unoccupied_nearby_road = {
 	params ["_pos"];
 
-	private _road = _pos nearRoads 50;
-	_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
+	private _roads = _pos nearRoads 50;
 
-	if (!(_road isEqualTo [])) then {
+	if (_roads isEqualTo []) exitWith {};
 
-		private _is_safe = false;
-		private _attempt_counter = 0;
-		while {!_is_safe && _attempt_counter < 10} do {
-			_attempt_counter = _attempt_counter + 1;
+	private _road = nil;
 
-			_road_pos = getPos (selectRandom _road);
-			_is_safe = !([_road_pos] call ARWA_any_units_too_close) && count (_road_pos nearObjects 10) == 0;
-			if (_is_safe) then {
-				_pos = _road_pos;
-			};
+	private _attempt_counter = 0;
+	while {_attempt_counter < 10} do {
+		_attempt_counter = _attempt_counter + 1;
+
+		private _temp_road = selectRandom _roads;
+		private _road_pos = getPos _temp_road;
+		private _is_safe = !([_road_pos] call ARWA_any_units_too_close) && count (_road_pos nearObjects 10) == 0;
+
+		if (_is_safe) exitWith {
+			_road = _temp_road;
 		};
 	};
 
-	_pos;
+	if (isNil "_road") exitWith {};
+	_road;
+};
+
+ARWA_find_right_road_dir = {
+	params ["_road", "_dir"];
+
+	private _roadConnectedTo = roadsConnectedTo _road;
+
+	if(_roadConnectedTo isEqualTo []) exitWith {
+		_dir;
+	};
+
+	private _roadConnectedTo_dir = _roadConnectedTo apply { [_road, _x] call BIS_fnc_DirTo; };
+	[_dir, _roadConnectedTo_dir] call ARWA_find_right_dir;
+};
+
+ARWA_find_right_dir = {
+	params ["_dir", "_dir_array"];
+	private _normalized_dir =  if(_dir > 180) then { _dir - 360; } else { _dir; };
+	private _current_dir = _dir_array select 0;
+
+	{
+		private _temp_dir = if(_x > 180) then { _x - 360; } else { _x; };
+		private _new_dir_diff = abs (_normalized_dir - _temp_dir);
+		private _current_dir_diff = abs (_normalized_dir - _current_dir);
+
+		if (_current_dir_diff > _new_dir_diff) then {
+			_current_dir = _temp_dir;
+		};
+
+	} forEach _dir_array;
+
+	_current_dir;
 };
 
 ARWA_find_direction_towards_closest_sector = {
@@ -61,9 +95,16 @@ ARWA_spawn_vehicle_group = {
 	private _vehicle_type = _vehicle_type_arr select 0;
 	private _kill_bonus = _vehicle_type_arr select 1;
 
-	_pos = [_pos] call ARWA_try_find_unoccupied_nearby_road;
+	private _road = [_pos] call ARWA_try_find_unoccupied_nearby_road;
 
 	private _dir = [_pos] call ARWA_find_direction_towards_closest_sector;
+	if(isNil "_road") then {
+		_pos = [_pos, 10, 50, 15, 0, 0, 0] call BIS_fnc_findSafePos;
+	} else {
+		_dir = [_road, _dir] call ARWA_find_right_road_dir;
+		_pos = getPos _road;
+	};
+
 	private _veh_array = [_pos, _dir, _vehicle_type, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _group = _veh_array select 2;
 	private _veh =  _veh_array select 0;
@@ -74,8 +115,8 @@ ARWA_spawn_vehicle_group = {
 
 	private _veh_name = _vehicle_type call ARWA_get_vehicle_display_name;
 
-	diag_log format ["%1: Spawn vehicle: %2", _side, _veh_name];
-	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
+	format ["%1: Spawn vehicle: %2", _side, _veh_name] spawn ARWA_debugger;
+	format["%1 manpower: %2", _side, [_side] call ARWA_get_strength] spawn ARWA_debugger;
 
 	if(_can_spawn > 0) then {
     	[_veh_array, _can_spawn] call ARWA_add_soldiers_to_cargo;
@@ -102,7 +143,7 @@ ARWA_spawn_random_vehicle_group = {
 		private _can_spawn = floor (([] call ARWA_get_unit_cap) * (2/3)) - _unit_count;
 	};
 
-	diag_log format["%1: Spawned %2 tier %3 vehicles", _side, count _groups, _tier];
+	format["%1: Spawned %2 tier %3 vehicles", _side, count _groups, _tier] spawn ARWA_debugger;
 
 	_groups;
 };

@@ -44,7 +44,7 @@ ARWA_status = {
     _groups = count allGroups;
     _units = count allUnits;
 
-    diag_log format["Dead: %1, Vehicles: %2, Groups: %3, Units: %4", _dead, _vehicles, _groups, _units];
+    format["Dead: %1, Vehicles: %2, Groups: %3, Units: %4", _dead, _vehicles, _groups, _units] spawn ARWA_debugger;
 };
 
 ARWA_clean_up_dead = {

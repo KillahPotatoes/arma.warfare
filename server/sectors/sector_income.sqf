@@ -36,7 +36,7 @@ ARWA_reset_sector = {
 
                   [_new_owner, _manpower] spawn ARWA_increase_manpower_server;
                   [["ARWA_STR_MANPOWER_IS_LOST", _faction_name, _manpower, _sector_name]] remoteExec ["ARWA_HQ_report_client_all"];
-                  diag_log format["%1 got %2 manpower by capturing %3", _faction_name, _manpower, _sector_name];
+                  format["%1 got %2 manpower by capturing %3", _faction_name, _manpower, _sector_name] spawn ARWA_debugger;
 
                   _ammo_box setVariable [ARWA_KEY_manpower, 0, true];
             };

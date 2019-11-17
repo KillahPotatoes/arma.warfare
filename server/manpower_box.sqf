@@ -1,6 +1,7 @@
 ARWA_create_manpower_box_unit = {
 	params ["_victim"];
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
+	private _victim_side = side group _victim;
 
 	if(_manpower > 0 || isPlayer _victim) then {
 		_victim setVariable [ARWA_KEY_manpower, 0, true];
@@ -12,28 +13,29 @@ ARWA_create_manpower_box_unit = {
 			_manpower;
 		};
 
-		if(!(isTouchingGround _victim)) then {
-			sleep 30;
+		private _vehicle = vehicle _victim;
+
+		if(!(_victim isEqualTo _vehicle)) exitWith {
+			private _vehicle_manpower = _vehicle getVariable [ARWA_KEY_manpower, 0];
+			_vehicle setVariable [ARWA_KEY_manpower, _vehicle_manpower + _manpower_box_value, true];
+			[_vehicle, _victim_side] call ARWA_create_manpower_box_vehicle;
 		};
 
-		private _victim_side = side group _victim;
+		waitUntil { isTouchingGround vehicle _victim; };
 
 		[_manpower_box_value, _victim, _victim_side] spawn ARWA_create_manpower_box;
 	};
 };
 
 ARWA_create_manpower_box_vehicle = {
-	params ["_victim"];
+	params ["_victim", ["_side", nil]];
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
+	
+	_side = if(isNil "_side") then { _victim getVariable ARWA_KEY_owned_by; } else { _side; };
 
 	if(_manpower > 0) then {
 		_victim setVariable [ARWA_KEY_manpower, 0, true];
-		private _side = _victim getVariable ARWA_KEY_owned_by;
-
-		if(!(isTouchingGround _victim)) then {
-			sleep 30;
-		};
-
+		waitUntil { isTouchingGround vehicle _victim; };
 		[_manpower, _victim, _side] spawn ARWA_create_manpower_box;
 	};
 };
@@ -41,21 +43,21 @@ ARWA_create_manpower_box_vehicle = {
 ARWA_pick_responder = {
 	params ["_area_controlled_by", "_victim_side", "_safe_pos"];
 
-	diag_log format["_victim_side: %1, _area_controlled_by: %2, players_on_victim_side", _victim_side, _area_controlled_by];
+	format["_victim_side: %1, _area_controlled_by: %2, players_on_victim_side", _victim_side, _area_controlled_by] spawn ARWA_debugger;
 
 	if(_area_controlled_by isEqualTo _victim_side || (playersNumber _victim_side) == 0) exitWith {
-		diag_log format["1 Sending %1 to get manpower box", _victim_side];
+		format["1 Sending %1 to get manpower box", _victim_side] spawn ARWA_debugger;
 		_victim_side;
 	};
 
 	if(_area_controlled_by isEqualTo civilian) exitWith {
 		private _enemies = ARWA_all_sides - [_victim_side];
 		private _responder = [_enemies, _safe_pos] call ARWA_closest_hq;
-		diag_log format["2 Sending %1 to get manpower box", _responder];
+		format["2 Sending %1 to get manpower box", _responder] spawn ARWA_debugger;
 		_responder;
 	};
 
-	diag_log format["3 Sending %1 to get manpower box", _area_controlled_by];
+	format["3 Sending %1 to get manpower box", _area_controlled_by] spawn ARWA_debugger;
 	_area_controlled_by;
 };
 

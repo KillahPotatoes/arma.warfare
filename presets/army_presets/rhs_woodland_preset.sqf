@@ -19,13 +19,29 @@ ARWA_west_uav_terminal_class_name = "B_UavTerminal";
 ARWA_east_uav_terminal_class_name = "O_UavTerminal";
 ARWA_guer_uav_terminal_class_name = "I_UavTerminal";
 
-ARWA_civilians = [
-	["C_man_polo_1_F",0],
-	["C_man_polo_2_F",0],
-	["C_man_polo_3_F",0],
-	["C_man_polo_4_F",0],
-	["C_man_polo_5_F",0],
-	["C_man_polo_6_F",0]
+ARWA_west_interceptor_tier_2 = [
+	["rhsusf_f22", 50],
+	["RHS_A10", 50],
+	["rhsgref_cdf_b_su25", 50],
+	["rhsgref_cdf_b_mig29s", 50],
+	["rhs_l39_cdf_b_cdf", 50],
+	["rhs_l159_cdf_b_CDF", 50]
+];
+
+ARWA_east_interceptor_tier_2 = [
+	["rhs_mig29sm_vvs", 50],
+	["RHS_T50_vvs_generic_ext", 50],
+	["rhs_mig29s_vvs", 50],
+	["RHS_Su25SM_vvs", 50]
+];
+
+ARWA_guer_interceptor_tier_2 = [
+	["rhssaf_airforce_l_18", 50],
+	["rhs_l159_CDF", 50],
+	["rhs_l39_cdf", 50],
+	["rhsgref_cdf_mig29s", 50],
+	["rhsgref_cdf_su25", 50],
+	["rhssaf_airforce_l_18_101", 50]
 ];
 
 ARWA_west_uavs = [
@@ -43,51 +59,6 @@ ARWA_east_uavs = [
 ARWA_guer_uavs = [
 	["I_UAV_02_F", 30],
 	["I_UAV_02_CAS_F", 30]
-];
-
-ARWA_west_sympathizers = [
-	["rhsgref_cdf_b_para_rifleman", 0],
-	["rhsgref_cdf_b_para_marksman", 0],
-	["rhsgref_cdf_b_para_rifleman_lite", 0],
-	["rhsgref_cdf_b_para_medic", 0],
-	["rhsgref_cdf_b_para_squadleader", 0],
-	["rhsgref_cdf_b_para_machinegunner", 0],
-	["rhsgref_cdf_b_para_autorifleman", 0],
-	["rhsgref_cdf_b_para_specialist_aa", 0],
-	["rhsgref_cdf_b_para_grenadier", 0],
-	["rhsgref_cdf_b_para_grenadier_rpg", 0]
-];
-
-ARWA_east_sympathizers = [
-	["rhsgref_ins_medicq", 0],
-	["rhsgref_ins_specialist_aa", 0],
-	["rhsgref_ins_grenadier_rpg", 0],
-	["rhsgref_ins_grenadier", 0],
-	["rhsgref_ins_rifleman_RPG26", 0],
-	["rhsgref_ins_sniper", 0],
-	["rhsgref_ins_militiaman_mosin", 0],
-	["rhsgref_ins_rifleman", 0],
-	["rhsgref_ins_rifleman_akm", 0],
-	["rhsgref_ins_rifleman_aks74", 0],
-	["rhsgref_ins_rifleman_aksu", 0],
-	["rhsgref_ins_saboteur", 0],
-	["rhsgref_ins_machinegunner", 0]
-];
-
-ARWA_guer_sympathizers = [
-	["rhsgref_ins_g_medicq", 0],
-	["rhsgref_ins_g_specialist_aa", 0],
-	["rhsgref_ins_g_grenadier_rpg", 0],
-	["rhsgref_ins_g_grenadier", 0],
-	["rhsgref_ins_g_rifleman_RPG26", 0],
-	["rhsgref_ins_g_sniper", 0],
-	["rhsgref_ins_g_militiaman_mosin", 0],
-	["rhsgref_ins_g_rifleman", 0],
-	["rhsgref_ins_g_rifleman_akm", 0],
-	["rhsgref_ins_g_rifleman_aks74", 0],
-	["rhsgref_ins_g_rifleman_aksu", 0],
-	["rhsgref_ins_g_saboteur", 0],
-	["rhsgref_ins_g_machinegunner", 0]
 ];
 
 ARWA_west_infantry_tier_0 = [

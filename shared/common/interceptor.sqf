@@ -1,9 +1,9 @@
 ARWA_spawn_interceptor = {
-	params ["_class_name", "_penalty", "_side", "_pos"];
+	params ["_class_name", "_penalty", "_side", "_pos", "_dir"];
 
-	waitUntil { [_pos select 0] call ARWA_is_air_space_clear; };
+	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
-	private _veh_arr = [_pos select 0, _pos select 1, _class_name, _side, _penalty] call ARWA_spawn_vehicle;
+	private _veh_arr = [_pos, _dir, _class_name, _side, _penalty] call ARWA_spawn_vehicle;
 	private _veh = _veh_arr select 0;
 
 	[_veh] call ARWA_set_interceptor_velocity;
@@ -11,19 +11,25 @@ ARWA_spawn_interceptor = {
 	_veh_arr;
 };
 
-ARWA_find_spawn_pos_and_direction = {
-	params ["_side"];
+ARWA_find_spawn_pos_air = {
+	params ["_side", "_distance", ["_height", 0]];
 
-	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
-	private _dir = _pos getDir ARWA_grid_center;
+	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+	private _dir = ARWA_grid_center getDir _pos;
 
-	_pos = ARWA_grid_center getPos [(ARWA_interceptor_safe_distance + (ARWA_grid_size / 2)), _dir - 180];
-	_pos = [_pos select 0, _pos select 1, 2000];
+	_pos = ARWA_grid_center getPos [(_distance + (ARWA_grid_size / 2)), _dir];
+	_pos = [_pos select 0, _pos select 1, (_pos select 2) + _height];
 
-	[_pos, _dir];
+	_pos;
 };
 
+ARWA_find_spawn_dir_air = {
+	params ["_pos"];
 
+	private _dir = _pos getDir ARWA_grid_center;
+
+	_dir;
+};
 
 ARWA_set_interceptor_velocity = {
 	params ["_veh"];

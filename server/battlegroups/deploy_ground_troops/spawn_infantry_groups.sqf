@@ -1,20 +1,20 @@
 ARWA_spawn_random_infantry_group = {
 	params ["_side", "_can_spawn"];
 
-	private _most_valuable_sector = [_side] call ARWA_pick_most_valued_player_owned_sector;
-
 	private _available_helis = !((_side call ARWA_get_transport_heli_type) isEqualTo []);
+	private _most_valuable_sector = [_side] call ARWA_pick_most_valued_player_owned_sector;
+	private _attack_most_valuable_sector = !(isNil "_most_valuable_sector") && {(random 100) < ([_most_valuable_sector] call ARWA_get_sector_manpower)};
 
-	if(_available_helis && !(isNil "_most_valuable_sector") && {(random 50) > (50 - ([_most_valuable_sector] call ARWA_get_sector_manpower))}) exitWith
-	{
+	if(selectRandom[false, _attack_most_valuable_sector && _available_helis]) exitWith {
 		[_side, _can_spawn, _most_valuable_sector] call ARWA_special_forces_insertion;
 	};
 
-	if (_available_helis && (random 100) > 80) exitWith {
+	if ([_available_helis, false] selectRandomWeighted [0.2, 0.8]) exitWith {
 		[_side, _can_spawn] call ARWA_helicopter_insertion;
 	};
 
 	private _group = [_side, _can_spawn] call ARWA_spawn_squad;
+
 	if(isNil "_group") exitWith {};
 	[_group] call ARWA_add_battle_group;
 };
@@ -95,8 +95,8 @@ ARWA_spawn_reinforcement_squad = {
 	if(isNil "_pos") exitWith {};
 
 	private _soldier_count = (ARWA_squad_cap call ARWA_calc_number_of_soldiers) min _can_spawn;
-	diag_log format["%1: Spawn infantry squad (%2)", _side, _soldier_count];
-	diag_log format["%1 manpower: %2", _side, [_side] call ARWA_get_strength];
+	format["%1: Spawn infantry squad (%2)", _side, _soldier_count] spawn ARWA_debugger;
+	format["%1 manpower: %2", _side, [_side] call ARWA_get_strength] spawn ARWA_debugger;
 
     private _group = [_pos, _side, _soldier_count, false] call ARWA_spawn_infantry;
 

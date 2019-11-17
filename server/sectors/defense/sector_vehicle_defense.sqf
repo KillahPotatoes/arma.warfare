@@ -21,6 +21,9 @@ ARWA_spawn_defense_vehicle = {
 			[_tmp_group] call ARWA_remove_nvg_and_add_flash_light;
 			{[_x] joinSilent _group} forEach units _tmp_group;
 			deleteGroup _tmp_group;
+
+			private _veh_name = _class_name call ARWA_get_vehicle_display_name;
+			format ["Spawn %1 defensive vehicle for %2", _veh_name, _side] spawn ARWA_debugger;
 		};
 	};
 }

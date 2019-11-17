@@ -55,7 +55,7 @@ ARWA_spawn_sympathizers = {
 		private _commander = leader _group;
 		private _commander_manpower = floor random[ARWA_min_commander_manpower, ARWA_min_commander_manpower, ARWA_max_commander_manpower];
 
-		diag_log format["Spawn %1 sympathizer commander with %2 manpower", _side, _commander_manpower];
+		format["Spawn %1 sympathizer commander with %2 manpower", _side, _commander_manpower] spawn ARWA_debugger;
  		_commander setVariable [ARWA_KEY_manpower, _commander_manpower, true];
 		_commander addHeadgear "H_Beret_Colonel";
 	};
@@ -65,6 +65,8 @@ ARWA_spawn_sympathizers = {
 
 ARWA_spawn_civilians = {
 	params ["_pos", "_number"];
+
+	format["Spawn %1 civilians", _number] spawn ARWA_debugger;
 
 	private _squad = [ARWA_civilians, _number] call ARWA_create_squad;
 	[_pos, civilian, _squad, true] call ARWA_create_group;

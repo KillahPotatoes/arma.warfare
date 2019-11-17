@@ -16,7 +16,7 @@ ARWA_calculate_rank_and_skill = {
 		// systemChat format["_new_rank_index: %1, _max_rank: %2, _new_rank: %3", _new_rank_index, _max_rank, _new_rank];
 
 		if(!(_new_rank isEqualTo (rank player))) then {
-			diag_log format["_new_rank: %1", _new_rank];
+			format["_new_rank: %1", _new_rank] spawn ARWA_debugger;
 			player setUnitRank _new_rank;
 
 			private _skill_coef = 1 - (0.5 * (_new_rank_index / _max_rank));

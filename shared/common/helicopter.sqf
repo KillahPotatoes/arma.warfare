@@ -1,10 +1,8 @@
 ARWA_spawn_helicopter = {
 	params ["_side", "_helicopter", "_kill_bonus", "_spawn_height"];
 
-	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
-	private _base_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
-	private _dir = _pos getDir _base_pos;
-	private _pos = [_pos select 0, _pos select 1, _spawn_height];
+	private _pos = [_side, ARWA_helicopter_safe_distance, _spawn_height] call ARWA_find_spawn_pos_air;
+	private _dir = [_pos] call ARWA_find_spawn_dir_air;
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 
@@ -72,10 +70,10 @@ ARWA_toggle_damage_while_landing = {
 };
 
 ARWA_despawn_air = {
-	params ["_group", "_veh"];
+	params ["_group", "_veh", "_safe_distance"];
 
 	private _side = side _group;
-	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_air] call ARWA_get_prefixed_name);
+	private _pos = [_side, _safe_distance] call ARWA_find_spawn_pos_air;
 
 	while {alive _veh} do {
 		_group move _pos;
@@ -96,7 +94,7 @@ ARWA_despawn_air = {
 			};
 
 			deleteVehicle _veh;
-			diag_log format["Despawn %1 %2", _veh, _side];
+			format["Despawn %1 %2", _veh, _side] spawn ARWA_debugger;
 			true;
 		};
 

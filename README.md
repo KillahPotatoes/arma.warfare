@@ -5,11 +5,11 @@ Needed Mods: CBA A3, KP Ranks
 
 https://discord.gg/bpPUU48
 
-This is a sector control mission with emphasize on easy setup for new missions and combined arms gameplay. 
+This is a sector control mission with emphasize on easy setup for new missions and combined arms gameplay.
 
 This mission tries to create a chaotic battlefield where you as a soldier can take on different roles and try to tip the margins in your favor.
 
-There are 4 player slots on each side so you can play this PVP but PVE works great too. 
+There are 4 player slots on each side so you can play this PVP but PVE works great too.
 
 ### FACTION STATS
 
@@ -47,7 +47,7 @@ Manpower can be submitted to the faction manpower at the HQ ammobox
 
 ### TRANSPORT
 
-Players can order vehicle or helicopter transport from anywhere on the map. 
+Players can order vehicle or helicopter transport from anywhere on the map.
 There is a small time penalty between each time a transport can be ordered. This will be longer if the transport is destroyed and cannot return to HQ.
 
 TIP: You can put manpower and (wounded) squad members in the transport and send it back to HQ. The squad members will then be removed without penalty and the manpower added to the faction manpower.
@@ -60,7 +60,7 @@ You will get a rank based on number of kills since last death, this rank will ma
 
 Sectors can be captured when a faction is holding the center of a sector and no enemies are within the sector area.
 
-Players can collect manpower from sectors and get infantry at the ammobox located in the center of the sector. 
+Players can collect manpower from sectors and get infantry at the ammobox located in the center of the sector.
 
 Defense will spawn in a sector once it is captured.
 
@@ -86,34 +86,24 @@ Copy the starting base from the template mission, it should include:
 
 1 grasscutter:
 \<prefix>_vehicle
-  
-This is where bought vehicles for players will spawn  
+
+This is where bought vehicles for players will spawn
 
 1 helipad
-<prefix>_helicopter  
+<prefix>_helicopter
 
-This is where bought helicopters for players will spawn  
+This is where bought helicopters for players will spawn
 
-2 respawn points
+Respawn points
 <prefix>_respawn_ground
-<prefix>_respawn_air
-
-Place the '<prefix>_respawn_air' in the outskirts of the map on the same side of the base. Ai helicopters will spawn from here.
-Place the '<prefix>_respawn_ground' on an open area. In the center the ammobox and players will spawn. Around it the ai will spawn. 
+Place the '<prefix>_respawn_ground' on an open area. In the center the ammobox and players will spawn. Around it the ai will spawn.
 
 ### PREFIXES
 
 Use delta, charlie and alpha. On mission start each faction will be assigned on of these prefixes by random.
 
-### GITHUB: 
+### GITHUB:
 
 Code and sample mission available here:
 
 https://github.com/KillahPotatoes/arma.warfare
-
-
-
-
-
-
-

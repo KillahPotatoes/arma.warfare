@@ -54,7 +54,9 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_air_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_vehicle_ai.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\battlegroups\battlegroup_ai\battlegroup_infantry_ai.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\random_enemy_activity\random_enemy_presence.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_activity\random_activity_common.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_activity\random_activity.sqf";
+[] call compileFinal preprocessFileLineNumbers "server\random_activity\random_vehicle_activity.sqf";
 
 // Other stuff
 [] call compileFinal preprocessFileLineNumbers "server\grid.sqf";
@@ -62,6 +64,7 @@ enableSaving [!isDedicated, false];
 [] call compileFinal preprocessFileLineNumbers "server\radio_chatter_server.sqf";
 
 private _starting_tier = ["StartingTier", 0] call BIS_fnc_getParamValue;
+ARWA_enable_debugger = (["Debugger", 0] call BIS_fnc_getParamValue) > 0;
 private _first_capture_bonus = (["FirstCaptureBonus", 0] call BIS_fnc_getParamValue) > 0;
 ARWA_starting_strength = ["Manpower", 300] call BIS_fnc_getParamValue;
 ARWA_mine_fields = (["Mines", 1] call BIS_fnc_getParamValue) == 1;
@@ -100,6 +103,6 @@ if(ARWA_mine_fields) then {
 [] spawn ARWA_spawn_gunship_groups;
 [] spawn ARWA_spawn_interceptors;
 [] spawn ARWA_sector_manpower_generation;
-[] spawn ARWA_populate_random_houses;
+[] spawn ARWA_random_activity;
 
 setViewDistance 6000;

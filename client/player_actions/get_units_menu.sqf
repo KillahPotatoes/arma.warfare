@@ -55,8 +55,11 @@ ARWA_get_vehicle = {
 
 ARWA_get_interceptor = {
 	params ["_class_name", "_penalty", "_side"];
-	private _pos = [playerSide] call ARWA_find_spawn_pos_and_direction;
-	private _veh_arr = [_class_name, _penalty, playerSide, _pos] call ARWA_spawn_interceptor;
+
+	private _pos = [_side, ARWA_interceptor_safe_distance, ARWA_interceptor_flight_height] call ARWA_find_spawn_pos_air;
+	private _dir = [_pos] call ARWA_find_spawn_dir_air;
+
+	private _veh_arr = [_class_name, _penalty, playerSide, _pos, _dir] call ARWA_spawn_interceptor;
 	private _veh = _veh_arr select 0;
 
 	_veh setVariable [ARWA_penalty, _penalty, true];
@@ -109,7 +112,7 @@ ARWA_list_options = {
 			};
 
 			if (_type isEqualTo ARWA_KEY_interceptor) exitWith {
-				[_class_name, _penalty] call ARWA_get_interceptor;
+				[_class_name, _penalty, playerSide] call ARWA_get_interceptor;
 			};
 
 			private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;

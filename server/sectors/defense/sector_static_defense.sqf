@@ -1,3 +1,14 @@
+ARWA_spawn_static_sector_defense = {
+	params ["_sector"];
+	
+	private _pos = _sector getVariable ARWA_KEY_pos;
+	private _owner = _sector getVariable ARWA_KEY_owned_by;
+
+	private _static_defense = [_pos, _owner] call ARWA_spawn_static;
+	_sector setVariable [ARWA_KEY_static_defense, _static_defense];
+	[_sector, _pos] spawn ARWA_reinforce_static_defense;
+};
+
 ARWA_spawn_static = {
 	params ["_pos", "_side"];
 
@@ -85,7 +96,45 @@ ARWA_remove_static = {
 	(_static select 0) setDamage 1
 };
 
-ARWA_static_alive = {
+ARWA_reinforce_static_defense = {
+	params ["_sector", "_pos"];
+
+	private _static_defense = _sector getVariable ARWA_KEY_static_defense;
+	private _initial_owner = side (_static_defense select 2);
+	private _current_owner = _initial_owner;
+	private _timer = time;
+	private _reinforce = false;
+
+	while {_current_owner isEqualTo _initial_owner} do {
+		private _enemies_nearby = [_pos, _current_owner, ARWA_sector_size] call ARWA_any_enemies_in_area;
+
+		if(!_enemies_nearby && {!([_static_defense] call ARWA_static_fully_alive)}) then {
+			if(time > _timer) then {
+				
+				if(_reinforce) exitWith {
+					format["Reinforcing static at sector %1 for %2", _sector getVariable ARWA_KEY_target_name, _initial_owner] spawn ARWA_debugger;
+					[_static_defense] spawn ARWA_remove_static;
+					private _new_static_defense = [_pos, _current_owner] call ARWA_spawn_static;
+					_sector setVariable [ARWA_KEY_static_defense, _new_static_defense];
+
+					_reinforce = false;
+				};
+				
+				_timer = time + ARWA_static_defense_reinforcement_interval;
+				_reinforce = true;
+			};
+		};
+
+		sleep 10;
+		_current_owner = _sector getVariable ARWA_KEY_owned_by;
+	};
+
+	[_static_defense] spawn ARWA_remove_static;
+
+	format["Stopped reinforcing static at sector %1 for %2", _sector getVariable ARWA_KEY_target_name, _initial_owner] spawn ARWA_debugger;
+};
+
+ARWA_static_fully_alive = {
 	params ["_static"];
 
 	private _group = _static select 2;
@@ -93,3 +142,4 @@ ARWA_static_alive = {
 
 	(({alive _x} count units _group) > 0 && (damage _veh < 1));
 };
+

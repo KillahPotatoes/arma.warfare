@@ -35,12 +35,19 @@ ARWA_spawn_random_vehicle = {
 		_side = civilian;
 		_preset = missionNamespace getVariable "ARWA_civilian_vehicles";
 	} else {
-		_side = if(_owner isEqualTo civilian) then {
-			private _enemies = ARWA_all_sides - [(side group _player)];
-			_side = [_enemies, _player_pos] call ARWA_closest_hq;
+		private _civilian_area = _owner isEqualTo civilian;
+
+		if(selectRandom[true, false, _civilian_area]) then {
+			_side = civilian;
 		} else {
-			_owner;
+			_side = if(_civilian_area) then {
+				private _enemies = ARWA_all_sides - [(side group _player)];
+				_side = [_enemies, _player_pos] call ARWA_closest_hq;
+			} else {
+				_owner;
+			};
 		};
+		
 		[format["Spawning %1 vehicle", _side]]  call ARWA_debugger;
 		_preset = missionNamespace getVariable format["ARWA_%1_sympathizers_vehicles", _side];
 	};

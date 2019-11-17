@@ -1,10 +1,13 @@
 ARWA_spawn_static_sector_defense = {
 	params ["_sector"];
-	
+
 	private _pos = _sector getVariable ARWA_KEY_pos;
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
 
 	private _static_defense = [_pos, _owner] call ARWA_spawn_static;
+
+	if(isNil "_static_defense") exitWith {};
+
 	_sector setVariable [ARWA_KEY_static_defense, _static_defense];
 	[_sector, _pos] spawn ARWA_reinforce_static_defense;
 };
@@ -110,7 +113,7 @@ ARWA_reinforce_static_defense = {
 
 		if(!_enemies_nearby && {!([_static_defense] call ARWA_static_fully_alive)}) then {
 			if(time > _timer) then {
-				
+
 				if(_reinforce) exitWith {
 					format["Reinforcing static at sector %1 for %2", _sector getVariable ARWA_KEY_target_name, _initial_owner] spawn ARWA_debugger;
 					[_static_defense] spawn ARWA_remove_static;
@@ -119,7 +122,7 @@ ARWA_reinforce_static_defense = {
 
 					_reinforce = false;
 				};
-				
+
 				_timer = time + ARWA_static_defense_reinforcement_interval;
 				_reinforce = true;
 			};

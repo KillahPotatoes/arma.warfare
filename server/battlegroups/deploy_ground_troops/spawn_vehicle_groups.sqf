@@ -28,24 +28,25 @@ ARWA_try_find_unoccupied_nearby_road = {
 
 	private _roads = _pos nearRoads 50;
 
-	if (!(_roads isEqualTo [])) exitWith {
-		private _road = nil;
+	if (_roads isEqualTo []) exitWith {};
 
-		private _attempt_counter = 0;
-		while {_attempt_counter < 10} do {
-			_attempt_counter = _attempt_counter + 1;
+	private _road = nil;
 
-			private _temp_road = selectRandom _roads;
-			private _road_pos = getPos _temp_road;
-			private _is_safe = !([_road_pos] call ARWA_any_units_too_close) && count (_road_pos nearObjects 10) == 0;
+	private _attempt_counter = 0;
+	while {_attempt_counter < 10} do {
+		_attempt_counter = _attempt_counter + 1;
 
-			if (_is_safe) exitWith {
-				_road = _temp_road;
-			};
+		private _temp_road = selectRandom _roads;
+		private _road_pos = getPos _temp_road;
+		private _is_safe = !([_road_pos] call ARWA_any_units_too_close) && count (_road_pos nearObjects 10) == 0;
+
+		if (_is_safe) exitWith {
+			_road = _temp_road;
 		};
-
-		_road;
 	};
+
+	if (isNil "_road") exitWith {};
+	_road;
 };
 
 ARWA_find_right_road_dir = {

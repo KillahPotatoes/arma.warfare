@@ -60,7 +60,7 @@ ARWA_pick_random_group = {
 	private _spawn_sympathizers = if(_is_safe_area) then { random 100 < ARWA_chance_of_enemy_presence_in_controlled_area; } else { selectRandom[true, false]; };
 
 	if(_spawn_sympathizers) exitWith {
-		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[true, false, _controlled_by in ARWA_all_sides]);
+		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[false, _controlled_by in ARWA_all_sides]);
 		format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side] spawn ARWA_debugger;
 		private _group = [[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
 

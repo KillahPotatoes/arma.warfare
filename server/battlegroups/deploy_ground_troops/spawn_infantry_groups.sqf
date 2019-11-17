@@ -2,18 +2,15 @@ ARWA_spawn_random_infantry_group = {
 	params ["_side", "_can_spawn"];
 
 	private _available_helis = !((_side call ARWA_get_transport_heli_type) isEqualTo []);
+	private _most_valuable_sector = [_side] call ARWA_pick_most_valued_player_owned_sector;
+	private _attack_most_valuable_sector = !(isNil "_most_valuable_sector") && {(random 100) < ([_most_valuable_sector] call ARWA_get_sector_manpower)};
 
-	if(_available_helis) exitWith {
-		private _most_valuable_sector = [_side] call ARWA_pick_most_valued_player_owned_sector;
-		private _attack_most_valuable_sector = !(isNil "_most_valuable_sector") && (random 100) < ([_most_valuable_sector] call ARWA_get_sector_manpower);
+	if(selectRandom[false, _attack_most_valuable_sector && _available_helis]) exitWith {
+		[_side, _can_spawn, _most_valuable_sector] call ARWA_special_forces_insertion;
+	};
 
-		if(selectRandom[false, _attack_most_valuable_sector]) exitWith {
-			[_side, _can_spawn, _most_valuable_sector] call ARWA_special_forces_insertion;
-		};
-
-		if ((random 100) > 80) exitWith {
-			[_side, _can_spawn] call ARWA_helicopter_insertion;
-		};
+	if ([_available_helis, false] selectRandomWeighted [0.2, 0.8]) exitWith {
+		[_side, _can_spawn] call ARWA_helicopter_insertion;
 	};
 
 	private _group = [_side, _can_spawn] call ARWA_spawn_squad;

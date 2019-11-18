@@ -27,3 +27,21 @@ ARWA_random_activity = {
 		_counter = _counter + 1;
 	};
 };
+
+ARWA_remove_when_no_player_closeby = {
+	params ["_group", "_distance", "_vehicle"];
+
+	waitUntil {!([getPos (leader _group), _distance] call ARWA_players_nearby)};
+
+	{
+		deleteVehicle _x;
+	} forEach units _group;
+
+	if(!isNil "_vehicle") then {
+		deleteVehicle _vehicle;
+	};
+
+	["Deleted vehicle"] call ARWA_debugger;
+
+	deleteGroup _group;
+};

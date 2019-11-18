@@ -47,7 +47,7 @@ ARWA_spawn_random_vehicle = {
 				_owner;
 			};
 		};
-		
+
 		[format["Spawning %1 vehicle", _side]]  call ARWA_debugger;
 		_preset = missionNamespace getVariable format["ARWA_%1_sympathizers_vehicles", _side];
 	};
@@ -65,26 +65,8 @@ ARWA_spawn_random_vehicle = {
 		_veh forceFollowRoad true;
 	};
 
-	[_group, _veh] spawn ARWA_remove_vehicle_when_no_player_closeby;
+	[_group, ARWA_random_vehicle_activity_dist * 1.5, _veh] spawn ARWA_remove_when_no_player_closeby;
 	[_veh, _edge_roads] spawn ARWA_create_waypoint;
-};
-
-ARWA_remove_vehicle_when_no_player_closeby = {
-	params ["_group", "_vehicle"];
-
-	waitUntil {!([getPos (leader _group), ARWA_random_vehicle_activity_dist * 1.5] call ARWA_players_nearby)};
-
-	{
-		deleteVehicle _x;
-	} forEach units _group;
-
-	if(!isNil "_vehicle") then {
-		deleteVehicle _vehicle;
-	};
-
-	["Deleted vehicle"] call ARWA_debugger;
-
-	deleteGroup _group;
 };
 
 ARWA_find_direction_of_road_towards_player = {

@@ -112,23 +112,19 @@ ARWA_populate_house = {
 	} forEach units _group;
 
 	[_group] spawn ARWA_remove_nvg_and_add_flash_light;
-	[_group, _building] spawn ARWA_remove_when_no_player_closeby;
+	[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 };
 
-ARWA_remove_when_no_player_closeby = {
-	params ["_group", "_house", "_vehicle"];
+ARWA_activate_when_player_close = {
 
-	waitUntil {!([getPos (leader _group), ARWA_max_distance_presence] call ARWA_players_nearby)};
 
-	{
-		deleteVehicle _x;
-	} forEach units _group;
+};
 
-	if(!isNil "_vehicle") then {
-		deleteVehicle _vehicle;
-	};
+ARWA_remove_from_house_when_no_player_closeby = {
+	params ["_group", "_house"];
 
-	deleteGroup _group;
+	[_group, ARWA_max_distance_presence] call ARWA_remove_when_no_player_closeby;
+
 	_house setVariable [ARWA_KEY_occupied, nil];
 };
 

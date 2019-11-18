@@ -100,13 +100,13 @@ ARWA_create_waypoint = {
 
 	[format["Vehicle moving from %1 to %2. Distance: %3", _veh_pos, _pos, _pos_and_distance select 0]] call ARWA_debugger;
 
-	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
+	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
 	_w setWaypointType "MOVE";
 
 	_group setBehaviour "SAFE";
 };
 
-ARWA_free_waypoint = {
+ARWA_free_road_waypoint = {
 	params ["_group"];
 
 	if({ alive _x; } count units _group == 0) exitWith {
@@ -129,7 +129,7 @@ ARWA_free_waypoint = {
 
 	[format["Vehicle moving from %1 to %2", _pos, _road_pos]] call ARWA_debugger;
 
-	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
+	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
 	_w setWaypointType "MOVE";
 
 	_group setBehaviour "SAFE";

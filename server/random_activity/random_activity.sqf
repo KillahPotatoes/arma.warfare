@@ -111,13 +111,59 @@ ARWA_populate_house = {
 		ARWA_random_enemies pushBack _x;
 	} forEach units _group;
 
+	if([true, false] selectRandomWeighted [0.2, 0.8]) then {
+		[_group] spawn ARWA_activate_when_player_close;
+	};
+
 	[_group] spawn ARWA_remove_nvg_and_add_flash_light;
 	[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 };
 
 ARWA_activate_when_player_close = {
+	params ["_group"];
 
+	private _activation_distance = 50 + random 300;
 
+	waitUntil {([getPos (leader _group), _activation_distance, true] call ARWA_players_nearby)};
+
+	[format ["Activated group: %1", _group], true] call ARWA_debugger;
+
+	[_group] spawn ARWA_free_waypoint;
+};
+
+ARWA_free_waypoint = {
+	params ["_group"];
+
+	if(isNil "_group" || {{ alive _x; } count units _group == 0}) exitWith {
+		["Group does not exits. Not creating new waypoint", true] call ARWA_debugger;
+	};
+
+	private _targets = allPlayers select { leader _group distance _x <= 100 && isTouchingGround (vehicle _x); };
+
+	if(_targets isEqualTo []) exitWith {};
+
+	private _target = allPlayers select 0;
+
+	private _group_pos = getPos (leader _group);
+	private _distance = 50 + random 300;
+	private _waypoint_pos = [_group_pos, getPos _target, _distance] call ARWA_find_random_waypoint_pos;
+
+	private _w = _group addWaypoint [_waypoint_pos, 0];
+	_w setWaypointCompletionRadius 25;
+
+	[format["Random group moving from %1 to %2. Distance: %3", _group_pos, _waypoint_pos, _distance]] call ARWA_debugger;
+
+	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
+	_w setWaypointType "MOVE";
+
+	_group setBehaviour "SAFE";
+};
+
+ARWA_find_random_waypoint_pos = {
+	params ["_pos1", "_pos2", "_distance"];
+
+	private _dir = _pos1 getDir _pos2;
+	_pos1 getPos [_distance, _dir];
 };
 
 ARWA_remove_from_house_when_no_player_closeby = {
@@ -129,7 +175,7 @@ ARWA_remove_from_house_when_no_player_closeby = {
 };
 
 ARWA_players_nearby = {
-	params ["_pos", "_dist"];
+	params ["_pos", "_dist", ["_isTouchingGround", false]];
 
-	({ (_pos distance2D _x) < _dist; } count allPlayers) > 0;
+	({ (_pos distance2D _x) < _dist && (!(_isTouchingGround) || isTouchingGround (vehicle _x)); } count allPlayers) > 0;
 };

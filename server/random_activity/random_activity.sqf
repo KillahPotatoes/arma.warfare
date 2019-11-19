@@ -127,6 +127,7 @@ ARWA_activate_when_player_close = {
 	waitUntil {([getPos (leader _group), _activation_distance, true] call ARWA_players_nearby)};
 
 	[format ["Activated group: %1", _group], true] call ARWA_debugger;
+	_group enableGunLights "ForceOn";
 
 	[_group] spawn ARWA_free_waypoint;
 };

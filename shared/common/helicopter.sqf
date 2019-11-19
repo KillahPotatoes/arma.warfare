@@ -2,7 +2,7 @@ ARWA_spawn_helicopter = {
 	params ["_side", "_helicopter", "_kill_bonus", "_spawn_height"];
 
 	private _pos = [_side, ARWA_helicopter_safe_distance, _spawn_height] call ARWA_find_spawn_pos_air;
-	private _dir = [_pos] call ARWA_find_spawn_dir_air;
+	private _dir = [_pos, ARWA_grid_center] call ARWA_find_spawn_dir_air;
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 

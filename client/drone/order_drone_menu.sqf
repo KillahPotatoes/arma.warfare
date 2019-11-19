@@ -192,7 +192,7 @@ ARWA_spawn_uav = {
 	params ["_side", "_class_name", "_penalty"];
 
 	private _pos = [_side, ARWA_interceptor_safe_distance, ARWA_uav_flight_height] call ARWA_find_spawn_pos_air;
-	private _dir = [_pos] call ARWA_find_spawn_dir_air;
+	private _dir = [_pos, getPos player] call ARWA_find_spawn_dir_air;
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
 

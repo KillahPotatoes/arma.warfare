@@ -1,4 +1,4 @@
-ARWA_spawn_interceptor = {
+ARWA_spawn_plane = {
 	params ["_class_name", "_penalty", "_side", "_pos", "_dir"];
 
 	waitUntil { [_pos] call ARWA_is_air_space_clear; };
@@ -6,7 +6,7 @@ ARWA_spawn_interceptor = {
 	private _veh_arr = [_pos, _dir, _class_name, _side, _penalty] call ARWA_spawn_vehicle;
 	private _veh = _veh_arr select 0;
 
-	[_veh] call ARWA_set_interceptor_velocity;
+	[_veh] call ARWA_set_plane_velocity;
 
 	_veh_arr;
 };
@@ -24,14 +24,12 @@ ARWA_find_spawn_pos_air = {
 };
 
 ARWA_find_spawn_dir_air = {
-	params ["_pos"];
+	params ["_from_pos", "_to_pos"];
 
-	private _dir = _pos getDir ARWA_grid_center;
-
-	_dir;
+	_from_pos getDir _to_pos;
 };
 
-ARWA_set_interceptor_velocity = {
+ARWA_set_plane_velocity = {
 	params ["_veh"];
 
 	private _vel_veh = velocity _veh;

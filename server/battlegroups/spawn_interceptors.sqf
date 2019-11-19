@@ -41,14 +41,14 @@ ARWA_spawn_ai_interceptors = {
 	private _interceptor_name = _interceptor call ARWA_get_vehicle_display_name;
 
 	private _pos = [_side, ARWA_interceptor_safe_distance, ARWA_interceptor_flight_height] call ARWA_find_spawn_pos_air;
-	private _dir = [_pos] call ARWA_find_spawn_dir_air;
+	private _dir = [_pos, ARWA_grid_center] call ARWA_find_spawn_dir_air;
 
 	private _group = createGroup [_side, true];
 
 	for "_x" from 1 to _number step 1 do {
 		private _new_pos = _pos getPos [100 * _x ,_dir - 90];
 		format ["%1: Spawn interceptor: %2", _side, _interceptor_name] spawn ARWA_debugger;
-		private _veh_arr = [_interceptor, _kill_bonus, _side, _new_pos, _dir] call ARWA_spawn_interceptor;
+		private _veh_arr = [_interceptor, _kill_bonus, _side, _new_pos, _dir] call ARWA_spawn_plane;
 		private _tmp_group = _veh_arr select 2;
 
 		// TODO. See if they handle better if in same group

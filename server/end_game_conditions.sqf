@@ -11,20 +11,21 @@ ARWA_end_game_conditions_check = {
 
 ARWA_check_winning_conditions = {
 	private _number_of_sectors = count ARWA_sectors;
+	private _game = true;
 
-
-	while(true) do {
-		private _owners = ARWA_sectors select { _x getVariable ARWA_KEY_owned_by };
+	while{_game} do {
+		private _owners = ARWA_sectors apply { _x getVariable ARWA_KEY_owned_by };
 
 		{
 			private _side = _x;
 			private _owned_sectors = { _x isEqualTo _side; } count _owners;
 
 			if(_owned_sectors == _number_of_sectors) then {
-				private _other_factions = ARWA_all_sides - _side;
-				private _dead_factions = _other_factions select { _x call ARWA_get_strength === 0; };
+				private _other_factions = ARWA_all_sides - [_side];
+				private _dead_factions = _other_factions select { _x call ARWA_get_strength == 0; };
 
-				if(_dead_factions == _other_factions) then {
+				if(_dead_factions isEqualTo _other_factions) then {
+					_game = false;
 					_side remoteExec ["ARWA_end_mission"];
 				};
 
@@ -32,15 +33,15 @@ ARWA_check_winning_conditions = {
 
 		} foreach ARWA_all_sides;
 
-		sleep 1;
+		sleep 2;
 	};
 };
 
 ARWA_manpower_count_down = {
 	waitUntil { (ARWA_start_time + 1800) < time; };
 
-	while(true) do {
-		private _owners = ARWA_sectors select { _x getVariable ARWA_KEY_owned_by };
+	while{true} do {
+		private _owners = ARWA_sectors apply { _x getVariable ARWA_KEY_owned_by };
 
 		{
 			private _side = _x;
@@ -52,6 +53,6 @@ ARWA_manpower_count_down = {
 
 		} foreach ARWA_all_sides;
 
-		sleep 1;
+		sleep 2;
 	};
 };

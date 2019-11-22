@@ -71,9 +71,11 @@ ARWA_mine_fields = (["Mines", 1] call BIS_fnc_getParamValue) == 1;
 ARWA_sector_artillery = (["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue) > 0;
 ARWA_sector_artillery_reload_time = ["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue;
 ARWA_dropped_manpower_deterioration_time = ["DroppedManpowerDeteriorationTime", 180] call BIS_fnc_getParamValue;
+ARWA_timeToSkipTo = ["StartTime", 12] call BIS_fnc_getParamValue;
 
 ARWA_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
+skipTime (ARWA_timeToSkipTo - daytime + 24 ) % 24;
 
 // Game setup
 [_first_capture_bonus] call ARWA_initialize_sectors;

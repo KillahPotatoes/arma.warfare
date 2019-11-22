@@ -220,6 +220,14 @@ class Params
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
+    class StartTime
+    {
+        title = "Choose start time"; // Param name visible in the list
+        values[] = {3,6,9,12,15,18,21,24}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"03:00","06:00","09:00","12:00","15:00","18:00","21:00","24:00"}; // Description of each selectable item
+        default = 12; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
     class CivilianPreset
     {
         title = "Choose civilian preset"; // Param name visible in the list

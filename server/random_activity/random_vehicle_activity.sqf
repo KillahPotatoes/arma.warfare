@@ -47,7 +47,7 @@ ARWA_spawn_random_vehicle = {
 				_owner;
 			};
 		};
-		
+
 		[format["Spawning %1 vehicle", _side]]  call ARWA_debugger;
 		_preset = missionNamespace getVariable format["ARWA_%1_sympathizers_vehicles", _side];
 	};
@@ -65,26 +65,8 @@ ARWA_spawn_random_vehicle = {
 		_veh forceFollowRoad true;
 	};
 
-	[_group, _veh] spawn ARWA_remove_vehicle_when_no_player_closeby;
+	[_group, ARWA_random_vehicle_activity_dist * 1.5, _veh] spawn ARWA_remove_when_no_player_closeby;
 	[_veh, _edge_roads] spawn ARWA_create_waypoint;
-};
-
-ARWA_remove_vehicle_when_no_player_closeby = {
-	params ["_group", "_vehicle"];
-
-	waitUntil {!([getPos (leader _group), ARWA_random_vehicle_activity_dist * 1.5] call ARWA_players_nearby)};
-
-	{
-		deleteVehicle _x;
-	} forEach units _group;
-
-	if(!isNil "_vehicle") then {
-		deleteVehicle _vehicle;
-	};
-
-	["Deleted vehicle"] call ARWA_debugger;
-
-	deleteGroup _group;
 };
 
 ARWA_find_direction_of_road_towards_player = {
@@ -118,13 +100,13 @@ ARWA_create_waypoint = {
 
 	[format["Vehicle moving from %1 to %2. Distance: %3", _veh_pos, _pos, _pos_and_distance select 0]] call ARWA_debugger;
 
-	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
+	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
 	_w setWaypointType "MOVE";
 
 	_group setBehaviour "SAFE";
 };
 
-ARWA_free_waypoint = {
+ARWA_free_road_waypoint = {
 	params ["_group"];
 
 	if({ alive _x; } count units _group == 0) exitWith {
@@ -147,7 +129,7 @@ ARWA_free_waypoint = {
 
 	[format["Vehicle moving from %1 to %2", _pos, _road_pos]] call ARWA_debugger;
 
-	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
+	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
 	_w setWaypointType "MOVE";
 
 	_group setBehaviour "SAFE";

@@ -122,12 +122,11 @@ ARWA_populate_house = {
 ARWA_activate_when_player_close = {
 	params ["_group"];
 
-	private _activation_distance = 50 + random 300;
+	private _activation_distance = 100 + random 300;
 
 	waitUntil {([getPos (leader _group), _activation_distance, true] call ARWA_players_nearby)};
 
-	[format ["Activated group: %1", _group], true] call ARWA_debugger;
-	_group enableGunLights "ForceOn";
+	[format ["Activated group: %1", _group]] call ARWA_debugger;
 
 	[_group] spawn ARWA_free_waypoint;
 };
@@ -136,21 +135,30 @@ ARWA_free_waypoint = {
 	params ["_group"];
 
 	if(isNil "_group" || {{ alive _x; } count units _group == 0}) exitWith {
-		["Group does not exits. Not creating new waypoint", true] call ARWA_debugger;
+		["Group does not exits. Not creating new waypoint"] call ARWA_debugger;
 	};
 
-	private _targets = allPlayers select { leader _group distance _x <= 100 && isTouchingGround (vehicle _x); };
+	private _targets = allPlayers select { isTouchingGround (vehicle _x); };
 
-	if(_targets isEqualTo []) exitWith {};
+	if(_targets isEqualTo []) exitWith { systemChat "No targets"; };
 
-	private _target = allPlayers select 0;
+	private _target_distance = _targets apply { [(leader _group) distance2D _x, _x]; };
+	_target_distance sort true;
 
+	private _closest = _target_distance select 0;
+	private _closest_player_distance = _closest select 0;
+
+	private _closest_player = _closest select 1;
+	private _closest_player_pos = getPos _closest_player;
 	private _group_pos = getPos (leader _group);
-	private _distance = 50 + random 300;
-	private _waypoint_pos = [_group_pos, getPos _target, _distance] call ARWA_find_random_waypoint_pos;
+	private _distance = _closest_player_distance;
+	private _direction = _group_pos getDir _closest_player_pos;
+	private _waypoint_pos = [_group_pos, _distance, _direction] call BIS_fnc_relPos;
+
 
 	private _w = _group addWaypoint [_waypoint_pos, 0];
 	_w setWaypointCompletionRadius 25;
+	_w setWaypointSpeed "LIMITED";
 
 	[format["Random group moving from %1 to %2. Distance: %3", _group_pos, _waypoint_pos, _distance]] call ARWA_debugger;
 
@@ -158,13 +166,7 @@ ARWA_free_waypoint = {
 	_w setWaypointType "MOVE";
 
 	_group setBehaviour "SAFE";
-};
-
-ARWA_find_random_waypoint_pos = {
-	params ["_pos1", "_pos2", "_distance"];
-
-	private _dir = _pos1 getDir _pos2;
-	_pos1 getPos [_distance, _dir];
+	_group enableGunLights "ForceOn";
 };
 
 ARWA_remove_from_house_when_no_player_closeby = {

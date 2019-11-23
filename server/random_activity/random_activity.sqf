@@ -111,7 +111,7 @@ ARWA_populate_house = {
 		ARWA_random_enemies pushBack _x;
 	} forEach units _group;
 
-	if([true, false] selectRandomWeighted [0.2, 0.8]) then {
+	if([true, false] selectRandomWeighted [3, 6]) then {
 		[_group] spawn ARWA_activate_when_player_close;
 	};
 
@@ -122,7 +122,7 @@ ARWA_populate_house = {
 ARWA_activate_when_player_close = {
 	params ["_group"];
 
-	private _activation_distance = 100 + random 300;
+	private _activation_distance = (ARWA_min_distance_presence / 2) + random (ARWA_min_distance_presence / 2);
 
 	waitUntil {([getPos (leader _group), _activation_distance, true] call ARWA_players_nearby)};
 

@@ -171,7 +171,7 @@ ARWA_register_kill = {
 			private _victim_faction_strength = _victim_side call ARWA_get_strength;
 
 			private _new_faction_strength = if(isPlayer _victim) then {
-				_victim_faction_strength - _manpower_penalty;
+				_victim_faction_strength - (_manpower_penalty min _victim_faction_strength);
 			} else {
 				private _death_penalty = (playersNumber _victim_side) + 1;
 				_victim_faction_strength - _death_penalty;

@@ -38,7 +38,7 @@ ARWA_check_winning_conditions = {
 };
 
 ARWA_manpower_count_down = {
-	waitUntil { (ARWA_start_time + 1800) < time; };
+	waitUntil { (ARWA_start_time + 3600) < time; };
 
 	while{true} do {
 		private _owners = ARWA_sectors apply { _x getVariable ARWA_KEY_owned_by };

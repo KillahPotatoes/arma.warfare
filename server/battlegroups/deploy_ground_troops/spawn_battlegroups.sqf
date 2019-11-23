@@ -3,7 +3,7 @@ ARWA_minimum_active_vehicles = 3;
 ARWA_needs_vehicles = {
 	params ["_side"];
 	private _groups = [_side] call ARWA_get_battlegroups;
-	{ !((vehicle leader _x) isEqualTo (leader _x)); } count _groups < ARWA_minimum_active_vehicles;
+	{ !((vehicle leader _x) isEqualTo (leader _x)) && (isTouchingGround (vehicle leader _x)); } count _groups < ARWA_minimum_active_vehicles;
 };
 
 ARWA_get_unit_cap = {

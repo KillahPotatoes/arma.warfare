@@ -118,6 +118,9 @@ ARWA_reinforce_static_defense = {
 					format["Reinforcing static at sector %1 for %2", _sector getVariable ARWA_KEY_target_name, _initial_owner] spawn ARWA_debugger;
 					[_static_defense] spawn ARWA_remove_static;
 					private _new_static_defense = [_pos, _current_owner] call ARWA_spawn_static;
+
+					if(isNil "_new_static_defense") exitWith {};
+
 					_sector setVariable [ARWA_KEY_static_defense, _new_static_defense];
 
 					_reinforce = false;

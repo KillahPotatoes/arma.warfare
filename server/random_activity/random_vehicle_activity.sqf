@@ -42,7 +42,7 @@ ARWA_spawn_random_vehicle = {
 		} else {
 			_side = if(_civilian_area) then {
 				private _enemies = ARWA_all_sides - [(side group _player)];
-				_side = [_enemies, _player_pos] call ARWA_closest_hq;
+				[_enemies, _player_pos] call ARWA_closest_hq;
 			} else {
 				_owner;
 			};

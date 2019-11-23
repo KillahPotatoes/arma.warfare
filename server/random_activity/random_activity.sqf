@@ -151,8 +151,19 @@ ARWA_free_waypoint = {
 	private _closest_player = _closest select 1;
 	private _closest_player_pos = getPos _closest_player;
 	private _group_pos = getPos (leader _group);
-	private _direction = _group_pos getDir _closest_player_pos;
-	private _distance = (_closest_player_distance / 2) + random (_closest_player_distance / 2);
+
+	private _direction = if(_closest_player_distance < 10) then {
+		_closest_player_pos getDir _group_pos;
+	} else {
+		_group_pos getDir _closest_player_pos;
+	};
+
+	private _distance = if(_closest_player_distance < 25) then {
+		100 + (random 100);
+	} else {
+		(_closest_player_distance / 2) + random (_closest_player_distance / 2);
+	};
+
 	private _waypoint_pos = [_group_pos, _distance, _direction] call BIS_fnc_relPos;
 
 	private _w = _group addWaypoint [_waypoint_pos, 0];

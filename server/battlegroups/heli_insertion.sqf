@@ -1,4 +1,4 @@
-ARWA_add_soldiers_to_helicopter_cargo = {
+ARWA_add_soldiers_to_air_cargo = {
 	params ["_veh_array", "_can_spawn"];
 
 	private _vehicle = _veh_array select 0;
@@ -48,6 +48,21 @@ ARWA_pick_sector = {
 ARWA_special_forces_insertion = {
 	params ["_side", "_can_spawn", "_sector"];
 
+	private _available_helis = !((_side call ARWA_get_transport_heli_type) isEqualTo []);
+
+	if(selectRandom[_available_helis, false]) then {
+		private _pos = [_side, _sector] call ARWA_find_insertion_location;
+		[_side, _can_spawn, _pos, _sector, [true, true]] spawn ARWA_do_helicopter_insertion;
+	} else {
+		[_side, _can_spawn, _sector, [true, true]] call ARWA_do_paradrop_insertion;
+	};
+
+
+};
+
+ARWA_find_insertion_location = {
+	params ["_side", "_sector"];
+
 	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
 
 	private _spawn_pos = [_side, ARWA_helicopter_safe_distance] call ARWA_find_spawn_pos_air;
@@ -55,37 +70,48 @@ ARWA_special_forces_insertion = {
 	private _dir = [_spawn_pos, ARWA_grid_center] call ARWA_find_spawn_dir_air;
 
 	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
-	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
-
-
-	[_side, _can_spawn, _pos, _sector, [true, true]] spawn ARWA_do_helicopter_insertion;
+	[_sector_pos, _distance, _dir] call BIS_fnc_relPos;
 };
 
-ARWA_helicopter_insertion = {
+ARWA_do_paradrop_insertion = {
+	params ["_side", "_can_spawn", "_target", ["_mission_attr", [false, false]]];
+
+	private _target_pos = _target getVariable ARWA_KEY_pos;
+	private _veh_array = [_target_pos, _side] call ARWA_spawn_paradrop_plane;
+
+	private _vehicle = _veh_array select 0;
+	private _crew_count = count (_veh_array select 1);
+	private _cargoCapacity = (_vehicle emptyPositions "cargo") - _crew_count;
+	private _cargo = (_cargoCapacity min _can_spawn) min ARWA_squad_cap;
+	private _group = [[0,0,0], _side, _cargo, false] call ARWA_spawn_infantry;
+
+	[_mission_attr, _group, _target] call ARWA_set_special_mission_attr;
+	[_group, false] call ARWA_add_battle_group;
+	[_target_pos, _veh_array, units _group, _side] spawn ARWA_perform_paradrop;
+};
+
+ARWA_airborne_insertion = {
 	params ["_side", "_can_spawn"];
+
+	private _available_helis = !((_side call ARWA_get_transport_heli_type) isEqualTo []);
 
 	private _sector = [_side] call ARWA_pick_sector;
 
 	if (isNil "_sector") exitWith {};
 
-	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
-
-	private _spawn_pos = [_side, ARWA_interceptor_safe_distance] call ARWA_find_spawn_pos_air;
-	private _sector_pos = _sector getVariable ARWA_KEY_pos;
-	private _dir = [_spawn_pos, ARWA_grid_center] call ARWA_find_spawn_dir_air;
-
-	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
-
-	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
-
-	[_side, _can_spawn, _pos, _sector] spawn ARWA_do_helicopter_insertion;
+	if(selectRandom[_available_helis, false]) then {
+		private _pos = [_side, _sector] call ARWA_find_insertion_location;
+		[_side, _can_spawn, _pos, _sector] spawn ARWA_do_helicopter_insertion;
+	} else {
+		[_side, _can_spawn, _sector] call ARWA_do_paradrop_insertion;
+	};
 };
 
 ARWA_do_helicopter_insertion = {
 	params ["_side", "_can_spawn", "_pos", "_target", ["_mission_attr", [false, false]]];
 
 	private _heli = [_side] call ARWA_spawn_transport_heli;
-	private _group = [_heli, _can_spawn] call ARWA_add_soldiers_to_helicopter_cargo;
+	private _group = [_heli, _can_spawn] call ARWA_add_soldiers_to_air_cargo;
 	private _name = (typeOf (_heli select 0)) call ARWA_get_vehicle_display_name;
 	private _target_name = _target getVariable ARWA_KEY_target_name;
 

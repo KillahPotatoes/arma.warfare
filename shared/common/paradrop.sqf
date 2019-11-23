@@ -1,5 +1,5 @@
-ARWA_do_paradrop = {
-	params ["_drop_pos", "_units", "_side"];
+ARWA_spawn_paradrop_plane = {
+	params ["_drop_pos", "_side"];
 
 	private _pos = [_side, ARWA_interceptor_safe_distance, ARWA_paradrop_plane_flight_height] call ARWA_find_spawn_pos_air;
 	private _dir = [_pos, _drop_pos] call ARWA_find_spawn_dir_air;
@@ -15,25 +15,39 @@ ARWA_do_paradrop = {
 	private _vehicle = _veh_arr select 0;
 	_vehicle flyInHeight ARWA_paradrop_plane_flight_height;
 	(driver _vehicle) disableAI "LIGHTS";
-	_vehicle lockDriver true;
+	_vehicle lockDriver true; // TODO lock all
+
+	{
+		_x disableAI "FSM";
+		_x disableAI "AUTOCOMBAT";
+		_x disableAI "AUTOTARGET";
+		_x disableAI "TARGET";
+	} forEach units (_veh_arr select 2);
+
+	_veh_arr;
+};
+
+ARWA_do_paradrop = {
+	params ["_drop_pos", "_units", "_side"];
+	private _veh_arr = [_drop_pos, _side] call ARWA_spawn_paradrop_plane;
+	[_drop_pos, _veh_arr, _units, _side] spawn ARWA_perform_paradrop;
+};
+
+ARWA_perform_paradrop = {
+	params ["_drop_pos", "_veh_arr", "_units", "_side"];
+
+	private _vehicle = _veh_arr select 0;
+	private _group = _veh_arr select 2;
 
 	[_vehicle, _units] call ARWA_add_soldiers_to_paradrop_cargo;
 	[_vehicle, _units, _drop_pos] spawn ARWA_paradrop_on_location;
 
-	private _group = _veh_arr select 2;
-
 	private _w1 = _group addWaypoint [_drop_pos, 0];
 	_w1 setWaypointType "MOVE";
 	_w1 setWaypointCompletionRadius 100;
-	_w1 setWaypointStatements ["true","[group this] call ARWA_despawn_plane"];
 
 	_group setBehaviour "CARELESS";
-};
-
-ARWA_despawn_plane = {
-	params ["_group"];
-
-	[_group, vehicle (leader _group), ARWA_interceptor_safe_distance] spawn ARWA_despawn_air;
+	_group setCombatMode "BLUE";
 };
 
 ARWA_paradrop_on_location = {
@@ -41,7 +55,6 @@ ARWA_paradrop_on_location = {
 
 	private _paradrop_distance = (count _units) * 30;
 	private _group = group (_units select 0);
-
 
 	waitUntil { _vehicle distance2D _pos < (_paradrop_distance + 2000); };
 
@@ -57,17 +70,28 @@ ARWA_paradrop_on_location = {
 	waitUntil { _vehicle distance2D _pos < _paradrop_distance; };
 
 	{
-		removeBackpack _x;
-		_x addBackpack "B_Parachute";
 		_x action ["Eject", vehicle _x];
+		unassignVehicle _x;
 		sleep 0.5;
 	} forEach _units;
 
+	_group leaveVehicle _vehicle;
+
 	_vehicle limitSpeed 1000;
+
+	private _driver = driver _vehicle;
+	private _group = group _driver;
+
+	[_group, _vehicle, ARWA_interceptor_safe_distance] spawn ARWA_despawn_air;
 };
 
 ARWA_add_soldiers_to_paradrop_cargo = {
 	params ["_vehicle", "_units"];
+
+	{
+		removeBackpack _x;
+		_x addBackpack "B_Parachute";
+	} foreach _units;
 
 	private _players = _units select { isPlayer _x; };
 

@@ -18,6 +18,10 @@ ARWA_west_uav_terminal_class_name = "B_UavTerminal";
 ARWA_east_uav_terminal_class_name = "O_UavTerminal";
 ARWA_guer_uav_terminal_class_name = "I_UavTerminal";
 
+ARWA_west_paradrop_plane = ["B_T_VTOL_01_infantry_F", 30];
+ARWA_east_paradrop_plane = ["O_T_VTOL_02_infantry_dynamicLoadout_F", 30];
+ARWA_guer_paradrop_plane = ["I_Heli_Transport_02_F", 30];
+
 ARWA_west_interceptor_tier_2 = [
 	["B_Plane_Fighter_01_F", 50],
 	["B_Plane_CAS_01_dynamicLoadout_F", 50]

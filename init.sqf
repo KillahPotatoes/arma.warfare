@@ -49,12 +49,14 @@ ARWA_required_rank_take_lead = ["requiredTakeLeadRank", 2] call BIS_fnc_getParam
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_intel_action.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\interceptor_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\paradrop_menu.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\manpower_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\create_briefing.sqf";
+[] call compileFinal preprocessFileLineNumbers "shared\common\paradrop.sqf";
 
 player setVariable [ARWA_KEY_manpower, 0];
 player setVariable ["rank", 0, true];

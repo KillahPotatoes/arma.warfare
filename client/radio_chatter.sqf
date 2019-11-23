@@ -36,6 +36,14 @@ ARWA_group_report_client = {
 	(leader _group) sideChat _msg;
 };
 
+ARWA_group_chat = {
+	params ["_unit", "_values"];
+
+	private _msg = [_values] call ARWA_localize_and_format;
+
+	_unit groupChat _msg;
+};
+
 ARWA_HQ_report_client = {
 	params ["_side", "_values"];
 	sleep random 3;

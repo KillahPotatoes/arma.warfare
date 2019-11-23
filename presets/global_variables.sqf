@@ -80,6 +80,7 @@ ARWA_show_all = false;
 ARWA_capture_time = 60;
 ARWA_interceptor_safe_distance = 16000;
 ARWA_interceptor_flight_height = 2000;
+ARWA_paradrop_plane_flight_height = 1000;
 ARWA_helicopter_safe_distance = 5000;
 ARWA_uav_flight_height = 1000;
 ARWA_squad_kill_rating = 200;

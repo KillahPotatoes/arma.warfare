@@ -23,6 +23,12 @@
           <Key ID="ARWA_STR_ENEMY_COMMANDER_KILLED">
             <English>The enemy resistance leader has been killed!</English>
         </Key>
+        <Key ID="ARWA_STR_REQUEST_PARADROP">
+            <English>Request paradrop</English>
+        </Key>
+         <Key ID="ARWA_STR_GET_READY_TO_JUMP">
+            <English>Get ready to jump!</English>
+        </Key>
           <Key ID="ARWA_STR_ENEMY_COMMANDER_LOST">
             <English>We lost track of the enemy resistance leader</English>
         </Key>

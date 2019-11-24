@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={8087.7236,110.18149,9513.0908};
-		dir[]={-0.37932837,-0.3132385,0.87063432};
-		up[]={-0.12511589,0.94967067,0.28716648};
-		aside[]={0.91676956,1.3969839e-008,0.39942855};
+		pos[]={6819.1724,49.217983,7355.563};
+		dir[]={0.14069219,-0.43094501,0.89134455};
+		up[]={0.067189716,0.90237808,0.42567542};
+		aside[]={0.98777258,-3.7398422e-008,-0.15591246};
 	};
 };
 binarizationWanted=0;
@@ -132,17 +132,18 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={7145.0869,99.723701,10647.763};
-				angles[]={0,0.10315466,0};
+				position[]={6835.6455,2.6624737,7397.5513};
+				angles[]={-0,4.5686569,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 				name="bravo_vehicle";
 			};
 			id=0;
 			type="Land_ClutterCutter_large_F";
-			atlOffset=0.40074921;
+			atlOffset=0.0024735928;
 		};
 		class Item1
 		{
@@ -183,17 +184,18 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={7167.7402,101.41566,10645.701};
-				angles[]={0,0.089177608,0};
+				position[]={6832.1084,2.6624584,7420.0215};
+				angles[]={-0,4.5546799,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 				name="bravo_helicopter";
 			};
 			id=3;
 			type="Land_HelipadSquare_F";
-			atlOffset=0.40074921;
+			atlOffset=0.002458334;
 		};
 		class Item4
 		{
@@ -277,16 +279,16 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={7161.0732,102.55234,10633.134};
-				angles[]={0,4.7995186,0};
+				position[]={6845.8569,4.0182076,7416.7739};
+				angles[]={-0,2.9818354,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 			};
 			id=6;
 			type="B_Slingload_01_Ammo_F";
-			atlOffset=0.40071106;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -453,16 +455,17 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={7141.7798,101.53255,10633.944};
-				angles[]={0,4.7995186,0};
+				position[]={6849.7827,4.020155,7397.8267};
+				angles[]={-0,2.9818354,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 			};
 			id=9;
 			type="B_Slingload_01_Fuel_F";
-			atlOffset=0.40072632;
+			atlOffset=7.0333481e-005;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -610,16 +613,16 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={7170.9478,103.26987,10631.812};
-				angles[]={0,1.6709034,0};
+				position[]={6844.7026,4.0115395,7426.7334};
+				angles[]={-0,6.1364059,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 			};
 			id=12;
 			type="B_Slingload_01_Medevac_F";
-			atlOffset=0.40071869;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -729,16 +732,16 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={7151.7124,102.03249,10633.559};
-				angles[]={0,4.7995186,0};
+				position[]={6847.7832,4.0180473,7407.5752};
+				angles[]={-0,2.9818354,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 			};
 			id=15;
 			type="B_Slingload_01_Repair_F";
-			atlOffset=0.40073395;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -964,12 +967,13 @@ class Mission
 		class Item22
 		{
 			dataType="Marker";
-			position[]={7156.645,154.2692,10660.403};
+			position[]={6820.5635,56.094788,7405.6699};
 			name="bravo_respawn_ground";
 			type="respawn_unknown";
 			colorName="ColorRed";
+			angle=255.85442;
 			id=22;
-			atlOffset=53.833069;
+			atlOffset=53.434788;
 		};
 		class Item23
 		{

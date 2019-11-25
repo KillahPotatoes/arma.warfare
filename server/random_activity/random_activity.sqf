@@ -40,8 +40,6 @@ ARWA_check_houses_to_populate = {
 	ARWA_houses_already_checked append _houses;
 };
 
-
-
 ARWA_house_can_be_populated = {
 	params ["_building", "_player_pos", "_player", "_sector", "_sympathizer_side", "_is_safe_area"];
 
@@ -111,9 +109,17 @@ ARWA_populate_house = {
 		ARWA_random_enemies pushBack _x;
 	} forEach units _group;
 
-	if([true, false] selectRandomWeighted [3, 6]) then {
-		[_group] spawn ARWA_activate_when_player_close;
+	private _group_size = count units _group;
+	if(_side isEqualTo civilian) then {
+		if([true, false] selectRandomWeighted [6, _group_size]) then {
+			[_group] spawn ARWA_activate_when_player_close;
+		};
+	} else {
+		if([true, false] selectRandomWeighted [_group_size, 6]) then {
+			[_group] spawn ARWA_activate_when_player_close;
+		};
 	};
+
 
 	[_group] spawn ARWA_remove_nvg_and_add_flash_light;
 	[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;

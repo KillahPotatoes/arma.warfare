@@ -36,16 +36,16 @@ ARWA_pick_civilian_preset = {
 	};
 
 	if(_preset == 1) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\civilian_presets\apex_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\civilian_presets\opfor_african.sqf";
 	};
 
 	if(_preset == 2) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\civilian_presets\contact_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\civilian_presets\opfor_easter_european.sqf";
 	};
 
 
 	if(_preset == 3) exitWith {
-		[] call compileFinal preprocessFileLineNumbers "presets\civilian_presets\rhs_woodland_preset.sqf";
+		[] call compileFinal preprocessFileLineNumbers "presets\civilian_presets\opfor_middle_eastern.sqf";
 	};
 
 };

@@ -31,7 +31,7 @@ ARWA_random_activity = {
 ARWA_remove_when_no_player_closeby = {
 	params ["_group", "_distance", "_vehicle"];
 
-	waitUntil {!([getPos (leader _group), _distance] call ARWA_players_nearby)};
+	waitUntil {!([getPos (vehicle leader _group), _distance] call ARWA_players_nearby)};
 
 	{
 		deleteVehicle _x;

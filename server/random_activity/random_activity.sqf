@@ -109,17 +109,39 @@ ARWA_populate_house = {
 
 	private _group_size = count units _group;
 	if(_side isEqualTo civilian) then {
-		if([true, false] selectRandomWeighted [6, _group_size]) then {
-			[_group] spawn ARWA_free_waypoint;
+		if([true, false] selectRandomWeighted [1, _group_size * 5]) then {
+			[_group] spawn ARWA_activate_when_player_close;
 		};
 	} else {
-		if([true, false] selectRandomWeighted [_group_size, 6]) then {
-			[_group] spawn ARWA_free_waypoint;
+		if([true, false] selectRandomWeighted [_group_size * 2, 10]) then {
+			[_group] spawn ARWA_activate_when_player_close;
 		};
 	};
 
 	[_group] spawn ARWA_remove_nvg_and_add_flash_light;
 	[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
+};
+
+ARWA_activate_when_player_close = {
+	params ["_group"];
+
+	private _targets = allPlayers select { isTouchingGround (vehicle _x); };
+
+	if(_targets isEqualTo []) exitWith {};
+
+	private _target_distance = _targets apply { [(leader _group) distance2D _x, _x]; };
+	_target_distance sort true;
+
+	private _closest = _target_distance select 0;
+	private _closest_player_distance = _closest select 0;
+
+	private _activation_distance = (_closest_player_distance / 2) + random (_closest_player_distance / 2);
+
+	waitUntil {([getPos (vehicle leader _group), _activation_distance, true] call ARWA_players_nearby)};
+
+	[format ["Activated group: %1", _group]] call ARWA_debugger;
+
+	[_group] spawn ARWA_free_waypoint;
 };
 
 ARWA_free_waypoint = {
@@ -131,7 +153,7 @@ ARWA_free_waypoint = {
 
 	private _targets = allPlayers select { isTouchingGround (vehicle _x); };
 
-	if(_targets isEqualTo []) exitWith { systemChat "No targets"; };
+	if(_targets isEqualTo []) exitWith {};
 
 	private _target_distance = _targets apply { [(leader _group) distance2D _x, _x]; };
 	_target_distance sort true;
@@ -141,27 +163,20 @@ ARWA_free_waypoint = {
 
 	private _closest_player = _closest select 1;
 	private _closest_player_pos = getPos _closest_player;
-	private _group_pos = getPos (leader _group);
 
-	private _direction = if(_closest_player_distance < 10) then {
-		_closest_player_pos getDir _group_pos;
+	private _distance = if(side _group isEqualTo civilian) then {
+		ARWA_max_distance_presence;
 	} else {
-		_group_pos getDir _closest_player_pos;
+		_closest_player_distance / 2;
 	};
 
-	private _distance = if(_closest_player_distance < 25) then {
-		100 + (random 100);
-	} else {
-		(_closest_player_distance / 2) + random (_closest_player_distance / 2);
-	};
-
-	private _waypoint_pos = [_group_pos, _distance, _direction] call BIS_fnc_relPos;
+	private _waypoint_pos = [[[_closest_player_pos, _distance]],["water"]] call BIS_fnc_randomPos;
 
 	private _w = _group addWaypoint [_waypoint_pos, 0];
 	_w setWaypointCompletionRadius 25;
 	_w setWaypointSpeed "LIMITED";
 
-	[format["Random group moving from %1 to %2. Distance: %3", _group_pos, _waypoint_pos, _distance]] call ARWA_debugger;
+	[format["Random group moving from %1 to %2. Distance: %3", _waypoint_pos]] call ARWA_debugger;
 
 	_w setWaypointStatements ["true","[group this] call ARWA_free_waypoint"];
 	_w setWaypointType "MOVE";

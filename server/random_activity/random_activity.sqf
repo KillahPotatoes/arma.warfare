@@ -94,8 +94,6 @@ ARWA_populate_house = {
 	private _possible_spawns = (count _allpositions) min (ARWA_max_random_enemies - (count ARWA_random_enemies));
 	private _random_number_of_soldiers = ceil random [0, _possible_spawns/2, _possible_spawns];
 
-	_building setVariable [ARWA_KEY_occupied, true];
-
 	if(_random_number_of_soldiers == 0) exitWith {};
 
 	private _group = [_side, _random_number_of_soldiers, _controlled_by, _is_safe_area, _player_side] call ARWA_pick_random_group;
@@ -112,29 +110,16 @@ ARWA_populate_house = {
 	private _group_size = count units _group;
 	if(_side isEqualTo civilian) then {
 		if([true, false] selectRandomWeighted [6, _group_size]) then {
-			[_group] spawn ARWA_activate_when_player_close;
+			[_group] spawn ARWA_free_waypoint;
 		};
 	} else {
 		if([true, false] selectRandomWeighted [_group_size, 6]) then {
-			[_group] spawn ARWA_activate_when_player_close;
+			[_group] spawn ARWA_free_waypoint;
 		};
 	};
 
-
 	[_group] spawn ARWA_remove_nvg_and_add_flash_light;
 	[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
-};
-
-ARWA_activate_when_player_close = {
-	params ["_group"];
-
-	private _activation_distance = (ARWA_min_distance_presence / 2) + random (ARWA_min_distance_presence / 2);
-
-	waitUntil {([getPos (leader _group), _activation_distance, true] call ARWA_players_nearby)};
-
-	[format ["Activated group: %1", _group]] call ARWA_debugger;
-
-	[_group] spawn ARWA_free_waypoint;
 };
 
 ARWA_free_waypoint = {
@@ -188,8 +173,8 @@ ARWA_free_waypoint = {
 ARWA_remove_from_house_when_no_player_closeby = {
 	params ["_group", "_house"];
 
+	_house setVariable [ARWA_KEY_occupied, true];
 	[_group, ARWA_max_distance_presence] call ARWA_remove_when_no_player_closeby;
-
 	_house setVariable [ARWA_KEY_occupied, nil];
 };
 

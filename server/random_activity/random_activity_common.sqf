@@ -39,9 +39,8 @@ ARWA_remove_when_no_player_closeby = {
 
 	if(!isNil "_vehicle") then {
 		deleteVehicle _vehicle;
+		["Deleted vehicle"] call ARWA_debugger;
 	};
-
-	["Deleted vehicle"] call ARWA_debugger;
 
 	deleteGroup _group;
 };

@@ -4,6 +4,7 @@ ARWA_random_activity = {
 	private _counter = 1;
 	while {true} do {
 		ARWA_random_enemies = [ARWA_random_enemies] call ARWA_remove_null;
+		ARWA_houses_already_checked = [];
 
 		if(ARWA_max_random_enemies > (count ARWA_random_enemies)) then {
 			private _players = allPlayers call BIS_fnc_arrayShuffle;
@@ -19,8 +20,6 @@ ARWA_random_activity = {
 					[_player] call ARWA_check_houses_to_populate;
 				};
 			} forEach (_players select { alive _x; });
-
-			ARWA_houses_already_checked = [];
 		};
 
 		sleep 10;

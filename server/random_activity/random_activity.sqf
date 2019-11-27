@@ -110,38 +110,16 @@ ARWA_populate_house = {
 	private _group_size = count units _group;
 	if(_side isEqualTo civilian) then {
 		if([true, false] selectRandomWeighted [1, _group_size * 5]) then {
-			[_group] spawn ARWA_activate_when_player_close;
+			[_group] spawn ARWA_free_waypoint;
 		};
 	} else {
 		if([true, false] selectRandomWeighted [_group_size * 2, 10]) then {
-			[_group] spawn ARWA_activate_when_player_close;
+			[_group] spawn ARWA_free_waypoint;
 		};
 	};
 
 	[_group] spawn ARWA_remove_nvg_and_add_flash_light;
 	[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
-};
-
-ARWA_activate_when_player_close = {
-	params ["_group"];
-
-	private _targets = allPlayers select { isTouchingGround (vehicle _x); };
-
-	if(_targets isEqualTo []) exitWith {};
-
-	private _target_distance = _targets apply { [(leader _group) distance2D _x, _x]; };
-	_target_distance sort true;
-
-	private _closest = _target_distance select 0;
-	private _closest_player_distance = _closest select 0;
-
-	private _activation_distance = (_closest_player_distance / 2) + random (_closest_player_distance / 2);
-
-	waitUntil {([getPos (vehicle leader _group), _activation_distance, true] call ARWA_players_nearby)};
-
-	[format ["Activated group: %1", _group]] call ARWA_debugger;
-
-	[_group] spawn ARWA_free_waypoint;
 };
 
 ARWA_free_waypoint = {

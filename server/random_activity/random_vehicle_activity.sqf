@@ -25,7 +25,7 @@ ARWA_spawn_random_vehicle = {
 
 	private _sector = [ARWA_sectors, _road_pos] call ARWA_find_closest_sector;
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
-	private _is_safe_area = (side group _player) isEqualTo _owner;
+	private _is_safe_area = (side group _player) isEqualTo _owner || _owner isEqualTo civilian;
 
 	private _side = nil;
 	private _preset = nil;
@@ -58,9 +58,7 @@ ARWA_spawn_random_vehicle = {
 	private _veh = _veh_array select 0;
 	private _group = _veh_array select 2;
 
-	{
-		ARWA_random_enemies pushBack _x;
-	} forEach units _group;
+	ARWA_random_vehicles pushBack _veh;
 
 	if(_side isEqualTo civilian) then {
 		_veh forceFollowRoad true;

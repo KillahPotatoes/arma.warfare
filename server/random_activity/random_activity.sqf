@@ -12,14 +12,16 @@ ARWA_check_houses_to_populate = {
 
 	{
 		private _house = _x;
-		private _sector = [ARWA_sectors, getPos _house] call ARWA_find_closest_sector;
-		private _owner = _sector getVariable ARWA_KEY_owned_by;
 		private _hq_pos = getMarkerPos ([_player_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
 		private _pos = getPos _house;
 		private _distance_to_hq = _hq_pos distance2D _pos;
-		private _is_safe_area = _player_side isEqualTo _owner;
 
-		if(_distance_to_hq > ARWA_min_distance_presence) then {
+		if(_distance_to_hq > 1000 && {!(_house getVariable [ARWA_KEY_occupied, false])}) then {
+
+			private _sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
+			private _owner = _sector getVariable ARWA_KEY_owned_by;
+			private _sector_pos = _sector getVariable ARWA_KEY_pos;
+			private _is_safe_area = _player_side isEqualTo _owner;
 
 			private _sympathizer_side = if(_owner isEqualTo civilian || _is_safe_area) then {
 				private _enemies = ARWA_all_sides - [_player_side];
@@ -28,12 +30,12 @@ ARWA_check_houses_to_populate = {
 				_owner;
 			};
 
-			if([_house, _player_pos, _player, _sector, _sympathizer_side, _is_safe_area] call ARWA_house_can_be_populated) then {
+			if([_pos, _sector_pos, _player_pos, _sympathizer_side, _is_safe_area] call ARWA_house_can_be_populated) then {
 				[_sympathizer_side, _house, _owner, _is_safe_area, _player_side] call ARWA_populate_house;
 			};
 		};
 
-		if(ARWA_max_random_enemies <= (count ARWA_random_enemies)) exitWith {};
+		if(ARWA_max_random_people <= (count ARWA_random_people)) exitWith {};
 
 	} forEach _houses;
 
@@ -41,15 +43,10 @@ ARWA_check_houses_to_populate = {
 };
 
 ARWA_house_can_be_populated = {
-	params ["_building", "_player_pos", "_player", "_sector", "_sympathizer_side", "_is_safe_area"];
+	params ["_house_pos", "_sector_pos", "_player_pos", "_sympathizer_side", "_is_safe_area"];
 
-	private _pos = getPos _building;
-	private _sector_pos = _sector getVariable ARWA_KEY_pos;
 	private _distance_from_sector = if(_is_safe_area) then { ARWA_sector_size * 1.5; } else { ARWA_sector_size/2 };
-
-	(_sector_pos distance2D _pos) > _distance_from_sector
-	&& {!(_building getVariable [ARWA_KEY_occupied, false])}
-	&& {!([_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
+	(_sector_pos distance2D _house_pos) > _distance_from_sector && {!([_house_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
 };
 
 ARWA_pick_random_group = {
@@ -58,7 +55,7 @@ ARWA_pick_random_group = {
 	private _spawn_sympathizers = if(_is_safe_area) then { random 100 < ARWA_chance_of_enemy_presence_in_controlled_area; } else { selectRandom[true, false]; };
 
 	if(_spawn_sympathizers) exitWith {
-		private _commander = _random_number_of_soldiers >  ARWA_required_sympathizers_for_commander_spawn && (selectRandom[false, _controlled_by in ARWA_all_sides]);
+		private _commander = _random_number_of_soldiers > ARWA_required_sympathizers_for_commander_spawn && (selectRandom[false, _controlled_by in ARWA_all_sides]);
 		format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side] spawn ARWA_debugger;
 		private _group = [[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
 
@@ -91,7 +88,7 @@ ARWA_populate_house = {
 	params ["_side", "_building", "_controlled_by", "_is_safe_area", "_player_side"];
 
 	private _allpositions = _building buildingPos -1;
-	private _possible_spawns = (count _allpositions) min (ARWA_max_random_enemies - (count ARWA_random_enemies));
+	private _possible_spawns = (count _allpositions) min (ARWA_max_random_people - (count ARWA_random_people));
 	private _random_number_of_soldiers = ceil random [0, _possible_spawns/2, _possible_spawns];
 
 	if(_random_number_of_soldiers == 0) exitWith {};
@@ -104,16 +101,16 @@ ARWA_populate_house = {
 
 	{
 		_x setPosATL (_allpositions select _forEachIndex);
-		ARWA_random_enemies pushBack _x;
+		ARWA_random_people pushBack _x;
 	} forEach units _group;
 
-	private _group_size = count units _group;
-	if(_side isEqualTo civilian) then {
-		if([true, false] selectRandomWeighted [1, _group_size * 5]) then {
+	private _group_side = side _group;
+	if(_group_side isEqualTo civilian) then {
+		if([true, false] selectRandomWeighted [1, 9]) then {
 			[_group] spawn ARWA_free_waypoint;
 		};
 	} else {
-		if([true, false] selectRandomWeighted [_group_size * 2, 10]) then {
+		if([true, false] selectRandomWeighted [1, 4]) then {
 			[_group] spawn ARWA_free_waypoint;
 		};
 	};

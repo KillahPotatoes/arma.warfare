@@ -23,6 +23,9 @@
           <Key ID="ARWA_STR_ENEMY_COMMANDER_KILLED">
             <English>The enemy resistance leader has been killed!</English>
         </Key>
+        <Key ID="ARWA_STR_ENEMY_COMMANDER_ALERTED">
+            <English>Radio activity indicates that the enemy commander has been alerted!</English>
+        </Key>
           <Key ID="ARWA_STR_ENEMY_COMMANDER_LOST">
             <English>We lost track of the enemy resistance leader</English>
         </Key>

@@ -63,6 +63,7 @@ player setVariable ["kills", 0, true];
 [group player] remoteExec ["ARWA_add_battle_group", 2];
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\ui\enemy_commander_ui.sqf";
 
 [] spawn ARWA_show_friendly_markers;
 [] spawn ARWA_show_manpower_markers;

@@ -98,8 +98,6 @@ ARWA_max_distance_presence = 600;
 ARWA_max_random_people = 10;
 ARWA_max_random_vehicles = 2;
 ARWA_required_sympathizers_for_commander_spawn = 3;
-ARWA_min_commander_manpower = 10;
-ARWA_max_commander_manpower = 30;
 ARWA_chance_of_enemy_presence_in_controlled_area = 5;
 
 // Action priority

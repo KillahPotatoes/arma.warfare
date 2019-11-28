@@ -42,8 +42,9 @@ ARWA_spawn_infantry = {
 };
 
 ARWA_spawn_sympathizers = {
-	params ["_pos", "_side", "_number"];
+	params ["_side", "_number", ["_pos", [0,0,0]]];
 
+	format["Spawn %1 %2 sympathizers", _number, _side] spawn ARWA_debugger;
 	private _squad = [_side, _number] call ARWA_pick_sympathizers;
 	private _group = [_pos, _side, _squad, true] call ARWA_create_group;
 
@@ -55,7 +56,7 @@ ARWA_spawn_sympathizers = {
 };
 
 ARWA_spawn_civilians = {
-	params ["_pos", "_number"];
+	params ["_number", ["_pos", [0,0,0]]];
 
 	format["Spawn %1 civilians", _number] spawn ARWA_debugger;
 

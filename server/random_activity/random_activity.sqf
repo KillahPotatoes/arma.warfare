@@ -49,32 +49,16 @@ ARWA_house_can_be_populated = {
 	(_sector_pos distance2D _house_pos) > _distance_from_sector && {!([_house_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
 };
 
-ARWA_pick_random_group = {
-	params ["_side", "_random_number_of_soldiers", "_controlled_by", "_is_safe_area", "_player_side"];
+ARWA_create_commander = {
+	params ["_group", "_player_side"];
+	private _commander = leader _group;
+	private _commander_manpower = ARWA_starting_strength / 10;
 
-	private _spawn_sympathizers = if(_is_safe_area) then { random 100 < ARWA_chance_of_enemy_presence_in_controlled_area; } else { selectRandom[true, false]; };
+	format["Spawn %1 sympathizer commander with %2 manpower", side _group, _commander_manpower] spawn ARWA_debugger;
+	_commander setVariable [ARWA_KEY_manpower, _commander_manpower, true];
+	_commander addHeadgear "H_Beret_Colonel";
 
-	if(_spawn_sympathizers) exitWith {
-		private _commander = _random_number_of_soldiers > ARWA_required_sympathizers_for_commander_spawn && (selectRandom[false, _controlled_by in ARWA_all_sides]);
-		format["Spawn %1 %2 sympathizers", _random_number_of_soldiers, _side] spawn ARWA_debugger;
-		private _group = [[0,0,0], _side, _random_number_of_soldiers, _commander] call ARWA_spawn_sympathizers;
-
-		if(_commander) then {
-			private _commander = leader _group;
-			private _commander_manpower = ARWA_starting_strength / 10;
-
-			format["Spawn %1 sympathizer commander with %2 manpower", _side, _commander_manpower] spawn ARWA_debugger;
-			_commander setVariable [ARWA_KEY_manpower, _commander_manpower, true];
-			_commander addHeadgear "H_Beret_Colonel";
-
-			[leader _group, _player_side] spawn ARWA_commander_state;
-		};
-
-		_group;
-	};
-
-	format["Spawn %1 civilians", _random_number_of_soldiers] spawn ARWA_debugger;
-	[[0,0,0], _random_number_of_soldiers] call ARWA_spawn_civilians;
+	[leader _group, _player_side] spawn ARWA_commander_state;
 };
 
 ARWA_commander_behaviour = {
@@ -125,22 +109,44 @@ ARWA_commander_state = {
 	[_commander, _player_side] spawn ARWA_commander_behaviour;
 	[_commander, _player_side] spawn ARWA_commander_marker;
 	[_commander, _player_side] spawn ARWA_commander_intel;
-
 };
 
 ARWA_populate_house = {
-	params ["_side", "_building", "_controlled_by", "_is_safe_area", "_player_side"];
+	params ["_side", "_building", "_owner", "_is_safe_area", "_player_side"];
 
 	private _allpositions = _building buildingPos -1;
 	private _possible_spawns = (count _allpositions) min (ARWA_max_random_people - (count ARWA_random_people));
-	private _random_number_of_soldiers = ceil random [0, _possible_spawns/2, _possible_spawns];
+	private _random_number_of_people = ceil random [0, _possible_spawns/2, _possible_spawns];
 
-	if(_random_number_of_soldiers == 0) exitWith {};
+	if(_random_number_of_people == 0) exitWith {};
 
-	private _group = [_side, _random_number_of_soldiers, _controlled_by, _is_safe_area, _player_side] call ARWA_pick_random_group;
+	private _spawn_sympathizers = if(_is_safe_area) then { random 100 < ARWA_chance_of_enemy_presence_in_controlled_area; } else { selectRandom[true, false]; };
 
-	_group setBehaviour "SAFE";
+	if(_spawn_sympathizers) then {
+		private _group = [_side, _random_number_of_people] call ARWA_spawn_sympathizers;
+		[_building, _group] call ARWA_place_random_people_in_house;
+		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 
+		private _commander = _random_number_of_people > ARWA_required_sympathizers_for_commander_spawn && (selectRandom[false, _owner in ARWA_all_sides]);
+		if(_commander) then {
+			[_group, _player_side] spawn ARWA_create_commander;
+		};
+
+		if([!_commander, false] selectRandomWeighted [4, 1]) exitWith {};
+		[_group] spawn ARWA_free_waypoint;
+	} else {
+		private _group = [_random_number_of_people] call ARWA_spawn_civilians;
+		[_building, _group] call ARWA_place_random_people_in_house;
+		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
+
+		if([true, false] selectRandomWeighted [9, 1]) exitWith {};
+		[_group] spawn ARWA_free_waypoint;
+	};
+};
+
+ARWA_place_random_people_in_house = {
+	params ["_building", "_group"];
+	private _allpositions = _building buildingPos -1;
 	_allpositions = _allpositions call BIS_fnc_arrayShuffle;
 
 	{
@@ -148,19 +154,7 @@ ARWA_populate_house = {
 		ARWA_random_people pushBack _x;
 	} forEach units _group;
 
-	private _group_side = side _group;
-	if(_group_side isEqualTo civilian) then {
-		if([true, false] selectRandomWeighted [1, 9]) then {
-			[_group] spawn ARWA_free_waypoint;
-		};
-	} else {
-		if([true, false] selectRandomWeighted [1, 4]) then {
-			[_group] spawn ARWA_free_waypoint;
-		};
-	};
-
-	[_group] spawn ARWA_remove_nvg_and_add_flash_light;
-	[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
+	_group setBehaviour "SAFE";
 };
 
 ARWA_free_waypoint = {

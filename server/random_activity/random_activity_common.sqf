@@ -10,21 +10,20 @@ ARWA_random_activity = {
 		ARWA_houses_already_checked = [];
 
 		if(ARWA_max_random_people > count ARWA_random_people || ARWA_max_random_vehicles > count ARWA_random_vehicles ) then {
-			private _players = allPlayers call BIS_fnc_arrayShuffle;
+			private _players = (allPlayers select { alive _x; }) call BIS_fnc_arrayShuffle;
 			{
 				private _player = _x;
 				private _class_name = typeOf (vehicle _player);
 
 				if(!([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of)) then {
-					if(ARWA_max_random_vehicles > count ARWA_random_vehicles ) then {
-						if([true, false] selectRandomWeighted [30, 1]) exitWith {};
+					if(ARWA_max_random_vehicles > count ARWA_random_vehicles && {[true, false] selectRandomWeighted [1, 30]}) then {
 						[_player] call ARWA_spawn_random_vehicle;
 					};
 					if(ARWA_max_random_people > count ARWA_random_people) then {
 						[_player] call ARWA_check_houses_to_populate;
 					};
 				};
-			} forEach (_players select { alive _x; });
+			} forEach _players;
 		};
 
 		sleep 10;

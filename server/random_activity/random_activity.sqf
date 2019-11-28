@@ -63,13 +63,15 @@ ARWA_create_commander = {
 
 ARWA_commander_behaviour = {
 	params ["_commander", "_player_side"];
+
+	_commander setBehaviour "SAFE";
 	waitUntil { !(behaviour _commander isEqualTo "SAFE"); };
 	[_player_side, ["ARWA_STR_ENEMY_COMMANDER_ALERTED"]] remoteExec ["ARWA_HQ_report_client"];
 	_commander setSkill ["courage", 0];
 
-	private _manpower = _commander getVariable [ARWA_KEY_manpower];
+	private _manpower = _commander getVariable [ARWA_KEY_manpower, 0];
 
-	while{_manpower > 0} do {
+	while{_manpower > 5} do {
 		if(isNil "_commander" || {!alive _commander}) exitWith {};
 		_manpower = _manpower - 1;
 		_commander setVariable [ARWA_KEY_manpower, _manpower, true];
@@ -83,32 +85,18 @@ ARWA_commander_marker = {
 	private _commander_pos = getPos _commander;
 	private _marker = format["commander_marker_%1", toString _commander_pos];
 
-	private _markerPos = [[[_commander_pos, 25]], []] call BIS_fnc_randomPos;
+	private _markerPos = [[[_commander_pos, 100]], []] call BIS_fnc_randomPos;
 
-	[_marker, _markerPos, _commander, _player_side] remoteExec ["ARWA_commander_marker_client", _player_side];
+	[_marker, _markerPos, _commander] remoteExec ["ARWA_commander_marker_client", _player_side];
 };
 
-ARWA_commander_intel = {
-	params ["_commander", "_player_side"];
 
-	[_player_side, ["ARWA_STR_ENEMY_COMMANDER_IN_AREA"]] remoteExec ["ARWA_HQ_report_client"];
-
-	waitUntil { isNull _commander || {!alive _commander} };
-
-	if(isNull _commander) exitWith {
-		sleep 30 + (random 30);
-		[_player_side, ["ARWA_STR_ENEMY_COMMANDER_LOST"]] remoteExec ["ARWA_HQ_report_client"];
-	};
-	sleep 5 + (random 5);
-	[_player_side, ["ARWA_STR_ENEMY_COMMANDER_KILLED"]] remoteExec ["ARWA_HQ_report_client"];
-};
 
 ARWA_commander_state = {
 	params ["_commander", "_player_side"];
 
 	[_commander, _player_side] spawn ARWA_commander_behaviour;
 	[_commander, _player_side] spawn ARWA_commander_marker;
-	[_commander, _player_side] spawn ARWA_commander_intel;
 };
 
 ARWA_populate_house = {

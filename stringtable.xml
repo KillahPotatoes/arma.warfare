@@ -115,6 +115,9 @@
             <English>Get infantry</English>
             <German>Infantrie anfordern</German>
         </Key>
+         <Key ID="ARWA_STR_GET_CUSTOM_INFANTRY">
+            <English>Get custom infantry</English>
+        </Key>
         <Key ID="NO_AVAILABLE_OPTIONS">
             <English>There is no available options at this tier</English>
         </Key>

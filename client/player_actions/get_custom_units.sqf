@@ -50,7 +50,6 @@ ARWA_apply_loadout = {
 		_unit addItemToBackpack _x;
 	} foreach  (_backpack_with_inventory select 1);
 
-
 	_unit addHeadgear _head_gear;
 	_unit addGoggles _face_gear;
 

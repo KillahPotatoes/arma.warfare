@@ -90,8 +90,6 @@ ARWA_commander_marker = {
 	[_marker, _markerPos, _commander] remoteExec ["ARWA_commander_marker_client", _player_side];
 };
 
-
-
 ARWA_commander_state = {
 	params ["_commander", "_player_side"];
 
@@ -123,7 +121,16 @@ ARWA_populate_house = {
 		[_building, _group] call ARWA_place_random_people_in_house;
 		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 
-		private _commander = _random_number_of_people > ARWA_required_sympathizers_for_commander_spawn && (selectRandom[false, _owner in ARWA_all_sides]);
+		private _commander = if(!_is_safe_area && {_random_number_of_people > 3}) then {
+			if(_owner isEqualTo civilian) then {
+				[10] call ARWA_percent_chance;
+			} else {
+				[50] call ARWA_percent_chance;
+			};
+		} else {
+			false;
+		};
+
 		if(_commander) then {
 			[_group, _player_side] spawn ARWA_create_commander;
 		};

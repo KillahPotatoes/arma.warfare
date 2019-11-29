@@ -11,6 +11,12 @@ ARWA_not_in_vehicle = {
 	_unit isEqualTo (vehicle _unit);
 };
 
+ARWA_percent_chance = {
+	params ["_chance"];
+
+	[true, false] selectRandomWeighted [_chance, 100 - _chance];
+};
+
 ARWA_add_action_text = {
   params ["_text", "_level"];
 

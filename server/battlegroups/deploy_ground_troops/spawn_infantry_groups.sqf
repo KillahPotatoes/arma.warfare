@@ -9,7 +9,9 @@ ARWA_spawn_random_infantry_group = {
 		[_side, _can_spawn, _most_valuable_sector] call ARWA_special_forces_insertion;
 	};
 
-	if ([_available_helis, false] selectRandomWeighted [0.2, 0.8]) exitWith {
+
+	if (_available_helis && {[20] call ARWA_percent_chance}) exitWith {
+
 		[_side, _can_spawn] call ARWA_helicopter_insertion;
 	};
 

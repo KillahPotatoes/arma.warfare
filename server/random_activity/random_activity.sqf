@@ -108,7 +108,15 @@ ARWA_populate_house = {
 
 	if(_random_number_of_people == 0) exitWith {};
 
-	private _spawn_sympathizers = if(_is_safe_area) then { random 100 < ARWA_chance_of_enemy_presence_in_controlled_area; } else { selectRandom[true, false]; };
+	private _spawn_sympathizers = if(_is_safe_area) then {
+		 [20] call ARWA_percent_chance;
+	} else {
+		if(_owner isEqualTo civilian) then {
+			[50] call ARWA_percent_chance;
+		} else {
+			[70] call ARWA_percent_chance;
+		};
+	};
 
 	if(_spawn_sympathizers) then {
 		private _group = [_side, _random_number_of_people] call ARWA_spawn_sympathizers;
@@ -120,14 +128,15 @@ ARWA_populate_house = {
 			[_group, _player_side] spawn ARWA_create_commander;
 		};
 
-		if([!_commander, false] selectRandomWeighted [4, 1]) exitWith {};
-		[_group] spawn ARWA_free_waypoint;
+		if(!_commander && [20] call ARWA_percent_chance) then {
+			[_group] spawn ARWA_free_waypoint;
+		};
 	} else {
 		private _group = [_random_number_of_people] call ARWA_spawn_civilians;
 		[_building, _group] call ARWA_place_random_people_in_house;
 		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 
-		if([true, false] selectRandomWeighted [9, 1]) exitWith {};
+		if([90] call ARWA_percent_chance) exitWith {};
 		[_group] spawn ARWA_free_waypoint;
 	};
 };

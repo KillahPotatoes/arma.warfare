@@ -10,21 +10,20 @@ ARWA_apply_loadout = {
 	params ["_loadout_name", "_unit"];
 
 	private _loadouts = profilenamespace getvariable ["bis_fnc_saveInventory_data",[]];
+	private _loadout = (_loadouts find _loadout_name) +1;
 
-	private _index = _loadouts find _loadout_name;
-
-	private _loadout = _loadouts select (_index + 1);
-
-	private _uniform_with_inventory = _loadout select 0;
-	private _vest_with_inventory = _loadout select 1;
-	private _backpack_with_inventory = _loadout select 2;
-	private _head_gear = _loadout select 3;
-	private _face_gear = _loadout select 4;
-	private _designator = _loadout select 5;
-	private _primary_weapon_with_attachments = _loadout select 6;
-	private _secondary_weapon_with_attachments = _loadout select 7;
-	private _small_weapon_with_attachments = _loadout select 8;
-	private _additional_gear = _loadout select 9;
+	_loadout params [
+		"_uniform_with_inventory",
+		"_vest_with_inventory",
+		"_backpack_with_inventory",
+		"_head_gear",
+		"_face_gear",
+		"_designator",
+		"_primary_weapon_with_attachments",
+		"_secondary_weapon_with_attachments",
+		"_small_weapon_with_attachments",
+		"_additional_gear"
+	];
 
 	comment "Remove existing items";
 	removeAllWeapons _unit;

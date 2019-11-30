@@ -121,7 +121,7 @@ ARWA_populate_house = {
 		[_building, _group] call ARWA_place_random_people_in_house;
 		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 
-		private _commander = if(!_is_safe_area && {_random_number_of_people > 3}) then {
+		private _commander = if(!_is_safe_area && {_random_number_of_people > 1}) then {
 			if(_owner isEqualTo civilian) then {
 				[10] call ARWA_percent_chance;
 			} else {
@@ -143,8 +143,10 @@ ARWA_populate_house = {
 		[_building, _group] call ARWA_place_random_people_in_house;
 		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 
-		if([90] call ARWA_percent_chance) exitWith {};
-		[_group] spawn ARWA_free_waypoint;
+		if([10] call ARWA_percent_chance) then {
+			[_group] spawn ARWA_free_waypoint;
+		};
+
 	};
 };
 
@@ -206,7 +208,7 @@ ARWA_remove_from_house_when_no_player_closeby = {
 	params ["_group", "_house"];
 
 	_house setVariable [ARWA_KEY_occupied, true];
-	[_group, ARWA_max_distance_presence] call ARWA_remove_when_no_player_closeby;
+	[_group, ARWA_max_distance_presence + 100] call ARWA_remove_when_no_player_closeby;
 	_house setVariable [ARWA_KEY_occupied, nil];
 };
 

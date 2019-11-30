@@ -42,8 +42,9 @@ ARWA_spawn_infantry = {
 };
 
 ARWA_spawn_sympathizers = {
-	params ["_pos", "_side", "_number", "_commander"];
+	params ["_side", "_number", ["_pos", [0,0,0]]];
 
+	format["Spawn %1 %2 sympathizers", _number, _side] spawn ARWA_debugger;
 	private _squad = [_side, _number] call ARWA_pick_sympathizers;
 	private _group = [_pos, _side, _squad, true] call ARWA_create_group;
 
@@ -51,20 +52,13 @@ ARWA_spawn_sympathizers = {
 		_x setVariable [ARWA_KEY_sympathizers, true, true];
 	} forEach units _group;
 
-	if(_commander) then {
-		private _commander = leader _group;
-		private _commander_manpower = floor random[ARWA_min_commander_manpower, ARWA_min_commander_manpower, ARWA_max_commander_manpower];
-
-		format["Spawn %1 sympathizer commander with %2 manpower", _side, _commander_manpower] spawn ARWA_debugger;
- 		_commander setVariable [ARWA_KEY_manpower, _commander_manpower, true];
-		_commander addHeadgear "H_Beret_Colonel";
-	};
+	[_group] call ARWA_remove_nvg_and_add_flash_light;
 
 	_group;
 };
 
 ARWA_spawn_civilians = {
-	params ["_pos", "_number"];
+	params ["_number", ["_pos", [0,0,0]]];
 
 	format["Spawn %1 civilians", _number] spawn ARWA_debugger;
 

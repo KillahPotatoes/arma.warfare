@@ -161,6 +161,7 @@ ARWA_sector_rearm_player_vehicles = {
 
 			if(_close_to_sector && {_sector_owner isEqualTo _player_side} && {_vehicle isKindOf "Car" || _vehicle isKindOf "Tank"}) then {
 				_vehicle setVehicleAmmo 1;
+				_vehicle setFuel 1;
 				[["ARWA_STR_VEHICLE_REARMED"]] remoteExec ["ARWA_system_chat", group _x];
 			};
 		} forEach allPlayers;

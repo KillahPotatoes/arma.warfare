@@ -23,6 +23,9 @@
           <Key ID="ARWA_STR_ENEMY_COMMANDER_KILLED">
             <English>The enemy resistance leader has been killed!</English>
         </Key>
+        <Key ID="ARWA_STR_ENEMY_COMMANDER_ALERTED">
+            <English>Radio activity indicates that the enemy commander has been alerted!</English>
+        </Key>
           <Key ID="ARWA_STR_ENEMY_COMMANDER_LOST">
             <English>We lost track of the enemy resistance leader</English>
         </Key>
@@ -111,6 +114,9 @@
         <Key ID="ARWA_STR_GET_INFANTRY">
             <English>Get infantry</English>
             <German>Infantrie anfordern</German>
+        </Key>
+         <Key ID="ARWA_STR_GET_CUSTOM_INFANTRY">
+            <English>Get custom infantry</English>
         </Key>
         <Key ID="NO_AVAILABLE_OPTIONS">
             <English>There is no available options at this tier</English>

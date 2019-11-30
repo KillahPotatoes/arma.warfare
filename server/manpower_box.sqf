@@ -30,7 +30,7 @@ ARWA_create_manpower_box_unit = {
 ARWA_create_manpower_box_vehicle = {
 	params ["_victim", ["_side", nil]];
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
-	
+
 	_side = if(isNil "_side") then { _victim getVariable ARWA_KEY_owned_by; } else { _side; };
 
 	if(_manpower > 0) then {
@@ -114,7 +114,7 @@ ARWA_manpower_marker_update = {
 
 	deleteMarker _marker_name;
 
-	sleep 60;
+	sleep 300;
 	deleteVehicle _manpower_box;
 };
 

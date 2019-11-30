@@ -25,7 +25,7 @@ ARWA_spawn_random_vehicle = {
 
 	private _sector = [ARWA_sectors, _road_pos] call ARWA_find_closest_sector;
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
-	private _is_safe_area = (side group _player) isEqualTo _owner;
+	private _is_safe_area = (side group _player) isEqualTo _owner || _owner isEqualTo civilian;
 
 	private _side = nil;
 	private _preset = nil;
@@ -58,9 +58,7 @@ ARWA_spawn_random_vehicle = {
 	private _veh = _veh_array select 0;
 	private _group = _veh_array select 2;
 
-	{
-		ARWA_random_enemies pushBack _x;
-	} forEach units _group;
+	ARWA_random_vehicles pushBack _veh;
 
 	if(_side isEqualTo civilian) then {
 		_veh forceFollowRoad true;
@@ -96,15 +94,7 @@ ARWA_create_waypoint = {
 	private _pos = getPos (_pos_and_distance select 1);
 	private _group = group _vehicle;
 
-	private _w = _group addWaypoint [_pos, 0];
-	_w setWaypointCompletionRadius 100;
-
-	[format["Vehicle moving from %1 to %2. Distance: %3", _veh_pos, _pos, _pos_and_distance select 0]] call ARWA_debugger;
-
-	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
-	_w setWaypointType "MOVE";
-
-	_group setBehaviour "SAFE";
+	[_group, _pos] spawn ARWA_create_waypoint_for_random_vehicle;
 };
 
 ARWA_free_road_waypoint = {
@@ -125,13 +115,19 @@ ARWA_free_road_waypoint = {
 	private _edge_road = selectRandom _edge_roads;
 	private _road_pos = getPos _edge_road;
 
+	[format["Vehicle moving from %1 to %2", _pos, _road_pos]] call ARWA_debugger;
+
+	[_group, _road_pos] spawn ARWA_create_waypoint_for_random_vehicle;
+};
+
+ARWA_create_waypoint_for_random_vehicle = {
+	params ["_group", "_road_pos"];
 	private _w = _group addWaypoint [_road_pos, 0];
 	_w setWaypointCompletionRadius 100;
-
-	[format["Vehicle moving from %1 to %2", _pos, _road_pos]] call ARWA_debugger;
 
 	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
 	_w setWaypointType "MOVE";
 
+	_group setSpeedMode selectRandom["LIMITED", "NORMAL", "FULL"];
 	_group setBehaviour "SAFE";
 };

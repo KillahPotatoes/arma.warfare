@@ -52,6 +52,8 @@ ARWA_spawn_sympathizers = {
 		_x setVariable [ARWA_KEY_sympathizers, true, true];
 	} forEach units _group;
 
+	[_group] call ARWA_remove_nvg_and_add_flash_light;
+
 	_group;
 };
 

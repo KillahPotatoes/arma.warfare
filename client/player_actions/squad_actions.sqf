@@ -19,7 +19,9 @@ ARWA_join_squad = {
   	params ["_group"];
 
 	private _player_group = group player;
+
 	[player] join _group;
+	(units _player_group) joinSilent _group;
 
 	private _new_count = { alive _x } count units _group;
 	_group setVariable [ARWA_KEY_soldier_count, _new_count];
@@ -39,9 +41,8 @@ ARWA_leave_squad = {
 			private _current_group = group player;
 			[player] join grpNull;
 			[group player] remoteExec ["ARWA_add_battle_group", 2];
-			private _new_count = { alive _x } count units _current_group;
-			_current_group setVariable [ARWA_KEY_soldier_count, _new_count];
-			}, nil, ARWA_squad_actions, false, true, "",
+			[_current_group] remoteExec ["ARWA_add_battle_group", 2];
+			}, nil, ARWA_squad_actions_leave, false, true, "",
     '!(player call ARWA_empty_squad)'
     ];
 };
@@ -93,7 +94,7 @@ ARWA_list_join_options = {
 			[_group] call ARWA_join_squad;
 			[] call ARWA_remove_all_join_options;
 			[] call ARWA_remove_all_transport_options;
-		}, [_x], (_priority - 1), false, true, "", 'player call ARWA_empty_squad', 10]);
+		}, [_x], (_priority - 1), false, true, "", '[player] call ARWA_is_leader', 10]);
 
 	} forEach _squads;
 };
@@ -105,12 +106,12 @@ ARWA_create_join_menu = {
 		[] call ARWA_remove_all_join_options;
 
 		if(!ARWA_join_menu_open) then {
-			[ARWA_squad_actions] call ARWA_list_join_options;
+			[ARWA_squad_actions_join] call ARWA_list_join_options;
 			ARWA_join_menu_open = true;
 		} else {
 			ARWA_join_menu_open = false;
 		}
-	}, [], ARWA_squad_actions, false, false, "", 'player call ARWA_empty_squad && {[getPos player, playerSide] call ARWA_any_friendly_squads_in_area}', 10]
+	}, [], ARWA_squad_actions_join, false, false, "", '[player] call ARWA_is_leader && {[getPos player, playerSide] call ARWA_any_friendly_squads_in_area}', 10]
 };
 
 ARWA_can_take_lead = {

@@ -39,37 +39,35 @@ ARWA_get_smallest_group = {
 ARWA_join_nearby_group = {
 	params ["_group"];
 
-	private _joined_other_group = false;
 	private _group_count = { alive _x } count units _group;
 
-	if (!(isPlayer leader _group) && {_group_count < 3} && {_group_count > 0} && {!([_group] call ARWA_in_vehicle)}) then {
+	if(isPlayer leader _group || {_group_count == 0} || {[_group] call ARWA_in_vehicle}) exitWith { false; };
+
+	if(_group_count < ARWA_squad_cap / 2) then {
 		private _groups = ([side _group] call ARWA_get_battlegroups) - [_group];
 		private _pos = getPos leader _group;
 		private _nearby_groups = _groups select { [_x, _pos, 100] call ARWA_group_nearby && !([_x] call ARWA_in_vehicle) && !(isPlayer leader _x)};
 
-		if(!(_nearby_groups isEqualTo [])) then {
-			private _smallest_group = [_nearby_groups] call ARWA_get_smallest_group;
-			format ["%4:%1 of %2 joins %3", _group, _group_count, _smallest_group, side _group] spawn ARWA_debugger;
-			{
-				[_x] joinSilent _smallest_group;
-			} forEach units _group;
+		if(_nearby_groups isEqualTo []) exitWith {};
 
+		private _smallest_group = [_nearby_groups] call ARWA_get_smallest_group;
+		format ["%4:%1 of %2 joins %3", _group, _group_count, _smallest_group, side _group] spawn ARWA_debugger;
 
-			deleteGroup _group;
+		(units _group) join _smallest_group;
+		deleteGroup _group;
 
-			private _new_count = { alive _x } count units _smallest_group;
-			_smallest_group setVariable [ARWA_KEY_soldier_count, _new_count];
-			_joined_other_group = true;
-		};
+		private _new_count = { alive _x } count units _smallest_group;
+		_smallest_group setVariable [ARWA_KEY_soldier_count, _new_count];
+		true;
 	};
 
-	_joined_other_group;
+	false;
 };
 
 ARWA_infantry_move_to_target = {
 	params ["_new_target", "_group"];
 
-	if (([_group, _new_target] call ARWA_should_change_target && !([_group] call ARWA_join_nearby_group)) || [_group] call ARWA_needs_new_waypoint) then {
+	if ([_group, _new_target] call ARWA_should_change_target || [_group] call ARWA_needs_new_waypoint) then {
 		private _target_name = _new_target getVariable ARWA_KEY_target_name;
 		format["Squad %1 moving to %2", _group, _target_name] spawn ARWA_debugger;
 		[_new_target, _group] call ARWA_infantry_create_waypoint;
@@ -103,6 +101,8 @@ ARWA_infantry_group_ai = {
 	params ["_group", "_side"];
 
 	private _pos = getPosWorld (leader _group);
+
+	if([_group] call ARWA_join_nearby_group) exitWith {};
 
 	private _target = if([_group, _side] call ARWA_check_if_has_priority_target) then {
 		_group getVariable ARWA_KEY_priority_target;

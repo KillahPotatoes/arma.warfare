@@ -1,5 +1,3 @@
-ARWA_houses_already_checked = [];
-
 ARWA_check_houses_to_populate = {
 	params ["_player"];
 
@@ -7,7 +5,6 @@ ARWA_check_houses_to_populate = {
 	private _player_pos = getPos _player;
 	private _player_side = side _player;
 
-	_houses = _houses - ARWA_houses_already_checked;
 	_houses = (_houses) call BIS_fnc_arrayShuffle;
 
 	{
@@ -38,8 +35,6 @@ ARWA_check_houses_to_populate = {
 		if(ARWA_max_random_people <= (count ARWA_random_people)) exitWith {};
 
 	} forEach _houses;
-
-	ARWA_houses_already_checked append _houses;
 };
 
 ARWA_house_can_be_populated = {
@@ -67,7 +62,7 @@ ARWA_commander_behaviour = {
 	_commander setBehaviour "SAFE";
 	waitUntil { !(behaviour _commander isEqualTo "SAFE"); };
 	[_player_side, ["ARWA_STR_ENEMY_COMMANDER_ALERTED"]] remoteExec ["ARWA_HQ_report_client"];
-	_commander setSkill ["courage", 0];
+	_commander allowFleeing 1;
 
 	private _manpower = _commander getVariable [ARWA_KEY_manpower, 0];
 
@@ -125,7 +120,7 @@ ARWA_populate_house = {
 			if(_owner isEqualTo civilian) then {
 				[10] call ARWA_percent_chance;
 			} else {
-				[50] call ARWA_percent_chance;
+				[20] call ARWA_percent_chance;
 			};
 		} else {
 			false;

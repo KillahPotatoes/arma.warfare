@@ -22,9 +22,9 @@ remove_squad_mates_on_death = {
 	private _group = group _player;
 
 	if(count units _group > 1) then {
-		private _new_group = createGroup [playerSide, true];
-		[player] joinSilent _new_group;
-		[_new_group] remoteExec ["ARWA_add_battle_group", 2];
+		[player] joinSilent grpNull;
+		[group player] remoteExec ["ARWA_add_battle_group", 2];
+		[_group] remoteExec ["ARWA_add_battle_group", 2];
 	};
 
 	[_group] spawn ARWA_delete_all_waypoints;

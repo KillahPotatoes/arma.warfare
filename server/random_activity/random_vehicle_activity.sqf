@@ -94,15 +94,7 @@ ARWA_create_waypoint = {
 	private _pos = getPos (_pos_and_distance select 1);
 	private _group = group _vehicle;
 
-	private _w = _group addWaypoint [_pos, 0];
-	_w setWaypointCompletionRadius 100;
-
-	[format["Vehicle moving from %1 to %2. Distance: %3", _veh_pos, _pos, _pos_and_distance select 0]] call ARWA_debugger;
-
-	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
-	_w setWaypointType "MOVE";
-
-	_group setBehaviour "SAFE";
+	[_group, _pos] spawn ARWA_create_waypoint_for_random_vehicle;
 };
 
 ARWA_free_road_waypoint = {
@@ -123,13 +115,19 @@ ARWA_free_road_waypoint = {
 	private _edge_road = selectRandom _edge_roads;
 	private _road_pos = getPos _edge_road;
 
+	[format["Vehicle moving from %1 to %2", _pos, _road_pos]] call ARWA_debugger;
+
+	[_group, _road_pos] spawn ARWA_create_waypoint_for_random_vehicle;
+};
+
+ARWA_create_waypoint_for_random_vehicle = {
+	params ["_group", "_road_pos"];
 	private _w = _group addWaypoint [_road_pos, 0];
 	_w setWaypointCompletionRadius 100;
-
-	[format["Vehicle moving from %1 to %2", _pos, _road_pos]] call ARWA_debugger;
 
 	_w setWaypointStatements ["true","[group this] call ARWA_free_road_waypoint"];
 	_w setWaypointType "MOVE";
 
+	_group setSpeedMode selectRandom["LIMITED", "NORMAL", "FULL"];
 	_group setBehaviour "SAFE";
 };

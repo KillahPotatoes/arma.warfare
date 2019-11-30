@@ -19,21 +19,10 @@ ARWA_infantry_create_waypoint = {
 ARWA_get_smallest_group = {
 	params ["_groups"];
 
-	_current_group = _groups select 0;
-	_smallest_count = 999999;
+	_groups = _groups apply { [count units _x, _x] };
+	_groups sort true;
 
-	{
-		private _g = _x;
-		_count = { alive _x } count units _g;
-
-		if (_smallest_count > _count && _count != 0 && !(isPlayer leader _g)) then {
-			_smallest_count = _count;
-			_current_group = _g;
-		};
-
-	} forEach _groups;
-
-	_current_group;
+	(_groups select 0) select 1;
 };
 
 ARWA_join_nearby_group = {
@@ -41,27 +30,23 @@ ARWA_join_nearby_group = {
 
 	private _group_count = { alive _x } count units _group;
 
-	if(isPlayer leader _group || {_group_count == 0} || {[_group] call ARWA_in_vehicle}) exitWith { false; };
+	if(isPlayer leader _group || {_group_count >= ARWA_squad_cap / 2} || {_group_count == 0} || {[_group] call ARWA_in_vehicle}) exitWith { false; };
 
-	if(_group_count < ARWA_squad_cap / 2) then {
-		private _groups = ([side _group] call ARWA_get_battlegroups) - [_group];
-		private _pos = getPos leader _group;
-		private _nearby_groups = _groups select { [_x, _pos, 100] call ARWA_group_nearby && !([_x] call ARWA_in_vehicle) && !(isPlayer leader _x)};
+	private _groups = ([side _group] call ARWA_get_battlegroups) - [_group];
+	private _pos = getPos leader _group;
+	private _nearby_groups = _groups select { [_x, _pos, 100] call ARWA_group_nearby && !([_x] call ARWA_in_vehicle) && !(isPlayer leader _x)};
 
-		if(_nearby_groups isEqualTo []) exitWith {};
+	if(_nearby_groups isEqualTo []) exitWith { false; };
 
-		private _smallest_group = [_nearby_groups] call ARWA_get_smallest_group;
-		format ["%4:%1 of %2 joins %3", _group, _group_count, _smallest_group, side _group] spawn ARWA_debugger;
+	private _smallest_group = [_nearby_groups] call ARWA_get_smallest_group;
+	format ["%4:%1 of %2 joins %3", _group, _group_count, _smallest_group, side _group] spawn ARWA_debugger;
 
-		(units _group) join _smallest_group;
-		deleteGroup _group;
+	(units _group) join _smallest_group;
+	deleteGroup _group;
 
-		private _new_count = { alive _x } count units _smallest_group;
-		_smallest_group setVariable [ARWA_KEY_soldier_count, _new_count];
-		true;
-	};
-
-	false;
+	private _new_count = { alive _x } count units _smallest_group;
+	_smallest_group setVariable [ARWA_KEY_soldier_count, _new_count];
+	true;
 };
 
 ARWA_infantry_move_to_target = {

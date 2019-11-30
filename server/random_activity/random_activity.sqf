@@ -210,5 +210,5 @@ ARWA_remove_from_house_when_no_player_closeby = {
 ARWA_players_nearby = {
 	params ["_pos", "_dist", ["_isTouchingGround", false]];
 
-	({ (_pos distance2D _x) < _dist && (!(_isTouchingGround) || isTouchingGround (vehicle _x)); } count allPlayers) > 0;
+	allPlayers findIf { (_pos distance2D _x) < _dist && {!(_isTouchingGround) || isTouchingGround (vehicle _x)}; } != -1;
 };

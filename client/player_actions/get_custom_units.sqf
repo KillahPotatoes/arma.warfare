@@ -10,7 +10,8 @@ ARWA_apply_loadout = {
 	params ["_loadout_name", "_unit"];
 
 	private _loadouts = profilenamespace getvariable ["bis_fnc_saveInventory_data",[]];
-	private _loadout = (_loadouts find _loadout_name) +1;
+	private _loadout_index = (_loadouts find _loadout_name) + 1;
+	private _loadout = _loadouts select _loadout_index;
 
 	_loadout params [
 		"_uniform_with_inventory",

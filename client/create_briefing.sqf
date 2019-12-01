@@ -23,9 +23,8 @@ TIP 10: Try getting behind enemy lines and put some mines on important roads. In
 	player createDiaryRecord ["Diary", [
 		"END GAME",
 		"Win Condition:<br />
-You win when all enemy sides have 0 in manpower and no players alive.<br /><br />
-Lose condition:<br />
-You lose when your faction´s manpower is 0 and you die (no respawn possible)<br /><br />"
+You win when all enemy sides have 0 in manpower and you hold all the sectors. <br /><br />
+If a side has no sectors after an hour has passed their manpower will drain quickly."
 		]
 	];
 
@@ -90,6 +89,12 @@ Defense and artillery will spawn in a sector once it is captured."
 		"RANK",
 "Your rank will be calculated based on your kills and the kills of your squadmates if you are their leader. Loosing teammates when squadleader will affect your rank negatively.<br /><br />
 Higher rank will allow you to have more soldiers in your squad, <br />increase the AI skill of your squad, <br />and increase the manpower generation boost while in a sector"
+		]
+	];
+
+	player createDiaryRecord ["Diary", [
+		"ENEMY GUERILLA COMMANDER",
+"Sometimes you will stumble upon an enemy guerilla commander. An area will be marked in yellow on the map. Find the commander and kill him, and he will drop manpower. If you manage to kill him before he is alerted he will drop more manpower."
 		]
 	];
 };

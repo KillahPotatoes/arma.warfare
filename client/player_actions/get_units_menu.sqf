@@ -17,6 +17,12 @@ ARWA_create_soldier = {
 	private _new_skill = [] call ARWA_get_skill_based_on_rank;
 	[_new_skill, _group] spawn ARWA_adjust_skill;
 
+	private _fatigue = ["Fatigue", 0] call BIS_fnc_getParamValue;
+
+	if(_fatigue == 0) then {
+		_unit enableStamina false;
+	};
+
 	_unit;
 };
 

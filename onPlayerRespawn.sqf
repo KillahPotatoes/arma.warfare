@@ -48,15 +48,5 @@ reset_player_stats = {
 
 if(ARWA_show_diary_hint) then {
 	ARWA_show_diary_hint = false;
-	"HOW TO PLAY" hintC "Look in map briefing for how to play<br /><br />
-	Changelog: <br /><br />
-
-	Version 2.0.0<br /><br />
-
-	- Spawn Squadmates with your personal loadouts<br />
-	- New enemy guerilla commander feature<br />
-	- Guerilla patrols<br />
-	- Civilian traffic<br />
-	- Bug and stability fixes
-	";
+	"HOW TO PLAY" hintC "Look in map briefing for how to play";
 };

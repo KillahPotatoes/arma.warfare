@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=3;
+		nextID=4;
 	};
 	class Camera
 	{
@@ -1005,7 +1005,7 @@ class Mission
 			name="alpha_respawn_ground";
 			type="respawn_unknown";
 			colorName="ColorWEST";
-			angle=105.67398;
+			angle=105.67397;
 			id=22;
 			atlOffset=17.193817;
 		};
@@ -1162,7 +1162,7 @@ class Mission
 			position[]={6095.895,195.56599,533.05402};
 			name="sector_Camp_Audacity";
 			type="hd_objective";
-			angle=333.63687;
+			angle=333.63684;
 			id=68;
 			atlOffset=99.34893;
 		};
@@ -2178,6 +2178,7 @@ class Mission
 					};
 					id=201;
 					type="B_engineer_F";
+					atlOffset=-7.6293945e-006;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -2226,6 +2227,7 @@ class Mission
 			{
 			};
 			id=200;
+			atlOffset=-7.6293945e-006;
 		};
 		class Item44
 		{
@@ -2249,6 +2251,7 @@ class Mission
 					};
 					id=203;
 					type="O_Soldier_SL_F";
+					atlOffset=7.6293945e-006;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -2297,6 +2300,7 @@ class Mission
 			{
 			};
 			id=202;
+			atlOffset=7.6293945e-006;
 		};
 		class Item45
 		{
@@ -2891,6 +2895,7 @@ class Mission
 					};
 					id=221;
 					type="I_medic_F";
+					atlOffset=-7.6293945e-006;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -2939,6 +2944,7 @@ class Mission
 			{
 			};
 			id=220;
+			atlOffset=-7.6293945e-006;
 		};
 		class Item54
 		{
@@ -3250,7 +3256,7 @@ class Mission
 					};
 					id=231;
 					type="B_medic_F";
-					atlOffset=-7.6293945e-006;
+					atlOffset=-1.5258789e-005;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -3299,7 +3305,7 @@ class Mission
 			{
 			};
 			id=230;
-			atlOffset=-7.6293945e-006;
+			atlOffset=-1.5258789e-005;
 		};
 		class Item59
 		{
@@ -3755,7 +3761,7 @@ class Mission
 					};
 					id=245;
 					type="O_engineer_F";
-					atlOffset=-7.6293945e-006;
+					atlOffset=-1.5258789e-005;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -3804,7 +3810,7 @@ class Mission
 			{
 			};
 			id=244;
-			atlOffset=-7.6293945e-006;
+			atlOffset=-1.5258789e-005;
 		};
 		class Item66
 		{
@@ -3970,7 +3976,6 @@ class Mission
 					};
 					id=251;
 					type="O_medic_F";
-					atlOffset=-7.6293945e-006;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -4019,7 +4024,6 @@ class Mission
 			{
 			};
 			id=250;
-			atlOffset=-7.6293945e-006;
 		};
 		class Item69
 		{

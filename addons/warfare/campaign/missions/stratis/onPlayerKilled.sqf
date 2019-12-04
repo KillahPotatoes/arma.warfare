@@ -1,0 +1,1 @@
+[] call compileFinal preprocessFileLineNumbers "warfare\onPlayerKilled.sqf";

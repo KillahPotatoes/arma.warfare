@@ -1,17 +1,11 @@
 class CfgMissions
 {
-	class Campaigns
-	{
-		class Overthrow
-		{
-			directory = "warfare\campaign";
-		};
-	};
 	class MPMissions
 	{
-		class OverthrowMpTanoa
+		class ArmaWarfareMpStratis
 		{
 			directory = "warfare\campaign\missions\stratis";
+#include "\warfare\Campaign\description.ext"
 		};
 	};
 };

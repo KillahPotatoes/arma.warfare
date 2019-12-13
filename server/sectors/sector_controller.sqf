@@ -28,8 +28,7 @@ ARWA_increment_counter = {
 ARWA_update_counter = {
 	params ["_counter", "_sector"];
 
-	private _ammo_box = _sector getVariable ARWA_KEY_box;
-	_ammo_box setVariable [ARWA_KEY_sector_capture_progress, _counter, true];
+	_sector setVariable [ARWA_KEY_sector_capture_progress, _counter, true];
 };
 
 ARWA_capture_sector = {
@@ -69,8 +68,7 @@ ARWA_change_sector_ownership = {
 	_sector setVariable [ARWA_KEY_owned_by, _new_owner, true];
 	_sector call ARWA_draw_sector;
 
-	_ammo_box = _sector getVariable ARWA_KEY_box;
-	_ammo_box setVariable [ARWA_KEY_owned_by, _new_owner, true];
+	_sector setVariable [ARWA_KEY_owned_by, _new_owner, true];
 
 	if (!(_old_owner isEqualTo civilian)) then {
 		_sector call ARWA_remove_respawn_position;
@@ -101,7 +99,7 @@ ARWA_reinforcements_cool_down = {
 ARWA_initialize_sector_control = {
 	params ["_sector"];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
+	private _pos = getPos _sector;
 	private _counter = 0;
 	private _current_faction = _sector getVariable ARWA_KEY_owned_by;
 	_sector setVariable [ARWA_KEY_reinforements_available, false];

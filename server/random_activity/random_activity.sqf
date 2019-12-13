@@ -1,3 +1,5 @@
+ARWA_commander_timeout = time;
+
 ARWA_check_houses_to_populate = {
 	params ["_player"];
 
@@ -17,7 +19,7 @@ ARWA_check_houses_to_populate = {
 
 			private _sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
 			private _owner = _sector getVariable ARWA_KEY_owned_by;
-			private _sector_pos = _sector getVariable ARWA_KEY_pos;
+			private _sector_pos = getPos _sector;
 			private _is_safe_area = _player_side isEqualTo _owner;
 
 			private _sympathizer_side = if(_owner isEqualTo civilian || _is_safe_area) then {
@@ -116,7 +118,7 @@ ARWA_populate_house = {
 		[_building, _group] call ARWA_place_random_people_in_house;
 		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 
-		private _commander = if(!_is_safe_area && {_random_number_of_people > 1}) then {
+		private _commander = if(ARWA_commander_timeout > time && {!_is_safe_area} && {_random_number_of_people > 1}) then {
 			if(_owner isEqualTo civilian) then {
 				[10] call ARWA_percent_chance;
 			} else {
@@ -127,6 +129,7 @@ ARWA_populate_house = {
 		};
 
 		if(_commander) then {
+			ARWA_commander_timeout = time + 900 + (random 900);
 			[_group, _player_side] spawn ARWA_create_commander;
 		};
 

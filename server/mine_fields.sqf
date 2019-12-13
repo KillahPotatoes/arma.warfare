@@ -38,7 +38,7 @@ ARWA_generate_mines = {
 
 ARWA_initialize_mine_fields = {
 	{
-	  _pos = _x getVariable ARWA_KEY_pos;
+	  _pos = getPos _x;
 	  _name = _x getVariable ARWA_KEY_target_name;
       [_pos,300,random [0, 25, 50],false, _name] call ARWA_generate_mines;
 

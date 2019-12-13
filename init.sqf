@@ -45,12 +45,14 @@ if(ARWA_drone_feature) then {
 };
 
 ARWA_required_rank_take_lead = ["requiredTakeLeadRank", 2] call BIS_fnc_getParamValue;
+ARWA_AllowFastTravel = (["AllowFastTravel", 0] call BIS_fnc_getParamValue) > 0;
 
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_intel_action.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\interceptor_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_custom_units.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\fast_travel.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\manpower_boxes.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\squad_markers\squad_markers.sqf";

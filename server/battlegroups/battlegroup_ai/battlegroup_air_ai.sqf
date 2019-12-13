@@ -1,6 +1,6 @@
 ARWA_air_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = _target getVariable ARWA_KEY_pos;
+	private _pos = getPos _target;
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 0];
@@ -59,7 +59,7 @@ ARWA_initialize_air_group_ai = {
 ARWA_find_air_target = {
 	params ["_group", "_side"];
 
-	private _pos = getPosWorld (leader _group);
+	private _pos = getPos (leader _group);
 
 	private _unsafe_sectors = [_side] call ARWA_get_unsafe_sectors;
 

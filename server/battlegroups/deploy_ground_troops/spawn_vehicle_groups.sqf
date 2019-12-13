@@ -85,7 +85,7 @@ ARWA_find_direction_towards_closest_sector = {
 	params ["_pos"];
 
 	private _sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
-	private _sector_pos = _sector getVariable ARWA_KEY_pos;
+	private _sector_pos = getPos _sector;
 	_pos getDir _sector_pos;
 };
 

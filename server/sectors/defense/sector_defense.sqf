@@ -1,7 +1,7 @@
 ARWA_spawn_sector_defense = {
 	params ["_sector"];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
+	private _pos = getPos _sector;
 	private _owner = _sector getVariable ARWA_KEY_owned_by;
 
 	private _sector_defense = _sector getVariable ARWA_KEY_sector_defense;

@@ -38,7 +38,7 @@ ARWA_try_spawn_reinforcements = {
 	format["%2: Checking reinforcements: Can spawn %1, required: %3", _can_spawn, _side, ARWA_squad_cap/2] spawn ARWA_debugger;
 
 	if (_can_spawn > (ARWA_squad_cap / 2) && (_side call ARWA_has_manpower)) exitWith {
-		private _pos = _target getVariable ARWA_KEY_pos;
+		private _pos = getPos _target;
 
 		private _reinforcement_types = [
 			ARWA_KEY_infantry,

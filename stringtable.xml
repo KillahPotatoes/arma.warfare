@@ -23,6 +23,12 @@
           <Key ID="ARWA_STR_ENEMY_COMMANDER_KILLED">
             <English>The enemy resistance leader has been killed!</English>
         </Key>
+        <Key ID="ARWA_STR_SECTOR_NOT_SAFE">
+            <English>This sector is not safe!</English>
+        </Key>
+        <Key ID="ARWA_STR_CANNOT_TRAVEL_TO_THIS_SECTOR_ANYMORE">
+            <English>You cannot travel to this sector anymore!</English>
+        </Key>
         <Key ID="ARWA_STR_ENEMY_COMMANDER_ALERTED">
             <English>Radio activity indicates that the enemy commander has been alerted!</English>
         </Key>
@@ -135,6 +141,15 @@
         <Key ID="ARWA_STR_JOIN_SQUAD">
             <English>Join squad</English>
             <German>Trupp beitreten</German>
+        </Key>
+         <Key ID="ARWA_STR_FAST_TRAVEL_SQUAD">
+            <English>Fast travel</English>
+        </Key>
+          <Key ID="ARWA_STR_NO_OWNED_SECTORS">
+            <English>You don't have any sectors</English>
+        </Key>
+         <Key ID="ARWA_STR_CANNOT_FAST_TRAVEL_ENEMIES_NEARBY">
+            <English>You cannot fast travel with enemies nearby</English>
         </Key>
         <Key ID="ARWA_STR_LEAVE_SQUAD">
             <English>Leave squad</English>

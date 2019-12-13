@@ -236,6 +236,15 @@ class Params
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
+    class AllowFastTravel
+    {
+        title = "Allow fast travel"; // Param name visible in the list
+        values[] = {0,1}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"No","Yes"}; // Description of each selectable item
+        default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
+        // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
+    };
+
     class AllowCustomInfantry
     {
         title = "Allow custom infantry"; // Param name visible in the list

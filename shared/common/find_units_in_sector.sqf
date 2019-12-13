@@ -1,7 +1,7 @@
 ARWA_get_all_units_in_sector = {
 	params ["_sector"];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
+	private _pos = getPos _sector;
 	[_pos, ARWA_sector_size] call ARWA_get_all_units_in_area;
 };
 

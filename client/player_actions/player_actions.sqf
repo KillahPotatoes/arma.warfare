@@ -28,6 +28,10 @@ ARWA_add_sector_actions = {
 	[_ammo_box, ARWA_KEY_infantry, ARWA_infantry_menu, "ARWA_STR_GET_INFANTRY"] call ARWA_create_get_menu;
 	[_ammo_box] call ARWA_create_intel_menu;
 
+	if(ARWA_AllowFastTravel) then {
+		[_ammo_box] call ARWA_fast_travel_menu;
+	};
+
 	if(ARWA_AllowCustomInfantry) then {
 		[_ammo_box, ARWA_KEY_custom_infantry, ARWA_infantry_custom_menu, "ARWA_STR_GET_CUSTOM_INFANTRY"] call ARWA_create_custom_get_menu;
 	};
@@ -41,8 +45,12 @@ ARWA_add_HQ_actions = {
 
 	[_ammo_box, ARWA_KEY_vehicle, ARWA_ground_vehicle_menu, "ARWA_STR_GET_VEHICLES"] call ARWA_create_get_menu;
 	[_ammo_box, ARWA_KEY_helicopter, ARWA_air_vehicle_menu, "ARWA_STR_GET_HELICOPTERS"] call ARWA_create_get_menu;
-	[_ammo_box, ARWA_KEY_infantry, ARWA_infantry_menu, "ARWA_STR_GET_INFANTRY"] call ARWA_create_get_menu;
 	[_ammo_box, ARWA_KEY_interceptor, ARWA_interceptor_menu, "ARWA_STR_GET_INTERCEPTORS"] call ARWA_create_get_menu;
+
+	[_ammo_box, ARWA_KEY_infantry, ARWA_infantry_menu, "ARWA_STR_GET_INFANTRY"] call ARWA_create_get_menu;
+	if(ARWA_AllowFastTravel) then {
+		[_ammo_box] call ARWA_fast_travel_menu;
+	};
 
 	if(ARWA_AllowCustomInfantry) then {
 		[_ammo_box, ARWA_KEY_custom_infantry, ARWA_infantry_custom_menu, "ARWA_STR_GET_CUSTOM_INFANTRY"] call ARWA_create_custom_get_menu;

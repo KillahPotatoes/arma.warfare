@@ -25,7 +25,7 @@ ARWA_needs_new_waypoint = {
 
 	if(isNil "_target" || {isNull _target}) exitWith { true; };
 
-	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) > 20 && {count (waypoints _group) == 0};
+	(getPos _target) distance2D (getPos leader _group) > 20 && {count (waypoints _group) == 0};
 };
 
 ARWA_approaching_target = {
@@ -34,7 +34,7 @@ ARWA_approaching_target = {
 	private _target = _group getVariable ARWA_KEY_target;
 
 	if(isNil "_target" || {isNull _target}) exitWith { false; };
-	(_target getVariable ARWA_KEY_pos) distance2D (getPosWorld leader _group) < ARWA_sector_size;
+	(getPos _target) distance2D (getPos leader _group) < ARWA_sector_size;
 };
 
 ARWA_check_if_has_priority_target = {

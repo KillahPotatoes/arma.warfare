@@ -90,9 +90,9 @@ ARWA_report_lost_vehicle = {
 	params ["_victim", "_killer"];
 
 	private _veh_name = (typeOf _victim) call ARWA_get_vehicle_display_name;
-	private _pos = getPosWorld _victim;
+	private _pos = getPos _victim;
 	private _closest_sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
-	private _sector_pos = _closest_sector getVariable ARWA_KEY_pos;
+	private _sector_pos = getPos _closest_sector;
 	private _distance = floor(_sector_pos distance2D _pos);
 	private _location = [_closest_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
 	private _side = _victim getVariable ARWA_KEY_owned_by;

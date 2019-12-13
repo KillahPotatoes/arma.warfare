@@ -1,56 +1,51 @@
 ARWA_sectors = [];
 
 ARWA_add_sector_box = {
-	params ["_sector", "_first_capture_bonus"];
+	params ["_pos", "_name", "_first_capture_bonus"];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
 	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
-
 	_ammo_box enableRopeAttach false;
-	_sector setVariable [ARWA_KEY_box, _ammo_box];
+	_ammo_box enableSimulationGlobal false;
 	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
 	_ammo_box setVariable [ARWA_KEY_manpower, _first_capture_bonus, true];
 	_ammo_box setVariable [ARWA_KEY_sector, true, true];
+	_ammo_box setVariable [ARWA_KEY_target_name, _name];
+
+	_ammo_box;
 };
 
 ARWA_initialize_sectors = {
 	params ["_first_capture_bonus"];
-	private _sectors = [];
+
 	{
-		_type = getMarkerType _x;
+		private _type = getMarkerType _x;
 
 		if (_type isEqualTo "hd_objective") then {
-			_split_string = [_x, 7] call ARWA_split_string;
-			_first_string = _split_string select 0;
-			_second_string = _split_string select 1;
-
-			_sector = createGroup sideLogic;
-			_sector setVariable [ARWA_KEY_pos, getMarkerPos _x];
-			_sector setVariable [ARWA_KEY_marker, _x];
-			_sector setVariable [ARWA_KEY_owned_by, civilian];
-			_sector setVariable [ARWA_KEY_target_name, _second_string];
-
-			[_sector] call ARWA_draw_sector;
-			_sectors pushback _sector;
+			private _split_string = [_x, 7] call ARWA_split_string;
+			private _first_string = _split_string select 0;
+			private _second_string = _split_string select 1;
+			private _pos = getMarkerPos _x;
 
 			private _capture_bonus = if(_first_capture_bonus) then {  ARWA_starting_strength / 10; } else { 0; };
+			private _ammo_box = [_pos, _second_string, _capture_bonus] call ARWA_add_sector_box;
 
-			_ammo_box = [_sector, _capture_bonus] call ARWA_add_sector_box;
+			_ammo_box setVariable [ARWA_KEY_marker, _x];
+			[_ammo_box] call ARWA_draw_sector;
+			[_ammo_box] call ARWA_draw_sector_name;
+			[_ammo_box] spawn ARWA_initialize_sector_control;
+			[_ammo_box] spawn ARWA_sector_rearm_player_vehicles;
 
-			[_sector] spawn ARWA_initialize_sector_control;
-			[_sector] spawn ARWA_sector_rearm_player_vehicles;
+			ARWA_sectors pushBack _ammo_box;
 
 			true;
 		};
 	} count allMapMarkers;
-
-	ARWA_sectors = _sectors;
 };
 
 ARWA_is_sector_safe = {
 	params ["_side", "_sector", "_distance"];
 
-	private _pos = _sector getVariable ARWA_KEY_pos;
+	private _pos = getPosWorld _sector;
 
 	!([_pos, _side, _distance] call ARWA_any_enemies_in_area);
 };
@@ -92,7 +87,7 @@ ARWA_find_closest_sector_connected_by_road = {
 	private _shortest_distance = 99999;
 
 	{
-		_sector_pos = _x getVariable ARWA_KEY_pos;
+		_sector_pos = getPosWorld _x;
 		_distance = _pos distance _sector_pos;
 
 		private _road_at_target = (_sector_pos nearRoads ARWA_sector_size);
@@ -115,7 +110,7 @@ ARWA_find_closest_sector = {
 	private _shortest_distance = 99999;
 
 	{
-		_sector_pos = _x getVariable ARWA_KEY_pos;
+		_sector_pos = getPos _x;
 		_distance = _pos distance _sector_pos;
 
 		if (_shortest_distance > _distance) then {
@@ -126,12 +121,6 @@ ARWA_find_closest_sector = {
 	} forEach _sectors;
 
 	_current_sector;
-};
-
-ARWA_get_sector_manpower = {
-	params ["_sector"];
-
-	(_sector getVariable ARWA_KEY_box) getVariable ARWA_KEY_manpower;
 };
 
 ARWA_find_enemy_sectors = {
@@ -150,7 +139,7 @@ ARWA_find_enemy_sectors = {
 
 ARWA_sector_rearm_player_vehicles = {
 	params ["_sector"];
-	private _sector_pos = _sector getVariable ARWA_KEY_pos;
+	private _sector_pos = getPosWorld _sector;
 
     while {true} do {
 		private _sector_owner = _sector getVariable ARWA_KEY_owned_by;

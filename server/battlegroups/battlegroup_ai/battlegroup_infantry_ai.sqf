@@ -1,7 +1,7 @@
 
 ARWA_infantry_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = _target getVariable ARWA_KEY_pos;
+	private _pos = getPosWorld _target;
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 0];

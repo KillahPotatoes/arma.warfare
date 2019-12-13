@@ -86,7 +86,7 @@ ARWA_create_manpower_box = {
 	if(!_isWater) then {
 		private _closest_sector = [ARWA_sectors, _safe_pos] call ARWA_find_closest_sector;
 		private _area_controlled_by = _closest_sector getVariable [ARWA_KEY_owned_by, civilian];
-		private _sector_pos = _closest_sector getVariable ARWA_KEY_pos;
+		private _sector_pos = getPosWorld _closest_sector;
 		private _distance_from_sector = _safe_pos distance2D _sector_pos;
 		private _distance_to_hq = [ARWA_all_sides, _safe_pos] call ARWA_closest_hq_distance;
 

@@ -7,7 +7,7 @@ ARWA_add_respawn_position = {
 	params ["_sector", "_new_owner"];
 
 	[_sector] call ARWA_remove_respawn_position;
-	_respawn = [_new_owner, _sector getVariable ARWA_KEY_pos] call BIS_fnc_addRespawnPosition;
+	_respawn = [_new_owner, getPosWorld _sector] call BIS_fnc_addRespawnPosition;
 	_sector setVariable [ARWA_KEY_respawn_pos, _respawn];
 };
 

@@ -27,7 +27,7 @@ ARWA_pick_most_valued_player_owned_sector = {
 
 	if(_sectors isEqualTo []) exitWith {};
 
-	_sectors = _sectors apply { [([_x] call ARWA_get_sector_manpower), _x] };
+	_sectors = _sectors apply { [([_x] call ARWA_get_manpower), _x] };
 	_sectors sort false;
 
 	(_sectors select 0) select 1;
@@ -48,12 +48,12 @@ ARWA_pick_sector = {
 ARWA_special_forces_insertion = {
 	params ["_side", "_can_spawn", "_sector"];
 
-	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
+	private _safe = !([_side, getPosWorld _sector] call ARWA_any_enemies_in_sector);
 
 	private _spawn_pos = [_side, ARWA_helicopter_safe_distance] call ARWA_find_spawn_pos_air;
 	private _dir = [_spawn_pos] call ARWA_find_spawn_dir_air;
 
-	private _sector_pos = _sector getVariable ARWA_KEY_pos;
+	private _sector_pos = getPosWorld _sector;
 	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;
@@ -68,12 +68,12 @@ ARWA_helicopter_insertion = {
 
 	if (isNil "_sector") exitWith {};
 
-	private _safe = !([_side, _sector getVariable ARWA_KEY_pos] call ARWA_any_enemies_in_sector);
+	private _safe = !([_side, getPosWorld _sector] call ARWA_any_enemies_in_sector);
 
 	private _spawn_pos = [_side, ARWA_interceptor_safe_distance] call ARWA_find_spawn_pos_air;
 	private _dir = [_spawn_pos] call ARWA_find_spawn_dir_air;
 
-	private _sector_pos = _sector getVariable ARWA_KEY_pos;
+	private _sector_pos = getPosWorld _sector;
 	private _distance = if(_safe) then { 0; } else { 500 + (random 500); };
 
 	private _pos = [_sector_pos, _distance, _dir] call BIS_fnc_relPos;

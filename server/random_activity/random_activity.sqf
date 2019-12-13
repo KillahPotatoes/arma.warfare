@@ -17,7 +17,7 @@ ARWA_check_houses_to_populate = {
 
 			private _sector = [ARWA_sectors, _pos] call ARWA_find_closest_sector;
 			private _owner = _sector getVariable ARWA_KEY_owned_by;
-			private _sector_pos = _sector getVariable ARWA_KEY_pos;
+			private _sector_pos = getPosWorld _sector;
 			private _is_safe_area = _player_side isEqualTo _owner;
 
 			private _sympathizer_side = if(_owner isEqualTo civilian || _is_safe_area) then {

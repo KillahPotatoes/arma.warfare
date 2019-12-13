@@ -118,6 +118,6 @@ ARWA_manpower_actions = 60;
 ARWA_squad_actions = 50;
 ARWA_squad_actions_leave = 45;
 ARWA_squad_actions_join = 40;
-ARWA_fast_travel_actions = 37;
+ARWA_fast_travel_actions = 160;
 ARWA_interceptor_actions = 35;
 ARWA_rearm_arsenal = 30;

@@ -3,7 +3,7 @@ ARWA_spawn_random_infantry_group = {
 
 	private _available_helis = !((_side call ARWA_get_transport_heli_type) isEqualTo []);
 	private _most_valuable_sector = [_side] call ARWA_pick_most_valued_player_owned_sector;
-	private _attack_most_valuable_sector = !(isNil "_most_valuable_sector") && {(random 100) < ([_most_valuable_sector] call ARWA_get_sector_manpower)};
+	private _attack_most_valuable_sector = !(isNil "_most_valuable_sector") && {(random 100) < ([_most_valuable_sector] call ARWA_get_manpower)};
 
 	if(selectRandom[false, _attack_most_valuable_sector && _available_helis]) exitWith {
 		[_side, _can_spawn, _most_valuable_sector] call ARWA_special_forces_insertion;
@@ -29,7 +29,7 @@ ARWA_get_closest_infantry_spawn_pos = {
 	private _safe_pos = [_hq_pos];
 
 	{
-		_safe_pos append [_x getVariable ARWA_KEY_pos]
+		_safe_pos append [getPosWorld _x]
 	} forEach _safe_sectors;
 
 	_safe_pos = _safe_pos apply { [_x distance _pos, _x] };
@@ -60,7 +60,7 @@ ARWA_get_infantry_spawn_position = {
 	if(isNil "_preferred_targets") exitWith {};
 
 	private _preferred_target = (selectRandom _preferred_targets) select 1;
-	private _pos = _preferred_target getVariable ARWA_KEY_pos;
+	private _pos = getPosWorld _preferred_target;
 
 	[_side, _pos] call ARWA_get_closest_infantry_spawn_pos;
 };
@@ -68,7 +68,7 @@ ARWA_get_infantry_spawn_position = {
 ARWA_find_potential_target_sectors = {
 	params ["_sectors", "_pos"];
 
-	private _sorted_sectors = _sectors apply { [_pos distance (_x getVariable ARWA_KEY_pos), _x] };
+	private _sorted_sectors = _sectors apply { [_pos distance (getPosWorld _x), _x] };
 	_sorted_sectors sort true;
 
 	private _closest_sector = _sorted_sectors select 0;
@@ -91,7 +91,7 @@ ARWA_spawn_squad = {
 ARWA_spawn_reinforcement_squad = {
 	params ["_side", "_can_spawn", "_target"];
 
-	private _target_pos = _target getVariable ARWA_KEY_pos;
+	private _target_pos = getPosWorld _target;
 	private _pos = [_side, _target_pos] call ARWA_get_closest_infantry_spawn_pos;
 
 	if(isNil "_pos") exitWith {};

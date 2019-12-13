@@ -3,7 +3,7 @@ ARWA_create_manpower_markers = {
 
 	{
 		private _marker_name = format["%1-%2", ARWA_KEY_manpower_box, _forEachIndex];
-		createMarkerLocal [_marker_name, getPosWorld _x];
+		createMarkerLocal [_marker_name, getPos _x];
 		_marker_name setMarkerTypeLocal "mil_box";
 		_marker_name setMarkerAlphaLocal 0;
 	} forEach _boxes;

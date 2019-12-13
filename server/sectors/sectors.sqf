@@ -1,15 +1,15 @@
-ARWA_sectors = [];
+missionNamespace setVariable ["ARWA_sectors", [], true];
 
 ARWA_add_sector_box = {
 	params ["_pos", "_name", "_first_capture_bonus"];
 
 	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
 	_ammo_box enableRopeAttach false;
-	_ammo_box enableSimulationGlobal false;
+	//_ammo_box enableSimulationGlobal false;
 	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
 	_ammo_box setVariable [ARWA_KEY_manpower, _first_capture_bonus, true];
 	_ammo_box setVariable [ARWA_KEY_sector, true, true];
-	_ammo_box setVariable [ARWA_KEY_target_name, _name];
+	_ammo_box setVariable [ARWA_KEY_target_name, _name, true];
 
 	_ammo_box;
 };
@@ -17,6 +17,7 @@ ARWA_add_sector_box = {
 ARWA_initialize_sectors = {
 	params ["_first_capture_bonus"];
 
+	private _sectors = [];
 	{
 		private _type = getMarkerType _x;
 
@@ -35,17 +36,19 @@ ARWA_initialize_sectors = {
 			[_ammo_box] spawn ARWA_initialize_sector_control;
 			[_ammo_box] spawn ARWA_sector_rearm_player_vehicles;
 
-			ARWA_sectors pushBack _ammo_box;
+			_sectors pushBack _ammo_box;
 
 			true;
 		};
 	} count allMapMarkers;
+
+	missionNamespace setVariable ["ARWA_sectors", _sectors, true];
 };
 
 ARWA_is_sector_safe = {
 	params ["_side", "_sector", "_distance"];
 
-	private _pos = getPosWorld _sector;
+	private _pos = getPos _sector;
 
 	!([_pos, _side, _distance] call ARWA_any_enemies_in_area);
 };
@@ -66,11 +69,6 @@ ARWA_get_unowned_sectors = {
 	ARWA_sectors select { (_x getVariable ARWA_KEY_owned_by) isEqualTo civilian; };
 };
 
-ARWA_get_owned_sectors = {
-	params ["_side"];
-	ARWA_sectors select { (_x getVariable ARWA_KEY_owned_by) isEqualTo _side; };
-};
-
 ARWA_get_all_owned_sectors = {
 	ARWA_sectors select { !((_x getVariable ARWA_KEY_owned_by) isEqualTo civilian); };
 };
@@ -87,7 +85,7 @@ ARWA_find_closest_sector_connected_by_road = {
 	private _shortest_distance = 99999;
 
 	{
-		_sector_pos = getPosWorld _x;
+		_sector_pos = getPos _x;
 		_distance = _pos distance _sector_pos;
 
 		private _road_at_target = (_sector_pos nearRoads ARWA_sector_size);
@@ -139,7 +137,7 @@ ARWA_find_enemy_sectors = {
 
 ARWA_sector_rearm_player_vehicles = {
 	params ["_sector"];
-	private _sector_pos = getPosWorld _sector;
+	private _sector_pos = getPos _sector;
 
     while {true} do {
 		private _sector_owner = _sector getVariable ARWA_KEY_owned_by;

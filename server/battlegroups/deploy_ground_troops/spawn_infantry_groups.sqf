@@ -29,7 +29,7 @@ ARWA_get_closest_infantry_spawn_pos = {
 	private _safe_pos = [_hq_pos];
 
 	{
-		_safe_pos append [getPosWorld _x]
+		_safe_pos append [getPos _x]
 	} forEach _safe_sectors;
 
 	_safe_pos = _safe_pos apply { [_x distance _pos, _x] };
@@ -60,7 +60,7 @@ ARWA_get_infantry_spawn_position = {
 	if(isNil "_preferred_targets") exitWith {};
 
 	private _preferred_target = (selectRandom _preferred_targets) select 1;
-	private _pos = getPosWorld _preferred_target;
+	private _pos = getPos _preferred_target;
 
 	[_side, _pos] call ARWA_get_closest_infantry_spawn_pos;
 };
@@ -68,7 +68,7 @@ ARWA_get_infantry_spawn_position = {
 ARWA_find_potential_target_sectors = {
 	params ["_sectors", "_pos"];
 
-	private _sorted_sectors = _sectors apply { [_pos distance (getPosWorld _x), _x] };
+	private _sorted_sectors = _sectors apply { [_pos distance (getPos _x), _x] };
 	_sorted_sectors sort true;
 
 	private _closest_sector = _sorted_sectors select 0;
@@ -91,7 +91,7 @@ ARWA_spawn_squad = {
 ARWA_spawn_reinforcement_squad = {
 	params ["_side", "_can_spawn", "_target"];
 
-	private _target_pos = getPosWorld _target;
+	private _target_pos = getPos _target;
 	private _pos = [_side, _target_pos] call ARWA_get_closest_infantry_spawn_pos;
 
 	if(isNil "_pos") exitWith {};

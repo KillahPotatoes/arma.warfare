@@ -80,6 +80,11 @@ ARWA_spawn_vehicle = {
    _veh_arr;
 };
 
+ARWA_get_owned_sectors = {
+	params ["_side"];
+	ARWA_sectors select { (_x getVariable ARWA_KEY_owned_by) isEqualTo _side; };
+};
+
 ARWA_get_manpower = {
     params ["_obj"];
 

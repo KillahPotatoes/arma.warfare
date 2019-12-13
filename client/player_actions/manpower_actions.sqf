@@ -21,11 +21,15 @@ ARWA_add_store_manpower = {
 
 ARWA_store_manpower = {
   params ["_from", "_to"];
-  private _manpower = (_from call ARWA_get_manpower) + (_to call ARWA_get_manpower);
+  private _manpower_to_store = _from call ARWA_get_manpower;
+  private _manpower = _manpower_to_store + (_to call ARWA_get_manpower);
 
   _from setVariable [ARWA_KEY_manpower, 0, true];
   _to setVariable [ARWA_KEY_manpower, _manpower, true];
-  systemChat format[localize "ARWA_STR_YOU_STORED_MANPOWER", _manpower]
+
+  if(_manpower_to_store > 0) then {
+    systemChat format[localize "ARWA_STR_YOU_STORED_MANPOWER", _manpower_to_store];
+  };
 };
 
 ARWA_can_take_manpower = {

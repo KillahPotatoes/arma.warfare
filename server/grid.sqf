@@ -8,7 +8,7 @@ ARWA_grid_center =  [worldSize / 2, worldsize / 2, 0];
 ARWA_find_grid_area = {
 	private _locations = [];
 	{
-		_locations append [(getPosWorld  _x)];
+		_locations append [(getPos  _x)];
 	} foreach ARWA_sectors;
 
 	{

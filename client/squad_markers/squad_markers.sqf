@@ -6,7 +6,7 @@ ARWA_close_to_any_owned_sectors = {
 	{
 		if((_x getVariable ARWA_KEY_owned_by) isEqualTo playerSide) then {
 
-			_is_close = _is_close min ((getPosWorld _x) distance2D _pos);
+			_is_close = _is_close min ((getPos _x) distance2D _pos);
 		};
 	} forEach _sector_boxes;
 
@@ -94,7 +94,7 @@ ARWA_show_friendly_markers = {
 				&& (!(_x getVariable [ARWA_KEY_defense, false]))
 				&& ((_leader distance2D [0,0]) > 100)) then {
 
-				_markers_pos = getPosWorld (_leader);
+				_markers_pos = getPos (_leader);
 
 				_distance = [_markers_pos, _sector_boxes] call ARWA_close_to_any_owned_sectors;
 				_alpha = 1 min (_distance / ARWA_sector_size);

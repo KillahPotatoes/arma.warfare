@@ -51,6 +51,7 @@ ARWA_list_fast_travel_options = {
 		} forEach _destinations;
 	} else {
 		systemChat localize "ARWA_STR_NO_OWNED_SECTORS";
+		_box setVariable [ARWA_KEY_fast_travel_menu, false];
 	};
 
 	_box setVariable [ARWA_KEY_fast_travel_options, _sub_options];

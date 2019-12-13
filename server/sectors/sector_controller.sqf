@@ -99,7 +99,7 @@ ARWA_reinforcements_cool_down = {
 ARWA_initialize_sector_control = {
 	params ["_sector"];
 
-	private _pos = getPosWorld _sector;
+	private _pos = getPos _sector;
 	private _counter = 0;
 	private _current_faction = _sector getVariable ARWA_KEY_owned_by;
 	_sector setVariable [ARWA_KEY_reinforements_available, false];

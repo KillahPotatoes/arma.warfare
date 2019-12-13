@@ -1,7 +1,7 @@
 
 ARWA_infantry_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = getPosWorld _target;
+	private _pos = getPos _target;
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 0];
@@ -85,7 +85,7 @@ ARWA_initialize_infantry_group_ai = {
 ARWA_infantry_group_ai = {
 	params ["_group", "_side"];
 
-	private _pos = getPosWorld (leader _group);
+	private _pos = getPos (leader _group);
 
 	if([_group] call ARWA_join_nearby_group) exitWith {};
 

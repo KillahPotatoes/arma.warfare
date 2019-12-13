@@ -1,7 +1,7 @@
 
 ARWA_vehicle_create_waypoint = {
 	params ["_target", "_group"];
-	private _pos = getPosWorld _target;
+	private _pos = getPos _target;
 
 	_group call ARWA_delete_all_waypoints;
 	_w = _group addWaypoint [_pos, 0];
@@ -47,7 +47,7 @@ ARWA_vehicle_move_to_sector = {
 
 	if ([_group] call ARWA_approaching_target) then {
 		private _target = _group getVariable ARWA_KEY_target;
-		private _pos = getPosWorld _target;
+		private _pos = getPos _target;
 
 		private _target_name = _target getVariable ARWA_KEY_target_name;
 		format["Vehicle %1 approaching %2", _group, _target_name] spawn ARWA_debugger;
@@ -64,7 +64,7 @@ ARWA_vehicle_move_to_sector = {
 ARWA_vehicle_group_ai = {
 	params ["_group", "_side"];
 
-	private _pos = getPosWorld (leader _group);
+	private _pos = getPos (leader _group);
 
 	private _target = if([_group, _side] call ARWA_check_if_has_priority_target) then {
 		_group getVariable ARWA_KEY_priority_target;

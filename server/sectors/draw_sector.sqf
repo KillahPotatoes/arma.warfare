@@ -8,7 +8,7 @@ ARWA_draw_sector = {
  };
 
  private _marker = _sector getVariable ARWA_KEY_marker;
- private _markerPos = getPosWorld _sector;
+ private _markerPos = getPos _sector;
  private _marker_outline = toString toArray _marker;
 
   createMarker [_marker_outline, _markerPos];
@@ -21,7 +21,7 @@ ARWA_draw_sector = {
 ARWA_draw_sector_name = {
     params ["_sector"];
     private _name = [_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
-    private _markerPos = getPosWorld _sector;
+    private _markerPos = getPos _sector;
 
     _location = createLocation ["Name", _markerPos, 200, 200];
     _location setText _name;
@@ -39,7 +39,7 @@ ARWA_update_progress_bar = {
     };
 
     _marker = _sector getVariable ARWA_KEY_marker;
-    _markerPos = getPosWorld _sector;
+    _markerPos = getPos _sector;
 
     _progress = ARWA_sector_size * (_counter/ARWA_capture_time);
 

@@ -15,12 +15,17 @@ ARWA_add_store_manpower = {
   player addAction [[localize "ARWA_STR_STORE_MANPOWER", 0] call ARWA_add_action_text, {
 		  params ["_target", "_caller"];
 
-      private _manpower = (_caller call ARWA_get_manpower) + (cursorTarget call ARWA_get_manpower);
-
-      _caller setVariable [ARWA_KEY_manpower, 0, true];
-      cursorTarget setVariable [ARWA_KEY_manpower, _manpower, true];
-      systemChat format[localize "ARWA_STR_YOU_STORED_MANPOWER", _manpower]
+      [_caller, cursorTarget] call ARWA_store_manpower;
     }, nil, ARWA_manpower_actions, false, true, "", '[cursorTarget] call ARWA_can_store_manpower'];
+};
+
+ARWA_store_manpower = {
+  params ["_from", "_to"];
+  private _manpower = (_from call ARWA_get_manpower) + (_to call ARWA_get_manpower);
+
+  _from setVariable [ARWA_KEY_manpower, 0, true];
+  _to setVariable [ARWA_KEY_manpower, _manpower, true];
+  systemChat format[localize "ARWA_STR_YOU_STORED_MANPOWER", _manpower]
 };
 
 ARWA_can_take_manpower = {

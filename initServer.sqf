@@ -81,7 +81,6 @@ skipTime (ARWA_timeToSkipTo - daytime + 24 ) % 24;
 
 // Game setup
 [_first_capture_bonus] call ARWA_initialize_sectors;
-[] call ARWA_draw_all_sectors;
 [] call ARWA_assign_prefixes;
 [] call ARWA_hide_respawn_markers;
 

@@ -18,12 +18,6 @@ ARWA_draw_sector = {
  _marker_outline setMarkerSize [ARWA_sector_size,ARWA_sector_size];
 };
 
-ARWA_draw_all_sectors = {
-    {
-        [_x] call ARWA_draw_sector;
-    } forEach ARWA_sectors;
-};
-
 ARWA_update_progress_bar = {
     params ["_counter", "_sector", "_side"];
 

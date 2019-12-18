@@ -42,7 +42,7 @@ ARWA_check_houses_to_populate = {
 ARWA_house_can_be_populated = {
 	params ["_house_pos", "_sector_pos", "_player_pos", "_sympathizer_side", "_is_safe_area"];
 
-	private _distance_from_sector = if(_is_safe_area) then { ARWA_sector_size * 1.5; } else { ARWA_sector_size/2 };
+	private _distance_from_sector = if(_is_safe_area) then { ARWA_sector_size * 2; } else { ARWA_sector_size/2 };
 	(_sector_pos distance2D _house_pos) > _distance_from_sector && {!([_house_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
 };
 
@@ -103,14 +103,10 @@ ARWA_populate_house = {
 
 	if(_random_number_of_people == 0) exitWith {};
 
-	private _spawn_sympathizers = if(_is_safe_area) then {
-		 [20] call ARWA_percent_chance;
+	private _spawn_sympathizers = if(_is_safe_area || _owner isEqualTo civilian) then {
+		[50] call ARWA_percent_chance;
 	} else {
-		if(_owner isEqualTo civilian) then {
-			[50] call ARWA_percent_chance;
-		} else {
-			[70] call ARWA_percent_chance;
-		};
+		[90] call ARWA_percent_chance;
 	};
 
 	if(_spawn_sympathizers) then {

@@ -15,7 +15,7 @@ TIP 5: For a quick manpower boost, target one of the enemy sector far behind ene
 TIP 6: If a player acquired vehicle is destroyed a manpower penalty is enforced. Bring your vehicle back to HQ and use the 'Return vehicle' action instead<br /><br />
 TIP 7: A player respawn carries a big manpower penalty. Always have your battle buddy nearby so you can revive each other<br /><br />
 TIP 8: If putting squad members in the ordered transport and sending it back to HQ the squad members will despawn without any penalty<br /><br />
-TIP 9: The AI commander (for both player and AI factions) often use helicopter to quickly bring reinforcements to attacked sectors. If you are quick you might be able to grab the manpower from the ammo box and store it in the helicopter before it takes off again. (Make sure there are no enemy gunships nearby)<br /><br />
+TIP 9: Need to rearm or change your loadout? Order a transport. You are allowed to access the Arsenal once per transport<br /><br />
 TIP 10: Try getting behind enemy lines and put some mines on important roads. Infantry spawns in the sectors, but vehicles always spawns in HQ<br /><br />"
 		]
 	];

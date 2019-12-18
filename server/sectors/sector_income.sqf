@@ -8,12 +8,7 @@ ARWA_sector_manpower_generation = {
                   if(_side in ARWA_all_sides) then {
                         private _manpower = _sector getVariable ARWA_KEY_manpower;
                         private _sector_pos = getPos _sector;
-
-                        private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
-                        private _distance_to_HQ = _sector_pos distance2D _hq_pos;
-                        private _manpower_generation_distance_coef = _distance_to_HQ / ARWA_mission_size;
-
-                        private _generated = _manpower_generation_distance_coef * (1 + ([_sector_pos, _side] call ARWA_get_additional_income_based_on_stationed_players));
+                        private _generated = (1 + ([_sector_pos, _side] call ARWA_get_additional_income_based_on_stationed_players));
 
                         _sector setVariable [ARWA_KEY_manpower, (_manpower + _generated), true];
                   };

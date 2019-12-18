@@ -23,7 +23,7 @@ ARWA_draw_sector_name = {
     private _name = [_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
     private _markerPos = getPos _sector;
 
-    _location = createLocation ["Name", _markerPos, 200, 200];
+    _location = createLocation ["Name", [_markerPos select 0, (_markerPos select 1) + 50, _markerPos select 2], 200, 200];
     _location setText _name;
 };
 

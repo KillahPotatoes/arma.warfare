@@ -1,3 +1,5 @@
+ARWA_ammo_box = "B_CargoNet_01_ammo_F";
+
 ARWA_choose_preset = {
 	private _army_preset = ["ArmyPreset", 0] call BIS_fnc_getParamValue;
 	private _civilian_preset = ["CivilianPreset", 0] call BIS_fnc_getParamValue;

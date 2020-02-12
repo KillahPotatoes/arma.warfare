@@ -14,7 +14,7 @@ ARWA_spawn_interceptor = {
 ARWA_find_spawn_pos_air = {
 	params ["_side", "_distance", ["_height", 0]];
 
-	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+	private _pos = [_side] call ARWA_get_hq_pos;
 	private _dir = ARWA_grid_center getDir _pos;
 
 	_pos = ARWA_grid_center getPos [(_distance + (ARWA_grid_size / 2)), _dir];

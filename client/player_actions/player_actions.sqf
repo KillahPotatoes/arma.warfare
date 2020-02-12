@@ -13,7 +13,7 @@ ARWA_initialize_ammo_boxes = {
 		if(_x getVariable [ARWA_KEY_sector, false]) then {
 			[_x] spawn ARWA_add_sector_actions;
 		};
-	} forEach entities ARWA_ammo_box;
+	} forEach allMissionObjects ARWA_ammo_box;
 };
 
 ARWA_owned_by = {

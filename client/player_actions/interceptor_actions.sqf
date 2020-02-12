@@ -8,7 +8,7 @@ ARWA_return_interceptor = {
 		private _enemies_nearby = [getPos player, playerSide, 2000] call ARWA_any_enemies_in_area;
 		if(_enemies_nearby) exitWith { player sideChat localize "ARWA_STR_CANNOT_RETURN_INTERCEPTOR"; };
 
-		private _base_pos = getMarkerPos ([playerSide, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _base_pos = [playerSide] call ARWA_get_hq_pos;
 		_safe_pos = [_base_pos, 5, 25, 5, 0, 0, 0, [], [_base_pos, _base_pos]] call BIS_fnc_findSafePos;
 		moveOut player;
 		player setPos _safe_pos;

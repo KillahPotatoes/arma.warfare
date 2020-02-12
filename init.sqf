@@ -1,4 +1,6 @@
 // Deactivate BI Revive when ACE Medical is running
+
+
 if (isClass (configfile >> "CfgPatches" >> "ace_medical")) then {
     bis_reviveParam_mode = 0;
     if (isServer) then {diag_log "[arma.warfare] ACE Medical detected. Deactivating BI Revive System.";};

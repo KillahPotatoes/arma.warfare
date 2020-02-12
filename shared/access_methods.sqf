@@ -3,6 +3,17 @@ ARWA_get_prefixed_name = {
 	format["%1_%2", missionNamespace getVariable format["ARWA_%1_prefix", _side], _suffix];
 };
 
+ARWA_get_prefixed_side = {
+	params ["_prefix"];
+	missionNamespace getVariable format["ARWA_%1_side", _prefix];
+};
+
+ARWA_get_hq_pos = {
+	params ["_side"];
+
+	missionNamespace getVariable format["ARWA_HQ_%1", _side];
+};
+
 ARWA_get_tier_bound = {
 	params ["_num"];
 	_num * (ARWA_starting_strength / 10);

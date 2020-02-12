@@ -37,7 +37,7 @@ ARWA_closest_hq = {
 
 	{
 		private _side = _x;
-		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _hq_pos = [_side] call ARWA_get_hq_pos;
 		private _distance = _pos distance2D _hq_pos;
 
 		if (_shortest_distance > _distance) then {
@@ -58,7 +58,7 @@ ARWA_closest_hq_distance = {
 
 	{
 		private _side = _x;
-		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _hq_pos = [_side] call ARWA_get_hq_pos;
 		private _distance = _pos distance2D _hq_pos;
 
 		if (_shortest_distance > _distance) then {

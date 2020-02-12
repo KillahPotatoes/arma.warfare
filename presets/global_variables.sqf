@@ -18,7 +18,6 @@ ARWA_KEY_marker = "marker";
 ARWA_KEY_static_artillery = "static_artillery";
 ARWA_KEY_static = "static";
 ARWA_KEY_respawn_pos = "respawn_pos";
-ARWA_KEY_respawn_ground = "respawn_ground";
 ARWA_KEY_target_name = "target_name";
 ARWA_KEY_box = "box";
 ARWA_KEY_HQ = "HQ";

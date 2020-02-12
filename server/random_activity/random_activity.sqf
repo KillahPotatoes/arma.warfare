@@ -11,7 +11,7 @@ ARWA_check_houses_to_populate = {
 
 	{
 		private _house = _x;
-		private _hq_pos = getMarkerPos ([_player_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _hq_pos = [_player_side] call ARWA_get_hq_pos;
 		private _pos = getPos _house;
 		private _distance_to_hq = _hq_pos distance2D _pos;
 

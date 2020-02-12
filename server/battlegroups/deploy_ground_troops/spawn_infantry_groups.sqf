@@ -24,7 +24,7 @@ ARWA_spawn_random_infantry_group = {
 ARWA_get_closest_infantry_spawn_pos = {
 	params ["_side", "_pos"];
 
-	private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+	private _hq_pos = [_side] call ARWA_get_hq_pos;
 	private _safe_sectors = [_side, (ARWA_sector_size * 2)] call ARWA_get_safe_sectors;
 	private _safe_pos = [_hq_pos];
 
@@ -42,7 +42,7 @@ ARWA_get_closest_infantry_spawn_pos = {
 
 ARWA_find_preferred_targets = {
 	params["_side"];
-	private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+	private _hq_pos = [_side] call ARWA_get_hq_pos;
 	private _target_sectors = [_side] call ARWA_get_other_sectors;
 
 	_target_sectors append ([_side] call ARWA_get_unsafe_sectors);

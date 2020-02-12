@@ -23,8 +23,7 @@ ARWA_is_same_side = {
 ARWA_is_player_in_hq = {
 	params ["_player"];
 
-  	private _respawn_marker = [playerSide, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
-	private _pos = getMarkerPos _respawn_marker;
+	private _pos = [playerSide] call ARWA_get_hq_pos;
 
 	(getPos _player) distance _pos < 50;
 };

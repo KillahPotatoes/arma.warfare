@@ -14,8 +14,7 @@ ARWA_calcuate_vehicle_weight = {
 	private _road_at_target = (_pos nearRoads ARWA_sector_size);
 	if(_road_at_target isEqualTo []) exitWith { 0; };
 
-	private _respawn_marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
-	private _pos_hq = getMarkerPos _respawn_marker;
+	private _pos_hq = [_side] call ARWA_get_hq_pos;
 
 	((ARWA_mission_size - (_pos distance _pos_hq)) / ARWA_mission_size) max 0.1;
 };

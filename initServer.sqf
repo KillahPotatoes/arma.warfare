@@ -4,7 +4,6 @@ ARWA_start_time = time;
 
 [] call compileFinal preprocessFileLineNumbers "presets\preset.sqf";
 [] call compileFinal preprocessFileLineNumbers "presets\global_variables.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\hide_respawn_markers.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\random_start_positions.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\common.sqf";
 [] call compileFinal preprocessFileLineNumbers "shared\common\helicopter.sqf";
@@ -37,7 +36,6 @@ ARWA_start_time = time;
 
 // Faction
 [] call compileFinal preprocessFileLineNumbers "server\factions\faction_strength.sqf";
-[] call compileFinal preprocessFileLineNumbers "server\factions\base_vehicle_spawn.sqf";
 [] call compileFinal preprocessFileLineNumbers "server\faction_relations.sqf";
 
 // spawn battlegroups
@@ -81,9 +79,8 @@ setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);
 skipTime (ARWA_timeToSkipTo - daytime + 24 ) % 24;
 
 // Game setup
-[_first_capture_bonus] call ARWA_initialize_sectors;
 [] call ARWA_assign_prefixes;
-[] call ARWA_hide_respawn_markers;
+[_first_capture_bonus] call ARWA_initialize_ammoboxes;
 
 if(ARWA_mine_fields) then {
 	[] call ARWA_initialize_mine_fields;
@@ -91,8 +88,7 @@ if(ARWA_mine_fields) then {
 
 [] call ARWA_setup_faction_relations;
 [ARWA_starting_strength, _starting_tier] call ARWA_initialize_faction_stats;
-[] call ARWA_initialize_bases;
-[] call ARWA_initialize_base_respawns;
+
 [] call ARWA_initialize_battle_groups;
 [] call ARWA_calculate_mission_size;
 [] call ARWA_find_grid_area;

@@ -16,11 +16,7 @@ ARWA_should_change_target = {
 	params ["_group", "_new_target"];
 
 	private _curr_target = _group getVariable ARWA_KEY_target;
-	private _result = isNil "_curr_target" || {isNull _curr_target} || {!(_new_target isEqualTo _curr_target)};
-
-	format["Should change target: %1, current_target: %2, new_target: %3", _result, _curr_target, _new_target] spawn ARWA_debugger;
-
-	_result;
+	isNil "_curr_target" || {isNull _curr_target} || {!(_new_target isEqualTo _curr_target)};
 };
 
 ARWA_needs_new_waypoint = {
@@ -33,10 +29,7 @@ ARWA_needs_new_waypoint = {
 	private _distance =  (getPos _target) distance2D (getPos leader _group);
 	private _waypoint_count = count (waypoints _group);
 
-	private _result = _distance > 20 && _waypoint_count == 0};
-
-	format["Needs new waypoint: %1, target: %2, _distance: %3, _waypoint_count: %4", _result, _target, _distance, _waypoint_count] spawn ARWA_debugger;
-
+	_distance > 20 && _waypoint_count == 0;
 };
 
 ARWA_approaching_target = {

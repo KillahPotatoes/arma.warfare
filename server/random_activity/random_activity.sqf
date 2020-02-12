@@ -5,7 +5,7 @@ ARWA_check_houses_to_populate = {
 
 	private _houses = (_player nearObjects ["house", ARWA_max_distance_presence]) - (_player nearObjects ["house", ARWA_min_distance_presence]);
 	private _player_pos = getPos _player;
-	private _player_side = side _player;
+	private _player_side = side group _player;
 
 	_houses = (_houses) call BIS_fnc_arrayShuffle;
 

@@ -23,6 +23,7 @@ ARWA_spawn_static = {
 	private _static_pos = _pos;
 	private _maxDist = 25;
 
+	// TODO use spawn positions instead
 	while{_static_pos isEqualTo _pos && _maxDist < ARWA_sector_size} do {
 		private _new_pos = [_pos, 5, _maxDist, 10, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
 		_static_pos = if(isOnRoad _new_pos) then { _pos; } else { _new_pos; };

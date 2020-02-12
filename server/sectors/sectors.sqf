@@ -11,9 +11,6 @@ ARWA_initialize_ammoboxes = {
 		_ammo_box enableRopeAttach false;
 
 		private _ammo_box_name = vehicleVarName _ammo_box;
-
-		systemChat _ammo_box_name;
-
 		private _arr = _ammo_box_name splitString "_";
 		private _type = _arr select 0;
 
@@ -43,6 +40,9 @@ ARWA_initialize_ammoboxes = {
 			_ammo_box setVariable [ARWA_KEY_sector, true, true];
 			_ammo_box setVariable [ARWA_KEY_target_name, _name, true];
 
+			private _static_spawn_positions = [_pos] call ARWA_get_all_static_spawn_areas;
+			_ammo_box setVariable [ARWA_KEY_static_spawn_positions, _static_spawn_positions];
+
 			_ammo_box setVariable [ARWA_KEY_marker, _ammo_box_name];
 			[_ammo_box] call ARWA_draw_sector;
 			[_ammo_box] call ARWA_draw_sector_name;
@@ -54,6 +54,11 @@ ARWA_initialize_ammoboxes = {
 	} forEach allMissionObjects ARWA_ammo_box;
 
 	missionNamespace setVariable ["ARWA_sectors", _sectors, true];
+};
+
+ARWA_get_all_static_spawn_areas = {
+	params ["_pos"];
+	_pos nearObjects ["Land_ClutterCutter_large_F", ARWA_sector_size];
 };
 
 ARWA_is_sector_safe = {

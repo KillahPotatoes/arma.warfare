@@ -40,6 +40,7 @@ ARWA_KEY_sector_defense = "sector_defense";
 ARWA_KEY_can_rearm = "can_rearm";
 ARWA_KEY_sympathizers = "sympathizers";
 ARWA_KEY_reinforements_available = "reinforements_available";
+ARWA_KEY_static_spawn_positions = "static_spawn_pos";
 
 ARWA_KEY_rank1 = "PRIVATE";
 ARWA_KEY_rank2 = "CORPORAL";

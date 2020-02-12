@@ -74,6 +74,7 @@ ARWA_sector_artillery = (["SectorArtilleryReloadTime", 900] call BIS_fnc_getPara
 ARWA_sector_artillery_reload_time = ["SectorArtilleryReloadTime", 900] call BIS_fnc_getParamValue;
 ARWA_dropped_manpower_deterioration_time = ["DroppedManpowerDeteriorationTime", 180] call BIS_fnc_getParamValue;
 ARWA_timeToSkipTo = ["StartTime", 12] call BIS_fnc_getParamValue;
+ARWA_manpower_penalty_on_player_death = ["PlayerDeathManpowerDrop", 0] call BIS_fnc_getParamValue;
 
 ARWA_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;
 setTimeMultiplier (["TimeAcceleration", 6] call BIS_fnc_getParamValue);

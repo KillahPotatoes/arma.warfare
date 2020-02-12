@@ -1,11 +1,19 @@
 missionNamespace setVariable ["ARWA_sectors", [], true];
 
+ARWA_create_ammo_box = {
+	params ["_pos"];
+
+	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
+	_ammo_box setMass 1000000;
+	_ammo_box enableRopeAttach false;
+
+	_ammo_box;
+};
+
 ARWA_add_sector_box = {
 	params ["_pos", "_name", "_first_capture_bonus"];
 
-	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
-	_ammo_box enableRopeAttach false;
-	//_ammo_box enableSimulationGlobal false;
+	private _ammo_box = [_pos] call ARWA_create_ammo_box;
 	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
 	_ammo_box setVariable [ARWA_KEY_manpower, _first_capture_bonus, true];
 	_ammo_box setVariable [ARWA_KEY_sector, true, true];

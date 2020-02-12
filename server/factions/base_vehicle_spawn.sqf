@@ -4,9 +4,7 @@ ARWA_spawn_base_ammobox = {
 
 	private _marker = [_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name;
 	private _pos = getMarkerPos _marker;
-	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
-	_ammo_box enableRopeAttach false;
-	//_ammo_box enableSimulationGlobal false;
+	private _ammo_box = [_pos] call ARWA_create_ammo_box;
 	_ammo_box setVariable [ARWA_KEY_HQ, true, true];
 	_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
 	_ammo_box setVariable [ARWA_KEY_target_name, "HQ", true];

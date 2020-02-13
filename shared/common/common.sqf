@@ -6,6 +6,12 @@ ARWA_any_units_too_close = {
 	count (nearestObjects[_pos, ["Tank", "Car", "Air", "Man"], 10]) > 0;
 };
 
+ARWA_anything_too_close = {
+	params ["_pos"];
+
+	count (nearestObjects[_pos, ["Tank", "Car", "Air", "Man", "static", "StaticWeapon"], 10]) > 0;
+};
+
 ARWA_not_in_vehicle = {
 	params ["_unit"];
 	_unit isEqualTo (vehicle _unit);

@@ -135,9 +135,6 @@
             <English>Get helicopter</English>
             <German>Helikopter anfordern</German>
         </Key>
-        <Key ID="ARWA_STR_REARM_ARSENAL">
-            <English>Rearm with arsenal</English>
-        </Key>
         <Key ID="ARWA_STR_JOIN_SQUAD">
             <English>Join squad</English>
             <German>Trupp beitreten</German>

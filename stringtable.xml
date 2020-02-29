@@ -145,6 +145,9 @@
             <English>Update transport orders</English>
             <German>Transportbefehle aktualisieren</German>
         </Key>
+            <Key ID="ARWA_STR_TAKE_CONTROL">
+            <English>Take control</English>
+        </Key>
         <Key ID="ARWA_STR_SEND_TRANSPORT_TO_HQ">
             <English>Send to HQ</English>
             <German>Zum HQ schicken</German>
@@ -166,7 +169,7 @@
             <German>Transport ist unterwegs zur angegebenen Position!</German>
         </Key>
         <Key ID="ARWA_STR_TRANSPORT_HAS_ARRIVED">
-            <English>Transport has arrived. Waiting for squad to pick up!</English>
+            <English>Transport has arrived at given location!</English>
             <German>Transport ist angekommen. Erwarte Trupp zur Aufnahme!</German>
         </Key>
          <Key ID="ARWA_STR_TRANSPORT_DOWN">

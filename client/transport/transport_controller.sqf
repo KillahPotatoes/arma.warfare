@@ -36,10 +36,22 @@ ARWA_move_transport_to_pick_up = {
 		_group move _pos;
 	};
 
+	(driver _veh) doFollow (leader _group);
 
 	if(ARWA_report_transport_arrival) then {
-		[_veh, _group] spawn ARWA_report_arrival;
 		ARWA_report_transport_arrival = false;
+		[_veh, _group] spawn ARWA_report_arrival;
+	};
+};
+
+ARWA_report_arrival = {
+	params ["_veh", "_group"];
+
+	waitUntil {ARWA_report_transport_arrival || !([_veh] call ARWA_is_transport_active) || {(unitReady _veh) && {(isTouchingGround _veh)}}};
+
+	if(!ARWA_report_transport_arrival) then {
+		[_group, ["ARWA_STR_TRANSPORT_HAS_ARRIVED"]] spawn ARWA_group_report_client;
+		ARWA_report_transport_arrival = true;
 	};
 };
 
@@ -76,6 +88,7 @@ ARWA_is_transport_active = {
 
 		player removeAction ARWA_cancel_transport_id;
 		player removeAction ARWA_update_orders_id;
+		player removeAction ARWA_show_remote_control;
 
 		if([_veh] call ARWA_is_transport_dead) exitWith {};
 
@@ -108,8 +121,6 @@ ARWA_cancel_on_player_death = {
 	[_veh, _group, "ARWA_STR_CANCELING_TRANSPORT_MISSION", true] call ARWA_interrupt_transport_misson;
 };
 
-
-
 ARWA_interrupt_transport_misson = {
 	params ["_veh", "_group", "_msg", ["_empty_vehicle", false]];
 
@@ -127,6 +138,7 @@ ARWA_interrupt_transport_misson = {
 
 	sleep 3;
 
+	(driver _veh) doFollow (leader _group);
 	private _success = if(_veh isKindOf "Air") then {
 		[_group, _veh, ARWA_helicopter_safe_distance] call ARWA_despawn_air;
 	} else {

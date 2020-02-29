@@ -32,16 +32,6 @@ ARWA_order_transport = {
 	[_group, _veh, _pos, "ARWA_STR_TRANSPORT_ON_ITS_WAY"] spawn ARWA_move_transport_to_pick_up;
 };
 
-ARWA_report_arrival = {
-	params ["_veh", "_group"];
-
-	waitUntil {!([_veh] call ARWA_is_transport_active) || {(unitReady _veh) && {(isTouchingGround _veh)}}};
-
-	[_group, ["ARWA_STR_TRANSPORT_HAS_ARRIVED"]] spawn ARWA_group_report_client;
-	ARWA_report_transport_arrival = true;
-};
-
-
 ARWA_spawn_transport = {
 	params ["_side", "_class_name", "_penalty"];
 

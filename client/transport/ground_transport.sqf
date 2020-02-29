@@ -38,15 +38,7 @@ ARWA_send_to_HQ = {
 
 	if (alive _veh) exitWith
 	{
-		private _manpower = (_veh call ARWA_get_manpower) + (_veh call ARWA_remove_soldiers);
-		_veh setVariable [ARWA_KEY_manpower, 0];
-
-		if(_manpower > 0) then {
-			[playerSide, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
-			systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
-		};
-
-		deleteVehicle _veh;
+		[_veh, playerSide] call ARWA_delete_vehicle;
 		true;
 	};
 

@@ -86,6 +86,45 @@ ARWA_spawn_vehicle = {
    _veh_arr;
 };
 
+ARWA_delete_vehicle = {
+	params ["_veh", "_side"];
+
+	[_veh] call ARWA_throw_out_players;
+
+	private _manpower = (_veh call ARWA_get_manpower) + (_veh call ARWA_remove_soldiers);
+	_veh setVariable [ARWA_KEY_manpower, 0];
+
+	private _owner = _veh getVariable ARWA_KEY_owned_by;
+
+	private _kill_bonus = if(!isNil "_owner" && {!(_owner isEqualTo _side)}) then { _veh getVariable [ARWA_kill_bonus, 0]; } else { 0; };
+	private _adjusted_salvage_bonus = if(ARWA_vehicleKillBonus == 1) then { _kill_bonus; } else { _kill_bonus * 2; };
+	private _total_manpower_points = _adjusted_salvage_bonus + _manpower;
+
+	if(_total_manpower_points > 0 ) then {
+		[_side, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
+		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
+	};
+
+	if(_manpower > 0) then {
+		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
+	};
+
+	if(_adjusted_salvage_bonus > 0) then {
+		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _adjusted_salvage_bonus];
+	};
+
+	deleteVehicle _veh;
+};
+
+ARWA_throw_out_players = {
+	params ["_veh"];
+	{
+		if(isPlayer _x) then {
+			moveOut _x;
+		};
+	} forEach crew _veh;
+};
+
 ARWA_get_owned_sectors = {
 	params ["_side"];
 	ARWA_sectors select { (_x getVariable ARWA_KEY_owned_by) isEqualTo _side; };

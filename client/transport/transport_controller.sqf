@@ -159,11 +159,4 @@ ARWA_empty_vehicle_cargo = {
 	} forEach crew _veh;
 };
 
-ARWA_throw_out_players = {
-	params ["_veh"];
-	{
-		if(isPlayer _x) then {
-			moveOut _x;
-		};
-	} forEach crew _veh;
-};
+

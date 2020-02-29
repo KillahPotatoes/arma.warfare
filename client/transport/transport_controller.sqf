@@ -1,4 +1,5 @@
 ARWA_transport_will_wait_time = 300;
+ARWA_report_transport_arrival = true;
 
 ARWA_update_transport_orders = {
 	params ["_group", "_veh"];
@@ -30,15 +31,16 @@ ARWA_move_transport_to_pick_up = {
 	[_group, [_msg]] spawn ARWA_group_report_client;
 
 	if(_veh isKindOf "Air") then {
-		[_group, _veh, "GET IN", _pos] call ARWA_land_helicopter;
+		[_group, _veh, "GET IN", _pos] spawn ARWA_land_helicopter;
 	} else {
-		[_group, _veh, _pos] call ARWA_send_vehicle_transport;
+		_group move _pos;
 	};
 
-	if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
-	[_group, ["ARWA_STR_TRANSPORT_HAS_ARRIVED"]] spawn ARWA_group_report_client;
-	[_veh, _group] spawn ARWA_on_transport_idle_wait;
+	if(ARWA_report_transport_arrival) then {
+		[_veh, _group] spawn ARWA_report_arrival;
+		ARWA_report_transport_arrival = false;
+	};
 };
 
 ARWA_is_driver_dead = {
@@ -106,21 +108,7 @@ ARWA_cancel_on_player_death = {
 	[_veh, _group, "ARWA_STR_CANCELING_TRANSPORT_MISSION", true] call ARWA_interrupt_transport_misson;
 };
 
-ARWA_on_transport_idle_wait = {
-	params ["_veh", "_group"];
 
-	_veh setVariable [ARWA_KEY_active, false];
-
-	private _timer = time + ARWA_transport_will_wait_time;
-
-	waituntil {
-		!([_veh] call ARWA_is_transport_active) || {(player in _veh) || time > _timer || _veh getVariable [ARWA_KEY_active, false]}
-	};
-
-	if(!([_veh] call ARWA_is_transport_active) || {player in _veh || _veh getVariable [ARWA_KEY_active, false]}) exitWith {};
-
-	[_veh, _group, "ARWA_STR_TRANSPORT_CANT_WAIT_ANY_LONGER", true] call ARWA_interrupt_transport_misson;
-};
 
 ARWA_interrupt_transport_misson = {
 	params ["_veh", "_group", "_msg", ["_empty_vehicle", false]];

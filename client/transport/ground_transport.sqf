@@ -1,12 +1,4 @@
-ARWA_send_vehicle_transport = {
-	params ["_group", "_veh", "_pos"];
 
-	_group move _pos;
-
-	sleep 3;
-
-	waitUntil {!([_veh] call ARWA_is_transport_active) || (unitReady _veh) };
-};
 
 ARWA_spawn_transport_vehicle = {
 	params ["_side", "_class_name", "_kill_bonus"];

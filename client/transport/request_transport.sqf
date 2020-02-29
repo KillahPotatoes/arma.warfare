@@ -28,9 +28,17 @@ ARWA_order_transport = {
 	[_veh, _group] spawn ARWA_cancel_on_player_death;
 	[_veh] spawn ARWA_show_active_transport_menu;
 	[_veh] spawn ARWA_check_status;
-	[_veh] spawn ARWA_toggle_control;
 
 	[_group, _veh, _pos, "ARWA_STR_TRANSPORT_ON_ITS_WAY"] spawn ARWA_move_transport_to_pick_up;
+};
+
+ARWA_report_arrival = {
+	params ["_veh", "_group"];
+
+	waitUntil {!([_veh] call ARWA_is_transport_active) || {(unitReady _veh) && {(isTouchingGround _veh)}}};
+
+	[_group, ["ARWA_STR_TRANSPORT_HAS_ARRIVED"]] spawn ARWA_group_report_client;
+	ARWA_report_transport_arrival = true;
 };
 
 

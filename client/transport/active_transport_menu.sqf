@@ -19,7 +19,7 @@ ARWA_show_update_orders = {
 		[_group, _veh] call ARWA_update_transport_orders;
 
     }, [_veh], ARWA_active_transport_actions, true, false, "",
-    '!([] call ARWA_in_transport)'];
+    ''];
 };
 
 ARWA_show_cancel_transport_action = {

@@ -53,10 +53,6 @@ ARWA_land_helicopter = {
 		[_heli_vehicle] spawn ARWA_toggle_damage_while_landing;
 		_heli_vehicle land _mode;
 	};
-
-  	sleep 3;
-
-	waitUntil { !(alive _heli_vehicle) || (isTouchingGround _heli_vehicle) };
 };
 
 ARWA_toggle_damage_while_landing = {

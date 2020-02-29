@@ -91,10 +91,4 @@ Defense and artillery will spawn in a sector once it is captured."
 Higher rank will allow you to have more soldiers in your squad, <br />increase the AI skill of your squad, <br />and increase the manpower generation boost while in a sector"
 		]
 	];
-
-	player createDiaryRecord ["Diary", [
-		"ENEMY GUERILLA COMMANDER",
-"Sometimes you will stumble upon an enemy guerilla commander. An area will be marked in yellow on the map. Find the commander and kill him, and he will drop manpower. If you manage to kill him before he is alerted he will drop more manpower."
-		]
-	];
 };

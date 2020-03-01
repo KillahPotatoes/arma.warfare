@@ -345,6 +345,12 @@
         <Key ID="ARWA_STR_SEND_DRONE_TO_HQ">
             <English>Send drone to HQ</English>
         </Key>
+         <Key ID="ARWA_STR_HQ_COMMANDER">
+            <English>Go to HQ commander</English>
+        </Key>
+         <Key ID="ARWA_STR_OUTSIDE_HQ_AREA">
+            <English>Stay close to HQ</English>
+        </Key>
     </Package>
     <Package name="KPPLM">
         <Key ID="STR_KPPLM_ACTIONOPEN">

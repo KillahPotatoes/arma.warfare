@@ -1,5 +1,9 @@
 ARWA_ammo_box = "B_CargoNet_01_ammo_F";
 
+ARWA_WEST_hq_commander = "B_Officer_F";
+ARWA_EAST_hq_commander = "O_Officer_F";
+ARWA_GUER_hq_commander = "I_Officer_F";
+
 ARWA_choose_preset = {
 	private _army_preset = ["ArmyPreset", 0] call BIS_fnc_getParamValue;
 	private _civilian_preset = ["CivilianPreset", 0] call BIS_fnc_getParamValue;

@@ -43,6 +43,7 @@ ARWA_spawn_transport = {
 
 	private _group = _arr select 2;
 	private _veh = _arr select 0;
+	_veh lockDriver true;
 
 	_veh call ARWA_add_rearm_arsenal_action;
 	ARWA_transport_present = true;

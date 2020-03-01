@@ -77,6 +77,7 @@ ARWA_unit_cap = 90;
 ARWA_defender_cap = 10;
 ARWA_squad_cap = 12;
 ARWA_transport_helicopter_spawn_height = 100;
+ARWA_HQ_area = 50;
 ARWA_gunship_spawn_height = 500;
 ARWA_manpower_generation_time = 60;
 ARWA_show_all = false;

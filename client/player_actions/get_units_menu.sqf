@@ -77,8 +77,6 @@ ARWA_get_vehicle = {
 		_veh setVariable [ARWA_penalty, _penalty, true];
 		_veh setVariable [ARWA_kill_bonus, _penalty, true];
 		_veh setVariable [ARWA_KEY_owned_by, playerSide, true];
-
-		[_veh] call ARWA_remove_vehicle_action;
 	};
 	private _type = _class_name call ARWA_get_vehicle_display_name;
 	systemChat format[localize "ARWA_STR_OBSTRUCTING_THE_RESPAWN_AREA", _type];

@@ -88,7 +88,7 @@ ARWA_is_transport_active = {
 
 		player removeAction ARWA_cancel_transport_id;
 		player removeAction ARWA_update_orders_id;
-		player removeAction ARWA_show_remote_control;
+		player removeAction ARWA_remote_control_id;
 
 		if([_veh] call ARWA_is_transport_dead) exitWith {};
 

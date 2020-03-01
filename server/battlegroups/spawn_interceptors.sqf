@@ -51,7 +51,6 @@ ARWA_spawn_ai_interceptors = {
 		private _veh_arr = [_interceptor, _kill_bonus, _side, _new_pos, _dir] call ARWA_spawn_interceptor;
 		private _tmp_group = _veh_arr select 2;
 
-		// TODO. See if they handle better if in same group
 		{
 			[_x] joinSilent _group;
 		} forEach units _tmp_group;

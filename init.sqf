@@ -60,6 +60,7 @@ ARWA_AllowFastTravel = (["AllowFastTravel", 0] call BIS_fnc_getParamValue) > 0;
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\create_briefing.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\hq_commander.sqf";
 
 
 player setVariable [ARWA_KEY_manpower, 0];

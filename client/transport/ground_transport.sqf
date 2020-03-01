@@ -26,7 +26,7 @@ ARWA_send_to_HQ = {
 
 	_group addWaypoint [_pos, 0];
 
-	waitUntil {([_veh] call ARWA_is_transport_dead) || ((_pos distance2D (getPos _veh)) < 100) };
+	waitUntil {([_veh] call ARWA_is_transport_dead) || ((_pos distance2D (getPos _veh)) < ARWA_HQ_area) };
 
 	if (alive _veh) exitWith
 	{

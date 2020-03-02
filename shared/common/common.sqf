@@ -101,17 +101,17 @@ ARWA_delete_vehicle = {
 	private _total_manpower_points = _adjusted_salvage_bonus + _manpower;
 
 	if(_total_manpower_points > 0 ) then {
-		[_side, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
-		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
+		[_side, _total_manpower_points] remoteExec ["ARWA_increase_manpower_server", 2];
+		
+		if(_manpower > 0) then {
+			systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
+		};
+
+		if(_adjusted_salvage_bonus > 0) then {
+			systemChat format[localize "ARWA_STR_YOU_ADDED_SALVAGE_MANPOWER", _adjusted_salvage_bonus];
+		};
 	};
 
-	if(_manpower > 0) then {
-		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
-	};
-
-	if(_adjusted_salvage_bonus > 0) then {
-		systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _adjusted_salvage_bonus];
-	};
 
 	deleteVehicle _veh;
 };

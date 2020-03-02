@@ -11,8 +11,8 @@ ARWA_remove_all_options = {
 };
 
 ARWA_create_soldier = {
-	params ["_group", "_class_name"];
-	private _unit = _group createUnit[_class_name, getPos player, [], 10, "NONE"];
+	params ["_group", "_class_name", "_pos"];
+	private _unit = _group createUnit[_class_name,_pos, [], 10, "NONE"];
 
 	private _new_skill = [] call ARWA_get_skill_based_on_rank;
 	[_new_skill, _group] spawn ARWA_adjust_skill;
@@ -27,7 +27,7 @@ ARWA_create_soldier = {
 };
 
 ARWA_get_infantry = {
-	params ["_class_name"];
+	params ["_class_name", "_pos"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
 	private _rank = rank player;
@@ -38,14 +38,14 @@ ARWA_get_infantry = {
 	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count;
 
 	if (_numberOfSoldiers > 0) exitWith {
-		[_group, _class_name] call ARWA_create_soldier;
+		[_group, _class_name, _pos] call ARWA_create_soldier;
 	};
 
 	systemChat localize "ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS";
 };
 
 ARWA_get_custom_infantry = {
-	params ["_loadout_name"];
+	params ["_loadout_name", "_pos"];
 	_group = group player;
 	_group_count = {alive _x} count units _group;
 	private _rank = rank player;
@@ -57,7 +57,7 @@ ARWA_get_custom_infantry = {
 
 	if (_numberOfSoldiers > 0) exitWith {
 		private _class_name = ((missionNamespace getVariable format["ARWA_%1_infantry_tier_0", playerSide]) select 0) select 0;
-		private _unit = [_group, _class_name] call ARWA_create_soldier;
+		private _unit = [_group, _class_name, _pos] call ARWA_create_soldier;
 		[_loadout_name, _unit] spawn ARWA_apply_loadout;
 	};
 
@@ -127,6 +127,7 @@ ARWA_list_options = {
 			private _type = _params select 2;
 			private _box = _params select 3;
 			private _title = _params select 4;
+			private _pos = getPos _box;
 
 			_box setVariable [format["Menu_%1", _title], false];
 
@@ -137,7 +138,7 @@ ARWA_list_options = {
 			};
 
 			if(_type isEqualTo ARWA_KEY_infantry) exitWith {
-				[_class_name] call ARWA_get_infantry;
+				[_class_name, _pos] call ARWA_get_infantry;
 			};
 
 			if (_type isEqualTo ARWA_KEY_interceptor) exitWith {
@@ -145,7 +146,7 @@ ARWA_list_options = {
 			};
 
 			if (_type isEqualTo ARWA_KEY_custom_infantry) exitWith {
-				[_class_name] call ARWA_get_custom_infantry;
+				[_class_name, _pos] call ARWA_get_custom_infantry;
 			};
 
 			private _base_marker_name = [playerSide, _type] call ARWA_get_prefixed_name;

@@ -69,6 +69,10 @@
             <English>You added %1 manpower points</English>
             <German>%1 MP hinzugefügt</German>
         </Key>
+        <Key ID="ARWA_STR_YOU_ADDED_SALVAGE_MANPOWER">
+            <English>You added %1 manpower points by salvaging an enemy vehicle</English>
+            <German>%1 MP hinzugefügt</German>
+        </Key>
          <Key ID="ARWA_STR_KILLED_CIVILIAN_PENALTY">
             <English>%1 got a %2 manpower penalty for killing a civilian</English>
         </Key>ARWA_STR_KILLED_CIVILIAN_PENALTY

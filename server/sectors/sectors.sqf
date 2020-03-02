@@ -1,48 +1,64 @@
 missionNamespace setVariable ["ARWA_sectors", [], true];
 
-ARWA_add_sector_box = {
-	params ["_pos", "_name", "_first_capture_bonus"];
-
-	private _ammo_box = ARWA_ammo_box createVehicle (_pos);
-	_ammo_box enableRopeAttach false;
-	//_ammo_box enableSimulationGlobal false;
-	_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
-	_ammo_box setVariable [ARWA_KEY_manpower, _first_capture_bonus, true];
-	_ammo_box setVariable [ARWA_KEY_sector, true, true];
-	_ammo_box setVariable [ARWA_KEY_target_name, _name, true];
-
-	_ammo_box;
-};
-
-ARWA_initialize_sectors = {
+ARWA_initialize_ammoboxes = {
 	params ["_first_capture_bonus"];
 
 	private _sectors = [];
+
 	{
-		private _type = getMarkerType _x;
+		private _ammo_box = _x;
+		_ammo_box setMass 100000;
+		_ammo_box enableRopeAttach false;
 
-		if (_type isEqualTo "hd_objective") then {
-			private _split_string = [_x, 7] call ARWA_split_string;
-			private _first_string = _split_string select 0;
-			private _second_string = _split_string select 1;
-			private _pos = getMarkerPos _x;
+		private _ammo_box_name = vehicleVarName _ammo_box;
+		private _arr = _ammo_box_name splitString "_";
+		private _type = _arr select 0;
 
+		_arr deleteAt 0;
+
+		private _name = _arr joinString " ";
+		private _pos = getPos _ammo_box;
+
+		if(_type isEqualTo "HQ") then {
+			private _side = [_name] call ARWA_get_prefixed_side;
+
+			_ammo_box setVariable [ARWA_KEY_HQ, true, true];
+			_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
+			_ammo_box setVariable [ARWA_KEY_target_name, "HQ", true];
+			_ammo_box setVariable [ARWA_KEY_owned_by, _side, true];
+
+			missionNamespace setVariable [format["ARWA_HQ_%1", _side], _pos, true];
+
+			[_side, _pos] call BIS_fnc_addRespawnPosition;
+		};
+
+		if(_type isEqualTo "FOB") then {
 			private _capture_bonus = if(_first_capture_bonus) then {  ARWA_starting_strength / 10; } else { 0; };
-			private _ammo_box = [_pos, _second_string, _capture_bonus] call ARWA_add_sector_box;
 
-			_ammo_box setVariable [ARWA_KEY_marker, _x];
+			_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
+			_ammo_box setVariable [ARWA_KEY_manpower, _capture_bonus, true];
+			_ammo_box setVariable [ARWA_KEY_sector, true, true];
+			_ammo_box setVariable [ARWA_KEY_target_name, _name, true];
+
+			private _static_spawn_positions = [_pos] call ARWA_get_all_static_spawn_areas;
+			_ammo_box setVariable [ARWA_KEY_static_spawn_positions, _static_spawn_positions];
+
+			_ammo_box setVariable [ARWA_KEY_marker, _ammo_box_name];
 			[_ammo_box] call ARWA_draw_sector;
 			[_ammo_box] call ARWA_draw_sector_name;
 			[_ammo_box] spawn ARWA_initialize_sector_control;
-			[_ammo_box] spawn ARWA_sector_rearm_player_vehicles;
 
 			_sectors pushBack _ammo_box;
-
-			true;
 		};
-	} count allMapMarkers;
+
+	} forEach allMissionObjects ARWA_ammo_box;
 
 	missionNamespace setVariable ["ARWA_sectors", _sectors, true];
+};
+
+ARWA_get_all_static_spawn_areas = {
+	params ["_pos"];
+	_pos nearObjects ["Land_ClutterCutter_large_F", ARWA_sector_size];
 };
 
 ARWA_is_sector_safe = {
@@ -133,25 +149,4 @@ ARWA_find_enemy_sectors = {
 	} foreach _enemy;
 
 	_enemy_sectors;
-};
-
-ARWA_sector_rearm_player_vehicles = {
-	params ["_sector"];
-	private _sector_pos = getPos _sector;
-
-    while {true} do {
-		private _sector_owner = _sector getVariable ARWA_KEY_owned_by;
-		{
-			private _vehicle = vehicle _x;
-			private _player_side = side _x;
-			private _close_to_sector = (_sector_pos distance2D getPos _x) < (ARWA_sector_size / 4);
-
-			if(_close_to_sector && {_sector_owner isEqualTo _player_side} && {_vehicle isKindOf "Car" || _vehicle isKindOf "Tank"}) then {
-				_vehicle setVehicleAmmo 1;
-				_vehicle setFuel 1;
-				[["ARWA_STR_VEHICLE_REARMED"]] remoteExec ["ARWA_system_chat", group _x];
-			};
-		} forEach allPlayers;
-		sleep 300;
-      };
 };

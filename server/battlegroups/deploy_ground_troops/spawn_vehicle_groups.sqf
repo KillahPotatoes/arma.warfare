@@ -128,7 +128,7 @@ ARWA_spawn_vehicle_group = {
 ARWA_spawn_random_vehicle_group = {
 	params ["_side", "_can_spawn"];
 
-	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+	private _pos = [_side] call ARWA_get_hq_pos;
 	private _tier =  floor(random (([_side] call ARWA_get_tier) + 1));
 	private _vehicle_max_count = floor(random 2) + 1;
 	private _groups = [];

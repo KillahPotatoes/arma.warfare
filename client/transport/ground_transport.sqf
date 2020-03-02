@@ -1,12 +1,4 @@
-ARWA_send_vehicle_transport = {
-	params ["_group", "_veh", "_pos"];
 
-	_group move _pos;
-
-	sleep 3;
-
-	waitUntil {!([_veh] call ARWA_is_transport_active) || (unitReady _veh) };
-};
 
 ARWA_spawn_transport_vehicle = {
 	params ["_side", "_class_name", "_kill_bonus"];
@@ -30,23 +22,15 @@ ARWA_send_to_HQ = {
 	params ["_group", "_veh"];
 
 	private _side = side _group;
-	private _pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+	private _pos = [_side] call ARWA_get_hq_pos;
 
 	_group addWaypoint [_pos, 0];
 
-	waitUntil {([_veh] call ARWA_is_transport_dead) || ((_pos distance2D (getPos _veh)) < 100) };
+	waitUntil {([_veh] call ARWA_is_transport_dead) || ((_pos distance2D (getPos _veh)) < ARWA_HQ_area) };
 
 	if (alive _veh) exitWith
 	{
-		private _manpower = (_veh call ARWA_get_manpower) + (_veh call ARWA_remove_soldiers);
-		_veh setVariable [ARWA_KEY_manpower, 0];
-
-		if(_manpower > 0) then {
-			[playerSide, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
-			systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
-		};
-
-		deleteVehicle _veh;
+		[_veh, playerSide] call ARWA_delete_vehicle;
 		true;
 	};
 

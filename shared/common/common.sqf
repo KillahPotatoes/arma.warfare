@@ -6,6 +6,12 @@ ARWA_any_units_too_close = {
 	count (nearestObjects[_pos, ["Tank", "Car", "Air", "Man"], 10]) > 0;
 };
 
+ARWA_anything_too_close = {
+	params ["_pos"];
+
+	count (nearestObjects[_pos, ["Tank", "Car", "Air", "Man", "static", "StaticWeapon"], 10]) > 0;
+};
+
 ARWA_not_in_vehicle = {
 	params ["_unit"];
 	_unit isEqualTo (vehicle _unit);
@@ -37,7 +43,7 @@ ARWA_closest_hq = {
 
 	{
 		private _side = _x;
-		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _hq_pos = [_side] call ARWA_get_hq_pos;
 		private _distance = _pos distance2D _hq_pos;
 
 		if (_shortest_distance > _distance) then {
@@ -58,7 +64,7 @@ ARWA_closest_hq_distance = {
 
 	{
 		private _side = _x;
-		private _hq_pos = getMarkerPos ([_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _hq_pos = [_side] call ARWA_get_hq_pos;
 		private _distance = _pos distance2D _hq_pos;
 
 		if (_shortest_distance > _distance) then {
@@ -78,6 +84,44 @@ ARWA_spawn_vehicle = {
    _veh setVariable [ARWA_kill_bonus, _kill_bonus, true];
 
    _veh_arr;
+};
+
+ARWA_delete_vehicle = {
+	params ["_veh", "_side"];
+
+	[_veh] call ARWA_throw_out_players;
+
+	private _manpower = (_veh call ARWA_get_manpower) + (_veh call ARWA_remove_soldiers);
+	_veh setVariable [ARWA_KEY_manpower, 0];
+
+	private _owner = _veh getVariable ARWA_KEY_owned_by;
+
+	private _kill_bonus = if(!isNil "_owner" && {!(_owner isEqualTo _side)}) then { _veh getVariable [ARWA_kill_bonus, 0]; } else { 0; };
+	private _adjusted_salvage_bonus = if(ARWA_vehicleKillBonus == 1) then { _kill_bonus; } else { _kill_bonus * 2; };
+	private _total_manpower_points = _adjusted_salvage_bonus + _manpower;
+
+	if(_total_manpower_points > 0 ) then {
+		[_side, _total_manpower_points] remoteExec ["ARWA_increase_manpower_server", 2];
+
+		if(_manpower > 0) then {
+			systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
+		};
+
+		if(_adjusted_salvage_bonus > 0) then {
+			systemChat format[localize "ARWA_STR_YOU_ADDED_SALVAGE_MANPOWER", _adjusted_salvage_bonus];
+		};
+	};
+
+	deleteVehicle _veh;
+};
+
+ARWA_throw_out_players = {
+	params ["_veh"];
+	{
+		if(isPlayer _x) then {
+			moveOut _x;
+		};
+	} forEach crew _veh;
 };
 
 ARWA_get_owned_sectors = {

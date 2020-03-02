@@ -20,23 +20,12 @@
         <Key ID="ARWA_STR_CANNOT_RETURN_INTERCEPTOR">
             <English>You cannot return interceptor while enemies are nearby</English>
         </Key>
-          <Key ID="ARWA_STR_ENEMY_COMMANDER_KILLED">
-            <English>The enemy resistance leader has been killed!</English>
-        </Key>
+
         <Key ID="ARWA_STR_SECTOR_NOT_SAFE">
             <English>This sector is not safe!</English>
         </Key>
         <Key ID="ARWA_STR_CANNOT_TRAVEL_TO_THIS_SECTOR_ANYMORE">
             <English>You cannot travel to this sector anymore!</English>
-        </Key>
-        <Key ID="ARWA_STR_ENEMY_COMMANDER_ALERTED">
-            <English>Radio activity indicates that the enemy commander has been alerted!</English>
-        </Key>
-          <Key ID="ARWA_STR_ENEMY_COMMANDER_LOST">
-            <English>We lost track of the enemy resistance leader</English>
-        </Key>
-          <Key ID="ARWA_STR_ENEMY_COMMANDER_IN_AREA">
-            <English>Intelligence has picked up that a high ranking enemy resistance leader is in the area</English>
         </Key>
          <Key ID="ARWA_STR_AERIAL_SAFE_ZONE">
             <English>Aerial safe zone</English>
@@ -78,6 +67,10 @@
         </Key>
         <Key ID="ARWA_STR_YOU_ADDED_MANPOWER">
             <English>You added %1 manpower points</English>
+            <German>%1 MP hinzugefügt</German>
+        </Key>
+         <Key ID="ARWA_STR_YOU_ADDED_SALVAGE_MANPOWER">
+            <English>You added %1 manpower points by salvaging an enemy vehicle</English>
             <German>%1 MP hinzugefügt</German>
         </Key>
          <Key ID="ARWA_STR_KILLED_CIVILIAN_PENALTY">
@@ -135,9 +128,6 @@
             <English>Get helicopter</English>
             <German>Helikopter anfordern</German>
         </Key>
-        <Key ID="ARWA_STR_REARM_ARSENAL">
-            <English>Rearm with arsenal</English>
-        </Key>
         <Key ID="ARWA_STR_JOIN_SQUAD">
             <English>Join squad</English>
             <German>Trupp beitreten</German>
@@ -158,6 +148,9 @@
         <Key ID="ARWA_STR_UPDATE_TRANSPORT_ORDERS">
             <English>Update transport orders</English>
             <German>Transportbefehle aktualisieren</German>
+        </Key>
+            <Key ID="ARWA_STR_TAKE_CONTROL">
+            <English>Take control</English>
         </Key>
         <Key ID="ARWA_STR_SEND_TRANSPORT_TO_HQ">
             <English>Send to HQ</English>
@@ -180,7 +173,7 @@
             <German>Transport ist unterwegs zur angegebenen Position!</German>
         </Key>
         <Key ID="ARWA_STR_TRANSPORT_HAS_ARRIVED">
-            <English>Transport has arrived. Waiting for squad to pick up!</English>
+            <English>Transport has arrived at given location!</English>
             <German>Transport ist angekommen. Erwarte Trupp zur Aufnahme!</German>
         </Key>
          <Key ID="ARWA_STR_TRANSPORT_DOWN">
@@ -355,6 +348,12 @@
         </Key>
         <Key ID="ARWA_STR_SEND_DRONE_TO_HQ">
             <English>Send drone to HQ</English>
+        </Key>
+         <Key ID="ARWA_STR_HQ_COMMANDER">
+            <English>Go to HQ commander</English>
+        </Key>
+         <Key ID="ARWA_STR_OUTSIDE_HQ_AREA">
+            <English>Stay close to HQ</English>
         </Key>
     </Package>
     <Package name="KPPLM">

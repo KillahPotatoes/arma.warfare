@@ -1,42 +1,47 @@
 ARWA_spawn_static_sector_defense = {
 	params ["_sector"];
 
-	private _pos = getPos _sector;
-	private _owner = _sector getVariable ARWA_KEY_owned_by;
+	private _spawn_positions = _sector getVariable [ARWA_KEY_static_spawn_positions, []];
 
-	private _static_defense = [_pos, _owner] call ARWA_spawn_static;
+	if(_spawn_positions isEqualTo []) exitWith {};
 
-	if(isNil "_static_defense") exitWith {};
+	private _initial_owner = _sector getVariable ARWA_KEY_owned_by;
+	private _current_owner = _initial_owner;
 
-	_sector setVariable [ARWA_KEY_static_defense, _static_defense];
-	[_sector, _pos] spawn ARWA_reinforce_static_defense;
+	while {_initial_owner isEqualTo _current_owner} do {
+		[_sector, _current_owner, _spawn_positions] call ARWA_spawn_static;
+		sleep 1800;
+		private _current_owner = _sector getVariable ARWA_KEY_owned_by;
+	};
 };
 
 ARWA_spawn_static = {
-	params ["_pos", "_side"];
+	params ["_sector", "_side", "_spawn_positions"];
 
 	if(!(_side call ARWA_has_manpower)) exitWith {};
+
+	private _pos = getPos _sector;
+	private _enemies_nearby = [_pos, _side, ARWA_sector_size] call ARWA_any_enemies_in_area;
+
+	if(_enemies_nearby) exitWith {};
 
 	private _available_art = [_side, ARWA_KEY_static_artillery] call ARWA_get_units_based_on_tier;
 	if(_available_art isEqualTo []) exitWith {};
 
-	private _static_pos = _pos;
-	private _maxDist = 25;
+	private _clear_spawn_positions = _spawn_positions select { !([getPos _x] call ARWA_anything_too_close); };
 
-	while{_static_pos isEqualTo _pos && _maxDist < ARWA_sector_size} do {
-		private _new_pos = [_pos, 5, _maxDist, 10, 0, 0, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
-		_static_pos = if(isOnRoad _new_pos) then { _pos; } else { _new_pos; };
-		_maxDist = _maxDist + 25;
-	};
+	if(_clear_spawn_positions isEqualTo []) exitWith {};
 
-	if(_static_pos isEqualTo _pos) exitWith {};
+	private _spawn_position = selectRandom _clear_spawn_positions;
+
+	private _pos = getPos _spawn_position;
+	private _dir = getDir _spawn_position;
 
 	private _static_artillery = selectRandom (_available_art);
 	private _type = _static_artillery select 0;
 	private _kill_bonus = _static_artillery select 1;
 
-	private _orientation = random 360;
-	private _static = [_static_pos, _orientation, _type, _side, _kill_bonus] call ARWA_spawn_vehicle;
+	private _static = [_pos, _dir, _type, _side, _kill_bonus] call ARWA_spawn_vehicle;
 	private _group = _static select 2;
 
 	_group deleteGroupWhenEmpty true;
@@ -59,8 +64,7 @@ ARWA_spawn_static = {
 
 	private _veh = _static select 0;
 	[_veh] spawn ARWA_add_rearm_delay_event;
-
-	_static;
+	[_static, _sector] spawn ARWA_remove_static;
 };
 
 ARWA_add_rearm_delay_event = {
@@ -89,63 +93,22 @@ ARWA_rearm_delay = {
 };
 
 ARWA_remove_static = {
-	params ["_static"];
-	private _group = _static select 2;
+	params ["_static", "_sector"];
 
-	{
-		_x setDamage 1;
-	} forEach units _group;
-
-	(_static select 0) setDamage 1
-};
-
-ARWA_reinforce_static_defense = {
-	params ["_sector", "_pos"];
-
-	private _static_defense = _sector getVariable ARWA_KEY_static_defense;
-	private _initial_owner = side (_static_defense select 2);
-	private _current_owner = _initial_owner;
-	private _timer = time;
-	private _reinforce = false;
-
-	while {_current_owner isEqualTo _initial_owner} do {
-		private _enemies_nearby = [_pos, _current_owner, ARWA_sector_size] call ARWA_any_enemies_in_area;
-
-		if(!_enemies_nearby && {!([_static_defense] call ARWA_static_fully_alive)}) then {
-			if(time > _timer) then {
-
-				if(_reinforce) exitWith {
-					format["Reinforcing static at sector %1 for %2", _sector getVariable ARWA_KEY_target_name, _initial_owner] spawn ARWA_debugger;
-					[_static_defense] spawn ARWA_remove_static;
-					private _new_static_defense = [_pos, _current_owner] call ARWA_spawn_static;
-
-					if(isNil "_new_static_defense") exitWith {};
-
-					_sector setVariable [ARWA_KEY_static_defense, _new_static_defense];
-
-					_reinforce = false;
-				};
-
-				_timer = time + ARWA_static_defense_reinforcement_interval;
-				_reinforce = true;
-			};
-		};
-
-		sleep 10;
-		_current_owner = _sector getVariable ARWA_KEY_owned_by;
-	};
-
-	[_static_defense] spawn ARWA_remove_static;
-
-	format["Stopped reinforcing static at sector %1 for %2", _sector getVariable ARWA_KEY_target_name, _initial_owner] spawn ARWA_debugger;
-};
-
-ARWA_static_fully_alive = {
-	params ["_static"];
-
+	private _sector_side = _sector getVariable ARWA_KEY_owned_by;
 	private _group = _static select 2;
 	private _veh = _static select 0;
+	private _static_side = side _group;
 
-	(({alive _x} count units _group) > 0 && (damage _veh < 1));
+	while {_sector_side isEqualTo _static_side} do {
+		sleep 30;
+		_sector_side = _sector getVariable ARWA_KEY_owned_by;
+	};
+
+	if(!isNil "_veh") then {
+		_veh setDamage 1
+	};
 };
+
+
 

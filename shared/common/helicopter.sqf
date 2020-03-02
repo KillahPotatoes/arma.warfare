@@ -53,10 +53,6 @@ ARWA_land_helicopter = {
 		[_heli_vehicle] spawn ARWA_toggle_damage_while_landing;
 		_heli_vehicle land _mode;
 	};
-
-  	sleep 3;
-
-	waitUntil { !(alive _heli_vehicle) || (isTouchingGround _heli_vehicle) };
 };
 
 ARWA_toggle_damage_while_landing = {
@@ -84,16 +80,7 @@ ARWA_despawn_air = {
 		waitUntil { !(alive _veh) || ((_pos distance2D (getPos _veh)) < 200) || (unitReady _veh) };
 
 		if ((alive _veh) && ((_pos distance2D (getPos _veh)) < 200)) exitWith	{
-			private _manpower = (_veh call ARWA_remove_soldiers) + (_veh call ARWA_get_manpower);
-
-			_veh setVariable [ARWA_KEY_manpower, 0];
-
-			if(_manpower > 0) then {
-				[playerSide, _manpower] remoteExec ["ARWA_increase_manpower_server", 2];
-				systemChat format[localize "ARWA_STR_YOU_ADDED_MANPOWER", _manpower];
-			};
-
-			deleteVehicle _veh;
+			[_veh, _side] call ARWA_delete_vehicle;
 			format["Despawn %1 %2", _veh, _side] spawn ARWA_debugger;
 			true;
 		};

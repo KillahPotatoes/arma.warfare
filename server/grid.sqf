@@ -12,7 +12,7 @@ ARWA_find_grid_area = {
 	} foreach ARWA_sectors;
 
 	{
-		private _hq_pos = getMarkerPos ([_x, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _hq_pos = [_x] call ARWA_get_hq_pos;
 		_locations append [_hq_pos];
 	} forEach ARWA_all_sides;
 

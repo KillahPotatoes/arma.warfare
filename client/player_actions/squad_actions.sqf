@@ -130,5 +130,5 @@ ARWA_take_lead_menu = {
 		};
 
 		(group player) selectLeader player;
-	}, [], ARWA_squad_actions, false, true, "", '[] call ARWA_can_take_lead', 10]
+	}, [], ARWA_squad_actions, false, true, "", '[] call ARWA_can_take_lead']
 };

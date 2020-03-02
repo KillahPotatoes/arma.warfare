@@ -1,17 +1,15 @@
-ARWA_commander_timeout = time;
-
 ARWA_check_houses_to_populate = {
 	params ["_player"];
 
 	private _houses = (_player nearObjects ["house", ARWA_max_distance_presence]) - (_player nearObjects ["house", ARWA_min_distance_presence]);
 	private _player_pos = getPos _player;
-	private _player_side = side _player;
+	private _player_side = side group _player;
 
 	_houses = (_houses) call BIS_fnc_arrayShuffle;
 
 	{
 		private _house = _x;
-		private _hq_pos = getMarkerPos ([_player_side, ARWA_KEY_respawn_ground] call ARWA_get_prefixed_name);
+		private _hq_pos = [_player_side] call ARWA_get_hq_pos;
 		private _pos = getPos _house;
 		private _distance_to_hq = _hq_pos distance2D _pos;
 
@@ -46,54 +44,6 @@ ARWA_house_can_be_populated = {
 	(_sector_pos distance2D _house_pos) > _distance_from_sector && {!([_house_pos, _sympathizer_side, ARWA_min_distance_presence] call ARWA_any_enemies_in_area)}
 };
 
-ARWA_create_commander = {
-	params ["_group", "_player_side"];
-	private _commander = leader _group;
-	private _commander_manpower = ARWA_starting_strength / 10;
-
-	format["Spawn %1 sympathizer commander with %2 manpower", side _group, _commander_manpower] spawn ARWA_debugger;
-	_commander setVariable [ARWA_KEY_manpower, _commander_manpower, true];
-	_commander addHeadgear "H_Beret_Colonel";
-
-	[leader _group, _player_side] spawn ARWA_commander_state;
-};
-
-ARWA_commander_behaviour = {
-	params ["_commander", "_player_side"];
-
-	_commander setBehaviour "SAFE";
-	waitUntil { !(behaviour _commander isEqualTo "SAFE"); };
-	[_player_side, ["ARWA_STR_ENEMY_COMMANDER_ALERTED"]] remoteExec ["ARWA_HQ_report_client"];
-	_commander allowFleeing 1;
-
-	private _manpower = _commander getVariable [ARWA_KEY_manpower, 0];
-
-	while{_manpower > 5} do {
-		if(isNil "_commander" || {!alive _commander}) exitWith {};
-		_manpower = _manpower - 1;
-		_commander setVariable [ARWA_KEY_manpower, _manpower, true];
-		sleep 2;
-	};
-};
-
-ARWA_commander_marker = {
-	params ["_commander", "_player_side"];
-
-	private _commander_pos = getPos _commander;
-	private _marker = format["commander_marker_%1", toString _commander_pos];
-
-	private _markerPos = [[[_commander_pos, 100]], []] call BIS_fnc_randomPos;
-
-	[_marker, _markerPos, _commander] remoteExec ["ARWA_commander_marker_client", _player_side];
-};
-
-ARWA_commander_state = {
-	params ["_commander", "_player_side"];
-
-	[_commander, _player_side] spawn ARWA_commander_behaviour;
-	[_commander, _player_side] spawn ARWA_commander_marker;
-};
-
 ARWA_populate_house = {
 	params ["_side", "_building", "_owner", "_is_safe_area", "_player_side"];
 
@@ -114,22 +64,9 @@ ARWA_populate_house = {
 		[_building, _group] call ARWA_place_random_people_in_house;
 		[_group, _building] spawn ARWA_remove_from_house_when_no_player_closeby;
 
-		private _commander = if(ARWA_commander_timeout > time && {!_is_safe_area} && {_random_number_of_people > 1}) then {
-			if(_owner isEqualTo civilian) then {
-				[10] call ARWA_percent_chance;
-			} else {
-				[20] call ARWA_percent_chance;
-			};
-		} else {
-			false;
-		};
 
-		if(_commander) then {
-			ARWA_commander_timeout = time + 900 + (random 900);
-			[_group, _player_side] spawn ARWA_create_commander;
-		};
 
-		if(!_commander && [20] call ARWA_percent_chance) then {
+		if([20] call ARWA_percent_chance) then {
 			[_group] spawn ARWA_free_waypoint;
 		};
 	} else {

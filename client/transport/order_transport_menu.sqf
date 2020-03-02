@@ -1,7 +1,6 @@
 [] call compileFinal preprocessFileLineNumbers "client\transport\active_transport_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\transport\ground_transport.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\transport\transport_controller.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\transport\driver_controller.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\transport\request_transport.sqf";
 
 ARWA_transport_options = [];

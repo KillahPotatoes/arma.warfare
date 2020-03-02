@@ -90,7 +90,7 @@ ARWA_show_friendly_markers = {
 			if (ARWA_show_all
 				|| (_x call ARWA_any_alive)
 				&& !_sympathizers
-				&& ((side _x) in ARWA_visible_markers)
+				&& ((side _x) isEqualTo playerSide)
 				&& (!(_x getVariable [ARWA_KEY_defense, false]))
 				&& ((_leader distance2D [0,0]) > 100)) then {
 

@@ -1,4 +1,6 @@
 // Deactivate BI Revive when ACE Medical is running
+
+
 if (isClass (configfile >> "CfgPatches" >> "ace_medical")) then {
     bis_reviveParam_mode = 0;
     if (isServer) then {diag_log "[arma.warfare] ACE Medical detected. Deactivating BI Revive System.";};
@@ -49,7 +51,6 @@ ARWA_AllowFastTravel = (["AllowFastTravel", 0] call BIS_fnc_getParamValue) > 0;
 
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\player_actions\get_intel_action.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\interceptor_actions.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_custom_units.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\fast_travel.sqf";
@@ -59,6 +60,7 @@ ARWA_AllowFastTravel = (["AllowFastTravel", 0] call BIS_fnc_getParamValue) > 0;
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\create_briefing.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\hq_commander.sqf";
 
 
 player setVariable [ARWA_KEY_manpower, 0];
@@ -68,7 +70,6 @@ player setVariable ["kills", 0, true];
 [group player] remoteExec ["ARWA_add_battle_group", 2];
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\ui\enemy_commander_ui.sqf";
 
 [] spawn ARWA_show_friendly_markers;
 [] spawn ARWA_show_manpower_markers;

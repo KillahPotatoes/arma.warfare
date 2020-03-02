@@ -8,7 +8,11 @@ ARWA_random_activity = {
 		ARWA_random_vehicles = [ARWA_random_vehicles] call ARWA_remove_null;
 
 		if(ARWA_max_random_people > count ARWA_random_people || ARWA_max_random_vehicles > count ARWA_random_vehicles ) then {
-			private _player = selectRandom allPlayers;
+			private _alive_players = allPlayers select { alive _x; };
+
+			if(_alive_players isEqualTo []) exitWith {};
+
+			private _player = selectRandom _alive_players;
 			private _class_name = typeOf (vehicle _player);
 
 			if(!([_class_name, ARWA_KEY_interceptor] call ARWA_is_type_of)) then {

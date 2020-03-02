@@ -19,6 +19,7 @@ ARWA_be_commander = {
 	_commander switchCamera "EXTERNAL";
 
 	[_commander, _pos] spawn ARWA_warn_distance_to_hq;
+	[_commander] spawn ARWA_remove_vehicle_action;
 
 	waitUntil { cameraOn isEqualTo (vehicle player) || (_commander distance2D _pos) > ARWA_HQ_area; };
 

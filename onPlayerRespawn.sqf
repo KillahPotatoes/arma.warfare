@@ -12,7 +12,7 @@ if(_fatigue == 0) then {
 [] spawn ARWA_add_take_manpower;
 [] spawn ARWA_add_store_manpower;
 [] spawn ARWA_show_order_uav;
-[] spawn ARWA_remove_vehicle_action;
+[player] spawn ARWA_remove_vehicle_action;
 [] spawn ARWA_hq_commander_action;
 
 [localize "ARWA_STR_REQUEST_AIR_TRANSPORT", ARWA_KEY_helicopter, ARWA_air_transport_actions] spawn ARWA_show_order_transport;

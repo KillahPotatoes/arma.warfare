@@ -5,21 +5,21 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=513;
+	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1207;
+		nextID=1196;
 	};
 	class LayerIndexProvider
 	{
-		nextID=194;
+		nextID=192;
 	};
 	class Camera
 	{
-		pos[]={6020.6694,144.76794,4901.9233};
-		dir[]={-0.18099146,-0.70173752,0.68906325};
-		up[]={-0.17827338,0.71243501,0.67871535};
-		aside[]={0.96719265,6.5629138e-009,0.25404575};
+		pos[]={-28.423195,3.8209081,-21.248039};
+		dir[]={0.30401769,-0.21807732,0.9273724};
+		up[]={0.067934625,0.97593099,0.20722792};
+		aside[]={0.95024401,6.1118044e-009,-0.31151536};
 	};
 };
 binarizationWanted=0;
@@ -40,9 +40,7 @@ addons[]=
 	"A3_Structures_F_Civ_Garbage",
 	"A3_Structures_F_Civ_Constructions",
 	"cba_main",
-	"A3_Characters_F",
-	"asr_ai3_skills",
-	"A3_Supplies_F_Heli_CargoNets"
+	"A3_Characters_F"
 };
 class AddonsMetaData
 {
@@ -170,7 +168,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=70;
+		items=85;
 		class Item0
 		{
 			dataType="Object";
@@ -1003,6 +1001,126 @@ class Mission
 		};
 		class Item21
 		{
+			dataType="Marker";
+			position[]={4364.877,226.91397,3822.9744};
+			name="sector_Air_Station_Mike";
+			type="hd_objective";
+			id=1016;
+			atlOffset=0.057418823;
+		};
+		class Item22
+		{
+			dataType="Marker";
+			position[]={3689.7354,156.4241,2869.9492};
+			name="sector_Camp_Maxwell_Checkpoint";
+			type="hd_objective";
+			id=1017;
+			atlOffset=0.057418823;
+		};
+		class Item23
+		{
+			dataType="Marker";
+			position[]={5022.583,208.56665,5898.2603};
+			name="sector_Camp_Rogain";
+			type="hd_objective";
+			id=1018;
+			atlOffset=0.057418823;
+		};
+		class Item24
+		{
+			dataType="Marker";
+			position[]={1940.9856,3.967088,3559.1482};
+			name="sector_Camp_Tempest";
+			type="hd_objective";
+			id=1019;
+			atlOffset=1.198858;
+		};
+		class Item25
+		{
+			dataType="Marker";
+			position[]={2012.4583,4.2938361,2689.1763};
+			name="sector_Girna";
+			type="hd_objective";
+			id=1020;
+			atlOffset=0.057426453;
+		};
+		class Item26
+		{
+			dataType="Marker";
+			position[]={3246.9163,5.0727258,5804.5151};
+			name="sector_Agia_Marina_Military_Range";
+			type="hd_objective";
+			id=1021;
+			atlOffset=0.057426453;
+		};
+		class Item27
+		{
+			dataType="Marker";
+			position[]={2982.3875,171.45743,1870.7642};
+			name="sector_LZ_Connor";
+			type="hd_objective";
+			id=1023;
+			atlOffset=0.057434082;
+		};
+		class Item28
+		{
+			dataType="Marker";
+			position[]={4508.7896,202.02246,6789.8936};
+			name="sector_Kill_Farm";
+			type="hd_objective";
+			id=1024;
+			atlOffset=95.718254;
+		};
+		class Item29
+		{
+			dataType="Marker";
+			position[]={4321.9043,177.24869,4369.3032};
+			name="sector_Old_Outpost";
+			type="hd_objective";
+			id=1025;
+		};
+		class Item30
+		{
+			dataType="Marker";
+			position[]={5254.6494,223.42212,5040.1802};
+			name="sector_Radar_Outpost";
+			type="hd_objective";
+			id=1026;
+			atlOffset=0.057434082;
+		};
+		class Item31
+		{
+			dataType="Marker";
+			position[]={2110.3831,6.7087107,5611.7495};
+			name="alpha_respawn_ground";
+			type="respawn_unknown";
+			colorName="ColorWEST";
+			angle=105.67449;
+			id=1028;
+		};
+		class Item32
+		{
+			dataType="Marker";
+			position[]={2591.4626,64.250389,655.63428};
+			name="bravo_respawn_ground";
+			type="respawn_unknown";
+			colorName="ColorRed";
+			id=1029;
+			atlOffset=0.057426453;
+		};
+		class Item33
+		{
+			dataType="Marker";
+			position[]={6470.8213,14.464824,5314.4224};
+			name="charlie_respawn_ground";
+			type="respawn_unknown";
+			colorName="ColorGreen";
+			angle=230.91495;
+			id=1030;
+			atlOffset=0.057427406;
+		};
+		class Item34
+		{
 			dataType="Object";
 			class PositionInfo
 			{
@@ -1018,7 +1136,7 @@ class Mission
 			id=1031;
 			type="Land_ClutterCutter_large_F";
 		};
-		class Item22
+		class Item35
 		{
 			dataType="Marker";
 			position[]={8169.6812,-26.823235,-19.443848};
@@ -1028,7 +1146,25 @@ class Mission
 			id=1032;
 			atlOffset=86.626762;
 		};
-		class Item23
+		class Item36
+		{
+			dataType="Marker";
+			position[]={2882.5732,3.3490515,6063.3921};
+			name="sector_Agia_Marina";
+			type="hd_objective";
+			id=1058;
+			atlOffset=0.057426691;
+		};
+		class Item37
+		{
+			dataType="Marker";
+			position[]={3470.8564,126.20508,3806.8103};
+			name="sector_Camp_Courage";
+			type="hd_objective";
+			id=1059;
+			atlOffset=-1.7402954;
+		};
+		class Item38
 		{
 			dataType="Layer";
 			name="Camp Courage";
@@ -1919,7 +2055,7 @@ class Mission
 			id=1060;
 			atlOffset=1.0937347;
 		};
-		class Item24
+		class Item39
 		{
 			dataType="Object";
 			class PositionInfo
@@ -1936,7 +2072,107 @@ class Mission
 			type="Land_Cargo_Tower_V3_F";
 			atlOffset=0.057403564;
 		};
-		class Item25
+		class Item40
+		{
+			dataType="Marker";
+			position[]={3470.8674,128.00641,3806.6211};
+			name="marker_2";
+			text="Camp Courage";
+			type="loc_Bush";
+			colorName="ColorBlack";
+			a=0;
+			b=0;
+			id=1112;
+			atlOffset=0.057434082;
+		};
+		class Item41
+		{
+			dataType="Marker";
+			position[]={3689.8684,156.43668,2870.1882};
+			name="marker_1";
+			text="Camp Maxwell Checkpoint";
+			type="loc_Bush";
+			colorName="ColorBlack";
+			a=0;
+			b=0;
+			id=1113;
+			atlOffset=0.057403564;
+		};
+		class Item42
+		{
+			dataType="Marker";
+			position[]={3510.3132,200.62683,4917.0503};
+			name="marker_3";
+			text="Mountain Outpost";
+			type="loc_Bush";
+			colorName="ColorBlack";
+			a=0;
+			b=0;
+			id=1114;
+			atlOffset=0.057434082;
+		};
+		class Item43
+		{
+			dataType="Marker";
+			position[]={5249.8672,223.51239,5030.1572};
+			name="marker_4";
+			text="Radar Outpost";
+			type="loc_Bush";
+			colorName="ColorBlack";
+			a=0;
+			b=0;
+			id=1115;
+			atlOffset=0.057418823;
+		};
+		class Item44
+		{
+			dataType="Marker";
+			position[]={3254.5842,5.1244578,5804.4712};
+			name="marker_6";
+			text="Military Range";
+			type="loc_Bush";
+			colorName="ColorBlack";
+			a=0;
+			b=0;
+			id=1116;
+			atlOffset=0.057426453;
+		};
+		class Item45
+		{
+			dataType="Marker";
+			position[]={4323.958,177.33267,4372.6401};
+			name="marker_7";
+			text="Old Outpost";
+			type="loc_Bush";
+			colorName="ColorBlack";
+			a=0;
+			b=0;
+			id=1117;
+			atlOffset=0.057434082;
+		};
+		class Item46
+		{
+			dataType="Marker";
+			position[]={2983.0813,171.45743,1870.9712};
+			name="marker_8";
+			text="LZ Connor";
+			type="loc_Bush";
+			colorName="ColorBlack";
+			a=0;
+			b=0;
+			id=1118;
+			atlOffset=0.057434082;
+		};
+		class Item47
+		{
+			dataType="Marker";
+			position[]={3534.3159,197.867,4915.8418};
+			name="sector_Mountain_Outpost";
+			type="hd_objective";
+			id=1122;
+			atlOffset=-3.2677307;
+		};
+		class Item48
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -1947,7 +2183,7 @@ class Mission
 			type="CBA_main_require";
 			atlOffset=7.6293945e-005;
 		};
-		class Item26
+		class Item49
 		{
 			dataType="Group";
 			side="West";
@@ -2021,7 +2257,7 @@ class Mission
 			id=1124;
 			atlOffset=141.65747;
 		};
-		class Item27
+		class Item50
 		{
 			dataType="Group";
 			side="East";
@@ -2094,7 +2330,7 @@ class Mission
 			id=1126;
 			atlOffset=141.65747;
 		};
-		class Item28
+		class Item51
 		{
 			dataType="Group";
 			side="West";
@@ -2167,7 +2403,7 @@ class Mission
 			id=1128;
 			atlOffset=141.65746;
 		};
-		class Item29
+		class Item52
 		{
 			dataType="Group";
 			side="West";
@@ -2241,7 +2477,7 @@ class Mission
 			id=1130;
 			atlOffset=141.6575;
 		};
-		class Item30
+		class Item53
 		{
 			dataType="Group";
 			side="West";
@@ -2314,7 +2550,7 @@ class Mission
 			id=1132;
 			atlOffset=142.09692;
 		};
-		class Item31
+		class Item54
 		{
 			dataType="Group";
 			side="East";
@@ -2387,7 +2623,7 @@ class Mission
 			id=1134;
 			atlOffset=141.65749;
 		};
-		class Item32
+		class Item55
 		{
 			dataType="Group";
 			side="East";
@@ -2460,7 +2696,7 @@ class Mission
 			id=1136;
 			atlOffset=141.65749;
 		};
-		class Item33
+		class Item56
 		{
 			dataType="Group";
 			side="East";
@@ -2533,7 +2769,7 @@ class Mission
 			id=1138;
 			atlOffset=141.65749;
 		};
-		class Item34
+		class Item57
 		{
 			dataType="Group";
 			side="Independent";
@@ -2606,7 +2842,7 @@ class Mission
 			id=1140;
 			atlOffset=141.65749;
 		};
-		class Item35
+		class Item58
 		{
 			dataType="Group";
 			side="Independent";
@@ -2679,7 +2915,7 @@ class Mission
 			id=1142;
 			atlOffset=141.65749;
 		};
-		class Item36
+		class Item59
 		{
 			dataType="Group";
 			side="Independent";
@@ -2752,7 +2988,7 @@ class Mission
 			id=1144;
 			atlOffset=141.65749;
 		};
-		class Item37
+		class Item60
 		{
 			dataType="Group";
 			side="Independent";
@@ -2825,7 +3061,7 @@ class Mission
 			id=1146;
 			atlOffset=141.65749;
 		};
-		class Item38
+		class Item61
 		{
 			dataType="Group";
 			side="West";
@@ -2899,7 +3135,7 @@ class Mission
 			id=1148;
 			atlOffset=142.23161;
 		};
-		class Item39
+		class Item62
 		{
 			dataType="Group";
 			side="West";
@@ -2972,7 +3208,7 @@ class Mission
 			id=1150;
 			atlOffset=142.23161;
 		};
-		class Item40
+		class Item63
 		{
 			dataType="Group";
 			side="West";
@@ -3046,7 +3282,7 @@ class Mission
 			id=1152;
 			atlOffset=142.23161;
 		};
-		class Item41
+		class Item64
 		{
 			dataType="Group";
 			side="West";
@@ -3119,7 +3355,7 @@ class Mission
 			id=1154;
 			atlOffset=142.23161;
 		};
-		class Item42
+		class Item65
 		{
 			dataType="Group";
 			side="West";
@@ -3193,7 +3429,7 @@ class Mission
 			id=1156;
 			atlOffset=143.11613;
 		};
-		class Item43
+		class Item66
 		{
 			dataType="Group";
 			side="West";
@@ -3266,7 +3502,7 @@ class Mission
 			id=1158;
 			atlOffset=141.65746;
 		};
-		class Item44
+		class Item67
 		{
 			dataType="Group";
 			side="West";
@@ -3340,7 +3576,7 @@ class Mission
 			id=1160;
 			atlOffset=141.65747;
 		};
-		class Item45
+		class Item68
 		{
 			dataType="Group";
 			side="West";
@@ -3413,7 +3649,7 @@ class Mission
 			id=1162;
 			atlOffset=142.09544;
 		};
-		class Item46
+		class Item69
 		{
 			dataType="Group";
 			side="East";
@@ -3486,7 +3722,7 @@ class Mission
 			id=1164;
 			atlOffset=141.65747;
 		};
-		class Item47
+		class Item70
 		{
 			dataType="Group";
 			side="East";
@@ -3559,7 +3795,7 @@ class Mission
 			id=1166;
 			atlOffset=141.65749;
 		};
-		class Item48
+		class Item71
 		{
 			dataType="Group";
 			side="East";
@@ -3632,7 +3868,7 @@ class Mission
 			id=1168;
 			atlOffset=141.65749;
 		};
-		class Item49
+		class Item72
 		{
 			dataType="Group";
 			side="East";
@@ -3705,7 +3941,7 @@ class Mission
 			id=1170;
 			atlOffset=141.65749;
 		};
-		class Item50
+		class Item73
 		{
 			dataType="Group";
 			side="East";
@@ -3778,7 +4014,7 @@ class Mission
 			id=1172;
 			atlOffset=141.65749;
 		};
-		class Item51
+		class Item74
 		{
 			dataType="Group";
 			side="East";
@@ -3851,7 +4087,7 @@ class Mission
 			id=1174;
 			atlOffset=141.65747;
 		};
-		class Item52
+		class Item75
 		{
 			dataType="Group";
 			side="East";
@@ -3924,7 +4160,7 @@ class Mission
 			id=1176;
 			atlOffset=141.65749;
 		};
-		class Item53
+		class Item76
 		{
 			dataType="Group";
 			side="East";
@@ -3997,7 +4233,7 @@ class Mission
 			id=1178;
 			atlOffset=141.65749;
 		};
-		class Item54
+		class Item77
 		{
 			dataType="Group";
 			side="Independent";
@@ -4070,7 +4306,7 @@ class Mission
 			id=1180;
 			atlOffset=141.65749;
 		};
-		class Item55
+		class Item78
 		{
 			dataType="Group";
 			side="Independent";
@@ -4143,7 +4379,7 @@ class Mission
 			id=1182;
 			atlOffset=141.65749;
 		};
-		class Item56
+		class Item79
 		{
 			dataType="Group";
 			side="Independent";
@@ -4216,7 +4452,7 @@ class Mission
 			id=1184;
 			atlOffset=141.65749;
 		};
-		class Item57
+		class Item80
 		{
 			dataType="Group";
 			side="Independent";
@@ -4289,7 +4525,7 @@ class Mission
 			id=1186;
 			atlOffset=141.65747;
 		};
-		class Item58
+		class Item81
 		{
 			dataType="Group";
 			side="Independent";
@@ -4362,7 +4598,7 @@ class Mission
 			id=1188;
 			atlOffset=141.65749;
 		};
-		class Item59
+		class Item82
 		{
 			dataType="Group";
 			side="Independent";
@@ -4435,7 +4671,7 @@ class Mission
 			id=1190;
 			atlOffset=141.65749;
 		};
-		class Item60
+		class Item83
 		{
 			dataType="Group";
 			side="Independent";
@@ -4508,7 +4744,7 @@ class Mission
 			id=1192;
 			atlOffset=141.65749;
 		};
-		class Item61
+		class Item84
 		{
 			dataType="Group";
 			side="Independent";
@@ -4580,331 +4816,6 @@ class Mission
 			};
 			id=1194;
 			atlOffset=141.12277;
-		};
-		class Item62
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={2603.1814,64.924416,651.26129};
-				angles[]={6.2656889,4.1114492,6.2806959};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="HQ_bravo";
-			};
-			id=1199;
-			type="B_CargoNet_01_ammo_F";
-			atlOffset=-0.0001373291;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item63
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={2122.4128,7.3370957,5611.9536};
-				angles[]={6.2806959,4.9044828,6.2756844};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="HQ_alpha";
-			};
-			id=1200;
-			type="B_CargoNet_01_ammo_F";
-			atlOffset=-1.9550323e-005;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item64
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={6459.126,16.208344,5298.4736};
-				angles[]={0.084796712,5.9166903,6.2531939};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="HQ_charlie";
-			};
-			id=1201;
-			type="B_CargoNet_01_ammo_F";
-			atlOffset=-0.016270638;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item65
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={5999.6055,88.182365,4960.5942};
-				angles[]={0,5.9166837,0.0075049158};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="FOB_test";
-			};
-			id=1202;
-			type="B_CargoNet_01_ammo_F";
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item66
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={2984.4438,172.2242,1874.359};
-				angles[]={0,5.9166837,6.2806892};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="FOB_FOB_Sondre";
-			};
-			id=1203;
-			type="B_CargoNet_01_ammo_F";
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item67
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={3090.6223,168.63579,2154.5649};
-				angles[]={0.039985489,5.9166837,0.027488936};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="FOB_FOB_Finni";
-			};
-			id=1204;
-			type="B_CargoNet_01_ammo_F";
-			atlOffset=1.5258789e-005;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item68
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={3255.4609,6.1418953,5794.7676};
-				angles[]={0.022497294,5.9166837,0.0024958209};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="FOB_FOB_Ole";
-			};
-			id=1205;
-			type="B_CargoNet_01_ammo_F";
-			atlOffset=-4.7683716e-007;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item69
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={5024.9238,209.36664,5898.6284};
-				angles[]={6.2756982,5.9166837,0.012496558};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-				name="FOB_FOB_Sindre";
-			};
-			id=1206;
-			type="B_CargoNet_01_ammo_F";
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ammoBox";
-					expression="[_this,_value] call bis_fnc_initAmmoBox;";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"STRING"
-								};
-							};
-							value="[[[[""arifle_MXC_F"",""arifle_MXM_F"",""arifle_MX_F"",""arifle_MX_GL_F"",""arifle_MX_SW_F"",""arifle_SDAR_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""launch_NLAW_F"",""launch_Titan_F"",""launch_Titan_short_F"",""SMG_01_F"",""srifle_EBR_F"",""srifle_LRR_camo_F"",""srifle_LRR_F""],[4,2,8,4,4,2,2,2,2,2,2,2,2,2,2]],[[""100Rnd_65x39_caseless_mag_Tracer"",""11Rnd_45ACP_Mag"",""16Rnd_9x21_Mag"",""1Rnd_HE_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokeYellow_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""20Rnd_556x45_UW_mag"",""20Rnd_762x51_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_556x45_Stanag_red"",""30Rnd_65x39_caseless_mag"",""3Rnd_HE_Grenade_shell"",""7Rnd_408_Mag"",""APERSBoundingMine_Range_Mag"",""APERSMine_Range_Mag"",""APERSTripMine_Wire_Mag"",""ATMine_Range_Mag"",""B_IR_Grenade"",""ClaymoreDirectionalMine_Remote_Mag"",""DemoCharge_Remote_Mag"",""HandGrenade"",""Laserbatteries"",""MiniGrenade"",""NLAW_F"",""SatchelCharge_Remote_Mag"",""SLAMDirectionalMine_Wire_Mag"",""SmokeShell"",""SmokeShellBlue"",""SmokeShellGreen"",""SmokeShellOrange"",""SmokeShellPurple"",""SmokeShellRed"",""SmokeShellYellow"",""Titan_AA"",""Titan_AP"",""Titan_AT"",""UGL_FlareGreen_F"",""UGL_FlareWhite_F""],[16,14,14,15,2,2,2,2,2,2,2,6,24,14,6,52,3,12,5,5,5,5,8,5,5,24,5,24,8,5,5,2,2,2,2,2,2,2,6,6,6,2,2]],[[""Binocular"",""Laserdesignator"",""Rangefinder"",""acc_flashlight"",""acc_pointer_IR"",""FirstAidKit"",""ItemGPS"",""Medikit"",""MineDetector"",""muzzle_snds_acp"",""muzzle_snds_B"",""muzzle_snds_H"",""muzzle_snds_H_SW"",""muzzle_snds_L"",""optic_Aco"",""optic_Aco_smg"",""optic_DMS"",""optic_Hamr"",""optic_Holosight"",""optic_LRPS"",""optic_MRD"",""optic_NVS"",""optic_SOS"",""optic_tws"",""optic_tws_mg"",""ToolKit""],[1,1,1,5,5,10,5,1,1,5,5,5,1,5,2,2,2,2,2,2,2,2,2,2,2,1]],[[],[]]],false]";
-						};
-					};
-				};
-				nAttributes=1;
-			};
 		};
 	};
 };

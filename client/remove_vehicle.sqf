@@ -1,7 +1,7 @@
 ARWA_remove_vehicle_action = {
-	params["_veh"];
+	params["_unit"];
 
-  	player addAction [[localize "ARWA_STR_RETURN_VEHICLE", 0] call ARWA_add_action_text, {
+  	_unit addAction [[localize "ARWA_STR_RETURN_VEHICLE", 0] call ARWA_add_action_text, {
     	params ["_target", "_caller"];
 
 		[vehicle cursorTarget, playerSide] spawn ARWA_delete_vehicle;

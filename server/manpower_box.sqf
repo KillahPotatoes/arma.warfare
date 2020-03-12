@@ -9,8 +9,9 @@ ARWA_create_manpower_box_unit = {
 		_victim setVariable [ARWA_KEY_manpower, 0, true];
 		private _manpower_box_value = if(isPlayer _victim) then {
 
-			private _player_penalty = ARWA_starting_strength / (5 * ARWA_manpower_penalty_on_player_death);
-			_player_penalty + _manpower;
+			private _player_penalty = if(ARWA_manpower_penalty_on_player_death == 1) then { ARWA_starting_strength / 20; } else { ARWA_starting_strength / 10; };
+			private _faction_manpower = [_victim_side] call ARWA_get_strength;
+			(_faction_manpower min _player_penalty) + _manpower;
 		} else {
 			_manpower;
 		};

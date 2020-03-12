@@ -34,7 +34,7 @@ ARWA_join_nearby_group = {
 
 	private _groups = ([side _group] call ARWA_get_battlegroups) - [_group];
 	private _pos = getPos leader _group;
-	private _nearby_groups = _groups select { [_x, _pos, 100] call ARWA_group_nearby && !([_x] call ARWA_in_vehicle) && !(isPlayer leader _x)};
+	private _nearby_groups = _groups select { [_x, _pos, 200] call ARWA_group_nearby && !([_x] call ARWA_in_vehicle) && !(isPlayer leader _x)};
 
 	if(_nearby_groups isEqualTo []) exitWith { false; };
 

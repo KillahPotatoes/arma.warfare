@@ -118,7 +118,7 @@ ARWA_cancel_on_player_death = {
 
 	if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
-	[_veh, _group, "ARWA_STR_CANCELING_TRANSPORT_MISSION", true] call ARWA_interrupt_transport_misson;
+	[_veh, _group, "ARWA_STR_CANCELING_TRANSPORT_MISSION"] call ARWA_interrupt_transport_misson;
 };
 
 ARWA_interrupt_transport_misson = {

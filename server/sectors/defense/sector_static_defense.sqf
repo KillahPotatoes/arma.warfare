@@ -18,19 +18,29 @@ ARWA_spawn_static_sector_defense = {
 ARWA_spawn_static = {
 	params ["_sector", "_side", "_spawn_positions"];
 
-	if(!(_side call ARWA_has_manpower)) exitWith {};
+	private _sector_name = _sector getVariable ARWA_KEY_target_name;
+
+	format["Spawning artillery in %1", _sector_name] spawn ARWA_debugger;
+
+	if(!(_side call ARWA_has_manpower)) exitWith {
+		format["Cannot spawn artillery in %1: No manpower", _sector_name] spawn ARWA_debugger;
+	};
 
 	private _pos = getPos _sector;
 	private _enemies_nearby = [_pos, _side, ARWA_sector_size] call ARWA_any_enemies_in_area;
 
-	if(_enemies_nearby) exitWith {};
+	if(_enemies_nearby) exitWith {
+		format["Cannot spawn artillery in %1: Enemies nearby", _sector_name] spawn ARWA_debugger;
+	};
 
 	private _available_art = [_side, ARWA_KEY_static_artillery] call ARWA_get_units_based_on_tier;
 	if(_available_art isEqualTo []) exitWith {};
 
 	private _clear_spawn_positions = _spawn_positions select { !([getPos _x] call ARWA_anything_too_close); };
 
-	if(_clear_spawn_positions isEqualTo []) exitWith {};
+	if(_clear_spawn_positions isEqualTo []) exitWith {
+		format["Cannot spawn artillery in %1: No available positions", _sector_name] spawn ARWA_debugger;
+	};
 
 	private _spawn_position = selectRandom _clear_spawn_positions;
 
@@ -63,6 +73,11 @@ ARWA_spawn_static = {
 	} forEach units _group;
 
 	private _veh = _static select 0;
+
+	private _veh_name = _type call ARWA_get_vehicle_display_name;
+
+	format["Spawned %1 at %2", _veh_name, _sector_name] spawn ARWA_debugger;
+
 	[_veh] spawn ARWA_add_rearm_delay_event;
 	[_static, _sector] spawn ARWA_remove_static;
 };

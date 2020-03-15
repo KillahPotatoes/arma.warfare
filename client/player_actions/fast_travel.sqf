@@ -81,6 +81,6 @@ ARWA_fast_travel_menu = {
 		} else {
 			_box setVariable [ARWA_KEY_fast_travel_menu, false];
 		}
-	}, [_box, _name, _pos], ARWA_fast_travel_actions, false, false, "", '[player] call ARWA_is_leader && [_target, _this] call ARWA_owned_by && [] call ARWA_is_not_commander', 10]
+	}, [_box, _name, _pos], ARWA_fast_travel_actions, false, false, "", '[player] call ARWA_is_leader && [_target, _this] call ARWA_owned_by && [] call ARWA_is_not_remote_control', 10]
 };
 

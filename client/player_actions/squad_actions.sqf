@@ -41,7 +41,6 @@ ARWA_leave_squad = {
 			private _current_group = group player;
 			[player] join grpNull;
 			[group player] remoteExec ["ARWA_add_battle_group", 2];
-			[_current_group] remoteExec ["ARWA_add_battle_group", 2];
 			}, nil, ARWA_squad_actions_leave, false, true, "",
     '!(player call ARWA_empty_squad)'
     ];

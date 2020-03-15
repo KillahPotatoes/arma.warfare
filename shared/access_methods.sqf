@@ -11,7 +11,7 @@ ARWA_get_prefixed_side = {
 ARWA_get_hq_pos = {
 	params ["_side"];
 
-	missionNamespace getVariable format["ARWA_HQ_%1", _side];
+	getPos (missionNamespace getVariable format["ARWA_HQ_%1", _side]);
 };
 
 ARWA_get_tier_bound = {

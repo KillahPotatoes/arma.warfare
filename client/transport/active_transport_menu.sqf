@@ -35,10 +35,20 @@ ARWA_show_remote_control = {
 		private _driver = driver _veh;
 		doStop _driver;
 		ARWA_report_transport_arrival = true;
-		private _group = player remoteControl _driver;
+		[_driver] spawn ARWA_remote_control_driver;
 
     }, [_veh], ARWA_active_transport_actions, true, false, "",
     '([] call ARWA_in_transport)'];
+};
+
+ARWA_remote_control_driver = {
+	params ["_driver"];
+
+	player remoteControl _driver;
+
+	waitUntil { [] call ARWA_is_not_remote_control || !([player] call ARWA_is_alive); };
+
+	objNull remoteControl _driver;
 };
 
 ARWA_show_cancel_transport_action = {

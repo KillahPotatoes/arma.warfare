@@ -22,17 +22,17 @@ ARWA_be_commander = {
 	[_commander, _pos] spawn ARWA_warn_distance_to_hq;
 	[_commander] spawn ARWA_remove_vehicle_action;
 
-	waitUntil { [] call ARWA_is_not_commander || (_commander distance2D _pos) > ARWA_HQ_area; };
+	waitUntil { [] call ARWA_is_not_remote_control || (_commander distance2D _pos) > ARWA_HQ_area || !([player] call ARWA_is_alive); };
 
 	deleteVehicle _commander;
 };
 
-ARWA_is_not_commander = {
+ARWA_is_not_remote_control = {
 	cameraOn isEqualTo (vehicle player);
 };
 
-ARWA_is_commander = {
-	!([] call ARWA_is_not_commander);
+ARWA_is_remote_control = {
+	!([] call ARWA_is_not_remote_control);
 };
 
 ARWA_warn_distance_to_hq = {
@@ -44,7 +44,7 @@ ARWA_warn_distance_to_hq = {
 
 		waitUntil { (_commander distance2D _pos) > (ARWA_HQ_area - 10); };
 
-		if(_give_warning && [] call ARWA_is_commander) then {
+		if(_give_warning && [] call ARWA_is_remote_control) then {
 			hint localize "ARWA_STR_OUTSIDE_HQ_AREA";
 			_give_warning = false;
 		};

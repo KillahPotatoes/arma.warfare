@@ -67,7 +67,7 @@ ARWA_add_rearm_arsenal_action = {
 	  _box setVariable [ARWA_KEY_can_rearm, false];
 
     }, [_box], ARWA_rearm_arsenal, true, false, "",
-    '[_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle && [_target] call ARWA_can_rearm && [] call ARWA_is_not_commander', 10];
+    '[_target, _this] call ARWA_owned_by && [_this] call ARWA_not_in_vehicle && [_target] call ARWA_can_rearm && [] call ARWA_is_not_remote_control', 10];
 };
 
 ARWA_can_rearm = {

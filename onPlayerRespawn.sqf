@@ -25,10 +25,10 @@ remove_squad_mates_on_death = {
 
 	if(count units _group > 1) then {
 		[player] joinSilent grpNull;
-		[group player] remoteExec ["ARWA_add_battle_group", 2];
 		[_group] remoteExec ["ARWA_add_battle_group", 2];
 	};
 
+	[group player] remoteExec ["ARWA_add_battle_group", 2];
 	[_group] spawn ARWA_delete_all_waypoints;
 	[0.5, _group] spawn ARWA_adjust_skill;
 };

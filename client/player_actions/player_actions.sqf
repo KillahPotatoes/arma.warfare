@@ -38,7 +38,7 @@ ARWA_add_sector_actions = {
 
 ARWA_can_use_arsenal = {
 	params ["_target", "_this"];
-	(_this distance _target) < 10 && {[_target, _this] call ARWA_owned_by} && {[_this] call ARWA_not_in_vehicle} && {[] call ARWA_is_not_commander};
+	(_this distance _target) < 10 && {[_target, _this] call ARWA_owned_by} && {[_this] call ARWA_not_in_vehicle} && {[] call ARWA_is_not_remote_control};
 };
 
 ARWA_add_HQ_actions = {

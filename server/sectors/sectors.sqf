@@ -27,7 +27,7 @@ ARWA_initialize_ammoboxes = {
 			_ammo_box setVariable [ARWA_KEY_target_name, "HQ", true];
 			_ammo_box setVariable [ARWA_KEY_owned_by, _side, true];
 
-			missionNamespace setVariable [format["ARWA_HQ_%1", _side], _pos, true];
+			missionNamespace setVariable [format["ARWA_HQ_%1", _side], _ammo_box, true];
 
 			[_side, _pos] call BIS_fnc_addRespawnPosition;
 		};

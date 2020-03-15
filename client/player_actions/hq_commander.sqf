@@ -14,6 +14,7 @@ ARWA_be_commander = {
 	private _pos = [playerSide] call ARWA_get_hq_pos;
 	private _commander_classname = missionNamespace getVariable format["ARWA_%1_hq_commander", playerSide];
 	private _commander = (group player) createUnit [_commander_classname, _pos, [], 0, "NONE"];
+	doStop _commander;
 	_commander setName "HQ commander";
 	player remoteControl _commander;
 	_commander switchCamera "EXTERNAL";

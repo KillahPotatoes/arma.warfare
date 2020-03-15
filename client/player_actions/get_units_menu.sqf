@@ -14,6 +14,10 @@ ARWA_create_soldier = {
 	params ["_group", "_class_name", "_pos"];
 	private _unit = _group createUnit[_class_name, _pos, [], 10, "NONE"];
 
+	if(!(cameraOn isEqualTo (vehicle player))) then {
+		doStop _unit;
+	};
+
 	private _new_skill = [] call ARWA_get_skill_based_on_rank;
 	[_new_skill, _group] spawn ARWA_adjust_skill;
 

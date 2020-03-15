@@ -130,7 +130,9 @@ ARWA_register_kill = {
 	if (!(isNil "_victim" || isNil "_killer")) then {
 		private _killer_side = side group _killer;
 		private _victim_side = side group _victim;
-		private _manpower_penalty = ARWA_starting_strength / 10;
+
+		private _penalty_multiplier = [0, 0.05, 0.1] select ARWA_manpower_penalty_on_player_death;
+		private _manpower_penalty = ARWA_starting_strength * _penalty_multiplier;
 
 		if(_victim_side isEqualTo civilian && isPlayer _killer) exitWith {
 			private _killer_faction_strength = (_killer_side call ARWA_get_strength) - _manpower_penalty;

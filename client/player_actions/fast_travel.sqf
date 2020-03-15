@@ -84,6 +84,3 @@ ARWA_fast_travel_menu = {
 	}, [_box, _name, _pos], ARWA_fast_travel_actions, false, false, "", '[player] call ARWA_is_leader && [_target, _this] call ARWA_owned_by && [] call ARWA_is_not_commander', 10]
 };
 
-ARWA_is_not_commander = {
-	cameraOn isEqualTo (vehicle player);
-};

@@ -14,7 +14,7 @@ ARWA_create_soldier = {
 	params ["_group", "_class_name", "_pos"];
 	private _unit = _group createUnit[_class_name, _pos, [], 10, "NONE"];
 
-	if(!(cameraOn isEqualTo (vehicle player))) then {
+	if([] call ARWA_is_commander) then {
 		doStop _unit;
 	};
 

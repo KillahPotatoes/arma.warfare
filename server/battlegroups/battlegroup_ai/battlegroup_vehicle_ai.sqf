@@ -39,7 +39,7 @@ ARWA_initialize_vehicle_group_ai = {
 ARWA_vehicle_move_to_sector = {
 	params ["_new_target", "_group"];
 
-	if ([_group, _new_target] call ARWA_should_change_target || [_group] call ARWA_needs_new_waypoint) then {
+	if ([_group, _new_target] call ARWA_should_change_target) then {
 		private _target_name = _new_target getVariable ARWA_KEY_target_name;
 		format["Vehicle %1 moving to %2", _group, _target_name] spawn ARWA_debugger;
 		[_new_target, _group] call ARWA_vehicle_create_waypoint;

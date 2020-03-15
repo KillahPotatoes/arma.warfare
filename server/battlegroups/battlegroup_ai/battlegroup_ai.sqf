@@ -15,8 +15,25 @@ ARWA_group_should_be_commanded = {
 ARWA_should_change_target = {
 	params ["_group", "_new_target"];
 
-	private _curr_target = _group getVariable ARWA_KEY_target;
-	isNil "_curr_target" || {isNull _curr_target} || {!(_new_target isEqualTo _curr_target)};
+	private _target = _group getVariable ARWA_KEY_target;
+	private _new_target_name = _new_target getVariable ARWA_KEY_target_name;
+
+	if(isNil "_target" || {isNull _target}) exitWith {
+		format["%1 has no target, new target is: %2", _group, _new_target_name] spawn ARWA_debugger;
+		true;
+	};
+
+	if(_new_target isEqualTo _target) exitWith {
+		private _target_name = _target getVariable ARWA_KEY_target_name;
+		format["%1 has same target: %2", _group, _target_name] spawn ARWA_debugger;
+
+		private _distance =  (getPos _target) distance2D (getPos leader _group);
+		_distance > 20 && {count (waypoints _group) == 0};
+	};
+
+	private _target_name = _target getVariable ARWA_KEY_target_name;
+	format["%1 has new target: %2, abandoning old target: %3",_group, _new_target_name, _target_name] spawn ARWA_debugger;
+	true;
 };
 
 ARWA_needs_new_waypoint = {
@@ -31,6 +48,7 @@ ARWA_needs_new_waypoint = {
 
 	_distance > 20 && _waypoint_count == 0;
 };
+
 
 ARWA_approaching_target = {
 	params["_group"];

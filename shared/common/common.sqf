@@ -196,9 +196,9 @@ ARWA_get_units_based_on_tier = {
 ARWA_delete_all_waypoints = {
 	params ["_group"];
 
-	while {(count (waypoints _group)) > 0} do
+	for "_i" from count waypoints _group - 1 to 0 step -1 do
 	{
-		deleteWaypoint [_group, 0];
+		deleteWaypoint [_group, _i];
 	};
 };
 

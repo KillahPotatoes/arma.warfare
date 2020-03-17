@@ -36,9 +36,10 @@ ARWA_show_remote_control = {
 		doStop _driver;
 		ARWA_report_transport_arrival = true;
 		player remoteControl _driver;
+		_veh switchCamera cameraView;
 
     }, [_veh], ARWA_active_transport_actions, true, false, "",
-    '([] call ARWA_in_transport)'];
+    ''];
 };
 
 ARWA_show_cancel_transport_action = {

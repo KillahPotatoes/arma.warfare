@@ -43,7 +43,7 @@ ARWA_force_driver_to_stay_in_vehicle = {
 
 	while { alive _driver } do
 	{
-   		waituntil {vehicle _driver == _driver};
+   		waituntil { vehicle _driver == _driver};
      	_driver moveInDriver _veh;
 	};
 };
@@ -53,6 +53,7 @@ ARWA_remote_control_driver = {
 
 	waitUntil { !alive _driver || !([player] call ARWA_is_alive) };
 	objNull remoteControl _driver;
+	player switchCamera cameraView;
 };
 
 ARWA_spawn_transport = {

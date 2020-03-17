@@ -39,6 +39,10 @@ ARWA_get_infantry = {
 
 	private _squad_cap_based_off_rank = (_rank_index * 2) + 6;
 
+	if([] call ARWA_is_remote_control) then {
+		_squad_cap_based_off_rank = _squad_cap_based_off_rank + 1;
+	};
+
 	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count;
 
 	if (_numberOfSoldiers > 0) exitWith {

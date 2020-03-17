@@ -26,10 +26,33 @@ ARWA_order_transport = {
 	private _name = (typeOf _veh) call ARWA_get_vehicle_display_name;
 
 	[_veh, _group] spawn ARWA_cancel_on_player_death;
+
+	private _driver = driver _veh;
+	[_driver] spawn ARWA_force_driver_to_stay_in_vehicle;
+	[_driver] spawn ARWA_remote_control_driver;
+
 	[_veh] spawn ARWA_show_active_transport_menu;
 	[_veh] spawn ARWA_check_status;
 
 	[_group, _veh, _pos, "ARWA_STR_TRANSPORT_ON_ITS_WAY"] spawn ARWA_move_transport_to_pick_up;
+};
+
+ARWA_force_driver_to_stay_in_vehicle = {
+	params ["_driver"];
+	private _veh = vehicle _driver;
+
+	while { alive _driver } do
+	{
+   		waituntil {vehicle _driver == _driver};
+     	_driver moveInDriver _veh;
+	};
+};
+
+ARWA_remote_control_driver = {
+	params ["_driver"];
+
+	waitUntil { !alive _driver || !([player] call ARWA_is_alive) };
+	objNull remoteControl _driver;
 };
 
 ARWA_spawn_transport = {

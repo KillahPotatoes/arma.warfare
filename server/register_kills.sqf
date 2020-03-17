@@ -135,11 +135,12 @@ ARWA_register_kill = {
 		private _manpower_penalty = ARWA_starting_strength * _penalty_multiplier;
 
 		if(_victim_side isEqualTo civilian && isPlayer _killer) exitWith {
-			private _killer_faction_strength = (_killer_side call ARWA_get_strength) - _manpower_penalty;
+			private _civilian_killed_penalty = (ARWA_starting_strength / 10);
+			private _killer_faction_strength = (_killer_side call ARWA_get_strength) - _civilian_killed_penalty;
 			[_killer_side, _killer_faction_strength] call ARWA_set_strength;
 
 			private _faction_name = _killer_side call ARWA_get_faction_names;
-			[["ARWA_STR_KILLED_CIVILIAN_PENALTY", _faction_name, _manpower_penalty]] remoteExec ["ARWA_system_chat", _killer_side];
+			[["ARWA_STR_KILLED_CIVILIAN_PENALTY", _faction_name, _civilian_killed_penalty]] remoteExec ["ARWA_system_chat", _killer_side];
 		};
 
 		private _enemy_killed = !(_victim_side isEqualTo _killer_side) && {_killer_side in ARWA_all_sides};

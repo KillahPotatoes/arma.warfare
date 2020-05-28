@@ -18,6 +18,7 @@ bis_reviveParam_unconsciousStateMode = ["UnconsciousStateMode", 0] call BIS_fnc_
 bis_reviveParam_bleedOutDuration = ["ReviveBleedOutDuration", 180] call BIS_fnc_getParamValue;
 bis_reviveParam_forceRespawnDuration = ["ReviveForceRespawnDuration", 10] call BIS_fnc_getParamValue;
 ARWA_AllowCustomInfantry = (["AllowCustomInfantry", 0] call BIS_fnc_getParamValue) == 1;
+ARWA__allow_interceptors = ["allowInterceptors", 0] call BIS_fnc_getParamValue > 0;
 
 // Execute fnc_reviveInit again (by default it executes in postInit)
 if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(bis_reviveParam_mode == 0)) then {

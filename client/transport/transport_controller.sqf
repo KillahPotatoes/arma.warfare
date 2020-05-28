@@ -27,6 +27,7 @@ ARWA_move_transport_to_pick_up = {
 
 	if(!([_veh] call ARWA_is_transport_active)) exitWith {};
 
+	(driver _veh) doFollow (leader _group);
 	_veh setVariable [ARWA_KEY_active, true];
 	[_group, [_msg]] spawn ARWA_group_report_client;
 
@@ -35,8 +36,6 @@ ARWA_move_transport_to_pick_up = {
 	} else {
 		_group move _pos;
 	};
-
-	(driver _veh) doFollow (leader _group);
 
 	if(ARWA_report_transport_arrival) then {
 		ARWA_report_transport_arrival = false;

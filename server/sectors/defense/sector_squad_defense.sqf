@@ -1,5 +1,5 @@
 ARWA_spawn_defense = {
-	params ["_pos", "_side"];
+	params ["_pos", "_side", "_sector"];
 
 	private _has_manpower = _side call ARWA_has_manpower;
 
@@ -12,7 +12,7 @@ ARWA_spawn_defense = {
 	private _group = [_pos, _side, _number_of_soldiers] call ARWA_spawn_defensive_squad;
 
 	if(_side call ARWA_has_manpower) then {
-		[_group, _pos] call ARWA_spawn_defense_vehicle;
+		[_group, _sector] call ARWA_spawn_defense_vehicle;
 	};
 
     _group setBehaviour "SAFE";

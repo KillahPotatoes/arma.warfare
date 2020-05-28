@@ -6,7 +6,9 @@ ARWA_spawn_static_sector_defense = {
 	if(_spawn_positions isEqualTo []) exitWith {};
 
 	private _initial_owner = _sector getVariable ARWA_KEY_owned_by;
-	private _current_owner = _initial_owner;
+
+	sleep 300;
+	private _current_owner = _sector getVariable ARWA_KEY_owned_by;
 
 	while {_initial_owner isEqualTo _current_owner} do {
 		[_sector, _current_owner, _spawn_positions] call ARWA_spawn_static;

@@ -10,7 +10,7 @@ ARWA_spawn_sector_defense = {
 		[_sector_defense] call ARWA_add_battle_group;
 	};
 
-	private _new_sector_defense = [_pos, _owner] call ARWA_spawn_defense;
+	private _new_sector_defense = [_pos, _owner, _sector] call ARWA_spawn_defense;
 	_sector setVariable [ARWA_KEY_sector_defense, _new_sector_defense];
 	[_sector, _pos] spawn ARWA_reinforce_sector_defense;
 

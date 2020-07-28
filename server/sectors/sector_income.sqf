@@ -1,5 +1,5 @@
 ARWA_sector_manpower_generation = {
-      private _manpower_limit = ARWA_manpower_automatically_added * 30;
+      private _manpower_limit = ARWA_manpower_automatically_added * 10;
       while {true} do {
             sleep ARWA_manpower_generation_time;
             {
@@ -9,7 +9,7 @@ ARWA_sector_manpower_generation = {
                   if(_side in ARWA_all_sides) then {
                         private _manpower = _sector getVariable ARWA_KEY_manpower;
 
-                        if(ARWA_manpower_automatically_added != 0 && _manpower > _manpower_limit) then {
+                        if(ARWA_manpower_automatically_added != 0 && _manpower >= _manpower_limit) then {
                               [_side, _manpower] spawn ARWA_increase_manpower_server;
                                _sector setVariable [ARWA_KEY_manpower, 0, true];
 
@@ -27,9 +27,7 @@ ARWA_sector_manpower_generation = {
 ARWA_reset_sector = {
       params ["_new_owner", "_old_owner", "_sector", "_sector_name"];
 
-      _sector setVariable [ARWA_KEY_hacked, false, true];
-
-      if((playersNumber _new_owner) == 0 && !(_new_owner isEqualTo civilian) && ((playersNumber _old_owner) > 0 || _old_owner isEqualTo civilian)) exitWith {
+      if(!(_new_owner isEqualTo civilian) && (_old_owner isEqualTo civilian)) exitWith {
             private _manpower = _sector call ARWA_get_manpower;
 
             if(_manpower > 0) exitWith {

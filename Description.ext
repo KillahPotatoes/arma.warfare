@@ -249,7 +249,7 @@ class Params
     {
         title = "Sector manpower added to faction when reaching set value"; // Param name visible in the list
         values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
-        texts[] = {"No","30", "60", "90"}; // Description of each selectable item
+        texts[] = {"No","10", "20", "30"}; // Description of each selectable item
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };

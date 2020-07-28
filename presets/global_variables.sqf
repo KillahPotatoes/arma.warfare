@@ -33,7 +33,6 @@ ARWA_KEY_interceptor = "interceptor";
 ARWA_KEY_custom_infantry = "custom_infantry";
 ARWA_KEY_priority_target = "priority_target";
 ARWA_KEY_sector_capture_progress = "ARWA_KEY_sector_capture_progress";
-ARWA_KEY_hacked = "hacked";
 ARWA_KEY_sector_markers = "sector_markers";
 ARWA_KEY_static_defense = "static_defense";
 ARWA_KEY_sector_defense = "sector_defense";

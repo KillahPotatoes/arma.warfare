@@ -319,6 +319,9 @@
             <English>%1 gained %2 manpower when capturing %3</English>
             <German>%1 erhielt %2 MP für die Eroberung von %3</German>
         </Key>
+         <Key ID="ARWA_STR_GOT_MANPOWER_FROM_SECTOR">
+            <English>%1 got %2 manpower from %3</English>
+        </Key>
          <Key ID="ARWA_STR_INSERTING_SQUAD">
             <English>%1 inserting squad of %2 near %3</English>
         </Key>

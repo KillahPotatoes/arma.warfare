@@ -1,4 +1,5 @@
 ARWA_sector_manpower_generation = {
+      private _manpower_limit = ARWA_manpower_automatically_added * 30;
       while {true} do {
             sleep ARWA_manpower_generation_time;
             {
@@ -7,10 +8,17 @@ ARWA_sector_manpower_generation = {
 
                   if(_side in ARWA_all_sides) then {
                         private _manpower = _sector getVariable ARWA_KEY_manpower;
-                        private _sector_pos = getPos _sector;
-                        private _generated = (1 + ([_sector_pos, _side] call ARWA_get_additional_income_based_on_stationed_players));
 
-                        _sector setVariable [ARWA_KEY_manpower, (_manpower + _generated), true];
+                        if(ARWA_manpower_automatically_added != 0 && _manpower > _manpower_limit) then {
+                              [_side, _manpower] spawn ARWA_increase_manpower_server;
+                               _sector setVariable [ARWA_KEY_manpower, 0, true];
+
+                               private _faction_name = _side call ARWA_get_faction_names;
+                               private _sector_name = [_sector getVariable ARWA_KEY_target_name] call ARWA_replace_underscore;
+                              [["ARWA_STR_GOT_MANPOWER_FROM_SECTOR", _faction_name, _manpower, _sector_name]] remoteExec ["ARWA_HQ_report_client_all"];
+                        } else {
+                               _sector setVariable [ARWA_KEY_manpower, (_manpower + 1), true];
+                        };
                   };
             } forEach ARWA_sectors;
       };
@@ -34,23 +42,4 @@ ARWA_reset_sector = {
                   _sector setVariable [ARWA_KEY_manpower, 0, true];
             };
       };
-};
-
-ARWA_get_additional_income_based_on_stationed_players = {
-      params ["_pos", "_side"];
-      private _total_factor = 0;
-
-      {
-            if(alive _x && side _x isEqualTo _side && _pos distance2D getPos _x < ARWA_sector_size) exitWith {
-                  private _rank = rank _x;
-	            private _rank_index = ARWA_ranks find _rank;
-
-                  _total_factor = _total_factor + 1 + (_rank_index * 0.2);
-                  true;
-            };
-
-            false;
-      } count allPlayers;
-
-      _total_factor;
 };

@@ -15,31 +15,22 @@ ARWA_update_manpower_markers = {
 	{
 		private _side = _x getVariable ARWA_KEY_owned_by;
 		private _marker_name = format["%1-%2", ARWA_KEY_manpower_box, _forEachIndex];
+		private _color = [_side, true] call BIS_fnc_sideColor;
 
-		if (_side isEqualTo playerSide || ARWA_show_all) then {
+		_marker_name setMarkerColorLocal _color;
+		_marker_name setMarkerAlphaLocal 1;
 
-			private _color = [_side, true] call BIS_fnc_sideColor;
+		private _manpower = floor (_x getVariable ARWA_KEY_manpower);
 
-			_marker_name setMarkerColorLocal _color;
-			_marker_name setMarkerAlphaLocal 1;
-
-			private _manpower = floor (_x getVariable ARWA_KEY_manpower);
-
-			if(!(isNil "_manpower")) then {
-				_marker_name setMarkerTextLocal format["%1 MP", _manpower];
-			};
-
-		} else {
-			_marker_name setMarkerAlphaLocal 0;
-		}
-
+		if(!(isNil "_manpower")) then {
+			_marker_name setMarkerTextLocal format["%1 MP", _manpower];
+		};
 	} forEach _boxes;
 };
 
 ARWA_show_manpower_markers = {
 	_manpower_storage_boxes = allMissionObjects ARWA_ammo_box;
 	[_manpower_storage_boxes] call ARWA_create_manpower_markers;
-	_side = playerSide;
 
 	while {true} do {
 		[_manpower_storage_boxes] call ARWA_update_manpower_markers;

@@ -3,12 +3,11 @@ ARWA_create_manpower_box_unit = {
 	private _manpower = _victim getVariable [ARWA_KEY_manpower, 0];
 	private _victim_side = side group _victim;
 
-	if(ARWA_manpower_penalty_on_player_death == 0) exitWith {};
+	private _drop_player_penalty = (ARWA_manpower_penalty_on_player_death != 0) && (isPlayer _victim);
 
-	if(_manpower > 0 || isPlayer _victim) then {
+	if(_manpower > 0 || _drop_player_penalty) then {
 		_victim setVariable [ARWA_KEY_manpower, 0, true];
-		private _manpower_box_value = if(isPlayer _victim) then {
-
+		private _manpower_box_value = if(_drop_player_penalty) then {
 			private _player_penalty = if(ARWA_manpower_penalty_on_player_death == 1) then { ARWA_starting_strength / 20; } else { ARWA_starting_strength / 10; };
 			private _faction_manpower = [_victim_side] call ARWA_get_strength;
 			(_faction_manpower min _player_penalty) + _manpower;

@@ -74,6 +74,7 @@ ARWA_dropped_manpower_deterioration_time = ["DroppedManpowerDeteriorationTime", 
 ARWA_timeToSkipTo = ["StartTime", 12] call BIS_fnc_getParamValue;
 ARWA_manpower_penalty_on_player_death = ["PlayerDeathManpowerDrop", 0] call BIS_fnc_getParamValue;
 ARWA_manpower_automatically_added = ["ManpowerAutomaticallyAdded", 0] call BIS_fnc_getParamValue;
+ARWA_difficulty = ["Difficulty", 0] call BIS_fnc_getParamValue;
 private _allow_interceptors = ["allowInterceptors", 0] call BIS_fnc_getParamValue > 0;
 
 ARWA_vehicleKillBonus = ["VehicleKillBonus", 0] call BIS_fnc_getParamValue;

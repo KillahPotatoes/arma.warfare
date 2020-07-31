@@ -1,5 +1,5 @@
 ARWA_sector_manpower_generation = {
-      private _manpower_limit = ARWA_manpower_automatically_added * 10;
+      private _manpower_limit = 15 + (ARWA_manpower_automatically_added * 15);
       while {true} do {
             sleep ARWA_manpower_generation_time;
             {

@@ -212,6 +212,13 @@ taskManagement_drawDist = 5000;
 
 class Params
 {
+    class Difficulty
+    {
+        title = "Difficulty (Factions with players loses X extra points per death)";
+        values[] = {0,1,2,3,4,5};
+        texts[] = {"Easy (0)","Normal (1)","Difficult (2)","Difficult (3)", "Very difficult (4)", "Extremely difficult (5)"};
+        default = 0;
+    };
     class ArmyPreset
     {
         title = "Choose army preset"; // Param name visible in the list
@@ -249,7 +256,7 @@ class Params
     {
         title = "Sector manpower added to faction when reaching set value"; // Param name visible in the list
         values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
-        texts[] = {"No","10", "20", "30"}; // Description of each selectable item
+        texts[] = {"No","30", "45", "60"}; // Description of each selectable item
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };

@@ -17,6 +17,35 @@ ARWA_request_transport = {
 	onMapSingleClick {}; // Remove the code in map click even if you didnt trigger onMapSingleClick
 };
 
+ARWA_add_support_units = {
+	params ["_veh"];
+	private _units = [];
+	private _group = group player;
+
+	{
+		private _unit = [_group, _x, [0,0,0]] call ARWA_create_soldier;
+
+		_units append [_unit];
+	} count ARWA_support_soldiers_class_names;
+
+	{
+		private _default_class_name = ((missionNamespace getVariable format["ARWA_%1_infantry_tier_0", playerSide]) select 0) select 0;
+		private _unit = [_group, _default_class_name, [0,0,0]] call ARWA_create_soldier;
+		[_x, _unit] spawn ARWA_apply_loadout;
+
+		_units append [_unit];
+	} count ARWA_support_soldiers_loadouts;
+
+	ARWA_support_soldiers_loadouts = [];
+	ARWA_support_soldiers_class_names = [];
+	ARWA_support_soldiers = [];
+
+	{
+		_x moveInCargo _veh;
+		_x assignTeam "BLUE";
+	} forEach _units;
+};
+
 ARWA_order_transport = {
 	params ["_pos", "_class_name", "_penalty"];
 
@@ -24,6 +53,9 @@ ARWA_order_transport = {
 	private _veh = _arr select 0;
 	private _group = _arr select 2;
 	private _name = (typeOf _veh) call ARWA_get_vehicle_display_name;
+
+	[_veh] call ARWA_add_support_units;
+
 
 	[_veh, _group] spawn ARWA_cancel_on_player_death;
 

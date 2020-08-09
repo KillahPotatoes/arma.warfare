@@ -12,8 +12,16 @@ if(_fatigue == 0) then {
 [] spawn ARWA_add_take_manpower;
 [] spawn ARWA_add_store_manpower;
 [] spawn ARWA_show_order_uav;
+
+[localize "ARWA_STR_GET_VEHICLE_SUPPORT", ARWA_KEY_vehicle, ARWA_ground_vehicle_menu] call ARWA_create_support_menu;
+[localize "ARWA_STR_GET_HELICOPTER_SUPPORT", ARWA_KEY_helicopter, ARWA_air_vehicle_menu] call ARWA_create_support_menu;
+[localize "ARWA_STR_GET_INFANTRY_SUPPORT", ARWA_KEY_infantry, ARWA_infantry_menu] call ARWA_create_support_menu;
+
+if(ARWA_allow_interceptors) then {
+	[localize "ARWA_STR_GET_INTERCEPTORS", ARWA_KEY_interceptor, ARWA_interceptor_menu] call ARWA_create_support_menu;
+};
+
 [player] spawn ARWA_remove_vehicle_action;
-[] spawn ARWA_hq_commander_action;
 
 [localize "ARWA_STR_REQUEST_AIR_TRANSPORT", ARWA_KEY_helicopter, ARWA_air_transport_actions] spawn ARWA_show_order_transport;
 [localize "ARWA_STR_REQUEST_VEHICLE_TRANSPORT", ARWA_KEY_vehicle, ARWA_ground_transport_actions] spawn ARWA_show_order_transport;

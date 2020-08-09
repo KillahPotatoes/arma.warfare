@@ -22,14 +22,16 @@ ARWA_initialize_ammoboxes = {
 		if(_type isEqualTo "HQ") then {
 			private _side = [_name] call ARWA_get_prefixed_side;
 
-			_ammo_box setVariable [ARWA_KEY_HQ, true, true];
-			_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
-			_ammo_box setVariable [ARWA_KEY_target_name, "HQ", true];
-			_ammo_box setVariable [ARWA_KEY_owned_by, _side, true];
+			if(!isNil "_side") then {
+				_ammo_box setVariable [ARWA_KEY_HQ, true, true];
+				_ammo_box setVariable [ARWA_KEY_manpower, 0, true];
+				_ammo_box setVariable [ARWA_KEY_target_name, "HQ", true];
+				_ammo_box setVariable [ARWA_KEY_owned_by, _side, true];
 
-			missionNamespace setVariable [format["ARWA_HQ_%1", _side], _ammo_box, true];
+				missionNamespace setVariable [format["ARWA_HQ_%1", _side], _ammo_box, true];
 
-			[_side, _pos] call BIS_fnc_addRespawnPosition;
+				[_side, _pos] call BIS_fnc_addRespawnPosition;
+			};
 		};
 
 		if(_type isEqualTo "FOB") then {

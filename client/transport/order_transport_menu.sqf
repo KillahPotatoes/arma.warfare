@@ -54,6 +54,15 @@ ARWA_show_transport_options = {
 			private _penalty = _params select 1;
 
 			[player] call ARWA_remove_all_transport_options;
+
+			private _all_seats = [_class_name,true] call BIS_fnc_crewCount;
+			private _crew_seats = [_class_name,false] call BIS_fnc_crewCount;
+			private _cargo_seats = _all_seats - _crew_seats;
+
+			if(_cargo_seats < count ARWA_support_soldiers) exitWith {
+				systemChat localize "ARWA_STR_NOT_ENOUGH_SPACE_FOR_SUPPORT_UNITS";
+			};
+
 			[_class_name, _penalty] call ARWA_request_transport;
 		}, [_class_name, _penalty], (_priority - 1), false, true, "",
 		'[player] call ARWA_is_leader && !ARWA_transport_present'

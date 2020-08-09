@@ -18,7 +18,7 @@ bis_reviveParam_unconsciousStateMode = ["UnconsciousStateMode", 0] call BIS_fnc_
 bis_reviveParam_bleedOutDuration = ["ReviveBleedOutDuration", 180] call BIS_fnc_getParamValue;
 bis_reviveParam_forceRespawnDuration = ["ReviveForceRespawnDuration", 10] call BIS_fnc_getParamValue;
 ARWA_AllowCustomInfantry = (["AllowCustomInfantry", 0] call BIS_fnc_getParamValue) == 1;
-ARWA__allow_interceptors = ["allowInterceptors", 0] call BIS_fnc_getParamValue > 0;
+ARWA_allow_interceptors = ["allowInterceptors", 0] call BIS_fnc_getParamValue > 0;
 
 // Execute fnc_reviveInit again (by default it executes in postInit)
 if ((isNil {player getVariable "bis_revive_ehHandleHeal"} || isDedicated) && !(bis_reviveParam_mode == 0)) then {
@@ -51,9 +51,10 @@ ARWA_required_rank_take_lead = ["requiredTakeLeadRank", 2] call BIS_fnc_getParam
 ARWA_AllowFastTravel = (["AllowFastTravel", 0] call BIS_fnc_getParamValue) > 0;
 
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\manpower_actions.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\interceptor_actions.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\get_units_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\get_custom_units.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\player_actions\get_support_menu.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\player_actions\fast_travel.sqf";
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\manpower_boxes.sqf";
@@ -61,7 +62,6 @@ ARWA_AllowFastTravel = (["AllowFastTravel", 0] call BIS_fnc_getParamValue) > 0;
 [] call compileFinal preprocessFileLineNumbers "client\player_rank\player_rank.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\remove_vehicle.sqf";
 [] call compileFinal preprocessFileLineNumbers "client\create_briefing.sqf";
-[] call compileFinal preprocessFileLineNumbers "client\player_actions\hq_commander.sqf";
 
 
 player setVariable [ARWA_KEY_manpower, 0];
@@ -71,10 +71,12 @@ player setVariable ["kills", 0, true];
 [group player] remoteExec ["ARWA_add_battle_group", 2];
 
 [] call compileFinal preprocessFileLineNumbers "client\ui\faction_stat_ui.sqf";
+[] call compileFinal preprocessFileLineNumbers "client\ui\unit_support_array.sqf";
 
 [] spawn ARWA_show_friendly_markers;
 [] spawn ARWA_show_manpower_markers;
 [] spawn ARWA_show_ui;
+[] spawn ARWA_show_unit_support_array;
 [] spawn ARWA_calculate_rank_and_skill;
 [] spawn ARWA_initialize_ammo_boxes;
 [] spawn ARWA_create_briefing;

@@ -110,15 +110,12 @@
             <English>Store manpower</English>
             <German>MP einlagern</German>
         </Key>
+        <Key ID="NO_AVAILABLE_OPTIONS">
+            <English>There is no available options at this tier</English>
+        </Key>
         <Key ID="ARWA_STR_GET_INFANTRY">
             <English>Get infantry</English>
             <German>Infantrie anfordern</German>
-        </Key>
-         <Key ID="ARWA_STR_GET_CUSTOM_INFANTRY">
-            <English>Get custom infantry</English>
-        </Key>
-        <Key ID="NO_AVAILABLE_OPTIONS">
-            <English>There is no available options at this tier</English>
         </Key>
         <Key ID="ARWA_STR_GET_VEHICLES">
             <English>Get vehicle</English>
@@ -127,6 +124,21 @@
         <Key ID="ARWA_STR_GET_HELICOPTERS">
             <English>Get helicopter</English>
             <German>Helikopter anfordern</German>
+        </Key>
+         <Key ID="ARWA_STR_GET_INFANTRY_SUPPORT">
+            <English>Get infantry support</English>
+        </Key>
+         <Key ID="ARWA_STR_NOT_ENOUGH_SPACE_FOR_SUPPORT_UNITS">
+            <English>Not enough free seats for units</English>
+        </Key>
+        <Key ID="ARWA_STR_CLEAR_SELECTION">
+            <English>Clear selection</English>
+        </Key>
+        <Key ID="ARWA_STR_GET_VEHICLE_SUPPORT">
+            <English>Get vehicle support</English>
+        </Key>
+        <Key ID="ARWA_STR_GET_HELICOPTER_SUPPORT">
+            <English>Get helicopter support</English>
         </Key>
         <Key ID="ARWA_STR_JOIN_SQUAD">
             <English>Join squad</English>

@@ -50,8 +50,5 @@ ARWA_spawn_gunship_group = {
 
 	format ["%1: Spawn gunship: %2", _side, _gunship_name] spawn ARWA_debugger;
 	format["%1 manpower: %2", _side, [_side] call ARWA_get_strength] spawn ARWA_debugger;
-	private _veh_arr = [_side, _gunship, _kill_bonus, ARWA_gunship_spawn_height] call ARWA_spawn_helicopter;
-
-	private _veh = _veh_arr select 0;
-	_veh_arr;
+	[_side, _gunship, _kill_bonus, ARWA_gunship_spawn_height] call ARWA_spawn_helicopter;
 };

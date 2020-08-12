@@ -7,7 +7,6 @@ ARWA_initialize_ammoboxes = {
 
 	{
 		private _ammo_box = _x;
-		_ammo_box setMass 100000;
 		_ammo_box enableRopeAttach false;
 
 		private _ammo_box_name = vehicleVarName _ammo_box;

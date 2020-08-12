@@ -1,4 +1,4 @@
-ARWA_minimum_active_vehicles = 3;
+ARWA_minimum_active_vehicles = 2;
 
 ARWA_needs_vehicles = {
 	params ["_side"];

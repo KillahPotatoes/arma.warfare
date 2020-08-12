@@ -15,7 +15,7 @@ ARWA_show_unit_support_array = {
 				private _support_soldiers=  missionNamespace getVariable "ARWA_support_soldiers";
 				private _string = _support_soldiers joinString "<br />";
 				_ctrl ctrlSetStructuredText parseText format["<t color='#8e8a00' align='right' size='1'>%1</t>", _string];
-			sleep 2;
+			sleep 1;
 			};
 		};
 

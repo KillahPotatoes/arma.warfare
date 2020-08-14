@@ -14,32 +14,35 @@ ARWA_remove_all_support_options = {
 
 ARWA_get_support_infantry = {
 	params ["_class_name", "_type"];
-	_group = group player;
-	_group_count = {alive _x} count units _group;
+	private _group = group player;
+	private _group_count = {alive _x} count units _group;
 	private _rank = rank player;
 	private _rank_index = ARWA_ranks find _rank;
 
 	private _squad_cap_based_off_rank = (_rank_index * 2) + 6;
 
-	_numberOfSoldiers = _squad_cap_based_off_rank - _group_count - (count ARWA_support_soldiers);
+	_numberOfSoldiers = ([] call ARWA_can_spawn) - (count ARWA_support_soldiers);
 
-	if (_numberOfSoldiers > 0) exitWith {
-		if(_type isEqualTo ARWA_KEY_custom_infantry) then {
-			ARWA_support_soldiers append [_class_name];
-			ARWA_support_soldiers_loadouts append [_class_name];
-		} else {
-			private _name = _class_name call ARWA_get_vehicle_display_name;
-			ARWA_support_soldiers append [_name];
-			ARWA_support_soldiers_class_names append [_class_name];
-		};
+	if (_numberOfSoldiers <= 0) exitWith {
+		systemChat localize "ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS";
 	};
 
-	systemChat localize "ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS";
+	if(_type isEqualTo ARWA_KEY_custom_infantry) then {
+		ARWA_support_soldiers append [_class_name];
+		ARWA_support_soldiers_loadouts append [_class_name];
+	} else {
+		private _name = _class_name call ARWA_get_vehicle_display_name;
+		ARWA_support_soldiers append [_name];
+		ARWA_support_soldiers_class_names append [_class_name];
+	};
 };
-
 
 ARWA_get_support_interceptor = {
 	params ["_class_name", "_penalty", "_side"];
+
+	if([] call ARWA_can_spawn_support) exitWith {
+		systemChat localize "ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS";
+	};
 
 	private _pos = [_side, ARWA_interceptor_safe_distance, ARWA_interceptor_flight_height] call ARWA_find_spawn_pos_air;
 	private _dir = [_pos] call ARWA_find_spawn_dir_air;
@@ -52,8 +55,27 @@ ARWA_get_support_interceptor = {
 	// TODO add to team under different team color
 };
 
+ARWA_can_spawn = {
+	private _group = group player;
+	private _group_count = {alive _x} count units _group;
+	private _rank = rank player;
+	private _rank_index = ARWA_ranks find _rank;
+	private _squad_cap_based_off_rank = (_rank_index * 2) + 6;
+
+	_squad_cap_based_off_rank - _group_count;
+};
+
+ARWA_can_spawn_support = {
+	_numberOfSoldiers = [] call ARWA_can_spawn;
+	_numberOfSoldiers < 0;
+};
+
 ARWA_get_support_vehicle = {
 	params ["_base_marker", "_class_name", "_penalty"];
+
+	if([] call ARWA_can_spawn_support) exitWith {
+		systemChat localize "ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS";
+	};
 
 	private _pos = getPos _base_marker;
 	private _isEmpty = !([_pos] call ARWA_any_units_too_close);
@@ -79,6 +101,10 @@ ARWA_get_support_vehicle = {
 
 ARWA_get_support_helicopter = {
 	params ["_class_name", "_penalty"];
+
+	if([] call ARWA_can_spawn_support) exitWith {
+		systemChat localize "ARWA_STR_MAXIMUM_AMOUNT_OF_UNITS";
+	};
 
 	private _veh_arr = [playerSide, _class_name, _penalty, ARWA_gunship_spawn_height] call ARWA_spawn_helicopter;
 	private _veh = _veh_arr select 0;

@@ -13,15 +13,11 @@ ARWA_get_unit_cap = {
 ARWA_spawn_battle_groups = {
 	params ["_side"];
 
-	private _wave = 0;
-	private _wave_size = floor (5 + (random 15));
-
-	format["Wave size %1 for %2", _wave_size, _side] spawn ARWA_debugger;
 	sleep 10;
 
 	while {true} do {
 
-		if(_side call ARWA_has_manpower && _wave < _wave_size) then {
+		if(_side call ARWA_has_manpower) then {
 			private _unit_count = _side call ARWA_count_battlegroup_units;
 			private _can_spawn = floor (([] call ARWA_get_unit_cap) * (2/3)) - _unit_count;
 
@@ -34,12 +30,9 @@ ARWA_spawn_battle_groups = {
 					[_side, _can_spawn] spawn ARWA_spawn_random_infantry_group;
 				};
 			};
-		} else {
-			_wave = 0;
-			sleep (_wave_size * 120);
 		};
 
-		sleep 60;
+		sleep (60 + random 300);
 	};
 };
 

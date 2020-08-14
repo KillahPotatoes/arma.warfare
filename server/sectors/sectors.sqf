@@ -1,5 +1,13 @@
 missionNamespace setVariable ["ARWA_sectors", [], true];
 
+ARWA_map_parameter_to_value = {
+    if(ARWA_manpower_automatically_added == 1) then {
+		selectRandom [30, 45, 60, 90, 120];
+	} else {
+		ARWA_manpower_automatically_added;
+	};
+};
+
 ARWA_initialize_ammoboxes = {
 	params ["_first_capture_bonus"];
 
@@ -36,6 +44,8 @@ ARWA_initialize_ammoboxes = {
 		if(_type isEqualTo "FOB") then {
 			private _capture_bonus = if(_first_capture_bonus) then {  ARWA_starting_strength / 10; } else { 0; };
 
+			private _manpower_limit = [] call ARWA_map_parameter_to_value;
+			_ammo_box setVariable [ARWA_KEY_manpower_limit, _manpower_limit, true];
 			_ammo_box setVariable [ARWA_KEY_owned_by, civilian, true];
 			_ammo_box setVariable [ARWA_KEY_manpower, _capture_bonus, true];
 			_ammo_box setVariable [ARWA_KEY_sector, true, true];

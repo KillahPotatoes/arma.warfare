@@ -22,9 +22,17 @@ ARWA_update_manpower_markers = {
 			_marker_name setMarkerAlphaLocal 1;
 
 			private _manpower = floor (_x getVariable ARWA_KEY_manpower);
+			private _manpower_limit = _x getVariable ARWA_KEY_manpower_limit;
+
+
 
 			if(!(isNil "_manpower")) then {
-				_marker_name setMarkerTextLocal format["%1 MP", _manpower];
+				if(ARWA_manpower_automatically_added == 1) then {
+					_marker_name setMarkerTextLocal format["%1 MP (%2)", _manpower, _manpower_limit];
+				} else {
+					_marker_name setMarkerTextLocal format["%1 MP", _manpower];
+				};
+
 			};
 		};
 	} forEach _boxes;

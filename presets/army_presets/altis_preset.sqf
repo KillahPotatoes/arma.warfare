@@ -94,11 +94,13 @@ ARWA_east_infantry_tier_2 = [
 ARWA_guer_infantry_tier_0 = [
 	["I_soldier_F", 0],
 	["I_soldier_AR_F", 0],
-	["I_HeavyGunner_F", 0],
+	["I_support_GMG_F", 0],
+	["I_support_MG_F", 0],
+	["I_support_Mort_F", 0],
 	["I_Soldier_GL_F", 0],
 	["I_soldier_exp_F", 0],
 	["I_medic_F", 0],
-	["I_Sharpshooter_F", 0],
+	["I_Soldier_M_F", 0],
 	["I_Soldier_LAT2_F", 0],
 	["I_engineer_F", 0]
 ];

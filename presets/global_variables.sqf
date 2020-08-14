@@ -7,6 +7,7 @@ ARWA_KEY_occupied = "occupied";
 ARWA_KEY_sector = "sector";
 ARWA_KEY_transport = "transport";
 ARWA_KEY_manpower = "manpower";
+ARWA_KEY_manpower_limit = "manpower_limit";
 
 ARWA_KEY_menu = "menu";
 ARWA_KEY_fast_travel_menu = "fast_travel_menu";

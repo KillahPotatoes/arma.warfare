@@ -1,5 +1,4 @@
 ARWA_sector_manpower_generation = {
-      private _manpower_limit = 15 + (ARWA_manpower_automatically_added * 15);
       while {true} do {
             sleep ARWA_manpower_generation_time;
             {
@@ -8,8 +7,9 @@ ARWA_sector_manpower_generation = {
 
                   if(_side in ARWA_all_sides) then {
                         private _manpower = _sector getVariable ARWA_KEY_manpower;
+                        private _manpower_limit = _sector getVariable ARWA_KEY_manpower_limit;
 
-                        if(ARWA_manpower_automatically_added != 0 && _manpower >= _manpower_limit) then {
+                        if(_manpower_limit != 0 && _manpower >= _manpower_limit) then {
                               [_side, _manpower] spawn ARWA_increase_manpower_server;
                                _sector setVariable [ARWA_KEY_manpower, 0, true];
 

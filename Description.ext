@@ -217,7 +217,7 @@ class Params
         title = "Difficulty (Factions with players loses X extra points per death)";
         values[] = {0,1,2,3,4,5};
         texts[] = {"Easy (0)","Normal (1)","Difficult (2)","Difficult (3)", "Very difficult (4)", "Extremely difficult (5)"};
-        default = 0;
+        default = 2;
     };
     class ArmyPreset
     {
@@ -248,15 +248,15 @@ class Params
         title = "Allow fast travel"; // Param name visible in the list
         values[] = {0,1}; // Values; must be integers; has to have the same number of elements as 'texts'
         texts[] = {"No","Yes"}; // Description of each selectable item
-        default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
+        default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
 
     class ManpowerAutomaticallyAdded
     {
         title = "Sector manpower added to faction when reaching set value"; // Param name visible in the list
-        values[] = {0,1,2,3}; // Values; must be integers; has to have the same number of elements as 'texts'
-        texts[] = {"No","30", "45", "60"}; // Description of each selectable item
+        values[] = {0,30,45,60,90,120,1}; // Values; must be integers; has to have the same number of elements as 'texts'
+        texts[] = {"No","30", "45", "60", "90", "120", "Random"}; // Description of each selectable item
         default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
@@ -274,7 +274,7 @@ class Params
         title = "Vehicle kill bonus"; // Param name visible in the list
         values[] = {0,1,2}; // Values; must be integers; has to have the same number of elements as 'texts'
         texts[] = {"Off ( 0% )","Limited ( 50% )","Full ( 100% )"}; // Description of each selectable item
-        default = 0; // Default value; must be listed in 'values' array, otherwise 0 is used
+        default = 1; // Default value; must be listed in 'values' array, otherwise 0 is used
         // Default values that are not whole numbers do not work. Param will default to 0 (or 1 if defined)
     };
     class requiredDroneRank {

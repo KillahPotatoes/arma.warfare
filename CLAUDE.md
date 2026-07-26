@@ -70,9 +70,13 @@ requires wiring it in **both** `presets/preset.sqf` (the `ARWA_pick_*_preset` in
 
 ## Mission files (.sqm)
 
-**Never edit any `.sqm` by hand** — they are Eden editor output and are frequently binarized. Root `mission.sqm` and
-each `missions/<map>/mission.sqm` are separate, independently maintained mission layouts; each map is built as its
-own mission. Changes to them come from the editor, not from Claude.
+**Never edit any `.sqm` by hand** — they are Eden editor output and are frequently binarized. Each
+`missions/<map>/mission.sqm` is an independently maintained layout for that map. The root `mission.sqm` is a
+scratch working copy (gitignored) holding whichever map is currently loaded — swap it with
+`node .claude/tools/use-map.js <map>`. Changes to layouts come from the editor, not from Claude.
+
+There is no build step: Arma missions are folders. `use-map.js` links the repo into the Arma profile as
+`arma.warfare.<WorldClass>` — the world comes from that folder name, not from the `.sqm`. See the `test-map` skill.
 
 Eden naming conventions the scripts depend on: sector markers are `sector_<name>`; base objects are
 `<prefix>_vehicle`, `<prefix>_helicopter`, `<prefix>_respawn_ground`; ammo boxes are named `HQ_<name>` or

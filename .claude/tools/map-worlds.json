@@ -1,0 +1,32 @@
+{
+  "_comment": [
+    "Maps the folder names under missions/ to Arma world class names, which is what",
+    "the mission folder suffix must be (MissionName.WorldClass).",
+    "",
+    "A folder whose own name already carries a suffix (small.Enoch) needs no entry —",
+    "use-map.js reads the suffix directly. Everything else is looked up here; if a map",
+    "is missing, use-map.js falls back to the folder name and says so.",
+    "",
+    "'mod' is a hint about what must be loaded for the world to exist. Vanilla worlds",
+    "have no mod. Correct any entry that turns out wrong — a wrong world class shows up",
+    "as the mission simply not appearing in the server browser."
+  ],
+
+  "altis":                 { "world": "Altis",                 "mod": null },
+  "stratis":               { "world": "Stratis",               "mod": null },
+  "malden":                { "world": "Malden",                "mod": null },
+  "tanoa":                 { "world": "Tanoa",                 "mod": "Apex DLC" },
+
+  "chernarus":             { "world": "Chernarus",             "mod": "CUP Terrains - Maps + Core", "confirmed": false },
+  "chernarus_summer":      { "world": "chernarus_summer",      "mod": "CUP Terrains - Maps + Core", "confirmed": false },
+  "lythium":               { "world": "lythium",               "mod": "LYTHIUM",                    "confirmed": false },
+  "ruha":                  { "world": "ruha",                  "mod": "Ruha",                       "confirmed": false },
+  "tem_anizay":            { "world": "tem_anizay",            "mod": "Anizay",                     "confirmed": false },
+  "tem_ihantala":          { "world": "tem_ihantala",          "mod": "Ihantala",                   "confirmed": false },
+  "WL_rosche":             { "world": "WL_rosche",             "mod": "Rosche, Germany",            "confirmed": false },
+  "gm_weferlingen_summer": { "world": "gm_weferlingen_summer", "mod": "Global Mobilization DLC",    "confirmed": false },
+  "vt7":                   { "world": "vt7",                   "mod": "VT7",                        "confirmed": false },
+  "DeadRoad":              { "world": "DeadRoad",              "mod": "Dead Road",                  "confirmed": false },
+  "LostIsland":            { "world": "LostIsland",            "mod": "CUP Terrains / Lost Island", "confirmed": false },
+  "Woodland_ACR":          { "world": "Woodland_ACR",          "mod": "CUP Terrains (ACR)",         "confirmed": false }
+}

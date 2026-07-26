@@ -89,6 +89,9 @@ Tabs for indentation. `params [...]` at the top of every function body, `private
 
 ## Testing and etiquette
 
-- There is no automated verification. Changes are tested by loading the mission in the Arma 3 Eden editor and
-  playing it. Server-side output goes to the RPT log via `diag_log`.
+- Syntax check with `node .claude/tools/sqf-check.js` (whole mission) or `... sqf-check.js <file>`. Requires
+  `npm install -g @bi-tools/sqf-parser`. It catches unbalanced brackets and malformed structures, **not** unknown
+  commands, wrong argument counts, or locality mistakes — and it does not catch every missing semicolon.
+- Beyond that there is no automated verification. Changes are tested by loading the mission in the Arma 3 Eden
+  editor and playing it. Server-side output goes to the RPT log via `diag_log`.
 - Work on a feature branch and open a PR against `master`; do not commit to `master` directly.

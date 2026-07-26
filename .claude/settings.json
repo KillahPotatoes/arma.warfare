@@ -14,9 +14,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".claude/hooks/check-sqf-registration.ps1\"",
-            "timeout": 15,
-            "statusMessage": "Checking script registration..."
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".claude/hooks/sqf-post-edit.ps1\"",
+            "timeout": 30,
+            "statusMessage": "Checking SQF syntax and registration..."
           }
         ]
       }

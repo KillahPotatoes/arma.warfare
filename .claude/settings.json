@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(*.sqm)",
+      "Edit(**/*.sqm)",
+      "Write(*.sqm)",
+      "Write(**/*.sqm)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".claude/hooks/check-sqf-registration.ps1\"",
+            "timeout": 15,
+            "statusMessage": "Checking script registration..."
+          }
+        ]
+      }
+    ]
+  }
+}

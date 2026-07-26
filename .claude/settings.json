@@ -14,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".claude/hooks/sqf-post-edit.ps1\"",
+            "command": "node \".claude/hooks/sqf-post-edit.js\"",
             "timeout": 30,
             "statusMessage": "Checking SQF syntax and registration..."
           }

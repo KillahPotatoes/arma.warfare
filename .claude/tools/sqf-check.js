@@ -8,51 +8,22 @@
  * Exits 1 if any file fails to parse, 0 otherwise. Requires the parser:
  *   npm install -g @bi-tools/sqf-parser
  *
- * This only catches SYNTAX errors (missing semicolons, unbalanced brackets,
- * malformed control structures). It does not know Arma's commands, so it will
- * not catch a misspelled command name, a wrong argument count, or a locality
- * mistake. Loading the mission in the Eden editor is still the real test.
+ * This only catches SYNTAX errors (unbalanced brackets, malformed control
+ * structures). It does not know Arma's commands, so it will not catch a
+ * misspelled command name, a wrong argument count, or a locality mistake, and
+ * it does not flag every missing semicolon. Note also that a reported line
+ * number is where the parser gave up, which may be the start of the enclosing
+ * statement rather than the typo itself. Loading the mission in the Eden editor
+ * is still the real test.
  */
 
 'use strict'
 
 const fs = require('fs')
 const path = require('path')
-const { execFileSync } = require('child_process')
+const { REPO_ROOT, loadParser, checkSyntax } = require('./sqf-lib')
 
-const REPO_ROOT = path.resolve(__dirname, '..', '..')
 const SKIP_DIRS = new Set(['.git', '.claude', 'node_modules', 'missions', 'KPGUI'])
-
-function loadParser() {
-  const PKG = path.join('@bi-tools', 'sqf-parser')
-  const nodeDir = path.dirname(process.execPath)
-
-  const candidates = [
-    PKG,                                                    // local install / NODE_PATH
-    path.join(nodeDir, 'node_modules', PKG),                // global, Windows layout
-    path.join(nodeDir, '..', 'lib', 'node_modules', PKG),   // global, POSIX layout
-  ]
-
-  for (const candidate of candidates) {
-    try {
-      return require(candidate)
-    } catch (_) {
-      /* try the next one */
-    }
-  }
-
-  // Last resort: ask npm. Needs a shell on Windows, where npm is a .cmd.
-  try {
-    const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm'
-    const globalRoot = execFileSync(npm, ['root', '-g'], {
-      encoding: 'utf8',
-      shell: process.platform === 'win32',
-    }).trim()
-    return require(path.join(globalRoot, PKG))
-  } catch (_) {
-    return null
-  }
-}
 
 function collect(dir, out) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -64,11 +35,6 @@ function collect(dir, out) {
     }
   }
   return out
-}
-
-function lineOf(source, offset) {
-  if (offset == null) return null
-  return source.slice(0, offset).split('\n').length
 }
 
 async function main() {
@@ -86,20 +52,12 @@ async function main() {
 
   let failed = 0
   for (const file of files) {
-    // The tokenizer rejects a UTF-8 BOM as an unexpected character, so strip it.
-    const source = fs.readFileSync(file, 'utf8').replace(/^﻿/, '')
-    try {
-      // parseSqf is async — it must be awaited or every file trivially "passes".
-      await parser.parseSqf(source)
-    } catch (err) {
+    const problem = await checkSyntax(parser, file)
+    if (problem) {
       failed++
-      const offset = err.token && err.token.position ? err.token.position.from : null
-      const line = lineOf(source, offset)
-      const where = path.relative(REPO_ROOT, file) + (line ? ':' + line : '')
-      // Diagnostics go to stdout, not stderr: the hook that consumes this runs
-      // under PowerShell, where redirecting a native command's stderr turns each
-      // line into a terminating error.
-      console.log(`${where}  ${err.message}`)
+      // Diagnostics go to stdout so shells that treat stderr specially do not
+      // turn a lint finding into a spurious command failure.
+      console.log(problem)
     }
   }
 

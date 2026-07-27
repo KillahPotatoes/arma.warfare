@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(*.sqm)",
+      "Edit(**/*.sqm)",
+      "Write(*.sqm)",
+      "Write(**/*.sqm)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/hooks/sqf-post-edit.js\"",
+            "timeout": 30,
+            "statusMessage": "Checking SQF syntax and registration..."
+          }
+        ]
+      }
+    ]
+  }
+}
